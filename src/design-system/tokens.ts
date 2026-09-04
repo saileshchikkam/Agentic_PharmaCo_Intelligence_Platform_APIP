@@ -220,3 +220,25 @@ export const motion = {
   easingEmphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1)',
   easingEmphasizedAccelerate: 'cubic-bezier(0.3, 0, 0.8, 0.15)',
 };
+
+// Material 3 Spacing System (8dp Grid with 4dp Half-Steps)
+export const spacing = {
+  none: '0px',
+  extraSmall: '4px',
+  small: '8px',
+  medium: '12px',
+  large: '16px',
+  extraLarge: '24px',
+  xxl: '32px',
+  xxxl: '48px',
+  touchTargetMin: '48px',
+};
+
+// Material 3 State Layer Opacity Standards
+export const stateLayers = {
+  hover: 0.08,
+  focus: 0.12,
+  pressed: 0.12,
+  dragged: 0.16,
+};
+

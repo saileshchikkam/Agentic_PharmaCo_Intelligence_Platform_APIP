@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type NavTabId = 'patient-health' | 'report-reaction' | 'safety-records' | 'design-foundation';
+export type NavTabId = 'domain-components' | 'core-components' | 'patient-health' | 'report-reaction' | 'safety-records' | 'design-foundation';
 
 interface MaterialNavTabsProps {
   activeTab: NavTabId;
@@ -8,10 +8,12 @@ interface MaterialNavTabsProps {
 }
 
 const TABS: { id: NavTabId; label: string; icon: string }[] = [
+  { id: 'domain-components', label: 'Domain Components', icon: 'medical_services' },
+  { id: 'core-components', label: 'Core Components', icon: 'widgets' },
   { id: 'patient-health', label: 'Patient Health', icon: 'person' },
   { id: 'report-reaction', label: 'Report a Reaction', icon: 'medication' },
   { id: 'safety-records', label: 'Safety Records', icon: 'clinical_notes' },
-  { id: 'design-foundation', label: 'Design Foundation', icon: 'palette' },
+  { id: 'design-foundation', label: 'Design Tokens', icon: 'palette' },
 ];
 
 export const MaterialNavTabs: React.FC<MaterialNavTabsProps> = ({ activeTab, onTabChange }) => {
@@ -23,7 +25,7 @@ export const MaterialNavTabs: React.FC<MaterialNavTabsProps> = ({ activeTab, onT
       className="w-full m3-surface border-b border-[var(--md-sys-color-outline-variant)]/60 transition-colors"
       aria-label="APIP Primary Navigation"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex border-b border-[var(--md-sys-color-outline-variant)]/40 overflow-x-auto no-scrollbar">
           {TABS.map((tab, idx) => {
             const isActive = tab.id === activeTab;

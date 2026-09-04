@@ -7,6 +7,7 @@ declare global {
       'md-text-button': any;
       'md-elevated-button': any;
       'md-tonal-button': any;
+      'md-filled-tonal-button': any;
       'md-outlined-text-field': any;
       'md-filled-text-field': any;
       'md-checkbox': any;

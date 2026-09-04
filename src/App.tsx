@@ -5,6 +5,8 @@ import { MaterialNavTabs, NavTabId } from './components/material/MaterialNavTabs
 import { PatientHealthView } from './components/material/PatientHealthView';
 import { ReportReactionView } from './components/material/ReportReactionView';
 import { SafetyRecordsView } from './components/material/SafetyRecordsView';
+import { CoreComponentsView } from './components/material/CoreComponentsView';
+import { DomainComponentsView } from './components/material/DomainComponentsView';
 import { DesignFoundationView } from './components/material/DesignFoundationView';
 import { INITIAL_ICSR_CASES } from './mockData';
 import { ICSRCase } from './types';
@@ -13,7 +15,7 @@ export function App() {
   const [isDark, setIsDark] = useState<boolean>(() => {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
-  const [activeTab, setActiveTab] = useState<NavTabId>('patient-health');
+  const [activeTab, setActiveTab] = useState<NavTabId>('domain-components');
   const [cases, setCases] = useState<ICSRCase[]>(() => {
     const saved = localStorage.getItem('apip_cases_m3');
     if (saved) {
@@ -107,7 +109,15 @@ export function App() {
       <MaterialNavTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Main Content Surface */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'domain-components' && (
+          <DomainComponentsView isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+        )}
+
+        {activeTab === 'core-components' && (
+          <CoreComponentsView isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+        )}
+
         {activeTab === 'patient-health' && (
           <PatientHealthView onNavigateToReport={() => setActiveTab('report-reaction')} />
         )}
@@ -127,7 +137,7 @@ export function App() {
 
       {/* Minimal Footer */}
       <footer className="w-full border-t border-[var(--md-sys-color-outline-variant)]/40 py-6 text-xs text-[var(--md-sys-color-on-surface-variant)] transition-colors">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>APIP — Agentic Pharma Intelligence Platform • Phase 1 Material 3 Foundation</span>
           <span className="text-[11px] text-[var(--md-sys-color-on-surface-variant)]/80">
             Adhering to ICH E2B(R3) pharmacovigilance data standards & GVP guidelines

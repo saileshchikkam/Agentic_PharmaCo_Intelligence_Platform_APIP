@@ -11,7 +11,7 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme }) =
       id="apip-top-app-bar"
       className="w-full m3-surface border-b border-[var(--md-sys-color-outline-variant)]/60 sticky top-0 z-30 transition-colors"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Left: Product Brand & Clinical Purpose */}
         <div className="flex items-center gap-3">
           <div
