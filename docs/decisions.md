@@ -44,6 +44,12 @@ Five installed models were inventoried and two received tiny fictional extractio
 
 Sailesh identifies MALADE as project inspiration and plans to share exact references. A likely matching author repository/paper was located and recorded in [research](research-and-validation.md#malade-reference-candidate); no code was copied or integration adopted.
 
+## DEC-010 — Groq free-tier evaluation
+
+**Confirmed direction 2026-10-17.** The user approved Groq's free tier as an APIP option and requested medical-model availability research. Prioritize a bounded Groq evaluation after account access is established; no account/key or live adapter was enabled by the research task. Exact model selection remains proposed. Current public Groq models are general-purpose, not verified dedicated medical specialists.
+
+The live Hugging Face pricing page now lists no included free-user Inference Providers credits; this supersedes the earlier USD 0.10 planning assumption. Keep free local weights, limited hosted demos, and metered routed APIs distinct. See [dated access findings](../models/README.md#medical-models-and-free-access--checked-2026-10-17). No additional model download or paid hosting is selected by this decision.
+
 ## Open engineering proposals
 
 - Modular TypeScript application, PostgreSQL, possible pgvector index, private storage, and durable jobs: see [architecture](architecture.md).

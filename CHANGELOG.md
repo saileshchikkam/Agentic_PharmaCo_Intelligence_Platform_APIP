@@ -4,6 +4,13 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Free-tier medical-model availability — 2026-10-17
+
+- Recorded Groq free-tier evaluation as approved direction and distinguished its general models from medical specialists.
+- Verified Ollama medical candidates, Hugging Face model/provider status, a community ZeroGPU demo, and author repositories.
+- Corrected the earlier Hugging Face USD 0.10 credit assumption: its live pricing page now lists no included credits for free users.
+- Updated catalogues and references without enabling providers, installing models, or changing application routing.
+
 ### Model and dataset research — 2026-10-16
 
 - Inventoried five installed Ollama models and added separate local/API catalogues without changing application model routing.

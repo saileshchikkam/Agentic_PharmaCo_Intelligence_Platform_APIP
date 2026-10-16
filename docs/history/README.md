@@ -4,6 +4,8 @@ Use actual dated entries to preserve the project's journey without a fixed-durat
 
 ## Entries
 
+- [2026-10-17](2026-10-17.md): free-tier medical-model availability, Groq preference, and live Hugging Face pricing correction.
+
 - [2026-10-16](2026-10-16.md): repository connection/context reconstruction, authoritative vision, planning, and documentation consolidation.
 
 ## Recording work

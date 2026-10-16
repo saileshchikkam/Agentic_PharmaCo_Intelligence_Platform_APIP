@@ -52,3 +52,23 @@ Before enabling an adapter, verify account/model access, terms, schema support, 
 - **multilingual-e5-small:** proposed local retrieval embeddings, not an answering chatbot. Check source-prefix requirements and Telugu retrieval quality. No embedding model was found among the five installed catalogue entries. [Official card](https://huggingface.co/intfloat/multilingual-e5-small)
 
 Do not download additional models merely to increase the model count. First compare the installed shortlist, identify a concrete failure, then evaluate whether another model addresses it within hardware, licence, and budget constraints.
+
+## Medical models and free access — checked 2026-10-17
+
+**Groq:** the user approved evaluating the free tier. The current public model catalogue lists general models, including `openai/gpt-oss-20b` and `openai/gpt-oss-120b`; neither is a medical-specialist model. No MedGemma, BioMistral, or Meditron is listed. Prefer the 20B production-listed model as a proposed first hosted comparison; Qwen3.8-27B is currently preview-listed. The free-plan limits page includes these candidates, but actual account access/quotas remain unverified. No Groq adapter or account was enabled. [Catalogue](https://console.groq.com/docs/models), [free-plan limits](https://console.groq.com/docs/rate-limits)
+
+**Hugging Face hosted inference:** the live pricing page now lists **no included Inference Providers credits for free users**; buying credits or upgrading is required. This supersedes the USD 0.10 figure reported on 2026-10-16, which still appears in cached search excerpts. Both the official `google/medgemma-1.5-4b-it` page and the BioMistral-7B page currently state that no Inference Provider deploys that exact model. This does not rule out separately hosted derivatives, dedicated paid endpoints, or demos; it means neither exact repository was verified as a free routed API. [Live pricing](https://huggingface.co/docs/inference-providers/pricing), [MedGemma provider status](https://huggingface.co/google/medgemma-1.5-4b-it), [BioMistral provider status](https://huggingface.co/BioMistral/BioMistral-7B)
+
+**Hugging Face demonstrations:** ZeroGPU Spaces offer free, quota-limited use. A community [MedGemma 1.5 demo](https://huggingface.co/spaces/warshanks/medgemma-1.5-4b-it) was publicly labelled "Running on Zero" when checked. This is a third-party demonstration, not an adopted/private APIP backend. No request was sent to it. Its data handling, queue, actual remaining quota, output behavior, and API suitability were not tested. Use only fictional examples for evaluation. [ZeroGPU documentation](https://huggingface.co/docs/hub/spaces-zerogpu)
+
+**Ollama local inference:** these published library entries have no metered API charge when run on one's own hardware, subject to model terms. They are available candidates, not newly installed models:
+
+- [`medgemma1.5:4b`](https://ollama.com/library/medgemma1.5): approximately **3.3 GB** download, text/image model; the priority medical comparison candidate for this machine. Total memory exceeds weight size, and visual/context overhead may require CPU offload on a 4 GB GPU. Begin with short text tasks and measure; no full-GPU or Telugu-quality guarantee is made.
+- [`meditron:7b`](https://ollama.com/library/meditron): approximately **3.8 GB**, older Llama-2-based medical text model; optional research comparison, not the default.
+- [`medllama2:7b`](https://ollama.com/library/medllama2): approximately **3.8 GB**, older medical QA fine-tune; lower-priority research baseline.
+
+Local inference still uses electricity, RAM, disk, and download bandwidth. A free model is not a free cloud server or validated clinical service. Verify model provenance, licence, quantization, context, and checksum before downloading. Telugu performance remains unestablished for these candidates.
+
+**Author repositories:** [Google Health MedGemma](https://github.com/google-health/medgemma) provides source/tutorials under its component-specific terms; [EPFL Meditron](https://github.com/epfLLM/meditron) distinguishes Apache-2.0 code from Llama-2 model terms. Neither repository grants a hosted inference entitlement. Existing BioMistral research-use limitations remain relevant.
+
+**APIP recommendation:** keep the installed Qwen shortlist for local application development; compare local MedGemma 1.5 4B for a bounded medical-evidence task after runtime/licence review; evaluate Groq's free-tier general model with the same approved RAG passages and bilingual fixtures. A general LLM plus RAG remains a general LLM with retrieved evidence, not a medically fine-tuned model or proof of clinical correctness.
