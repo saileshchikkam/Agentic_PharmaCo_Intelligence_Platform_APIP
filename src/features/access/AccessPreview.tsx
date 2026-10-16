@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
-import { AppearanceSettings } from '../../components/material/AppearanceSettings';
 import { Appearance } from '../../design-system/appearance';
 import './access.css';
 
@@ -110,23 +109,48 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     document.getElementById('access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
   const closeSettings = () => { setSettingsOpen(false); document.getElementById('access-settings-button')?.focus(); };
+  useEffect(() => {
+    if (!settingsOpen) return;
+    let disposed = false;
+    const button = document.getElementById('access-accent-blue') as (HTMLElement & { updateComplete: Promise<boolean> }) | null;
+    void button?.updateComplete.then(() => { if (!disposed) button.focus(); });
+    return () => { disposed = true; };
+  }, [settingsOpen]);
 
   return <div className="access-app">
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
       event.preventDefault();
       document.getElementById('access-main')?.focus();
     }}>Skip to main content</a>
-    <header className="access-header">
+    <header className={`access-header ${settingsOpen ? 'access-header-settings-open' : ''}`} onKeyDown={(event) => {
+      if (settingsOpen && event.key === 'Escape') { event.preventDefault(); closeSettings(); }
+    }}>
       <a className="access-home-link" href="#/" aria-label="APIP home"><Brand /></a>
       <div className="access-header-actions">
-        <md-icon-button id="access-settings-button" aria-label="Appearance settings" aria-expanded={settingsOpen}
-          aria-controls={settingsOpen ? 'appearance-settings' : undefined} onClick={() => setSettingsOpen((open) => !open)}>
-          <md-icon><span className="material-symbols-outlined">settings</span></md-icon>
+        {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
+          <span className="access-appearance-label">Appearance</span>
+          <div className="access-accent-options" role="group" aria-label="Highlight colour">
+            {(['blue', 'black', 'green'] as const).map((accent) => <md-icon-button key={accent} id={`access-accent-${accent}`}
+              aria-label={`${accent[0].toUpperCase()}${accent.slice(1)} highlight`} toggle selected={appearance.accent === accent || undefined}
+              onClick={() => setAppearance((value) => ({ ...value, accent }))}>
+              <span className={`access-accent-dot access-accent-${accent}`} aria-hidden="true">
+                {appearance.accent === accent && <span className="material-symbols-outlined">check</span>}
+              </span>
+            </md-icon-button>)}
+          </div>
+          <md-icon-button aria-label="Dark mode" toggle selected={appearance.isDark || undefined}
+            onClick={() => setAppearance((value) => ({ ...value, isDark: !value.isDark }))}>
+            <md-icon><span className="material-symbols-outlined">{appearance.isDark ? 'dark_mode' : 'light_mode'}</span></md-icon>
+          </md-icon-button>
+          <span className="access-preference-status" role="status">{preferencesSaved ? 'Appearance saved in this browser.' : 'Appearance applies to this visit only.'}</span>
+        </div>}
+        <md-icon-button id="access-settings-button" aria-label={settingsOpen ? 'Close appearance settings' : 'Appearance settings'} aria-expanded={settingsOpen}
+          aria-controls={settingsOpen ? 'access-appearance-settings' : undefined} onClick={() => settingsOpen ? closeSettings() : setSettingsOpen(true)}>
+          <md-icon><span className="material-symbols-outlined">{settingsOpen ? 'close' : 'settings'}</span></md-icon>
         </md-icon-button>
-        {!isSignIn && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Sign in</M3Button>}
+        {!isSignIn && !settingsOpen && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Log in</M3Button>}
       </div>
     </header>
-    {settingsOpen && <AppearanceSettings value={appearance} onChange={setAppearance} saved={preferencesSaved} onClose={closeSettings} />}
 
     <main id="access-main" tabIndex={-1} className={`access-main ${isSignIn ? 'access-main-sign-in' : ''}`}>
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">

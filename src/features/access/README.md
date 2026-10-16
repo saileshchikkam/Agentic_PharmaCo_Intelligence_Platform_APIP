@@ -4,7 +4,7 @@ This is the selected rough UI task, ahead of authentication. It provides a simpl
 
 ## Navigation and behaviour
 
-- `#/` opens the welcome page. Header and main sign-in buttons open the patient sign-in view.
+- `#/` opens the welcome page. Header **Log in** and main **Sign in to APIP** buttons open the patient sign-in view.
 - `#/sign-in/patient`, `#/sign-in/specialist`, and `#/sign-in/developer` select the shared sign-in layout and audience-specific wording.
 - `#/developer-reference` explicitly previews the preserved component library. The developer sign-in view links to it as a preview. This route is currently unrestricted and is not a sign-in bypass to a protected system.
 - `App.tsx` listens for hash changes, applies appearance, and sets the page title. Unknown hashes return to the welcome view. Browser Back/Forward and direct hash refresh remain usable.
@@ -25,6 +25,10 @@ Research checked 2026-10-17. Read relevant official guidance rather than claimin
 The sign-in heading is 36/44 px (32/40 compact); body inputs use the Material 16 px role, supporting copy uses 12–14 px, and the primary action has a 48 px container. White surfaces, neutral outlines, 28 px large corners, 12 px text-field corners, and the selected blue/black/green highlight roles come from the existing theme. The slight header translucency leaves fields on opaque, readable surfaces.
 
 `access.css` defines the page composition; it does not duplicate the shared colour palette. Shared settings work on these pages and the developer reference. The first UI copy is English; reviewed Telugu account wording is not implemented by this task.
+
+On access pages, appearance controls replace the header actions within its existing 80 px height (72 px on phones); they never insert a panel above main content. Official Material Web toggle icon buttons select blue/black/green or dark mode, expose pressed states, and share existing browser preferences. On phones, controls temporarily replace the brand to fit the same row. Opening focuses the first colour; Close or Escape restores focus to settings. A 200 ms horizontal fade honours reduced motion. The developer component reference retains its expanded explanatory settings panel.
+
+Tailwind preflight overrides Material Web custom-element host padding. The access filled-button rule restores the installed official button's calculated block and leading/trailing spacing using its internal CSS variables; check this integration when updating Material Web. This prevents labels from touching capsule edges without replacing the official control.
 
 ## Remaining work
 

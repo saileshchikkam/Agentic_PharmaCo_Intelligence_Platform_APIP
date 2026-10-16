@@ -52,11 +52,34 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  height: 80px;
+  flex-shrink: 0;
   padding: 16px clamp(24px, 4vw, 64px);
   background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent);
   backdrop-filter: blur(16px);
 }
 .access-header-actions { display: flex; align-items: center; gap: 16px; }
+/* Tailwind preflight overrides custom-element :host padding. Restore the
+   official button's calculated spacing, including future token/icon changes. */
+.access-app md-filled-button {
+  padding-block: calc((var(--_container-height) - max(var(--_label-text-line-height), var(--_icon-size))) / 2);
+  padding-inline-start: var(--_leading-space);
+  padding-inline-end: var(--_trailing-space);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.access-header-preferences { display: flex; align-items: center; gap: 16px; animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
+.access-appearance-label { font-size: .875rem; font-weight: 500; }
+.access-accent-options { display: flex; align-items: center; gap: 4px; }
+.access-header-preferences md-icon-button { flex-shrink: 0; }
+.access-accent-dot { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; }
+.access-accent-dot .material-symbols-outlined { font-size: 18px; }
+.access-accent-blue { background: #0b57d0; }
+.access-accent-black { background: #1f1f1f; }
+.access-accent-green { background: #146c2e; }
+.access-preference-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.access-header-actions > md-filled-button { animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
+@keyframes access-header-enter { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
 .access-home-link { display: inline-flex; align-items: center; min-height: 48px; text-decoration: none; }
 .access-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -.5px; }
 .access-brand svg { width: 36px; height: 36px; color: var(--md-sys-color-primary); }
@@ -70,7 +93,7 @@
 .access-welcome h1 { margin: 0; font-size: 3.5625rem; line-height: 1.125; letter-spacing: -1.5px; font-weight: 500; }
 .access-welcome h1 span { color: var(--md-sys-color-primary); }
 .access-welcome-copy { max-width: 620px; margin: 24px auto 32px; font-size: 1.125rem; line-height: 1.75rem; color: var(--md-sys-color-on-surface-variant); }
-.access-inline-icon { font-size: 1.25rem; margin-left: 10px; vertical-align: middle; }
+.access-inline-icon { font-size: 1.125rem; margin-left: 10px; vertical-align: middle; }
 .access-welcome-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 20px; margin-top: 16px; font-size: 0.875rem; line-height: 1.25rem; color: var(--md-sys-color-on-surface-variant); }
 .access-welcome-links a { display: inline-flex; align-items: center; min-height: 48px; }
 
@@ -113,8 +136,12 @@
   .access-main { padding-block: 32px; }
 }
 @media (max-width: 599px) {
-  .access-header { padding: 12px 20px; }
+  .access-header { padding: 12px 20px; height: 72px; }
   .access-header-actions { gap: 8px; }
+  .access-header-settings-open .access-home-link { display: none; }
+  .access-header-settings-open .access-header-actions { width: 100%; justify-content: flex-end; }
+  .access-header-preferences { gap: 8px; margin-right: auto; }
+  .access-appearance-label { display: none; }
   .access-main { padding: 24px; }
   .access-main-sign-in { display: block; padding: 20px 24px 32px; }
   .access-sign-in-surface { border: 0; border-radius: 0; padding: 0; margin: 0 auto; }
@@ -128,6 +155,6 @@
   .access-sign-in-lead h1 { margin-top: 4px; font-size: 2rem; line-height: 2.5rem; }
   .access-lead-subtitle { font-size: 1.125rem; line-height: 1.625rem; }
 }
-@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface, .access-header-preferences, .access-header-actions > md-filled-button { animation: none; } }
 
 .access-app h1:focus, .access-main:focus { outline: none; }

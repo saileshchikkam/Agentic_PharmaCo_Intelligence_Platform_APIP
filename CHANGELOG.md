@@ -4,6 +4,11 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Access header refinements — 2026-10-17
+
+- Restored Material Web capsule-button spacing and clarified the welcome header action as **Log in**.
+- Moved access-page appearance controls into the existing header with a short, reduced-motion-aware transition, accessible theme toggles, and no page displacement.
+
 ### Welcome and sign-in interface — 2026-10-17
 
 - Added a simple main-page sign-in action and shared Material 3 Patient, Specialist, and Developer sign-in views.
