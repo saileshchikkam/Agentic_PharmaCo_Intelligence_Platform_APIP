@@ -57,6 +57,7 @@ Reporting, Validation, Knowledge, and Analysis agents coordinate supported steps
 - Keep user statements, AI suggestions, confirmations, and professional conclusions separate.
 - Follow strict Material 3 across phones, tablets, and desktop.
 - Treat the current build as a design demo, not delivered product functionality.
+- The first test version uses English and Telugu with fictional cases, as selected by the user on 2026-10-16. This does not establish live-patient deployment permission.
 - Sharing, public datasets, official submissions, and training reuse need the appropriate permissions.
 
 ## Success to demonstrate

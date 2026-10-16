@@ -10,6 +10,8 @@ Investigate current Indian ADR reporting routes, reporting barriers, commonly mi
 
 Compare manual reporting, guided questions, and guided questions with extraction where feasible. Evaluate MedAssist separately from reporting so gains in reporting do not conceal care-guidance errors.
 
+The user selected English and Telugu with fictional cases for initial testing. Include Telugu script, transliterated Telugu, and mixed English/Telugu slices in extraction, retrieval, UI/PDF, and MedAssist checks. Preserve original language and review translations/labels with an appropriate bilingual reviewer. Translated or paraphrased copies of one case must stay in the same ML split; a small bilingual demonstration is not evidence of population-wide performance.
+
 ## Data and source governance
 
 Before using a source/dataset, record its owner, URL/version/date, licence/permitted purpose, geography, population/coverage, labels, personal-data risks, access rules, review status, and limitations. Retrieval access does not establish a licence or clinical endorsement.
@@ -62,3 +64,5 @@ The following official references were checked on 2026-10-16 during planning. Re
 - [Material 3 components](https://m3.material.io/components): required design specification; the dynamic page's detailed contents were not retrievable in the planning text tool, so consult component guidance during implementation.
 
 Add papers, datasets, reviewers' findings, and experiment results only when actually obtained. Keep source claims separate from project assumptions and measured results.
+
+Official model/runtime/method references checked for the proposed technical approach are linked in the [AI implementation guide](ai-implementation.md). Model cards and provider documentation establish interfaces and candidates, not APIP clinical accuracy or successful local operation.

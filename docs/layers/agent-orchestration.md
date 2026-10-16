@@ -11,6 +11,8 @@
 
 Build/test the underlying functions before coordinating them. Agents do not need unconstrained autonomy to make reporting easier.
 
+See the [agent implementation guide](../ai-implementation.md#agent-implementation) for the staged workflow and failure checks. Multiple roles can share one model; validation and statistics should use deterministic tools where possible.
+
 ## Proposed execution contract
 
 Each stage should record input case version, stage/model/prompt version where relevant, permission context, evidence, proposed changes, uncertainty, status, and errors. Final request/response schemas are to be documented with implementation rather than invented here.

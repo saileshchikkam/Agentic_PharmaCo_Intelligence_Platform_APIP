@@ -1,12 +1,53 @@
 # Milestone roadmap
 
-This is the single work-planning entry point. It is organized by deliverables and acceptance evidence, not a fixed calendar or a completed-feature claim. Individual implementation tasks still require the current user's authorization.
+This is the single work-planning entry point. It is organized by deliverables and acceptance evidence, not a fixed calendar or a completed-feature claim. Individual implementation tasks still require the current user's authorization. Read the [AI implementation guide](ai-implementation.md) for how local models, APIs, custom ML, RAG, and agents will be built and evaluated; it is not a second task queue.
 
 ## Current position
 
 Documentation and repository connection have been established. Application code remains the Material 3 demonstration and experimental server at baseline `5400696`. A tested runtime, persistent product workflow, and clinical validation are not established.
 
-The proposed first delivery is a restricted evaluation pilot using fictional cases. Final population, language, clinical-review scope, real-data permissions, and budget remain open.
+The user selected **English and Telugu, using fictional cases**. The proposed first delivery is a restricted evaluation pilot. The budget reply was `500`; this plan assumes **INR 500 per month**, with currency still to be confirmed. Keep development local and make no paid hosting/model commitment from that assumption. Final population, named clinical reviewer, review scope, data rights, and team availability remain open.
+
+## How to follow this plan
+
+Build a complete, persistent ADR reporting journey first. Develop its interface and server together in small working slices. Begin reviewer/data preparation alongside that work; do not wait for custom ML to make reporting useful. Add grounded evidence, bounded MedAssist, and then agent coordination to functions already checked independently.
+
+The following windows are an **aggressive first-month planning example**, assuming steady team participation and timely review. They are not a promise that all features or clinical validation fit into 30 working days. Continue a milestone until its gate is met; reduce optional scope when dependencies slip. Use actual dates in history, not invented future completion dates.
+
+1. **M0: working days 1–2.** Confirm scope and prepare examples; dataset/reviewer work continues throughout.
+2. **M1: days 3–5.** Reproducible app, first persisted draft, and access foundation.
+3. **M2: days 6–11.** Complete bilingual ADR intake, confirmation, saved report, and PDF; introduce structured extraction after the manual path works.
+4. **M3: days 12–16.** Professional review, a small approved RAG corpus, and reconciled descriptive analytics.
+5. **M4: days 17–21.** Bounded MedAssist and an offline ML experiment, only as data/review permit.
+6. **M5: days 22–24.** Coordinate the four checked functions with observable, resumable agent stages.
+7. **M6: days 25–28.** Integrated, bilingual, failure, access, and usability evaluation; fix release blockers.
+8. **M7: days 29–30.** Restricted demonstration/pilot, recovery check, and handover; paid staging is conditional on budget and approval.
+
+**Scope cut line:** a checked bilingual ADR journey, accurate PDF, traceable review, and honest limitations take priority. If time/data/budget are insufficient, defer photo OCR, maps integration, broader ML inference, sophisticated signal methods, and extra agent autonomy. Document disabled work. A working local fictional-case pilot is a valid engineering outcome; it does not establish a public patient service.
+
+## Responsibilities and decisions needed
+
+- **Sailesh:** set product priorities; explain the intended patient experience; review each demonstration; provide a spending ceiling and team availability. Learning RAG coding in advance is not a prerequisite.
+- **Codex:** implement the selected task, explain the concepts as they appear, run relevant checks, document actual results, and commit/sync completed work under the established workflow. Clinical labels, permissions, and acceptance cannot be invented by code.
+- **Mitravind, proposed:** review backend/data/access decisions and pair on deployment/recovery. Agree ownership with him; no work has been assigned externally.
+- **Jayanth, proposed:** clarify MedAssist conversations and collect reviewed in-scope/out-of-scope examples.
+- **Mahesh P, proposed:** support ADR workflow examples and coordination with the pharmacy team. No clinical qualifications or reviewer role are assumed.
+- **Pharmacy reviewer, to nominate:** confirm report fields/template, care-navigation boundaries, urgency labels, source suitability, and errors. A Telugu-speaking reviewer is needed for clinically meaningful Telugu wording and examples.
+
+**Needed first:** nominate an available reviewer through the dean; confirm intended population and review schedule; bring the current blank reporting form or official link and the institution's receiving workflow; describe existing datasets by name/licence/labels without sending patient records; confirm hours/team availability and the budget currency. Missing data does not prevent fictional-case application development.
+
+**Needed later:** create provider/hosting accounts only when a selected integration needs them. Put keys in the agreed secret store or local environment, never in chat or Git. Before any real-data pilot, establish its separate permissions, reviewed intended use, retention, hosting, and data-processing arrangements.
+
+## First working day
+
+1. Record the bilingual fictional-case scope, open decisions, demo boundary, and selected first implementation task.
+2. Confirm the reviewer contact/availability through the team; gather one blank form and outline the actual handoff route.
+3. Prepare 10 fictional reporting stories covering straightforward, missing/contradictory, multiple-medicine, and follow-up cases across English, Telugu script, and mixed/transliterated input. These are software examples, not clinical training data.
+4. Verify the runtime/package manager against the existing lockfile, install reproducibly, and run the current frontend/server checks and build. Record failures before fixing them; preserve the Material showcase.
+5. Agree the first report fields and origin/confirmation/unknown states. Specify the smallest vertical slice: enter a fictional report, save a draft, restart/reload, and retrieve those exact fields with user isolation.
+6. End with a demonstrated result or recorded blocker, the next bounded task, updated docs/history, relevant checks, and an automatic task commit/sync.
+
+Steps that change the application belong to the selected implementation task. The current planning update does not claim they have run. Do not require a cloud account, patient record, or model download to begin the first-day scope work.
 
 ## M0 — Scope, reviewers, and data readiness
 
@@ -16,6 +57,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Register dataset rights, labels, population coverage, and evidence-source permissions.
 - [ ] Decide the MedAssist ML experiment's task and whether suitable evaluation data exists.
 
+**Build/review session:** map the direct reporting journey and optional MedAssist entry; define the fictional-case pilot and English/Telugu acceptance examples. Review sources and datasets before copying them into the project.
+
+**From the user/team:** reviewer nomination, intended population, blank form/workflow, available dataset descriptions, team hours, and confirmed spending ceiling. Dean consultation is already recorded; clarify its scope rather than requesting the same permission again.
+
 **Acceptance:** written scope, mapped forms, source/data register, fictional reporting cases, and explicit clinical/data boundaries. Missing clinical review limits work to synthetic evaluation.
 
 ## M1 — Reproducible engineering foundation
@@ -24,6 +69,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Establish CI, environment validation, secret protection, and development/staging separation.
 - [ ] Implement identity, role/object access, database migrations, cases/versions, drafts, and audit records.
 - [ ] Create the actual accessible Material 3 application shell, separate from the showcase.
+
+**Build/review session:** first verify the demonstration can run. Then implement a thin draft-saving slice, extend its schema through migrations, and prove one user's records/files are inaccessible to another. Introduce shared English/Telugu message keys and fonts early; preserve the original narrative language. Do not build all screens before the first saved journey works.
+
+**From the user/team:** review the first phone/desktop flow; confirm team access and the local environment. No paid infrastructure is necessary for this local milestone.
 
 **Acceptance:** repeatable baseline, isolated user data, restart-safe drafts, idempotent operations, and checked phone/tablet/desktop/keyboard flows.
 
@@ -36,6 +85,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Add user-controlled download/sharing, review state, and linked follow-ups.
 - [ ] Conduct pharmacy workflow review.
 
+**Build/review session:** deliver manual choices/text → draft → confirmation → immutable confirmed version → PDF → follow-up. Add local/hosted extraction through the same output contract and compare it with reviewed fields. Test unknowns, contradictory dates, Telugu/mixed input, long text, restart, and provider failure. Start a small API compatibility test here rather than changing provider only at release.
+
+**From the user/team:** feedback on question wording/effort, a reviewer-approved field/template mapping, and bilingual corrections. An optional photo must never silently determine medicine identity or dose.
+
 **Acceptance:** intake → confirmation → saved version → accurate PDF → clarification/follow-up preserves the same facts. Optional-provider failure does not lose the report.
 
 **Dependency:** do not expand optional features while this core path remains unreliable.
@@ -47,6 +100,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Produce duplicate-aware descriptive analytics with explicit denominators.
 - [ ] Verify generated explanations against actual evidence/query results.
 
+**Build/review session:** start with a small reviewed corpus and a known-answer question set, not an entire scraped medical library. Trace every answer back to retrieved passages. Provide a reviewer queue and exact, fixture-checked counts before producing generated summaries. Keep professional analysis behind the intended access controls.
+
+**From the user/team:** permitted reference sources, a reviewer for answer/citation checks, and feedback on the case-review workflow. Patient reports remain separate from approved medical knowledge.
+
 **Acceptance:** permissioned review, honest insufficient-evidence responses, and independently reconciled dashboard values. No simulated statistics or unsupported compliance labels.
 
 ## M4 — Bounded MedAssist and connected context
@@ -56,6 +113,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Run the permitted ML baseline/candidate experiment with reproducible splits and error analysis.
 - [ ] Import only user-selected, confirmed episode context into reporting.
 
+**Build/review session:** implement reviewed questions/education and explicit uncertainty first. Complete the [custom ML sequence](ai-implementation.md#custom-ml-from-scratch) offline; compare to a simple baseline. A safe research outcome can be a documented failed/limited experiment. Add maps only after budget/terms/location handling are decided; manual location and facility information can support the initial fictional demonstration.
+
+**From the user/team:** agreed ML task and label definitions, suitable permitted data, clinical label/error review, and Telugu review. Source data and evaluation coverage determine whether the model may be enabled; the calendar does not.
+
 **Acceptance:** reviewed scope, provider-failure handling, documented experiment, and safe context reuse. Keep model-driven urgency disabled when data/review criteria are unmet.
 
 ## M5 — Four-agent coordination
@@ -63,6 +124,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Establish typed contracts for Reporting, Validation, Knowledge, and Analysis.
 - [ ] Add durable orchestration, case-version invalidation, bounded retries, cancellation, and human gates.
 - [ ] Test malicious/untrusted source content, failure/resume, and duplicate prevention.
+
+**Build/review session:** wrap the existing checked reporting/validation/retrieval/analysis functions in a durable orchestrator. Demonstrate stage status, human confirmation, timeout/retry, restart/resume, and invalidation when a case changes. Four agents may share one LLM; deterministic validation/statistics do not need model calls.
+
+**From the user/team:** review what each agent may propose, what the patient must confirm, and what the professional must decide. Unrequested external submission or sharing is outside this milestone.
 
 **Acceptance:** observable stage results, safe resumptions, and no unauthorized fact changes, disclosures, or submissions.
 
@@ -73,6 +138,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Check accessibility/responsiveness and conduct any institutionally approved fictional-case usability comparison.
 - [ ] Record actual metrics, failures, confidence/uncertainty limits, and unresolved risks.
 
+**Build/review session:** rerun the exact full journey with fictional English/Telugu cases, compare manual/local/API modes, inspect PDFs, and test denied access/provider outage/restart. Use the separately defined research gates rather than choosing a flattering overall accuracy. Record sample sizes and language-specific failures.
+
+**From the user/team:** scheduled reviewer time, Telugu feedback, and any authorized usability participants. Correct critical errors before improving animations or adding features.
+
 **Acceptance:** the [validation requirements](research-and-validation.md) have evidence. Critical safety/privacy/integrity failures block the affected release.
 
 ## M7 — Operable pilot and handover
@@ -81,6 +150,10 @@ The proposed first delivery is a restricted evaluation pilot using fictional cas
 - [ ] Prove backup restore and rollback, and document the runbooks.
 - [ ] Obtain pharmacy/workflow acceptance and resolve release blockers.
 - [ ] Publish internal release notes, measured results, enabled/disabled features, limitations, and the next validation work.
+
+**Build/review session:** demonstrate from a fresh account, restore a backup, and rehearse a failed-provider/restart scenario. If the budget cannot support suitable hosted operation, hand over a reproducible local pilot and deployment cost/options; do not label an unreliable free instance production-ready.
+
+**From the user/team:** accept the demonstrated scope and limitations; nominate an operational owner if hosting is selected. A public launch or real-patient study requires a separate readiness decision.
 
 **Acceptance:** a reviewer reproduces the complete journey from a clean account; recovery works; release claims match the evidence. Real-patient/public expansion is a separate decision.
 

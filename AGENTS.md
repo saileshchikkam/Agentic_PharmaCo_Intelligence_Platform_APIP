@@ -16,6 +16,8 @@
 - RAG retrieves approved evidence; deterministic code computes statistics. Report proportions are not incidence or proof of causality.
 - Keep keys server-side and use fictional cases by default. Project permission does not establish patient-data rights, clinical validation, or authority to share records.
 - New reports must not automatically retrain models or become trusted medical evidence.
+- The initial test scope is English and Telugu with fictional cases. Evaluate Telugu script, transliteration, and mixed-language input separately; bilingual clinical wording needs qualified review.
+- The user gave a budget of `500`; planning assumes INR 500 monthly pending currency confirmation. Prefer local development and bounded API evaluation; do not treat this as approval to purchase hosting or send real records to a provider.
 
 ## Working practice
 

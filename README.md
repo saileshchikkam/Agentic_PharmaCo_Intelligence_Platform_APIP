@@ -19,6 +19,7 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 - [Architecture](docs/architecture.md): actual code and proposed application design.
 - [Layer guides](docs/layers/README.md): responsibilities, boundaries, and acceptance criteria.
 - [Roadmap](docs/roadmap.md): sequenced milestones, blockers, and future ideas.
+- [AI implementation guide](docs/ai-implementation.md): custom ML, local/API models, bilingual RAG, agents, and budget-aware evaluation.
 - [Decisions](docs/decisions.md): confirmed direction versus engineering proposals.
 - [Research and validation](docs/research-and-validation.md): evidence, datasets, experiments, and release gates.
 - [Development history](docs/history/README.md): dated records of actual work and checks.

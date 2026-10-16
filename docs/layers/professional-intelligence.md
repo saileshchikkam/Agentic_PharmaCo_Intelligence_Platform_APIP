@@ -12,6 +12,8 @@ Use an approved, versioned medical-source corpus with resolvable source passages
 
 Keep medical-source retrieval separate from de-identified historical-case retrieval. Apply authorization before retrieval. Similar cases do not prove diagnosis or drug causality. New reports are not automatically approved knowledge or model-training inputs.
 
+The proposed [RAG implementation](../ai-implementation.md#rag-implementation) covers source approval, extraction, passage metadata, multilingual embeddings, retrieval, citations, and English/Telugu evaluation. These are implementation proposals, not an existing vector pipeline.
+
 ## Descriptive analytics
 
 Use deterministic queries/statistical code for counts, reporting delays, completeness, case status, event/drug combinations, and time trends. Show the cohort, period, reviewed/unreviewed status, duplicate/follow-up rule, and denominator.

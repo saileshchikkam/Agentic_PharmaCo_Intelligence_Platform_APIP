@@ -26,11 +26,18 @@
 
 **Confirmed 2026-10-16.** The user authorizes routine commits and GitHub pushes after completed, checked APIP changes without repeated requests. Task-owned files and their documentation are committed together. A repository-local completion helper and post-commit hook implement the workflow; they preserve unrelated work and report blocked sync. No background file-save watcher, force-push, destructive conflict resolution, or approval bypass is authorized. See [workflow setup](../scripts/README.md).
 
+## DEC-007 — Bilingual fictional-case evaluation
+
+**Confirmed 2026-10-16.** The user selected English plus Telugu, using fictional cases, for the first version. Include Telugu script, transliteration, and mixed-language behavior in evaluation; do not infer Telugu capability from English results. A named pharmacy reviewer and qualified bilingual review remain open.
+
+The user supplied a budget of `500`. Planning assumes INR 500 per month; currency is not explicitly confirmed. Prefer local development and limited measured API comparisons. This is not approval for a paid subscription, deployment, or real-data processing.
+
 ## Open engineering proposals
 
 - Modular TypeScript application, PostgreSQL, possible pgvector index, private storage, and durable jobs: see [architecture](architecture.md).
 - Restricted synthetic-data evaluation pilot as first release; final real-data/launch scope is unselected.
-- Population/language, hosting region, providers, budget, runtime/package manager, retention, and review responsibilities.
+- Intended population, Telugu clinical wording/review, hosting region, providers, confirmed budget currency, runtime/package manager, retention, and review responsibilities.
+- Small local Qwen instruction model, hosted Gemini Flash comparison, multilingual E5 embeddings, and a scikit-learn ML baseline: candidates in the [AI implementation guide](ai-implementation.md), not selected or benchmarked production dependencies.
 - Dataset licences, labels, training/evaluation protocol, and conditions for model-driven urgency.
 - Official destinations, form versions, terminology rights, and external integrations.
 

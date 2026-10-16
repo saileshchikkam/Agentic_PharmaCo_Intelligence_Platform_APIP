@@ -14,6 +14,8 @@ The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS
 8. [History](history/README.md) and [changelog](../CHANGELOG.md): actual work and notable changes.
 9. [Automatic commit and sync](../scripts/README.md): checkout setup, task completion, checks, and failure recovery.
 
+For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English/Telugu RAG, and agent implementation without creating another task queue.
+
 ## One home for each concern
 
 Requirements live in the product/layer guides. The roadmap tracks work, not duplicated specifications. Architecture separates implemented from proposed systems. Decisions explain rationale. Research records evidence. Dated history records actual events; the changelog supplies the short summary.

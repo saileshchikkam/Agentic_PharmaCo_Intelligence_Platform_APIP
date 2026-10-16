@@ -4,6 +4,13 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Detailed implementation planning — 2026-10-16
+
+- Expanded the milestone roadmap with indicative working-day windows, first-day steps, proposed responsibilities, inputs needed, review gates, and fallback scope.
+- Added a linked guide for local/API model comparison, custom ML training/evaluation, bilingual RAG, and four-agent implementation.
+- Recorded the selected English/Telugu fictional-case scope and provisional INR 500 monthly planning ceiling.
+- Kept model/architecture choices proposed and clinical/public deployment dependent on evidence; no application behavior or dependency changed.
+
 ### Repository automation — 2026-10-16
 
 - Added a task-completion helper that commits explicitly selected files with a required dated history update.

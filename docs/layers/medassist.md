@@ -22,6 +22,8 @@ A custom model trained from scratch is an aspiration, not a selected algorithm. 
 
 Separate training from live care guidance. Record per-class errors, urgent-case misses, calibration, dataset coverage, and uncertainty. Synthetic cases can exercise software, not establish clinical effectiveness. If evidence/review is inadequate, keep model-driven urgency disabled and document the gap.
 
+See the [custom ML implementation sequence](../ai-implementation.md#custom-ml-from-scratch) for task/label definition, permitted data, leakage-safe splits, baseline/candidate training, language-specific evaluation, and packaging. English/Telugu fictional-case scope does not itself supply clinical training data.
+
 ## Navigation and data boundaries
 
 Show the basis for facility results: location, relevant listed services, and available travel information. Ratings are not proof of clinical quality or live appointment availability. Verify the actual receiving/referral process with the pilot institution.
