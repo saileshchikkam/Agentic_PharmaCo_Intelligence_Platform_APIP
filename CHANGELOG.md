@@ -4,6 +4,14 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Welcome and sign-in interface — 2026-10-17
+
+- Added a simple main-page sign-in action and shared Material 3 Patient, Specialist, and Developer sign-in views.
+- Preserved the developer component library through an explicit preview route; no authentication or authorization is implied.
+- Added responsive one/two-column layouts, local field feedback, password visibility, short reduced-motion-aware transitions, and licensed self-hosted Google Sans Flex assets.
+- Kept credentials ephemeral and unsubmitted; preview submission honestly reports that sign-in is pending.
+
+
 ### Developer design reference and appearance — 2026-10-17
 
 - Restored the component/token showcase as the running developer reference and removed the product-prototype tabs from its navigation.

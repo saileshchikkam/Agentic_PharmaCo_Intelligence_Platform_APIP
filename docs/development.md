@@ -1,6 +1,6 @@
 # Development setup and verification
 
-This page describes the developer design reference; earlier product prototypes are retained in source but unmounted. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
+This page describes the welcome/sign-in interface preview and preserved developer design reference; earlier product workflows remain unmounted. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
 
 ## Prerequisites and installation
 
@@ -62,6 +62,10 @@ Check behavior before committing; the helper does not run or certify all applica
 
 ## Developer reference and appearance
 
-The shell exposes only the domain/core component references and token inspector. Header settings select blue, black, or green highlights; light white surfaces are the fresh-browser default. Dark mode is optional. `apip.appearance.v1` stores only accent/mode preferences in this browser. If storage is unavailable, the settings still work for the visit and report that persistence is unavailable. See the [design-system guide](../src/design-system/README.md).
+The main page opens the sign-in UI preview. Its Developer view explicitly links to the domain/core component references and token inspector. Header settings select blue, black, or green highlights; light white surfaces are the fresh-browser default. Dark mode is optional. `apip.appearance.v1` stores only accent/mode preferences in this browser. If storage is unavailable, the settings still work for the visit and report that persistence is unavailable. See the [design-system guide](../src/design-system/README.md).
 
 This is currently a local development screen with no login enforcement. A developer label or hidden tab is not access control; developer-only authentication remains pending.
+
+## Sign-in UI preview
+
+The current client uses hash URLs described in the [access guide](../src/features/access/README.md). Submitting fictional details performs local-only validation and displays a pending-authentication message. No sign-in API, account, session, password persistence, or role enforcement exists. Local Google Sans Flex files and their licence/provenance are under [public/fonts](../public/fonts/README.md); Vite serves and copies them into the build.

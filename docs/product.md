@@ -71,3 +71,7 @@ Novelty, patentability, accuracy, superiority, adoption, and clinical readiness 
 **Clarified by Sailesh on 2026-10-17:** the existing showcase is the reusable UI reference for Sailesh and the development team, not the patient application. Preserve its component families and establish the rough application framework before continuing product workflows. The default appearance is clean white with blue highlights; users can select blue, black, or green through appearance settings. Dark mode remains optional.
 
 Developer-only sign-in and role enforcement are required before making this reference available as a restricted hosted environment. The current local screen has no authentication; its label does not enforce access. The public patient/professional application must be separated from the developer reference.
+
+## Initial sign-in framework
+
+**Selected 2026-10-17:** design the front end first, with a simple main-page sign-in action and three shared-layout sign-in views: personal/patient, pharmacovigilance specialist, and developer design reference intended for Sailesh. Authentication is explicitly deferred. The UI must use Material 3, clear typography, white surfaces, responsive spacing, rounded shapes, and restrained accessible motion. A visible role selection is not proof of permission; server-enforced roles are still required later.

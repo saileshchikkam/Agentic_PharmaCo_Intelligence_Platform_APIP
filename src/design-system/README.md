@@ -1,6 +1,6 @@
 # APIP developer design reference
 
-The running shell is Sailesh and the development team's Material 3 component library, not the product application. It exposes Domain Components, Core Components, Design Tokens, and appearance settings. Prototype patient/report/records files are retained outside the mounted shell. Developer sign-in and route/server authorization remain pending; a developer label does not restrict access.
+The component library is available at `#/developer-reference` through an explicit local preview link. The main entry now presents the rough [welcome/sign-in front end](../features/access/README.md). It exposes Domain Components, Core Components, Design Tokens, and appearance settings. Prototype patient/report/records files are retained outside the mounted shell. Developer sign-in and route/server authorization remain pending; a developer label does not restrict access.
 
 ## Colour and appearance
 
@@ -17,3 +17,7 @@ Preferences are per browser and contain only appearance choices. They are not ac
 Use `material-web-imports.ts` for official element registration and `components/material/core` for existing React wrappers. For custom-element boolean attributes, omit false values (`undefined`) rather than serializing `false`, which still makes a boolean attribute present. Cards and other compositions use existing specification-based wrappers where Material Web has no matching component.
 
 Keep white surfaces, visible keyboard focus, accessible control labels, narrow-screen wrapping, light/dark contrast, and reduced motion intact. Run the frontend lint/build scripts for changes; browser checks and limitations belong in dated history. Preserve the full showcase as a reference rather than connecting its illustrative clinical examples to live product actions.
+
+## Sign-in typography and composition
+
+The access front end uses self-hosted Google Sans Flex static cuts with [source/licence records](../../public/fonts/README.md). The developer component reference retains its existing Roboto scale. The [access guide](../features/access/README.md) records the primary design sources, responsive layout, supported Material Web controls, and limits of the motion/typography implementation.

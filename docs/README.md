@@ -18,7 +18,7 @@ For the practical build sequence, start with the [roadmap's first working day](r
 
 The [model catalogue](../models/README.md) records actual local inventory and diagnostic runs separately from provider candidates. The [research register](research-and-validation.md#candidate-data-and-evidence-sources) records dataset suitability, rights gaps, and the preliminary MALADE reference; a shortlist is not acquired data or an implemented integration.
 
-The [design-system guide](../src/design-system/README.md) explains the developer component reference, shared colour roles, appearance settings, and the pending developer-access boundary.
+The [design-system guide](../src/design-system/README.md) explains the developer component reference, shared colour roles, appearance settings, and the pending developer-access boundary. The [welcome/sign-in guide](../src/features/access/README.md) records the rough access UI, navigation, design research, font provenance, and the boundary before real authentication.
 
 ## One home for each concern
 

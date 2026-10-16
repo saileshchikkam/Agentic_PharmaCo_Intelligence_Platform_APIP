@@ -1,10 +1,12 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current shell now presents the developer design reference; the earlier browser-local fictional draft remains in source but is unmounted. Bun frozen installation, frontend lint, and production build passed in this checkout; limited developer-reference browser checks have now passed, while authenticated product storage remains unimplemented.
+Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current shell now presents welcome/sign-in interface previews and an explicit developer-reference preview route; the earlier browser-local fictional draft remains in source but is unmounted. Bun frozen installation, frontend lint, and production build passed in this checkout; limited developer-reference browser checks have now passed, while authenticated product storage remains unimplemented.
 
 ## Current repository
 
-- [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) selects the Domain Components, Core Components, and Design Tokens reference views plus appearance settings. The initial tab is the domain-component showcase.
+- [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between the welcome/sign-in previews and developer reference.
+- [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, local-only feedback, and absence of authentication.
+- [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
 - [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains an English/Telugu fictional ADR draft prototype that is no longer mounted in the developer shell. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
 - [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates the small versioned browser-storage shape; empty optional statements remain `null`.
@@ -73,6 +75,6 @@ Record new/changed endpoints, schemas, authorization, migrations, provider depen
 
 ## Developer reference shell and appearance
 
-The current shell is a development reference, separate from the future patient/reviewer application. It has no login or developer-role enforcement. Hiding prototype tabs is presentation only and is not authorization. Introduce authenticated roles and protect both routes and relevant server actions before describing it as restricted.
+The component reference is now a separate hash view alongside the rough welcome/sign-in front end. It has no login or developer-role enforcement. Hiding prototype tabs is presentation only and is not authorization. Introduce authenticated roles and protect both routes and relevant server actions before describing it as restricted.
 
 [Design-system guidance](../src/design-system/README.md) describes the shared neutral surfaces, blue/black/green palettes, browser preferences, and settings controls. `tokens.ts` is the colour source for the application and token inspector. Themes are applied before React mounts and update Material Web semantic CSS properties. Appearance preferences contain no clinical data.

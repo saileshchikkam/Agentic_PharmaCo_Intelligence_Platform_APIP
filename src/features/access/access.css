@@ -1,0 +1,133 @@
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/google-sans-flex-400.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/google-sans-flex-500.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/google-sans-flex-600.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/google-sans-flex-700.ttf') format('truetype');
+}
+
+.access-app {
+  --access-font: 'Google Sans Flex', 'Roboto', system-ui, sans-serif;
+  --md-sys-typescale-body-large-font: var(--access-font);
+  --md-sys-typescale-body-medium-font: var(--access-font);
+  --md-sys-typescale-label-large-font: var(--access-font);
+  --md-outlined-text-field-container-shape: 12px;
+  --md-filled-button-container-height: 3rem;
+  --md-filled-button-label-text-font: var(--access-font);
+  --md-filled-button-label-text-weight: 600;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: var(--access-font);
+  font-optical-sizing: auto;
+}
+
+.access-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px clamp(24px, 4vw, 64px);
+  background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent);
+  backdrop-filter: blur(16px);
+}
+.access-header-actions { display: flex; align-items: center; gap: 16px; }
+.access-home-link { display: inline-flex; align-items: center; min-height: 48px; text-decoration: none; }
+.access-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -.5px; }
+.access-brand svg { width: 36px; height: 36px; color: var(--md-sys-color-primary); }
+.access-brand-large { font-size: 1.5rem; }
+.access-brand-large svg { width: 40px; height: 40px; }
+.access-main { flex: 1; display: grid; place-items: center; padding: 48px 24px; }
+.access-welcome { max-width: 860px; text-align: center; padding: 24px 0 48px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
+.access-welcome-symbol { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto 28px; border-radius: 28px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+.access-welcome-symbol .material-symbols-outlined { font-size: 2.5rem; font-variation-settings: 'FILL' 1, 'wght' 400; }
+.access-eyebrow { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; color: var(--md-sys-color-on-surface-variant); margin: 0 0 24px; }
+.access-welcome h1 { margin: 0; font-size: 3.5625rem; line-height: 1.125; letter-spacing: -1.5px; font-weight: 500; }
+.access-welcome h1 span { color: var(--md-sys-color-primary); }
+.access-welcome-copy { max-width: 620px; margin: 24px auto 32px; font-size: 1.125rem; line-height: 1.75rem; color: var(--md-sys-color-on-surface-variant); }
+.access-inline-icon { font-size: 1.25rem; margin-left: 10px; vertical-align: middle; }
+.access-welcome-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 20px; margin-top: 16px; font-size: 0.875rem; line-height: 1.25rem; color: var(--md-sys-color-on-surface-variant); }
+.access-welcome-links a { display: inline-flex; align-items: center; min-height: 48px; }
+
+.access-sign-in-surface { width: 100%; max-width: 1040px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; padding: 48px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface); animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
+.access-sign-in-lead h1 { margin: 40px 0 12px; font-size: 2.25rem; line-height: 2.75rem; font-weight: 500; letter-spacing: -.5px; }
+.access-lead-subtitle { font-size: 1.25rem; line-height: 1.75rem; margin: 0; }
+.access-workspace-label { display: inline-flex; align-items: center; gap: 10px; margin-top: 40px; padding: 8px 14px 8px 10px; border-radius: 16px; background: var(--md-sys-color-surface-container-low); font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
+.access-workspace-label .material-symbols-outlined { color: var(--md-sys-color-primary); font-size: 1.375rem; }
+.access-lead-description { font-size: 0.875rem; line-height: 1.375rem; margin: 16px 0 0; color: var(--md-sys-color-on-surface-variant); max-width: 310px; }
+.access-sign-in-fields { min-width: 0; }
+.access-role-tabs { width: 100%; --md-primary-tab-container-color: transparent; --md-primary-tab-label-text-font: var(--access-font); --md-primary-tab-label-text-size: .875rem; --md-primary-tab-label-text-weight: 500; }
+.access-role-tabs md-primary-tab { flex: 1; min-width: 0; --md-primary-tab-container-height: 48px; }
+.access-form { display: flex; flex-direction: column; gap: 20px; padding-top: 28px; }
+.access-form-intro { font-size: 0.875rem; line-height: 1.25rem; margin: 0 0 4px; color: var(--md-sys-color-on-surface-variant); }
+.access-form md-outlined-text-field { --md-outlined-text-field-input-text-font: var(--access-font); --md-outlined-text-field-label-text-font: var(--access-font); --md-outlined-text-field-supporting-text-font: var(--access-font); }
+.access-form md-checkbox { --md-checkbox-container-shape: 4px; }
+.access-preview-note { display: flex; align-items: flex-start; gap: 10px; color: var(--md-sys-color-on-surface-variant); font-size: 0.75rem; line-height: 1.125rem; }
+.access-preview-note .material-symbols-outlined { font-size: 1.125rem; margin-top: 1px; }
+.access-preview-note p { margin: 0; }
+.access-form-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 4px; }
+.access-form-actions md-filled-button { min-width: 112px; }
+.access-text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; color: var(--md-sys-color-primary); font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; text-decoration: none; }
+.access-text-link:hover, .access-welcome-links a:hover, .access-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.access-notice { margin: 0; padding: 16px; border-radius: 12px; background: var(--md-sys-color-surface-container-low); color: var(--md-sys-color-on-surface); font-size: 0.875rem; line-height: 1.375rem; }
+.access-developer-preview { padding-top: 8px; border-top: 1px solid var(--md-sys-color-outline-variant); }
+.access-developer-preview p { margin: 0; font-size: 0.75rem; line-height: 1.125rem; color: var(--md-sys-color-on-surface-variant); }
+.access-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px clamp(24px, 4vw, 64px) 16px; font-size: 0.75rem; line-height: 1.125rem; color: var(--md-sys-color-on-surface-variant); }
+.access-footer a { display: inline-flex; align-items: center; min-height: 48px; }
+.access-app a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 5px; border-radius: 4px; }
+.access-skip-link { position: fixed; z-index: 20; top: 8px; left: 8px; padding: 16px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-radius: 12px; transform: translateY(-160%); }
+.access-skip-link:focus { transform: translateY(0); }
+@keyframes access-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 839px) {
+  .access-sign-in-surface { max-width: 560px; grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px; }
+  .access-sign-in-lead h1 { margin-top: 24px; }
+  .access-workspace-label { margin-top: 20px; }
+  .access-lead-description { display: none; }
+  .access-form { padding-top: 24px; }
+  .access-main { padding-block: 32px; }
+}
+@media (max-width: 599px) {
+  .access-header { padding: 12px 20px; }
+  .access-header-actions { gap: 8px; }
+  .access-main { padding: 24px; }
+  .access-main-sign-in { display: block; padding: 20px 24px 32px; }
+  .access-sign-in-surface { border: 0; border-radius: 0; padding: 0; margin: 0 auto; }
+  .access-welcome { padding: 20px 0 24px; }
+  .access-welcome h1 { font-size: 2.25rem; line-height: 1.22; letter-spacing: -.6px; }
+  .access-welcome-copy { font-size: 1rem; line-height: 1.5rem; }
+  .access-eyebrow { max-width: 260px; margin-inline: auto; }
+  .access-desktop-break { display: none; }
+  .access-footer { padding-inline: 24px; flex-wrap: wrap; gap: 0 16px; }
+  .access-brand-large { display: none; }
+  .access-sign-in-lead h1 { margin-top: 4px; font-size: 2rem; line-height: 2.5rem; }
+  .access-lead-subtitle { font-size: 1.125rem; line-height: 1.625rem; }
+}
+@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface { animation: none; } }
+
+.access-app h1:focus, .access-main:focus { outline: none; }

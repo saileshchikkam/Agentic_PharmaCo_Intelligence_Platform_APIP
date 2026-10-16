@@ -12,6 +12,7 @@ export interface M3TextFieldProps {
   onBlur?: (e: React.FocusEvent<any>) => void;
   onFocus?: (e: React.FocusEvent<any>) => void;
   placeholder?: string;
+  autoComplete?: string;
   supportingText?: string;
   error?: boolean;
   errorText?: string;
@@ -41,6 +42,7 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
   onBlur,
   onFocus,
   placeholder,
+  autoComplete,
   supportingText,
   error = false,
   errorText,
@@ -92,6 +94,7 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
     label,
     value,
     placeholder,
+    autocomplete: autoComplete,
     'supporting-text': supportingText,
     error: error || undefined,
     'error-text': errorText,

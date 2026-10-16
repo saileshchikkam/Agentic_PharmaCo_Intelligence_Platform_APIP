@@ -72,3 +72,9 @@ Append ID, actual date, status, concrete decision, rationale, material tradeoffs
 **User clarification and implementation 2026-10-17.** The current screen is the development team's reusable Material 3 reference. Show component/token tabs, and retain earlier product prototypes outside the mounted shell. Default to clean white surfaces and blue highlights, with blue/black/green accents in settings and optional dark mode. Persist appearance locally without storing clinical data. Use the same colour source in components and the token inspector.
 
 Developer-only login is a confirmed requirement and remains unimplemented. Define the rough application framework and access boundaries next, then continue backend/model contracts and connected product workflows phase by phase. Ask for the next selected task at each phase handoff; do not treat the roadmap as blanket permission.
+
+## DEC-013 — Sign-in interface before authentication
+
+**User-selected 2026-10-17.** Build a simple main-page entry and consistent Material 3 sign-in views for patient, specialist, and developer audiences. Preserve the developer reference as an explicitly unrestricted preview. Authentication, account creation/recovery, sessions, and verified roles are deferred; local form feedback must not claim account access. Use sample credentials only and do not send, log, or persist them in APIP. Ask the user which page to design after this sign-in task.
+
+The access composition uses official Material Web controls, shared palette roles, responsive logical CSS sizing, and licensed self-hosted Google Sans Flex static cuts. Relevant sources and implementation choices are recorded in the [access guide](../src/features/access/README.md); full Pixel/M3 Expressive parity is not claimed.
