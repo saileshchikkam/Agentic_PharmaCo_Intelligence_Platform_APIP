@@ -2,72 +2,59 @@ import React, { useState, useEffect } from 'react';
 import './design-system/material-web-imports';
 import { TopAppBar } from './components/material/TopAppBar';
 import { MaterialNavTabs, NavTabId } from './components/material/MaterialNavTabs';
-import { PatientHealthView } from './components/material/PatientHealthView';
-import { ReportReactionView } from './components/material/ReportReactionView';
-import { SafetyRecordsView } from './components/material/SafetyRecordsView';
 import { CoreComponentsView } from './components/material/CoreComponentsView';
 import { DomainComponentsView } from './components/material/DomainComponentsView';
 import { DesignFoundationView } from './components/material/DesignFoundationView';
-import { INITIAL_ICSR_CASES } from './mockData';
-import { ICSRCase } from './types';
+
+import { AppearanceSettings } from './components/material/AppearanceSettings';
+import { loadAppearance, applyAppearance } from './design-system/appearance';
 
 export function App() {
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  const [appearance, setAppearance] = useState(loadAppearance);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [preferencesSaved, setPreferencesSaved] = useState(true);
   const [activeTab, setActiveTab] = useState<NavTabId>('domain-components');
-  const [cases, setCases] = useState<ICSRCase[]>(() => {
-    const saved = localStorage.getItem('apip_cases_m3');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.warn('Failed to parse local stored cases, using initial defaults');
-      }
-    }
-    return INITIAL_ICSR_CASES;
-  });
+  const isDark = appearance.isDark;
+  const toggleTheme = () => setAppearance((previous) => ({ ...previous, isDark: !previous.isDark }));
+  const closeSettings = () => {
+    setSettingsOpen(false);
+    document.getElementById('apip-settings-toggle')?.focus();
+  };
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
+    setPreferencesSaved(applyAppearance(appearance));
+  }, [appearance]);
 
   return (
     <div className="min-h-screen bg-[var(--md-sys-color-background)] text-[var(--md-sys-color-on-background)] flex flex-col font-sans transition-colors">
       {/* Material 3 Top App Bar */}
-      <TopAppBar isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+      <TopAppBar isDark={isDark} onToggleTheme={toggleTheme}
+        settingsOpen={settingsOpen} onToggleSettings={() => setSettingsOpen((open) => !open)} />
+      {settingsOpen && <AppearanceSettings value={appearance} onChange={setAppearance}
+        onClose={closeSettings} saved={preferencesSaved} />}
 
+      <div className="mx-auto w-full max-w-[1400px] px-4 pt-6 sm:px-6 lg:px-8">
+        <p className="m3-title-medium">Developer design reference</p>
+        <p className="m3-body-medium mt-1 text-[var(--md-sys-color-on-surface-variant)]">
+          For Sailesh and the APIP development team: reusable Material 3 components for the future application.
+          Examples here demonstrate design and interaction only. Developer sign-in and access restrictions are still pending.
+        </p>
+      </div>
       {/* Material 3 Navigation Tabs */}
       <MaterialNavTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Main Content Surface */}
       <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'domain-components' && (
-          <DomainComponentsView isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+          <DomainComponentsView isDark={isDark} onToggleTheme={toggleTheme} />
         )}
 
         {activeTab === 'core-components' && (
-          <CoreComponentsView isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
-        )}
-
-        {activeTab === 'patient-health' && (
-          <PatientHealthView onNavigateToReport={() => setActiveTab('report-reaction')} />
-        )}
-
-        {activeTab === 'report-reaction' && (
-          <ReportReactionView />
-        )}
-
-        {activeTab === 'safety-records' && (
-          <SafetyRecordsView cases={cases} />
+          <CoreComponentsView isDark={isDark} onToggleTheme={toggleTheme} />
         )}
 
         {activeTab === 'design-foundation' && (
-          <DesignFoundationView isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+          <DesignFoundationView accent={appearance.accent} isDark={isDark} onToggleTheme={toggleTheme} />
         )}
       </main>
 

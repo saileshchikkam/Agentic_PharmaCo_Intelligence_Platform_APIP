@@ -1,11 +1,13 @@
 import React from 'react';
 
 interface TopAppBarProps {
+  settingsOpen: boolean;
+  onToggleSettings: () => void;
   isDark: boolean;
   onToggleTheme: () => void;
 }
 
-export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme }) => {
+export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme, settingsOpen, onToggleSettings }) => {
   return (
     <header
       id="apip-top-app-bar"
@@ -30,7 +32,7 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme }) =
                 APIP
               </span>
               <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-medium">
-                Material 3 design demo
+                Developer design reference
               </span>
             </div>
             <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)] text-xs hidden sm:block">
@@ -51,6 +53,10 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme }) =
             <span>Not for clinical use</span>
           </div>
 
+          <md-icon-button id="apip-settings-toggle" onClick={onToggleSettings}
+            aria-label="Appearance settings" aria-expanded={settingsOpen} aria-controls="appearance-settings">
+            <md-icon><span className="material-symbols-outlined">settings</span></md-icon>
+          </md-icon-button>
           <md-icon-button
             id="apip-theme-toggle"
             onClick={onToggleTheme}

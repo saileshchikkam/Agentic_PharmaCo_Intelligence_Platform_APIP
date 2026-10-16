@@ -1,12 +1,12 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current code now includes a browser-local fictional draft prototype. Bun frozen installation, frontend lint, and production build passed in this checkout; app runtime and authenticated product storage remain unverified/unimplemented.
+Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current shell now presents the developer design reference; the earlier browser-local fictional draft remains in source but is unmounted. Bun frozen installation, frontend lint, and production build passed in this checkout; limited developer-reference browser checks have now passed, while authenticated product storage remains unimplemented.
 
 ## Current repository
 
-- [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) selects the Material showcase, patient, reporting, records, and token views. The initial tab is the domain-component showcase.
+- [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) selects the Domain Components, Core Components, and Design Tokens reference views plus appearance settings. The initial tab is the domain-component showcase.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
-- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) now presents an English/Telugu fictional ADR draft prototype. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
+- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains an English/Telugu fictional ADR draft prototype that is no longer mounted in the developer shell. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
 - [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates the small versioned browser-storage shape; empty optional statements remain `null`.
 - [src/design-system](../src/design-system) registers Material Web and defines tokens; [src/index.css](../src/index.css) provides styles.
 - [src/components](../src/components) also contains an earlier UI generation and experimental integrations. Their presence does not mean they are mounted by the current app.
@@ -37,7 +37,7 @@ These observations are not validated clinical capabilities or a committed produc
 - Authentication, permissioned review, durable audit, and official integrations are not established.
 - Patient assistance, scores, evidence text, reviewer identities, and compliance labels include illustrative behavior.
 - Database migrations, a test suite, and CI are absent from the inspected baseline. `lint` checks `src`, not the full server.
-- Successful install, clean build, runtime operation, and deployment remain unverified.
+- Frozen install, frontend lint, and production build have passed in this checkout. Clean-clone setup, clinical functionality, and deployment remain unverified.
 
 This describes the demonstration-to-product gap; it does not authorize repairing demo behavior without a selected task.
 
@@ -70,3 +70,9 @@ Medical-source retrieval, permissioned case retrieval, and operational analytics
 ## Document with implementation
 
 Record new/changed endpoints, schemas, authorization, migrations, provider dependencies, stored/shared data, failures, and operational effects beside the real subsystem. Do not present an invented future API as live.
+
+## Developer reference shell and appearance
+
+The current shell is a development reference, separate from the future patient/reviewer application. It has no login or developer-role enforcement. Hiding prototype tabs is presentation only and is not authorization. Introduce authenticated roles and protect both routes and relevant server actions before describing it as restricted.
+
+[Design-system guidance](../src/design-system/README.md) describes the shared neutral surfaces, blue/black/green palettes, browser preferences, and settings controls. `tokens.ts` is the colour source for the application and token inspector. Themes are applied before React mounts and update Material Web semantic CSS properties. Appearance preferences contain no clinical data.

@@ -66,7 +66,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
 
   const commonProps = {
     id,
-    disabled: isDisabled,
+    disabled: isDisabled || undefined,
     onClick,
     type,
     'aria-label': ariaLabel,

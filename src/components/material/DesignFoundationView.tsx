@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { lightScheme, darkScheme, typography, shape } from '../../design-system/tokens';
+import { Accent, getColorScheme, typography, shape } from '../../design-system/tokens';
 
 interface DesignFoundationViewProps {
+  accent: Accent;
   isDark: boolean;
   onToggleTheme: () => void;
 }
 
-export const DesignFoundationView: React.FC<DesignFoundationViewProps> = ({ isDark, onToggleTheme }) => {
+export const DesignFoundationView: React.FC<DesignFoundationViewProps> = ({ accent, isDark, onToggleTheme }) => {
   const [demoInput, setDemoInput] = useState('Amoxicillin Clavulanate');
   const [errorInput, setErrorInput] = useState('Invalid batch number');
   const [hasError, setHasError] = useState(true);
@@ -15,7 +16,7 @@ export const DesignFoundationView: React.FC<DesignFoundationViewProps> = ({ isDa
   const [checkboxChecked, setCheckboxChecked] = useState(true);
   const [activeChip, setActiveChip] = useState<'mild' | 'moderate' | 'severe'>('moderate');
 
-  const activeScheme = isDark ? darkScheme : lightScheme;
+  const activeScheme = getColorScheme(accent, isDark);
 
   return (
     <div id="design-foundation-view" className="space-y-12 animate-fade-in pb-12">

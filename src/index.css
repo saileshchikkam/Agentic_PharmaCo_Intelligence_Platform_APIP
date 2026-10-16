@@ -2,52 +2,7 @@
 
 @layer base {
   :root {
-    /* Google Material 3 - Color Architecture (Light Scheme) */
-    --md-sys-color-primary: #006a6a;
-    --md-sys-color-on-primary: #ffffff;
-    --md-sys-color-primary-container: #6ff7f6;
-    --md-sys-color-on-primary-container: #002020;
-
-    --md-sys-color-secondary: #4a6363;
-    --md-sys-color-on-secondary: #ffffff;
-    --md-sys-color-secondary-container: #cce8e7;
-    --md-sys-color-on-secondary-container: #051f20;
-
-    --md-sys-color-tertiary: #4b607c;
-    --md-sys-color-on-tertiary: #ffffff;
-    --md-sys-color-tertiary-container: #d3e4ff;
-    --md-sys-color-on-tertiary-container: #041c35;
-
-    --md-sys-color-error: #ba1a1a;
-    --md-sys-color-on-error: #ffffff;
-    --md-sys-color-error-container: #ffdad6;
-    --md-sys-color-on-error-container: #410002;
-
-    --md-sys-color-background: #fafdfd;
-    --md-sys-color-on-background: #191c1c;
-
-    --md-sys-color-surface: #fafdfd;
-    --md-sys-color-on-surface: #191c1c;
-    --md-sys-color-surface-variant: #dae5e4;
-    --md-sys-color-on-surface-variant: #3f4948;
-
-    --md-sys-color-surface-dim: #d7dbdb;
-    --md-sys-color-surface-bright: #fafdfd;
-
-    --md-sys-color-surface-container-lowest: #ffffff;
-    --md-sys-color-surface-container-low: #f1f5f4;
-    --md-sys-color-surface-container: #ebefee;
-    --md-sys-color-surface-container-high: #e5eae9;
-    --md-sys-color-surface-container-highest: #dfe4e3;
-
-    --md-sys-color-outline: #6f7979;
-    --md-sys-color-outline-variant: #bec8c8;
-
-    --md-sys-color-shadow: #000000;
-    --md-sys-color-scrim: #000000;
-    --md-sys-color-inverse-surface: #2d3131;
-    --md-sys-color-inverse-on-surface: #eff1f1;
-    --md-sys-color-inverse-primary: #4ddada;
+    /* Colour roles are applied from design-system/tokens.ts before React renders. */
 
     /* Material 3 Shape System */
     --md-sys-shape-corner-none: 0px;
@@ -71,54 +26,6 @@
     --md-ref-typeface-plain: 'Roboto', system-ui, -apple-system, sans-serif;
   }
 
-  .dark {
-    /* Google Material 3 - Color Architecture (Dark Scheme) */
-    --md-sys-color-primary: #4ddada;
-    --md-sys-color-on-primary: #003737;
-    --md-sys-color-primary-container: #004f4f;
-    --md-sys-color-on-primary-container: #6ff7f6;
-
-    --md-sys-color-secondary: #b0cccc;
-    --md-sys-color-on-secondary: #1b3535;
-    --md-sys-color-secondary-container: #324b4b;
-    --md-sys-color-on-secondary-container: #cce8e7;
-
-    --md-sys-color-tertiary: #b3c8e8;
-    --md-sys-color-on-tertiary: #1c324c;
-    --md-sys-color-tertiary-container: #334963;
-    --md-sys-color-on-tertiary-container: #d3e4ff;
-
-    --md-sys-color-error: #ffb4ab;
-    --md-sys-color-on-error: #690005;
-    --md-sys-color-error-container: #93000a;
-    --md-sys-color-on-error-container: #ffdad6;
-
-    --md-sys-color-background: #0e1414;
-    --md-sys-color-on-background: #dfe4e3;
-
-    --md-sys-color-surface: #0e1414;
-    --md-sys-color-on-surface: #dfe4e3;
-    --md-sys-color-surface-variant: #3f4948;
-    --md-sys-color-on-surface-variant: #bec8c8;
-
-    --md-sys-color-surface-dim: #0e1414;
-    --md-sys-color-surface-bright: #343a3a;
-
-    --md-sys-color-surface-container-lowest: #090f0f;
-    --md-sys-color-surface-container-low: #161d1d;
-    --md-sys-color-surface-container: #1b2121;
-    --md-sys-color-surface-container-high: #252b2b;
-    --md-sys-color-surface-container-highest: #303636;
-
-    --md-sys-color-outline: #899392;
-    --md-sys-color-outline-variant: #3f4948;
-
-    --md-sys-color-shadow: #000000;
-    --md-sys-color-scrim: #000000;
-    --md-sys-color-inverse-surface: #dfe4e3;
-    --md-sys-color-inverse-on-surface: #2d3131;
-    --md-sys-color-inverse-primary: #006a6a;
-  }
 
   body {
     font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -349,6 +256,15 @@ md-list-item {
 /* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

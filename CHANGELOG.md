@@ -4,6 +4,16 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Developer design reference and appearance — 2026-10-17
+
+- Restored the component/token showcase as the running developer reference and removed the product-prototype tabs from its navigation.
+- Replaced the teal palette with white neutral surfaces and default blue highlights; settings offer blue, black, green, and optional dark mode with browser persistence.
+- Centralized colour roles in the shared tokens, kept the token inspector aligned, and honoured reduced-motion preferences.
+- Fixed Material Web button boolean handling so enabled buttons are no longer disabled by a serialized `false` attribute.
+- Recorded the developer-only access requirement as pending; no login or authorization is claimed.
+- Updated the phase handoff sequence before further product/model work.
+
+
 ### Fictional ADR draft prototype — 2026-10-17
 
 - Replaced the misleading simulated report submission with a bilingual local draft flow using the existing Material Web wrappers.

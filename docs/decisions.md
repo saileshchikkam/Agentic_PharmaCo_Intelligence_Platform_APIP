@@ -66,3 +66,9 @@ The live Hugging Face pricing page now lists no included free-user Inference Pro
 ## Recording future decisions
 
 Append ID, actual date, status, concrete decision, rationale, material tradeoffs, and affected docs/commit/issue links. Mark superseded entries explicitly. A recommendation in a plan does not become accepted by repetition.
+
+## DEC-012 — Developer reference and appearance before product expansion
+
+**User clarification and implementation 2026-10-17.** The current screen is the development team's reusable Material 3 reference. Show component/token tabs, and retain earlier product prototypes outside the mounted shell. Default to clean white surfaces and blue highlights, with blue/black/green accents in settings and optional dark mode. Persist appearance locally without storing clinical data. Use the same colour source in components and the token inspector.
+
+Developer-only login is a confirmed requirement and remains unimplemented. Define the rough application framework and access boundaries next, then continue backend/model contracts and connected product workflows phase by phase. Ask for the next selected task at each phase handoff; do not treat the roadmap as blanket permission.

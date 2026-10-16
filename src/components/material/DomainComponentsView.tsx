@@ -280,13 +280,13 @@ export const DomainComponentsView: React.FC<DomainComponentsViewProps> = ({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[var(--md-sys-color-outline-variant)]/60 pb-6">
         <div>
           <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] block">
-            Phase 1 • Step 2 • Pass B
+            Developer reference • UI foundation
           </span>
           <h1 className="m3-headline-medium text-[var(--md-sys-color-on-surface)] mt-1 font-semibold">
             APIP Domain Component System
           </h1>
           <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)] mt-1.5 max-w-2xl leading-relaxed">
-            Healthcare-specific Material 3 component compositions for patient assistance, adverse drug reaction intake, and human-in-the-loop pharmacovigilance decision support.
+            Reusable Material 3 compositions for the APIP development team. These examples define the future application’s design language and do not implement patient or professional workflows.
           </p>
         </div>
 

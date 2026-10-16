@@ -2,7 +2,7 @@
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
-**Current status:** this repository contains a Material Design 3 demonstration, experimental backend code, and a browser-local fictional ADR draft prototype. It is a design and engineering starting point, not a clinically validated or production-ready medical application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
+**Current status:** the running screen is a developer design reference for Sailesh and the APIP team. It contains reusable Material Design 3 components, white surfaces with selectable highlights, and experimental backend code. Developer-only access is required but sign-in enforcement is not implemented. It is a design and engineering starting point, not a clinically validated or production-ready medical application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
 
 ## The product
 
@@ -40,7 +40,9 @@ bun run dev
 
 The server is configured for port `3000`. In the current checkout, the frozen Bun install, frontend lint, and production build passed on 2026-10-17; a clean-clone setup and deployment remain unverified. See [development setup](docs/development.md). The optional AI key is server-side, and the current startup script does not automatically load `.env`.
 
-The **ADR Draft** view is a fictional evaluation prototype. It saves one draft to the current browser only and does not submit a report. Do not enter real patient details; authenticated server storage and user isolation are not implemented.
+The visible tabs are **Domain Components**, **Core Components**, and **Design Tokens**. Use the header settings button to select blue (default), black, or green highlights and optional dark mode. Preferences are saved in this browser. See the [design-system guide](src/design-system/README.md).
+
+Earlier patient/report/records screens are retained as experiments and removed from this navigation. The fictional ADR draft is not the selected product entry point. Login/access control, patient workflows, and live model integration remain separate development phases.
 
 ## Design direction
 

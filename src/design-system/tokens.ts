@@ -1,9 +1,9 @@
 /**
  * Material Design 3 Design Tokens for APIP
- * (Agentic Pharma Intelligence Platform)
+ * (Agentic Pharma Co-intelligence Platform)
  * 
  * Strict Google Material 3 implementation:
- * - HCT semantic color architecture (Light & Dark schemes)
+ * - Semantic color architecture (Light & Dark schemes)
  * - M3 Typography scale
  * - M3 Shape system
  * - M3 Elevation & Surface hierarchy
@@ -60,100 +60,82 @@ export interface ColorScheme {
 
 // Light Scheme - Clinical & Calm Material 3 Palette
 export const lightScheme: ColorScheme = {
-  primary: '#006A6A',
+  primary: '#0B57D0',
   onPrimary: '#FFFFFF',
-  primaryContainer: '#6FF7F6',
-  onPrimaryContainer: '#002020',
-
-  secondary: '#4A6363',
+  primaryContainer: '#D3E3FD',
+  onPrimaryContainer: '#041E49',
+  secondary: '#535F70',
   onSecondary: '#FFFFFF',
-  secondaryContainer: '#CCE8E7',
-  onSecondaryContainer: '#051F20',
-
-  tertiary: '#4B607C',
+  secondaryContainer: '#E8F0FE',
+  onSecondaryContainer: '#1F1F1F',
+  tertiary: '#575E71',
   onTertiary: '#FFFFFF',
-  tertiaryContainer: '#D3E4FF',
-  onTertiaryContainer: '#041C35',
-
+  tertiaryContainer: '#DFE2F9',
+  onTertiaryContainer: '#141B2C',
   error: '#BA1A1A',
   onError: '#FFFFFF',
   errorContainer: '#FFDAD6',
   onErrorContainer: '#410002',
-
-  background: '#FAFDFD',
-  onBackground: '#191C1C',
-
-  surface: '#FAFDFD',
-  onSurface: '#191C1C',
-  surfaceVariant: '#DAE5E4',
-  onSurfaceVariant: '#3F4948',
-
-  surfaceDim: '#D7DBDB',
-  surfaceBright: '#FAFDFD',
-
+  background: '#FFFFFF',
+  onBackground: '#1F1F1F',
+  surface: '#FFFFFF',
+  onSurface: '#1F1F1F',
+  surfaceVariant: '#F1F3F4',
+  onSurfaceVariant: '#444746',
+  surfaceDim: '#DADCE0',
+  surfaceBright: '#FFFFFF',
   surfaceContainerLowest: '#FFFFFF',
-  surfaceContainerLow: '#F1F5F4',
-  surfaceContainer: '#EBEFEE',
-  surfaceContainerHigh: '#E5EAE9',
-  surfaceContainerHighest: '#DFE4E3',
-
-  outline: '#6F7979',
-  outlineVariant: '#BEC8C8',
-
+  surfaceContainerLow: '#F8F9FA',
+  surfaceContainer: '#F1F3F4',
+  surfaceContainerHigh: '#ECEEF1',
+  surfaceContainerHighest: '#E3E5E8',
+  outline: '#747775',
+  outlineVariant: '#C4C7C5',
   shadow: '#000000',
   scrim: '#000000',
-  inverseSurface: '#2D3131',
-  inverseOnSurface: '#EFF1F1',
-  inversePrimary: '#4DDADA',
+  inverseSurface: '#303030',
+  inverseOnSurface: '#F2F2F2',
+  inversePrimary: '#A8C7FA',
 };
 
 // Dark Scheme - Restful, Low-strain Clinical Dark Scheme
 export const darkScheme: ColorScheme = {
-  primary: '#4DDADA',
-  onPrimary: '#003737',
-  primaryContainer: '#004F4F',
-  onPrimaryContainer: '#6FF7F6',
-
-  secondary: '#B0CCCC',
-  onSecondary: '#1B3535',
-  secondaryContainer: '#324B4B',
-  onSecondaryContainer: '#CCE8E7',
-
-  tertiary: '#B3C8E8',
-  onTertiary: '#1C324C',
-  tertiaryContainer: '#334963',
-  onTertiaryContainer: '#D3E4FF',
-
+  primary: '#A8C7FA',
+  onPrimary: '#062E6F',
+  primaryContainer: '#0842A0',
+  onPrimaryContainer: '#D3E3FD',
+  secondary: '#BCC7DB',
+  onSecondary: '#263141',
+  secondaryContainer: '#3C4758',
+  onSecondaryContainer: '#D8E3F8',
+  tertiary: '#BFC6DC',
+  onTertiary: '#293042',
+  tertiaryContainer: '#3F4659',
+  onTertiaryContainer: '#DFE2F9',
   error: '#FFB4AB',
   onError: '#690005',
   errorContainer: '#93000A',
   onErrorContainer: '#FFDAD6',
-
-  background: '#0E1414',
-  onBackground: '#DFE4E3',
-
-  surface: '#0E1414',
-  onSurface: '#DFE4E3',
-  surfaceVariant: '#3F4948',
-  onSurfaceVariant: '#BEC8C8',
-
-  surfaceDim: '#0E1414',
-  surfaceBright: '#343A3A',
-
-  surfaceContainerLowest: '#090F0F',
-  surfaceContainerLow: '#161D1D',
-  surfaceContainer: '#1B2121',
-  surfaceContainerHigh: '#252B2B',
-  surfaceContainerHighest: '#303636',
-
-  outline: '#899392',
-  outlineVariant: '#3F4948',
-
+  background: '#131314',
+  onBackground: '#E3E3E3',
+  surface: '#131314',
+  onSurface: '#E3E3E3',
+  surfaceVariant: '#303030',
+  onSurfaceVariant: '#C4C7C5',
+  surfaceDim: '#131314',
+  surfaceBright: '#373739',
+  surfaceContainerLowest: '#0E0E0F',
+  surfaceContainerLow: '#1B1B1D',
+  surfaceContainer: '#202022',
+  surfaceContainerHigh: '#28282A',
+  surfaceContainerHighest: '#333335',
+  outline: '#8E918F',
+  outlineVariant: '#444746',
   shadow: '#000000',
   scrim: '#000000',
-  inverseSurface: '#DFE4E3',
-  inverseOnSurface: '#2D3131',
-  inversePrimary: '#006A6A',
+  inverseSurface: '#E3E3E3',
+  inverseOnSurface: '#303030',
+  inversePrimary: '#0B57D0',
 };
 
 // Material 3 Typography Specs
@@ -242,3 +224,19 @@ export const stateLayers = {
   dragged: 0.16,
 };
 
+
+// Neutral surfaces stay consistent while the user selects an interaction accent.
+export type Accent = 'blue' | 'black' | 'green';
+
+export function getColorScheme(accent: Accent, isDark: boolean): ColorScheme {
+  const base = isDark ? darkScheme : lightScheme;
+  if (accent === 'blue') return base;
+  const primary = accent === 'black'
+    ? isDark
+      ? { primary: '#E3E3E3', onPrimary: '#1F1F1F', primaryContainer: '#444746', onPrimaryContainer: '#FFFFFF', inversePrimary: '#1F1F1F' }
+      : { primary: '#1F1F1F', onPrimary: '#FFFFFF', primaryContainer: '#E3E3E3', onPrimaryContainer: '#1F1F1F', inversePrimary: '#E3E3E3' }
+    : isDark
+      ? { primary: '#7DD6A8', onPrimary: '#003822', primaryContainer: '#005234', onPrimaryContainer: '#A0F2C4', inversePrimary: '#146C43' }
+      : { primary: '#146C43', onPrimary: '#FFFFFF', primaryContainer: '#C4EED0', onPrimaryContainer: '#00210D', inversePrimary: '#7DD6A8' };
+  return { ...base, ...primary, secondary: primary.primary, onSecondary: primary.onPrimary, secondaryContainer: primary.primaryContainer, onSecondaryContainer: primary.onPrimaryContainer, tertiary: primary.primary, onTertiary: primary.onPrimary, tertiaryContainer: primary.primaryContainer, onTertiaryContainer: primary.onPrimaryContainer };
+}

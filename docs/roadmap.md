@@ -4,13 +4,24 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
-Documentation and repository connection have been established. The Material 3 demonstration remains, and the first English/Telugu fictional ADR draft prototype has been added. It saves one draft in browser-local storage only. The frozen dependency install, frontend lint, and production build pass in this checkout; a clean-clone baseline, authenticated server persistence, user isolation, full reporting workflow, and clinical validation are not established.
+The running screen is now the developer design reference, with white surfaces, selectable blue/black/green highlights, and optional dark mode. Earlier patient/report/records prototypes remain in source but are unmounted from this shell. The frozen dependency install, frontend lint, and production build pass in this checkout. Developer login, authenticated server persistence, the product workflow, and clinical validation remain incomplete.
+
+### Current phase and next handoff
+
+Sailesh clarified on 2026-10-17 that the developer UI foundation comes first; the previous draft implementation moved ahead of his intended screen sequence. Do not resume ADR feature expansion automatically.
+
+1. **Current selected task — developer UI foundation:** preserve reusable component examples, label the reference, change the default palette, and add appearance settings. This does not finish M1.
+2. **Proposed next task — rough application framework:** agree entry screens, navigation, patient/reviewer/developer boundaries, and the developer login/access flow. Enforce access before claiming the reference is private.
+3. **Then — backend/model contracts:** establish storage/identity and a local-first model adapter with explicit inputs, outputs, unknowns, and fictional evaluation cases. Groq is optional under the existing budget policy; custom ML training needs a selected task and suitable data.
+4. **Then — connected product slices:** implement and check the real reporting journey and progressively connect the selected model. Continue M2–M7 using their existing gates.
+
+At each handoff, report what was completed, what remains open, and propose one concrete next task for Sailesh to select. The sequence above guides discussion; it does not authorize implementing every future phase without a selected task.
 
 The user selected **English and Telugu, using fictional cases** and confirmed a budget of **INR 500 per month**. The proposed first delivery is a restricted evaluation pilot. Develop with installed local models and optionally evaluate hosted providers; API-based deployment is the user's preferred direction, subject to measured cost and readiness. Mahesh P is the pharmacy reviewer identified by Sailesh, with limited availability. Final population, agreed review scope/availability, data rights, and team hours remain open.
 
 ## How to follow this plan
 
-Build a complete, persistent ADR reporting journey first. Develop its interface and server together in small working slices. Begin reviewer/data preparation alongside that work; do not wait for custom ML to make reporting useful. Add grounded evidence, bounded MedAssist, and then agent coordination to functions already checked independently.
+After the current UI foundation and rough framework are agreed, build a complete, persistent ADR reporting journey as the first product workflow. Develop its interface and server together in small working slices. Begin reviewer/data preparation alongside that work; do not wait for custom ML to make reporting useful. Add grounded evidence, bounded MedAssist, and then agent coordination to functions already checked independently.
 
 The following windows are an **aggressive first-month planning example**, assuming steady team participation and timely review. They are not a promise that all features or clinical validation fit into 30 working days. Continue a milestone until its gate is met; reduce optional scope when dependencies slip. Use actual dates in history, not invented future completion dates.
 

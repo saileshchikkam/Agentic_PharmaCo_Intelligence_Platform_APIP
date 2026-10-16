@@ -65,3 +65,9 @@ Reporting, Validation, Knowledge, and Analysis agents coordinate supported steps
 Test whether guided, AI-assisted reporting reduces effort and improves completeness relative to a conventional form. Accurate exports, traceable evidence, reliable review, and safe uncertainty handling matter alongside interface quality.
 
 Novelty, patentability, accuracy, superiority, adoption, and clinical readiness are not established. See [research and validation](research-and-validation.md).
+
+## Developer design reference
+
+**Clarified by Sailesh on 2026-10-17:** the existing showcase is the reusable UI reference for Sailesh and the development team, not the patient application. Preserve its component families and establish the rough application framework before continuing product workflows. The default appearance is clean white with blue highlights; users can select blue, black, or green through appearance settings. Dark mode remains optional.
+
+Developer-only sign-in and role enforcement are required before making this reference available as a restricted hosted environment. The current local screen has no authentication; its label does not enforce access. The public patient/professional application must be separated from the developer reference.
