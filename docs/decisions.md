@@ -50,6 +50,10 @@ Sailesh identifies MALADE as project inspiration and plans to share exact refere
 
 The live Hugging Face pricing page now lists no included free-user Inference Providers credits; this supersedes the earlier USD 0.10 planning assumption. Keep free local weights, limited hosted demos, and metered routed APIs distinct. See [dated access findings](../models/README.md#medical-models-and-free-access--checked-2026-10-17). No additional model download or paid hosting is selected by this decision.
 
+## DEC-011 — Browser-local drafts are fictional-only
+
+**Implementation boundary 2026-10-17.** The first ADR draft slice uses versioned browser `localStorage` to demonstrate save/reload behavior with fictional cases. It has no identity, access control, server copy, or APIP-managed encryption and must not hold real patient data. Replace it with authenticated, audited server persistence and user-level isolation before any real patient workflow.
+
 ## Open engineering proposals
 
 - Modular TypeScript application, PostgreSQL, possible pgvector index, private storage, and durable jobs: see [architecture](architecture.md).

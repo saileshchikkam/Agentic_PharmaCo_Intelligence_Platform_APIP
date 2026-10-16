@@ -4,7 +4,7 @@ This page describes the existing demonstration. The documentation update did not
 
 ## Prerequisites and installation
 
-The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment.
+The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The initial ADR draft prototype stores fictional data in browser `localStorage`; it does not use the server or support real patient information.
 
 The repository tracks `bun.lock`. With Bun available, the intended commands are:
 
@@ -16,6 +16,8 @@ bun run dev
 The server listens on port `3000` and binds all interfaces. Use fictional cases; do not expose this unauthenticated experimental server as a patient service.
 
 Do not silently replace the lockfile or add competing lockfiles. Record installation failures and proposed fixes. An npm workflow can be adopted after the package/lockfile policy is selected and checked.
+
+At the 2026-10-17 implementation session, Node.js v24.19.0 was available, Bun was not accessible, and dependencies were not installed. The existing lint/build commands could not run in that environment; see the dated history. Install through the existing Bun lockfile before treating the app as runnable.
 
 ## Existing scripts
 

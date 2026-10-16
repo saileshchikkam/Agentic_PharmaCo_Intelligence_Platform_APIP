@@ -4,7 +4,7 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
-Documentation and repository connection have been established. Application code remains the Material 3 demonstration and experimental server at baseline `5400696`. A tested runtime, persistent product workflow, and clinical validation are not established.
+Documentation and repository connection have been established. The Material 3 demonstration remains, and the first English/Telugu fictional ADR draft prototype has been added. It saves one draft in browser-local storage only. A reproducible runtime, authenticated server persistence, user isolation, full reporting workflow, and clinical validation are not established.
 
 The user selected **English and Telugu, using fictional cases** and confirmed a budget of **INR 500 per month**. The proposed first delivery is a restricted evaluation pilot. Develop with installed local models and optionally evaluate hosted providers; API-based deployment is the user's preferred direction, subject to measured cost and readiness. Mahesh P is the pharmacy reviewer identified by Sailesh, with limited availability. Final population, agreed review scope/availability, data rights, and team hours remain open.
 

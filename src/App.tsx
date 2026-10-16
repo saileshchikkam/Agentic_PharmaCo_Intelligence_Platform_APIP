@@ -36,70 +36,6 @@ export function App() {
     }
   }, [isDark]);
 
-  const handleReportSubmitted = (caseRef: string) => {
-    // Construct valid ICSRCase adhering to domain schema
-    const newCase: ICSRCase = {
-      id: `case-${Date.now()}`,
-      caseNumber: caseRef,
-      dateReported: new Date().toISOString().split('T')[0],
-      reporter: {
-        type: 'Patient',
-        name: 'Anonymous Reporter',
-        country: 'United States',
-      },
-      patient: {
-        initials: 'PT',
-        age: '48',
-        gender: 'Female',
-        medicalHistory: ['Hypertension'],
-      },
-      suspectedDrug: {
-        name: 'Amoxicillin 500mg',
-        genericName: 'Amoxicillin',
-        dosage: '500mg BID',
-        route: 'Oral',
-        startDate: '2026-08-25',
-        indication: 'Respiratory tract infection',
-      },
-      concomitantDrugs: [],
-      adverseEvent: {
-        primaryTerm: 'Cutaneous eruption',
-        narrative: 'Patient reported generalized cutaneous erythematous eruption with pruritus 3 days following antibiotic initiation.',
-        meddraPreferredTerm: 'Rash maculo-papular',
-        systemOrganClass: 'Skin and subcutaneous tissue disorders',
-        onsetDate: '2026-08-28',
-        outcome: 'Recovering/Resolving',
-        seriousness: {
-          isFatal: false,
-          isLifeThreatening: false,
-          causedHospitalization: false,
-          causedDisability: false,
-          congenitalAnomaly: false,
-          otherMedicallyImportant: false,
-        },
-      },
-      dechallenge: 'Positive (improved after stopping)',
-      rechallenge: 'Not Rechallenged',
-      validation: {
-        isValidICSR: true,
-        completenessScore: 94,
-        qualityIndex: 90,
-        issues: [],
-        regulatoryCompliance: 'ICH E2B(R3) Conforming',
-      },
-      causality: {
-        naranjoScore: 6,
-        naranjoCategory: 'Probable',
-        whoUmcCategory: 'Probable / Likely',
-        questionsBreakdown: [
-          { question: 'Are there previous conclusive reports on this reaction?', score: 1, rationale: 'Known documented reaction pattern' }
-        ],
-      },
-    };
-
-    setCases((prev) => [newCase, ...prev]);
-  };
-
   return (
     <div className="min-h-screen bg-[var(--md-sys-color-background)] text-[var(--md-sys-color-on-background)] flex flex-col font-sans transition-colors">
       {/* Material 3 Top App Bar */}
@@ -123,7 +59,7 @@ export function App() {
         )}
 
         {activeTab === 'report-reaction' && (
-          <ReportReactionView onReportSubmitted={handleReportSubmitted} />
+          <ReportReactionView />
         )}
 
         {activeTab === 'safety-records' && (
@@ -138,9 +74,9 @@ export function App() {
       {/* Minimal Footer */}
       <footer className="w-full border-t border-[var(--md-sys-color-outline-variant)]/40 py-6 text-xs text-[var(--md-sys-color-on-surface-variant)] transition-colors">
         <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>APIP — Agentic Pharma Intelligence Platform • Phase 1 Material 3 Foundation</span>
+          <span>APIP — Agentic Pharma Co-intelligence Platform • Material 3 Design Demo</span>
           <span className="text-[11px] text-[var(--md-sys-color-on-surface-variant)]/80">
-            Adhering to ICH E2B(R3) pharmacovigilance data standards & GVP guidelines
+            Design demonstration only; no regulatory conformance verified.
           </span>
         </div>
       </footer>

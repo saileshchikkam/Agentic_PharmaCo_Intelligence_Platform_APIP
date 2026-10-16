@@ -30,11 +30,11 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme }) =
                 APIP
               </span>
               <span className="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-medium">
-                Healthcare Decision Support
+                Material 3 design demo
               </span>
             </div>
             <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)] text-xs hidden sm:block">
-              Agentic Pharma Intelligence Platform
+              Agentic Pharma Co-intelligence Platform
             </span>
           </div>
         </div>
@@ -48,7 +48,7 @@ export const TopAppBar: React.FC<TopAppBarProps> = ({ isDark, onToggleTheme }) =
             <span className="material-symbols-outlined text-sm text-[var(--md-sys-color-primary)]">
               shield
             </span>
-            <span>Non-diagnostic triage support</span>
+            <span>Not for clinical use</span>
           </div>
 
           <md-icon-button

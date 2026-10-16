@@ -4,6 +4,14 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Fictional ADR draft prototype — 2026-10-17
+
+- Replaced the misleading simulated report submission with a bilingual local draft flow using the existing Material Web wrappers.
+- Preserved reporter-entered medicine, dose, reaction, and timing statements in a versioned browser-local draft; omitted optional values remain unknown.
+- Kept the prototype separate from mock professional records and explicitly limited it to fictional evaluation.
+- Corrected the displayed APIP expansion to Agentic Pharma Co-intelligence Platform.
+- The draft is not authenticated, user-isolated, server-persisted, reviewed, or submitted; lint/build commands were attempted but could not start because Bun and installed dependencies were unavailable.
+
 ### Free-tier medical-model availability — 2026-10-17
 
 - Recorded Groq free-tier evaluation as approved direction and distinguished its general models from medical specialists.

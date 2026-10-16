@@ -9,6 +9,8 @@ export interface M3CardProps {
   className?: string;
   onClick?: () => void;
   interactive?: boolean;
+  role?: React.AriaRole;
+  ariaLabelledBy?: string;
 }
 
 /**
@@ -30,6 +32,8 @@ export const M3Card: React.FC<M3CardProps> = ({
   className = '',
   onClick,
   interactive = false,
+  role,
+  ariaLabelledBy,
 }) => {
   const isClickable = interactive || !!onClick;
 
@@ -57,6 +61,8 @@ export const M3Card: React.FC<M3CardProps> = ({
   return (
     <div
       id={id}
+      role={role}
+      aria-labelledby={ariaLabelledBy}
       onClick={onClick}
       className={`rounded-2xl p-5 text-[var(--md-sys-color-on-surface)] transition-all ${variantStyles} ${interactiveStyles} ${className}`}
     >

@@ -1,6 +1,6 @@
 # ADR reporting
 
-**Status:** core confirmed requirement; real persistent workflow not implemented. The existing demo must not be mistaken for patient reporting.
+**Status:** core confirmed requirement. A small English/Telugu fictional draft prototype now saves one version in browser storage. It is not the real patient-reporting workflow: there is no account, server persistence, user isolation, official form, professional review, or submission.
 
 ## Responsibility
 
@@ -15,6 +15,8 @@ Make it easy to describe a suspected medicine-related problem while preserving a
 - Show proposed structured fields for correction/confirmation with their source.
 - Save/resume drafts; confirm a version; generate a report; link professional clarification and follow-up versions.
 - Use idempotent requests and review potential duplicates without silently merging different people.
+
+The current prototype at `ReportReactionView` is limited to fictional evaluation. Reporter statements are labelled as reporter-originated, optional blank values remain unknown, and only the report narrative is required. Browser storage is a temporary engineering step; never enter real patient information into it.
 
 Current care urgency, symptom intensity, regulatory seriousness, and causality are separate fields/concepts. Reviewed urgent guidance can interrupt intake.
 

@@ -11,7 +11,7 @@ const TABS: { id: NavTabId; label: string; icon: string }[] = [
   { id: 'domain-components', label: 'Domain Components', icon: 'medical_services' },
   { id: 'core-components', label: 'Core Components', icon: 'widgets' },
   { id: 'patient-health', label: 'Patient Health', icon: 'person' },
-  { id: 'report-reaction', label: 'Report a Reaction', icon: 'medication' },
+  { id: 'report-reaction', label: 'ADR Draft', icon: 'medication' },
   { id: 'safety-records', label: 'Safety Records', icon: 'clinical_notes' },
   { id: 'design-foundation', label: 'Design Tokens', icon: 'palette' },
 ];

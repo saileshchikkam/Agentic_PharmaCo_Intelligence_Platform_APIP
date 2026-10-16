@@ -2,7 +2,7 @@
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
-**Current status:** this repository contains a Material Design 3 demonstration and experimental backend code. It is a design and engineering starting point, not a clinically validated or production-ready medical application. Product implementation is planned in [the milestone roadmap](docs/roadmap.md).
+**Current status:** this repository contains a Material Design 3 demonstration, experimental backend code, and a browser-local fictional ADR draft prototype. It is a design and engineering starting point, not a clinically validated or production-ready medical application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
 
 ## The product
 
@@ -39,6 +39,8 @@ bun run dev
 ```
 
 The server is configured for port `3000`. These commands have not yet been validated in a clean environment; see [development setup](docs/development.md) before troubleshooting or deployment. The optional AI key is server-side, and the current startup script does not automatically load `.env`.
+
+The **ADR Draft** view is a fictional evaluation prototype. It saves one draft to the current browser only and does not submit a report. Do not enter real patient details; authenticated server storage and user isolation are not implemented.
 
 ## Design direction
 

@@ -1,11 +1,13 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-16. Application baseline: `5400696`. Documentation cleanup changes no application code.
+Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current code now includes a browser-local fictional draft prototype; authenticated product storage is still unimplemented.
 
 ## Current repository
 
 - [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) selects the Material showcase, patient, reporting, records, and token views. The initial tab is the domain-component showcase.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
+- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) now presents an English/Telugu fictional ADR draft prototype. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
+- [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates the small versioned browser-storage shape; empty optional statements remain `null`.
 - [src/design-system](../src/design-system) registers Material Web and defines tokens; [src/index.css](../src/index.css) provides styles.
 - [src/components](../src/components) also contains an earlier UI generation and experimental integrations. Their presence does not mean they are mounted by the current app.
 - [src/mockData.ts](../src/mockData.ts) and [src/types.ts](../src/types.ts) provide demonstration data and case types.
@@ -29,7 +31,8 @@ These observations are not validated clinical capabilities or a committed produc
 
 ## Baseline limitations
 
-- The active reporting demo constructs a fixed example case rather than a persistent patient-report workflow.
+- The new ADR draft prototype is browser-local and explicitly fictional. It is not authenticated, isolated between users, encrypted by APIP, or suitable for real patient data.
+- The earlier demo's mock cases remain separate from the ADR draft and do not receive it.
 - Cases use mock/browser state, not a server-backed database.
 - Authentication, permissioned review, durable audit, and official integrations are not established.
 - Patient assistance, scores, evidence text, reviewer identities, and compliance labels include illustrative behavior.
