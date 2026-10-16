@@ -17,7 +17,8 @@
 - Keep keys server-side and use fictional cases by default. Project permission does not establish patient-data rights, clinical validation, or authority to share records.
 - New reports must not automatically retrain models or become trusted medical evidence.
 - The initial test scope is English and Telugu with fictional cases. Evaluate Telugu script, transliteration, and mixed-language input separately; bilingual clinical wording needs qualified review.
-- The user gave a budget of `500`; planning assumes INR 500 monthly pending currency confirmation. Prefer local development and bounded API evaluation; do not treat this as approval to purchase hosting or send real records to a provider.
+- The user confirmed an INR 500 monthly planning ceiling. Use installed local models for development and optional bounded APIs; deployment should support a selected hosted provider. Keep weights and credentials outside Git; see [model catalogue](models/README.md). Do not infer that free quotas fund reliable public operation.
+- Sailesh identifies Mahesh P as the pharmacy reviewer, with limited availability. Codex can perform engineering/evidence checks and prepare review cases, but must label these as AI-assisted checks and cannot supply human clinical sign-off. Obtain the appropriate clinical review before enabling clinical guidance; limited reviewer availability does not prevent fictional-case software work.
 
 ## Working practice
 

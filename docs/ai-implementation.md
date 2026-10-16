@@ -1,6 +1,6 @@
 # AI implementation guide
 
-**Status: proposed engineering approach, checked against official references on 2026-10-16.** No model has been downloaded, trained, benchmarked, or selected for clinical use by this planning update. The [roadmap](roadmap.md) owns sequence and tasks; the [layer guides](layers/README.md) own product requirements; [research and validation](research-and-validation.md) owns evidence and release gates.
+**Status: proposed engineering approach, checked against official references on 2026-10-16.** The installed-model inventory and a four-case local smoke check are recorded in the [model catalogue](../models/README.md); no model was downloaded, trained, or clinically validated. This is not a representative model benchmark. The [roadmap](roadmap.md) owns sequence and tasks; the [layer guides](layers/README.md) own product requirements; [research and validation](research-and-validation.md) owns evidence and release gates.
 
 ## What each technology does
 
@@ -13,17 +13,23 @@
 
 The user does not need to master these libraries before development starts. Each implementation session should explain the input, processing, output, failure behavior, and verification of the selected small feature. Engineering work can be handled in Codex; product decisions and qualified clinical review remain human responsibilities.
 
+Sailesh identifies Mahesh P as the pharmacy reviewer, with limited availability. Codex can check code, reconcile source evidence, flag inconsistencies, and prepare a concise packet of clinical wording/labels/errors for targeted review. These are AI-assisted checks, not human clinical sign-off. Continue fictional-case development while arranging review; do not enable unreviewed clinical guidance merely because an AI critique or a second model agrees.
+
 ## Local development, local inference, and hosted APIs
 
 These are separate choices. An app running on a laptop can call an online model API; a deployed app can use a privately hosted model. Changing the model's location does not remove the need to test its outputs.
 
 ### Practical local starting point
 
-The hardware check found approximately 16 GB system memory and 4 GB dedicated GPU memory. Ollama is installed, but its service was not running during the check; no installed model inventory or inference speed was established. Python and Node are available. Do not infer a working local AI environment from installed executables.
+The hardware check found approximately 16 GB system memory and 4 GB dedicated GPU memory. A subsequent permitted local-service query found five installed Ollama models: `llama3.2:latest`, `qwen3.5:2b`, `qwen3:4b`, `phi4-mini:latest`, and `qwen3:latest`. The last is 8.2B. See [exact observed metadata](../models/local/models.json); do not infer parameter counts from a mutable tag alone.
 
-Use one small quantized instruction model initially, with bounded input/output and a short context, rather than loading several large models concurrently. A 4-bit **Qwen3-4B-Instruct-2507** artifact is a candidate; select a compatible, traceable artifact and record its exact tag/digest, quantization, licence, and runtime. GPU/system-memory use and latency must be measured with the app running; CPU offload may be necessary. A smaller model or manual/fixture mode is the fallback when this machine is too slow. The advertised maximum context length is not an appropriate laptop default.
+Use one small quantized instruction model initially, with bounded input/output and a short context. Compare the already installed **qwen3.5:2b (Q8_0)** and **qwen3:4b (Q4_K_M)** before adding downloads. The previously suggested Qwen3-4B-Instruct-2507 is a different artifact, not an alternative name for the installed `qwen3:4b`. GPU/system-memory use and latency still need measurement with the actual app; CPU offload may be necessary. Manual/fixture mode remains available.
 
 Qwen's official card describes this as a 4B instruction model with non-thinking output. It is a general model, not validated medical software. Telugu quality and extraction reliability require APIP-specific evaluation. [Qwen model card](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507)
+
+The small diagnostic used two fictional copy/extraction fixtures per model. `qwen3.5:2b` passed both; `qwen3:4b` passed English but selected the wrong medicine field in Telugu. The [saved report](../models/evaluations/2026-10-16-local-smoke.json) includes exact model digests, prompts, settings, outputs, and timings. Preserve the failure. These four observations establish basic runtime behavior, not medical quality, bilingual competence, a stable latency estimate, or an overall winner.
+
+The [catalogue's medical candidates](../models/README.md#additional-research-models) include MedGemma 1.5 4B and optional BioMistral-7B. Their domain training does not remove their documented limitations or supply human clinical review. No additional model is installed by this change.
 
 Ollama supports schema-constrained local output, but application validation and factual confirmation are still necessary. Record model/runtime versions rather than assuming similarly named artifacts are equivalent. [Ollama structured outputs](https://docs.ollama.com/capabilities/structured-outputs)
 
@@ -32,6 +38,16 @@ Ollama supports schema-constrained local output, but application validation and 
 The repository already has a Google GenAI dependency, so the first hosted comparison can use **Gemini 3.8 Flash (`gemini-3.8-flash`)**, currently listed as stable in Google's catalogue. Its structured-output documentation supports JSON Schema. This is a candidate to benchmark, not a claim that the existing endpoint succeeds or that a provider is clinically suitable. Confirm account access, current pricing/limits, SDK compatibility, and permitted processing before use. [Models](https://ai.google.dev/gemini-api/docs/models), [structured outputs](https://ai.google.dev/gemini-api/docs/structured-output)
 
 Begin with a fast schema-capable instruction model. Consider a larger reasoning model only when a measured failure justifies the extra cost/latency. A vision-capable model or OCR is optional for medicine images; recognized names/strengths still need confirmation. No model may invent an absent drug, dose, date, or citation.
+
+The [API catalogue](../models/api/providers.json) records additional options with every provider disabled until integrated and account-checked:
+
+- **Groq:** official documentation lists a rate-limited free plan. Its account limits and schema support for the chosen model need verification. It is distinct from xAI's Grok. [Limits](https://console.groq.com/docs/rate-limits)
+- **Hugging Face Inference Providers:** the free-user allowance is currently USD 0.10 per month, subject to change. An open-weight model being downloadable does not make hosted inference unlimited or ensure that exact model has an available provider. [Pricing](https://huggingface.co/docs/inference-providers/pricing)
+- **Gemini:** the current price page includes model-specific free/paid tiers; confirm eligibility, quotas, and data terms for the selected account. [Pricing](https://ai.google.dev/gemini-api/docs/pricing)
+- **OpenAI:** an optional metered comparison; do not assume free API credits or that a consumer subscription provides application API entitlement. Select a model from current documented capabilities/prices when implementing this adapter. [Official pricing](https://developers.openai.com/api/docs/pricing)
+- **xAI/Grok:** another optional provider; no free production entitlement was verified. Consumer access and API billing must be checked separately. [API billing](https://docs.x.ai/developers/faq/billing)
+
+Prefer one free-quota candidate and one budgeted hosted comparison after the installed local baseline, rather than paying to compare every provider immediately. Do not rotate accounts or evade quotas. A hosted web server cannot use the developer laptop's `localhost` Ollama address; deployment needs its own approved provider or private inference service. Keep provider keys on the server.
 
 ### One contract across providers
 
@@ -43,7 +59,7 @@ Run a small hosted compatibility test during ADR implementation. Repeat it on th
 
 ### Budget and data handling
 
-The user gave a budget of `500`; assume INR 500 monthly for planning until currency is confirmed. Keep the app, database, embeddings, ML experiments, and most tests local initially. This avoids API/hosting charges for those components, but uses existing hardware, electricity, storage, and download bandwidth. Reserve the budget for small measured API comparisons; it is not an estimate that public production hosting will fit.
+The user confirmed **INR 500 monthly**. Keep the app, database, embeddings, ML experiments, and most tests local initially. This avoids API/hosting charges for those components, but uses existing hardware, electricity, storage, and download bandwidth. Reserve the budget for small measured API comparisons; it is not an estimate that public production hosting will fit.
 
 Before enabling paid calls, estimate representative per-case cost from current provider rates, cap input/output and retries, limit concurrency and test volume, and track usage. Application cutoffs and provider quotas are needed; billing alerts alone are not a guaranteed spending cap. Do not buy hosting or download large models as part of a documentation task.
 
@@ -62,6 +78,8 @@ Decide what action each output can support and which errors matter most. A clini
 ### 2. Obtain lawful, relevant examples
 
 Register dataset origin, version, licence, permitted purpose, population, language, personal-data status, and label creation/review. Dean consultation does not itself provide a labelled dataset. Existing ADR reports can support reporting research but do not automatically provide valid symptom-urgency labels.
+
+The [candidate data register](research-and-validation.md#candidate-data-and-evidence-sources) separates extraction, evidence retrieval, analytics, medical QA, and language evaluation. No suitable Telugu clinical urgency training set has yet been verified for APIP. Running a pretrained local LLM is inference; fine-tuning it, training a new classifier, and adding a RAG index are distinct operations. AI-generated annotations may be proposals for review, not independent clinical ground truth.
 
 Use fictional examples to develop the loader and UI. Model-generated labels and translated copies are not independent clinical ground truth. Do not train only on a small synthetic set and describe its scores as clinical performance. Choose the necessary data volume after examining class/language coverage and the uncertainty of evaluation; there is no universal number that guarantees a safe model.
 

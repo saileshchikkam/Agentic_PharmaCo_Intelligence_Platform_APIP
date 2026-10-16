@@ -6,7 +6,7 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 Documentation and repository connection have been established. Application code remains the Material 3 demonstration and experimental server at baseline `5400696`. A tested runtime, persistent product workflow, and clinical validation are not established.
 
-The user selected **English and Telugu, using fictional cases**. The proposed first delivery is a restricted evaluation pilot. The budget reply was `500`; this plan assumes **INR 500 per month**, with currency still to be confirmed. Keep development local and make no paid hosting/model commitment from that assumption. Final population, named clinical reviewer, review scope, data rights, and team availability remain open.
+The user selected **English and Telugu, using fictional cases** and confirmed a budget of **INR 500 per month**. The proposed first delivery is a restricted evaluation pilot. Develop with installed local models and optionally evaluate hosted providers; API-based deployment is the user's preferred direction, subject to measured cost and readiness. Mahesh P is the pharmacy reviewer identified by Sailesh, with limited availability. Final population, agreed review scope/availability, data rights, and team hours remain open.
 
 ## How to follow this plan
 
@@ -31,17 +31,17 @@ The following windows are an **aggressive first-month planning example**, assumi
 - **Codex:** implement the selected task, explain the concepts as they appear, run relevant checks, document actual results, and commit/sync completed work under the established workflow. Clinical labels, permissions, and acceptance cannot be invented by code.
 - **Mitravind, proposed:** review backend/data/access decisions and pair on deployment/recovery. Agree ownership with him; no work has been assigned externally.
 - **Jayanth, proposed:** clarify MedAssist conversations and collect reviewed in-scope/out-of-scope examples.
-- **Mahesh P, proposed:** support ADR workflow examples and coordination with the pharmacy team. No clinical qualifications or reviewer role are assumed.
-- **Pharmacy reviewer, to nominate:** confirm report fields/template, care-navigation boundaries, urgency labels, source suitability, and errors. A Telugu-speaking reviewer is needed for clinically meaningful Telugu wording and examples.
+- **Mahesh P:** pharmacy reviewer as identified by Sailesh; proposed targeted checks of report mapping, example labels, consequential errors, and final clinical wording. Confirm availability and scope; do not assume continuous access or that every question is within one reviewer's expertise.
+- **Clinical review:** Codex prepares evidence/checks and a concise review packet. Mahesh or another appropriately qualified reviewer confirms clinical content within their agreed scope before it is enabled. Qualified Telugu review is needed for clinically meaningful Telugu wording/examples. AI-assisted checks are not human sign-off.
 
-**Needed first:** nominate an available reviewer through the dean; confirm intended population and review schedule; bring the current blank reporting form or official link and the institution's receiving workflow; describe existing datasets by name/licence/labels without sending patient records; confirm hours/team availability and the budget currency. Missing data does not prevent fictional-case application development.
+**Needed first:** confirm intended population and when Mahesh can review a focused packet; bring the current blank reporting form or official link and the institution's receiving workflow; describe existing datasets by name/licence/labels without sending patient records; confirm hours/team availability. Missing data or reviewer availability does not prevent fictional-case application development. Keep unreviewed clinical inference disabled.
 
 **Needed later:** create provider/hosting accounts only when a selected integration needs them. Put keys in the agreed secret store or local environment, never in chat or Git. Before any real-data pilot, establish its separate permissions, reviewed intended use, retention, hosting, and data-processing arrangements.
 
 ## First working day
 
 1. Record the bilingual fictional-case scope, open decisions, demo boundary, and selected first implementation task.
-2. Confirm the reviewer contact/availability through the team; gather one blank form and outline the actual handoff route.
+2. Check Mahesh's availability for targeted review through the team; gather one blank form and outline the actual handoff route. Continue fictional software work while scheduling review.
 3. Prepare 10 fictional reporting stories covering straightforward, missing/contradictory, multiple-medicine, and follow-up cases across English, Telugu script, and mixed/transliterated input. These are software examples, not clinical training data.
 4. Verify the runtime/package manager against the existing lockfile, install reproducibly, and run the current frontend/server checks and build. Record failures before fixing them; preserve the Material showcase.
 5. Agree the first report fields and origin/confirmation/unknown states. Specify the smallest vertical slice: enter a fictional report, save a draft, restart/reload, and retrieve those exact fields with user isolation.
@@ -52,14 +52,14 @@ Steps that change the application belong to the selected implementation task. Th
 ## M0 — Scope, reviewers, and data readiness
 
 - [ ] Confirm pilot audience, institution, language, intended use, team responsibilities, availability, and budget.
-- [ ] Nominate a pharmacy reviewer and clarify institutional permission.
+- [ ] Confirm Mahesh's review scope/availability and clarify institutional permission.
 - [ ] Review official consumer/professional form mapping and the actual receiving route.
 - [ ] Register dataset rights, labels, population coverage, and evidence-source permissions.
 - [ ] Decide the MedAssist ML experiment's task and whether suitable evaluation data exists.
 
 **Build/review session:** map the direct reporting journey and optional MedAssist entry; define the fictional-case pilot and English/Telugu acceptance examples. Review sources and datasets before copying them into the project.
 
-**From the user/team:** reviewer nomination, intended population, blank form/workflow, available dataset descriptions, team hours, and confirmed spending ceiling. Dean consultation is already recorded; clarify its scope rather than requesting the same permission again.
+**From the user/team:** intended population, blank form/workflow, dataset descriptions, team hours, and targeted reviewer availability. Dean consultation, Mahesh's reported role, and the spending ceiling are recorded; clarify scope rather than requesting the same decisions again. See the [dataset shortlist](research-and-validation.md#candidate-data-and-evidence-sources) and [model catalogue](../models/README.md).
 
 **Acceptance:** written scope, mapped forms, source/data register, fictional reporting cases, and explicit clinical/data boundaries. Missing clinical review limits work to synthetic evaluation.
 

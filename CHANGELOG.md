@@ -4,6 +4,13 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Model and dataset research — 2026-10-16
+
+- Inventoried five installed Ollama models and added separate local/API catalogues without changing application model routing.
+- Added a dependency-free local diagnostic and saved four fictional English/Telugu extraction observations, including one incorrect Telugu medicine field.
+- Recorded model/provider candidates, free-tier limitations, dataset rights/task suitability, and a likely MALADE reference.
+- Confirmed the INR 500 monthly planning budget and recorded Mahesh's reported pharmacy-reviewer role with limited availability; AI checks remain distinct from human clinical sign-off.
+
 ### Detailed implementation planning — 2026-10-16
 
 - Expanded the milestone roadmap with indicative working-day windows, first-day steps, proposed responsibilities, inputs needed, review gates, and fallback scope.

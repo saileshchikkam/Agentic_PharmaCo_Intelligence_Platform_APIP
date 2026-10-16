@@ -1,0 +1,21 @@
+# Credentials and private runtime configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Weights, downloaded caches, training checkpoints, and raw data stay out of Git.
+weights/
+cache/
+checkpoints/
+artifacts/
+datasets/
+*.gguf
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.bin
+__pycache__/

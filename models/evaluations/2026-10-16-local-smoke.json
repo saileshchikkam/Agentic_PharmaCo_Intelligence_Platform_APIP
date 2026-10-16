@@ -1,0 +1,147 @@
+{
+  "startedAt": "2026-10-16T16:10:22.414Z",
+  "status": "observed-fixture-failures",
+  "purpose": "Two fictional extraction/copy fixtures per model; not clinical validation or representative benchmarking.",
+  "runtime": "ollama-local-only",
+  "endpoint": "http://127.0.0.1:11434",
+  "nodeVersion": "v24.19.0",
+  "generationOptions": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 2048,
+    "num_predict": 160
+  },
+  "schema": {
+    "type": "object",
+    "properties": {
+      "medicine": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "symptom": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "dose": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "medicine",
+      "symptom",
+      "dose"
+    ],
+    "additionalProperties": false
+  },
+  "fixtures": [
+    {
+      "id": "fictional-copy-en",
+      "language": "English",
+      "text": "Fictional software fixture. Medicine: TESTMED-A. Symptom: test symptom. Dose is not known.",
+      "expected": {
+        "medicine": "TESTMED-A",
+        "symptom": "test symptom",
+        "dose": null
+      }
+    },
+    {
+      "id": "fictional-copy-te",
+      "language": "Telugu-script",
+      "text": "కల్పిత సాఫ్ట్‌వేర్ పరీక్ష. మందు: TESTMED-A. లక్షణం: పరీక్ష లక్షణం. మోతాదు తెలియదు.",
+      "expected": {
+        "medicine": "TESTMED-A",
+        "symptom": "పరీక్ష లక్షణం",
+        "dose": null
+      }
+    }
+  ],
+  "runs": [
+    {
+      "model": "qwen3.5:2b",
+      "digest": "324d162be6ca5629ae4517c8710434d0bd2d665bc94dbad46e9af8fbf8a2f0df",
+      "catalogueDigestMatches": true,
+      "fixtures": [
+        {
+          "fixture": "fictional-copy-en",
+          "passed": true,
+          "output": "{\n  \"medicine\": \"TESTMED-A\",\n  \"symptom\": \"test symptom\",\n  \"dose\": null\n}",
+          "fieldChecks": {
+            "medicine": true,
+            "symptom": true,
+            "dose": true
+          },
+          "noExtraFields": true,
+          "serverTotalSeconds": 25.5395299,
+          "loadSeconds": 23.4198953,
+          "outputTokens": 30,
+          "doneReason": "stop",
+          "wallSeconds": 25.558
+        },
+        {
+          "fixture": "fictional-copy-te",
+          "passed": true,
+          "output": "{\n  \"medicine\": \"TESTMED-A\",\n  \"symptom\": \"పరీక్ష లక్షణం\",\n  \"dose\": null\n}",
+          "fieldChecks": {
+            "medicine": true,
+            "symptom": true,
+            "dose": true
+          },
+          "noExtraFields": true,
+          "serverTotalSeconds": 2.9324912,
+          "loadSeconds": 0.0488699,
+          "outputTokens": 36,
+          "doneReason": "stop",
+          "wallSeconds": 2.959
+        }
+      ]
+    },
+    {
+      "model": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "catalogueDigestMatches": true,
+      "fixtures": [
+        {
+          "fixture": "fictional-copy-en",
+          "passed": true,
+          "output": "{\n  \"medicine\": \"TESTMED-A\",\n  \"symptom\": \"test symptom\",\n  \"dose\": null\n}",
+          "fieldChecks": {
+            "medicine": true,
+            "symptom": true,
+            "dose": true
+          },
+          "noExtraFields": true,
+          "serverTotalSeconds": 13.5707679,
+          "loadSeconds": 10.7179843,
+          "outputTokens": 28,
+          "doneReason": "stop",
+          "wallSeconds": 13.591
+        },
+        {
+          "fixture": "fictional-copy-te",
+          "passed": false,
+          "output": "{\n  \"medicine\": \"కల్పిత సాఫ్ట్‌వేర్ పరీక్ష\",\n  \"symptom\": \"పరీక్ష లక్షణం\",\n  \"dose\": null\n}",
+          "fieldChecks": {
+            "medicine": false,
+            "symptom": true,
+            "dose": true
+          },
+          "noExtraFields": true,
+          "serverTotalSeconds": 6.5521761,
+          "loadSeconds": 0.1284472,
+          "outputTokens": 82,
+          "doneReason": "stop",
+          "wallSeconds": 6.609
+        }
+      ]
+    }
+  ],
+  "ollamaVersion": "0.40.3",
+  "finishedAt": "2026-10-16T16:11:11.560Z"
+}

@@ -1,6 +1,6 @@
 # Research, data, and validation
 
-No formal literature review, clinical validation, licensed dataset access, or completed evaluation is established by this documentation. The pharmacy dean's reported permission is institutional context; its exact scope and named reviewers remain open.
+This register records preliminary source research, not a systematic literature review, clinical validation, or acquired dataset access. Sailesh identifies Mahesh P as the pharmacy reviewer with limited availability; agreed scope and clinical/bilingual review are still needed. The pharmacy dean's reported permission remains institutional context, not a blanket data/study permission. A tiny fictional model smoke check is recorded separately in [models](../models/README.md); it is not clinical evaluation.
 
 ## Questions and hypothesis
 
@@ -22,6 +22,39 @@ Before using a source/dataset, record its owner, URL/version/date, licence/permi
 - New reports do not automatically become training data or approved evidence.
 - Check terminology licensing, including MedDRA/WHODrug, before treating a demo field as an integration.
 - Any public dataset release needs separate permission and re-identification-risk review.
+
+## Candidate data and evidence sources
+
+**Research checked 2026-10-16; no dataset was downloaded or approved for ingestion by this pass.** Sources serve different tasks. Do not combine them into a single supposed clinical training set. Before adoption, complete the governance fields above, select a snapshot/version, inspect quality and rights, and document the actual ingestion.
+
+### First evidence and reporting research
+
+- **openFDA drug labels — RAG candidate.** The official API provides manufacturer/distributor Structured Product Labeling with sections such as adverse reactions. Use a small selected, versioned corpus and preserve exact product/ingredient/source mapping. US labels need relevance review for Indian products; they are not a complete India-specific medicine catalogue. FDA notes that content is reformatted and not verified by FDA and may not match currently distributed or approved labelling. API access is not clinical endorsement or proof that all source text is freely redistributable. [Official overview](https://open.fda.gov/apis/drug/label/)
+- **openFDA drug-event reports — descriptive analytics research.** Useful for studying report structure, missingness, follow-ups/duplicates, and aggregate queries. Follow source identifiers/version fields and counting rules rather than assuming each row is an independent person. Multi-drug/multi-event reports do not identify a validated causal pair, and counts cannot estimate incidence. They do not provide ground-truth MedAssist urgency labels. Verify snapshot and API/source terms before importing. [Official overview and limitations](https://open.fda.gov/apis/drug/event/)
+- **ADE Corpus V2 — extraction/classification candidate, rights unresolved.** Its card describes English ADE-related sentence classification and drug–event/drug–dose relation annotations, potentially useful for a narrow supervised extraction baseline. The inspected distribution marks its licence **unknown**, with incomplete provenance/licensing fields. Confirm original rights/permission before training or redistribution; public hosting alone is insufficient. Group repeated sentences/related source documents when splitting. [Dataset card](https://huggingface.co/datasets/ade-benchmark-corpus/ade_corpus_v2)
+- **CADECv2 / MultiADE — patient-language extraction candidate.** The authors' benchmark is relevant to extracting ADEs across genres and includes annotated forum language. The publisher's page required JavaScript in this research tool, so exact downloadable artifact/version/licence was not independently established here. Keep it pending verification, not an approved training corpus. [CSIRO collection](https://data.csiro.au/collection/csiro:62387), [authors' MultiADE paper](https://arxiv.org/abs/2405.18015)
+
+### Supporting QA and bilingual evaluation
+
+- **MedQuAD — reference retrieval/QA research.** The authors supply medical QA derived from NIH sites and state CC BY 4.0. Their README explicitly removes answers from three MedlinePlus subsets for copyright reasons. Do not recover/rehost those removed answers merely because URLs remain. Check currency and source permissions for the subset used; these are reference QA, not patient triage labels. [Author repository and licence notes](https://github.com/abachaa/MedQuAD)
+- **MedMCQA — optional medical knowledge benchmark.** English medical entrance-exam questions can compare a limited QA capability; the author repository lists MIT licensing. Verify rights for the actual selected artifact and preserve authors' split protocol. Exam performance is not evidence of safe conversations, Telugu capability, ADR extraction, or urgency prediction. Keep public benchmark contamination in mind when interpreting pretrained-model scores. [Author repository](https://github.com/medmcqa/medmcqa)
+- **AI4Bharat IN22-Gen — optional language evaluation.** The card lists CC BY 4.0, includes Telugu within its Indic-language benchmark, and requires acceptance/contact sharing for file access. No conditions were accepted and no account details shared here. Use it for general translation/language checks, not clinical ground truth; maintain a separate clinically reviewed APIP Telugu/mixed-language set. [Publisher card](https://huggingface.co/datasets/ai4bharat/IN22-Gen)
+
+### Deferred or missing
+
+- **MIMIC-IV:** consider only for a later justified research task after credentialing, required training, and the data use agreement. Do not send its restricted data through general hosted LLM APIs; PhysioNet has explicit online-service restrictions. This is unnecessary for the initial fictional reporting workflow. [Access requirements](https://mimic.mit.edu/docs/faq/how-to-get-access.html), [online-service policy](https://physionet.org/news/post/gpt-responsible-use/)
+- **SIDER:** potentially relevant drug–effect reference, but its download page returned an access challenge; licence/version were not verified during this pass. Do not import or describe it as unrestricted. [Publisher](https://sideeffects.embl.de/)
+- **MedAssist training:** no task-matched, clinically labelled English/Telugu urgency dataset has yet been verified for APIP. Agree the target and label rubric with appropriate reviewers, then assess permitted data. Neither medical MCQs nor automatically translated/LLM-labelled ADR sentences close this gap.
+
+**Recommended order:** build fictional reporting fixtures; assess a small label/reference corpus for RAG; resolve annotated extraction-corpus rights; use a small event-report snapshot for analytics research only when its ingestion is justified. Keep QA/language benchmarks separate. Custom urgency training waits for task-matched data and reviewed labels, while application work continues.
+
+## MALADE reference candidate
+
+Sailesh identifies MALADE as inspiration and plans to share the exact paper/repository. A likely match is [the authors' repository](https://github.com/jihyechoi77/malade) and [MLHC 2024 paper](https://proceedings.mlr.press/v252/choi24a.html). The abstract and repository README were inspected; this was not a full code audit or paper reproduction.
+
+MALADE studies drug/category–outcome associations using drug-label evidence, LLM agents, and RAG. Its README uses Langroid, OpenFDA, and an OMOP association reference; MIMIC-IV is optional for selecting representative drugs. Its authors' results do not establish APIP performance.
+
+Use it to study evidence flow, critic/review stages, source grounding, and experimental evaluation. APIP also needs patient intake, bilingual confirmation, PDF/version persistence, access controls, and independently evaluated MedAssist. Do not describe MALADE as a complete implementation of that broader product. Exact user reference confirmation, code/data licensing, dependency review, resource costs, and a bounded reproduction remain open; no code, prompts, weights, or data were copied or connected here.
 
 ## Clinical and analytical boundaries
 

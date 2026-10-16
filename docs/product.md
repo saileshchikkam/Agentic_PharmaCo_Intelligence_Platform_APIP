@@ -13,9 +13,9 @@ Wearable hardware and an initial SaaS direction were explored and dropped. The A
 - **Sailesh:** product vision and generative-AI experience.
 - **Jayanth:** originated MedAssist AI.
 - **Mitravind:** backend engineer.
-- **Mahesh P:** co-originator of the initial ADR concept.
+- **Mahesh P:** co-originator of the initial ADR concept and pharmacy reviewer, as identified by Sailesh. Routine availability and agreed review scope are not established.
 
-Sailesh reports consultation with and permission from the college pharmacy dean. Named reviewers and the scope of patient-data, study, and dataset permissions remain to be established. Do not infer clinical qualifications for team members.
+Sailesh reports consultation with and permission from the college pharmacy dean. Mahesh may be available for targeted/final checks; exact availability, review scope, and patient-data/study/dataset permissions remain to be established. Codex can prepare and check engineering/evidence work but does not provide human clinical validation. No additional qualifications are inferred for team members.
 
 ## Two connected product layers
 

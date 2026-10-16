@@ -16,6 +16,8 @@ The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS
 
 For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English/Telugu RAG, and agent implementation without creating another task queue.
 
+The [model catalogue](../models/README.md) records actual local inventory and diagnostic runs separately from provider candidates. The [research register](research-and-validation.md#candidate-data-and-evidence-sources) records dataset suitability, rights gaps, and the preliminary MALADE reference; a shortlist is not acquired data or an implemented integration.
+
 ## One home for each concern
 
 Requirements live in the product/layer guides. The roadmap tracks work, not duplicated specifications. Architecture separates implemented from proposed systems. Decisions explain rationale. Research records evidence. Dated history records actual events; the changelog supplies the short summary.
