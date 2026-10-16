@@ -1,6 +1,6 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current code now includes a browser-local fictional draft prototype; authenticated product storage is still unimplemented.
+Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current code now includes a browser-local fictional draft prototype. Bun frozen installation, frontend lint, and production build passed in this checkout; app runtime and authenticated product storage remain unverified/unimplemented.
 
 ## Current repository
 

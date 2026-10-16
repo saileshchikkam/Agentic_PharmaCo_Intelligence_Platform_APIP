@@ -1,6 +1,6 @@
 # Development setup and verification
 
-This page describes the existing demonstration. The documentation update did not install dependencies, run the application, or establish a successful build.
+This page describes the existing demonstration and fictional ADR draft. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. The app has not yet been launched in a browser; see the dated [development history](history/2026-10-17.md).
 
 ## Prerequisites and installation
 
@@ -17,7 +17,7 @@ The server listens on port `3000` and binds all interfaces. Use fictional cases;
 
 Do not silently replace the lockfile or add competing lockfiles. Record installation failures and proposed fixes. An npm workflow can be adopted after the package/lockfile policy is selected and checked.
 
-At the 2026-10-17 implementation session, Node.js v24.19.0 was available, Bun was not accessible, and dependencies were not installed. The existing lint/build commands could not run in that environment; see the dated history. Install through the existing Bun lockfile before treating the app as runnable.
+At the 2026-10-17 implementation session, Bun v1.4.3 was installed from the [official Windows instructions](https://bun.sh/docs/installation). `bun install --frozen-lockfile` installed the tracked dependency set without changing `bun.lock`. `bun run lint` and `bun run build` passed in this checkout. The app was not launched and a clean-clone/deployment flow was not validated; see the dated history.
 
 ## Existing scripts
 
@@ -34,7 +34,7 @@ Use the agreed package manager to run scripts. No test script exists. Do not des
 
 - Supply credentials through the server environment or a deliberately configured loader.
 - Startup does not load `.env` automatically; copying the example is insufficient.
-- Never commit populated credentials or expose them in browser variables. The baseline lacks a tracked `.gitignore`; review staged paths explicitly until addressed.
+- Never commit populated credentials or expose them in browser variables. The root `.gitignore` excludes installed dependencies, generated build/coverage output, environment files, and common machine artifacts. Review staged paths explicitly; ignore patterns do not replace secret review.
 - `NODE_ENV=production` selects static serving. `start` does not set it. Production bundling/dependency behavior remains to be verified.
 
 `GET /api/health` indicates process/provider configuration, not model quality, database readiness, or clinical safety.

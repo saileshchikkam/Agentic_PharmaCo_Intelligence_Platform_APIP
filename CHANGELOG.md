@@ -10,7 +10,9 @@ Notable product and developer-facing changes. Entries describe completed work; p
 - Preserved reporter-entered medicine, dose, reaction, and timing statements in a versioned browser-local draft; omitted optional values remain unknown.
 - Kept the prototype separate from mock professional records and explicitly limited it to fictional evaluation.
 - Corrected the displayed APIP expansion to Agentic Pharma Co-intelligence Platform.
-- The draft is not authenticated, user-isolated, server-persisted, reviewed, or submitted; lint/build commands were attempted but could not start because Bun and installed dependencies were unavailable.
+- Marked the shared interface as a design demo and removed unverified clinical/regulatory claims from its header and footer.
+- Added root ignore rules for dependencies, generated output, environment files, and common machine artifacts.
+- The draft is not authenticated, user-isolated, server-persisted, reviewed, or submitted. Frozen dependency installation, frontend lint, and the production build passed; Vite reported a 741 kB JavaScript chunk above its 500 kB advisory threshold.
 
 ### Free-tier medical-model availability — 2026-10-17
 

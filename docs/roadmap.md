@@ -4,7 +4,7 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
-Documentation and repository connection have been established. The Material 3 demonstration remains, and the first English/Telugu fictional ADR draft prototype has been added. It saves one draft in browser-local storage only. A reproducible runtime, authenticated server persistence, user isolation, full reporting workflow, and clinical validation are not established.
+Documentation and repository connection have been established. The Material 3 demonstration remains, and the first English/Telugu fictional ADR draft prototype has been added. It saves one draft in browser-local storage only. The frozen dependency install, frontend lint, and production build pass in this checkout; a clean-clone baseline, authenticated server persistence, user isolation, full reporting workflow, and clinical validation are not established.
 
 The user selected **English and Telugu, using fictional cases** and confirmed a budget of **INR 500 per month**. The proposed first delivery is a restricted evaluation pilot. Develop with installed local models and optionally evaluate hosted providers; API-based deployment is the user's preferred direction, subject to measured cost and readiness. Mahesh P is the pharmacy reviewer identified by Sailesh, with limited availability. Final population, agreed review scope/availability, data rights, and team hours remain open.
 
@@ -65,7 +65,8 @@ Steps that change the application belong to the selected implementation task. Th
 
 ## M1 — Reproducible engineering foundation
 
-- [ ] Verify package manager, runtime, install, frontend/backend checking, and build.
+- [x] Install the tracked dependencies with Bun v1.4.3 in this checkout; frontend lint and production build pass. The build warning and limits are recorded in [dated history](history/2026-10-17.md).
+- [ ] Validate a clean-clone setup and add backend-specific checking; the current `lint` script checks frontend TypeScript only.
 - [ ] Establish CI, environment validation, secret protection, and development/staging separation.
 - [ ] Implement identity, role/object access, database migrations, cases/versions, drafts, and audit records.
 - [ ] Create the actual accessible Material 3 application shell, separate from the showcase.

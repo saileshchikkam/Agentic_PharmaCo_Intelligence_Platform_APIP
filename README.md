@@ -38,7 +38,7 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-The server is configured for port `3000`. These commands have not yet been validated in a clean environment; see [development setup](docs/development.md) before troubleshooting or deployment. The optional AI key is server-side, and the current startup script does not automatically load `.env`.
+The server is configured for port `3000`. In the current checkout, the frozen Bun install, frontend lint, and production build passed on 2026-10-17; a clean-clone setup and deployment remain unverified. See [development setup](docs/development.md). The optional AI key is server-side, and the current startup script does not automatically load `.env`.
 
 The **ADR Draft** view is a fictional evaluation prototype. It saves one draft to the current browser only and does not submit a report. Do not enter real patient details; authenticated server storage and user isolation are not implemented.
 
