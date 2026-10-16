@@ -4,6 +4,14 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Repository automation — 2026-10-16
+
+- Added a task-completion helper that commits explicitly selected files with a required dated history update.
+- Added an installed checkout-local post-commit hook for automatic ordinary pushes to the matching branch of the reviewed origin.
+- Preserved unrelated work and local commits on push failure; destination changes and existing custom hooks require review.
+- Recorded standing user authorization for routine completed-work commits and GitHub sync without repeated confirmation.
+- Verified the workflow with ten integration tests against isolated local Git repositories and remotes.
+
 ### Documentation — 2026-10-16
 
 - Established the canonical product name, vision, connected layers, and four-agent direction.

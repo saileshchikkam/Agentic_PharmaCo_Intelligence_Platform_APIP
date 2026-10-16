@@ -24,6 +24,15 @@
 - Current scripts are in [development setup](docs/development.md); `lint` checks frontend TypeScript, not the whole server or security.
 - Do not create duplicate repositories, invent recovered history, or claim integrations, releases, or approvals without evidence.
 
+## Automatic commit and GitHub sync
+
+- The user gives standing authorization to commit and push completed, user-authorized APIP changes to this repository without asking again after each task.
+- At task start, note existing dirty/staged work. After completing the task, update its documentation/history and run the relevant checks; commit only this task's explicit files with a meaningful message.
+- Use `node scripts/git-workflow.mjs complete --message "summary" -- file1 file2 ...`; the installed post-commit hook pushes to the matching branch on the reviewed origin.
+- Do not commit after every intermediate edit, sweep unrelated work into a commit, or claim unrun checks passed. If required checks fail, fix them or report the incomplete task.
+- Never force-push, reset, bypass checks/approvals, or resolve conflicts destructively. Report blocked syncs; a local commit is not proof of GitHub backup. Verify the final commit and remote-tracking state.
+- This workflow covers task completion and Git commit events, not a background watcher of arbitrary edits. See [workflow setup](scripts/README.md).
+
 ## Documentation is part of completion
 
 - Follow [the documentation guide](docs/README.md). Update affected docs with the code in the same commit.

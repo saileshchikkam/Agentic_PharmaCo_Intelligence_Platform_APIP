@@ -12,6 +12,7 @@ The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS
 6. [Decisions](decisions.md): accepted direction and unresolved choices.
 7. [Research and validation](research-and-validation.md): evidence, data rights, and evaluation.
 8. [History](history/README.md) and [changelog](../CHANGELOG.md): actual work and notable changes.
+9. [Automatic commit and sync](../scripts/README.md): checkout setup, task completion, checks, and failure recovery.
 
 ## One home for each concern
 
@@ -27,7 +28,7 @@ For each meaningful development session:
 2. Update behavior, setup, API, migration, configuration, and data-flow docs as applicable with the implementation.
 3. Append a history entry: what/why, affected paths, validation/result, limits, and next action.
 4. Add durable decisions and notable changelog entries when warranted.
-5. Change milestone status only when acceptance evidence exists. Check links and staged scope before committing docs with code.
+5. Change milestone status only when acceptance evidence exists. Check links and staged scope, then use the automatic completion workflow to commit the task's explicit files and sync them. The user does not need to repeat a routine commit/push request.
 
 Documentation-only changes need link/structure/scope checks, not a claimed application build. Code changes require checks appropriate to their behavior. Failed and unrun checks must remain visible.
 

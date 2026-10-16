@@ -1,0 +1,6 @@
+#!/bin/sh
+# Preserve the local commit even when the cloud backup is unavailable.
+node scripts/git-workflow.mjs push || {
+  printf '%s\n' 'APIP: commit saved locally; GitHub sync is pending. See the error above.' >&2
+}
+exit 0

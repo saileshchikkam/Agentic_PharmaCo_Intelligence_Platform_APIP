@@ -44,7 +44,7 @@ All future interfaces must follow [Material Design 3](https://m3.material.io/com
 
 ## How progress is recorded
 
-Every meaningful change includes relevant documentation and verification results in the same commit. We use milestones and dated history rather than a fixed-duration project label. Completed work, plans, experiments, and unverified claims remain distinct.
+Every meaningful change includes relevant documentation and verification results in the same commit. Codex has standing authorization to commit and sync completed APIP work automatically; the repository's post-commit hook performs GitHub sync. See [automatic workflow setup and recovery](scripts/README.md). We use milestones and dated history rather than a fixed-duration project label. Completed work, plans, experiments, and unverified claims remain distinct.
 
 Use fictional cases during development. No official reporting integration, public clinical deployment, or permission to publish patient records is established.
 
