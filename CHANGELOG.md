@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Patient home UI preview — 2026-10-17
+
+- Added a responsive patient home with MedAssist and direct suspected-ADR reporting choices, plus patient-oriented header help and a clear preview label.
+- Linked the patient sign-in view to the home preview without simulating authentication; task actions explain their implementation status.
+- Corrected the shared button wrapper to place trailing icons in Material Web's supported icon slot and trailing-icon state.
+
 ### Access header refinements — 2026-10-17
 
 - Restored Material Web capsule-button spacing and clarified the welcome header action as **Log in**.

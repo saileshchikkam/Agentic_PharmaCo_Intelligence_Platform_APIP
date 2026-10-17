@@ -5,7 +5,7 @@ import { Appearance } from '../../design-system/appearance';
 import './access.css';
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
-export type PreviewRoute = { screen: 'home' } | { screen: 'sign-in'; role: AccessRole } | { screen: 'developer-reference' };
+export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'sign-in'; role: AccessRole } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -16,6 +16,7 @@ const roleCopy = {
 
 export function readPreviewRoute(): PreviewRoute {
   if (window.location.hash === '#/developer-reference') return { screen: 'developer-reference' };
+  if (window.location.hash === '#/patient/home') return { screen: 'patient-home' };
   const role = window.location.hash.replace('#/sign-in/', '');
   if (roles.includes(role as AccessRole) && window.location.hash.startsWith('#/sign-in/')) {
     return { screen: 'sign-in', role: role as AccessRole };
@@ -87,6 +88,10 @@ function SignInForm({ role }: { role: AccessRole }) {
       <M3Button type="submit" variant="filled">Sign in</M3Button>
     </div>
     {notice && <p role="status" className="access-notice">{notice}</p>}
+    {role === 'patient' && <div className="access-developer-preview">
+      <a href="#/patient/home" className="access-text-link">Preview the patient home <span aria-hidden="true">↗</span></a>
+      <p>Open the interface preview directly; no account or sign-in is created.</p>
+    </div>}
     {role === 'developer' && <div className="access-developer-preview">
       <a href="#/developer-reference" className="access-text-link">Open developer reference preview <span aria-hidden="true">↗</span></a>
       <p>Intended for Sailesh. This local preview has no access restriction yet.</p>
@@ -103,7 +108,10 @@ interface Props {
 
 export function AccessPreview({ route, appearance, setAppearance, preferencesSaved }: Props) {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [homeMessage, setHomeMessage] = useState('');
+  const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
+  const isPatientHome = route.screen === 'patient-home';
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.getElementById('access-title')?.focus({ preventScroll: true });
@@ -148,7 +156,11 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           aria-controls={settingsOpen ? 'access-appearance-settings' : undefined} onClick={() => settingsOpen ? closeSettings() : setSettingsOpen(true)}>
           <md-icon><span className="material-symbols-outlined">{settingsOpen ? 'close' : 'settings'}</span></md-icon>
         </md-icon-button>
-        {!isSignIn && !settingsOpen && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Log in</M3Button>}
+        {isPatientHome && !settingsOpen && <><span className="access-preview-badge"><span aria-hidden="true">●</span> Preview</span>
+          <md-icon-button aria-label="Help with patient home" onClick={() => helpDialog.current?.showModal()}>
+            <md-icon><span className="material-symbols-outlined">help</span></md-icon>
+          </md-icon-button></>}
+        {!isSignIn && !isPatientHome && !settingsOpen && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Log in</M3Button>}
       </div>
     </header>
 
@@ -158,8 +170,49 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
-        <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Sign in to APIP <span className="material-symbols-outlined access-inline-icon" aria-hidden="true">arrow_forward</span></M3Button>
+        <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Sign in to APIP</M3Button>
         <div className="access-welcome-links"><a href="#/sign-in/patient">For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist">For specialists</a></div>
+      </section>}
+
+      {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
+        <div className="patient-home-heading">
+          <p className="access-eyebrow">Your health, your next step</p>
+          <h1 id="access-title" tabIndex={-1}>How can we help today?</h1>
+          <p>Choose a place to start. You can report a medicine experience directly, whenever you need to.</p>
+        </div>
+        <div className="patient-task-grid">
+          <article className="patient-task-card patient-medassist-card">
+            <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">forum</span></div>
+            <div className="patient-task-copy">
+              <p className="patient-task-kicker">QUESTIONS AND NEXT STEPS</p>
+              <h2>MedAssist AI</h2>
+              <p>Talk through a health question, organize what you are experiencing, and explore sensible next steps.</p>
+              <ul><li>Share symptoms in your own words</li><li>Get help organizing what to discuss with a professional</li><li>Continue to a medicine report whenever you choose</li></ul>
+              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">info</span> Assistant guidance is a planned preview; it does not diagnose or replace professional care.</p>
+            </div>
+            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => setHomeMessage('MedAssist is a planned preview. Its conversation and reviewed guidance will be designed in a later step; no health details were entered or sent.')}>Explore MedAssist</M3Button>
+          </article>
+          <article className="patient-task-card patient-report-card">
+            <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">description</span></div>
+            <div className="patient-task-copy">
+              <p className="patient-task-kicker">MEDICINE EXPERIENCE</p>
+              <h2>Report a side effect</h2>
+              <p>Tell us about a suspected unwanted effect after taking a medicine. You do not need to use MedAssist first.</p>
+              <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
+              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> This preview does not save or send reports. Use fictional details only.</p>
+            </div>
+            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => setHomeMessage('The guided ADR reporting screen is the next design step. No report was started, saved, or sent.')}>Start an ADR report</M3Button>
+          </article>
+        </div>
+        {homeMessage && <div className="patient-home-message" role="status"><span>{homeMessage}</span>
+          <md-icon-button aria-label="Dismiss message" onClick={() => setHomeMessage('')}><md-icon><span className="material-symbols-outlined">close</span></md-icon></md-icon-button>
+        </div>}
+        <dialog ref={helpDialog} className="patient-help-dialog" aria-labelledby="patient-help-title">
+          <div className="patient-help-heading"><span className="material-symbols-outlined" aria-hidden="true">help</span><h2 id="patient-help-title">Choosing where to start</h2></div>
+          <p>MedAssist is for health questions and organizing possible next steps. ADR reporting is for documenting a suspected unwanted effect linked to a medicine. You can report directly at any time.</p>
+          <p>This is an interface preview, not a medical service. Do not enter real patient information.</p>
+          <div className="patient-help-actions"><M3Button variant="text" onClick={() => helpDialog.current?.close()}>Close</M3Button></div>
+        </dialog>
       </section>}
 
       {route.screen === 'sign-in' && <section className="access-sign-in-surface" aria-labelledby="access-title">

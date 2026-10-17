@@ -5,6 +5,7 @@ This is the selected rough UI task, ahead of authentication. It provides a simpl
 ## Navigation and behaviour
 
 - `#/` opens the welcome page. Header **Log in** and main **Sign in to APIP** buttons open the patient sign-in view.
+- `#/patient/home` opens the patient home interface preview. The patient sign-in preview links directly to it without simulating an authenticated account.
 - `#/sign-in/patient`, `#/sign-in/specialist`, and `#/sign-in/developer` select the shared sign-in layout and audience-specific wording.
 - `#/developer-reference` explicitly previews the preserved component library. The developer sign-in view links to it as a preview. This route is currently unrestricted and is not a sign-in bypass to a protected system.
 - `App.tsx` listens for hash changes, applies appearance, and sets the page title. Unknown hashes return to the welcome view. Browser Back/Forward and direct hash refresh remain usable.
@@ -23,6 +24,10 @@ Research checked 2026-10-17. Read relevant official guidance rather than claimin
 - [Google Sans Flex author repository](https://github.com/googlefonts/googlesans-flex) and [Google Design's typeface article](https://design.google/library/google-sans-flex-font): use self-hosted static 400/500/600/700 cuts with Roboto/system fallback. See [font provenance and notices](../../../public/fonts/README.md). The APIP mark/name remain distinct; no Google affiliation is implied.
 
 The sign-in heading is 36/44 px (32/40 compact); body inputs use the Material 16 px role, supporting copy uses 12–14 px, and the primary action has a 48 px container. White surfaces, neutral outlines, 28 px large corners, 12 px text-field corners, and the selected blue/black/green highlight roles come from the existing theme. The slight header translucency leaves fields on opaque, readable surfaces.
+
+## Patient home preview
+
+The patient home puts MedAssist AI and direct ADR reporting side by side on wide screens, then stacks them on phones. It explains each intended purpose, keeps the suspected-reaction report available without MedAssist, and uses distinct actions with a shared heading style. The header identifies this as a preview and provides appearance settings plus a help dialog explaining the two paths. MedAssist and report actions currently show honest next-step notices; neither starts a model conversation, accepts case details, saves a report, nor sends data. The preview is reachable from the patient sign-in page without submitting credentials. No protected patient session exists.
 
 `access.css` defines the page composition; it does not duplicate the shared colour palette. Shared settings work on these pages and the developer reference. The first UI copy is English; reviewed Telugu account wording is not implemented by this task.
 

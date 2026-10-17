@@ -44,9 +44,9 @@ export const M3Button: React.FC<M3ButtonProps> = ({
   const content = children || label;
   const isDisabled = disabled || loading;
 
-  const renderIcon = (iconName: string, isTrailing = false) => (
+  const renderIcon = (iconName: string) => (
     <span
-      slot={isTrailing ? 'trailing-icon' : 'icon'}
+      slot="icon"
       className="material-symbols-outlined text-[18px] leading-none"
       aria-hidden="true"
     >
@@ -70,6 +70,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
     onClick,
     type,
     'aria-label': ariaLabel,
+    'trailing-icon': trailingIcon ? true : undefined,
     className: `transition-all select-none ${className}`,
   };
 
@@ -79,7 +80,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
         <md-filled-tonal-button {...commonProps}>
           {loading ? renderLoadingSpinner() : leadingIcon && renderIcon(leadingIcon)}
           {content}
-          {!loading && trailingIcon && renderIcon(trailingIcon, true)}
+          {!loading && trailingIcon && renderIcon(trailingIcon)}
         </md-filled-tonal-button>
       );
 
@@ -88,7 +89,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
         <md-outlined-button {...commonProps}>
           {loading ? renderLoadingSpinner() : leadingIcon && renderIcon(leadingIcon)}
           {content}
-          {!loading && trailingIcon && renderIcon(trailingIcon, true)}
+          {!loading && trailingIcon && renderIcon(trailingIcon)}
         </md-outlined-button>
       );
 
@@ -97,7 +98,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
         <md-text-button {...commonProps}>
           {loading ? renderLoadingSpinner() : leadingIcon && renderIcon(leadingIcon)}
           {content}
-          {!loading && trailingIcon && renderIcon(trailingIcon, true)}
+          {!loading && trailingIcon && renderIcon(trailingIcon)}
         </md-text-button>
       );
 
@@ -106,7 +107,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
         <md-elevated-button {...commonProps}>
           {loading ? renderLoadingSpinner() : leadingIcon && renderIcon(leadingIcon)}
           {content}
-          {!loading && trailingIcon && renderIcon(trailingIcon, true)}
+          {!loading && trailingIcon && renderIcon(trailingIcon)}
         </md-elevated-button>
       );
 
@@ -116,7 +117,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
         <md-filled-button {...commonProps}>
           {loading ? renderLoadingSpinner() : leadingIcon && renderIcon(leadingIcon)}
           {content}
-          {!loading && trailingIcon && renderIcon(trailingIcon, true)}
+          {!loading && trailingIcon && renderIcon(trailingIcon)}
         </md-filled-button>
       );
   }

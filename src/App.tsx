@@ -18,7 +18,8 @@ export function App() {
   useEffect(() => {
     document.title = route.screen === 'developer-reference'
       ? 'APIP — Developer design reference'
-      : route.screen === 'sign-in' ? 'Sign in — APIP' : 'APIP — Agentic Pharma Co-intelligence Platform';
+      : route.screen === 'sign-in' ? 'Sign in — APIP'
+        : route.screen === 'patient-home' ? 'Patient home preview — APIP' : 'APIP — Agentic Pharma Co-intelligence Platform';
   }, [route]);
 
   return route.screen === 'developer-reference'

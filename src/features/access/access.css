@@ -61,7 +61,7 @@
 .access-header-actions { display: flex; align-items: center; gap: 16px; }
 /* Tailwind preflight overrides custom-element :host padding. Restore the
    official button's calculated spacing, including future token/icon changes. */
-.access-app md-filled-button {
+.access-app :is(md-filled-button, md-outlined-button, md-filled-tonal-button, md-elevated-button, md-text-button) {
   padding-block: calc((var(--_container-height) - max(var(--_label-text-line-height), var(--_icon-size))) / 2);
   padding-inline-start: var(--_leading-space);
   padding-inline-end: var(--_trailing-space);
@@ -81,6 +81,8 @@
 .access-header-actions > md-filled-button { animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
 @keyframes access-header-enter { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
 .access-home-link { display: inline-flex; align-items: center; min-height: 48px; text-decoration: none; }
+.access-preview-badge { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding-inline: 14px; border-radius: 999px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); font-size: .875rem; font-weight: 500; }
+.access-preview-badge > span { color: var(--md-sys-color-tertiary); font-size: .7rem; }
 .access-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -.5px; }
 .access-brand svg { width: 36px; height: 36px; color: var(--md-sys-color-primary); }
 .access-brand-large { font-size: 1.5rem; }
@@ -96,6 +98,35 @@
 .access-inline-icon { font-size: 1.125rem; margin-left: 10px; vertical-align: middle; }
 .access-welcome-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 20px; margin-top: 16px; font-size: 0.875rem; line-height: 1.25rem; color: var(--md-sys-color-on-surface-variant); }
 .access-welcome-links a { display: inline-flex; align-items: center; min-height: 48px; }
+
+.patient-home { width: min(100%, 1160px); padding-block: 12px 32px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
+.patient-home-heading { max-width: 780px; margin: 0 auto 36px; text-align: center; }
+.patient-home-heading .access-eyebrow { margin-bottom: 12px; }
+.patient-home-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; letter-spacing: -.04em; font-weight: 500; }
+.patient-home-heading > p:last-child { margin: 14px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 1rem; line-height: 1.5rem; }
+.patient-task-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 24px; }
+.patient-task-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface); box-shadow: var(--md-sys-elevation-level1); }
+.patient-medassist-card { background: var(--md-sys-color-surface-container-low); box-shadow: none; }
+.patient-task-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+.patient-task-icon .material-symbols-outlined { font-size: 28px; font-variation-settings: 'FILL' 1, 'wght' 400; }
+.patient-task-copy { flex: 1; }
+.patient-task-kicker { margin: 24px 0 8px; color: var(--md-sys-color-primary); font-size: .75rem; line-height: 1rem; font-weight: 600; letter-spacing: .08em; }
+.patient-task-card h2 { margin: 0; font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; letter-spacing: -.025em; }
+.patient-task-card .patient-task-copy > p:not(.patient-task-kicker):not(.patient-task-note) { margin: 12px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 1rem; line-height: 1.5rem; }
+.patient-task-card ul { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.patient-task-card li { position: relative; padding-inline-start: 28px; font-size: .9375rem; line-height: 1.4rem; }
+.patient-task-card li::before { position: absolute; inset-inline-start: 0; color: var(--md-sys-color-primary); content: '✓'; font-weight: 600; }
+.patient-task-note { display: flex; align-items: flex-start; gap: 10px; margin: 24px 0; padding: 14px; border-radius: 16px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
+.patient-task-note .material-symbols-outlined { flex: 0 0 auto; font-size: 18px; }
+.patient-task-card > md-filled-button, .patient-task-card > md-outlined-button { margin-top: 12px; }
+.patient-home-message { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 8px 12px 8px 18px; border-radius: 16px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); font-size: .875rem; line-height: 1.35rem; animation: access-enter 180ms cubic-bezier(.2,0,0,1) both; }
+.patient-help-dialog { width: min(560px, calc(100vw - 32px)); max-width: none; padding: 28px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface-container-low); color: var(--md-sys-color-on-surface); box-shadow: var(--md-sys-elevation-level3); }
+.patient-help-dialog::backdrop { background: rgb(24 28 32 / 38%); backdrop-filter: blur(2px); }
+.patient-help-heading { display: flex; align-items: center; gap: 14px; }
+.patient-help-heading > .material-symbols-outlined { color: var(--md-sys-color-primary); font-size: 28px; }
+.patient-help-dialog h2 { margin: 0; font-size: 1.375rem; line-height: 1.75rem; font-weight: 500; }
+.patient-help-dialog p { color: var(--md-sys-color-on-surface-variant); font-size: .9375rem; line-height: 1.5rem; }
+.patient-help-actions { display: flex; justify-content: flex-end; margin-top: 24px; }
 
 .access-sign-in-surface { width: 100%; max-width: 1040px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; padding: 48px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface); animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
 .access-sign-in-lead h1 { margin: 40px 0 12px; font-size: 2.25rem; line-height: 2.75rem; font-weight: 500; letter-spacing: -.5px; }
@@ -134,6 +165,10 @@
   .access-lead-description { display: none; }
   .access-form { padding-top: 24px; }
   .access-main { padding-block: 32px; }
+  .patient-home { padding-block: 8px 12px; }
+  .patient-home-heading { margin-bottom: 24px; text-align: start; }
+  .patient-task-grid { gap: 16px; }
+  .patient-task-card { padding: 24px; }
 }
 @media (max-width: 599px) {
   .access-header { padding: 12px 20px; height: 72px; }
@@ -143,6 +178,14 @@
   .access-header-preferences { gap: 8px; margin-right: auto; }
   .access-appearance-label { display: none; }
   .access-main { padding: 24px; }
+  .access-main:not(.access-main-sign-in) { align-items: start; }
+  .patient-home { padding-block: 8px 24px; }
+  .patient-home-heading h1 { font-size: 2rem; line-height: 2.5rem; }
+  .patient-task-grid { grid-template-columns: minmax(0, 1fr); }
+  .patient-task-card { padding: 24px; border-radius: 24px; }
+  .patient-task-card h2 { font-size: 1.5rem; line-height: 2rem; }
+  .access-preview-badge { display: none; }
+  .patient-help-dialog { padding: 24px; }
   .access-main-sign-in { display: block; padding: 20px 24px 32px; }
   .access-sign-in-surface { border: 0; border-radius: 0; padding: 0; margin: 0 auto; }
   .access-welcome { padding: 20px 0 24px; }
@@ -155,6 +198,6 @@
   .access-sign-in-lead h1 { margin-top: 4px; font-size: 2rem; line-height: 2.5rem; }
   .access-lead-subtitle { font-size: 1.125rem; line-height: 1.625rem; }
 }
-@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface, .access-header-preferences, .access-header-actions > md-filled-button { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface, .access-header-preferences, .access-header-actions > md-filled-button, .patient-home, .patient-home-message { animation: none; } }
 
 .access-app h1:focus, .access-main:focus { outline: none; }
