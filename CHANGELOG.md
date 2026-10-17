@@ -4,6 +4,10 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Page-level back control placement — 2026-10-17
+
+- Moved the shared Back action out of the app header and into a left-aligned page navigation row beneath it, reducing header crowding across preview pages.
+
 ### Consistent back navigation — 2026-10-17
 
 - Added a shared in-app Back control that follows the previous APIP screen and uses a safe parent route when a page is opened directly.

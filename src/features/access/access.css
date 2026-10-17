@@ -90,6 +90,8 @@
 .access-brand-large { font-size: 1.5rem; }
 .access-brand-large svg { width: 40px; height: 40px; }
 .access-main { flex: 1; display: grid; place-items: center; padding: 48px 24px; }
+.access-page-shell { width: 100%; }
+.access-page-navigation { width: min(100%, 1160px); margin: 0 auto 12px; display: flex; justify-content: flex-start; padding-inline: 4px; }
 .access-welcome { max-width: 860px; text-align: center; padding: 24px 0 48px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
 .access-welcome-symbol { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto 28px; border-radius: 28px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
 .access-welcome-symbol .material-symbols-outlined { font-size: 2.5rem; font-variation-settings: 'FILL' 1, 'wght' 400; }
@@ -191,6 +193,7 @@
   .access-header-preferences { gap: 8px; margin-right: auto; }
   .access-appearance-label { display: none; }
   .access-main { padding: 24px; }
+  .access-page-navigation { margin-bottom: 12px; padding-inline: 0; }
   .access-main:not(.access-main-sign-in) { align-items: start; }
   .patient-home { padding-block: 8px 24px; }
   .patient-home-heading h1 { font-size: 2rem; line-height: 2.5rem; }

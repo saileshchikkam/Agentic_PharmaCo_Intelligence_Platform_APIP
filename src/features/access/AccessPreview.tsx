@@ -155,7 +155,6 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     }}>
       <a className="access-home-link" href="#/" aria-label="APIP home" onClick={(event) => followPreviewLink(event, '/')}><Brand /></a>
       <div className="access-header-actions">
-        {route.screen !== 'home' && !settingsOpen && <M3Button variant="text" leadingIcon="arrow_back" onClick={() => goBackPreview(backFallback)}>Back</M3Button>}
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
           <span className="access-appearance-label">Appearance</span>
           <div className="access-accent-options" role="group" aria-label="Highlight colour">
@@ -184,6 +183,10 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     </header>
 
     <main id="access-main" tabIndex={-1} className={`access-main ${isSignIn ? 'access-main-sign-in' : ''}`}>
+      <div className="access-page-shell">
+      {route.screen !== 'home' && <nav className="access-page-navigation" aria-label="Page navigation">
+        <M3Button variant="text" leadingIcon="arrow_back" onClick={() => goBackPreview(backFallback)}>Back</M3Button>
+      </nav>}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
         <div className="access-welcome-symbol" aria-hidden="true"><span className="material-symbols-outlined">health_and_safety</span></div>
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
@@ -259,6 +262,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           <ReportReactionView />
         </React.Suspense>
       </section>}
+      </div>
     </main>
 
     <footer className="access-footer"><span>APIP <span aria-hidden="true">·</span> Interface preview</span>

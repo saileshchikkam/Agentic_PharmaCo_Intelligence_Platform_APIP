@@ -68,7 +68,7 @@ This is currently a local development screen with no login enforcement. A develo
 
 ## Preview navigation
 
-Use the shared Back control in the header to return to the previous in-app screen. It follows APIP routes entered during the current browser history session; a direct route entry falls back to that screen's safe parent. The ADR editor's own Back action returns to the list when available, confirms before discarding unsaved edits, and moves from review back to editing. Browser back/forward remains supported for route changes.
+Use the shared Back control in the page navigation row below the app header to return to the previous in-app screen. It follows APIP routes entered during the current browser history session; a direct route entry falls back to that screen's safe parent. The ADR editor's own Back action returns to the list when available, confirms before discarding unsaved edits, and moves from review back to editing. Browser back/forward remains supported for route changes.
 
 ## Sign-in UI preview
 
