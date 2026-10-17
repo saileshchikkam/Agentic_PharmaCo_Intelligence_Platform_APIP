@@ -1,11 +1,12 @@
 # Model catalogue and evaluation
 
-This directory records local models and hosted-provider candidates for APIP. It is **not connected to the application's experimental handlers yet**. A provider switch must be implemented and evaluated before it is described as working.
+This directory records local models and hosted-provider candidates for APIP. The [MedAssist fictional slice](../src/features/medassist/README.md) now connects installed Ollama `qwen3.5:2b` for bounded source-quote selection. The older agent handlers do not use this catalogue or a general provider switch. No custom urgency model is trained or enabled.
 
 - [Local catalogue](local/models.json): five models observed through Ollama on 2026-10-16, with sizes/quantization and a proposed first shortlist.
 - [API catalogue](api/providers.json): optional provider candidates; none is enabled or account-verified here.
 - [Local smoke runner](evaluate-local.mjs): dependency-free Node diagnostic using two explicitly fictional copy/extraction fixtures per selected model.
 - [Saved observations](evaluations): dated output from actual diagnostic runs, not clinical validation or a performance leaderboard.
+- [MedAssist live smoke runner](evaluate-medassist.ts) and [2026-10-17 observations](evaluations/2026-10-17-medassist-smoke.json): two fictional English/Telugu/mixed symptom intakes through the new endpoint, including source fidelity and a null unknown. Both returned accepted outputs; neither tests clinical triage or establishes representative language quality. See the implementation guide for the bounded invocation.
 
 ## Where the large files live
 

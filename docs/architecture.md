@@ -1,12 +1,12 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, MedAssist conversation design, and fictional ADR-intake previews plus an explicit developer-reference route. MedAssist is UI-only: it displays fictional text in page memory and explicitly states that no model or clinical guidance is connected. The ADR preview reuses a fictional browser-local draft form and is exposed only through a clearly labelled design-preview link; it is not an authenticated product workflow. Authentication, protected access, model conversations, and submitted reports remain unimplemented.
+Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview uses browser-local fictional drafts. Neither flow is an authenticated patient workflow; protected access and submitted reports remain unimplemented.
 
 ## Current repository
 
 - [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between welcome, sign-in, patient-home, MedAssist, ADR-intake, and developer-reference previews.
 - [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, patient task choices, local-only feedback, and absence of authentication.
-- [MedAssist preview](../src/features/medassist/MedAssistPreview.tsx) provides an English/Telugu interface shell, session-only fictional text, and direct navigation to ADR reporting. Its fixed response confirms that inference is not connected; it provides no medical advice.
+- [MedAssist implementation guide](../src/features/medassist/README.md) documents the English/Telugu symptom/follow-up/review flow, original answers versus confirmed AI quotes, cancellation, and location-only Maps handoff. [server/medassist.ts](../server/medassist.ts) registers a loopback-only local-model endpoint with strict schemas and no clinical assessment. Its parser precedes the older server's global parser; existing experimental agent endpoints are not reused or certified by this feature.
 - [Shared preview layout](../src/features/access/PreviewLayout.tsx) provides text-style Home/patient/Log in links, inline appearance controls, and a fixed-position page Back row across access and developer-reference screens. ADR review/editor steps provide that row with their internal return action.
 - [src/features/access/navigation.ts](../src/features/access/navigation.ts) marks in-app hash-history entries, provides a shared Back behavior, and replaces direct-entry routes with safe parent fallbacks when no prior APIP screen exists.
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
@@ -23,6 +23,7 @@ Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient
 
 ```text
 GET  /api/health
+POST /api/medassist/structure
 POST /api/agents/report-extract
 POST /api/agents/validate
 POST /api/agents/knowledge-rag

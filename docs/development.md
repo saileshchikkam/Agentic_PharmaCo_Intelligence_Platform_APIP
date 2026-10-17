@@ -1,6 +1,6 @@
 # Development setup and verification
 
-This page describes the welcome/sign-in, patient, MedAssist design, and ADR interface previews plus the preserved developer design reference. The MedAssist page is an English/Telugu UI prototype without model inference, storage, or clinical guidance. The ADR intake preview stores multiple fictional drafts in a browser-local collection and allows them to be deleted after confirmation; it is not a connected product workflow or isolated by account. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. See the dated [development history](history/2026-10-17.md).
+This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation previews plus the preserved developer design reference. MedAssist provides guided English/Telugu symptom intake, optional local-model source-quote selection, and a location-only Maps handoff; clinical urgency and tailored precautions are disabled. ADR stores fictional drafts in a browser-local collection, not an account-isolated backend. See the dated [development history](history/2026-10-17.md) for actual checks and limits.
 
 ## Prerequisites and installation
 
@@ -29,6 +29,8 @@ At the 2026-10-17 implementation session, Bun v1.4.3 was installed from the [off
 Use the agreed package manager to run scripts. No test script exists. Do not describe `lint` as comprehensive server/security validation.
 
 ## Environment
+
+MedAssist uses the fixed local Ollama service with installed `qwen3.5:2b` by default. Optional server environment `MEDASSIST_MODEL` selects another installed model; startup still does not load `.env` automatically. No API key, hosted fallback, or model download is used. The loopback-only endpoint is a source-quote experiment, not the intended urgency classifier. See the [MedAssist API/setup and checks](../src/features/medassist/README.md) and [live smoke observations](../models/evaluations/2026-10-17-medassist-smoke.json). Restart the development server after backend changes; the current dev script does not watch server files.
 
 [.env.example](../.env.example) lists `GEMINI_API_KEY`. Provider configuration is optional for existing fallback behavior, which is not clinically reliable.
 

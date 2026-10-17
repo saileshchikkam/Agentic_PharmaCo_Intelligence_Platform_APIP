@@ -93,3 +93,7 @@ This decision supersedes DEC-012's black accent and near-black dark surface trea
 ## DEC-016 — Confirm before deleting a saved draft
 
 **User-selected 2026-10-17.** Give patients a way to remove an unwanted saved ADR draft, and ask them to confirm before deleting it. If deletion cannot be persisted, keep the draft and explain the error. The current design preview applies this behavior only to fictional drafts in the shared browser profile; account-level ownership and server deletion require the future authenticated backend.
+
+## DEC-017 — MedAssist symptom scope and first local-model boundary
+
+**User-selected scope, engineering implementation 2026-10-17.** MedAssist starts with current symptoms and follow-up context, then ultimately reviewed urgency, precautions, and facility navigation. It is a separate task from ADR extraction. The first connected fictional slice uses fixed follow-up questions and a local model only to select source quotes, preserving originals and requiring user confirmation; it cannot generate an urgency level or treatment advice. Keep the output contract and failure/cancellation behavior checked before expanding model responsibilities. Train/evaluate a narrow symptom-urgency model only with suitable permitted labels and review; a successful local LLM request is not that model. Maps receives only deliberately selected location information, never symptom narratives, and selection/directions occur in Maps until a verified facility API is implemented.

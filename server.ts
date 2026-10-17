@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
+import { registerMedAssistRoutes } from './server/medassist';
 
 const PORT = 3000;
 
@@ -117,6 +118,7 @@ async function startServer() {
   const app = express();
 
   app.use(cors());
+  registerMedAssistRoutes(app);
   app.use(express.json({ limit: "5mb" }));
 
   // System Health & Capabilities

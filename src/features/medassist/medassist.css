@@ -1,5 +1,5 @@
 .medassist-preview { width: min(100%, 920px); margin: 0 auto; padding: 0 0 36px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
-.medassist-preview-topline { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; margin-bottom: 12px; }
+.medassist-preview-topline { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 44px; margin-bottom: 12px; }
 .medassist-language { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; }
 .medassist-language > span { margin-inline-end: 6px; }
 .medassist-language md-filter-chip { --md-filter-chip-label-text-font: var(--access-font); }
@@ -17,7 +17,7 @@
 .medassist-message-assistant { border-start-start-radius: 6px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
 .medassist-message-assistant .material-symbols-outlined { flex: 0 0 auto; margin-top: 1px; font-size: 20px; }
 .medassist-message-patient { align-self: flex-end; border-start-end-radius: 6px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
-.medassist-empty-hint { margin: auto 0 0; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.3rem; text-align: center; }
+.medassist-empty-hint { margin: 0; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.3rem; text-align: start; }
 .medassist-composer { display: grid; gap: 10px; margin-top: 16px; padding: 20px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface-container-low); }
 .medassist-composer label { font-size: .875rem; line-height: 1.25rem; font-weight: 500; }
 .medassist-composer md-outlined-text-field { width: 100%; --md-outlined-text-field-input-text-font: var(--access-font); --md-outlined-text-field-label-text-font: var(--access-font); --md-outlined-text-field-supporting-text-font: var(--access-font); }
@@ -27,6 +27,37 @@
 .medassist-adr-link h2 { margin: 0; font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
 .medassist-adr-link p { margin: 4px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
 .medassist-preview :focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 3px; }
+.medassist-step { margin: 0; color: var(--md-sys-color-primary); font-size: .8125rem; font-weight: 500; }
+.medassist-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.medassist-review, .medassist-care { margin-top: 24px; padding: 28px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface); }
+.medassist-review h2, .medassist-care h2 { margin: 0; font-size: 1.5rem; line-height: 2rem; font-weight: 500; }
+.medassist-review > p, .medassist-care > p { color: var(--md-sys-color-on-surface-variant); font-size: .9375rem; line-height: 1.5rem; }
+.medassist-summary { margin: 20px 0; }
+.medassist-summary > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--md-sys-color-outline-variant); }
+.medassist-summary dt { grid-column: 1; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
+.medassist-summary dd { grid-column: 1; margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 1rem; line-height: 1.5rem; }
+.medassist-summary md-text-button { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+.medassist-ai-controls { display: grid; min-width: 0; gap: 16px; padding-block: 4px; }
+.medassist-ai-controls > div { min-width: 0; max-width: 100%; }
+.medassist-ai-controls label { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.medassist-status { margin: 0; min-height: 1.25rem; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
+.medassist-error { margin: 0; padding: 16px; border-radius: 16px; background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); font-size: .875rem; line-height: 1.375rem; }
+.medassist-suggestions { margin-top: 20px; padding: 20px; border: 1px solid var(--md-sys-color-primary); border-radius: 20px; }
+.medassist-suggestions h3, .medassist-assessment h3 { margin: 0; font-size: 1.125rem; line-height: 1.5rem; font-weight: 500; }
+.medassist-suggestions > p { font-size: .875rem; line-height: 1.375rem; color: var(--md-sys-color-on-surface-variant); }
+.medassist-suggestions dl { display: grid; gap: 16px; }
+.medassist-suggestions dt { font-size: .8125rem; line-height: 1.25rem; color: var(--md-sys-color-on-surface-variant); }
+.medassist-suggestions dd { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.medassist-assessment { display: flex; align-items: flex-start; gap: 12px; margin-top: 24px; padding: 20px; background: var(--md-sys-color-surface-container); border-radius: 20px; }
+.medassist-assessment p { margin: 8px 0 0; font-size: .875rem; line-height: 1.375rem; color: var(--md-sys-color-on-surface-variant); }
+.medassist-care { scroll-margin-top: 96px; }
+.medassist-care md-outlined-text-field { display: block; width: 100%; margin-block: 20px 8px; --md-outlined-text-field-input-text-font: var(--access-font); --md-outlined-text-field-label-text-font: var(--access-font); }
+.medassist-maps-link { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; max-width: 100%; margin-block: 12px 4px; padding: 12px 24px; border: 1px solid var(--md-sys-color-outline); border-radius: 28px; color: var(--md-sys-color-primary); font-size: .875rem; line-height: 1.25rem; font-weight: 500; text-decoration: none; }
+.medassist-maps-link:hover { background: var(--md-sys-color-surface-container); }
+.medassist-care .medassist-privacy { margin-bottom: 0; font-size: .75rem; line-height: 1.125rem; }
+.medassist-reset { margin-top: 16px; }
+.medassist-reset-confirm { padding: 20px; border-radius: 20px; background: var(--md-sys-color-surface-container); }
+.medassist-reset-confirm p { margin-top: 0; font-size: .875rem; line-height: 1.375rem; }
 
 @media (max-width: 599px) {
   .medassist-preview { padding-bottom: 20px; }
@@ -39,4 +70,6 @@
   .medassist-composer-footer, .medassist-adr-link { align-items: stretch; flex-direction: column; }
   .medassist-composer-footer md-filled-button, .medassist-adr-link md-outlined-button { align-self: flex-end; }
   .medassist-adr-link { gap: 12px; padding: 18px; }
+  .medassist-review, .medassist-care { padding: 20px; }
+  .medassist-composer-footer .medassist-actions { justify-content: flex-end; }
 }

@@ -104,7 +104,7 @@ function SignInForm({ role, requestedTask }: { role: AccessRole; requestedTask?:
     </div>}
     {role === 'patient' && requestedTask === 'medassist' && <div className="access-developer-preview">
       <a href="#/preview/medassist" className="access-text-link" onClick={(event) => followPreviewLink(event, '/preview/medassist')}>Preview the MedAssist conversation <span aria-hidden="true">↗</span></a>
-      <p>Interface review only. AI responses and clinical guidance are not connected.</p>
+      <p>Fictional symptom conversation with optional local AI phrase selection. Clinical urgency assessment is not enabled.</p>
     </div>}
     {role === 'developer' && <div className="access-developer-preview">
       <a href="#/developer-reference" className="access-text-link" onClick={(event) => followPreviewLink(event, '/developer-reference')}>Open developer reference preview <span aria-hidden="true">↗</span></a>
@@ -143,7 +143,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
 
     <main id="access-main" tabIndex={-1} className={`access-main ${isSignIn ? 'access-main-sign-in' : ''}`}>
       <div className="access-page-shell">
-      {route.screen !== 'adr-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
+      {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
         <div className="access-welcome-symbol" aria-hidden="true"><span className="material-symbols-outlined">health_and_safety</span></div>
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
@@ -217,8 +217,9 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
             onExit={() => goBackPreview(backFallback)} />
         </React.Suspense>
       </section>}
-      {route.screen === 'medassist-preview' && <React.Suspense fallback={<p role="status">Opening the MedAssist design preview…</p>}>
-        <MedAssistPreview onOpenAdr={() => navigatePreview('/preview/adr-report')} />
+      {route.screen === 'medassist-preview' && <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p role="status">Opening the MedAssist preview…</p></>}>
+        <MedAssistPreview onOpenAdr={() => navigatePreview('/preview/adr-report')} onExit={() => goBackPreview(backFallback)}
+          renderNavigation={(onBack, label) => <PageNavigation onBack={onBack} backLabel={label} />} />
       </React.Suspense>}
       </div>
     </main>

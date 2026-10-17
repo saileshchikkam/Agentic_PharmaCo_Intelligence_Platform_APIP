@@ -4,6 +4,13 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Guided MedAssist symptom conversation and local AI — 2026-10-17
+
+- Added English/Telugu symptom follow-ups, explicit unknown answers, review/edit, stable question-level Back, and discard protection.
+- Connected a local Ollama source-quote helper after explicit fictional-case consent, with bounded requests, strict quote validation, cancellation, and preserved originals on failure. Two live fictional source/unknown checks passed; clinical urgency remains unassessed.
+- Added location-only Google Maps hospital-search handoff with manual entry and optional permission-based location, without sending symptom statements.
+- Corrected the next model research task to symptom/urgency data, documented primary dataset candidates, and retained clinical assessment/precautions as pending review/evaluation.
+
 ### MedAssist conversation design preview — 2026-10-17
 
 - Added a responsive Material 3 conversation shell with English/Telugu interface text and consistent Back/ADR navigation.

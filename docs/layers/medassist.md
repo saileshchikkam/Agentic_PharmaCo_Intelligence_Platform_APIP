@@ -1,6 +1,6 @@
 # MedAssist AI
 
-**Status:** an English/Telugu conversation design preview is implemented; model inference, reviewed guidance, data preparation, and clinical evaluation remain pending. Jayanth originated this part of APIP.
+**Status:** English/Telugu guided symptom intake, editable review, optional local-model quote selection, and a Google Maps search handoff are implemented for fictional evaluation. Custom urgency ML, adaptive clinical questioning, approved RAG guidance, tailored precautions, and clinical evaluation remain pending. Jayanth originated this part of APIP. See the [implementation/API guide](../../src/features/medassist/README.md).
 
 ## Responsibility
 
@@ -9,7 +9,7 @@ Provide an understandable conversation about symptoms/context and help a person 
 ## Intended journey
 
 1. Gather relevant context with reviewed questions.
-2. Support an urgency pathway with an explicit uncertain/insufficient-information outcome.
+2. Assess urgency as low, medium, or high, with an explicit uncertain/insufficient-information outcome. These are the user's intended clinical categories, not implemented predictions.
 3. Provide reviewed educational information and care-navigation guidance.
 4. Request location permission or accept manual location; show relevant facilities and a user-selected navigation route.
 5. Offer deliberate reuse of confirmed episode information in a later ADR report.
@@ -18,7 +18,7 @@ Urgent-care interruptions must also be available in reporting. Do not require a 
 
 ## Model research
 
-The current `#/preview/medassist` screen is a presentation-only shell. It keeps fictional messages in page memory, displays a fixed no-inference notice, and does not save, transmit, or interpret them. A two-day target can cover a working software prototype and a narrow offline experiment if suitable data and review are available; it cannot establish clinical effectiveness or authorize real-patient use.
+The current `#/preview/medassist` flow asks fixed questions about concern, duration, activity impact, and changes, retaining exact user statements and null unknowns. Only after explicit fictional-case consent does a local Ollama model select source quotes for user confirmation. Answers remain in page memory; no urgency model, clinical RAG, hosted inference, training, or clinical conclusion is connected. Care search is available throughout, with manual location or deliberately requested geolocation and an external Google Maps link. A two-day target cannot establish clinical effectiveness or authorize real-patient use.
 
 A custom model trained from scratch is an aspiration, not a selected algorithm. Define a bounded task, permitted dataset, clinically meaningful labels, baseline, and held-out evaluation before training. ADR reports do not automatically provide valid medical-urgency labels.
 

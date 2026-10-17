@@ -17,6 +17,8 @@ Sailesh identifies Mahesh P as the pharmacy reviewer, with limited availability.
 
 ## Local development, local inference, and hosted APIs
 
+**Implemented slice, 2026-10-17:** the [MedAssist guide](../src/features/medassist/README.md) documents a local-only source-quote endpoint and guided fictional symptom intake. It is not the proposed urgency classifier, a provider-switch abstraction, or clinical RAG. Its [two live smoke observations](../models/evaluations/2026-10-17-medassist-smoke.json) check transport, verbatim text, and unknowns only. The next supervised task is symptom/context-to-urgency research; use the [task-specific data register](research-and-validation.md#medassist-symptomurgency-candidates--checked-2026-10-17), not ADR extraction labels.
+
 These are separate choices. An app running on a laptop can call an online model API; a deployed app can use a privately hosted model. Changing the model's location does not remove the need to test its outputs.
 
 ### Practical local starting point
