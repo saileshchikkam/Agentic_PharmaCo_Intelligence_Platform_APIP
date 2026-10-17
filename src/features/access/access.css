@@ -120,7 +120,7 @@
 .patient-task-note .material-symbols-outlined { flex: 0 0 auto; font-size: 18px; }
 .patient-task-card > md-filled-button, .patient-task-card > md-outlined-button { margin-top: 12px; }
 .patient-home-message { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 8px 12px 8px 18px; border-radius: 16px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); font-size: .875rem; line-height: 1.35rem; animation: access-enter 180ms cubic-bezier(.2,0,0,1) both; }
-.patient-help-dialog { width: min(560px, calc(100vw - 32px)); max-width: none; padding: 28px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface-container-low); color: var(--md-sys-color-on-surface); box-shadow: var(--md-sys-elevation-level3); }
+.patient-help-dialog { position: fixed; inset: 0; width: min(560px, calc(100vw - 32px)); height: fit-content; max-width: none; max-height: calc(100dvh - 32px); margin: auto; overflow: auto; padding: 28px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface-container-low); color: var(--md-sys-color-on-surface); box-shadow: var(--md-sys-elevation-level3); }
 .patient-help-dialog::backdrop { background: rgb(24 28 32 / 38%); backdrop-filter: blur(2px); }
 .patient-help-heading { display: flex; align-items: center; gap: 14px; }
 .patient-help-heading > .material-symbols-outlined { color: var(--md-sys-color-primary); font-size: 28px; }

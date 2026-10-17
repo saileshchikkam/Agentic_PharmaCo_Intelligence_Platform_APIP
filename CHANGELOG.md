@@ -7,6 +7,7 @@ Notable product and developer-facing changes. Entries describe completed work; p
 ### Patient home UI preview — 2026-10-17
 
 - Added a responsive patient home with MedAssist and direct suspected-ADR reporting choices, plus patient-oriented header help and a clear preview label.
+- Centered the Help dialog in the viewport on desktop and phones.
 - Linked the patient sign-in view to the home preview without simulating authentication; task actions explain their implementation status.
 - Corrected the shared button wrapper to place trailing icons in Material Web's supported icon slot and trailing-icon state.
 - Added visible patient-home Help in the header and task-specific sign-in navigation that carries the requested destination while clearly stating authentication is unavailable.
