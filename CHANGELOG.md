@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Multiple fictional ADR drafts — 2026-10-17
+
+- Added an in-page Material 3 list to open saved fictional drafts or start another, with each draft retaining its own review/confirmation state.
+- Migrated existing single-draft browser storage into the list in memory; new saves use a validated versioned collection.
+- Clearly disclosed that drafts are shared by users of the same browser profile because sign-in is not implemented.
+
 ### ADR draft review and confirmation — 2026-10-17
 
 - Split fictional ADR entry into a two-step flow: enter details, review reporter-originated values with unknowns preserved, then explicitly confirm and save in this browser.

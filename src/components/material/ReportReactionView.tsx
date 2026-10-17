@@ -1,12 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { M3Button, M3Card, M3Checkbox, M3Select, M3TextField } from './core';
 import type { AdrDraft, AdrDraftLanguage } from '../../features/adr/draftStorage';
-import { loadAdrDraft, saveAdrDraft } from '../../features/adr/draftStorage';
+import { loadAdrDrafts, saveAdrDrafts } from '../../features/adr/draftStorage';
 
 const copy = {
   en: {
     badge: 'Fictional evaluation only',
     title: 'Create a fictional ADR draft',
+    draftsTitle: 'Your fictional drafts',
+    draftsIntro: 'Open a saved draft or start another fictional case.',
+    sharedStorage: 'Drafts are saved in this browser profile. Sign-in is only a preview, so drafts are not separated by account and anyone using this browser profile may see them. Do not enter real patient information.',
+    newDraft: 'New fictional draft',
+    openDraft: 'Open draft',
+    savedDrafts: 'Saved drafts',
+    draftNumber: 'Draft',
+    needsReview: 'Needs your review',
+    userConfirmed: 'Confirmed by you · not professionally reviewed',
+    backToDrafts: 'Your drafts',
     reviewTitle: 'Review your draft',
     intro: 'This short preview helps organise a fictional medicine experience. Your words stay separate from any professional assessment.',
     reviewIntro: 'Check that this summary matches what you entered. Unknown details remain unknown.',
@@ -38,6 +48,16 @@ const copy = {
   te: {
     badge: 'కల్పిత పరీక్ష కోసం మాత్రమే',
     title: 'కల్పిత ADR ముసాయిదా సృష్టించండి',
+    draftsTitle: 'మీ కల్పిత ముసాయిదాలు',
+    draftsIntro: 'సేవ్ చేసిన ముసాయిదాను తెరవండి లేదా మరొక కల్పిత కేసును ప్రారంభించండి.',
+    sharedStorage: 'ముసాయిదాలు ఈ బ్రౌజర్ ప్రొఫైల్‌లో సేవ్ అవుతాయి. సైన్-ఇన్ ఇంకా ప్రివ్యూ మాత్రమే కాబట్టి, ఖాతాల వారీగా వేరు కావు; ఈ బ్రౌజర్‌ను ఉపయోగించే ఇతరులు కూడా వీటిని చూడవచ్చు. నిజమైన రోగి వివరాలను నమోదు చేయవద్దు.',
+    newDraft: 'కొత్త కల్పిత ముసాయిదా',
+    openDraft: 'ముసాయిదా తెరవండి',
+    savedDrafts: 'సేవ్ చేసిన ముసాయిదాలు',
+    draftNumber: 'ముసాయిదా',
+    needsReview: 'మీ సమీక్ష అవసరం',
+    userConfirmed: 'మీరు నిర్ధారించారు · నిపుణుడు సమీక్షించలేదు',
+    backToDrafts: 'మీ ముసాయిదాలు',
     reviewTitle: 'మీ ముసాయిదాను సమీక్షించండి',
     intro: 'ఈ చిన్న ప్రివ్యూ కల్పిత మందు అనుభవాన్ని క్రమబద్ధం చేయడానికి సహాయపడుతుంది. మీ వివరాలు వృత్తిపరమైన అంచనా నుండి వేరుగా ఉంటాయి.',
     reviewIntro: 'ఈ సారాంశం మీరు నమోదు చేసిన వివరాలతో సరిపోతుందో చూడండి. తెలియని వివరాలు అలాగే తెలియనివిగా ఉంటాయి.',
@@ -68,12 +88,13 @@ const copy = {
   },
 } satisfies Record<AdrDraftLanguage, Record<string, string>>;
 
-type DraftStep = 'edit' | 'review';
+type DraftStep = 'list' | 'edit' | 'review';
 
 export const ReportReactionView: React.FC = () => {
-  const [initial] = useState(() => loadAdrDraft());
-  const existingDraft = initial.draft;
-  const [step, setStep] = useState<DraftStep>(existingDraft?.status === 'user-confirmed' ? 'review' : 'edit');
+  const [initial] = useState(() => loadAdrDrafts());
+  const existingDraft = initial.drafts.length === 1 ? initial.drafts[0] : null;
+  const [drafts, setDrafts] = useState<AdrDraft[]>(initial.drafts);
+  const [step, setStep] = useState<DraftStep>(initial.drafts.length > 0 ? 'list' : 'edit');
   const [language, setLanguage] = useState<AdrDraftLanguage>(existingDraft?.language ?? 'en');
   const [medicineName, setMedicineName] = useState(existingDraft?.statements.medicineName ?? '');
   const [dose, setDose] = useState(existingDraft?.statements.dose ?? '');
@@ -83,7 +104,7 @@ export const ReportReactionView: React.FC = () => {
   const [savedDraft, setSavedDraft] = useState<AdrDraft | null>(existingDraft);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [message, setMessage] = useState<string | null>(
-    initial.error ? copy.en.loadError : existingDraft ? copy[existingDraft.language].loaded : null,
+    initial.error ? copy.en.loadError : null,
   );
   const [storageError, setStorageError] = useState(initial.error);
   const heading = useRef<HTMLHeadingElement>(null);
@@ -110,6 +131,40 @@ export const ReportReactionView: React.FC = () => {
     setStorageError(false);
   };
 
+  const openDraft = (draft: AdrDraft) => {
+    setSavedDraft(draft);
+    setLanguage(draft.language);
+    setMedicineName(draft.statements.medicineName ?? '');
+    setDose(draft.statements.dose ?? '');
+    setReaction(draft.statements.reaction);
+    setOnset(draft.statements.onset ?? '');
+    setConfirmationChecked(draft.status === 'user-confirmed');
+    setHasUnsavedChanges(false);
+    setMessage(copy[draft.language].loaded);
+    setStorageError(false);
+    setStep(draft.status === 'user-confirmed' ? 'review' : 'edit');
+  };
+
+  const startNewDraft = () => {
+    setSavedDraft(null);
+    setLanguage('en');
+    setMedicineName('');
+    setDose('');
+    setReaction('');
+    setOnset('');
+    setConfirmationChecked(false);
+    setHasUnsavedChanges(false);
+    setMessage(null);
+    setStorageError(false);
+    setStep('edit');
+  };
+
+  const showDrafts = () => {
+    setMessage(null);
+    setStorageError(false);
+    setStep('list');
+  };
+
   const confirmAndSave = () => {
     if (!confirmationChecked) return;
     const timestamp = new Date().toISOString();
@@ -132,7 +187,12 @@ export const ReportReactionView: React.FC = () => {
     };
 
     try {
-      saveAdrDraft(draft);
+      const existingIndex = drafts.findIndex((item) => item.id === draft.id);
+      const nextDrafts = existingIndex === -1
+        ? [...drafts, draft]
+        : drafts.map((item) => item.id === draft.id ? draft : item);
+      saveAdrDrafts(nextDrafts);
+      setDrafts(nextDrafts);
       setSavedDraft(draft);
       setHasUnsavedChanges(false);
       setStorageError(false);
@@ -157,24 +217,49 @@ export const ReportReactionView: React.FC = () => {
           {text.badge}
         </span>
         <h1 id="adr-draft-title" ref={heading} tabIndex={-1} className="m3-headline-small font-normal text-[var(--md-sys-color-on-surface)]">
-          {step === 'edit' ? text.title : text.reviewTitle}
+          {step === 'list' ? text.draftsTitle : step === 'edit' ? text.title : text.reviewTitle}
         </h1>
         <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">
-          {step === 'edit' ? text.intro : text.reviewIntro}
+          {step === 'list' ? text.draftsIntro : step === 'edit' ? text.intro : text.reviewIntro}
         </p>
       </header>
 
-      <div className="adr-draft-progress">
+      {step !== 'list' && <div className="adr-draft-progress">
         <span className="m3-label-medium">{step === 'edit' ? text.stepDetails : text.stepReview}</span>
         <md-linear-progress value={step === 'edit' ? 0.5 : 1} aria-label={step === 'edit' ? text.stepDetails : text.stepReview}></md-linear-progress>
-      </div>
+      </div>}
 
       <M3Card variant="filled" className="flex items-start gap-3" role="note">
         <span className="material-symbols-outlined mt-0.5 text-[var(--md-sys-color-primary)]" aria-hidden="true">info</span>
         <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">{text.notice}</p>
       </M3Card>
 
-      {step === 'edit' ? <form onSubmit={handleReview} className="space-y-6">
+      {step === 'list' ? <div className="space-y-4" aria-label={text.draftsTitle}>
+        <M3Card variant="filled" className="flex items-start gap-3" role="note">
+          <span className="material-symbols-outlined mt-0.5 text-[var(--md-sys-color-primary)]" aria-hidden="true">info</span>
+          <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">{text.sharedStorage}</p>
+        </M3Card>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="m3-title-large">{text.savedDrafts}</h2>
+          <M3Button type="button" variant="filled" leadingIcon="add" onClick={startNewDraft}>{text.newDraft}</M3Button>
+        </div>
+        <ul className="space-y-3">
+          {drafts.map((draft, index) => <li key={draft.id}>
+            <M3Card variant="outlined" className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-1">
+                <h3 className="m3-title-medium">{text.draftNumber} {index + 1}</h3>
+                <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">
+                  {draft.status === 'user-confirmed' ? text.userConfirmed : text.needsReview}
+                </p>
+                <p className="m3-body-small text-[var(--md-sys-color-on-surface-variant)]">
+                  {draft.statements.medicineName ?? text.unknown} · {draft.updatedAt.slice(0, 10)}
+                </p>
+              </div>
+              <M3Button type="button" variant="outlined" trailingIcon="arrow_forward" onClick={() => openDraft(draft)}>{text.openDraft}</M3Button>
+            </M3Card>
+          </li>)}
+        </ul>
+      </div> : step === 'edit' ? <form onSubmit={handleReview} className="space-y-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <M3Select id="adr-draft-language" label={text.language} value={language}
             onChange={(value) => {
@@ -238,6 +323,10 @@ export const ReportReactionView: React.FC = () => {
             {text.confirmSave}
           </M3Button>
         </div>
+        {savedDraft?.status === 'user-confirmed' && !hasUnsavedChanges && <div className="flex flex-wrap gap-3">
+          <M3Button type="button" variant="text" leadingIcon="folder_open" onClick={showDrafts}>{text.backToDrafts}</M3Button>
+          <M3Button type="button" variant="tonal" leadingIcon="add" onClick={startNewDraft}>{text.newDraft}</M3Button>
+        </div>}
       </div>}
 
       {message && <p className="m3-body-medium rounded-xl bg-[var(--md-sys-color-surface-container)] p-4 text-[var(--md-sys-color-on-surface)]"

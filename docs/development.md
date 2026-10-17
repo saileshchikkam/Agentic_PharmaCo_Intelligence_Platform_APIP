@@ -1,10 +1,10 @@
 # Development setup and verification
 
-This page describes the welcome/sign-in and patient interface previews plus the preserved developer design reference. The ADR intake preview reuses the fictional draft form and browser-local storage; it is not a connected product workflow. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
+This page describes the welcome/sign-in and patient interface previews plus the preserved developer design reference. The ADR intake preview stores multiple fictional drafts in a browser-local collection; it is not a connected product workflow or isolated by account. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
 
 ## Prerequisites and installation
 
-The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage`; schema v1 drafts migrate in memory to v2 with unconfirmed status. It does not use the server or support real patient information. Patient confirmation is not clinical or professional review.
+The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage` under a versioned collection key. Existing single-draft v1 and v2 keys load as a one-item collection; legacy v1 drafts remain unconfirmed. The collection is shared in the browser profile because authentication is not implemented. It does not use the server or support real patient information. Patient confirmation is not clinical or professional review.
 
 The repository tracks `bun.lock`. With Bun available, the intended commands are:
 

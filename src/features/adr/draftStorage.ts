@@ -29,11 +29,17 @@ interface LegacyAdrDraft {
   statements: AdrDraft['statements'];
 }
 
+interface AdrDraftCollection {
+  schemaVersion: 1;
+  drafts: AdrDraft[];
+}
+
 export const ADR_DRAFT_STORAGE_KEY = 'apip.fictionalAdrDraft.v2';
+export const ADR_DRAFTS_STORAGE_KEY = 'apip.fictionalAdrDrafts.v1';
 const legacyStorageKey = 'apip.fictionalAdrDraft.v1';
 
-export interface AdrDraftLoadResult {
-  draft: AdrDraft | null;
+export interface AdrDraftsLoadResult {
+  drafts: AdrDraft[];
   error: boolean;
 }
 
@@ -84,30 +90,50 @@ function migrateLegacyDraft(draft: LegacyAdrDraft): AdrDraft {
   };
 }
 
-function readDraft(serialized: string): AdrDraft | null {
-  const parsed: unknown = JSON.parse(serialized);
-  if (isAdrDraft(parsed)) return parsed;
-  if (hasValidDraftFields(parsed)) return migrateLegacyDraft(parsed);
+function readDraft(value: unknown): AdrDraft | null {
+  if (isAdrDraft(value)) return value;
+  if (hasValidDraftFields(value)) return migrateLegacyDraft(value);
   return null;
 }
 
-export function loadAdrDraft(): AdrDraftLoadResult {
+function readCollection(value: unknown): AdrDraft[] | null {
+  if (typeof value !== 'object' || value === null) return null;
+  const collection = value as Partial<AdrDraftCollection>;
+  if (collection.schemaVersion !== 1 || !Array.isArray(collection.drafts)) return null;
+  const drafts = collection.drafts.map(readDraft);
+  if (drafts.some((draft) => draft === null)) return null;
+  const validDrafts = drafts as AdrDraft[];
+  if (new Set(validDrafts.map((draft) => draft.id)).size !== validDrafts.length) return null;
+  return validDrafts;
+}
+
+export function loadAdrDrafts(): AdrDraftsLoadResult {
   try {
-    const current = window.localStorage.getItem(ADR_DRAFT_STORAGE_KEY);
-    if (current !== null) {
-      const draft = readDraft(current);
-      return draft ? { draft, error: false } : { draft: null, error: true };
+    const collectionValue = window.localStorage.getItem(ADR_DRAFTS_STORAGE_KEY);
+    if (collectionValue !== null) {
+      const drafts = readCollection(JSON.parse(collectionValue));
+      return drafts ? { drafts, error: false } : { drafts: [], error: true };
     }
 
-    const legacy = window.localStorage.getItem(legacyStorageKey);
-    if (legacy === null) return { draft: null, error: false };
-    const draft = readDraft(legacy);
-    return draft ? { draft, error: false } : { draft: null, error: true };
+    const currentValue = window.localStorage.getItem(ADR_DRAFT_STORAGE_KEY);
+    if (currentValue !== null) {
+      const draft = readDraft(JSON.parse(currentValue));
+      return draft ? { drafts: [draft], error: false } : { drafts: [], error: true };
+    }
+
+    const legacyValue = window.localStorage.getItem(legacyStorageKey);
+    if (legacyValue === null) return { drafts: [], error: false };
+    const legacyDraft = readDraft(JSON.parse(legacyValue));
+    return legacyDraft ? { drafts: [legacyDraft], error: false } : { drafts: [], error: true };
   } catch {
-    return { draft: null, error: true };
+    return { drafts: [], error: true };
   }
 }
 
-export function saveAdrDraft(draft: AdrDraft): void {
-  window.localStorage.setItem(ADR_DRAFT_STORAGE_KEY, JSON.stringify(draft));
+export function saveAdrDrafts(drafts: AdrDraft[]): void {
+  if (!drafts.every(isAdrDraft) || new Set(drafts.map((draft) => draft.id)).size !== drafts.length) {
+    throw new TypeError('ADR draft collection contains invalid or duplicate drafts.');
+  }
+  const collection: AdrDraftCollection = { schemaVersion: 1, drafts };
+  window.localStorage.setItem(ADR_DRAFTS_STORAGE_KEY, JSON.stringify(collection));
 }

@@ -4,7 +4,7 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
-The main entry now offers welcome/sign-in, patient-home, and fictional ADR-intake/review interface previews plus an explicit link to the preserved developer design reference. Appearance uses white surfaces, selectable blue/red/yellow/green primary highlights, and optional charcoal-grey dark mode. ADR review records the user's confirmation in a browser-local fictional draft; it is not authenticated or submitted. Developer login, authenticated server persistence, the product workflow, and clinical validation remain incomplete.
+The main entry now offers welcome/sign-in, patient-home, and fictional ADR-intake/review interface previews plus an explicit link to the preserved developer design reference. Appearance uses white surfaces, selectable blue/red/yellow/green primary highlights, and optional charcoal-grey dark mode. ADR review records the user's confirmation in a browser-local fictional draft collection; multiple drafts can be opened, but the collection is shared within the browser profile and is not authenticated or submitted. Developer login, isolated server persistence, the product workflow, and clinical validation remain incomplete.
 
 ### Current phase and next handoff
 

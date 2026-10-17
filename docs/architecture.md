@@ -9,7 +9,7 @@ Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
 - [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English/Telugu fictional ADR draft and review preview at `#/preview/adr-report`. The patient reviews and explicitly confirms the summary before it saves a versioned draft in browser storage. User confirmation is distinct from professional review. It does not transmit, authenticate, submit, or add a case to professional records.
-- [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates schema v2 and migrates existing v1 drafts in memory as unconfirmed; optional blank statements remain `null`.
+- [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates draft schema v2 in a versioned browser-local collection, and loads previous single-draft v1/v2 keys into that collection in memory. Optional blank statements remain `null`; this storage is shared within a browser profile and provides no account isolation.
 - [src/design-system](../src/design-system) registers Material Web and defines tokens; [src/index.css](../src/index.css) provides styles.
 - [src/components](../src/components) also contains an earlier UI generation and experimental integrations. Their presence does not mean they are mounted by the current app.
 - [src/mockData.ts](../src/mockData.ts) and [src/types.ts](../src/types.ts) provide demonstration data and case types.
@@ -33,7 +33,7 @@ These observations are not validated clinical capabilities or a committed produc
 
 ## Baseline limitations
 
-- The new ADR draft prototype is browser-local and explicitly fictional. It is not authenticated, isolated between users, encrypted by APIP, or suitable for real patient data.
+- The new ADR draft prototype supports multiple browser-local fictional drafts. It is not authenticated, isolated between users, encrypted by APIP, or suitable for real patient data; anyone using the same browser profile can access the drafts.
 - The earlier demo's mock cases remain separate from the ADR draft and do not receive it.
 - Cases use mock/browser state, not a server-backed database.
 - Authentication, permissioned review, durable audit, and official integrations are not established.
