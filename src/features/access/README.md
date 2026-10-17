@@ -6,6 +6,7 @@ This is the selected rough UI task, ahead of authentication. It provides a simpl
 
 - `#/` opens the welcome page. Header **Log in** and main **Sign in to APIP** buttons open the patient sign-in view.
 - `#/patient/home` opens the patient home interface preview. The patient sign-in preview links directly to it without simulating an authenticated account.
+- Patient task actions route to `#/sign-in/patient?continue=medassist` or `#/sign-in/patient?continue=adr-report`, and the sign-in preview explains the requested destination. The current build has no account/session state: this navigation is only a UI demonstration, does not verify a person, and cannot conditionally grant access. A future auth integration must enforce the guard server-side and resume only an authorized destination.
 - `#/sign-in/patient`, `#/sign-in/specialist`, and `#/sign-in/developer` select the shared sign-in layout and audience-specific wording.
 - `#/developer-reference` explicitly previews the preserved component library. The developer sign-in view links to it as a preview. This route is currently unrestricted and is not a sign-in bypass to a protected system.
 - `App.tsx` listens for hash changes, applies appearance, and sets the page title. Unknown hashes return to the welcome view. Browser Back/Forward and direct hash refresh remain usable.
@@ -27,7 +28,7 @@ The sign-in heading is 36/44 px (32/40 compact); body inputs use the Material 16
 
 ## Patient home preview
 
-The patient home puts MedAssist AI and direct ADR reporting side by side on wide screens, then stacks them on phones. It explains each intended purpose, keeps the suspected-reaction report available without MedAssist, and uses distinct actions with a shared heading style. The header identifies this as a preview and provides appearance settings plus a help dialog explaining the two paths. MedAssist and report actions currently show honest next-step notices; neither starts a model conversation, accepts case details, saves a report, nor sends data. The preview is reachable from the patient sign-in page without submitting credentials. No protected patient session exists.
+The patient home puts MedAssist AI and direct ADR reporting side by side on wide screens, then stacks them on phones. It explains each intended purpose, keeps the suspected-reaction report available without MedAssist, and uses distinct actions with a shared heading style. The header identifies this as a preview and provides appearance settings plus a Help dialog explaining the two paths. Task actions demonstrate the intended sign-in destination and retain the requested task in the route; the page states that sign-in cannot currently unlock access. Neither action starts a model conversation, accepts case details, saves a report, nor sends data. The patient home preview is directly reachable from the patient sign-in page without submitting credentials. No protected patient session exists.
 
 `access.css` defines the page composition; it does not duplicate the shared colour palette. Shared settings work on these pages and the developer reference. The first UI copy is English; reviewed Telugu account wording is not implemented by this task.
 

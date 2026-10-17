@@ -139,6 +139,7 @@
 .access-role-tabs md-primary-tab { flex: 1; min-width: 0; --md-primary-tab-container-height: 48px; }
 .access-form { display: flex; flex-direction: column; gap: 20px; padding-top: 28px; }
 .access-form-intro { font-size: 0.875rem; line-height: 1.25rem; margin: 0 0 4px; color: var(--md-sys-color-on-surface-variant); }
+.access-requested-task { margin: 24px 0 0; padding: 14px 16px; border-radius: 16px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); font-size: .875rem; line-height: 1.375rem; }
 .access-form md-outlined-text-field { --md-outlined-text-field-input-text-font: var(--access-font); --md-outlined-text-field-label-text-font: var(--access-font); --md-outlined-text-field-supporting-text-font: var(--access-font); }
 .access-form md-checkbox { --md-checkbox-container-shape: 4px; }
 .access-preview-note { display: flex; align-items: flex-start; gap: 10px; color: var(--md-sys-color-on-surface-variant); font-size: 0.75rem; line-height: 1.125rem; }

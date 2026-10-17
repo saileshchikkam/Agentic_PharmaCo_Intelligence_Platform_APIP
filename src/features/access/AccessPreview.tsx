@@ -5,7 +5,8 @@ import { Appearance } from '../../design-system/appearance';
 import './access.css';
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
-export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'sign-in'; role: AccessRole } | { screen: 'developer-reference' };
+export type PatientTask = 'medassist' | 'adr-report';
+export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -15,11 +16,16 @@ const roleCopy = {
 };
 
 export function readPreviewRoute(): PreviewRoute {
-  if (window.location.hash === '#/developer-reference') return { screen: 'developer-reference' };
-  if (window.location.hash === '#/patient/home') return { screen: 'patient-home' };
-  const role = window.location.hash.replace('#/sign-in/', '');
-  if (roles.includes(role as AccessRole) && window.location.hash.startsWith('#/sign-in/')) {
-    return { screen: 'sign-in', role: role as AccessRole };
+  const [path, query] = window.location.hash.slice(1).split('?');
+  if (path === '/developer-reference') return { screen: 'developer-reference' };
+  if (path === '/patient/home') return { screen: 'patient-home' };
+  const role = path.replace('/sign-in/', '');
+  if (roles.includes(role as AccessRole) && path.startsWith('/sign-in/')) {
+    const requestedTask = new URLSearchParams(query).get('continue');
+    return {
+      screen: 'sign-in', role: role as AccessRole,
+      ...(requestedTask === 'medassist' || requestedTask === 'adr-report' ? { requestedTask } : {}),
+    };
   }
   return { screen: 'home' };
 }
@@ -52,7 +58,7 @@ function RoleTabs({ role, onChange }: { role: AccessRole; onChange: (role: Acces
   </md-tabs>;
 }
 
-function SignInForm({ role }: { role: AccessRole }) {
+function SignInForm({ role, requestedTask }: { role: AccessRole; requestedTask?: PatientTask }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -73,7 +79,9 @@ function SignInForm({ role }: { role: AccessRole }) {
   };
 
   return <form onSubmit={submit} autoComplete="off" noValidate className="access-form" aria-label={`${roleCopy[role].label} sign-in`}>
-    <p className="access-form-intro">Continue to {roleCopy[role].account}.</p>
+    <p className="access-form-intro">{requestedTask
+      ? `Sign in to continue to ${requestedTask === 'medassist' ? 'MedAssist AI' : 'ADR reporting'}.`
+      : `Continue to ${roleCopy[role].account}.`}</p>
     <M3TextField id="access-email" label="Email address" type="email" autoComplete="off" value={email}
       required onChange={(event) => { setEmail(event.target.value); setErrors((old) => ({ ...old, email: false })); setNotice(''); }}
       error={errors.email} errorText="Enter an email address, such as name@example.com." />
@@ -157,9 +165,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           <md-icon><span className="material-symbols-outlined">{settingsOpen ? 'close' : 'settings'}</span></md-icon>
         </md-icon-button>
         {isPatientHome && !settingsOpen && <><span className="access-preview-badge"><span aria-hidden="true">●</span> Preview</span>
-          <md-icon-button aria-label="Help with patient home" onClick={() => helpDialog.current?.showModal()}>
-            <md-icon><span className="material-symbols-outlined">help</span></md-icon>
-          </md-icon-button></>}
+          <M3Button variant="text" leadingIcon="help" ariaLabel="Help with patient home" onClick={() => helpDialog.current?.showModal()}>Help</M3Button></>}
         {!isSignIn && !isPatientHome && !settingsOpen && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Log in</M3Button>}
       </div>
     </header>
@@ -190,7 +196,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <ul><li>Share symptoms in your own words</li><li>Get help organizing what to discuss with a professional</li><li>Continue to a medicine report whenever you choose</li></ul>
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">info</span> Assistant guidance is a planned preview; it does not diagnose or replace professional care.</p>
             </div>
-            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => setHomeMessage('MedAssist is a planned preview. Its conversation and reviewed guidance will be designed in a later step; no health details were entered or sent.')}>Explore MedAssist</M3Button>
+            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient?continue=medassist'; }}>Explore MedAssist</M3Button>
           </article>
           <article className="patient-task-card patient-report-card">
             <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">description</span></div>
@@ -201,7 +207,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> This preview does not save or send reports. Use fictional details only.</p>
             </div>
-            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => setHomeMessage('The guided ADR reporting screen is the next design step. No report was started, saved, or sent.')}>Start an ADR report</M3Button>
+            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient?continue=adr-report'; }}>Start an ADR report</M3Button>
           </article>
         </div>
         {homeMessage && <div className="patient-home-message" role="status"><span>{homeMessage}</span>
@@ -225,7 +231,10 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </div>
         <div className="access-sign-in-fields">
           <RoleTabs role={route.role} onChange={(role) => { window.location.hash = `/sign-in/${role}`; }} />
-          <SignInForm key={route.role} role={route.role} />
+          {route.requestedTask && <p className="access-requested-task" role="status">
+            Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
+          </p>}
+          <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />
         </div>
       </section>}
     </main>

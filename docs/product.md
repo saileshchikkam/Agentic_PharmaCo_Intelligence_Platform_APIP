@@ -75,3 +75,5 @@ Developer-only sign-in and role enforcement are required before making this refe
 ## Initial sign-in framework
 
 **Selected 2026-10-17:** design the front end first, with a simple main-page sign-in action and three shared-layout sign-in views: personal/patient, pharmacovigilance specialist, and developer design reference intended for Sailesh. Authentication is explicitly deferred. The UI must use Material 3, clear typography, white surfaces, responsive spacing, rounded shapes, and restrained accessible motion. A visible role selection is not proof of permission; server-enforced roles are still required later.
+
+Patient task links should remember the selected destination through sign-in and return only after the session is verified. This is a product requirement for a future authentication integration; the current preview merely demonstrates the intended route and does not establish a session or unlock patient features.
