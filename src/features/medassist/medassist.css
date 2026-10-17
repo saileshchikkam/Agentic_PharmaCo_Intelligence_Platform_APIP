@@ -1,0 +1,42 @@
+.medassist-preview { width: min(100%, 920px); margin: 0 auto; padding: 0 0 36px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
+.medassist-preview-topline { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; margin-bottom: 12px; }
+.medassist-language { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; }
+.medassist-language > span { margin-inline-end: 6px; }
+.medassist-language md-filter-chip { --md-filter-chip-label-text-font: var(--access-font); }
+.medassist-heading { max-width: 700px; margin: 8px auto 24px; text-align: center; }
+.medassist-preview-badge { display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 16px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); font-size: .8125rem; font-weight: 500; }
+.medassist-heading .access-eyebrow { margin: 18px 0 8px; color: var(--md-sys-color-primary); font-size: .75rem; line-height: 1rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.medassist-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; letter-spacing: -.04em; font-weight: 500; }
+.medassist-heading > p:last-child { max-width: 620px; margin: 12px auto 0; color: var(--md-sys-color-on-surface-variant); font-size: 1rem; line-height: 1.5rem; }
+.medassist-preview-notice { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border-radius: 20px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); }
+.medassist-preview-notice .material-symbols-outlined { flex: 0 0 auto; color: var(--md-sys-color-primary); font-size: 22px; }
+.medassist-preview-notice p { margin: 0; font-size: .875rem; line-height: 1.4rem; }
+.medassist-conversation { display: flex; flex-direction: column; gap: 16px; min-height: 300px; max-height: 52vh; overflow-y: auto; margin-top: 20px; padding: 24px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface); }
+.medassist-message { display: flex; align-items: flex-start; gap: 12px; width: fit-content; max-width: min(86%, 680px); padding: 14px 16px; border-radius: 20px; }
+.medassist-message p { margin: 0; font-size: .9375rem; line-height: 1.5rem; overflow-wrap: anywhere; white-space: pre-wrap; }
+.medassist-message-assistant { border-start-start-radius: 6px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
+.medassist-message-assistant .material-symbols-outlined { flex: 0 0 auto; margin-top: 1px; font-size: 20px; }
+.medassist-message-patient { align-self: flex-end; border-start-end-radius: 6px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+.medassist-empty-hint { margin: auto 0 0; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.3rem; text-align: center; }
+.medassist-composer { display: grid; gap: 10px; margin-top: 16px; padding: 20px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface-container-low); }
+.medassist-composer label { font-size: .875rem; line-height: 1.25rem; font-weight: 500; }
+.medassist-composer md-outlined-text-field { width: 100%; --md-outlined-text-field-input-text-font: var(--access-font); --md-outlined-text-field-label-text-font: var(--access-font); --md-outlined-text-field-supporting-text-font: var(--access-font); }
+.medassist-composer-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.medassist-composer-footer > span { max-width: 520px; color: var(--md-sys-color-on-surface-variant); font-size: .75rem; line-height: 1.125rem; }
+.medassist-adr-link { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; padding: 20px 24px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 20px; }
+.medassist-adr-link h2 { margin: 0; font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
+.medassist-adr-link p { margin: 4px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
+.medassist-preview :focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 3px; }
+
+@media (max-width: 599px) {
+  .medassist-preview { padding-bottom: 20px; }
+  .medassist-heading { margin-block: 8px 20px; text-align: start; }
+  .medassist-heading h1 { font-size: 2rem; line-height: 2.5rem; }
+  .medassist-preview-notice { padding: 16px; }
+  .medassist-conversation { min-height: 280px; max-height: 48vh; padding: 16px; border-radius: 20px; }
+  .medassist-message { max-width: 94%; }
+  .medassist-composer { padding: 16px; }
+  .medassist-composer-footer, .medassist-adr-link { align-items: stretch; flex-direction: column; }
+  .medassist-composer-footer md-filled-button, .medassist-adr-link md-outlined-button { align-self: flex-end; }
+  .medassist-adr-link { gap: 12px; padding: 18px; }
+}

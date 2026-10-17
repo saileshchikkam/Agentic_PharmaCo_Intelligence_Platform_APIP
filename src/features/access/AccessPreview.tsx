@@ -7,10 +7,12 @@ import { Brand, PageNavigation, PreviewHeader } from './PreviewLayout';
 
 const ReportReactionView = React.lazy(() => import('../../components/material/ReportReactionView')
   .then((module) => ({ default: module.ReportReactionView })));
+const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
+  .then((module) => ({ default: module.MedAssistPreview })));
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'medassist-preview' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -24,6 +26,7 @@ export function readPreviewRoute(): PreviewRoute {
   if (path === '/developer-reference') return { screen: 'developer-reference' };
   if (path === '/patient/home') return { screen: 'patient-home' };
   if (path === '/preview/adr-report') return { screen: 'adr-preview' };
+  if (path === '/preview/medassist') return { screen: 'medassist-preview' };
   const role = path.replace('/sign-in/', '');
   if (roles.includes(role as AccessRole) && path.startsWith('/sign-in/')) {
     const requestedTask = new URLSearchParams(query).get('continue');
@@ -99,6 +102,10 @@ function SignInForm({ role, requestedTask }: { role: AccessRole; requestedTask?:
       <a href="#/preview/adr-report" className="access-text-link" onClick={(event) => followPreviewLink(event, '/preview/adr-report')}>Preview the fictional ADR intake <span aria-hidden="true">↗</span></a>
       <p>Design review only. Use fictional details; this preview stores a draft in this browser and sends nothing.</p>
     </div>}
+    {role === 'patient' && requestedTask === 'medassist' && <div className="access-developer-preview">
+      <a href="#/preview/medassist" className="access-text-link" onClick={(event) => followPreviewLink(event, '/preview/medassist')}>Preview the MedAssist conversation <span aria-hidden="true">↗</span></a>
+      <p>Interface review only. AI responses and clinical guidance are not connected.</p>
+    </div>}
     {role === 'developer' && <div className="access-developer-preview">
       <a href="#/developer-reference" className="access-text-link" onClick={(event) => followPreviewLink(event, '/developer-reference')}>Open developer reference preview <span aria-hidden="true">↗</span></a>
       <p>Intended for Sailesh. This local preview has no access restriction yet.</p>
@@ -120,10 +127,10 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const isPatientHome = route.screen === 'patient-home';
   const backFallback = route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
-    : route.screen === 'adr-preview' ? '/patient/home' : '/';
+    : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? '/patient/home' : '/';
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
-    document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : 'access-title')?.focus({ preventScroll: true });
+    document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
 
   return <div className="access-app">
@@ -210,6 +217,9 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
             onExit={() => goBackPreview(backFallback)} />
         </React.Suspense>
       </section>}
+      {route.screen === 'medassist-preview' && <React.Suspense fallback={<p role="status">Opening the MedAssist design preview…</p>}>
+        <MedAssistPreview onOpenAdr={() => navigatePreview('/preview/adr-report')} />
+      </React.Suspense>}
       </div>
     </main>
 

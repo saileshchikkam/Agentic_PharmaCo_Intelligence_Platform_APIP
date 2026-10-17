@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### MedAssist conversation design preview — 2026-10-17
+
+- Added a responsive Material 3 conversation shell with English/Telugu interface text and consistent Back/ADR navigation.
+- Marked the experience as a design preview: fictional messages remain in page memory and no model, persistence, or clinical guidance is connected.
+- Documented that public pharmacovigilance datasets do not supply symptom-urgency labels, and recorded current openFDA/VigiBase access limitations.
+
 ### Delete saved fictional ADR drafts — 2026-10-17
 
 - Added a per-draft Delete action with a centered confirmation dialog, cancel support, accessible focus restoration, and English/Telugu copy.

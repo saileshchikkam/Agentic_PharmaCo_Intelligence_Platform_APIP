@@ -15,7 +15,7 @@ export function Brand({ large = false }: { large?: boolean }) {
 }
 
 interface HeaderProps {
-  screen: 'home' | 'patient-home' | 'sign-in' | 'adr-preview' | 'developer-reference';
+  screen: 'home' | 'patient-home' | 'sign-in' | 'adr-preview' | 'medassist-preview' | 'developer-reference';
   appearance: Appearance;
   setAppearance: React.Dispatch<React.SetStateAction<Appearance>>;
   preferencesSaved: boolean;

@@ -1,6 +1,6 @@
 # MedAssist AI
 
-**Status:** confirmed product direction; implementation and clinical evaluation pending. Jayanth originated this part of APIP.
+**Status:** an English/Telugu conversation design preview is implemented; model inference, reviewed guidance, data preparation, and clinical evaluation remain pending. Jayanth originated this part of APIP.
 
 ## Responsibility
 
@@ -18,11 +18,17 @@ Urgent-care interruptions must also be available in reporting. Do not require a 
 
 ## Model research
 
+The current `#/preview/medassist` screen is a presentation-only shell. It keeps fictional messages in page memory, displays a fixed no-inference notice, and does not save, transmit, or interpret them. A two-day target can cover a working software prototype and a narrow offline experiment if suitable data and review are available; it cannot establish clinical effectiveness or authorize real-patient use.
+
 A custom model trained from scratch is an aspiration, not a selected algorithm. Define a bounded task, permitted dataset, clinically meaningful labels, baseline, and held-out evaluation before training. ADR reports do not automatically provide valid medical-urgency labels.
 
 Separate training from live care guidance. Record per-class errors, urgent-case misses, calibration, dataset coverage, and uncertainty. Synthetic cases can exercise software, not establish clinical effectiveness. If evidence/review is inadequate, keep model-driven urgency disabled and document the gap.
 
 See the [custom ML implementation sequence](../ai-implementation.md#custom-ml-from-scratch) for task/label definition, permitted data, leakage-safe splits, baseline/candidate training, language-specific evaluation, and packaging. English/Telugu fictional-case scope does not itself supply clinical training data.
+
+Pharmacovigilance data and MedAssist symptom guidance are different tasks. Public openFDA FAERS records can support bounded ADR data-processing and descriptive pharmacovigilance experiments; FDA says spontaneous reports are not scientifically verified for cause and effect and cannot estimate incidence. WHO-UMC's public VigiAccess gives aggregated statistics. Case-level VigiBase access requires an access request, review, and use conditions. These datasets do not by themselves provide clinician-reviewed symptom-to-urgency labels. This is an engineering inference from their published scope and access rules. See [openFDA limitations](https://open.fda.gov/apis/drug/event/) and the [WHO-UMC VigiBase FAQ](https://who-umc.org/vigibase-data-access/vigibase-faq/).
+
+Before any real-patient pilot, the institution must determine intended use, data permissions, privacy/security conditions, reviewer responsibilities, and applicable regulatory requirements. CDSCO's [2026 Medical Device Software guidance under MDR-2017](https://www.cdsco.gov.in/opencms/export/sites/CDSCO_WEB/Pdf-documents/Guidance-document-on-Medical-Device-Software-under-MDR-2017.pdf) defines scope by intended medical purpose; APIP's status is not determined here. WHO calls for healthcare-provider, patient, and other stakeholder engagement and oversight through development and deployment ([WHO guidance](https://www.who.int/news/item/18-01-2024-who-releases-ai-ethics-and-governance-guidance-for-large-multi-modal-models)).
 
 ## Navigation and data boundaries
 
