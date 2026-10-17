@@ -4,9 +4,12 @@ import { M3Button, M3Checkbox, M3TextField } from '../../components/material/cor
 import { Appearance } from '../../design-system/appearance';
 import './access.css';
 
+const ReportReactionView = React.lazy(() => import('../../components/material/ReportReactionView')
+  .then((module) => ({ default: module.ReportReactionView })));
+
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -19,6 +22,7 @@ export function readPreviewRoute(): PreviewRoute {
   const [path, query] = window.location.hash.slice(1).split('?');
   if (path === '/developer-reference') return { screen: 'developer-reference' };
   if (path === '/patient/home') return { screen: 'patient-home' };
+  if (path === '/preview/adr-report') return { screen: 'adr-preview' };
   const role = path.replace('/sign-in/', '');
   if (roles.includes(role as AccessRole) && path.startsWith('/sign-in/')) {
     const requestedTask = new URLSearchParams(query).get('continue');
@@ -100,6 +104,10 @@ function SignInForm({ role, requestedTask }: { role: AccessRole; requestedTask?:
       <a href="#/patient/home" className="access-text-link">Preview the patient home <span aria-hidden="true">↗</span></a>
       <p>Open the interface preview directly; no account or sign-in is created.</p>
     </div>}
+    {role === 'patient' && requestedTask === 'adr-report' && <div className="access-developer-preview">
+      <a href="#/preview/adr-report" className="access-text-link">Preview the fictional ADR intake <span aria-hidden="true">↗</span></a>
+      <p>Design review only. Use fictional details; this preview stores a draft in this browser and sends nothing.</p>
+    </div>}
     {role === 'developer' && <div className="access-developer-preview">
       <a href="#/developer-reference" className="access-text-link">Open developer reference preview <span aria-hidden="true">↗</span></a>
       <p>Intended for Sailesh. This local preview has no access restriction yet.</p>
@@ -122,7 +130,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const isPatientHome = route.screen === 'patient-home';
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
-    document.getElementById('access-title')?.focus({ preventScroll: true });
+    document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
   const closeSettings = () => { setSettingsOpen(false); document.getElementById('access-settings-button')?.focus(); };
   useEffect(() => {
@@ -205,7 +213,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <h2>Report a side effect</h2>
               <p>Tell us about a suspected unwanted effect after taking a medicine. You do not need to use MedAssist first.</p>
               <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
-              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> This preview does not save or send reports. Use fictional details only.</p>
+              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> The intake preview uses fictional details, saves only in this browser, and sends nothing.</p>
             </div>
             <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient?continue=adr-report'; }}>Start an ADR report</M3Button>
           </article>
@@ -236,6 +244,16 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           </p>}
           <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />
         </div>
+      </section>}
+
+      {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
+        <div className="adr-preview-navigation">
+          <a href="#/patient/home" className="access-text-link"><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>Patient home</a>
+          <span className="access-preview-badge">Fictional design preview</span>
+        </div>
+        <React.Suspense fallback={<p className="access-form-intro" role="status">Opening the fictional intake preview…</p>}>
+          <ReportReactionView />
+        </React.Suspense>
       </section>}
     </main>
 

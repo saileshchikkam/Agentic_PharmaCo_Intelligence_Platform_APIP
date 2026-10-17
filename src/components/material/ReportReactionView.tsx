@@ -108,7 +108,7 @@ export const ReportReactionView: React.FC = () => {
         <span className="m3-label-large inline-flex rounded-full bg-[var(--md-sys-color-secondary-container)] px-3 py-1 text-[var(--md-sys-color-on-secondary-container)]">
           {text.badge}
         </span>
-        <h1 id="adr-draft-title" className="m3-headline-small font-normal text-[var(--md-sys-color-on-surface)]">
+        <h1 id="adr-draft-title" tabIndex={-1} className="m3-headline-small font-normal text-[var(--md-sys-color-on-surface)]">
           {text.title}
         </h1>
         <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">{text.intro}</p>

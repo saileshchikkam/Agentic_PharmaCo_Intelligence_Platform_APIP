@@ -1,14 +1,14 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. Application baseline before the first ADR draft slice: `083c239`. The current shell presents welcome, sign-in, and patient-home interface previews plus an explicit developer-reference route; the earlier browser-local fictional draft remains in source but is unmounted. The patient-home actions are explanatory previews only. Authentication, protected access, model conversations, and submitted reports remain unimplemented.
+Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, and fictional ADR-intake previews plus an explicit developer-reference route. The ADR preview reuses a fictional browser-local draft form and is exposed only through a clearly labelled design-preview link; it is not an authenticated product workflow. Authentication, protected access, model conversations, and submitted reports remain unimplemented.
 
 ## Current repository
 
-- [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between welcome, sign-in, patient-home, and developer-reference previews.
+- [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between welcome, sign-in, patient-home, ADR-intake, and developer-reference previews.
 - [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, patient task choices, local-only feedback, and absence of authentication.
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
-- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains an English/Telugu fictional ADR draft prototype that is no longer mounted in the developer shell. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
+- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English/Telugu fictional ADR draft preview at `#/preview/adr-report`. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
 - [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates the small versioned browser-storage shape; empty optional statements remain `null`.
 - [src/design-system](../src/design-system) registers Material Web and defines tokens; [src/index.css](../src/index.css) provides styles.
 - [src/components](../src/components) also contains an earlier UI generation and experimental integrations. Their presence does not mean they are mounted by the current app.

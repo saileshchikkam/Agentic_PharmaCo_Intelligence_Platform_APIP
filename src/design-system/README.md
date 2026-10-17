@@ -1,6 +1,6 @@
 # APIP developer design reference
 
-The component library is available at `#/developer-reference` through an explicit local preview link. The main entry now presents the rough [welcome/sign-in front end](../features/access/README.md). It exposes Domain Components, Core Components, Design Tokens, and appearance settings. Prototype patient/report/records files are retained outside the mounted shell. Developer sign-in and route/server authorization remain pending; a developer label does not restrict access.
+The component library is available at `#/developer-reference` through an explicit local preview link. The main entry now presents the rough [welcome/sign-in front end](../features/access/README.md). It exposes Domain Components, Core Components, Design Tokens, and appearance settings. Older patient/report/records prototypes remain separate; the fictional ADR intake is mounted only as an explicitly labelled preview. Developer sign-in and route/server authorization remain pending; a developer label does not restrict access.
 
 ## Colour and appearance
 

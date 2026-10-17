@@ -102,6 +102,9 @@
 .access-welcome-links a { display: inline-flex; align-items: center; min-height: 48px; }
 
 .patient-home { width: min(100%, 1160px); padding-block: 12px 32px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
+.adr-preview-page { width: min(100%, 1040px); padding-block: 8px 32px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
+.adr-preview-navigation { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.adr-preview-navigation .access-text-link { gap: 8px; }
 .patient-home-heading { max-width: 780px; margin: 0 auto 36px; text-align: center; }
 .patient-home-heading .access-eyebrow { margin-bottom: 12px; }
 .patient-home-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; letter-spacing: -.04em; font-weight: 500; }
@@ -201,6 +204,6 @@
   .access-sign-in-lead h1 { margin-top: 4px; font-size: 2rem; line-height: 2.5rem; }
   .access-lead-subtitle { font-size: 1.125rem; line-height: 1.625rem; }
 }
-@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface, .access-header-preferences, .access-header-actions > md-filled-button, .patient-home, .patient-home-message { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface, .access-header-preferences, .access-header-actions > md-filled-button, .patient-home, .adr-preview-page, .patient-home-message { animation: none; } }
 
 .access-app h1:focus, .access-main:focus { outline: none; }

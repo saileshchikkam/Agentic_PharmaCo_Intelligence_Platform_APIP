@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Fictional ADR intake preview — 2026-10-17
+
+- Mounted the existing English/Telugu fictional draft form at `#/preview/adr-report`, lazy-loaded it from the selected ADR sign-in preview, and added a clear return to patient home.
+- Kept draft storage in this browser only and the explicit fictional-use notice; no authentication, AI, submission, or professional review was added.
+- Updated the app route title, keyboard focus, and layer/architecture documentation.
+
 ### Appearance palette and header spacing — 2026-10-17
 
 - Replaced the blue/black/green accent choices with familiar Google-inspired blue, red, yellow, and green highlights; only primary roles change with the selected accent.

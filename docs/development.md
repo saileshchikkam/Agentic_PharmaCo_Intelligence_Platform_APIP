@@ -1,10 +1,10 @@
 # Development setup and verification
 
-This page describes the welcome/sign-in interface preview and preserved developer design reference; earlier product workflows remain unmounted. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
+This page describes the welcome/sign-in and patient interface previews plus the preserved developer design reference. The ADR intake preview reuses the fictional draft form and browser-local storage; it is not a connected product workflow. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
 
 ## Prerequisites and installation
 
-The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The unmounted ADR draft prototype stores fictional data in browser `localStorage`; it does not use the server or support real patient information.
+The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The ADR draft preview stores fictional data in browser `localStorage`; it does not use the server or support real patient information.
 
 The repository tracks `bun.lock`. With Bun available, the intended commands are:
 
