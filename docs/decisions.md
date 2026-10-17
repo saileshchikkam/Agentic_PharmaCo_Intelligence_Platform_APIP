@@ -89,3 +89,7 @@ This decision supersedes DEC-012's black accent and near-black dark surface trea
 ## DEC-015 — Shared preview navigation and page geometry
 
 **User-selected 2026-10-17.** Keep a visible text-style Home link beside Log in and use the same page-level Back slot below the header throughout the website. Share one header, typography source, page width/gutters, and stable scrollbar allocation across patient/access and developer-reference routes. The Back slot has fixed dimensions even on the welcome page, where it contains no action. Readable inner form widths may vary without moving navigation. ADR Back resolves internal steps before route exits; native browser history continues to represent routes. Use official Material Web controls where provided and specification-based HTML links/page composition where there is no matching library primitive; retain accessible focus and reduced-motion support.
+
+## DEC-016 — Confirm before deleting a saved draft
+
+**User-selected 2026-10-17.** Give patients a way to remove an unwanted saved ADR draft, and ask them to confirm before deleting it. If deletion cannot be persisted, keep the draft and explain the error. The current design preview applies this behavior only to fictional drafts in the shared browser profile; account-level ownership and server deletion require the future authenticated backend.

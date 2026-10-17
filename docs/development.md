@@ -1,6 +1,6 @@
 # Development setup and verification
 
-This page describes the welcome/sign-in and patient interface previews plus the preserved developer design reference. The ADR intake preview stores multiple fictional drafts in a browser-local collection; it is not a connected product workflow or isolated by account. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
+This page describes the welcome/sign-in and patient interface previews plus the preserved developer design reference. The ADR intake preview stores multiple fictional drafts in a browser-local collection and allows them to be deleted after confirmation; it is not a connected product workflow or isolated by account. The pinned dependency install, frontend lint, and production build passed in the current checkout on 2026-10-17. Limited developer-reference appearance checks have also passed in the browser; see the dated [development history](history/2026-10-17.md).
 
 ## Prerequisites and installation
 

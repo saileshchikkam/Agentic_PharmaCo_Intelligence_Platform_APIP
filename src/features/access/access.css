@@ -123,6 +123,17 @@ html { scrollbar-gutter: stable; }
 .adr-preview-page { width: 100%; padding-bottom: 32px; }
 .adr-preview-page #adr-draft-view { animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
 .adr-preview-page #adr-draft-title { font-size: 2.25rem; line-height: 2.75rem; font-weight: 500; letter-spacing: -.5px; }
+.adr-delete-dialog { position: fixed; inset: 0; width: min(480px, calc(100vw - 32px)); height: fit-content; max-width: none; max-height: calc(100dvh - 32px); margin: auto; overflow: auto; padding: 28px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface-container-low); color: var(--md-sys-color-on-surface); box-shadow: var(--md-sys-elevation-level3); }
+.adr-delete-dialog::backdrop { background: rgb(24 28 32 / 38%); backdrop-filter: blur(2px); }
+.adr-delete-dialog-icon { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 20px; border-radius: 16px; background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }
+.adr-delete-dialog h2 { margin: 0; font-size: 1.375rem; line-height: 1.75rem; font-weight: 500; }
+.adr-delete-dialog p { margin: 12px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: .9375rem; line-height: 1.5rem; }
+.adr-delete-dialog .adr-delete-error { padding: 12px 14px; border-radius: 12px; background: var(--md-sys-color-error-container); color: var(--md-sys-color-on-error-container); }
+.adr-delete-dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 24px; }
+.adr-empty-drafts { display: flex; align-items: center; gap: 16px; min-height: 96px; color: var(--md-sys-color-on-surface-variant); }
+.adr-empty-drafts > .material-symbols-outlined { color: var(--md-sys-color-primary); font-size: 28px; }
+.adr-empty-drafts h3, .adr-empty-drafts p { margin: 0; }
+.adr-empty-drafts p { margin-top: 4px; }
 .adr-draft-progress { display: grid; gap: 8px; }
 .adr-draft-progress md-linear-progress { width: 100%; --md-linear-progress-active-indicator-color: var(--md-sys-color-primary); --md-linear-progress-track-color: var(--md-sys-color-primary-container); }
 .adr-review-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
@@ -227,6 +238,7 @@ html { scrollbar-gutter: stable; }
   .adr-review-row:last-child { grid-column: auto; }
   .access-preview-badge { display: none; }
   .patient-help-dialog { padding: 24px; }
+  .adr-delete-dialog { padding: 24px; }
   .adr-preview-page #adr-draft-title { font-size: 2rem; line-height: 2.5rem; }
   .access-sign-in-surface { border: 0; border-radius: 0; padding: 0; margin: 0 auto; }
   .access-welcome { padding: 20px 0 24px; }

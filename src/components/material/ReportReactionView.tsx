@@ -12,6 +12,16 @@ const copy = {
     sharedStorage: 'Drafts are saved in this browser profile. Sign-in is only a preview, so drafts are not separated by account and anyone using this browser profile may see them. Do not enter real patient information.',
     newDraft: 'New fictional draft',
     openDraft: 'Open draft',
+    deleteDraft: 'Delete',
+    deleteDraftLabel: 'Delete draft',
+    noSavedDrafts: 'No saved drafts',
+    noSavedDraftsDescription: 'Drafts you save in this browser will appear here.',
+    confirmDeleteTitle: 'Delete this saved draft?',
+    confirmDeleteDescription: 'This fictional draft will be removed from this browser. This action cannot be undone.',
+    cancelDelete: 'Cancel',
+    confirmDelete: 'Delete draft',
+    deleted: 'The fictional draft was deleted from this browser.',
+    deleteError: 'The browser could not update the saved drafts. The draft was not deleted.',
     savedDrafts: 'Saved drafts',
     draftNumber: 'Draft',
     needsReview: 'Needs your review',
@@ -55,6 +65,16 @@ const copy = {
     sharedStorage: 'ముసాయిదాలు ఈ బ్రౌజర్ ప్రొఫైల్‌లో సేవ్ అవుతాయి. సైన్-ఇన్ ఇంకా ప్రివ్యూ మాత్రమే కాబట్టి, ఖాతాల వారీగా వేరు కావు; ఈ బ్రౌజర్‌ను ఉపయోగించే ఇతరులు కూడా వీటిని చూడవచ్చు. నిజమైన రోగి వివరాలను నమోదు చేయవద్దు.',
     newDraft: 'కొత్త కల్పిత ముసాయిదా',
     openDraft: 'ముసాయిదా తెరవండి',
+    deleteDraft: 'తొలగించు',
+    deleteDraftLabel: 'ముసాయిదాను తొలగించండి',
+    noSavedDrafts: 'సేవ్ చేసిన ముసాయిదాలు లేవు',
+    noSavedDraftsDescription: 'ఈ బ్రౌజర్‌లో మీరు సేవ్ చేసే ముసాయిదాలు ఇక్కడ కనిపిస్తాయి.',
+    confirmDeleteTitle: 'ఈ సేవ్ చేసిన ముసాయిదాను తొలగించాలా?',
+    confirmDeleteDescription: 'ఈ కల్పిత ముసాయిదా ఈ బ్రౌజర్ నుండి తొలగించబడుతుంది. ఈ చర్యను రద్దు చేయలేరు.',
+    cancelDelete: 'రద్దు చేయండి',
+    confirmDelete: 'ముసాయిదాను తొలగించండి',
+    deleted: 'కల్పిత ముసాయిదా ఈ బ్రౌజర్ నుండి తొలగించబడింది.',
+    deleteError: 'సేవ్ చేసిన ముసాయిదాలను బ్రౌజర్‌లో నవీకరించలేకపోయాం. ముసాయిదా తొలగించబడలేదు.',
     savedDrafts: 'సేవ్ చేసిన ముసాయిదాలు',
     draftNumber: 'ముసాయిదా',
     needsReview: 'మీ సమీక్ష అవసరం',
@@ -117,7 +137,9 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
     initial.error ? copy.en.loadError : null,
   );
   const [storageError, setStorageError] = useState(initial.error);
+  const [draftPendingDeletion, setDraftPendingDeletion] = useState<string | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
+  const deleteDialog = useRef<HTMLDialogElement>(null);
   const text = copy[language];
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'auto' }); heading.current?.focus({ preventScroll: true }); }, [step]);
@@ -182,6 +204,42 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
     setMessage(null);
     setStorageError(false);
     setStep('list');
+  };
+
+  const requestDraftDeletion = (draft: AdrDraft) => {
+    setMessage(null);
+    setStorageError(false);
+    setDraftPendingDeletion(draft.id);
+    deleteDialog.current?.showModal();
+  };
+
+  const finishDraftDeletion = () => {
+    if (!draftPendingDeletion) return;
+    const nextDrafts = drafts.filter((draft) => draft.id !== draftPendingDeletion);
+    try {
+      saveAdrDrafts(nextDrafts);
+      setDrafts(nextDrafts);
+      setMessage(text.deleted);
+      setStorageError(false);
+      deleteDialog.current?.close();
+      setDraftPendingDeletion(null);
+      window.requestAnimationFrame(() => {
+        const nextOpenDraft = document.querySelector<HTMLElement>('.adr-draft-open');
+        (nextOpenDraft ?? document.getElementById('adr-new-draft'))?.focus();
+      });
+    } catch {
+      setStorageError(true);
+      setMessage(text.deleteError);
+    }
+  };
+
+  const cancelDraftDeletion = () => {
+    const previousDraftId = draftPendingDeletion;
+    deleteDialog.current?.close();
+    setDraftPendingDeletion(null);
+    if (previousDraftId) {
+      window.requestAnimationFrame(() => document.getElementById(`adr-delete-${previousDraftId}`)?.focus());
+    }
   };
 
   const confirmAndSave = () => {
@@ -265,9 +323,15 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
         </M3Card>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="m3-title-large">{text.savedDrafts}</h2>
-          <M3Button type="button" variant="filled" leadingIcon="add" onClick={startNewDraft}>{text.newDraft}</M3Button>
+          <M3Button id="adr-new-draft" type="button" variant="filled" leadingIcon="add" onClick={startNewDraft}>{text.newDraft}</M3Button>
         </div>
         <ul className="space-y-3">
+          {drafts.length === 0 && <li>
+            <M3Card variant="filled" className="adr-empty-drafts" role="status">
+              <span className="material-symbols-outlined" aria-hidden="true">folder_open</span>
+              <div><h3 className="m3-title-medium">{text.noSavedDrafts}</h3><p className="m3-body-medium">{text.noSavedDraftsDescription}</p></div>
+            </M3Card>
+          </li>}
           {drafts.map((draft, index) => <li key={draft.id}>
             <M3Card variant="outlined" className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="space-y-1">
@@ -279,10 +343,24 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
                   {draft.statements.medicineName ?? text.unknown} · {draft.updatedAt.slice(0, 10)}
                 </p>
               </div>
-              <M3Button type="button" variant="outlined" trailingIcon="arrow_forward" onClick={() => openDraft(draft)}>{text.openDraft}</M3Button>
+              <div className="flex flex-wrap items-center gap-2">
+                <M3Button id={`adr-open-${draft.id}`} className="adr-draft-open" type="button" variant="outlined" trailingIcon="arrow_forward" onClick={() => openDraft(draft)}>{text.openDraft}</M3Button>
+                <M3Button id={`adr-delete-${draft.id}`} type="button" variant="text" leadingIcon="delete" ariaLabel={`${text.deleteDraftLabel} ${index + 1}`} onClick={() => requestDraftDeletion(draft)}>{text.deleteDraft}</M3Button>
+              </div>
             </M3Card>
           </li>)}
         </ul>
+        <dialog ref={deleteDialog} className="adr-delete-dialog" aria-labelledby="adr-delete-title" aria-describedby="adr-delete-description"
+          onCancel={(event) => { event.preventDefault(); cancelDraftDeletion(); }}>
+          <div className="adr-delete-dialog-icon" aria-hidden="true"><span className="material-symbols-outlined">delete</span></div>
+          <h2 id="adr-delete-title">{text.confirmDeleteTitle}</h2>
+          <p id="adr-delete-description">{text.confirmDeleteDescription}</p>
+          {storageError && message && <p className="adr-delete-error" role="alert">{message}</p>}
+          <div className="adr-delete-dialog-actions">
+            <M3Button type="button" variant="text" onClick={cancelDraftDeletion}>{text.cancelDelete}</M3Button>
+            <M3Button type="button" variant="filled" leadingIcon="delete" onClick={finishDraftDeletion}>{text.confirmDelete}</M3Button>
+          </div>
+        </dialog>
       </div> : step === 'edit' ? <form onSubmit={handleReview} className="space-y-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <M3Select id="adr-draft-language" label={text.language} value={language}

@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Delete saved fictional ADR drafts — 2026-10-17
+
+- Added a per-draft Delete action with a centered confirmation dialog, cancel support, accessible focus restoration, and English/Telugu copy.
+- Persisted confirmed deletions to the browser-local draft collection; failures keep the draft and report the storage error.
+- Added an empty-list message after the last draft is removed and documented that browser-profile users share these fictional drafts.
+
 ### Shared navigation and stable page layout — 2026-10-17
 
 - Added text-style Home, For patients, and Log in links to a shared header, including the developer reference.
