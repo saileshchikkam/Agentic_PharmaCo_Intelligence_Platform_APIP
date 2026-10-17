@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './design-system/material-web-imports';
-import { TopAppBar } from './components/material/TopAppBar';
+import { PageNavigation, PreviewHeader } from './features/access/PreviewLayout';
 import { MaterialNavTabs, NavTabId } from './components/material/MaterialNavTabs';
 import { CoreComponentsView } from './components/material/CoreComponentsView';
 import { DomainComponentsView } from './components/material/DomainComponentsView';
 import { DesignFoundationView } from './components/material/DesignFoundationView';
 
-import { AppearanceSettings } from './components/material/AppearanceSettings';
 import { Appearance } from './design-system/appearance';
 import { goBackPreview } from './features/access/navigation';
 
@@ -17,61 +16,54 @@ interface Props {
 }
 
 export function DeveloperReference({ appearance, setAppearance, preferencesSaved }: Props) {
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<NavTabId>('domain-components');
   const isDark = appearance.isDark;
   const toggleTheme = () => setAppearance((previous) => ({ ...previous, isDark: !previous.isDark }));
-  const closeSettings = () => {
-    setSettingsOpen(false);
-    document.getElementById('apip-settings-toggle')?.focus();
-  };
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.getElementById('access-title')?.focus({ preventScroll: true });
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--md-sys-color-background)] text-[var(--md-sys-color-on-background)] flex flex-col font-sans transition-colors">
-      {/* Material 3 Top App Bar */}
-      <TopAppBar isDark={isDark} onToggleTheme={toggleTheme}
-        settingsOpen={settingsOpen} onToggleSettings={() => setSettingsOpen((open) => !open)} />
-      {settingsOpen && <AppearanceSettings value={appearance} onChange={setAppearance}
-        onClose={closeSettings} saved={preferencesSaved} />}
+    <div className="access-app developer-reference">
+      <a href="#access-main" className="access-skip-link" onClick={(event) => {
+        event.preventDefault(); document.getElementById('access-main')?.focus();
+      }}>Skip to main content</a>
+      <PreviewHeader screen="developer-reference" appearance={appearance} setAppearance={setAppearance} preferencesSaved={preferencesSaved} />
+      <main id="access-main" tabIndex={-1} className="access-main">
+        <div className="access-page-shell">
+          <PageNavigation onBack={() => goBackPreview('/sign-in/developer')} />
+          <h1 id="access-title" tabIndex={-1} className="m3-headline-small">Developer design reference</h1>
+          <p className="m3-body-medium mt-1 text-[var(--md-sys-color-on-surface-variant)]">
+            For Sailesh and the APIP development team: reusable Material 3 components for the future application.
+            Examples here demonstrate design and interaction only. Developer sign-in and access restrictions are still pending.
+          </p>
+          {/* Material 3 Navigation Tabs */}
+          <MaterialNavTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-      <div className="mx-auto w-full max-w-[1400px] px-4 pt-6 sm:px-6 lg:px-8">
-        <a href="#/sign-in/developer" className="mb-4 inline-flex min-h-12 items-center gap-2 text-[var(--md-sys-color-primary)]"
-          onClick={(event) => { event.preventDefault(); goBackPreview('/sign-in/developer'); }}>
-          <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span> Back to developer sign-in
-        </a>
-        <p className="m3-title-medium">Developer design reference</p>
-        <p className="m3-body-medium mt-1 text-[var(--md-sys-color-on-surface-variant)]">
-          For Sailesh and the APIP development team: reusable Material 3 components for the future application.
-          Examples here demonstrate design and interaction only. Developer sign-in and access restrictions are still pending.
-        </p>
-      </div>
-      {/* Material 3 Navigation Tabs */}
-      <MaterialNavTabs activeTab={activeTab} onTabChange={setActiveTab} />
+          {/* Main Content Surface */}
+          <div className="py-8">
+            {activeTab === 'domain-components' && (
+              <DomainComponentsView isDark={isDark} onToggleTheme={toggleTheme} />
+            )}
 
-      {/* Main Content Surface */}
-      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'domain-components' && (
-          <DomainComponentsView isDark={isDark} onToggleTheme={toggleTheme} />
-        )}
+            {activeTab === 'core-components' && (
+              <CoreComponentsView isDark={isDark} onToggleTheme={toggleTheme} />
+            )}
 
-        {activeTab === 'core-components' && (
-          <CoreComponentsView isDark={isDark} onToggleTheme={toggleTheme} />
-        )}
-
-        {activeTab === 'design-foundation' && (
-          <DesignFoundationView accent={appearance.accent} isDark={isDark} onToggleTheme={toggleTheme} />
-        )}
+            {activeTab === 'design-foundation' && (
+              <DesignFoundationView accent={appearance.accent} isDark={isDark} onToggleTheme={toggleTheme} />
+            )}
+          </div>
+        </div>
       </main>
 
       {/* Minimal Footer */}
-      <footer className="w-full border-t border-[var(--md-sys-color-outline-variant)]/40 py-6 text-xs text-[var(--md-sys-color-on-surface-variant)] transition-colors">
-        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>APIP — Agentic Pharma Co-intelligence Platform • Material 3 Design Demo</span>
-          <span className="text-[11px] text-[var(--md-sys-color-on-surface-variant)]/80">
-            Design demonstration only; no regulatory conformance verified.
-          </span>
-        </div>
+      <footer className="access-footer">
+        <span>APIP — Agentic Pharma Co-intelligence Platform • Material 3 Design Demo</span>
+        <span className="text-[11px] text-[var(--md-sys-color-on-surface-variant)]/80">
+          Design demonstration only; no regulatory conformance verified.
+        </span>
       </footer>
     </div>
   );

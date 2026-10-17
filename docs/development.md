@@ -69,7 +69,9 @@ This is currently a local development screen with no login enforcement. A develo
 ## Preview navigation
 
 Use the shared Back control in the page navigation row below the app header to return to the previous in-app screen. It follows APIP routes entered during the current browser history session; a direct route entry falls back to that screen's safe parent. The ADR editor's own Back action returns to the list when available, confirms before discarding unsaved edits, and moves from review back to editing. Browser back/forward remains supported for route changes.
-The welcome, patient home, sign-in, and ADR preview surfaces each center within their own responsive maximum width; the Back row follows the matching screen width.
+All routes, including the developer reference, share Home/Log in text links and a centered 1160 px page shell. The Back row reserves 48 px at the same top/left position for each viewport; sign-in and ADR content can remain narrower within it. Scrollbar space is reserved to prevent horizontal shifts. ADR review uses the same row to return to details. Native browser history remains route-level. In-app links/Back prompt before leaving unsaved ADR edits; reload/tab-close/native-history protection remains pending.
+
+Run `node --test scripts/preview-navigation.test.mjs` with Node 24 for the isolated navigation checks. Browser checks are still needed for custom-element interaction, focus, and responsive geometry.
 
 ## Sign-in UI preview
 

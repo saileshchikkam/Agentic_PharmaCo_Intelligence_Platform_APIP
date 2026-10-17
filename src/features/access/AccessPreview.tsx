@@ -3,7 +3,7 @@ import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
 import { Appearance } from '../../design-system/appearance';
 import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
-import './access.css';
+import { Brand, PageNavigation, PreviewHeader } from './PreviewLayout';
 
 const ReportReactionView = React.lazy(() => import('../../components/material/ReportReactionView')
   .then((module) => ({ default: module.ReportReactionView })));
@@ -33,16 +33,6 @@ export function readPreviewRoute(): PreviewRoute {
     };
   }
   return { screen: 'home' };
-}
-
-function Brand({ large = false }: { large?: boolean }) {
-  return <span className={`access-brand ${large ? 'access-brand-large' : ''}`}>
-    <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
-      <rect x="4" y="14" width="32" height="12" rx="6" fill="currentColor" opacity=".7" />
-      <rect x="14" y="4" width="12" height="32" rx="6" fill="currentColor" />
-      <circle cx="20" cy="20" r="3" fill="var(--md-sys-color-surface)" />
-    </svg><span>APIP</span>
-  </span>;
 }
 
 function RoleTabs({ role, onChange }: { role: AccessRole; onChange: (role: AccessRole) => void }) {
@@ -124,76 +114,36 @@ interface Props {
 }
 
 export function AccessPreview({ route, appearance, setAppearance, preferencesSaved }: Props) {
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [homeMessage, setHomeMessage] = useState('');
   const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
   const isPatientHome = route.screen === 'patient-home';
   const backFallback = route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
-    : route.screen === 'adr-preview' ? '/sign-in/patient?continue=adr-report' : '/';
+    : route.screen === 'adr-preview' ? '/patient/home' : '/';
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
-  const closeSettings = () => { setSettingsOpen(false); document.getElementById('access-settings-button')?.focus(); };
-  useEffect(() => {
-    if (!settingsOpen) return;
-    let disposed = false;
-    const button = document.getElementById(`access-accent-${appearance.accent}`) as (HTMLElement & { updateComplete: Promise<boolean> }) | null;
-    void button?.updateComplete.then(() => { if (!disposed) button.focus(); });
-    return () => { disposed = true; };
-  }, [settingsOpen, appearance.accent]);
 
   return <div className="access-app">
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
       event.preventDefault();
       document.getElementById('access-main')?.focus();
     }}>Skip to main content</a>
-    <header className={`access-header ${settingsOpen ? 'access-header-settings-open' : ''}`} onKeyDown={(event) => {
-      if (settingsOpen && event.key === 'Escape') { event.preventDefault(); closeSettings(); }
-    }}>
-      <a className="access-home-link" href="#/" aria-label="APIP home" onClick={(event) => followPreviewLink(event, '/')}><Brand /></a>
-      <div className="access-header-actions">
-        {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
-          <span className="access-appearance-label">Appearance</span>
-          <div className="access-accent-options" role="group" aria-label="Highlight colour">
-            {(['blue', 'red', 'yellow', 'green'] as const).map((accent) => <md-icon-button key={accent} id={`access-accent-${accent}`}
-              aria-label={`${accent[0].toUpperCase()}${accent.slice(1)} highlight`} toggle selected={appearance.accent === accent || undefined}
-              onClick={() => setAppearance((value) => ({ ...value, accent }))}>
-              <span className={`access-accent-dot access-accent-${accent}`} aria-hidden="true">
-                {appearance.accent === accent && <span className="material-symbols-outlined">check</span>}
-              </span>
-            </md-icon-button>)}
-          </div>
-          <md-icon-button aria-label="Dark mode" toggle selected={appearance.isDark || undefined}
-            onClick={() => setAppearance((value) => ({ ...value, isDark: !value.isDark }))}>
-            <md-icon><span className="material-symbols-outlined">{appearance.isDark ? 'dark_mode' : 'light_mode'}</span></md-icon>
-          </md-icon-button>
-          <span className="access-preference-status" role="status">{preferencesSaved ? 'Appearance saved in this browser.' : 'Appearance applies to this visit only.'}</span>
-        </div>}
-        <md-icon-button id="access-settings-button" aria-label={settingsOpen ? 'Close appearance settings' : 'Appearance settings'} aria-expanded={settingsOpen}
-          aria-controls={settingsOpen ? 'access-appearance-settings' : undefined} onClick={() => settingsOpen ? closeSettings() : setSettingsOpen(true)}>
-          <md-icon><span className="material-symbols-outlined">{settingsOpen ? 'close' : 'settings'}</span></md-icon>
-        </md-icon-button>
-        {isPatientHome && !settingsOpen && <><span className="access-preview-badge"><span aria-hidden="true">●</span> Preview</span>
-          <M3Button className="access-help-button" variant="text" leadingIcon="help" ariaLabel="Help with patient home" onClick={() => helpDialog.current?.showModal()}>Help</M3Button></>}
-        {!isSignIn && !isPatientHome && !settingsOpen && <M3Button variant="filled" onClick={() => navigatePreview('/sign-in/patient')}>Log in</M3Button>}
-      </div>
-    </header>
+    <PreviewHeader screen={route.screen} appearance={appearance} setAppearance={setAppearance}
+      preferencesSaved={preferencesSaved} onHelp={isPatientHome ? () => helpDialog.current?.showModal() : undefined} />
 
     <main id="access-main" tabIndex={-1} className={`access-main ${isSignIn ? 'access-main-sign-in' : ''}`}>
       <div className="access-page-shell">
-      {route.screen !== 'home' && <nav className={`access-page-navigation access-page-navigation-${route.screen}`} aria-label="Page navigation">
-        <M3Button variant="text" leadingIcon="arrow_back" onClick={() => goBackPreview(backFallback)}>Back</M3Button>
-      </nav>}
+      {route.screen !== 'adr-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
         <div className="access-welcome-symbol" aria-hidden="true"><span className="material-symbols-outlined">health_and_safety</span></div>
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
         <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient')}>Sign in to APIP</M3Button>
-        <div className="access-welcome-links"><a href="#/sign-in/patient" onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
+        <div className="access-welcome-links"><a href="#/patient/home" onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
       </section>}
 
       {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
@@ -255,11 +205,9 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       </section>}
 
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
-        <div className="adr-preview-navigation justify-end">
-          <span className="access-preview-badge">Fictional design preview</span>
-        </div>
-        <React.Suspense fallback={<p className="access-form-intro" role="status">Opening the fictional intake preview…</p>}>
-          <ReportReactionView />
+        <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p className="access-form-intro" role="status">Opening the fictional intake preview…</p></>}>
+          <ReportReactionView renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
+            onExit={() => goBackPreview(backFallback)} />
         </React.Suspense>
       </section>}
       </div>

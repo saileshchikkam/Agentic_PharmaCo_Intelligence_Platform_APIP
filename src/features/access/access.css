@@ -27,12 +27,23 @@
   src: url('/fonts/google-sans-flex-700.ttf') format('truetype');
 }
 
+/* Keep centered content in the same column when a route gains a scrollbar. */
+html { scrollbar-gutter: stable; }
+
 .access-app {
   --access-font: 'Google Sans Flex', 'Roboto', system-ui, sans-serif;
+  --font-sans: var(--access-font);
+  --access-page-width: 1160px;
+  --access-page-gutter: 24px;
+  --md-ref-typeface-brand: var(--access-font);
+  --md-ref-typeface-plain: var(--access-font);
   --md-sys-typescale-body-large-font: var(--access-font);
   --md-sys-typescale-body-medium-font: var(--access-font);
   --md-sys-typescale-label-large-font: var(--access-font);
   --md-outlined-text-field-container-shape: 12px;
+  --md-outlined-text-field-input-text-font: var(--access-font);
+  --md-outlined-text-field-label-text-font: var(--access-font);
+  --md-outlined-text-field-supporting-text-font: var(--access-font);
   --md-filled-button-container-height: 3rem;
   --md-filled-button-label-text-font: var(--access-font);
   --md-filled-button-label-text-weight: 600;
@@ -54,11 +65,15 @@
   gap: 16px;
   height: 80px;
   flex-shrink: 0;
-  padding: 16px clamp(24px, 4vw, 64px);
+  padding: 16px var(--access-page-gutter);
   background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent);
   backdrop-filter: blur(16px);
 }
-.access-header-actions { display: flex; align-items: center; gap: 16px; }
+.access-header-actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.access-header-navigation { display: flex; align-items: center; gap: 4px; }
+.access-nav-link { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding-inline: 16px; border-radius: 999px; color: var(--md-sys-color-on-surface-variant); font-size: .875rem; line-height: 1.25rem; font-weight: 500; white-space: nowrap; text-decoration: none; transition: background-color 160ms cubic-bezier(.2,0,0,1), color 160ms cubic-bezier(.2,0,0,1); }
+.access-nav-link:hover { background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface); }
+.access-nav-link[aria-current="page"] { color: var(--md-sys-color-primary); }
 /* Tailwind preflight overrides custom-element :host padding. Restore the
    official button's calculated spacing, including future token/icon changes. */
 .access-app :is(md-filled-button, md-outlined-button, md-filled-tonal-button, md-elevated-button, md-text-button) {
@@ -81,7 +96,7 @@
 .access-app md-text-button.access-help-button { padding-inline-start: 12px; padding-inline-end: 16px; }
 .access-preference-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .access-header-actions > md-filled-button { animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
-@keyframes access-header-enter { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes access-header-enter { from { opacity: 0; } to { opacity: 1; } }
 .access-home-link { display: inline-flex; align-items: center; min-height: 48px; text-decoration: none; }
 .access-preview-badge { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding-inline: 14px; border-radius: 999px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); font-size: .875rem; font-weight: 500; }
 .access-preview-badge > span { color: var(--md-sys-color-tertiary); font-size: .7rem; }
@@ -89,10 +104,10 @@
 .access-brand svg { width: 36px; height: 36px; color: var(--md-sys-color-primary); }
 .access-brand-large { font-size: 1.5rem; }
 .access-brand-large svg { width: 40px; height: 40px; }
-.access-main { flex: 1; display: grid; place-items: center; padding: 48px 24px; }
-.access-page-shell { width: 100%; }
-.access-page-navigation { width: min(100%, 1160px); margin: 0 auto 12px; display: flex; justify-content: flex-start; padding-inline: 4px; }
-.access-page-navigation-sign-in, .access-page-navigation-adr-preview { max-width: 1040px; }
+.access-main { flex: 1; padding: 24px var(--access-page-gutter) 48px; }
+.access-page-shell { width: min(100%, var(--access-page-width)); margin-inline: auto; }
+.access-page-navigation { height: 48px; margin: 0 0 24px; display: flex; align-items: center; justify-content: flex-start; }
+.access-app .access-page-navigation md-text-button { --md-text-button-container-height: 48px; }
 .access-welcome { max-width: 860px; margin-inline: auto; text-align: center; padding: 24px 0 48px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
 .access-welcome-symbol { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto 28px; border-radius: 28px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
 .access-welcome-symbol .material-symbols-outlined { font-size: 2.5rem; font-variation-settings: 'FILL' 1, 'wght' 400; }
@@ -105,9 +120,9 @@
 .access-welcome-links a { display: inline-flex; align-items: center; min-height: 48px; }
 
 .patient-home { width: min(100%, 1160px); margin-inline: auto; padding-block: 12px 32px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
-.adr-preview-page { width: min(100%, 1040px); margin-inline: auto; padding-block: 8px 32px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
-.adr-preview-navigation { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
-.adr-preview-navigation .access-text-link { gap: 8px; }
+.adr-preview-page { width: 100%; padding-bottom: 32px; }
+.adr-preview-page #adr-draft-view { animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
+.adr-preview-page #adr-draft-title { font-size: 2.25rem; line-height: 2.75rem; font-weight: 500; letter-spacing: -.5px; }
 .adr-draft-progress { display: grid; gap: 8px; }
 .adr-draft-progress md-linear-progress { width: 100%; --md-linear-progress-active-indicator-color: var(--md-sys-color-primary); --md-linear-progress-track-color: var(--md-sys-color-primary-container); }
 .adr-review-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
@@ -175,28 +190,34 @@
 @keyframes access-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 839px) {
-  .access-page-navigation-sign-in { max-width: 560px; }
   .access-sign-in-surface { max-width: 560px; grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px; }
   .access-sign-in-lead h1 { margin-top: 24px; }
   .access-workspace-label { margin-top: 20px; }
   .access-lead-description { display: none; }
   .access-form { padding-top: 24px; }
-  .access-main { padding-block: 32px; }
   .patient-home { padding-block: 8px 12px; }
   .patient-home-heading { margin-bottom: 24px; text-align: start; }
   .patient-task-grid { gap: 16px; }
   .patient-task-card { padding: 24px; }
 }
 @media (max-width: 599px) {
-  .access-header { padding: 12px 20px; height: 72px; }
-  .access-header-actions { gap: 8px; }
+  .access-header { padding-block: 12px; height: 72px; gap: 8px; }
+  .access-header-actions { gap: 4px; }
+  .access-header-navigation { gap: 0; }
+  .access-nav-link { padding-inline: 10px; }
+  .access-brand { gap: 6px; font-size: 1.25rem; }
+  .access-brand svg { width: 28px; height: 28px; }
+  .access-patients-link { display: none; }
+  .access-help-label { display: none; }
+  .access-app md-text-button.access-help-button { min-width: 48px; padding-inline: 12px; --md-text-button-with-icon-icon-size: 24px; }
   .access-header-settings-open .access-home-link { display: none; }
-  .access-header-settings-open .access-header-actions { width: 100%; justify-content: flex-end; }
-  .access-header-preferences { gap: 8px; margin-right: auto; }
+  .access-header-settings-open .access-header-actions { width: 100%; justify-content: space-between; }
+  .access-header-preferences { gap: 0; }
+  .access-accent-options { gap: 0; }
+  .access-header-settings-open .access-nav-link { padding-inline: 4px; }
   .access-appearance-label { display: none; }
-  .access-main { padding: 24px; }
-  .access-page-navigation { margin-bottom: 12px; padding-inline: 0; }
-  .access-main:not(.access-main-sign-in) { align-items: start; }
+  .access-main { padding-block: 16px 32px; }
+  .access-page-navigation { margin-bottom: 24px; }
   .patient-home { padding-block: 8px 24px; }
   .patient-home-heading h1 { font-size: 2rem; line-height: 2.5rem; }
   .patient-task-grid { grid-template-columns: minmax(0, 1fr); }
@@ -206,7 +227,7 @@
   .adr-review-row:last-child { grid-column: auto; }
   .access-preview-badge { display: none; }
   .patient-help-dialog { padding: 24px; }
-  .access-main-sign-in { display: block; padding: 20px 24px 32px; }
+  .adr-preview-page #adr-draft-title { font-size: 2rem; line-height: 2.5rem; }
   .access-sign-in-surface { border: 0; border-radius: 0; padding: 0; margin: 0 auto; }
   .access-welcome { padding: 20px 0 24px; }
   .access-welcome h1 { font-size: 2.25rem; line-height: 1.22; letter-spacing: -.6px; }
@@ -218,6 +239,12 @@
   .access-sign-in-lead h1 { margin-top: 4px; font-size: 2rem; line-height: 2.5rem; }
   .access-lead-subtitle { font-size: 1.125rem; line-height: 1.625rem; }
 }
-@media (prefers-reduced-motion: reduce) { .access-welcome, .access-sign-in-surface, .access-header-preferences, .access-header-actions > md-filled-button, .patient-home, .adr-preview-page, .patient-home-message { animation: none; } }
+@media (max-width: 359px) {
+  .access-app { --access-page-gutter: 16px; }
+  .access-header:not(.access-header-settings-open) .access-brand > span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .access-app *, .access-app *::before, .access-app *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
 
 .access-app h1:focus, .access-main:focus { outline: none; }

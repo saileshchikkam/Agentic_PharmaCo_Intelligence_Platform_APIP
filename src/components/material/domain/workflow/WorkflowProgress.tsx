@@ -27,7 +27,7 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
   return (
     <M3Card id={id} variant="outlined" className={`space-y-3.5 ${className}`}>
       {title && (
-        <div className="flex items-center justify-between border-b border-[var(--md-sys-color-outline-variant)]/40 pb-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--md-sys-color-outline-variant)]/40 pb-2">
           <span className="m3-label-small text-[var(--md-sys-color-primary)] font-semibold uppercase tracking-wider">
             {title}
           </span>
@@ -37,10 +37,10 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 md:gap-2 relative">
+      <div className="flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3 xl:gap-2 relative">
         {steps.map((st, idx) => (
           <React.Fragment key={st.id}>
-            <div className="flex-1">
+            <div className="min-w-0 flex-1">
               <WorkflowStep
                 step={st}
                 onClick={onStepClick}
@@ -48,7 +48,7 @@ export const WorkflowProgress: React.FC<WorkflowProgressProps> = ({
             </div>
             {idx < steps.length - 1 && (
               <div
-                className="hidden md:block w-8 h-px bg-[var(--md-sys-color-outline-variant)]/60 shrink-0 self-center"
+                className="hidden xl:block w-8 h-px bg-[var(--md-sys-color-outline-variant)]/60 shrink-0 self-center"
                 aria-hidden="true"
               />
             )}

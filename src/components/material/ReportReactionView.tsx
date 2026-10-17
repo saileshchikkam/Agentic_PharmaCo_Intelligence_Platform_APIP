@@ -18,6 +18,7 @@ const copy = {
     userConfirmed: 'Confirmed by you · not professionally reviewed',
     backToDrafts: 'Your drafts',
     discardChanges: 'Discard unsaved changes and return to your drafts?',
+    leaveChanges: 'Leave this draft? Unsaved changes will be lost.',
     backToDetails: 'Back to details',
     reviewTitle: 'Review your draft',
     intro: 'This short preview helps organise a fictional medicine experience. Your words stay separate from any professional assessment.',
@@ -60,6 +61,7 @@ const copy = {
     userConfirmed: 'మీరు నిర్ధారించారు · నిపుణుడు సమీక్షించలేదు',
     backToDrafts: 'మీ ముసాయిదాలు',
     discardChanges: 'సేవ్ చేయని మార్పులను వదిలి మీ ముసాయిదాలకు తిరిగి వెళ్లాలా?',
+    leaveChanges: 'ఈ ముసాయిదా నుండి వెళ్లాలా? సేవ్ చేయని మార్పులు పోతాయి.',
     backToDetails: 'వివరాలకు తిరిగి వెళ్లండి',
     reviewTitle: 'మీ ముసాయిదాను సమీక్షించండి',
     intro: 'ఈ చిన్న ప్రివ్యూ కల్పిత మందు అనుభవాన్ని క్రమబద్ధం చేయడానికి సహాయపడుతుంది. మీ వివరాలు వృత్తిపరమైన అంచనా నుండి వేరుగా ఉంటాయి.',
@@ -92,7 +94,12 @@ const copy = {
 
 type DraftStep = 'list' | 'edit' | 'review';
 
-export const ReportReactionView: React.FC = () => {
+interface Props {
+  renderNavigation?: (onBack: () => void, label: string) => React.ReactNode;
+  onExit?: () => void;
+}
+
+export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }) => {
   const [initial] = useState(() => loadAdrDrafts());
   const existingDraft = initial.drafts.length === 1 ? initial.drafts[0] : null;
   const [drafts, setDrafts] = useState<AdrDraft[]>(initial.drafts);
@@ -113,7 +120,13 @@ export const ReportReactionView: React.FC = () => {
   const heading = useRef<HTMLHeadingElement>(null);
   const text = copy[language];
 
-  useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [step]);
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'auto' }); heading.current?.focus({ preventScroll: true }); }, [step]);
+  useEffect(() => {
+    if (!hasUnsavedChanges) return;
+    const guard = (event: Event) => { if (!window.confirm(text.leaveChanges)) event.preventDefault(); };
+    window.addEventListener('apip:before-navigate', guard);
+    return () => window.removeEventListener('apip:before-navigate', guard);
+  }, [hasUnsavedChanges, text.leaveChanges]);
 
   const handleReview = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -165,6 +178,7 @@ export const ReportReactionView: React.FC = () => {
 
   const showDrafts = () => {
     if (hasUnsavedChanges && !window.confirm(text.discardChanges)) return;
+    setHasUnsavedChanges(false);
     setMessage(null);
     setStorageError(false);
     setStep('list');
@@ -216,7 +230,11 @@ export const ReportReactionView: React.FC = () => {
     [text.reaction, reaction.trim() || text.unknown],
   ];
 
-  return (
+  const back = step === 'review' ? editDetails : step === 'edit' && canReturnToList ? showDrafts : onExit;
+  const backLabel = step === 'review' ? text.backToDetails : step === 'edit' && canReturnToList ? text.backToDrafts : 'Back to previous page';
+
+  return (<>
+    {renderNavigation && back && renderNavigation(back, backLabel)}
     <section id="adr-draft-view" className="mx-auto max-w-4xl space-y-6" aria-labelledby="adr-draft-title">
       <header className="space-y-2">
         <span className="m3-label-large inline-flex rounded-full bg-[var(--md-sys-color-secondary-container)] px-3 py-1 text-[var(--md-sys-color-on-secondary-container)]">
@@ -294,7 +312,7 @@ export const ReportReactionView: React.FC = () => {
           <M3Button type="submit" variant="filled" trailingIcon="arrow_forward" disabled={!reaction.trim()}>
             {text.review}
           </M3Button>
-          {canReturnToList && <M3Button type="button" variant="text" leadingIcon="arrow_back" onClick={showDrafts}>{text.backToDrafts}</M3Button>}
+          {!renderNavigation && canReturnToList && <M3Button type="button" variant="text" leadingIcon="arrow_back" onClick={showDrafts}>{text.backToDrafts}</M3Button>}
           {savedDraft && <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)]">
             {text.revision}: {savedDraft.revision}
           </span>}
@@ -325,7 +343,7 @@ export const ReportReactionView: React.FC = () => {
         <M3Checkbox id="adr-draft-confirm" checked={confirmationChecked} onChange={setConfirmationChecked}
           label={text.confirmLabel} />
         <div className="flex flex-wrap items-center gap-3">
-          <M3Button type="button" variant="outlined" leadingIcon="arrow_back" onClick={editDetails}>{text.backToDetails}</M3Button>
+          {!renderNavigation && <M3Button type="button" variant="outlined" leadingIcon="arrow_back" onClick={editDetails}>{text.backToDetails}</M3Button>}
           <M3Button type="button" variant="filled" leadingIcon="check" disabled={!confirmationChecked} onClick={confirmAndSave}>
             {text.confirmSave}
           </M3Button>
@@ -341,5 +359,5 @@ export const ReportReactionView: React.FC = () => {
         {message}
       </p>}
     </section>
-  );
+  </>);
 };

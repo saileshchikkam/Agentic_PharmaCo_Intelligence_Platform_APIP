@@ -84,3 +84,8 @@ The access composition uses official Material Web controls, shared palette roles
 **User-selected 2026-10-17.** Offer the familiar Google blue, red, yellow, and green as user-selectable primary highlights. Keep secondary, tertiary, and error roles independent so one choice does not turn the whole interface into a multicolour palette. Use charcoal grey surfaces in dark mode for comfortable viewing, and preserve old green/dark-mode preferences while migrating the retired black accent to blue.
 
 This decision supersedes DEC-012's black accent and near-black dark surface treatment.
+
+
+## DEC-015 — Shared preview navigation and page geometry
+
+**User-selected 2026-10-17.** Keep a visible text-style Home link beside Log in and use the same page-level Back slot below the header throughout the website. Share one header, typography source, page width/gutters, and stable scrollbar allocation across patient/access and developer-reference routes. The Back slot has fixed dimensions even on the welcome page, where it contains no action. Readable inner form widths may vary without moving navigation. ADR Back resolves internal steps before route exits; native browser history continues to represent routes. Use official Material Web controls where provided and specification-based HTML links/page composition where there is no matching library primitive; retain accessible focus and reduced-motion support.

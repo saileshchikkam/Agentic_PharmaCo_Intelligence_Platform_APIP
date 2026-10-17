@@ -4,6 +4,13 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Shared navigation and stable page layout — 2026-10-17
+
+- Added text-style Home, For patients, and Log in links to a shared header, including the developer reference.
+- Kept Back in one fixed page row, connected ADR Back to its review/editor steps, and reserved scrollbar space so routes do not shift horizontally.
+- Shared Google Sans Flex typography and inline appearance controls; prevented duplicate history entries and preserved modified-link behaviour.
+- Added navigation regression checks and corrected the reference workflow tracker overflowing at tablet widths.
+
 ### Page-level back control placement — 2026-10-17
 
 - Moved the shared Back action out of the app header and into a left-aligned page navigation row beneath it, reducing header crowding across preview pages.
