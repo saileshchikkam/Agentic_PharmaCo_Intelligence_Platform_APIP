@@ -17,6 +17,8 @@ const copy = {
     needsReview: 'Needs your review',
     userConfirmed: 'Confirmed by you · not professionally reviewed',
     backToDrafts: 'Your drafts',
+    discardChanges: 'Discard unsaved changes and return to your drafts?',
+    backToDetails: 'Back to details',
     reviewTitle: 'Review your draft',
     intro: 'This short preview helps organise a fictional medicine experience. Your words stay separate from any professional assessment.',
     reviewIntro: 'Check that this summary matches what you entered. Unknown details remain unknown.',
@@ -31,7 +33,6 @@ const copy = {
     timing: 'When did it start?',
     timingHelp: 'Optional. Leave blank if unknown.',
     review: 'Review draft',
-    edit: 'Edit details',
     reporterOrigin: 'Your words',
     unknown: 'Not provided (unknown)',
     confirmLabel: 'I checked this summary and confirm that it reflects only the fictional details I entered.',
@@ -58,6 +59,8 @@ const copy = {
     needsReview: 'మీ సమీక్ష అవసరం',
     userConfirmed: 'మీరు నిర్ధారించారు · నిపుణుడు సమీక్షించలేదు',
     backToDrafts: 'మీ ముసాయిదాలు',
+    discardChanges: 'సేవ్ చేయని మార్పులను వదిలి మీ ముసాయిదాలకు తిరిగి వెళ్లాలా?',
+    backToDetails: 'వివరాలకు తిరిగి వెళ్లండి',
     reviewTitle: 'మీ ముసాయిదాను సమీక్షించండి',
     intro: 'ఈ చిన్న ప్రివ్యూ కల్పిత మందు అనుభవాన్ని క్రమబద్ధం చేయడానికి సహాయపడుతుంది. మీ వివరాలు వృత్తిపరమైన అంచనా నుండి వేరుగా ఉంటాయి.',
     reviewIntro: 'ఈ సారాంశం మీరు నమోదు చేసిన వివరాలతో సరిపోతుందో చూడండి. తెలియని వివరాలు అలాగే తెలియనివిగా ఉంటాయి.',
@@ -72,7 +75,6 @@ const copy = {
     timing: 'ఇది ఎప్పుడు ప్రారంభమైంది?',
     timingHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
     review: 'ముసాయిదాను సమీక్షించండి',
-    edit: 'వివరాలను సవరించండి',
     reporterOrigin: 'మీరు తెలిపిన వివరాలు',
     unknown: 'ఇవ్వలేదు (తెలియదు)',
     confirmLabel: 'ఈ సారాంశాన్ని పరిశీలించాను. నేను నమోదు చేసిన కల్పిత వివరాలనే ఇది చూపిస్తుందని నిర్ధారిస్తున్నాను.',
@@ -94,6 +96,7 @@ export const ReportReactionView: React.FC = () => {
   const [initial] = useState(() => loadAdrDrafts());
   const existingDraft = initial.drafts.length === 1 ? initial.drafts[0] : null;
   const [drafts, setDrafts] = useState<AdrDraft[]>(initial.drafts);
+  const [canReturnToList, setCanReturnToList] = useState(initial.drafts.length > 0);
   const [step, setStep] = useState<DraftStep>(initial.drafts.length > 0 ? 'list' : 'edit');
   const [language, setLanguage] = useState<AdrDraftLanguage>(existingDraft?.language ?? 'en');
   const [medicineName, setMedicineName] = useState(existingDraft?.statements.medicineName ?? '');
@@ -133,6 +136,7 @@ export const ReportReactionView: React.FC = () => {
 
   const openDraft = (draft: AdrDraft) => {
     setSavedDraft(draft);
+    setCanReturnToList(true);
     setLanguage(draft.language);
     setMedicineName(draft.statements.medicineName ?? '');
     setDose(draft.statements.dose ?? '');
@@ -160,6 +164,7 @@ export const ReportReactionView: React.FC = () => {
   };
 
   const showDrafts = () => {
+    if (hasUnsavedChanges && !window.confirm(text.discardChanges)) return;
     setMessage(null);
     setStorageError(false);
     setStep('list');
@@ -194,6 +199,7 @@ export const ReportReactionView: React.FC = () => {
       saveAdrDrafts(nextDrafts);
       setDrafts(nextDrafts);
       setSavedDraft(draft);
+      setCanReturnToList(true);
       setHasUnsavedChanges(false);
       setStorageError(false);
       setMessage(copy[language].saved);
@@ -288,6 +294,7 @@ export const ReportReactionView: React.FC = () => {
           <M3Button type="submit" variant="filled" trailingIcon="arrow_forward" disabled={!reaction.trim()}>
             {text.review}
           </M3Button>
+          {canReturnToList && <M3Button type="button" variant="text" leadingIcon="arrow_back" onClick={showDrafts}>{text.backToDrafts}</M3Button>}
           {savedDraft && <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)]">
             {text.revision}: {savedDraft.revision}
           </span>}
@@ -318,7 +325,7 @@ export const ReportReactionView: React.FC = () => {
         <M3Checkbox id="adr-draft-confirm" checked={confirmationChecked} onChange={setConfirmationChecked}
           label={text.confirmLabel} />
         <div className="flex flex-wrap items-center gap-3">
-          <M3Button type="button" variant="outlined" leadingIcon="edit" onClick={editDetails}>{text.edit}</M3Button>
+          <M3Button type="button" variant="outlined" leadingIcon="arrow_back" onClick={editDetails}>{text.backToDetails}</M3Button>
           <M3Button type="button" variant="filled" leadingIcon="check" disabled={!confirmationChecked} onClick={confirmAndSave}>
             {text.confirmSave}
           </M3Button>

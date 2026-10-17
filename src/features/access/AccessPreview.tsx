@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
 import { Appearance } from '../../design-system/appearance';
+import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
 import './access.css';
 
 const ReportReactionView = React.lazy(() => import('../../components/material/ReportReactionView')
@@ -96,20 +97,20 @@ function SignInForm({ role, requestedTask }: { role: AccessRole; requestedTask?:
     <div className="access-preview-note"><span className="material-symbols-outlined" aria-hidden="true">info</span>
       <p>Design preview. Use sample details only.<br />Authentication will be added later.</p>
     </div>
-    <div className="access-form-actions"><a href="#/" className="access-text-link">Back to APIP</a>
+    <div className="access-form-actions">
       <M3Button type="submit" variant="filled">Sign in</M3Button>
     </div>
     {notice && <p role="status" className="access-notice">{notice}</p>}
     {role === 'patient' && <div className="access-developer-preview">
-      <a href="#/patient/home" className="access-text-link">Preview the patient home <span aria-hidden="true">↗</span></a>
+      <a href="#/patient/home" className="access-text-link" onClick={(event) => followPreviewLink(event, '/patient/home')}>Preview the patient home <span aria-hidden="true">↗</span></a>
       <p>Open the interface preview directly; no account or sign-in is created.</p>
     </div>}
     {role === 'patient' && requestedTask === 'adr-report' && <div className="access-developer-preview">
-      <a href="#/preview/adr-report" className="access-text-link">Preview the fictional ADR intake <span aria-hidden="true">↗</span></a>
+      <a href="#/preview/adr-report" className="access-text-link" onClick={(event) => followPreviewLink(event, '/preview/adr-report')}>Preview the fictional ADR intake <span aria-hidden="true">↗</span></a>
       <p>Design review only. Use fictional details; this preview stores a draft in this browser and sends nothing.</p>
     </div>}
     {role === 'developer' && <div className="access-developer-preview">
-      <a href="#/developer-reference" className="access-text-link">Open developer reference preview <span aria-hidden="true">↗</span></a>
+      <a href="#/developer-reference" className="access-text-link" onClick={(event) => followPreviewLink(event, '/developer-reference')}>Open developer reference preview <span aria-hidden="true">↗</span></a>
       <p>Intended for Sailesh. This local preview has no access restriction yet.</p>
     </div>}
   </form>;
@@ -128,6 +129,9 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
   const isPatientHome = route.screen === 'patient-home';
+  const backFallback = route.screen === 'sign-in'
+    ? route.requestedTask ? '/patient/home' : '/'
+    : route.screen === 'adr-preview' ? '/sign-in/patient?continue=adr-report' : '/';
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : 'access-title')?.focus({ preventScroll: true });
@@ -149,8 +153,9 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <header className={`access-header ${settingsOpen ? 'access-header-settings-open' : ''}`} onKeyDown={(event) => {
       if (settingsOpen && event.key === 'Escape') { event.preventDefault(); closeSettings(); }
     }}>
-      <a className="access-home-link" href="#/" aria-label="APIP home"><Brand /></a>
+      <a className="access-home-link" href="#/" aria-label="APIP home" onClick={(event) => followPreviewLink(event, '/')}><Brand /></a>
       <div className="access-header-actions">
+        {route.screen !== 'home' && !settingsOpen && <M3Button variant="text" leadingIcon="arrow_back" onClick={() => goBackPreview(backFallback)}>Back</M3Button>}
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
           <span className="access-appearance-label">Appearance</span>
           <div className="access-accent-options" role="group" aria-label="Highlight colour">
@@ -174,7 +179,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </md-icon-button>
         {isPatientHome && !settingsOpen && <><span className="access-preview-badge"><span aria-hidden="true">●</span> Preview</span>
           <M3Button className="access-help-button" variant="text" leadingIcon="help" ariaLabel="Help with patient home" onClick={() => helpDialog.current?.showModal()}>Help</M3Button></>}
-        {!isSignIn && !isPatientHome && !settingsOpen && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Log in</M3Button>}
+        {!isSignIn && !isPatientHome && !settingsOpen && <M3Button variant="filled" onClick={() => navigatePreview('/sign-in/patient')}>Log in</M3Button>}
       </div>
     </header>
 
@@ -184,8 +189,8 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
-        <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Sign in to APIP</M3Button>
-        <div className="access-welcome-links"><a href="#/sign-in/patient">For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist">For specialists</a></div>
+        <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient')}>Sign in to APIP</M3Button>
+        <div className="access-welcome-links"><a href="#/sign-in/patient" onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
       </section>}
 
       {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
@@ -204,7 +209,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <ul><li>Share symptoms in your own words</li><li>Get help organizing what to discuss with a professional</li><li>Continue to a medicine report whenever you choose</li></ul>
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">info</span> Assistant guidance is a planned preview; it does not diagnose or replace professional care.</p>
             </div>
-            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient?continue=medassist'; }}>Explore MedAssist</M3Button>
+            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient?continue=medassist')}>Explore MedAssist</M3Button>
           </article>
           <article className="patient-task-card patient-report-card">
             <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">description</span></div>
@@ -215,7 +220,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> The intake preview uses fictional details, saves only in this browser, and sends nothing.</p>
             </div>
-            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => { window.location.hash = '/sign-in/patient?continue=adr-report'; }}>Start an ADR report</M3Button>
+            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient?continue=adr-report')}>Start an ADR report</M3Button>
           </article>
         </div>
         {homeMessage && <div className="patient-home-message" role="status"><span>{homeMessage}</span>
@@ -238,7 +243,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           <p className="access-lead-description">{roleCopy[route.role].description}</p>
         </div>
         <div className="access-sign-in-fields">
-          <RoleTabs role={route.role} onChange={(role) => { window.location.hash = `/sign-in/${role}`; }} />
+          <RoleTabs role={route.role} onChange={(role) => navigatePreview(`/sign-in/${role}`)} />
           {route.requestedTask && <p className="access-requested-task" role="status">
             Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
           </p>}
@@ -247,8 +252,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       </section>}
 
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
-        <div className="adr-preview-navigation">
-          <a href="#/patient/home" className="access-text-link"><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>Patient home</a>
+        <div className="adr-preview-navigation justify-end">
           <span className="access-preview-badge">Fictional design preview</span>
         </div>
         <React.Suspense fallback={<p className="access-form-intro" role="status">Opening the fictional intake preview…</p>}>
@@ -258,7 +262,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     </main>
 
     <footer className="access-footer"><span>APIP <span aria-hidden="true">·</span> Interface preview</span>
-      <a href="#/sign-in/developer">Developer sign-in</a>
+      <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>
     </footer>
   </div>;
 }

@@ -66,6 +66,10 @@ The main page opens the sign-in UI preview. Its Developer view explicitly links 
 
 This is currently a local development screen with no login enforcement. A developer label or hidden tab is not access control; developer-only authentication remains pending.
 
+## Preview navigation
+
+Use the shared Back control in the header to return to the previous in-app screen. It follows APIP routes entered during the current browser history session; a direct route entry falls back to that screen's safe parent. The ADR editor's own Back action returns to the list when available, confirms before discarding unsaved edits, and moves from review back to editing. Browser back/forward remains supported for route changes.
+
 ## Sign-in UI preview
 
 The current client uses hash URLs described in the [access guide](../src/features/access/README.md). Submitting fictional details performs local-only validation and displays a pending-authentication message. No sign-in API, account, session, password persistence, or role enforcement exists. Local Google Sans Flex files and their licence/provenance are under [public/fonts](../public/fonts/README.md); Vite serves and copies them into the build.

@@ -8,6 +8,7 @@ import { DesignFoundationView } from './components/material/DesignFoundationView
 
 import { AppearanceSettings } from './components/material/AppearanceSettings';
 import { Appearance } from './design-system/appearance';
+import { goBackPreview } from './features/access/navigation';
 
 interface Props {
   appearance: Appearance;
@@ -35,8 +36,9 @@ export function DeveloperReference({ appearance, setAppearance, preferencesSaved
         onClose={closeSettings} saved={preferencesSaved} />}
 
       <div className="mx-auto w-full max-w-[1400px] px-4 pt-6 sm:px-6 lg:px-8">
-        <a href="#/" className="mb-4 inline-flex min-h-12 items-center gap-2 text-[var(--md-sys-color-primary)]">
-          <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span> Back to APIP
+        <a href="#/sign-in/developer" className="mb-4 inline-flex min-h-12 items-center gap-2 text-[var(--md-sys-color-primary)]"
+          onClick={(event) => { event.preventDefault(); goBackPreview('/sign-in/developer'); }}>
+          <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span> Back to developer sign-in
         </a>
         <p className="m3-title-medium">Developer design reference</p>
         <p className="m3-body-medium mt-1 text-[var(--md-sys-color-on-surface-variant)]">

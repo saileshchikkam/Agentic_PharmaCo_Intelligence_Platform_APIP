@@ -6,6 +6,7 @@ Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient
 
 - [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between welcome, sign-in, patient-home, ADR-intake, and developer-reference previews.
 - [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, patient task choices, local-only feedback, and absence of authentication.
+- [src/features/access/navigation.ts](../src/features/access/navigation.ts) marks in-app hash-history entries, provides a shared Back behavior, and replaces direct-entry routes with safe parent fallbacks when no prior APIP screen exists.
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
 - [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English/Telugu fictional ADR draft and review preview at `#/preview/adr-report`. The patient reviews and explicitly confirms the summary before it saves a versioned draft in browser storage. User confirmation is distinct from professional review. It does not transmit, authenticate, submit, or add a case to professional records.

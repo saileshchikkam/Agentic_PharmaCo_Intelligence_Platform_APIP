@@ -4,6 +4,11 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Consistent back navigation — 2026-10-17
+
+- Added a shared in-app Back control that follows the previous APIP screen and uses a safe parent route when a page is opened directly.
+- Added ADR step/list back actions and a discard confirmation for unsaved draft edits; updated preview route links to retain browser history behavior.
+
 ### Multiple fictional ADR drafts — 2026-10-17
 
 - Added an in-page Material 3 list to open saved fictional drafts or start another, with each draft retaining its own review/confirmation state.
