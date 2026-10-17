@@ -128,10 +128,10 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   useEffect(() => {
     if (!settingsOpen) return;
     let disposed = false;
-    const button = document.getElementById('access-accent-blue') as (HTMLElement & { updateComplete: Promise<boolean> }) | null;
+    const button = document.getElementById(`access-accent-${appearance.accent}`) as (HTMLElement & { updateComplete: Promise<boolean> }) | null;
     void button?.updateComplete.then(() => { if (!disposed) button.focus(); });
     return () => { disposed = true; };
-  }, [settingsOpen]);
+  }, [settingsOpen, appearance.accent]);
 
   return <div className="access-app">
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
@@ -146,7 +146,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
           <span className="access-appearance-label">Appearance</span>
           <div className="access-accent-options" role="group" aria-label="Highlight colour">
-            {(['blue', 'black', 'green'] as const).map((accent) => <md-icon-button key={accent} id={`access-accent-${accent}`}
+            {(['blue', 'red', 'yellow', 'green'] as const).map((accent) => <md-icon-button key={accent} id={`access-accent-${accent}`}
               aria-label={`${accent[0].toUpperCase()}${accent.slice(1)} highlight`} toggle selected={appearance.accent === accent || undefined}
               onClick={() => setAppearance((value) => ({ ...value, accent }))}>
               <span className={`access-accent-dot access-accent-${accent}`} aria-hidden="true">
@@ -165,7 +165,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           <md-icon><span className="material-symbols-outlined">{settingsOpen ? 'close' : 'settings'}</span></md-icon>
         </md-icon-button>
         {isPatientHome && !settingsOpen && <><span className="access-preview-badge"><span aria-hidden="true">●</span> Preview</span>
-          <M3Button variant="text" leadingIcon="help" ariaLabel="Help with patient home" onClick={() => helpDialog.current?.showModal()}>Help</M3Button></>}
+          <M3Button className="access-help-button" variant="text" leadingIcon="help" ariaLabel="Help with patient home" onClick={() => helpDialog.current?.showModal()}>Help</M3Button></>}
         {!isSignIn && !isPatientHome && !settingsOpen && <M3Button variant="filled" onClick={() => { window.location.hash = '/sign-in/patient'; }}>Log in</M3Button>}
       </div>
     </header>

@@ -4,7 +4,7 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
-The main entry now offers welcome/sign-in interface previews with three workspace views and an explicit link to the preserved developer design reference, with white surfaces, selectable blue/black/green highlights, and optional dark mode. Earlier patient/report/records prototypes remain in source but are unmounted from this shell. The frozen dependency install, frontend lint, and production build pass in this checkout. Developer login, authenticated server persistence, the product workflow, and clinical validation remain incomplete.
+The main entry now offers welcome/sign-in interface previews with three workspace views and an explicit link to the preserved developer design reference, with white surfaces, selectable blue/red/yellow/green primary highlights, and optional charcoal-grey dark mode. Earlier patient/report/records prototypes remain in source but are unmounted from this shell. Frontend lint and the production build pass in this checkout. Developer login, authenticated server persistence, the product workflow, and clinical validation remain incomplete.
 
 ### Current phase and next handoff
 

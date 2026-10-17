@@ -4,8 +4,8 @@ The component library is available at `#/developer-reference` through an explici
 
 ## Colour and appearance
 
-- `tokens.ts` defines all shared semantic colour roles. Light mode defaults to pure white backgrounds/surfaces, neutral grey container levels, and blue highlights. `getColorScheme` supplies blue, black, or green accents in both light and dark modes. These are curated palettes using Material roles; no HCT generation or full accessibility certification is claimed.
-- `appearance.ts` validates the selected accent/mode, applies the shared CSS properties, and saves `apip.appearance.v1`. Invalid or unavailable browser storage falls back safely; controls still apply for the current visit.
+- `tokens.ts` defines all shared semantic colour roles. Light mode defaults to pure white backgrounds/surfaces and neutral grey container levels. The selectable highlights use Google's familiar blue, red, yellow, and green, with accessible Material primary/container roles. A selected highlight changes primary actions only; secondary, tertiary, and error roles remain distinct. Dark mode uses lifted Chrome-like charcoal greys rather than near-black surfaces. These are curated palettes using Material roles; no HCT generation or full accessibility certification is claimed.
+- `appearance.ts` validates the selected accent/mode, applies the shared CSS properties, and saves `apip.appearance.v1`. Existing saved black accents migrate to default blue, while green and dark-mode preferences are preserved. Invalid or unavailable browser storage falls back safely; controls still apply for the current visit.
 - `main.tsx` applies the saved/default scheme before mounting React. `App.tsx` owns later appearance changes. `index.css` contains typography/shape/surface rules, not a duplicate colour palette.
 - `AppearanceSettings.tsx` uses existing official Material Web select, switch, and button wrappers. It is an inline settings region, not a modal; Escape/Close returns focus to the header settings button.
 - The token inspector reads the same selected scheme as the rendered components. Error roles remain semantic and do not change with decorative accents.

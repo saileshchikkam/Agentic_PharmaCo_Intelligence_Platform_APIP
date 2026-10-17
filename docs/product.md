@@ -68,7 +68,7 @@ Novelty, patentability, accuracy, superiority, adoption, and clinical readiness 
 
 ## Developer design reference
 
-**Clarified by Sailesh on 2026-10-17:** the existing showcase is the reusable UI reference for Sailesh and the development team, not the patient application. Preserve its component families and establish the rough application framework before continuing product workflows. The default appearance is clean white with blue highlights; users can select blue, black, or green through appearance settings. Dark mode remains optional.
+**Clarified by Sailesh on 2026-10-17:** the existing showcase is the reusable UI reference for Sailesh and the development team, not the patient application. Preserve its component families and establish the rough application framework before continuing product workflows. The default appearance is clean white with blue highlights; users can select Google's familiar blue, red, yellow, or green highlights through appearance settings. Dark mode remains optional and uses charcoal grey surfaces.
 
 Developer-only sign-in and role enforcement are required before making this reference available as a restricted hosted environment. The current local screen has no authentication; its label does not enforce access. The public patient/professional application must be separated from the developer reference.
 

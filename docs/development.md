@@ -62,7 +62,7 @@ Check behavior before committing; the helper does not run or certify all applica
 
 ## Developer reference and appearance
 
-The main page opens the sign-in UI preview. Its Developer view explicitly links to the domain/core component references and token inspector. Header settings select blue, black, or green highlights; light white surfaces are the fresh-browser default. Dark mode is optional. `apip.appearance.v1` stores only accent/mode preferences in this browser. If storage is unavailable, the settings still work for the visit and report that persistence is unavailable. See the [design-system guide](../src/design-system/README.md).
+The main page opens the sign-in UI preview. Its Developer view explicitly links to the domain/core component references and token inspector. Header settings select blue, red, yellow, or green primary highlights; light white surfaces are the fresh-browser default. Dark mode is optional and uses charcoal greys. `apip.appearance.v1` stores only accent/mode preferences in this browser. The retired black accent migrates to default blue; other supported preferences persist. If storage is unavailable, the settings still work for the visit and report that persistence is unavailable. See the [design-system guide](../src/design-system/README.md).
 
 This is currently a local development screen with no login enforcement. A developer label or hidden tab is not access control; developer-only authentication remains pending.
 

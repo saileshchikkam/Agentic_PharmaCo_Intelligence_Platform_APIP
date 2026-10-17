@@ -26,9 +26,9 @@ export function AppearanceSettings({ value, onChange, onClose, saved }: Props) {
         <div className="grid max-w-2xl items-center gap-6 sm:grid-cols-2">
           <M3Select id="accent-choice" label="Highlight colour" value={value.accent}
             onChange={(accent) => {
-              if (accent === 'blue' || accent === 'black' || accent === 'green') onChange({ ...value, accent });
+              if (accent === 'blue' || accent === 'red' || accent === 'yellow' || accent === 'green') onChange({ ...value, accent });
             }}
-            options={[{ value: 'blue', label: 'Blue (default)' }, { value: 'black', label: 'Black' }, { value: 'green', label: 'Green' }]} />
+            options={[{ value: 'blue', label: 'Blue (default)' }, { value: 'red', label: 'Red' }, { value: 'yellow', label: 'Yellow' }, { value: 'green', label: 'Green' }]} />
           <M3Switch id="appearance-dark" label="Dark mode" selected={value.isDark}
             onChange={(isDark) => onChange({ ...value, isDark })} />
         </div>

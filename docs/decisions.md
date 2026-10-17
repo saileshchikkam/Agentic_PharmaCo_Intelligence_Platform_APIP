@@ -78,3 +78,9 @@ Developer-only login is a confirmed requirement and remains unimplemented. Defin
 **User-selected 2026-10-17.** Build a simple main-page entry and consistent Material 3 sign-in views for patient, specialist, and developer audiences. Preserve the developer reference as an explicitly unrestricted preview. Authentication, account creation/recovery, sessions, and verified roles are deferred; local form feedback must not claim account access. Use sample credentials only and do not send, log, or persist them in APIP. Ask the user which page to design after this sign-in task.
 
 The access composition uses official Material Web controls, shared palette roles, responsive logical CSS sizing, and licensed self-hosted Google Sans Flex static cuts. Relevant sources and implementation choices are recorded in the [access guide](../src/features/access/README.md); full Pixel/M3 Expressive parity is not claimed.
+
+## DEC-014 — Restrained Google-inspired appearance palette
+
+**User-selected 2026-10-17.** Offer the familiar Google blue, red, yellow, and green as user-selectable primary highlights. Keep secondary, tertiary, and error roles independent so one choice does not turn the whole interface into a multicolour palette. Use charcoal grey surfaces in dark mode for comfortable viewing, and preserve old green/dark-mode preferences while migrating the retired black accent to blue.
+
+This decision supersedes DEC-012's black accent and near-black dark surface treatment.

@@ -10,8 +10,12 @@ const storageKey = 'apip.appearance.v1';
 export function loadAppearance(): Appearance {
   try {
     const value = JSON.parse(localStorage.getItem(storageKey) ?? 'null');
-    if (value && ['blue', 'black', 'green'].includes(value.accent) && typeof value.isDark === 'boolean') {
+    if (value && ['blue', 'red', 'yellow', 'green'].includes(value.accent) && typeof value.isDark === 'boolean') {
       return { accent: value.accent, isDark: value.isDark };
+    }
+    // Preserve users' old green choice; the retired black accent returns to the default blue.
+    if (value && ['black', 'green'].includes(value.accent) && typeof value.isDark === 'boolean') {
+      return { accent: value.accent === 'green' ? 'green' : 'blue', isDark: value.isDark };
     }
   } catch {
     // A blocked or invalid preference must not prevent the showcase opening.

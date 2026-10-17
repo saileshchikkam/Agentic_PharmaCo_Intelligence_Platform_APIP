@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### Appearance palette and header spacing — 2026-10-17
+
+- Replaced the blue/black/green accent choices with familiar Google-inspired blue, red, yellow, and green highlights; only primary roles change with the selected accent.
+- Lifted dark surfaces to readable Chrome-like charcoal greys and tuned the patient-home Help button's Material icon spacing.
+- Preserved existing green and dark-mode preferences; retired black preferences return to the default blue.
+
 ### Patient home UI preview — 2026-10-17
 
 - Added a responsive patient home with MedAssist and direct suspected-ADR reporting choices, plus patient-oriented header help and a clear preview label.

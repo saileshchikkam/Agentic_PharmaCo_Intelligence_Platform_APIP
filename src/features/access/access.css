@@ -74,9 +74,11 @@
 .access-header-preferences md-icon-button { flex-shrink: 0; }
 .access-accent-dot { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; }
 .access-accent-dot .material-symbols-outlined { font-size: 18px; }
-.access-accent-blue { background: #0b57d0; }
-.access-accent-black { background: #1f1f1f; }
-.access-accent-green { background: #146c2e; }
+.access-accent-blue { background: #4285f4; }
+.access-accent-red { background: #ea4335; }
+.access-accent-yellow { background: #fbbc05; color: #202124; }
+.access-accent-green { background: #34a853; }
+.access-app md-text-button.access-help-button { padding-inline-start: 12px; padding-inline-end: 16px; }
 .access-preference-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .access-header-actions > md-filled-button { animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
 @keyframes access-header-enter { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }

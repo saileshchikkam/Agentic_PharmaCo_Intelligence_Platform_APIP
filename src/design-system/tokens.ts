@@ -116,25 +116,25 @@ export const darkScheme: ColorScheme = {
   onError: '#690005',
   errorContainer: '#93000A',
   onErrorContainer: '#FFDAD6',
-  background: '#131314',
-  onBackground: '#E3E3E3',
-  surface: '#131314',
-  onSurface: '#E3E3E3',
-  surfaceVariant: '#303030',
-  onSurfaceVariant: '#C4C7C5',
-  surfaceDim: '#131314',
-  surfaceBright: '#373739',
-  surfaceContainerLowest: '#0E0E0F',
-  surfaceContainerLow: '#1B1B1D',
-  surfaceContainer: '#202022',
-  surfaceContainerHigh: '#28282A',
-  surfaceContainerHighest: '#333335',
-  outline: '#8E918F',
-  outlineVariant: '#444746',
+  background: '#202124',
+  onBackground: '#E8EAED',
+  surface: '#202124',
+  onSurface: '#E8EAED',
+  surfaceVariant: '#303134',
+  onSurfaceVariant: '#BDC1C6',
+  surfaceDim: '#202124',
+  surfaceBright: '#4B4D50',
+  surfaceContainerLowest: '#17181A',
+  surfaceContainerLow: '#292A2D',
+  surfaceContainer: '#303134',
+  surfaceContainerHigh: '#3C4043',
+  surfaceContainerHighest: '#4A4D51',
+  outline: '#9AA0A6',
+  outlineVariant: '#5F6368',
   shadow: '#000000',
   scrim: '#000000',
-  inverseSurface: '#E3E3E3',
-  inverseOnSurface: '#303030',
+  inverseSurface: '#E8EAED',
+  inverseOnSurface: '#303134',
   inversePrimary: '#0B57D0',
 };
 
@@ -226,17 +226,23 @@ export const stateLayers = {
 
 
 // Neutral surfaces stay consistent while the user selects an interaction accent.
-export type Accent = 'blue' | 'black' | 'green';
+export type Accent = 'blue' | 'red' | 'yellow' | 'green';
 
 export function getColorScheme(accent: Accent, isDark: boolean): ColorScheme {
   const base = isDark ? darkScheme : lightScheme;
   if (accent === 'blue') return base;
-  const primary = accent === 'black'
-    ? isDark
-      ? { primary: '#E3E3E3', onPrimary: '#1F1F1F', primaryContainer: '#444746', onPrimaryContainer: '#FFFFFF', inversePrimary: '#1F1F1F' }
-      : { primary: '#1F1F1F', onPrimary: '#FFFFFF', primaryContainer: '#E3E3E3', onPrimaryContainer: '#1F1F1F', inversePrimary: '#E3E3E3' }
-    : isDark
+  const accentRoles: Record<Exclude<Accent, 'blue'>, Pick<ColorScheme, 'primary' | 'onPrimary' | 'primaryContainer' | 'onPrimaryContainer' | 'inversePrimary'>> = {
+    red: isDark
+      ? { primary: '#F2B8B5', onPrimary: '#601410', primaryContainer: '#8C1D18', onPrimaryContainer: '#F9DEDC', inversePrimary: '#B3261E' }
+      : { primary: '#B3261E', onPrimary: '#FFFFFF', primaryContainer: '#F9DEDC', onPrimaryContainer: '#410E0B', inversePrimary: '#F2B8B5' },
+    yellow: isDark
+      ? { primary: '#FFD166', onPrimary: '#3F2E00', primaryContainer: '#5B4300', onPrimaryContainer: '#FFE08A', inversePrimary: '#805B00' }
+      : { primary: '#805B00', onPrimary: '#FFFFFF', primaryContainer: '#FFE08A', onPrimaryContainer: '#261A00', inversePrimary: '#FFD166' },
+    green: isDark
       ? { primary: '#7DD6A8', onPrimary: '#003822', primaryContainer: '#005234', onPrimaryContainer: '#A0F2C4', inversePrimary: '#146C43' }
-      : { primary: '#146C43', onPrimary: '#FFFFFF', primaryContainer: '#C4EED0', onPrimaryContainer: '#00210D', inversePrimary: '#7DD6A8' };
-  return { ...base, ...primary, secondary: primary.primary, onSecondary: primary.onPrimary, secondaryContainer: primary.primaryContainer, onSecondaryContainer: primary.onPrimaryContainer, tertiary: primary.primary, onTertiary: primary.onPrimary, tertiaryContainer: primary.primaryContainer, onTertiaryContainer: primary.onPrimaryContainer };
+      : { primary: '#146C43', onPrimary: '#FFFFFF', primaryContainer: '#C4EED0', onPrimaryContainer: '#00210D', inversePrimary: '#7DD6A8' },
+  };
+  // A chosen Google-inspired highlight changes primary actions only. Keeping
+  // secondary, tertiary, and error semantic roles steady avoids a multicolour UI.
+  return { ...base, ...accentRoles[accent] };
 }
