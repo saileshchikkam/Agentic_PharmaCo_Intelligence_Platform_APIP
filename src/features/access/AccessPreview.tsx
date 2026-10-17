@@ -184,7 +184,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
 
     <main id="access-main" tabIndex={-1} className={`access-main ${isSignIn ? 'access-main-sign-in' : ''}`}>
       <div className="access-page-shell">
-      {route.screen !== 'home' && <nav className="access-page-navigation" aria-label="Page navigation">
+      {route.screen !== 'home' && <nav className={`access-page-navigation access-page-navigation-${route.screen}`} aria-label="Page navigation">
         <M3Button variant="text" leadingIcon="arrow_back" onClick={() => goBackPreview(backFallback)}>Back</M3Button>
       </nav>}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">

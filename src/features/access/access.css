@@ -92,7 +92,8 @@
 .access-main { flex: 1; display: grid; place-items: center; padding: 48px 24px; }
 .access-page-shell { width: 100%; }
 .access-page-navigation { width: min(100%, 1160px); margin: 0 auto 12px; display: flex; justify-content: flex-start; padding-inline: 4px; }
-.access-welcome { max-width: 860px; text-align: center; padding: 24px 0 48px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
+.access-page-navigation-sign-in, .access-page-navigation-adr-preview { max-width: 1040px; }
+.access-welcome { max-width: 860px; margin-inline: auto; text-align: center; padding: 24px 0 48px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
 .access-welcome-symbol { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto 28px; border-radius: 28px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
 .access-welcome-symbol .material-symbols-outlined { font-size: 2.5rem; font-variation-settings: 'FILL' 1, 'wght' 400; }
 .access-eyebrow { font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; color: var(--md-sys-color-on-surface-variant); margin: 0 0 24px; }
@@ -103,8 +104,8 @@
 .access-welcome-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 20px; margin-top: 16px; font-size: 0.875rem; line-height: 1.25rem; color: var(--md-sys-color-on-surface-variant); }
 .access-welcome-links a { display: inline-flex; align-items: center; min-height: 48px; }
 
-.patient-home { width: min(100%, 1160px); padding-block: 12px 32px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
-.adr-preview-page { width: min(100%, 1040px); padding-block: 8px 32px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
+.patient-home { width: min(100%, 1160px); margin-inline: auto; padding-block: 12px 32px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
+.adr-preview-page { width: min(100%, 1040px); margin-inline: auto; padding-block: 8px 32px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
 .adr-preview-navigation { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
 .adr-preview-navigation .access-text-link { gap: 8px; }
 .adr-draft-progress { display: grid; gap: 8px; }
@@ -142,7 +143,7 @@
 .patient-help-dialog p { color: var(--md-sys-color-on-surface-variant); font-size: .9375rem; line-height: 1.5rem; }
 .patient-help-actions { display: flex; justify-content: flex-end; margin-top: 24px; }
 
-.access-sign-in-surface { width: 100%; max-width: 1040px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; padding: 48px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface); animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
+.access-sign-in-surface { width: 100%; max-width: 1040px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; padding: 48px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface); animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
 .access-sign-in-lead h1 { margin: 40px 0 12px; font-size: 2.25rem; line-height: 2.75rem; font-weight: 500; letter-spacing: -.5px; }
 .access-lead-subtitle { font-size: 1.25rem; line-height: 1.75rem; margin: 0; }
 .access-workspace-label { display: inline-flex; align-items: center; gap: 10px; margin-top: 40px; padding: 8px 14px 8px 10px; border-radius: 16px; background: var(--md-sys-color-surface-container-low); font-size: 0.875rem; line-height: 1.25rem; font-weight: 500; }
@@ -174,6 +175,7 @@
 @keyframes access-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 839px) {
+  .access-page-navigation-sign-in { max-width: 560px; }
   .access-sign-in-surface { max-width: 560px; grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px; }
   .access-sign-in-lead h1 { margin-top: 24px; }
   .access-workspace-label { margin-top: 20px; }

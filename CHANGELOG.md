@@ -7,6 +7,7 @@ Notable product and developer-facing changes. Entries describe completed work; p
 ### Page-level back control placement — 2026-10-17
 
 - Moved the shared Back action out of the app header and into a left-aligned page navigation row beneath it, reducing header crowding across preview pages.
+- Restored centered welcome, patient, sign-in, and ADR layouts after adding the page wrapper; aligned the Back row to each screen's content width.
 
 ### Consistent back navigation — 2026-10-17
 
