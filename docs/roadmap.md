@@ -4,14 +4,14 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
-The main entry now offers welcome/sign-in, patient-home, and fictional ADR-intake interface previews plus an explicit link to the preserved developer design reference. Appearance uses white surfaces, selectable blue/red/yellow/green primary highlights, and optional charcoal-grey dark mode. The ADR preview reuses the browser-local fictional draft and is not authenticated or submitted. Developer login, authenticated server persistence, the product workflow, and clinical validation remain incomplete.
+The main entry now offers welcome/sign-in, patient-home, and fictional ADR-intake/review interface previews plus an explicit link to the preserved developer design reference. Appearance uses white surfaces, selectable blue/red/yellow/green primary highlights, and optional charcoal-grey dark mode. ADR review records the user's confirmation in a browser-local fictional draft; it is not authenticated or submitted. Developer login, authenticated server persistence, the product workflow, and clinical validation remain incomplete.
 
 ### Current phase and next handoff
 
 Sailesh clarified on 2026-10-17 that the developer UI foundation comes first; the earlier draft implementation moved ahead of his intended screen sequence. On 2026-10-17, he approved continuing with the fictional ADR intake design preview. This is a presentation slice only, not authorization for clinical guidance, real-data intake, or report submission.
 
 1. **Completed UI foundation task:** preserve reusable component examples, label the reference, change the default palette, and add appearance settings. This does not finish M1.
-2. **Rough framework — sign-in and patient task screens:** welcome-page sign-in action, Patient/Specialist/Developer views, patient home, and a fictional ADR intake preview are implemented as local interface previews. Authentication remains deferred. The intake preview may only use fictional cases and browser-local draft storage; enforce access before claiming patient content is private.
+2. **Rough framework — sign-in and patient task screens:** welcome-page sign-in action, Patient/Specialist/Developer views, patient home, and a two-step fictional ADR intake/review preview are implemented as local interface previews. Authentication remains deferred. The preview may only use fictional cases and browser-local storage; enforce access before claiming patient content is private.
 3. **Then — backend/model contracts:** establish storage/identity and a local-first model adapter with explicit inputs, outputs, unknowns, and fictional evaluation cases. Groq is optional under the existing budget policy; custom ML training needs a selected task and suitable data.
 4. **Then — connected product slices:** implement and check the real reporting journey and progressively connect the selected model. Continue M2–M7 using their existing gates.
 

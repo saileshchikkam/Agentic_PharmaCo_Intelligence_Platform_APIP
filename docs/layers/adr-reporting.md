@@ -1,6 +1,6 @@
 # ADR reporting
 
-**Status:** core confirmed requirement. A small English/Telugu fictional draft interface is available at `#/preview/adr-report` for design evaluation. It can save one version in browser storage. This route is not the real patient-reporting workflow: there is no account, server persistence, user isolation, official form, professional review, or submission.
+**Status:** core confirmed requirement. A small English/Telugu fictional draft interface is available at `#/preview/adr-report` for design evaluation. Its two steps collect and review user-entered details, then save a user-confirmed draft in browser storage. This route is not the real patient-reporting workflow: there is no account, server persistence, user isolation, official form, professional review, or submission.
 
 ## Responsibility
 
@@ -16,7 +16,7 @@ Make it easy to describe a suspected medicine-related problem while preserving a
 - Save/resume drafts; confirm a version; generate a report; link professional clarification and follow-up versions.
 - Use idempotent requests and review potential duplicates without silently merging different people.
 
-The preview at `ReportReactionView` is limited to fictional evaluation. Reporter statements are labelled as reporter-originated, optional blank values remain unknown, and only the report narrative is required. Browser storage is a temporary engineering step; never enter real patient information into it.
+The preview at `ReportReactionView` is limited to fictional evaluation. Reporter statements remain labelled as user-originated, optional blank values remain unknown, and only the reaction narrative is required before review. The review screen separates the user's confirmation from any professional assessment. Draft schema v2 records the user's confirmation and timestamp; v1 browser drafts migrate in memory as unconfirmed and are written in v2 on the next confirmation. Browser storage is a temporary engineering step; never enter real patient information into it.
 
 Current care urgency, symptom intensity, regulatory seriousness, and causality are separate fields/concepts. Reviewed urgent guidance can interrupt intake.
 

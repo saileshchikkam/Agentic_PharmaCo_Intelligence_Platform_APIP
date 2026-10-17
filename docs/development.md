@@ -4,7 +4,7 @@ This page describes the welcome/sign-in and patient interface previews plus the 
 
 ## Prerequisites and installation
 
-The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The ADR draft preview stores fictional data in browser `localStorage`; it does not use the server or support real patient information.
+The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage`; schema v1 drafts migrate in memory to v2 with unconfirmed status. It does not use the server or support real patient information. Patient confirmation is not clinical or professional review.
 
 The repository tracks `bun.lock`. With Bun available, the intended commands are:
 

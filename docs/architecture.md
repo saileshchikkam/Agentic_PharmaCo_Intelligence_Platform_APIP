@@ -8,8 +8,8 @@ Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient
 - [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, patient task choices, local-only feedback, and absence of authentication.
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
-- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English/Telugu fictional ADR draft preview at `#/preview/adr-report`. It saves one versioned draft in this browser's local storage and retains reporter-entered text separately. It does not transmit, authenticate, submit, or add a case to professional records.
-- [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates the small versioned browser-storage shape; empty optional statements remain `null`.
+- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English/Telugu fictional ADR draft and review preview at `#/preview/adr-report`. The patient reviews and explicitly confirms the summary before it saves a versioned draft in browser storage. User confirmation is distinct from professional review. It does not transmit, authenticate, submit, or add a case to professional records.
+- [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates schema v2 and migrates existing v1 drafts in memory as unconfirmed; optional blank statements remain `null`.
 - [src/design-system](../src/design-system) registers Material Web and defines tokens; [src/index.css](../src/index.css) provides styles.
 - [src/components](../src/components) also contains an earlier UI generation and experimental integrations. Their presence does not mean they are mounted by the current app.
 - [src/mockData.ts](../src/mockData.ts) and [src/types.ts](../src/types.ts) provide demonstration data and case types.

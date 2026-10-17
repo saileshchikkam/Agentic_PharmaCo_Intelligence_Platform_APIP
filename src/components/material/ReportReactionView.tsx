@@ -1,84 +1,124 @@
-import React, { useState } from 'react';
-import { M3Button, M3Card, M3Select, M3TextField } from './core';
-import {
-  AdrDraft,
-  AdrDraftLanguage,
-  loadAdrDraft,
-  saveAdrDraft,
-} from '../../features/adr/draftStorage';
+import React, { useEffect, useRef, useState } from 'react';
+import { M3Button, M3Card, M3Checkbox, M3Select, M3TextField } from './core';
+import type { AdrDraft, AdrDraftLanguage } from '../../features/adr/draftStorage';
+import { loadAdrDraft, saveAdrDraft } from '../../features/adr/draftStorage';
 
 const copy = {
   en: {
     badge: 'Fictional evaluation only',
-    preview: 'Saved draft preview',
     title: 'Create a fictional ADR draft',
-    intro: 'This first workflow is for fictional software evaluation. Your words are saved in this browser only.',
-    notice: 'Do not enter real patient information. This draft is not sent to a hospital, reviewer, or government programme.',
+    reviewTitle: 'Review your draft',
+    intro: 'This short preview helps organise a fictional medicine experience. Your words stay separate from any professional assessment.',
+    reviewIntro: 'Check that this summary matches what you entered. Unknown details remain unknown.',
+    notice: 'Do not enter real patient information. This is a software preview; nothing is sent and no clinical review is provided.',
     language: 'Draft language',
     medicine: 'Medicine name',
-    medicineHelp: 'Leave blank if unknown. We will keep it unknown.',
+    medicineHelp: 'Optional. Leave blank if unknown.',
     dose: 'Dose or how it was taken',
     doseHelp: 'Optional. Leave blank if unknown.',
     reaction: 'What happened?',
     reactionHelp: 'Describe only what the fictional reporter experienced. Do not add a diagnosis.',
     timing: 'When did it start?',
     timingHelp: 'Optional. Leave blank if unknown.',
-    save: 'Save draft in this browser',
-    saved: 'Draft saved in this browser.',
+    review: 'Review draft',
+    edit: 'Edit details',
+    reporterOrigin: 'Your words',
+    unknown: 'Not provided (unknown)',
+    confirmLabel: 'I checked this summary and confirm that it reflects only the fictional details I entered.',
+    confirmSave: 'Confirm and save draft',
+    confirmed: 'You confirmed this summary. It has not been reviewed by a professional.',
+    saved: 'Your fictional draft was saved in this browser only. It was not submitted.',
     loaded: 'Your saved fictional draft was restored from this browser.',
     savingError: 'The browser could not save this draft. Check available browser storage and try again.',
     loadError: 'The saved draft could not be read. Start a new fictional draft and save it again.',
     revision: 'Saved draft revision',
-    unknown: 'Not provided (unknown)',
+    stepDetails: 'Step 1 of 2 · Add details',
+    stepReview: 'Step 2 of 2 · Review and confirm',
   },
   te: {
     badge: 'కల్పిత పరీక్ష కోసం మాత్రమే',
-    preview: 'సేవ్ చేసిన ముసాయిదా ప్రివ్యూ',
     title: 'కల్పిత ADR ముసాయిదా సృష్టించండి',
-    intro: 'ఈ ప్రారంభ వర్క్‌ఫ్లో కల్పిత సాఫ్ట్‌వేర్ పరీక్ష కోసం మాత్రమే. మీ వివరాలు ఈ బ్రౌజర్‌లో మాత్రమే సేవ్ అవుతాయి.',
-    notice: 'నిజమైన రోగి వివరాలను నమోదు చేయవద్దు. ఈ ముసాయిదా ఆసుపత్రికి, సమీక్షకుడికి లేదా ప్రభుత్వ కార్యక్రమానికి పంపబడదు.',
+    reviewTitle: 'మీ ముసాయిదాను సమీక్షించండి',
+    intro: 'ఈ చిన్న ప్రివ్యూ కల్పిత మందు అనుభవాన్ని క్రమబద్ధం చేయడానికి సహాయపడుతుంది. మీ వివరాలు వృత్తిపరమైన అంచనా నుండి వేరుగా ఉంటాయి.',
+    reviewIntro: 'ఈ సారాంశం మీరు నమోదు చేసిన వివరాలతో సరిపోతుందో చూడండి. తెలియని వివరాలు అలాగే తెలియనివిగా ఉంటాయి.',
+    notice: 'నిజమైన రోగి వివరాలను నమోదు చేయవద్దు. ఇది సాఫ్ట్‌వేర్ ప్రివ్యూ మాత్రమే; ఏదీ పంపబడదు, వైద్య సమీక్ష కూడా లేదు.',
     language: 'ముసాయిదా భాష',
     medicine: 'మందు పేరు',
-    medicineHelp: 'తెలియకపోతే ఖాళీగా ఉంచండి. తెలియదనే స్థితి అలాగే ఉంటుంది.',
+    medicineHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
     dose: 'మోతాదు లేదా తీసుకున్న విధానం',
     doseHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
     reaction: 'ఏమి జరిగింది?',
     reactionHelp: 'కల్పిత నివేదకుడు అనుభవించిన విషయాన్ని మాత్రమే వివరించండి. నిర్ధారణను జోడించవద్దు.',
     timing: 'ఇది ఎప్పుడు ప్రారంభమైంది?',
     timingHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
-    save: 'ఈ బ్రౌజర్‌లో ముసాయిదా సేవ్ చేయండి',
-    saved: 'ముసాయిదా ఈ బ్రౌజర్‌లో సేవ్ అయింది.',
+    review: 'ముసాయిదాను సమీక్షించండి',
+    edit: 'వివరాలను సవరించండి',
+    reporterOrigin: 'మీరు తెలిపిన వివరాలు',
+    unknown: 'ఇవ్వలేదు (తెలియదు)',
+    confirmLabel: 'ఈ సారాంశాన్ని పరిశీలించాను. నేను నమోదు చేసిన కల్పిత వివరాలనే ఇది చూపిస్తుందని నిర్ధారిస్తున్నాను.',
+    confirmSave: 'నిర్ధారించి ముసాయిదాను సేవ్ చేయండి',
+    confirmed: 'మీరు ఈ సారాంశాన్ని నిర్ధారించారు. దీనిని నిపుణుడు సమీక్షించలేదు.',
+    saved: 'మీ కల్పిత ముసాయిదా ఈ బ్రౌజర్‌లో మాత్రమే సేవ్ అయింది. ఇది సమర్పించబడలేదు.',
     loaded: 'ఈ బ్రౌజర్‌లో సేవ్ చేసిన కల్పిత ముసాయిదా తిరిగి తెరవబడింది.',
     savingError: 'బ్రౌజర్ ఈ ముసాయిదాను సేవ్ చేయలేకపోయింది. బ్రౌజర్ నిల్వను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.',
     loadError: 'సేవ్ చేసిన ముసాయిదాను చదవలేకపోయాం. కొత్త కల్పిత ముసాయిదా ప్రారంభించి మళ్లీ సేవ్ చేయండి.',
     revision: 'సేవ్ చేసిన ముసాయిదా సంచిక',
-    unknown: 'ఇవ్వలేదు (తెలియదు)',
+    stepDetails: 'దశ 1 / 2 · వివరాలు నమోదు చేయండి',
+    stepReview: 'దశ 2 / 2 · సమీక్షించి నిర్ధారించండి',
   },
 } satisfies Record<AdrDraftLanguage, Record<string, string>>;
 
+type DraftStep = 'edit' | 'review';
+
 export const ReportReactionView: React.FC = () => {
-  const [initialDraft] = useState(() => loadAdrDraft());
-  const [language, setLanguage] = useState<AdrDraftLanguage>(initialDraft.draft?.language ?? 'en');
-  const [medicineName, setMedicineName] = useState(initialDraft.draft?.statements.medicineName ?? '');
-  const [dose, setDose] = useState(initialDraft.draft?.statements.dose ?? '');
-  const [reaction, setReaction] = useState(initialDraft.draft?.statements.reaction ?? '');
-  const [onset, setOnset] = useState(initialDraft.draft?.statements.onset ?? '');
-  const [savedDraft, setSavedDraft] = useState<AdrDraft | null>(initialDraft.draft);
+  const [initial] = useState(() => loadAdrDraft());
+  const existingDraft = initial.draft;
+  const [step, setStep] = useState<DraftStep>(existingDraft?.status === 'user-confirmed' ? 'review' : 'edit');
+  const [language, setLanguage] = useState<AdrDraftLanguage>(existingDraft?.language ?? 'en');
+  const [medicineName, setMedicineName] = useState(existingDraft?.statements.medicineName ?? '');
+  const [dose, setDose] = useState(existingDraft?.statements.dose ?? '');
+  const [reaction, setReaction] = useState(existingDraft?.statements.reaction ?? '');
+  const [onset, setOnset] = useState(existingDraft?.statements.onset ?? '');
+  const [confirmationChecked, setConfirmationChecked] = useState(existingDraft?.status === 'user-confirmed');
+  const [savedDraft, setSavedDraft] = useState<AdrDraft | null>(existingDraft);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [message, setMessage] = useState<string | null>(
-    initialDraft.error ? copy.en.loadError : initialDraft.draft ? copy[initialDraft.draft.language].loaded : null,
+    initial.error ? copy.en.loadError : existingDraft ? copy[existingDraft.language].loaded : null,
   );
-  const [storageError, setStorageError] = useState(initialDraft.error);
+  const [storageError, setStorageError] = useState(initial.error);
+  const heading = useRef<HTMLHeadingElement>(null);
   const text = copy[language];
 
-  const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!reaction.trim()) return;
+  useEffect(() => { heading.current?.focus({ preventScroll: true }); }, [step]);
 
+  const handleReview = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!reaction.trim()) {
+      document.getElementById('adr-draft-reaction')?.focus();
+      return;
+    }
+    setMessage(null);
+    setStorageError(false);
+    setConfirmationChecked(false);
+    setStep('review');
+  };
+
+  const editDetails = () => {
+    setStep('edit');
+    setConfirmationChecked(false);
+    setMessage(null);
+    setStorageError(false);
+  };
+
+  const confirmAndSave = () => {
+    if (!confirmationChecked) return;
     const timestamp = new Date().toISOString();
     const draft: AdrDraft = {
-      schemaVersion: 1,
+      schemaVersion: 2,
       id: savedDraft?.id ?? crypto.randomUUID(),
       language,
+      status: 'user-confirmed',
+      confirmedAt: timestamp,
       revision: (savedDraft?.revision ?? 0) + 1,
       createdAt: savedDraft?.createdAt ?? timestamp,
       updatedAt: timestamp,
@@ -94,6 +134,7 @@ export const ReportReactionView: React.FC = () => {
     try {
       saveAdrDraft(draft);
       setSavedDraft(draft);
+      setHasUnsavedChanges(false);
       setStorageError(false);
       setMessage(copy[language].saved);
     } catch {
@@ -102,107 +143,107 @@ export const ReportReactionView: React.FC = () => {
     }
   };
 
+  const reviewRows = [
+    [text.medicine, medicineName.trim() || text.unknown],
+    [text.dose, dose.trim() || text.unknown],
+    [text.timing, onset.trim() || text.unknown],
+    [text.reaction, reaction.trim() || text.unknown],
+  ];
+
   return (
     <section id="adr-draft-view" className="mx-auto max-w-4xl space-y-6" aria-labelledby="adr-draft-title">
       <header className="space-y-2">
         <span className="m3-label-large inline-flex rounded-full bg-[var(--md-sys-color-secondary-container)] px-3 py-1 text-[var(--md-sys-color-on-secondary-container)]">
           {text.badge}
         </span>
-        <h1 id="adr-draft-title" tabIndex={-1} className="m3-headline-small font-normal text-[var(--md-sys-color-on-surface)]">
-          {text.title}
+        <h1 id="adr-draft-title" ref={heading} tabIndex={-1} className="m3-headline-small font-normal text-[var(--md-sys-color-on-surface)]">
+          {step === 'edit' ? text.title : text.reviewTitle}
         </h1>
-        <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">{text.intro}</p>
+        <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">
+          {step === 'edit' ? text.intro : text.reviewIntro}
+        </p>
       </header>
+
+      <div className="adr-draft-progress">
+        <span className="m3-label-medium">{step === 'edit' ? text.stepDetails : text.stepReview}</span>
+        <md-linear-progress value={step === 'edit' ? 0.5 : 1} aria-label={step === 'edit' ? text.stepDetails : text.stepReview}></md-linear-progress>
+      </div>
 
       <M3Card variant="filled" className="flex items-start gap-3" role="note">
         <span className="material-symbols-outlined mt-0.5 text-[var(--md-sys-color-primary)]" aria-hidden="true">info</span>
         <p className="m3-body-medium text-[var(--md-sys-color-on-surface-variant)]">{text.notice}</p>
       </M3Card>
 
-      <form onSubmit={handleSave} className="space-y-6">
+      {step === 'edit' ? <form onSubmit={handleReview} className="space-y-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <M3Select
-            id="adr-draft-language"
-            label={text.language}
-            value={language}
-            onChange={(value) => setLanguage(value as AdrDraftLanguage)}
-            options={[
-              { value: 'en', label: 'English' },
-              { value: 'te', label: 'తెలుగు' },
-            ]}
-          />
-
-          <M3TextField
-            id="adr-draft-medicine"
-            label={text.medicine}
-            value={medicineName}
-            onChange={(event) => setMedicineName(event.target.value)}
-            supportingText={text.medicineHelp}
-            maxLength={200}
-          />
-          <M3TextField
-            id="adr-draft-dose"
-            label={text.dose}
-            value={dose}
-            onChange={(event) => setDose(event.target.value)}
-            supportingText={text.doseHelp}
-            maxLength={200}
-          />
-          <M3TextField
-            id="adr-draft-onset"
-            label={text.timing}
-            value={onset}
-            onChange={(event) => setOnset(event.target.value)}
-            supportingText={text.timingHelp}
-            maxLength={200}
-          />
+          <M3Select id="adr-draft-language" label={text.language} value={language}
+            onChange={(value) => {
+              if (value === 'en' || value === 'te') setLanguage(value);
+              setMessage(null);
+              setHasUnsavedChanges(true);
+            }}
+            options={[{ value: 'en', label: 'English' }, { value: 'te', label: 'తెలుగు' }]} />
+          <M3TextField id="adr-draft-medicine" label={text.medicine} value={medicineName}
+            onChange={(event) => { setMedicineName(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
+            supportingText={text.medicineHelp} maxLength={200} />
+          <M3TextField id="adr-draft-dose" label={text.dose} value={dose}
+            onChange={(event) => { setDose(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
+            supportingText={text.doseHelp} maxLength={200} />
+          <M3TextField id="adr-draft-onset" label={text.timing} value={onset}
+            onChange={(event) => { setOnset(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
+            supportingText={text.timingHelp} maxLength={200} />
         </div>
 
-        <M3TextField
-          id="adr-draft-reaction"
-          label={text.reaction}
-          type="textarea"
-          rows={5}
-          required
-          value={reaction}
-          onChange={(event) => setReaction(event.target.value)}
-          supportingText={text.reactionHelp}
-          maxLength={4000}
-        />
+        <M3TextField id="adr-draft-reaction" label={text.reaction} type="textarea" rows={5}
+          required value={reaction}
+          onChange={(event) => { setReaction(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
+          supportingText={text.reactionHelp} maxLength={4000} />
 
         <div className="flex flex-wrap items-center gap-4">
-          <M3Button type="submit" variant="filled" leadingIcon="save" disabled={!reaction.trim()}>
-            {text.save}
+          <M3Button type="submit" variant="filled" trailingIcon="arrow_forward" disabled={!reaction.trim()}>
+            {text.review}
           </M3Button>
-          {savedDraft && (
-            <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)]">
-              {text.revision}: {savedDraft.revision}
-            </span>
-          )}
+          {savedDraft && <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)]">
+            {text.revision}: {savedDraft.revision}
+          </span>}
         </div>
-      </form>
-
-      {message && (
-        <p
-          className="m3-body-medium rounded-xl bg-[var(--md-sys-color-surface-container)] p-4 text-[var(--md-sys-color-on-surface)]"
-          role={storageError ? 'alert' : 'status'}
-          aria-live={storageError ? 'assertive' : 'polite'}
-        >
-          {message}
-        </p>
-      )}
-
-      {savedDraft && (
-        <M3Card variant="outlined" className="space-y-3" ariaLabelledBy="adr-draft-preview-title">
-          <h2 id="adr-draft-preview-title" className="m3-title-large">{text.preview}</h2>
-          <dl className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div><dt className="m3-label-medium">{text.medicine}</dt><dd className="m3-body-medium">{savedDraft.statements.medicineName ?? text.unknown}</dd></div>
-            <div><dt className="m3-label-medium">{text.dose}</dt><dd className="m3-body-medium">{savedDraft.statements.dose ?? text.unknown}</dd></div>
-            <div><dt className="m3-label-medium">{text.timing}</dt><dd className="m3-body-medium">{savedDraft.statements.onset ?? text.unknown}</dd></div>
-            <div><dt className="m3-label-medium">{text.reaction}</dt><dd className="m3-body-medium whitespace-pre-wrap">{savedDraft.statements.reaction}</dd></div>
+      </form> : <div className="space-y-5">
+        <M3Card variant="outlined" className="space-y-4" ariaLabelledBy="adr-draft-review-heading">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 id="adr-draft-review-heading" className="m3-title-large">{text.reviewTitle}</h2>
+              <p className="m3-body-small mt-1 text-[var(--md-sys-color-on-surface-variant)]">{text.reporterOrigin}</p>
+            </div>
+            {savedDraft && <span className="m3-label-small text-[var(--md-sys-color-on-surface-variant)]">
+              {text.revision}: {savedDraft.revision}
+            </span>}
+          </div>
+          <dl className="adr-review-rows">
+            {reviewRows.map(([label, value]) => <div key={label} className="adr-review-row">
+              <dt className="m3-label-medium">{label}</dt>
+              <dd className="m3-body-medium whitespace-pre-wrap">{value}</dd>
+            </div>)}
           </dl>
         </M3Card>
-      )}
+
+        {savedDraft?.status === 'user-confirmed' && !hasUnsavedChanges && <p className="m3-body-small rounded-xl bg-[var(--md-sys-color-surface-container)] p-4 text-[var(--md-sys-color-on-surface-variant)]" role="note">
+          {text.confirmed}
+        </p>}
+
+        <M3Checkbox id="adr-draft-confirm" checked={confirmationChecked} onChange={setConfirmationChecked}
+          label={text.confirmLabel} />
+        <div className="flex flex-wrap items-center gap-3">
+          <M3Button type="button" variant="outlined" leadingIcon="edit" onClick={editDetails}>{text.edit}</M3Button>
+          <M3Button type="button" variant="filled" leadingIcon="check" disabled={!confirmationChecked} onClick={confirmAndSave}>
+            {text.confirmSave}
+          </M3Button>
+        </div>
+      </div>}
+
+      {message && <p className="m3-body-medium rounded-xl bg-[var(--md-sys-color-surface-container)] p-4 text-[var(--md-sys-color-on-surface)]"
+        role={storageError ? 'alert' : 'status'} aria-live={storageError ? 'assertive' : 'polite'}>
+        {message}
+      </p>}
     </section>
   );
 };

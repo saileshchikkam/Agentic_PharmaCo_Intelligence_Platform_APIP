@@ -105,6 +105,13 @@
 .adr-preview-page { width: min(100%, 1040px); padding-block: 8px 32px; animation: access-enter 240ms cubic-bezier(.2,0,0,1) both; }
 .adr-preview-navigation { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
 .adr-preview-navigation .access-text-link { gap: 8px; }
+.adr-draft-progress { display: grid; gap: 8px; }
+.adr-draft-progress md-linear-progress { width: 100%; --md-linear-progress-active-indicator-color: var(--md-sys-color-primary); --md-linear-progress-track-color: var(--md-sys-color-primary-container); }
+.adr-review-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px; }
+.adr-review-row { min-width: 0; }
+.adr-review-row:last-child { grid-column: 1 / -1; }
+.adr-review-row dt { color: var(--md-sys-color-on-surface-variant); }
+.adr-review-row dd { margin: 6px 0 0; overflow-wrap: anywhere; }
 .patient-home-heading { max-width: 780px; margin: 0 auto 36px; text-align: center; }
 .patient-home-heading .access-eyebrow { margin-bottom: 12px; }
 .patient-home-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; letter-spacing: -.04em; font-weight: 500; }
@@ -190,6 +197,8 @@
   .patient-task-grid { grid-template-columns: minmax(0, 1fr); }
   .patient-task-card { padding: 24px; border-radius: 24px; }
   .patient-task-card h2 { font-size: 1.5rem; line-height: 2rem; }
+  .adr-review-rows { grid-template-columns: minmax(0, 1fr); }
+  .adr-review-row:last-child { grid-column: auto; }
   .access-preview-badge { display: none; }
   .patient-help-dialog { padding: 24px; }
   .access-main-sign-in { display: block; padding: 20px 24px 32px; }

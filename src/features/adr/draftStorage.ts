@@ -1,9 +1,12 @@
 export type AdrDraftLanguage = 'en' | 'te';
+export type AdrDraftStatus = 'draft' | 'user-confirmed';
 
 export interface AdrDraft {
-  schemaVersion: 1;
+  schemaVersion: 2;
   id: string;
   language: AdrDraftLanguage;
+  status: AdrDraftStatus;
+  confirmedAt: string | null;
   revision: number;
   createdAt: string;
   updatedAt: string;
@@ -16,7 +19,18 @@ export interface AdrDraft {
   };
 }
 
-export const ADR_DRAFT_STORAGE_KEY = 'apip.fictionalAdrDraft.v1';
+interface LegacyAdrDraft {
+  schemaVersion: 1;
+  id: string;
+  language: AdrDraftLanguage;
+  revision: number;
+  createdAt: string;
+  updatedAt: string;
+  statements: AdrDraft['statements'];
+}
+
+export const ADR_DRAFT_STORAGE_KEY = 'apip.fictionalAdrDraft.v2';
+const legacyStorageKey = 'apip.fictionalAdrDraft.v1';
 
 export interface AdrDraftLoadResult {
   draft: AdrDraft | null;
@@ -27,9 +41,9 @@ function isNullableText(value: unknown, maxLength: number): value is string | nu
   return value === null || (typeof value === 'string' && value.length <= maxLength);
 }
 
-function isAdrDraft(value: unknown): value is AdrDraft {
+function hasValidDraftFields(value: unknown): value is LegacyAdrDraft {
   if (typeof value !== 'object' || value === null) return false;
-  const draft = value as Partial<AdrDraft>;
+  const draft = value as Partial<LegacyAdrDraft>;
   const statements = draft.statements;
 
   return (
@@ -52,15 +66,43 @@ function isAdrDraft(value: unknown): value is AdrDraft {
   );
 }
 
+function isAdrDraft(value: unknown): value is AdrDraft {
+  if (typeof value !== 'object' || value === null) return false;
+  const draft = value as Partial<AdrDraft>;
+  if (draft.schemaVersion !== 2 || (draft.status !== 'draft' && draft.status !== 'user-confirmed')) return false;
+  if (draft.status === 'user-confirmed' && typeof draft.confirmedAt !== 'string') return false;
+  if (draft.status === 'draft' && draft.confirmedAt !== null) return false;
+  return hasValidDraftFields({ ...draft, schemaVersion: 1 });
+}
+
+function migrateLegacyDraft(draft: LegacyAdrDraft): AdrDraft {
+  return {
+    ...draft,
+    schemaVersion: 2,
+    status: 'draft',
+    confirmedAt: null,
+  };
+}
+
+function readDraft(serialized: string): AdrDraft | null {
+  const parsed: unknown = JSON.parse(serialized);
+  if (isAdrDraft(parsed)) return parsed;
+  if (hasValidDraftFields(parsed)) return migrateLegacyDraft(parsed);
+  return null;
+}
+
 export function loadAdrDraft(): AdrDraftLoadResult {
   try {
-    const serialized = window.localStorage.getItem(ADR_DRAFT_STORAGE_KEY);
-    if (serialized === null) return { draft: null, error: false };
+    const current = window.localStorage.getItem(ADR_DRAFT_STORAGE_KEY);
+    if (current !== null) {
+      const draft = readDraft(current);
+      return draft ? { draft, error: false } : { draft: null, error: true };
+    }
 
-    const parsed: unknown = JSON.parse(serialized);
-    return isAdrDraft(parsed)
-      ? { draft: parsed, error: false }
-      : { draft: null, error: true };
+    const legacy = window.localStorage.getItem(legacyStorageKey);
+    if (legacy === null) return { draft: null, error: false };
+    const draft = readDraft(legacy);
+    return draft ? { draft, error: false } : { draft: null, error: true };
   } catch {
     return { draft: null, error: true };
   }

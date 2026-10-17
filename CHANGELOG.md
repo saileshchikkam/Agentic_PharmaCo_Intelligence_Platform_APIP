@@ -4,6 +4,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 ## Unreleased
 
+### ADR draft review and confirmation — 2026-10-17
+
+- Split fictional ADR entry into a two-step flow: enter details, review reporter-originated values with unknowns preserved, then explicitly confirm and save in this browser.
+- Added draft schema v2 with a user-confirmed status and timestamp; legacy v1 drafts migrate as unconfirmed.
+- Kept professional review, authentication, server persistence, AI, and report submission out of the preview.
+
 ### Fictional ADR intake preview — 2026-10-17
 
 - Mounted the existing English/Telugu fictional draft form at `#/preview/adr-report`, lazy-loaded it from the selected ADR sign-in preview, and added a clear return to patient home.
