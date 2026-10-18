@@ -101,12 +101,12 @@ export function createMedAssistHandler({
   };
 }
 
-export function registerMedAssistRoutes(app: Express) {
+export function registerMedAssistRoutes(app: Express, options?: Parameters<typeof createMedAssistHandler>[0]) {
   const parse = express.json({ limit: '24kb' });
   app.post('/api/medassist/structure', (req, res, next) => {
     parse(req, res, (error) => {
       if (error) res.status(error.type === 'entity.too.large' ? 413 : 400).json({ error: { code: 'INVALID_INTAKE' } });
       else next();
     });
-  }, createMedAssistHandler());
+  }, createMedAssistHandler(options));
 }

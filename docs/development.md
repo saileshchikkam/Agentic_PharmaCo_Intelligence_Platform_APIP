@@ -4,7 +4,7 @@ This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation 
 
 ## Prerequisites and installation
 
-The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Use Node 24 and the tracked Bun dependency workflow. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage` under a versioned collection key. Existing single-draft v1 and v2 keys load as a one-item collection; legacy v1 drafts remain unconfirmed. This legacy collection remains shared only in the explicitly separate browser demo. Signed-in local accounts use the server draft API; neither mode supports real patient information. Patient confirmation is not clinical or professional review.
+The development launcher explicitly selects development and runs `tsx server-entry.ts` in Node.js; the server uses built-in `fetch`. Use Node 24 and the tracked Bun dependency workflow. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage` under a versioned collection key. Existing single-draft v1 and v2 keys load as a one-item collection; legacy v1 drafts remain unconfirmed. This legacy collection remains shared only in the explicitly separate browser demo. Signed-in local accounts use the server draft API; neither mode supports real patient information. Patient confirmation is not clinical or professional review.
 
 The repository tracks `bun.lock`. With Bun available, the intended commands are:
 
@@ -13,7 +13,7 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-The server listens on port `3000` and binds all interfaces. Use fictional cases; do not expose this unauthenticated experimental server as a patient service.
+Development HTTP and Vite HMR bind to loopback only. HTTP uses port 3000; legacy agents are disabled by default. Use fictional cases.
 
 Do not silently replace the lockfile or add competing lockfiles. Record installation failures and proposed fixes. An npm workflow can be adopted after the package/lockfile policy is selected and checked.
 
@@ -21,10 +21,10 @@ At the 2026-10-17 implementation session, Bun v1.4.3 was installed from the [off
 
 ## Existing scripts
 
-- `dev`: `tsx server.ts` — Express and Vite middleware outside production.
+- `dev`: `node scripts/start-server.mjs development` — explicit development with Express/Vite.
 - `build`: Vite client build, then an esbuild server bundle at `dist/server.cjs`.
 - `lint`: `tsc --noEmit` — frontend checking under the current TypeScript config.
-- `start`: `node dist/server.cjs` — requires built output and configured environment.
+- `start`: `node scripts/start-server.mjs production` — explicit production; requires built output.
 
 Use the agreed package manager to run scripts. No test script exists. Do not describe `lint` as comprehensive server/security validation.
 
@@ -37,7 +37,7 @@ MedAssist uses the fixed local Ollama service with installed `qwen3.5:2b` by def
 - Supply credentials through the server environment or a deliberately configured loader.
 - Startup does not load `.env` automatically; copying the example is insufficient.
 - Never commit populated credentials or expose them in browser variables. The root `.gitignore` excludes installed dependencies, generated build/coverage output, environment files, and common machine artifacts. Review staged paths explicitly; ignore patterns do not replace secret review.
-- `NODE_ENV=production` selects static serving. `start` does not set it. Production bundling/dependency behavior remains to be verified.
+- The launcher selects NODE_ENV explicitly and rejects a conflicting inherited mode. Direct entry requires development or production. Production serves static output and never registers local account routes or enables legacy agents.
 
 `GET /api/health` indicates process/provider configuration, not model quality, database readiness, or clinical safety.
 
@@ -86,3 +86,29 @@ Use Node 24. With no Supabase browser configuration, `bun run dev` now connects 
 ## Optional Supabase configuration
 
 Follow [database/README.md](../database/README.md) to connect Supabase Auth and the profile schema. Only the URL and publishable key use `VITE_*` configuration; Vite loads local `.env` for these browser values. This does not load server-only variables. No service-role or Google secret belongs in the client. The Supabase path requires configuration; the development-only SQLite path works without provider keys. Run `node --import tsx --test scripts/account-profile.test.ts` for local SQL ownership and profile validation checks. These are not live authentication tests.
+
+## Legacy API security boundary
+
+All `/api/agents/*` routes return JSON 404 by default and in production, even with `APIP_ENABLE_LEGACY_AGENTS=1`. For deliberate fictional laboratory work only:
+
+```powershell
+$env:APIP_ENABLE_LEGACY_AGENTS='1'
+bun run dev
+```
+
+Clear the variable after the experiment. Restart the backend to apply changes. Server variables are not automatically loaded from `.env`. Enabling agents never enables clinical use.
+
+Opted-in requests require a loopback socket, exact local port-3000 Host and Origin, POST and JSON. Missing Origin is rejected; internal orchestration supplies its local Origin. Forwarded headers cannot establish trust. Checks precede the 24 KB parser, agent logic and provider creation. Responses add `experimentalOnly: true`, `clinicalUse: false` and non-clinical headers. Existing heuristics/simulated results remain laboratory-only; patient/professional flows do not consume them. This restriction is not a new authentication system or clinical validation.
+
+Global permissive CORS is removed; use same-origin requests. Local account cookie/ownership checks remain independent. MedAssist's existing bounded local inference restrictions remain intact.
+
+`APIP_HOST` defaults to `127.0.0.1`. Development accepts only `127.0.0.1`, `::1` or `localhost` and port 3000; HMR uses the same bind host. Production may explicitly configure a bind IP and `APIP_PORT` (1–65535). A container deployment may set `APIP_HOST=0.0.0.0` and its assigned port before `bun run start`. TLS, ingress, hosted authentication and operational hardening remain deployment responsibilities. Invalid modes, hosts, ports and flag values fail startup. Clear or correct a conflicting inherited NODE_ENV before using the launcher.
+
+Focused checks:
+
+```sh
+node --import tsx --test scripts/legacy-security.test.ts scripts/local-account.test.ts scripts/account-profile.test.ts scripts/medassist.test.ts scripts/preview-navigation.test.mjs
+node node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck --esModuleInterop --target ES2022 --module ESNext --moduleResolution bundler server-entry.ts server.ts scripts/legacy-security.test.ts
+bun run lint
+bun run build
+```

@@ -5,9 +5,9 @@
   "type": "module",
   "engines": { "node": ">=24.0.0 <25.0.0" },
   "scripts": {
-    "dev": "tsx server.ts",
-    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
-    "start": "node dist/server.cjs",
+    "dev": "node scripts/start-server.mjs development",
+    "build": "vite build && esbuild server-entry.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node scripts/start-server.mjs production",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

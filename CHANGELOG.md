@@ -173,3 +173,9 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Added owner-isolated fictional ADR drafts with unfinished save, reopen/edit, explicit user confirmation and revision-checked deletion.
 - Preserved legacy browser drafts in a separate demo; no automatic import or cloud provision.
 - Added HTTP persistence/ownership/migration checks and a separate UI failure regression fixture. Hospital review/submission remains unimplemented.
+
+## 2026-10-18 — Restrict legacy agents and startup exposure
+
+- Disabled legacy APIs by default and permanently in production; trusted local opt-in precedes parsing/provider work and adds non-clinical metadata.
+- Removed global permissive CORS; development HTTP/HMR bind to loopback.
+- Added explicit Windows-compatible mode launchers, validated bind configuration and focused security tests.

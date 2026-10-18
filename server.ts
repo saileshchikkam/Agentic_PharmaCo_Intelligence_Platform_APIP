@@ -1,12 +1,12 @@
 import express from "express";
-import cors from "cors";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { registerMedAssistRoutes } from './server/medassist';
 import { registerLocalAccount } from './server/local-account';
 
-const PORT = 3000;
+import { readRuntimeConfig, type RuntimeConfig } from './server/runtime';
+import { legacyAccess } from './server/legacy-access';
 
 function getGeminiClient(): GoogleGenAI | null {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -115,13 +115,26 @@ const DRUG_SAFETY_DB: Record<string, {
   }
 };
 
-async function startServer() {
+export function createApiApp(config: RuntimeConfig, options: {
+  accountFile?: string;
+  medassist?: Parameters<typeof registerMedAssistRoutes>[1];
+  geminiFactory?: typeof getGeminiClient;
+} = {}) {
   const app = express();
-
-  if (process.env.NODE_ENV !== 'production') registerLocalAccount(app);
-  app.use(cors());
-  registerMedAssistRoutes(app);
-  app.use(express.json({ limit: "5mb" }));
+  const PORT = config.port;
+  const internalOrigin = `http://${config.host === '::1' ? '[::1]' : config.host === 'localhost' ? 'localhost' : '127.0.0.1'}:${PORT}`;
+  const getClient = options.geminiFactory ?? getGeminiClient;
+  const account = config.mode === 'development' ? registerLocalAccount(app, { file: options.accountFile }) : null;
+  if (config.mode === 'production') app.use('/api/account', (_req, res) => { res.status(404).json({ error: 'LOCAL_ACCOUNTS_DISABLED' }); });
+  registerMedAssistRoutes(app, options.medassist);
+  // Guard the whole legacy namespace before body parsing, provider creation or agent logic.
+  const parseLegacy = express.json({ limit: '24kb' });
+  app.use('/api/agents', legacyAccess(config), (req, res, next) => {
+    parseLegacy(req, res, error => {
+      if (error) res.status(error.type === 'entity.too.large' ? 413 : 400).json({ error: 'INVALID_EXPERIMENTAL_REQUEST' });
+      else next();
+    });
+  });
 
   // System Health & Capabilities
   app.get("/api/health", (_req, res) => {
@@ -129,7 +142,9 @@ async function startServer() {
       status: "ok",
       service: "Agentic Pharmacovigilance Platform API",
       timestamp: new Date().toISOString(),
-      geminiConfigured: !!process.env.GEMINI_API_KEY
+      geminiConfigured: !!process.env.GEMINI_API_KEY,
+      legacyAgentsEnabled: config.legacyAgentsEnabled,
+      runtimeMode: config.mode
     });
   });
 
@@ -142,7 +157,7 @@ async function startServer() {
         return res.status(400).json({ error: "Narrative text is required." });
       }
 
-      const ai = getGeminiClient();
+      const ai = getClient();
       if (ai) {
         try {
           const response = await withTimeout(
@@ -358,7 +373,7 @@ Return ONLY a valid JSON object with the following fields:
         }
       }
 
-      const ai = getGeminiClient();
+      const ai = getClient();
       if (ai && drugName) {
         try {
           const prompt = `You are an expert Pharmacovigilance RAG & Drug Safety Knowledge Agent.
@@ -562,7 +577,7 @@ ${matchedData.blackBoxWarnings ? `- **Boxed Warnings**: ${matchedData.blackBoxWa
       const simulatedPRR = (hasPriorReports ? 2.45 : 1.15) + (Math.random() * 0.4);
       const isDisproportionalSignal = simulatedPRR >= 2.0;
 
-      const ai = getGeminiClient();
+      const ai = getClient();
       let aiCausalityNarrative = null;
       if (ai) {
         try {
@@ -621,18 +636,18 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
       }
 
       // Step 1: Extraction
-      const extractRes = await fetch(`http://127.0.0.1:${PORT}/api/agents/report-extract`, {
+      const extractRes = await fetch(`${internalOrigin}/api/agents/report-extract`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Origin: internalOrigin },
         body: JSON.stringify({ narrative, reporterType })
       });
       const extractData = await extractRes.json();
       const extracted = extractData.data || {};
 
       // Step 2: Validation
-      const validRes = await fetch(`http://127.0.0.1:${PORT}/api/agents/validate`, {
+      const validRes = await fetch(`${internalOrigin}/api/agents/validate`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Origin: internalOrigin },
         body: JSON.stringify({
           ...extracted,
           reporterName,
@@ -644,9 +659,9 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
       const validation = await validRes.json();
 
       // Step 3: Knowledge / RAG
-      const ragRes = await fetch(`http://127.0.0.1:${PORT}/api/agents/knowledge-rag`, {
+      const ragRes = await fetch(`${internalOrigin}/api/agents/knowledge-rag`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Origin: internalOrigin },
         body: JSON.stringify({
           drugName: extracted.suspectedDrug,
           adverseEvent: extracted.adverseEvent
@@ -655,9 +670,9 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
       const knowledge = await ragRes.json();
 
       // Step 4: Causality
-      const causalRes = await fetch(`http://127.0.0.1:${PORT}/api/agents/causality`, {
+      const causalRes = await fetch(`${internalOrigin}/api/agents/causality`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Origin: internalOrigin },
         body: JSON.stringify({
           drugName: extracted.suspectedDrug,
           adverseEvent: extracted.adverseEvent,
@@ -683,10 +698,16 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
     }
   });
 
+  return { app, close: () => account?.close() };
+}
+
+export async function startServer() {
+  const config = readRuntimeConfig();
+  const { app } = createApiApp(config);
   // Vite Middleware / Static Serving
-  if (process.env.NODE_ENV !== "production") {
+  if (config.mode === 'development') {
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: { middlewareMode: true, host: config.host, hmr: { host: config.host }, allowedHosts: ['localhost'], cors: false },
       appType: "spa",
     });
     app.use(vite.middlewares);
@@ -698,9 +719,7 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Agentic Pharmacovigilance Platform running on http://0.0.0.0:${PORT}`);
+  app.listen(config.port, config.host, () => {
+    console.log(`APIP ${config.mode} listening on ${config.host}:${config.port}; legacy agents ${config.legacyAgentsEnabled ? 'EXPERIMENTAL / non-clinical only' : 'disabled'}`);
   });
 }
-
-startServer();

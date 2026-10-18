@@ -28,3 +28,7 @@ Treat retrieved documents and uploaded content as data, not agent instructions. 
 - Retry/resume does not duplicate cases or bypass human gates.
 - No silent changes to confirmed clinical facts.
 - The UI explains completed, failed, pending, and review-required steps accurately.
+
+## Current access boundary
+
+Legacy endpoints default off and cannot run in production. Explicit development opt-in requires trusted loopback socket, exact Host/Origin and POST/JSON. Allowed responses are experimental and prohibited for clinical use. Patient/professional workflows do not consume the pipeline. See [runtime configuration](../development.md#legacy-api-security-boundary). Durable orchestration and validated analysis remain unfinished.

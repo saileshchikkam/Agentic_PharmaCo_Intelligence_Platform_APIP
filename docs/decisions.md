@@ -111,3 +111,7 @@ The implementation foundation uses Supabase Auth/Postgres with PKCE, publishable
 ## DEC-020 — Owner-isolated local fictional ADR drafts
 
 **Implemented 2026-10-18.** Use the verified local account session for ADR ownership, additive SQLite schema v2 and server-controlled revisions/timestamps. Permit unfinished saves and separately confirmed drafts. Preserve reporter text and unknown values. Keep legacy browser drafts behind an explicit separate demo, with no automatic transfer or fallback on account failures. Supabase ADR storage, clinical case history, confirmed profile imports and hospital workflow remain pending. See the [ADR storage guide](../src/features/adr/README.md).
+
+## DEC-021 — Explicit modes and closed legacy agent APIs
+
+**User-requested 2026-10-18.** Disable legacy agents by default and prohibit them in production regardless of opt-in. Explicit local development experiments require loopback socket, exact Host/Origin and POST/JSON checks before providers/logic. Use same-origin requests and loopback development HTTP/HMR. Startup selects its mode explicitly, rejects ambiguity and permits deliberately configured production bind IP/port. Preserve experimental algorithms with non-clinical metadata; no validation is implied.

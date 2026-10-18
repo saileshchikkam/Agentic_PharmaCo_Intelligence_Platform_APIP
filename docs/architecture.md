@@ -94,3 +94,9 @@ The component reference is now a separate hash view alongside the rough welcome/
 ### Local account ADR boundary
 
 [AdrWorkspace](../src/features/adr/AdrWorkspace.tsx) selects the authenticated local repository and clears state between accounts. The [ADR storage guide](../src/features/adr/README.md) describes the strict contract, additive schema v2, API, revision checks, unfinished saves and separate legacy demo. Supabase ADR persistence and hospital case workflow remain pending.
+
+## Runtime and legacy security boundary
+
+`server-entry.ts` starts the server; `server.ts` exports API composition for focused integration tests. `scripts/start-server.mjs` selects development/production explicitly and rejects conflicting inherited modes. `server/runtime.ts` validates mode, bind host/port and opt-in. Development HTTP/HMR bind to loopback; production may explicitly configure a bind IP/port. Production never registers local account routes.
+
+`server/legacy-access.ts` guards all `/api/agents/*` routes before parsing or execution: JSON 404 by default/production, even with opt-in. Opted-in development requires a trusted socket, exact Host/Origin and POST/JSON. `server/local-request.ts` shares account trust checks, ignoring forwarded identity headers. Global permissive CORS is removed. Allowed laboratory responses carry experimental/non-clinical metadata. Heuristics/random statistics remain unvalidated and unavailable in normal application operation. No clinical algorithm or MedAssist ML behavior was redesigned. See [runtime setup](development.md#legacy-api-security-boundary).

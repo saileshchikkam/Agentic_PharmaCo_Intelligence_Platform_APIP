@@ -41,7 +41,7 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-The server is configured for port `3000`. In the current checkout, the frozen Bun install, frontend lint, and production build passed on 2026-10-17; a clean-clone setup and deployment remain unverified. See [development setup](docs/development.md). The optional AI key is server-side, and the current startup script does not automatically load `.env`.
+Development uses loopback port `3000`; legacy APIs default off and cannot run in production. `dev` and `start` explicitly select runtime modes. See [runtime configuration](docs/development.md#legacy-api-security-boundary). In the current checkout, the frozen Bun install, frontend lint, and production build passed on 2026-10-17; a clean-clone setup and deployment remain unverified. See [development setup](docs/development.md). The optional AI key is server-side, and the current startup script does not automatically load `.env`.
 
 Open the main page and choose **Sign in**. The Patient, Specialist, and Developer views share a consistent layout. Use only fictional credentials; the preview shows local field feedback and does not sign in or send credentials. See the [welcome/sign-in guide](src/features/access/README.md).
 

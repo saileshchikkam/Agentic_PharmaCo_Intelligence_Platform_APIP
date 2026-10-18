@@ -1,3 +1,4 @@
+import { trustedLocalRequest } from './local-request';
 import express, { type Express, type Request, type Response, type NextFunction } from 'express';
 import { DatabaseSync } from 'node:sqlite';
 import { randomBytes, randomUUID, createHash, scrypt, timingSafeEqual } from 'node:crypto';
@@ -68,11 +69,8 @@ export function registerLocalAccount(app: Express, {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    const loopback = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress ?? '');
-    const hostAllowed = allowedOrigins.some(value => new URL(value).host === req.get('host'));
-    const origin = req.get('origin');
-    if (!loopback || !hostAllowed || (origin && !allowedOrigins.includes(origin))) return void fail(res, 403, 'LOCAL_ONLY');
-    if (req.method !== 'GET' && (!origin || !allowedOrigins.includes(origin))) return void fail(res, 403, 'ORIGIN_REQUIRED');
+    if (!trustedLocalRequest(req, originPort, false)) return void fail(res, 403, 'LOCAL_ONLY');
+    if (req.method !== 'GET' && !allowedOrigins.includes(req.get('origin') ?? '')) return void fail(res, 403, 'ORIGIN_REQUIRED');
     if (req.method !== 'GET' && !req.is('application/json')) return void fail(res, 415, 'JSON_REQUIRED');
     next();
   });

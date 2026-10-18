@@ -6,6 +6,8 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**Security foundation completed 2026-10-18:** legacy agent APIs default off, cannot run in production and require trusted local development opt-in. Explicit modes and loopback HTTP/HMR replace ambiguous startup and global permissive CORS. This is a bounded security task, not completed M1 or release readiness. MedAssist task/data planning remains next.
+
 The [hospital requirements register](hospital-requirements.md) is the source for hospital ADR document/intake/review requirements and their implementation gaps. Confirm the applicable form, SOP, role matrix and escalation protocol before clinical or mandatory hospital workflow behavior. Versioned account-isolated local fictional ADR drafts are now implemented. Confirmed profile imports and refined, reviewed intake remain next; legacy browser drafts stay separate. This does not replace the separate MedAssist ML research track.
 
 The app offers welcome/sign-in, patient-home, guided MedAssist symptom questions/review, fictional ADR drafts, and the preserved developer reference. MedAssist now optionally selects source quotes through local Ollama and offers location-only Google Maps search. It has no persistent patient storage, urgency classifier, approved clinical RAG, or tailored precautions. ADR drafts now support local account isolation and revision checks, but are not submitted. Appearance and shared Back navigation continue across previews. Clinical validation and the connected product workflow remain incomplete.
