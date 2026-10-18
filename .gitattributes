@@ -6,3 +6,4 @@ models/medassist/reports/**/*.json text eol=lf
 models/medassist/requirements-phase1.txt text eol=lf
 models/medassist/baseline-protocol.json text eol=lf
 models/medassist/baseline-protocol.sha256 text eol=lf
+models/medassist/reports/2026-10-19-phase3/*.md text eol=lf

@@ -4,6 +4,8 @@ Last inspected: 2026-10-18. The current shell presents welcome, sign-in, patient
 
 ## Current repository
 
+- [Offline MedAssist research runner](../models/medassist/research/training.md) independently trains scikit-learn structured baselines using the frozen NHAMCS protocol. [Phase 3 results](../models/medassist/reports/2026-10-19-phase3/README.md) record 12 fitted pipelines with pre-test sealing and one-time evaluation; weights/predictions remain external. This is not an application backend or connected clinical inference service. Significant missed cases and false positives keep clinical use NO-GO.
+
 - [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between welcome, sign-in, patient-home, MedAssist, ADR-intake, and developer-reference previews.
 - [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, patient task choices, local development authentication and the remaining specialist/developer permission gaps.
 - [MedAssist implementation guide](../src/features/medassist/README.md) documents the English-only symptom/follow-up/review flow, original answers versus confirmed AI quotes, cancellation, and location-only Maps handoff. [server/medassist.ts](../server/medassist.ts) registers a loopback-only local-model endpoint with strict schemas and no clinical assessment. Its parser precedes the older server's global parser; existing experimental agent endpoints are not reused or certified by this feature.

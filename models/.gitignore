@@ -29,3 +29,7 @@ raw/
 *.csv.gz
 *-private-assignments.json
 acquisition-receipt.json
+*.joblib
+*.pkl
+*.pickle
+private-test-predictions/

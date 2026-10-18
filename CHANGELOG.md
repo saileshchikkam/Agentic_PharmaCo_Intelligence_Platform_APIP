@@ -199,3 +199,10 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Added no-RFV initial-vitals features, explicit zero/provenance cleaning, saved-assignment/source checks and fit-only CV/support preflight.
 - Fixed LR/RF/HGB grids, primary-only calibration/threshold procedures and locked evaluation/rare-class safeguards. Twenty-three focused synthetic tests passed with warnings treated as errors.
 - Recorded offline-only training readiness; no models trained or patient-facing MedAssist/ADR behavior changed.
+
+## 2026-10-19 — MedAssist Phase 3 offline training and locked evaluation
+
+- Implemented fold-local LR/RF/HGB pipelines, bounded candidate workers, convergence/failure logs, primary frozen-base calibration, development-only thresholds and all-task pre-test hashing/sealing.
+- Completed all 60 configurations/180 CV fold fits, 12 final models and six calibrators under unchanged v1, then evaluated each frozen model once. No recorded training warnings/failures.
+- Added 15 synthetic regressions (38 total), actual cached-result/threshold verification, aggregate comparisons/calibration/evaluation reports, four research model cards and reproducibility hashes. Raw data, private predictions and fitted artifacts remain external.
+- Recorded material negative findings: primary vitals CV winner missed 86/411 high and 7/26 Immediate cases; every five-class variant missed exact Immediate class on all ten cases. Singleton strata suppress intervals. No clinical/app/ADR integration or safety behavior changed.

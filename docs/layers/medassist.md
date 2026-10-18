@@ -52,6 +52,8 @@ The user now requires English-only data/interface and no paid service dependency
 
 ## Open-access research decision — 2026-10-19
 
+**Current Phase 3 status:** [offline models and actual results](../../models/medassist/reports/2026-10-19-phase3/README.md) now exist under unchanged v1, with one-time locked evaluation after pre-test sealing. They are separate from the application, with substantial missed cases and zero exact Immediate recall across the secondary models. Clinical inference remains NO-GO. The following Phase 1/2 notes are dated history; no ADR/UI/backend or clinical safety behavior changed.
+
 **Current Phase 2 status:** [baseline protocol v1](../../models/medassist/baseline-protocol.md) freezes primary binary all-labelled and secondary exploratory five-class symptom research. [Preflight](../../models/medassist/reports/2026-10-19-phase2/README.md) verifies unchanged assignments, matched profiles and fit-only CV; it is GO for a later offline baseline task only. No training or patient-facing behavior changed. The following records describe the earlier selection and Phase 1 findings.
 
 Use the [separate NHAMCS/DDXPlus experiment plan](../../models/medassist/experiment-plan.md) and [verified manifest](../../models/medassist/open-access-manifest.json). IMMEDR supports recorded ED-acuity research, not validated home triage. DDXPlus severity is not an acuity label; MIMIC-IV-ED Demo is smoke-only. No restricted downloads, training, model deployment or new clinical behavior is authorized by this plan.

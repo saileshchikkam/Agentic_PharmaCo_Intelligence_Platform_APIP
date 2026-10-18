@@ -1,0 +1,9 @@
+{
+  "pretest_chronology_verified": true,
+  "source_split_CV_and_artifact_hashes_verified": true,
+  "cached_prediction_membership_and_error_counts_verified": 12,
+  "threshold_searches_reproduced_using_development_only": 6,
+  "additional_test_predictions_performed": false,
+  "frozen_protocol_changed": false,
+  "clinical_validity_claimed": false
+}
