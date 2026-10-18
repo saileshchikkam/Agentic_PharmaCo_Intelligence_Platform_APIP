@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "manifest_id": "medassist-open-access-research-2026-10-19",
+  "verified_on": "2026-10-19",
+  "status": "metadata-and-experiment-plan-only",
+  "plan": "experiment-plan.md",
+  "constraints": {
+    "open_access_only": true,
+    "english_only": true,
+    "restricted_data_allowed": false,
+    "cross_dataset_acuity_pooling_allowed": false,
+    "training_performed": false,
+    "application_inference_changed": false,
+    "clinical_release_authorized": false,
+    "dataset_records_downloaded_in_this_task": false
+  },
+  "acquisition": {
+    "download_status": "not_downloaded",
+    "storage": "Research directory outside Git, served paths and application databases",
+    "required_receipt": [
+      "exact URL/version",
+      "UTC retrieval time",
+      "HTTP metadata",
+      "downloaded SHA-256",
+      "publisher checksum verification if available",
+      "archive member names and hashes",
+      "source licence/citation snapshot",
+      "parser and dependency versions",
+      "local split manifest hash"
+    ],
+    "null_hash_means": "No artifact byte verification has occurred. Publisher digests and HEAD metadata are not local content checks."
+  },
+  "datasets": [
+    {
+      "id": "nhamcs-ed-2022",
+      "role": "offline_recorded_ed_acuity_research",
+      "publisher": "CDC/NCHS",
+      "version": "2022 public-use ED; download headers dated 2024-07-17",
+      "landing_url": "https://www.cdc.gov/nchs/nhamcs/documentation/index.html",
+      "codebook_url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/doc22-ed-508.pdf",
+      "source_pages": {
+        "target": 36,
+        "published_marginals": 95,
+        "nonresponse": 12,
+        "imputation": 16,
+        "feature_codes": [
+          33,
+          36,
+          37,
+          54
+        ],
+        "sampling": [
+          6,
+          7,
+          23
+        ],
+        "multum_terms": [
+          246,
+          247,
+          248,
+          249
+        ]
+      },
+      "license": {
+        "name": "NCHS public-use agreement and CDC materials policy; not a blanket CC licence",
+        "urls": [
+          "https://www.cdc.gov/nchs/policy/data-user-agreement.html",
+          "https://www.cdc.gov/other/agencymaterials.html"
+        ],
+        "access": "Public HTTPS; no credential application or fee",
+        "permitted_plan": "Statistical analysis/reporting only; no identification of people/establishments, identifiable linkage or re-identification research. Cite CDC; no endorsement. Third-party/international rights exceptions remain.",
+        "third_party_material": "Multum drug material has separate terms; all drug features and drug-master reuse excluded",
+        "operational_home_triage_use": "not established"
+      },
+      "artifacts": [
+        {
+          "format": "stata",
+          "url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/stata/ed2022-stata.zip",
+          "head_status": 200,
+          "head_bytes": 2311045,
+          "last_modified": "2024-07-17T17:26:30Z",
+          "sha256": null
+        },
+        {
+          "format": "sas",
+          "url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/sas/ed2022_sas.zip",
+          "head_status": 200,
+          "head_bytes": 3110598,
+          "last_modified": "2024-07-17T14:19:55Z",
+          "sha256": null
+        }
+      ],
+      "parser_references": [
+        "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/sas/readme2022-ed-sas.txt",
+        "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/sas/ed22inp.txt",
+        "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/sas/ed22lab.txt",
+        "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/sas/ed22for.txt"
+      ],
+      "target": {
+        "column": "IMMEDR",
+        "provenance": "PRF nursing-triage level, abstracted from ED records; not independent home-urgency adjudication",
+        "labels": {
+          "1": "Immediate",
+          "2": "Emergent",
+          "3": "Urgent",
+          "4": "Semi-urgent",
+          "5": "Nonurgent"
+        },
+        "excluded_codes": {
+          "-9": "Blank",
+          "-8": "Unknown",
+          "0": "No triage for this visit in an ESA conducting nursing triage",
+          "7": "ESA does not conduct nursing triage"
+        },
+        "imputed": false,
+        "primary": "five-class recorded ED acuity",
+        "secondary": "IMMEDR in {1,2} versus {3,4,5}; research only",
+        "home_action_mapping": null
+      },
+      "published_statistics": {
+        "source_basis": "Codebook page 95, not recomputed microdata",
+        "all_visits": 16025,
+        "counts_by_target": {
+          "-9": 364,
+          "-8": 3788,
+          "0": 587,
+          "1": 139,
+          "2": 1595,
+          "3": 5340,
+          "4": 2826,
+          "5": 307,
+          "7": 1079
+        },
+        "weighted_percent_all_visits": {
+          "-9": 2.461,
+          "-8": 23.364,
+          "0": 3.004,
+          "1": 0.979,
+          "2": 10.073,
+          "3": 33.146,
+          "4": 19.366,
+          "5": 1.767,
+          "7": 5.839
+        },
+        "labelled_n": 10207,
+        "excluded_n": 5818,
+        "high_acuity_n": 1734,
+        "excluded_percent_unweighted": 36.3058
+      },
+      "published_nonresponse_percent": {
+        "IMMEDR": {
+          "percent": 27.8,
+          "denominator": "visits to ESAs conducting nursing triage; different from all excluded target codes"
+        },
+        "TEMPF": 5.9,
+        "PULSE": 6.0,
+        "RESPR": 5.3,
+        "BPSYS": 10.8,
+        "BPDIAS": 10.9,
+        "POPCT": 6.1,
+        "PAINSCALE": 44.0
+      },
+      "prediction_time": "Initial presentation assessment, before triage decision and clinical investigation; feature-level timing gate required",
+      "candidate_feature_sets": {
+        "presentation_proxy": [
+          "AGE (AGEFL 0 or 1 and nonimputed birth-date provenance)",
+          "SEX only when SEXFL=0",
+          "RFV1 symptom-module category only; conditional provenance gate"
+        ],
+        "ed_initial_observations": [
+          "TEMPF",
+          "PULSE",
+          "RESPR",
+          "BPSYS",
+          "BPDIAS",
+          "POPCT",
+          "PAINSCALE"
+        ],
+        "arrival_context_sensitivity_only": [
+          "ARREMS",
+          "SEEN72"
+        ]
+      },
+      "temporal_gate": "RFV codes are retrospective abstractions; initial vital signs lack exact per-field timestamps. Do not certify strict prospective ordering from the public file. Exclude uncertain features or label the analysis a retrospective initial-assessment proxy, never home triage.",
+      "feature_denials": [
+        "IMMEDR or its transforms",
+        "diagnoses and discharge diagnoses",
+        "treatments, medications, tests, procedures, provider contacts",
+        "admission, ICU, disposition, mortality, observation, follow-up outcomes",
+        "WAITTIME, LOV, BOARDED and elapsed outcome times",
+        "VITALSD, TEMPDF, PULSED, RESPRD, BPSYSD, BPDIASD",
+        "diagnosis-derived injury recodes",
+        "imputed SEX, RACER, RACERETH, ETHIM",
+        "hospital characteristics, payment, calendar/geography in primary models",
+        "PATWT, EDWT, CSTRATM, CPSUM, HOSPCODE, PATCODE as predictors"
+      ],
+      "audit_only": [
+        "AGEFL",
+        "BDATEFL",
+        "SEXFL",
+        "RACEUN",
+        "ETHUN",
+        "RACERFL",
+        "ETHNICFL"
+      ],
+      "survey_only": [
+        "PATWT",
+        "CSTRATM",
+        "CPSUM",
+        "HOSPCODE",
+        "PATCODE"
+      ],
+      "population": "2022 US nonfederal general/short-stay hospital ED visits, including children; not community symptoms or Indian home care",
+      "missingness_policy": "Exclude unknown target without inference; variable-specific sentinels, flags and units; training-fold-only feature imputation; no invented numeric range endpoints"
+    },
+    {
+      "id": "ddxplus-english-v2",
+      "role": "synthetic_conversation_and_symptom_representation_only",
+      "publisher": "DDXPlus authors/Figshare",
+      "version": 2,
+      "doi": "10.6084/m9.figshare.22687585.v2",
+      "published_date": "2026-03-09T20:13:00Z",
+      "landing_url": "https://figshare.com/articles/dataset/DDXPlus_Dataset_English_/22687585/2",
+      "metadata_url": "https://api.figshare.com/v2/articles/22687585/versions/2",
+      "author_repository": "https://github.com/mila-iqia/ddxplus",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "access": "Public file downloads; no clinical credential application",
+        "obligations": "Attribution, licence link, preserve notices and indicate changes; no endorsement"
+      },
+      "artifacts": [
+        {
+          "name": "release_evidences.json",
+          "file_id": 40278013,
+          "url": "https://ndownloader.figshare.com/files/40278013",
+          "publisher_bytes": 120263,
+          "publisher_md5": "0660962abe0bbf99e1fb77188c253597",
+          "sha256": null
+        },
+        {
+          "name": "release_conditions.json",
+          "file_id": 62561569,
+          "url": "https://ndownloader.figshare.com/files/62561569",
+          "publisher_bytes": 20889,
+          "publisher_md5": "a992eadcff3099dd72e1820fbd2115aa",
+          "sha256": null
+        },
+        {
+          "name": "release_train_patients.zip",
+          "file_id": 40278019,
+          "url": "https://ndownloader.figshare.com/files/40278019",
+          "publisher_bytes": 140923730,
+          "publisher_md5": "f75a78420ccb061951daa4db2d62139b",
+          "sha256": null
+        },
+        {
+          "name": "release_validate_patients.zip",
+          "file_id": 40278022,
+          "url": "https://ndownloader.figshare.com/files/40278022",
+          "publisher_bytes": 18706053,
+          "publisher_md5": "e4db88e9082f18410de6fd0cb7e74d18",
+          "sha256": null
+        },
+        {
+          "name": "release_test_patients.zip",
+          "file_id": 40278016,
+          "url": "https://ndownloader.figshare.com/files/40278016",
+          "publisher_bytes": 18986243,
+          "publisher_md5": "6fd53d331cf19ed4439bf4f46b92ee94",
+          "sha256": null
+        }
+      ],
+      "clinical_acuity_target": null,
+      "forbidden_acuity_labels": [
+        "PATHOLOGY",
+        "DIFFERENTIAL_DIAGNOSIS",
+        "release_conditions.json severity"
+      ],
+      "conversation_inputs": [
+        "AGE",
+        "SEX",
+        "INITIAL_EVIDENCE",
+        "only EVIDENCES revealed so far"
+      ],
+      "oracle_only": [
+        "unrevealed EVIDENCES",
+        "PATHOLOGY",
+        "DIFFERENTIAL_DIAGNOSIS"
+      ],
+      "question_metadata": [
+        "question_en",
+        "data_type",
+        "possible-values",
+        "value_meaning.en",
+        "code_question",
+        "default_value"
+      ],
+      "split_policy": "Preserve official train/validate/test; audit repeated symptom profiles; co-locate paraphrases/turn variants; never tune on test",
+      "population": "Synthetic simulator cases, not real clinical conversations or population prevalence",
+      "download_status": "not_downloaded"
+    },
+    {
+      "id": "mimic-iv-ed-demo-2.2",
+      "role": "schema_and_pipeline_smoke_only",
+      "version": "2.2",
+      "doi": "10.13026/jzz5-vs76",
+      "landing_url": "https://physionet.org/content/mimic-iv-ed-demo/2.2/",
+      "files_url": "https://physionet.org/files/mimic-iv-ed-demo/2.2/",
+      "archive_url": "https://physionet.org/static/published-projects/mimic-iv-ed-demo/mimic-iv-ed-demo-2.2.zip",
+      "license": {
+        "name": "Open Data Commons Open Database License v1.0",
+        "url": "https://physionet.org/content/mimic-iv-ed-demo/view-license/2.2/",
+        "access": "Demo public without credential application; full MIMIC-IV-ED excluded",
+        "obligations": "Attribution/notices; public derivative-database share-alike and produced-work notices as applicable. Separate content/privacy rights are not waived."
+      },
+      "publisher_checksums_url": "https://physionet.org/files/mimic-iv-ed-demo/2.2/SHA256SUMS.txt",
+      "artifacts": [
+        {
+          "name": "ed/edstays.csv.gz",
+          "url": "https://physionet.org/files/mimic-iv-ed-demo/2.2/ed/edstays.csv.gz",
+          "publisher_sha256": "fc185cb111a70e9dfd8457c6e1da4f9366dee729e072282995dcd7045a5a3c52",
+          "sha256": null
+        },
+        {
+          "name": "ed/triage.csv.gz",
+          "url": "https://physionet.org/files/mimic-iv-ed-demo/2.2/ed/triage.csv.gz",
+          "publisher_sha256": "086dadcb49adc5f24bdda0e342ec9cf0fbcb2e9595516c5c101d408434e1e09b",
+          "sha256": null
+        }
+      ],
+      "population": "100 selected deidentified patients, one Boston centre",
+      "prohibited_in_this_plan": [
+        "training",
+        "calibration",
+        "performance estimates",
+        "pooling/linking with other datasets",
+        "restricted full-data downloads"
+      ]
+    }
+  ],
+  "experiment": {
+    "seed": 42,
+    "split_fractions": {
+      "fit": 0.6,
+      "calibration": 0.1,
+      "threshold_selection": 0.1,
+      "locked_test": 0.2
+    },
+    "grouping": "Conservatively co-locate masked (CSTRATM,CPSUM) clusters and linked HOSPCODE groups; audit feasibility. No longitudinal patient identities available.",
+    "models": [
+      "LogisticRegression",
+      "RandomForestClassifier",
+      "HistGradientBoostingClassifier"
+    ],
+    "hgb_early_stopping": false,
+    "feature_selector": "explicit allowlist, reject unknown columns",
+    "implementation_status": "not implemented",
+    "model_selection": "development high-acuity recall and under-triage with calibration/coverage tradeoffs; no test tuning",
+    "sources": [
+      "https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html",
+      "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html",
+      "https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html",
+      "https://scikit-learn.org/stable/modules/calibration.html"
+    ]
+  }
+}

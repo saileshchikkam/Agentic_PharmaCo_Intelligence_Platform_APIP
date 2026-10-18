@@ -115,3 +115,7 @@ The implementation foundation uses Supabase Auth/Postgres with PKCE, publishable
 ## DEC-021 — Explicit modes and closed legacy agent APIs
 
 **User-requested 2026-10-18.** Disable legacy agents by default and prohibit them in production regardless of opt-in. Explicit local development experiments require loopback socket, exact Host/Origin and POST/JSON checks before providers/logic. Use same-origin requests and loopback development HTTP/HMR. Startup selects its mode explicitly, rejects ambiguity and permits deliberately configured production bind IP/port. Preserve experimental algorithms with non-clinical metadata; no validation is implied.
+
+## DEC-022 — Open-access MedAssist experiments with separate labels
+
+**User-selected 2026-10-19.** Use CDC NHAMCS 2022 public-use ED as the primary offline recorded-acuity candidate, DDXPlus English for separate synthetic symptom/questioning experiments and MIMIC-IV-ED Demo v2.2 only for schema/pipeline smoke checks. Exclude restricted datasets. Verify actual target/terms/timing; do not pool synthetic pathology severity with real acuity or claim ED predictions are validated home triage. Compare structured Logistic Regression, Random Forest and HistGradientBoostingClassifier with high-acuity/under-triage, calibration, uncertainty and subgroup evaluation. See the [plan](../models/medassist/experiment-plan.md). No acquisition, training or clinical integration was performed by this documentation task.

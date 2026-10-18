@@ -179,3 +179,9 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Disabled legacy APIs by default and permanently in production; trusted local opt-in precedes parsing/provider work and adds non-clinical metadata.
 - Removed global permissive CORS; development HTTP/HMR bind to loopback.
 - Added explicit Windows-compatible mode launchers, validated bind configuration and focused security tests.
+
+## 2026-10-19 — Open-access MedAssist dataset strategy
+
+- Verified NHAMCS 2022 IMMEDR labels, published class/missingness marginals, source terms and leakage risks.
+- Added a pinned metadata manifest and separate real-acuity/synthetic-question experiment plan with three structured-model candidates and explicit uncertainty/evaluation gates.
+- Kept MIMIC-IV-ED Demo smoke-only; no restricted data, training or patient-facing changes.

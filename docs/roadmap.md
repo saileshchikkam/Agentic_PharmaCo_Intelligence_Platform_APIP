@@ -16,6 +16,8 @@ The account/shared-profile client and owner-RLS schema are now prepared and loca
 
 ### Current phase and next handoff
 
+**Research strategy updated 2026-10-19:** [open-access MedAssist plan](../models/medassist/experiment-plan.md) now selects NHAMCS 2022 for offline recorded ED-acuity research, DDXPlus English for separate synthetic questioning and MIMIC-IV-ED Demo for schema smoke tests only. Access/target/codebook metadata are verified; raw profiling, acquisition hashes, timing/split feasibility, training and clinical transfer remain pending. Next bounded task: explicitly authorized public acquisition and deterministic profiling, with no training or app inference changes.
+
 Sailesh selected MedAssist as the current feature and corrected a planning drift toward ADR NLP. Its goal is symptoms → follow-up questions → low/medium/high urgency or uncertainty → reviewed precautions/care navigation. The current fictional slice implements intake/review/local quote selection/Maps handoff only. It does not complete clinical triage or authorize a real-patient pilot.
 
 1. **Completed UI foundation task:** preserve reusable component examples, label the reference, change the default palette, and add appearance settings. This does not finish M1.

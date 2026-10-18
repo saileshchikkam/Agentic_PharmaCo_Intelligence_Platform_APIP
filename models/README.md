@@ -10,6 +10,10 @@ This directory records local models and hosted-provider candidates for APIP. The
 - [Saved observations](evaluations): dated output from actual diagnostic runs, not clinical validation or a performance leaderboard.
 - [MedAssist live smoke runner](evaluate-medassist.ts) and [2026-10-17 observations](evaluations/2026-10-17-medassist-smoke.json): two fictional English/Telugu/mixed symptom intakes through the new endpoint, including source fidelity and a null unknown. Both returned accepted outputs; neither tests clinical triage or establishes representative language quality. See the implementation guide for the bounded invocation.
 
+## MedAssist open-access ML research
+
+The [research directory](medassist/README.md) contains the [verified manifest](medassist/open-access-manifest.json) and [technical experiment plan](medassist/experiment-plan.md), verified 2026-10-19. NHAMCS 2022 is the primary offline recorded-ED-acuity candidate; DDXPlus English is a separate synthetic conversation experiment; MIMIC-IV-ED Demo is schema smoke-only. Restricted datasets, label pooling, training and application inference integration are excluded from this planning task.
+
 ## Where the large files live
 
 Ollama manages its own weights/cache outside this Git repository. Store model IDs, digests, licences, configuration, and reproducible evaluation here. Do not copy multi-gigabyte weights, credentials, patient records, or raw restricted datasets into Git. This directory's ignore rules protect conventional weight/cache/checkpoint paths; they are not a secret scanner.

@@ -71,6 +71,8 @@ Use fictional cases throughout this pilot. Google's unpaid-service terms prohibi
 
 ## Custom ML from scratch
 
+**Updated research selection, 2026-10-19:** MedAssist uses only open-access data. [NHAMCS 2022 recorded-acuity research and separate DDXPlus conversation experiments](../models/medassist/experiment-plan.md) supersede the generic first-training choices below. The [manifest](../models/medassist/open-access-manifest.json) pins source/access terms, target codes and metadata. Compare LogisticRegression, RandomForestClassifier and HistGradientBoostingClassifier on structured NHAMCS inputs; keep DDXPlus synthetic labels separate and MIMIC-IV-ED Demo smoke-only. Full restricted MIMIC is excluded. No training is performed and no ED prediction is approved as home-care guidance.
+
 For this project, a realistic first goal is **training our own narrow classifier from labelled data**, not pretraining a general conversational foundation model. A general LLM trained from random weights needs resources and data far beyond this laptop/budget. A small classifier can be trained locally; a small randomly initialized neural network is an optional research comparison when enough suitable data exists. Fine-tuning a pretrained model is a different experiment and must be described honestly.
 
 ### 1. Define the question and labels

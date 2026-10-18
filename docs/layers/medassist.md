@@ -49,3 +49,7 @@ Maps receive only necessary location/search information, not patient narratives.
 ## Revised model and profile scope
 
 The user now requires English-only data/interface and no paid service dependency, with all-age product intent. Appropriate adult and paediatric data and separate evaluation are still needed. ML is the intended urgency engine; a local LLM supports follow-up questions. The current quote-selection tool is not that trained model. The [shared account profile](../../database/README.md) can provide opted-in age/history context, visibly separate from conversation statements. It is not automatically sent to the model.
+
+## Open-access research decision — 2026-10-19
+
+Use the [separate NHAMCS/DDXPlus experiment plan](../../models/medassist/experiment-plan.md) and [verified manifest](../../models/medassist/open-access-manifest.json). IMMEDR supports recorded ED-acuity research, not validated home triage. DDXPlus severity is not an acuity label; MIMIC-IV-ED Demo is smoke-only. No restricted downloads, training, model deployment or new clinical behavior is authorized by this plan.
