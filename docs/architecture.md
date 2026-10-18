@@ -1,6 +1,6 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview uses browser-local fictional drafts. Neither task preview is a protected clinical workflow. A separate configuration-gated Supabase account/profile client and RLS schema now exist; hosted setup and actual sign-in remain unverified.
+Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview uses browser-local fictional drafts. Neither task preview is a protected clinical workflow. Local email/password authentication, cookie sessions and SQLite profiles now work in development. The optional Supabase client/RLS schema remain prepared; hosted setup is unverified.
 
 ## Current repository
 
@@ -40,7 +40,7 @@ These observations are not validated clinical capabilities or a committed produc
 - The new ADR draft prototype supports multiple browser-local fictional drafts. It is not authenticated, isolated between users, encrypted by APIP, or suitable for real patient data; anyone using the same browser profile can access the drafts.
 - The earlier demo's mock cases remain separate from the ADR draft and do not receive it.
 - Cases use mock/browser state, not a server-backed database.
-- The account/profile foundation is implemented locally, but hosted authentication/storage, permissioned review, durable audit and official integrations remain unverified.
+- Local authentication and durable account profiles are implemented; hosted authentication/storage, permissioned review, durable audit and official integrations remain unverified.
 - Patient assistance, scores, evidence text, reviewer identities, and compliance labels include illustrative behavior.
 - A fresh-project SQL bootstrap and focused account/MedAssist/navigation tests now exist; applied migrations and CI are absent. `lint` checks `src`, not the full server.
 - Frozen install, frontend lint, and production build have passed in this checkout. Clean-clone setup, clinical functionality, and deployment remain unverified.
@@ -85,4 +85,8 @@ The component reference is now a separate hash view alongside the rough welcome/
 
 ## Account/profile foundation
 
-[Account setup and contract](../database/README.md) documents Supabase Auth with PKCE, tab-scoped session storage, owner-enforced PostgreSQL profiles, optional history, per-layer sharing, source revision, conflict handling and deletion. The client has signup/sign-in/profile routes and fails closed without public configuration. Task previews show opted-in profile context separately; they do not send it to models or persist task records to accounts. Specialist/developer roles are not granted by signup. Hosted connection, Google setup, real-user login and hosted isolation/advisors are pending.
+[Account setup and contract](../database/README.md) documents Supabase Auth with PKCE, tab-scoped session storage, owner-enforced PostgreSQL profiles, optional history, per-layer sharing, source revision, conflict handling and deletion. The client has signup/sign-in/profile routes; the Supabase adapter requires valid public configuration, while development can use the local SQLite adapter described below. Task previews show opted-in profile context separately; they do not send it to models or persist task records to accounts. Specialist/developer roles are not granted by signup. Hosted connection, Google setup, real-user login and hosted isolation/advisors are pending.
+
+## Local development account service
+
+[Local account guide](../database/local-development.md) describes the connected SQLite backend in `server/local-account.ts` and the shared account-client interface. Server-verified cookie ownership protects each profile; the requested account header only checks tab consistency. Credentials/sessions are hashed, records remain local, optimistic revisions prevent silent overwrites, and production cannot enable the local adapter. Google/email verification and task-record persistence remain separate unfinished work. The optional Supabase backend retains its RLS contract.

@@ -1,5 +1,10 @@
 # Changelog
 
+## Local database and authentication — 2026-10-18
+
+- Connected development signup/sign-in, server-side cookie sessions and durable SQLite health profiles without Docker or cloud services.
+- Added real HTTP integration checks for ownership, persistence across restart, validation, expiry, logout and rate limits; retained the optional Supabase adapter.
+
 ## Account/profile foundation — 2026-10-18
 
 - Added configuration-gated patient signup/sign-in, Google provider integration, shared health-profile editing/deletion, per-layer sharing choices and owner-enforced PostgreSQL bootstrap with local isolation tests. Hosted connection remains pending.

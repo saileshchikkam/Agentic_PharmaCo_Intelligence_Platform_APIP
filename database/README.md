@@ -1,6 +1,10 @@
 # Account and shared-profile foundation
 
-## Status
+## Current local connection
+
+**Connected 2026-10-18:** development now uses persistent SQLite and same-origin cookie authentication when Supabase configuration is empty. See the [local setup, API and verification guide](local-development.md). Signup, login, profile save/reload/edit/delete and logout run without Docker or cloud services. The database lives outside the repository. Google and email verification/recovery remain unconfigured. Existing fictional ADR drafts remain browser-local and are not account-isolated.
+
+## Supabase foundation status (hosted path deferred)
 
 The client implements configuration-gated email/password signup and sign-in, Google OAuth through Supabase, tab-scoped sessions, sign-out, and an editable account health profile. No configured service means no signup, profile upload, or save. On 2026-10-18 the user chose to keep database setup local after a zero-monthly-cost cloud quote. No project, paid resource, Google client, or hosted table was created. Live provider login and durable account persistence remain unverified.
 
@@ -8,7 +12,7 @@ The client implements configuration-gated email/password signup and sign-in, Goo
 
 ## Connect a development database
 
-**Current selection: local setup only.** Schema tests run in local in-memory PostgreSQL; they are not a running Supabase Auth/Data API service. Docker and the Supabase CLI were not available on the inspected command path. A local Supabase runtime still needs installation/configuration before the application's account client can save to it. This task does not install Docker or download its container stack. The hosted instructions below are retained for a future explicit connection decision; do not provision automatically.
+**Current selection: local SQLite authentication and profile storage.** The earlier schema tests still run in local in-memory PostgreSQL for the future hosted path; they are not a running Supabase Auth/Data API service. Docker and the Supabase CLI were not available on the inspected command path. A local Supabase runtime would still need installation/configuration before selecting the Supabase adapter; it is no longer needed for the current SQLite path. This task does not install Docker or download its container stack. The hosted instructions below are retained for a future explicit connection decision; do not provision automatically.
 
 1. Create or select a Supabase development project on the Free plan. Verify the account's actual plan and limits before provisioning; do not enable billing or paid add-ons. Free hosting is capacity-limited, not a guarantee of indefinite public operation.
 2. Review and run the bootstrap once in the project's SQL Editor. Do not run it over existing tables. Future deployed changes need tracked migrations and review.
@@ -30,11 +34,11 @@ One login owns one care-recipient profile in this version. A parent/caregiver ca
 
 Both task previews can show an expandable, consent-enabled profile-context panel. Context excludes name, birth date and account ID, and includes calculated age, history and source revision. The previews **do not automatically prefill reports or send profiles to models**. Existing ADR drafts remain shared browser-local fictional drafts, separate from account profiles, even after sign-in. Do not describe them as protected account records.
 
-## Access and session boundaries
+## Supabase access and session boundaries
 
 Postgres RLS checks authenticated `auth.uid() = user_id` on every operation. Anonymous users receive no table privileges. Column grants prevent changing ownership or system revision/time. No user-editable metadata grants specialist/developer roles; those screens remain unrestricted design previews.
 
-Supabase handles passwords, verification and OAuth. Sessions/PKCE state use this tab's `sessionStorage`; health profiles are held in React memory and Supabase, not copied to local/browser storage by this subsystem. Session storage remains readable by same-origin scripts: XSS protection, deployment headers, dependency review and suitable session policies still matter. Sign-out clears the account/profile state; SDK token refresh does not intentionally reset profile edits. History is not logged by this feature or placed in URLs. Administrators and infrastructure operators can have privileged access: no promise of absolute invisibility or end-to-end encryption is made.
+In the optional Supabase adapter, Supabase handles passwords, verification and OAuth. Sessions/PKCE state use this tab's `sessionStorage`; health profiles are held in React memory and Supabase, not copied to local/browser storage by this subsystem. Session storage remains readable by same-origin scripts: XSS protection, deployment headers, dependency review and suitable session policies still matter. Sign-out clears the account/profile state; SDK token refresh does not intentionally reset profile edits. History is not logged by this feature or placed in URLs. Administrators and infrastructure operators can have privileged access: no promise of absolute invisibility or end-to-end encryption is made.
 
 Use fictional records while hosting/data permissions, child/guardian handling, retention/backups, incident response, password recovery UX, account deletion and real-patient readiness remain unresolved. No medical AI analysis, model training or clinical triage is added by this foundation.
 

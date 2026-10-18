@@ -6,7 +6,7 @@ import { navigatePreview } from '../access/navigation';
 import './account.css';
 
 export function AccountSignIn({ requestedTask }: { requestedTask?: string }) {
-  const { user, ready } = useAccount();
+  const { user, ready, error } = useAccount();
   const [creating, setCreating] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,21 +24,18 @@ export function AccountSignIn({ requestedTask }: { requestedTask?: string }) {
     }
     setBusy(true); setNotice('');
     try {
-      const result = creating
-        ? await accountClient.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: `${location.origin}/#/account/profile` } })
-        : await accountClient.auth.signInWithPassword({ email: email.trim(), password });
+      const verifyEmail = creating ? await accountClient.signUp(email.trim(), password)
+        : (await accountClient.signIn(email.trim(), password), false);
       setPassword('');
-      setNotice(result.error ? 'Unable to complete sign-in. Check your details, email verification and service configuration.'
-        : creating && !result.data.session ? 'Check your email to confirm your account, then sign in to complete your profile.' : 'Signed in. Opening your profile…');
-    } catch { setNotice('The account service is unavailable. Please retry.'); }
+      setNotice(verifyEmail ? 'Check your email to confirm your account, then sign in to complete your profile.' : 'Signed in. Opening your profile…');
+    } catch { setPassword(''); setNotice('Unable to complete sign-in. Check your details or try again later. Local passwords must have 12–128 characters.'); }
     finally { setBusy(false); }
   };
   const google = async () => {
     if (!accountClient) return;
     setBusy(true);
     try {
-      const { error } = await accountClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${location.origin}/#/account/profile` } });
-      if (error) setNotice('Google sign-in is unavailable. Check the provider configuration or use email.');
+      await accountClient.google();
     } catch { setNotice('Google sign-in could not be opened. Please retry.'); }
     finally { setBusy(false); }
   };
@@ -46,8 +43,8 @@ export function AccountSignIn({ requestedTask }: { requestedTask?: string }) {
     <h2>{creating ? 'Create your account' : 'Welcome back'}</h2>
     <p>One account for MedAssist and ADR reporting. Complete your health profile after verifying your sign-in.</p>
     {!accountClient && <p className="account-notice" role="status">Account service not connected. You can explore the profile layout, but nothing can be saved or uploaded.</p>}
-    <M3Button variant="outlined" disabled={!accountClient || busy} onClick={() => void google()}>Continue with Google</M3Button>
-    <p className="account-divider">or use email</p>
+    {accountClient?.kind === 'local' ? <p className="account-notice">Local development account · saved on this computer. Use a fictional email and a separate test password. No email verification or recovery service is connected.</p> : <><M3Button variant="outlined" disabled={!accountClient || busy} onClick={() => void google()}>Continue with Google</M3Button><p className="account-divider">or use email</p></>}
+    {error && <p role="alert">{error}</p>}
     <M3TextField label="Email address" type="email" autoComplete="email" value={email} required disabled={busy || !accountClient} onChange={e => setEmail(e.target.value)} />
     <M3TextField label="Password" type="password" autoComplete={creating ? 'new-password' : 'current-password'} value={password} required disabled={busy || !accountClient} onChange={e => setPassword(e.target.value)} supportingText={creating ? 'At least 12 characters.' : undefined} />
     <div className="account-actions"><M3Button type="submit" loading={busy} disabled={!accountClient}>{creating ? 'Create account' : 'Sign in'}</M3Button>

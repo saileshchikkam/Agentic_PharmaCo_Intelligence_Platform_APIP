@@ -8,7 +8,7 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 The app offers welcome/sign-in, patient-home, guided MedAssist symptom questions/review, fictional ADR drafts, and the preserved developer reference. MedAssist now optionally selects source quotes through local Ollama and offers location-only Google Maps search. It has no persistent patient storage, urgency classifier, approved clinical RAG, or tailored precautions. ADR drafts remain shared within a browser profile, not authenticated or submitted. Appearance and shared Back navigation continue across previews. Clinical validation and the connected product workflow remain incomplete.
 
-The account/shared-profile client and owner-RLS schema are now prepared and locally tested. On 2026-10-18 the user deferred cloud provisioning. A running local authentication/database service and end-to-end account checks are the next dependency; the in-memory SQL tests are not application storage. See [account setup](../database/README.md).
+The account/shared-profile client and owner-RLS schema are now prepared and locally tested. On 2026-10-18 the user deferred cloud provisioning. Local SQLite authentication and durable profiles are now connected and exercised with real HTTP integration tests. The in-memory PostgreSQL tests remain separate from application storage. Google/cloud configuration and account-backed task records remain pending. See [account setup](../database/README.md).
 
 ### Current phase and next handoff
 

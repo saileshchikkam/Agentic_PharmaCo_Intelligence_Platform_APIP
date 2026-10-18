@@ -32,22 +32,17 @@ export function ProfilePage() {
     // Whitelist fields; never write fetched ownership/revision fields back as user input.
     const payload = { ...emptyProfile(), ...Object.fromEntries(Object.keys(emptyProfile()).map(k => [k, form[k as keyof ProfileInput]])) };
     try {
-      const query = profile
-        ? accountClient.from('patient_profiles').update(payload).eq('user_id', user.id).eq('revision', profile.revision)
-        : accountClient.from('patient_profiles').insert({ ...payload, user_id: user.id });
-      const result = await query.select().maybeSingle();
-      if (result.error || !result.data) { setNotice('Not saved. Your profile may have changed elsewhere, or the database is unavailable. Copy unsaved edits before reloading.'); return; }
+      await accountClient.saveProfile(user.id, payload, profile?.revision ?? null);
       setDirty(false); setNotice('Profile saved to your account.'); reload();
-    } catch { setNotice('Not saved. Check your connection and retry.'); }
+    } catch { setNotice('Not saved. Check your connection, or reload if the profile changed elsewhere. Copy unsaved edits before reloading.'); }
     finally { setBusy(false); }
   };
   const remove = async () => {
     if (!accountClient || !user || !profile || !confirm('Delete your saved health profile? Your login will remain.')) return;
     setBusy(true);
     try {
-      const result = await accountClient.from('patient_profiles').delete().eq('user_id', user.id).eq('revision', profile.revision).select('user_id');
-      if (result.error || !result.data?.length) setNotice('Deletion failed or the profile changed. Reload before retrying.');
-      else { setDirty(false); reload(); }
+      await accountClient.deleteProfile(user.id, profile.revision);
+      setDirty(false); setNotice('Health profile deleted. Your login remains available.'); reload();
     } catch { setNotice('Deletion failed. Please retry.'); }
     finally { setBusy(false); }
   };

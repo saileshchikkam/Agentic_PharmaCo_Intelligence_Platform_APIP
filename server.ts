@@ -4,6 +4,7 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { registerMedAssistRoutes } from './server/medassist';
+import { registerLocalAccount } from './server/local-account';
 
 const PORT = 3000;
 
@@ -117,6 +118,7 @@ const DRUG_SAFETY_DB: Record<string, {
 async function startServer() {
   const app = express();
 
+  if (process.env.NODE_ENV !== 'production') registerLocalAccount(app);
   app.use(cors());
   registerMedAssistRoutes(app);
   app.use(express.json({ limit: "5mb" }));

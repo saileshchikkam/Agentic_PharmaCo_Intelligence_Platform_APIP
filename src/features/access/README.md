@@ -1,6 +1,6 @@
 # Access and navigation
 
-**Update 2026-10-17:** patient signup/sign-in now uses the configuration-gated [account foundation](../../../database/README.md), with Google/email paths and the `#/account/profile` route. Hosted setup is still pending. Specialist/developer screens remain design previews and do not grant roles. The original design/reference notes below describe the preceding UI state, not the newer patient implementation.
+**Update 2026-10-17:** patient signup/sign-in now uses the configuration-gated [account foundation](../../../database/README.md), with Google/email paths and the `#/account/profile` route. Local SQLite signup/session/profile storage are now connected; hosted setup is still pending. Specialist/developer screens remain design previews and do not grant roles. The original design/reference notes below describe the preceding UI state, not the newer patient implementation.
 
 This is the selected rough UI task, ahead of authentication. It provides a simple APIP welcome page and one shared sign-in composition with three workspace views. It does not access an account, submit credentials, create a session, or establish permissions.
 

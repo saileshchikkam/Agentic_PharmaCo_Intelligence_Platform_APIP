@@ -2,7 +2,7 @@
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
-**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. The ADR draft is stored in this browser only; a Supabase account/profile foundation is implemented but cloud connection, real sign-in and protected task records remain pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
+**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. The ADR draft is stored in this browser only; local email/password signup, cookie sessions and durable SQLite health profiles are connected for development. Google/cloud connection and protected task records remain pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
 
 ## The product
 
@@ -17,7 +17,7 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 ## Start here
 
 - [Documentation guide](docs/README.md): where to find information and how to maintain it.
-- [Account and shared-profile setup](database/README.md): signup, Google/email configuration, database ownership rules and current limitations.
+- [Account and shared-profile setup](database/README.md): working local signup/storage, optional Google/cloud setup, ownership rules and limitations.
 - [Development setup](docs/development.md): commands, configuration, and verification limits.
 - [Architecture](docs/architecture.md): actual code and proposed application design.
 - [Layer guides](docs/layers/README.md): responsibilities, boundaries, and acceptance criteria.
