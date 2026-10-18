@@ -1,5 +1,10 @@
 # Changelog
 
+## Profile editability and hospital requirements — 2026-10-18
+
+- Fixed Material controls staying disabled after profile loading by controlling each field and checkbox explicitly. Added a browser regression fixture.
+- Recorded Mahesh-attributed hospital ADR requirements, current module gaps, source uncertainties and phased integration without enabling clinical workflows or changing the database schema.
+
 ## Local database and authentication — 2026-10-18
 
 - Connected development signup/sign-in, server-side cookie sessions and durable SQLite health profiles without Docker or cloud services.

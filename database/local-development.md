@@ -48,3 +48,7 @@ bun run build
 The local HTTP test creates isolated temporary SQLite data and two fictional accounts, checks password/token storage, signup/login, owner retrieval, cross-account read/edit/delete rejection, schema validation, stale edits, deletion, logout, expiry and rate limiting, then closes/reopens the database to verify persistence. Temporary credentials are generated per run and not printed. These are engineering checks, not a clinical/security certification. Supabase SQL ownership tests remain separate from the SQLite backend tests.
 
 References consulted: [Node SQLite](https://nodejs.org/api/sqlite.html), [Node scrypt](https://nodejs.org/api/crypto.html#cryptoscryptpassword-salt-keylen-options-callback), [OWASP password storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html), [OWASP session management](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html).
+
+## Profile control regression
+
+The profile page uses explicit disabled props for each official Material input/checkbox rather than a native disabled fieldset. Material Web can retain a control-level disabled flag after a disabled ancestor fieldset becomes enabled; this previously blocked editing after account/profile loading. The [browser regression fixture](../tests/README.md) reproduces the old failure and verifies the explicit-control behavior through repeated loading cycles.

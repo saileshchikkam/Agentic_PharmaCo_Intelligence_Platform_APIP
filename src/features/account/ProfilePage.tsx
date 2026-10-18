@@ -14,6 +14,7 @@ export function ProfilePage() {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
   const [dirty, setDirty] = useState(false);
+  const controlsDisabled = busy || !ready || !!error;
   useEffect(() => { setForm(profile ?? emptyProfile()); setConfirmed(false); setDirty(false); }, [profile, user?.id]);
   useEffect(() => {
     if (!dirty) return;
@@ -54,22 +55,22 @@ export function ProfilePage() {
     {error && <p role="alert">{error} <M3Button variant="text" onClick={reload}>Retry loading</M3Button></p>}
     {!ready && <p role="status">Loading your account…</p>}
     <form className="account-profile-form" onSubmit={save} noValidate>
-      <fieldset disabled={busy || !ready || !!error}><legend>Basic details</legend>
-        <M3Checkbox checked={form.relationship === 'caregiver'} onChange={v => edit('relationship', v ? 'caregiver' : 'self')} label="I am completing this profile as a parent or caregiver" />
+      <fieldset aria-disabled={controlsDisabled}><legend>Basic details</legend>
+        <M3Checkbox disabled={controlsDisabled} checked={form.relationship === 'caregiver'} onChange={v => edit('relationship', v ? 'caregiver' : 'self')} label="I am completing this profile as a parent or caregiver" />
         <div className="account-grid">
-          <M3TextField label="Full name" supportingText="The person receiving care." value={form.display_name} maxLength={100} required onChange={e => edit('display_name', e.target.value)} />
-          <M3TextField label="Date of birth" value={form.birth_date} maxLength={10} required supportingText="YYYY-MM-DD. Used to calculate current age." onChange={e => edit('birth_date', e.target.value)} />
+          <M3TextField disabled={controlsDisabled} label="Full name" supportingText="The person receiving care." value={form.display_name} maxLength={100} required onChange={e => edit('display_name', e.target.value)} />
+          <M3TextField disabled={controlsDisabled} label="Date of birth" value={form.birth_date} maxLength={10} required supportingText="YYYY-MM-DD. Used to calculate current age." onChange={e => edit('birth_date', e.target.value)} />
         </div>
       </fieldset>
-      <fieldset disabled={busy || !ready || !!error}><legend>Health history · optional</legend>
+      <fieldset aria-disabled={controlsDisabled}><legend>Health history · optional</legend>
         <p>Include only what you want to share. These are your statements, not verified medical conclusions.</p>
-        <div className="account-grid">{historyFields.map(field => <M3TextField key={field} label={labels[field]} type="textarea" rows={3} value={form[field] ?? ''} maxLength={2000} onChange={e => edit(field, e.target.value.trim() ? e.target.value : null)} />)}</div>
+        <div className="account-grid">{historyFields.map(field => <M3TextField disabled={controlsDisabled} key={field} label={labels[field]} type="textarea" rows={3} value={form[field] ?? ''} maxLength={2000} onChange={e => edit(field, e.target.value.trim() ? e.target.value : null)} />)}</div>
       </fieldset>
-      <fieldset disabled={busy || !ready || !!error}><legend>Choose where your profile is available</legend>
-        <M3Checkbox checked={form.share_medassist} onChange={v => edit('share_medassist', v)} label="Make my confirmed profile available in MedAssist" />
-        <M3Checkbox checked={form.share_adr} onChange={v => edit('share_adr', v)} label="Make my confirmed profile available in ADR reporting" />
+      <fieldset aria-disabled={controlsDisabled}><legend>Choose where your profile is available</legend>
+        <M3Checkbox disabled={controlsDisabled} checked={form.share_medassist} onChange={v => edit('share_medassist', v)} label="Make my confirmed profile available in MedAssist" />
+        <M3Checkbox disabled={controlsDisabled} checked={form.share_adr} onChange={v => edit('share_adr', v)} label="Make my confirmed profile available in ADR reporting" />
         <p>These choices do not permit model training, external AI processing or sharing with hospitals. You can change them anytime.</p>
-        <M3Checkbox checked={confirmed} onChange={setConfirmed} label="I reviewed these details and agree to store them in my account" />
+        <M3Checkbox disabled={controlsDisabled} checked={confirmed} onChange={setConfirmed} label="I reviewed these details and agree to store them in my account" />
       </fieldset>
       <div className="account-actions"><M3Button type="submit" loading={busy} disabled={!user || !accountClient || !ready || !!error}>Save profile</M3Button>
         {profile && <M3Button variant="text" disabled={busy} onClick={() => void remove()}>Delete health profile</M3Button>}

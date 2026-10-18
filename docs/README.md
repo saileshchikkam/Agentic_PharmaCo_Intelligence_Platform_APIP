@@ -2,6 +2,8 @@
 
 The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS.md) contains mandatory contributor/agent instructions.
 
+The [hospital requirements register](hospital-requirements.md) records the notes attributed to Mahesh P, requirement statuses, affected modules, unresolved source documents and phased integration. Source notes are not an approved hospital SOP.
+
 ## Read in this order
 
 1. [Product](product.md): purpose, origin, team, audiences, and confirmed scope.

@@ -1,6 +1,8 @@
 # ADR reporting
 
-**Status:** core confirmed requirement. A small English/Telugu fictional draft interface is available at `#/preview/adr-report` for design evaluation. Its two steps collect and review user-entered details, then save multiple user-confirmed drafts in browser storage. The list and drafts are shared by anyone using the same browser profile; they are not separated by sign-in or account. This route is not the real patient-reporting workflow: there is no account, server persistence, user isolation, official form, professional review, or submission.
+**Status:** core confirmed requirement. A small English-only fictional draft interface is available at `#/preview/adr-report` for design evaluation. Its two steps collect and review user-entered details, then save multiple user-confirmed drafts in browser storage. The list and drafts are shared by anyone using the same browser profile; they are not separated by sign-in or account. Local accounts and health profiles now exist, but this ADR route still has no account-backed case persistence, case isolation, official form, professional review, or submission.
+
+The [hospital requirements register](../hospital-requirements.md) maps the notes attributed to Mahesh P to actual modules, gaps, source uncertainties and phased integration. It is not an approved SOP or authorization to enable clinical workflows.
 
 ## Responsibility
 
