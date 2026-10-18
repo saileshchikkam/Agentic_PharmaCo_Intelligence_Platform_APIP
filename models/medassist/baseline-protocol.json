@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "protocol_id": "medassist-nhamcs-baseline-v1",
+  "frozen_on": "2026-10-19",
+  "scope": "offline retrospective US ED research only",
+  "training_performed": false,
+  "patient_facing_use_allowed": false,
+  "phase1_commit": "cd9d9784a02bd235c033d409dd44b995c321c45e",
+  "source_dta_sha256": "0e00cd5aea4511cd619f7af1e0dc2f6825f111b7c87d3ebbb1358410a4c881c2",
+  "source_shape": [16025, 913],
+  "partitions": ["fit", "calibration", "threshold_selection", "locked_test"],
+  "nominal_total_fractions": [0.6, 0.1, 0.1, 0.2],
+  "split_regeneration_allowed": false,
+  "cohorts": {
+    "all_labelled": {
+      "rows": 10207,
+      "phase1_name": "demographic_reference",
+      "assignment_sha256": "9c1a7393ab205aee97b6e0ab75dbfd5948e2ff796087f5c70b70714c2e431f96",
+      "partition_rows": [5933, 1107, 1178, 1989],
+      "partition_high_acuity": [943, 180, 200, 411],
+      "partition_immediate": [80, 16, 17, 26],
+      "without_vitals": "demographic_reference",
+      "with_vitals": "all_labelled_initial_vitals"
+    },
+    "symptom_coded": {
+      "rows": 7657,
+      "phase1_name": "presentation_symptom_proxy",
+      "assignment_sha256": "4735d16049130a9b7e346721e1393d922aff96b9f6fac65d10de7c78d681b90e",
+      "partition_rows": [4184, 1012, 868, 1593],
+      "partition_high_acuity": [676, 137, 126, 289],
+      "partition_immediate": [45, 10, 5, 10],
+      "without_vitals": "presentation_symptom_proxy",
+      "with_vitals": "ed_initial_symptom_proxy"
+    }
+  },
+  "tasks": {
+    "primary_binary": {
+      "cohort": "all_labelled",
+      "positive_immedr": [1, 2],
+      "negative_immedr": [3, 4, 5],
+      "cv_selection_metric": "average_precision",
+      "calibration": "binary_sigmoid",
+      "threshold": "maximize_F2_on_threshold_partition"
+    },
+    "secondary_five_class": {
+      "cohort": "symptom_coded",
+      "classes": [1, 2, 3, 4, 5],
+      "cv_selection_metric": "macro_f1",
+      "calibration": "none_exploratory_uncalibrated_probabilities",
+      "threshold": "argmax_only_no_class_specific_thresholds"
+    }
+  },
+  "cleaning": {
+    "missing_codes": [-9, -8, -7, -6],
+    "doppler_998_fields": ["PULSE", "BPDIAS"],
+    "zero_to_missing": ["TEMPF", "PULSE", "RESPR", "BPSYS", "BPDIAS", "POPCT"],
+    "zero_retained": ["PAINSCALE", "AGE"],
+    "age_allowed_agefl": [0, 1],
+    "age_required_bdatefl": 0,
+    "sex_required_sexfl": 0,
+    "other_extremes": "retain_finite_non_sentinel_values_no_data_derived_clipping",
+    "row_deletion_for_missing_predictors": false,
+    "publisher_imputation_flags_as_predictors": false
+  },
+  "cv": {
+    "folds": 3,
+    "seed": 42,
+    "stratify_using": "original_five_class_IMMEDR_for_both_tasks",
+    "groups": "Phase1_connected_masked_cluster_hospital_components",
+    "partition": "fit_only",
+    "fold_indices_reused_across_models_and_matched_profiles": true
+  },
+  "models": {
+    "LogisticRegression": {
+      "fixed": {"solver": "lbfgs", "max_iter": 2000, "class_weight": null, "random_state": 42},
+      "grid": {"C": [0.1, 1.0, 10.0]},
+      "preprocessing": "fit_fold_median_numeric_no_demographic_indicators_vital_indicators_standard_scale_onehot_categories"
+    },
+    "RandomForestClassifier": {
+      "fixed": {"n_estimators": 300, "n_jobs": 1, "class_weight": null, "random_state": 42},
+      "grid": {"max_depth": [12, null], "min_samples_leaf": [5, 20]},
+      "preprocessing": "fit_fold_median_numeric_no_demographic_indicators_vital_indicators_onehot_categories"
+    },
+    "HistGradientBoostingClassifier": {
+      "fixed": {"max_iter": 200, "early_stopping": false, "max_bins": 255, "min_samples_leaf": 20, "random_state": 42},
+      "grid": {"learning_rate": [0.05, 0.1], "max_leaf_nodes": [15, 31], "l2_regularization": [0.0, 1.0]},
+      "preprocessing": "native_numeric_missing_fit_fold_bounded_categories_unknown_to_nan"
+    }
+  },
+  "preprocessing": {
+    "fit_on": "current_CV_training_fold_then_final_fit_partition_only",
+    "numeric_empty_column_fill_for_LR_RF": 0,
+    "vital_missing_indicators_LR_RF": "fixed_seven_when_present_in_profile",
+    "demographic_missing_indicators": false,
+    "HGB_max_retained_categories": 253,
+    "HGB_rare_category_min_fit_count": 10,
+    "LR_RF_category_missing_token": "__UNKNOWN__",
+    "LR_RF_unknown_category_handling": "ignore",
+    "fit_weighting": "unweighted_only",
+    "oversampling_or_synthetic_augmentation": false
+  },
+  "selection": {
+    "cv_fold_score_aggregation": "unweighted_mean",
+    "tie_tolerance": 1e-12,
+    "tie_order": ["LogisticRegression", "RandomForestClassifier", "HistGradientBoostingClassifier"],
+    "within_model_tie": "first_cartesian_grid_configuration_in_JSON_order",
+    "select_separately_per_task_and_profile": true,
+    "retain_best_configuration_per_model_family": true,
+    "overall_CV_winner_predeclared_before_test": true,
+    "evaluate_all_three_families_on_test": true,
+    "all_candidates_receive_same_folds": true,
+    "class_balancing": false,
+    "failure_policy": "mark_variant_incomplete_no_winner_no_test_until_all_declared_candidates_resolved"
+  },
+  "calibration": {
+    "partition": "calibration_only",
+    "method": "sigmoid_on_frozen_fitted_pipeline",
+    "minimum_positive": 50,
+    "minimum_negative": 50,
+    "minimum_connected_groups": 5,
+    "support_limits_are": "engineering_guards_not_clinical_validation_or_power_calculation",
+    "isotonic_allowed": false,
+    "refit_base_estimator_allowed": false,
+    "five_class_or_Immediate_specific_calibration_allowed": false,
+    "failure_policy": "no_calibrated_result_or_tuned_threshold_no_unlabelled_fallback"
+  },
+  "threshold_selection": {
+    "partition": "threshold_selection_only",
+    "probability_comparison": "p_high_greater_than_or_equal_threshold",
+    "grid_start": 0.0,
+    "grid_stop": 1.0,
+    "grid_step": 0.01,
+    "objective": "unweighted_F2",
+    "tie_breaks": ["higher_high_acuity_recall", "fewer_false_positives", "larger_threshold"],
+    "minimum_positive": 50,
+    "minimum_negative": 50,
+    "minimum_connected_groups": 5,
+    "clinical_operating_point_claim_allowed": false,
+    "Immediate_specific_optimization_allowed": false
+  },
+  "evaluation": {
+    "test_opening": "all_tasks_and_variants_selected_calibrated_where_allowed_thresholds_and_artifact_hashes_frozen_first",
+    "retuning_after_test_allowed": false,
+    "test_refit_or_calibration_allowed": false,
+    "cross_task_model_selection_allowed": false,
+    "reference_baseline": "fit_prevalence_only_majority_prior_not_a_competing_family",
+    "primary_metrics": ["high_acuity_recall", "high_acuity_miss_rate", "Immediate_miss_count_and_recall", "precision", "specificity", "F2", "average_precision", "ROC_AUC", "balanced_accuracy", "confusion_counts", "binary_log_loss", "binary_Brier", "ECE_10_equal_width_bins"],
+    "secondary_metrics": ["per_class_recall_precision_support", "macro_F1", "balanced_accuracy", "confusion_counts", "any_undertriage", "undertriage_gap_at_least_2", "high_acuity_miss_rate_from_argmax", "uncalibrated_multiclass_log_loss", "uncalibrated_multiclass_Brier_sum_over_5_classes", "uncalibrated_class_reliability"],
+    "weighting": "unweighted_primary_and_PATWT_weighted_eligible_cohort_descriptions_only",
+    "subgroups": ["age_bands", "nonimputed_sex", "RACEUN_ETHUN_with_unknown", "vital_missingness", "symptom_module_coverage"],
+    "sparse_subgroup_minimum_rows": 30,
+    "sparse_subgroup_minimum_positive": 10,
+    "sparse_subgroup_action": "publish_support_miss_counts_flag_unstable_suppress_derived_comparative_scores",
+    "uncertainty": "1000_stratified_masked_cluster_bootstrap_replicates_seed43_95percent_percentile_exploratory_not_national_survey_CI",
+    "minimum_valid_bootstrap_replicates": 950,
+    "singleton_stratum_action": "suppress_interval_no_IID_or_stratum_merging_fallback",
+    "abstention": "research_only_all_inputs_missing_unseen_categories_or_primary_probability_0.4_to_0.6_inclusive",
+    "unconditional_recall_counts_abstentions_as_not_detected": true,
+    "uncertainty_band_is": "fixed_engineering_diagnostic_not_clinical_risk_boundary",
+    "clinical_accuracy_or_release_threshold": null
+  },
+  "resource_limits": {"CPU_threads": 1, "seed": 42, "candidate_timeout_minutes": 20, "no_paid_services": true}
+}

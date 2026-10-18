@@ -15,6 +15,7 @@ TARGET = {-9: 'Blank', -8: 'Unknown', 0: 'No triage this visit', 1: 'Immediate',
           3: 'Urgent', 4: 'Semi-urgent', 5: 'Nonurgent', 7: 'No nursing triage in ESA'}
 PROFILES = {
     'demographic_reference': ['AGE', 'SEX'],
+    'all_labelled_initial_vitals': ['AGE', 'SEX', *VITALS],
     'presentation_symptom_proxy': ['AGE', 'SEX', 'RFV1'],
     'ed_initial_symptom_proxy': ['AGE', 'SEX', 'RFV1', *VITALS],
 }

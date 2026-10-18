@@ -192,3 +192,10 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Acquired official NHAMCS 2022 outside Git; actual 16,025 visits/913 columns and all IMMEDR counts reconcile exactly. Committed safe aggregate reports/receipt summaries only.
 - Verified supporting DDXPlus/MIMIC demo metadata without patient archives. Documented sparse Immediate support, symptom-filter selection, age provenance and timing blockers requiring Phase 1 review before training.
 - Preserved application/ADR behavior and unrelated untracked work; no estimator training or clinical deployment.
+
+## 2026-10-19 — MedAssist Phase 2 baseline protocol freeze
+
+- Froze primary binary all-labelled and exploratory five-class symptom tasks, preserving existing group-disjoint outer partitions and matched vitals comparisons.
+- Added no-RFV initial-vitals features, explicit zero/provenance cleaning, saved-assignment/source checks and fit-only CV/support preflight.
+- Fixed LR/RF/HGB grids, primary-only calibration/threshold procedures and locked evaluation/rare-class safeguards. Twenty-three focused synthetic tests passed with warnings treated as errors.
+- Recorded offline-only training readiness; no models trained or patient-facing MedAssist/ADR behavior changed.

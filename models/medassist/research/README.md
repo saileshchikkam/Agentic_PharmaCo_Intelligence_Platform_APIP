@@ -59,4 +59,20 @@ A stale lock or unreceipted artifact blocks retry. Inspect it manually; preserve
 - `cli.py`: venv checks, commands and aggregate publication boundary.
 - `tests/test_phase1.py`: 14 synthetic tests; no real patient fixtures. Covers hashes/CRC, unsafe ZIPs, Stata raw labels, exclusions, missing encodings/units, feature leakage and provenance, deterministic connected groups, overlap detection, cache corruption/reuse, environment-first validation, truncation and network failure.
 
-The [Phase 1 report](../reports/2026-10-19-phase1/README.md) records actual commands/results and known limitations. Its support flags are engineering warnings, not clinically reviewed minimum sample sizes. Source metadata checks require network; synthetic tests do not. Do not train until the Phase 1 findings and revised cohort/calibration protocol are reviewed.
+The [Phase 1 report](../reports/2026-10-19-phase1/README.md) records historical commands/results and known limitations. Its support flags are engineering warnings, not clinically reviewed minimum sample sizes. Source metadata checks require network; synthetic tests do not. The user subsequently reviewed the Phase 1 findings and selected the Phase 2 protocol below.
+
+## Phase 2 baseline protocol preflight
+
+The [frozen baseline protocol](../baseline-protocol.md) and [settings/digest](../baseline-protocol.json) define the next offline experiment. `protocol.py` implements target/feature contracts, Phase 2 zero handling, saved-assignment verification, within-fit CV and support guards. It does not call acquisition, outer split generation or any estimator fit. This adds `all_labelled_initial_vitals` to the allowlist; Phase 1's original decoding remains unchanged. Old Phase 1 aggregate reports/code hashes remain historical snapshots at their recorded commit.
+
+With the existing research venv/root set, read the completed external Phase 1 run and choose a new aggregate output file:
+
+```powershell
+& $researchPython -m models.medassist.research.protocol --phase1-run phase1-final-20261019 --output models/medassist/reports/new-phase2-run/preflight.json
+& $researchPython -W error -m unittest discover -s models/medassist/research/tests -v
+& $researchPython -m pip check
+```
+
+Substitute your actual completed Phase 1 run name; both private assignment files and its run receipt must already exist. A missing file, changed source/protocol/assignment hash, mismatched dependency pins, changed cohort/support, group overlap or inadequate primary binary support stops preflight. It cannot repair these by generating another split. No raw data or row IDs are published. Existing output files are never overwritten by the CLI.
+
+`test_phase2.py` adds nine synthetic tests (23 total across both phases), including matched cohorts, binary/original label separation, zero/provenance policy, leakage/nonfinite rejection, frozen-assignment mutation failures, fit-only CV, model-fit refusal during CV, calibration/rare-class guards, protocol checksum failure and absent-data refusal. The [Phase 2 report](../reports/2026-10-19-phase2/README.md) records actual preflight/reproducibility checks. Model pipeline fitting, calibration, scoring and deployment are future work; a protocol GO is engineering scope, not measured accuracy or clinical sign-off.
