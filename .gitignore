@@ -13,3 +13,5 @@ Thumbs.db
 *.sqlite-shm
 *.sqlite-wal
 *.sqlite-journal
+.venv/
+venv/

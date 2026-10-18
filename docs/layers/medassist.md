@@ -53,3 +53,5 @@ The user now requires English-only data/interface and no paid service dependency
 ## Open-access research decision — 2026-10-19
 
 Use the [separate NHAMCS/DDXPlus experiment plan](../../models/medassist/experiment-plan.md) and [verified manifest](../../models/medassist/open-access-manifest.json). IMMEDR supports recorded ED-acuity research, not validated home triage. DDXPlus severity is not an acuity label; MIMIC-IV-ED Demo is smoke-only. No restricted downloads, training, model deployment or new clinical behavior is authorized by this plan.
+
+The subsequently authorized [Phase 1 implementation and findings](../../models/medassist/reports/2026-10-19-phase1/README.md) now provide external NHAMCS acquisition, actual quality/provenance audits and candidate grouped partitions. Fourteen synthetic data-engineering tests passed. Training remains unperformed: review rare Immediate support, symptom-cohort selection and timing before a separate baseline task. Supporting datasets remain metadata-only; application behavior is unchanged.

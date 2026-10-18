@@ -1,0 +1,161 @@
+{
+  "profiles": {
+    "demographic_reference": {
+      "rows": 10207,
+      "columns": [
+        "AGE",
+        "SEX"
+      ],
+      "missing_counts": {
+        "AGE": 5,
+        "SEX": 15
+      },
+      "status": "retrospective_research_only",
+      "clinical_or_home_triage_approved": false
+    },
+    "presentation_symptom_proxy": {
+      "rows": 7657,
+      "columns": [
+        "AGE",
+        "SEX",
+        "RFV1"
+      ],
+      "missing_counts": {
+        "AGE": 5,
+        "SEX": 10,
+        "RFV1": 0
+      },
+      "status": "retrospective_research_only",
+      "clinical_or_home_triage_approved": false
+    },
+    "ed_initial_symptom_proxy": {
+      "rows": 7657,
+      "columns": [
+        "AGE",
+        "SEX",
+        "RFV1",
+        "TEMPF",
+        "PULSE",
+        "RESPR",
+        "BPSYS",
+        "BPDIAS",
+        "POPCT",
+        "PAINSCALE"
+      ],
+      "missing_counts": {
+        "AGE": 5,
+        "SEX": 10,
+        "RFV1": 0,
+        "TEMPF": 193,
+        "PULSE": 134,
+        "RESPR": 148,
+        "BPSYS": 635,
+        "BPDIAS": 646,
+        "POPCT": 141,
+        "PAINSCALE": 2166
+      },
+      "status": "retrospective_research_only",
+      "clinical_or_home_triage_approved": false
+    }
+  },
+  "feature_ledger": [
+    {
+      "fields": [
+        "AGE",
+        "SEX"
+      ],
+      "status": "offline_demographic_reference_only",
+      "home_availability": "reported age and sex may be known",
+      "controls": "require AGEFL in {0,1} and BDATEFL=0; SEXFL=0; quarantine conflicting age provenance; recorded sex is not gender identity"
+    },
+    {
+      "fields": [
+        "RFV1"
+      ],
+      "status": "retrospective_proxy_only",
+      "home_availability": "coded abstraction unavailable directly at home",
+      "controls": "symptom prefix 1 cohort only; no disease/test/treatment/admin modules; no inferred missingness flag"
+    },
+    {
+      "fields": [
+        "TEMPF",
+        "PULSE",
+        "RESPR",
+        "BPSYS",
+        "BPDIAS",
+        "POPCT",
+        "PAINSCALE"
+      ],
+      "status": "retrospective_proxy_only",
+      "home_availability": "clinician/device measurements not reliably available to ordinary home users",
+      "controls": "initial only; no exact pre-label timestamps; temperature tenths decoded; Doppler 998 masked"
+    },
+    {
+      "fields": [
+        "ARREMS",
+        "SEEN72"
+      ],
+      "status": "audit_only_not_in_primary_matrices",
+      "home_availability": "ED context, not home assessment",
+      "controls": "sensitivity candidate only"
+    },
+    {
+      "fields": [
+        "AGEFL",
+        "BDATEFL",
+        "SEXFL",
+        "RACEUN",
+        "ETHUN",
+        "RFV2",
+        "RFV3",
+        "RFV4",
+        "RFV5",
+        "CSTRATM",
+        "CPSUM",
+        "HOSPCODE",
+        "PATCODE",
+        "PATWT"
+      ],
+      "status": "audit_split_weight_only",
+      "home_availability": "not model inputs",
+      "controls": "no target-informed imputations or identifiers in X"
+    }
+  ],
+  "demographic_provenance_counts": {
+    "age_explicit_imputation_flag_minus9": 2,
+    "birthdate_imputation_flag_1": 8,
+    "age_flag_0_with_birthdate_flag_1_quarantined": 6,
+    "age_masked_by_conservative_provenance_rule": 8,
+    "sex_masked_publisher_imputation": 22
+  },
+  "denials": [
+    "IMMEDR/derivatives",
+    "diagnoses/discharge diagnoses",
+    "tests/procedures/treatments/medications",
+    "providers seen",
+    "disposition/admission/ICU/death/observation",
+    "WAITTIME/LOV/boarding",
+    "VITALSD/TEMPDF/PULSED/RESPRD/BPSYSD/BPDIASD",
+    "diagnosis-derived injury recodes",
+    "target-informed demographic imputations",
+    "all survey/hospital/patient IDs or weights in X"
+  ],
+  "timing_established": false,
+  "strict_prospective_profile_approved": false,
+  "temperature_encoding": "Stata initial TEMPF is integer Fahrenheit tenths; -9 masked before divide by 10",
+  "zero_value_audit": {
+    "TEMPF": 0,
+    "PULSE": 2,
+    "RESPR": 2,
+    "BPSYS": 1,
+    "BPDIAS": 1,
+    "POPCT": 13,
+    "PAINSCALE": 2842
+  },
+  "unresolved": [
+    "initial measurements and RFV lack proof of exact ordering before label",
+    "AGEFL=0 with BDATEFL=1 has ambiguous provenance; six additional ages conservatively quarantined, not labelled as six proven imputed ages",
+    "zero/extreme vital-sign values require review; no invented physiological thresholds",
+    "home language-to-RFV mapping and Indian/all-age transportability unvalidated"
+  ]
+}

@@ -1,0 +1,5480 @@
+[
+  {
+    "name": "VMONTH",
+    "dtype": "int64",
+    "stata_format": "%9.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "VDAYR",
+    "dtype": "int64",
+    "stata_format": "%9.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ARRTIME",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "WAITTIME",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LOV",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "AGE",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "AGER",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "AGEDAYS",
+    "dtype": "int64",
+    "stata_format": "%16.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RESIDNCE",
+    "dtype": "int64",
+    "stata_format": "%25.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "SEX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "ETHUN",
+    "dtype": "int64",
+    "stata_format": "%22.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "ETHIM",
+    "dtype": "int64",
+    "stata_format": "%22.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RACEUN",
+    "dtype": "int64",
+    "stata_format": "%34.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "RACER",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RACERETH",
+    "dtype": "int64",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ARREMS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "AMBTRANSFER",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NOPAY",
+    "dtype": "int64",
+    "stata_format": "%42.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYPRIV",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYMCARE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYMCAID",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYWKCMP",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYSELF",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYNOCHG",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYOTH",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYDK",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PAYTYPER",
+    "dtype": "int64",
+    "stata_format": "%45.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TEMPF",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "PULSE",
+    "dtype": "int64",
+    "stata_format": "%15.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "RESPR",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "BPSYS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "BPDIAS",
+    "dtype": "int64",
+    "stata_format": "%23.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "POPCT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "IMMEDR",
+    "dtype": "int64",
+    "stata_format": "%58.0g",
+    "classification": "target"
+  },
+  {
+    "name": "PAINSCALE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "SEEN72",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "RFV1",
+    "dtype": "int64",
+    "stata_format": "%67.0g",
+    "classification": "candidate"
+  },
+  {
+    "name": "RFV2",
+    "dtype": "int64",
+    "stata_format": "%67.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "RFV3",
+    "dtype": "int64",
+    "stata_format": "%67.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "RFV4",
+    "dtype": "int64",
+    "stata_format": "%67.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "RFV5",
+    "dtype": "int64",
+    "stata_format": "%67.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "RFV13D",
+    "dtype": "int64",
+    "stata_format": "%47.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RFV23D",
+    "dtype": "int64",
+    "stata_format": "%47.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RFV33D",
+    "dtype": "int64",
+    "stata_format": "%47.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RFV43D",
+    "dtype": "int64",
+    "stata_format": "%47.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RFV53D",
+    "dtype": "int64",
+    "stata_format": "%47.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EPISODE",
+    "dtype": "int64",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INJURY",
+    "dtype": "int64",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INJPOISAD",
+    "dtype": "int64",
+    "stata_format": "%78.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INJURY72",
+    "dtype": "int64",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INTENT15",
+    "dtype": "int64",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INJURY_ENC",
+    "dtype": "int64",
+    "stata_format": "%51.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CAUSE1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CAUSE2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CAUSE3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIAG1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIAG2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIAG3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIAG4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIAG5",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRDIAG1",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRDIAG2",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRDIAG3",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRDIAG4",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRDIAG5",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ETOHAB",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ALZHD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ASTHMA",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CANCER",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CEBVD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CKD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COPD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CHF",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CAD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DEPRN",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIABTYP1",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIABTYP2",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIABTYP0",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ESRD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HPE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EDHIV",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HYPLIPID",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HTN",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBESITY",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OSA",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OSTPRSIS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "SUBSTAB",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NOCHRON",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TOTCHRON",
+    "dtype": "int64",
+    "stata_format": "%40.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIAGSCRN",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ABG",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BAC",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BMP",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BNP",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BUNCREAT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CARDENZ",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CBC",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CMP",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BLOODCX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TRTCX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "URINECX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "WOUNDCX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHCX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DDIMER",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ELECTROL",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GLUCOSE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LACTATE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LFT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PTTINR",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHERBLD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CARDMON",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EKG",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HIVTEST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "FLUTEST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PREGTEST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TOXSCREN",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "URINE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHRTEST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ANYIMAGE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "XRAY",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CATSCAN",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CTCONTRAST",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CTAB",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CTCHEST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CTHEAD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CTOTHER",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CTUNK",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MRI",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MRICONTRAST",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ULTRASND",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHIMAGE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COVIDTEST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COVIDANTIBODY",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TOTDIAG",
+    "dtype": "int64",
+    "stata_format": "%40.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PROC",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BPAP",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BLADCATH",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CASTSPLINT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CENTLINE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CPR",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ENDOINT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INCDRAIN",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "IVFLUIDS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LUMBAR",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NEBUTHER",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PELVIC",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "SKINADH",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "SUTURE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHPROC",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TOTPROC",
+    "dtype": "int64",
+    "stata_format": "%40.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED1",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED2",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED3",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED4",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED5",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED6",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED7",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED8",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED9",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED10",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED11",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED12",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED13",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED14",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED15",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED16",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED17",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED18",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED19",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED20",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED21",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED22",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED23",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED24",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED25",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED26",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED27",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED28",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED29",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MED30",
+    "dtype": "int64",
+    "stata_format": "%39.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED1",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED2",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED3",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED4",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED5",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED6",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED7",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED8",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED9",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED10",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED11",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED12",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED13",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED14",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED15",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED16",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED17",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED18",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED19",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED20",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED21",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED22",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED23",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED24",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED25",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED26",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED27",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED28",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED29",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "GPMED30",
+    "dtype": "int64",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NUMGIV",
+    "dtype": "int64",
+    "stata_format": "%55.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NUMDIS",
+    "dtype": "int64",
+    "stata_format": "%51.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NUMMED",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "VITALSD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TEMPDF",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PULSED",
+    "dtype": "int64",
+    "stata_format": "%15.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RESPRD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BPSYSD",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BPDIASD",
+    "dtype": "int64",
+    "stata_format": "%23.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NOPROVID",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ATTPHYS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RESINT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONSULT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RNLPN",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NURSEPR",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PHYSASST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EMT",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MHPROV",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHPROV",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NODISP",
+    "dtype": "int64",
+    "stata_format": "%43.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "NOFU",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RETRNED",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RETREFFU",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LWBS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LBTC",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LEFTAMA",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DOA",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DIEDED",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TRANNH",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TRANPSYC",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TRANOTH",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ADMITHOS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSHOS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSDIS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OTHDISP",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ADMIT",
+    "dtype": "int64",
+    "stata_format": "%28.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ADMTPHYS",
+    "dtype": "int64",
+    "stata_format": "%15.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "LOS",
+    "dtype": "int64",
+    "stata_format": "%15.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HDDIAG1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HDDIAG2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HDDIAG3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HDDIAG4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HDDIAG5",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HDSTAT",
+    "dtype": "int64",
+    "stata_format": "%28.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ADISP",
+    "dtype": "int64",
+    "stata_format": "%59.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSSTAY",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "STAY24",
+    "dtype": "int64",
+    "stata_format": "%52.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "AGEFL",
+    "dtype": "int64",
+    "stata_format": "%54.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "BDATEFL",
+    "dtype": "int64",
+    "stata_format": "%11.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "SEXFL",
+    "dtype": "int64",
+    "stata_format": "%11.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "ETHNICFL",
+    "dtype": "int64",
+    "stata_format": "%11.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RACERFL",
+    "dtype": "int64",
+    "stata_format": "%11.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HOSPCODE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "PATCODE",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "EMRED",
+    "dtype": "int64",
+    "stata_format": "%32.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HHSMUE",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EHRINSE",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EDPRIM",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EDINFO",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSCLIN",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSSEP",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSPHYSED",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSHOSP",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSPHYSOT",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "OBSPHYSUN",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BOARD",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BOARDHOS",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "AMBDIV",
+    "dtype": "int64",
+    "stata_format": "%49.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "TOTHRDIVR",
+    "dtype": "int64",
+    "stata_format": "%30.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "REGDIV",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ADMDIV",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INCSHX",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "INCPHYS",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EXPSPACE",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BEDREG",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "KIOSELCHK",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CATRIAGE",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "IMBED",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ADVTRIAG",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PHYSPRACTRIA",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "FASTTRAK",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EDPTOR",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DASHBORD",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RFID",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "WIRELESS",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "ZONENURS",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "POOLNURS",
+    "dtype": "int64",
+    "stata_format": "%17.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "SURGDAY",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BEDCZAR",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BEDDATA",
+    "dtype": "int64",
+    "stata_format": "%15.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HLIST",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "HLISTED",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "EMEDRES",
+    "dtype": "int64",
+    "stata_format": "%8.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "REGION",
+    "dtype": "int64",
+    "stata_format": "%9.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "MSA",
+    "dtype": "int64",
+    "stata_format": "%35.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR1",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB1",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT1",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX1V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR2",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB2",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT2",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX2V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR3",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB3",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT3",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX3V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR4",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB4",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT4",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX4V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID5",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR5",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB5",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT5",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX5V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID6",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR6",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB6",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT6",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX6V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID7",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR7",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB7",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT7",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX7V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID8",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR8",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB8",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT8",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX8V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID9",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR9",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB9",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT9",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX9V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID10",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR10",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB10",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT10",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX10V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID11",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR11",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB11",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT11",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX11V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID12",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR12",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB12",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT12",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX12V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID13",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR13",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB13",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT13",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX13V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID14",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR14",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB14",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT14",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX14V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID15",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR15",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB15",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT15",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX15V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID16",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR16",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB16",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT16",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX16V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID17",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR17",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB17",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT17",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX17V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID18",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR18",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB18",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT18",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX18V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID19",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR19",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB19",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT19",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX19V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID20",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR20",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB20",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT20",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX20V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID21",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR21",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB21",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT21",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX21V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID22",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR22",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB22",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT22",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX22V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID23",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR23",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB23",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT23",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX23V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID24",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR24",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB24",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT24",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX24V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID25",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR25",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB25",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT25",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX25V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID26",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR26",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB26",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT26",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX26V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID27",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR27",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB27",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT27",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX27V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID28",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR28",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB28",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT28",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX28V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID29",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR29",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB29",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT29",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX29V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "DRUGID30",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "PRESCR30",
+    "dtype": "object",
+    "stata_format": "%36.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CONTSUB30",
+    "dtype": "object",
+    "stata_format": "%26.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "COMSTAT30",
+    "dtype": "object",
+    "stata_format": "%18.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30CAT1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30CAT2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30CAT3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30CAT4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V1C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V1C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V1C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V1C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V2C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V2C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V2C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V2C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V3C1",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V3C2",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V3C3",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "RX30V3C4",
+    "dtype": "object",
+    "stata_format": "%9s",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "SETTYPE",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "YEAR",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "CSTRATM",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "CPSUM",
+    "dtype": "int64",
+    "stata_format": "%12.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "PATWT",
+    "dtype": "float64",
+    "stata_format": "%9.0g",
+    "classification": "audit_only"
+  },
+  {
+    "name": "EDWT",
+    "dtype": "float64",
+    "stata_format": "%9.0g",
+    "classification": "denied_by_default"
+  },
+  {
+    "name": "BOARDED",
+    "dtype": "int64",
+    "stata_format": "%14.0g",
+    "classification": "denied_by_default"
+  }
+]

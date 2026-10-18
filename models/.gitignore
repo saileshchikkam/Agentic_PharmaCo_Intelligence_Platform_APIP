@@ -19,3 +19,13 @@ datasets/
 *.onnx
 *.bin
 __pycache__/
+
+# Public-use research records still stay outside this repository.
+raw/
+*.dta
+*.sas7bdat
+*.zip
+*.csv
+*.csv.gz
+*-private-assignments.json
+acquisition-receipt.json

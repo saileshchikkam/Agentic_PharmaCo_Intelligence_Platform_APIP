@@ -1,5 +1,7 @@
 # Development setup and verification
 
+For the separate offline ML workspace, use the [MedAssist Phase 1 setup and commands](../models/medassist/research/README.md). Its Python venv, raw NHAMCS files and private split assignments live outside Git/application storage. The JavaScript checks below do not validate this Python pipeline; its synthetic tests and actual profiling results are recorded in the [Phase 1 report](../models/medassist/reports/2026-10-19-phase1/README.md).
+
 This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation previews plus the preserved developer design reference. MedAssist provides guided English-only symptom intake, optional local-model source-quote selection, and a location-only Maps handoff; clinical urgency and tailored precautions are disabled. ADR now stores fictional drafts in owner-isolated local SQLite, with a separate browser demo. See the dated [development history](history/2026-10-17.md) for actual checks and limits.
 
 ## Prerequisites and installation

@@ -185,3 +185,10 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Verified NHAMCS 2022 IMMEDR labels, published class/missingness marginals, source terms and leakage risks.
 - Added a pinned metadata manifest and separate real-acuity/synthetic-question experiment plan with three structured-model candidates and explicit uncertainty/evaluation gates.
 - Kept MIMIC-IV-ED Demo smoke-only; no restricted data, training or patient-facing changes.
+
+## 2026-10-19 — MedAssist ML Phase 1 data engineering
+
+- Implemented isolated Python acquisition, Stata decoding, missingness/provenance audits and deterministic group-disjoint candidate partitions, with 14 passing synthetic tests.
+- Acquired official NHAMCS 2022 outside Git; actual 16,025 visits/913 columns and all IMMEDR counts reconcile exactly. Committed safe aggregate reports/receipt summaries only.
+- Verified supporting DDXPlus/MIMIC demo metadata without patient archives. Documented sparse Immediate support, symptom-filter selection, age provenance and timing blockers requiring Phase 1 review before training.
+- Preserved application/ADR behavior and unrelated untracked work; no estimator training or clinical deployment.

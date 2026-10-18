@@ -16,6 +16,8 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 
 ## Start here
 
+- [MedAssist ML Phase 1](models/medassist/reports/2026-10-19-phase1/README.md): acquired/profiled NHAMCS offline, reproducible Python pipeline and actual quality/split blockers. No model training or clinical integration.
+
 - [Documentation guide](docs/README.md): where to find information and how to maintain it.
 - [Account and shared-profile setup](database/README.md): working local signup/storage, optional Google/cloud setup, ownership rules and limitations.
 - [Development setup](docs/development.md): commands, configuration, and verification limits.

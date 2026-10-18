@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "verified",
+  "dataset_id": "nhamcs-ed-2022",
+  "source_version": "2022 public-use ED; download headers dated 2024-07-17",
+  "source_url": "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/stata/ed2022-stata.zip",
+  "started_at_utc": "2026-10-18T18:55:16.611906+00:00",
+  "retrieved_at_utc": "2026-10-18T18:55:25.107079+00:00",
+  "headers": {
+    "Content-Length": "2311045",
+    "Content-Type": "application/x-zip-compressed",
+    "Last-Modified": "Wed, 17 Jul 2024 17:26:30 GMT",
+    "ETag": "\"e2d858766ed8da1:0\""
+  },
+  "manifest_sha256": "2b82e90f98364abff6bf6ae3ccc426652e57f18768ed46c65f69edac0a5a8213",
+  "archive": {
+    "name": "ed2022-stata.zip",
+    "bytes": 2311045,
+    "sha256": "aa32e635ef9564b1c8e03cea16c87ec2ed02e9a928d22a257df18100a38ad683"
+  },
+  "members": [
+    {
+      "name": "ed2022-stata.dta",
+      "bytes": 37720094,
+      "compressed_bytes": 2310879,
+      "crc32": "ff16ca67",
+      "sha256": "0e00cd5aea4511cd619f7af1e0dc2f6825f111b7c87d3ebbb1358410a4c881c2"
+    }
+  ],
+  "parser": {
+    "python": "3.12.2",
+    "platform": "Windows",
+    "packages": {
+      "pandas": "2.3.3",
+      "numpy": "2.2.6",
+      "scikit-learn": "1.7.2",
+      "pyreadstat": "1.3.1",
+      "scipy": "1.15.3",
+      "joblib": "1.5.2",
+      "threadpoolctl": "3.6.0",
+      "narwhals": "2.8.0",
+      "python-dateutil": "2.9.0.post0",
+      "pytz": "2025.2",
+      "tzdata": "2025.2",
+      "six": "1.17.0"
+    }
+  },
+  "publisher_sha256": null,
+  "integrity_scope": "Official HTTPS, pinned size, ZIP CRC and local SHA-256; publisher SHA-256 unavailable",
+  "terms_urls": [
+    "https://www.cdc.gov/nchs/policy/data-user-agreement.html",
+    "https://www.cdc.gov/other/agencymaterials.html"
+  ]
+}

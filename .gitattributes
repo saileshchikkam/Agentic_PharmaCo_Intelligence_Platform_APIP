@@ -1,1 +1,6 @@
 .githooks/* text eol=lf
+# Keep new research-code/report byte hashes stable on Windows checkouts.
+models/medassist/research/*.py text eol=lf
+models/medassist/research/tests/*.py text eol=lf
+models/medassist/reports/**/*.json text eol=lf
+models/medassist/requirements-phase1.txt text eol=lf

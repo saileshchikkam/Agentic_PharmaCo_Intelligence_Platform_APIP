@@ -2,7 +2,7 @@
 
 **Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
 
-This register records preliminary source research, not a systematic literature review, clinical validation, or acquired dataset access. Sailesh identifies Mahesh P as the pharmacy reviewer with limited availability; agreed scope and clinical/bilingual review are still needed. The pharmacy dean's reported permission remains institutional context, not a blanket data/study permission. A tiny fictional model smoke check is recorded separately in [models](../models/README.md); it is not clinical evaluation.
+This register records preliminary source research and linked acquisition evidence, not a systematic literature review or clinical validation. Sailesh identifies Mahesh P as the pharmacy reviewer with limited availability; agreed scope and clinical review are still needed. The pharmacy dean's reported permission remains institutional context, not a blanket data/study permission. A tiny fictional model smoke check is recorded separately in [models](../models/README.md); it is not clinical evaluation.
 
 ## Questions and hypothesis
 
@@ -44,14 +44,14 @@ Before using a source/dataset, record its owner, URL/version/date, licence/permi
 
 ### MedAssist symptom/urgency candidates — checked 2026-10-17
 
-The initial shortlist is superseded for MedAssist by the **open-access-only strategy verified 2026-10-19**. The [technical experiment plan](../models/medassist/experiment-plan.md) and [verified manifest](../models/medassist/open-access-manifest.json) own target, feature-time, split and evaluation details. No row-level records were acquired or models trained.
+The initial shortlist is superseded for MedAssist by the **open-access-only strategy verified 2026-10-19**. The [technical experiment plan](../models/medassist/experiment-plan.md) and [verified manifest](../models/medassist/open-access-manifest.json) own target, feature-time, split and evaluation details. Subsequent authorized [Phase 1 acquisition/profiling](../models/medassist/reports/2026-10-19-phase1/README.md) acquired NHAMCS Stata records outside Git and reconciled 16,025 visits/10,207 labels. DDXPlus and MIMIC demo remain metadata-only. No models were trained.
 
 - **Primary: CDC NHAMCS 2022 public-use ED.** Official codebook IMMEDR records five nursing-triage levels (Immediate through Nonurgent), with explicit missing/no-triage codes. Feasible for bounded offline US ED acuity research, not validated home triage. NCHS permits statistical analysis/reporting under its public-use agreement; no credentials/fee required. Exclude post-triage fields, diagnosis-informed demographic imputations and drug/Multum features. Published class support/missingness and survey constraints are recorded in the plan. [CDC source](https://www.cdc.gov/nchs/nhamcs/documentation/index.html).
 - **Supporting: DDXPlus English v2.** Official Figshare metadata confirms CC BY 4.0 and public downloads. Use synthetic symptom representation and adaptive question research separately, preserving official splits and revealed-answer boundaries. Diagnosis, differential and condition severity must never become real acuity labels. [Pinned release](https://figshare.com/articles/dataset/DDXPlus_Dataset_English_/22687585/2).
 - **Smoke only: MIMIC-IV-ED Demo v2.2.** Public under ODbL 1.0; attribution/share-alike/produced-work conditions apply as relevant. Use only for schema/join/unit/leakage checks, not training, calibration or performance estimates. [Official demo](https://physionet.org/content/mimic-iv-ed-demo/2.2/).
 - **Excluded from this MedAssist strategy:** credentialed full MIMIC-IV-ED and all other restricted datasets. Publicly accessible is not unrestricted, and source terms do not establish clinical use permission.
 
-**Next gate:** an explicitly authorized acquisition/profile task must capture hashes/terms, reconcile published marginals, audit actual feature timing, exclusions, grouped-split feasibility and missingness. Compare LogisticRegression, RandomForestClassifier and HistGradientBoostingClassifier only in a later offline experiment. Current MedAssist inference/clinical behavior remains unchanged. Suitable labelled home-triage data and clinical transportability remain unresolved.
+**Next gate:** review the actual quality/provenance/split reports before training. The symptom restriction excludes 69/139 Immediate cases; candidate calibration and threshold sets retain only 10/5 Immediate cases. Feature timing and six ambiguous age-provenance records remain unresolved. Revise/freeze a support-aware offline protocol before separately authorizing LogisticRegression, RandomForestClassifier and HistGradientBoostingClassifier comparison. Current MedAssist inference/clinical behavior remains unchanged. Suitable labelled home-triage data and clinical transportability remain unresolved.
 
 ### Deferred or missing
 

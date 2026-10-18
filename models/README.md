@@ -12,7 +12,7 @@ This directory records local models and hosted-provider candidates for APIP. The
 
 ## MedAssist open-access ML research
 
-The [research directory](medassist/README.md) contains the [verified manifest](medassist/open-access-manifest.json) and [technical experiment plan](medassist/experiment-plan.md), verified 2026-10-19. NHAMCS 2022 is the primary offline recorded-ED-acuity candidate; DDXPlus English is a separate synthetic conversation experiment; MIMIC-IV-ED Demo is schema smoke-only. Restricted datasets, label pooling, training and application inference integration are excluded from this planning task.
+The [research directory](medassist/README.md) contains the [verified manifest](medassist/open-access-manifest.json), [technical experiment plan](medassist/experiment-plan.md) and implemented [Phase 1 pipeline](medassist/research/README.md). The [actual 2026-10-19 reports](medassist/reports/2026-10-19-phase1/README.md) reconcile 16,025 NHAMCS visits and flag rare-class/symptom-selection/timing blockers. Raw records and row assignments stay external. DDXPlus English metadata were verified for separate synthetic conversation research; MIMIC-IV-ED Demo metadata remain smoke-only. Restricted datasets, label pooling, training and application inference integration remain excluded. Review Phase 1 before authorizing a baseline experiment.
 
 ## Where the large files live
 
