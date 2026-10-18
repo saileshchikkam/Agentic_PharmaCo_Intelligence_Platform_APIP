@@ -1,12 +1,12 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview uses browser-local fictional drafts. Neither flow is an authenticated patient workflow; protected access and submitted reports remain unimplemented.
+Last inspected: 2026-10-17. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview uses browser-local fictional drafts. Neither task preview is a protected clinical workflow. A separate configuration-gated Supabase account/profile client and RLS schema now exist; hosted setup and actual sign-in remain unverified.
 
 ## Current repository
 
 - [src/main.tsx](../src/main.tsx) mounts React; [src/App.tsx](../src/App.tsx) owns shared appearance and hash navigation between welcome, sign-in, patient-home, MedAssist, ADR-intake, and developer-reference previews.
 - [Access preview](../src/features/access/README.md) documents the three sign-in workspace views, patient task choices, local-only feedback, and absence of authentication.
-- [MedAssist implementation guide](../src/features/medassist/README.md) documents the English/Telugu symptom/follow-up/review flow, original answers versus confirmed AI quotes, cancellation, and location-only Maps handoff. [server/medassist.ts](../server/medassist.ts) registers a loopback-only local-model endpoint with strict schemas and no clinical assessment. Its parser precedes the older server's global parser; existing experimental agent endpoints are not reused or certified by this feature.
+- [MedAssist implementation guide](../src/features/medassist/README.md) documents the English-only symptom/follow-up/review flow, original answers versus confirmed AI quotes, cancellation, and location-only Maps handoff. [server/medassist.ts](../server/medassist.ts) registers a loopback-only local-model endpoint with strict schemas and no clinical assessment. Its parser precedes the older server's global parser; existing experimental agent endpoints are not reused or certified by this feature.
 - [Shared preview layout](../src/features/access/PreviewLayout.tsx) provides text-style Home/patient/Log in links, inline appearance controls, and a fixed-position page Back row across access and developer-reference screens. ADR review/editor steps provide that row with their internal return action.
 - [src/features/access/navigation.ts](../src/features/access/navigation.ts) marks in-app hash-history entries, provides a shared Back behavior, and replaces direct-entry routes with safe parent fallbacks when no prior APIP screen exists.
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
@@ -40,9 +40,9 @@ These observations are not validated clinical capabilities or a committed produc
 - The new ADR draft prototype supports multiple browser-local fictional drafts. It is not authenticated, isolated between users, encrypted by APIP, or suitable for real patient data; anyone using the same browser profile can access the drafts.
 - The earlier demo's mock cases remain separate from the ADR draft and do not receive it.
 - Cases use mock/browser state, not a server-backed database.
-- Authentication, permissioned review, durable audit, and official integrations are not established.
+- The account/profile foundation is implemented locally, but hosted authentication/storage, permissioned review, durable audit and official integrations remain unverified.
 - Patient assistance, scores, evidence text, reviewer identities, and compliance labels include illustrative behavior.
-- Database migrations, a test suite, and CI are absent from the inspected baseline. `lint` checks `src`, not the full server.
+- A fresh-project SQL bootstrap and focused account/MedAssist/navigation tests now exist; applied migrations and CI are absent. `lint` checks `src`, not the full server.
 - Frozen install, frontend lint, and production build have passed in this checkout. Clean-clone setup, clinical functionality, and deployment remain unverified.
 
 This describes the demonstration-to-product gap; it does not authorize repairing demo behavior without a selected task.
@@ -82,3 +82,7 @@ Record new/changed endpoints, schemas, authorization, migrations, provider depen
 The component reference is now a separate hash view alongside the rough welcome/sign-in front end. It has no login or developer-role enforcement. Hiding prototype tabs is presentation only and is not authorization. Introduce authenticated roles and protect both routes and relevant server actions before describing it as restricted.
 
 [Design-system guidance](../src/design-system/README.md) describes the shared neutral surfaces, Google-inspired blue/red/yellow/green primary highlights, Chrome-like charcoal dark surfaces, browser preferences, and settings controls. `tokens.ts` is the colour source for the application and token inspector. Themes are applied before React mounts and update Material Web semantic CSS properties. Appearance preferences contain no clinical data.
+
+## Account/profile foundation
+
+[Account setup and contract](../database/README.md) documents Supabase Auth with PKCE, tab-scoped session storage, owner-enforced PostgreSQL profiles, optional history, per-layer sharing, source revision, conflict handling and deletion. The client has signup/sign-in/profile routes and fails closed without public configuration. Task previews show opted-in profile context separately; they do not send it to models or persist task records to accounts. Specialist/developer roles are not granted by signup. Hosted connection, Google setup, real-user login and hosted isolation/advisors are pending.

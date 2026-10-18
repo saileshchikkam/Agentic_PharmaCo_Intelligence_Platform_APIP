@@ -1,5 +1,11 @@
 # Changelog
 
+## Account/profile foundation — 2026-10-18
+
+- Added configuration-gated patient signup/sign-in, Google provider integration, shared health-profile editing/deletion, per-layer sharing choices and owner-enforced PostgreSQL bootstrap with local isolation tests. Hosted connection remains pending.
+- Switched active MedAssist/ADR interfaces to English only. Preserved existing saved draft text and historical evaluation records.
+- Recorded zero-paid-service and all-age/caregiver scope, replacing earlier bilingual/budget assumptions.
+
 Notable product and developer-facing changes. Entries describe completed work; plans belong in the [roadmap](docs/roadmap.md). An unreleased entry does not imply a release or clinical readiness.
 
 ## Unreleased

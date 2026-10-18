@@ -14,7 +14,7 @@ The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS
 8. [History](history/README.md) and [changelog](../CHANGELOG.md): actual work and notable changes.
 9. [Automatic commit and sync](../scripts/README.md): checkout setup, task completion, checks, and failure recovery.
 
-For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English/Telugu RAG, and agent implementation without creating another task queue.
+For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English-only RAG, and agent implementation without creating another task queue.
 
 The [model catalogue](../models/README.md) records actual local inventory and diagnostic runs separately from provider candidates. The [research register](research-and-validation.md#candidate-data-and-evidence-sources) records dataset suitability, rights gaps, and the preliminary MALADE reference; a shortlist is not acquired data or an implemented integration.
 
@@ -49,3 +49,5 @@ Use milestones and actual ISO dates, not a fixed-duration project identity. Hist
 Prefer concise pages and links over repetition. Add READMEs for substantial directories needing navigation, not every component. Date evidence checks and distinguish source retrieval from clinical review.
 
 Do not publish secrets, patient narratives, private chat/account IDs, or workstation-specific paths. Use repository-relative links and fictional examples.
+
+The [account/profile foundation](../database/README.md) is the source for signup, provider setup, shared health-profile contracts, SQL access rules and verification limits.

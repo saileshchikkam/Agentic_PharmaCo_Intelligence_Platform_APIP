@@ -12,6 +12,11 @@ const intake = {
 const quotes = { concern: 'a cough, not chest pain', duration: 'Since yesterday', impact: null, changes: 'No change' };
 const goodFetch = (async () => new Response(JSON.stringify({ message: { content: JSON.stringify(quotes) } }))) as typeof fetch;
 
+test('the current API accepts only the English language contract', () => {
+  assert.notEqual(validateIntake(intake), null);
+  assert.equal(validateIntake({ ...intake, language: 'te' }), null);
+});
+
 function context(body: unknown = intake, origin: string | undefined = 'http://localhost:3000', address = '127.0.0.1') {
   const req = { body, socket: { remoteAddress: address }, get: () => origin, is: () => 'application/json' } as unknown as Request;
   const output = { status: 200, body: null as any, headers: {} as Record<string, string> };

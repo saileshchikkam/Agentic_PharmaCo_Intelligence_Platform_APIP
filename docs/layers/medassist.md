@@ -1,6 +1,6 @@
 # MedAssist AI
 
-**Status:** English/Telugu guided symptom intake, editable review, optional local-model quote selection, and a Google Maps search handoff are implemented for fictional evaluation. Custom urgency ML, adaptive clinical questioning, approved RAG guidance, tailored precautions, and clinical evaluation remain pending. Jayanth originated this part of APIP. See the [implementation/API guide](../../src/features/medassist/README.md).
+**Status:** English-only guided symptom intake, editable review, optional local-model quote selection, and a Google Maps search handoff are implemented for fictional evaluation. Custom urgency ML, adaptive clinical questioning, approved RAG guidance, tailored precautions, and clinical evaluation remain pending. Jayanth originated this part of APIP. See the [implementation/API guide](../../src/features/medassist/README.md).
 
 ## Responsibility
 
@@ -45,3 +45,7 @@ Maps receive only necessary location/search information, not patient narratives.
 - Safe behavior when location or model/map providers are unavailable.
 - Reproducible model evaluation, or an explicit decision to keep inference disabled.
 - Confirmed data import into ADR intake without requiring MedAssist for direct reports.
+
+## Revised model and profile scope
+
+The user now requires English-only data/interface and no paid service dependency, with all-age product intent. Appropriate adult and paediatric data and separate evaluation are still needed. ML is the intended urgency engine; a local LLM supports follow-up questions. The current quote-selection tool is not that trained model. The [shared account profile](../../database/README.md) can provide opted-in age/history context, visibly separate from conversation statements. It is not automatically sent to the model.

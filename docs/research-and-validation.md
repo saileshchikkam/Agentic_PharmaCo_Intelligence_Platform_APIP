@@ -1,5 +1,7 @@
 # Research, data, and validation
 
+**Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
+
 This register records preliminary source research, not a systematic literature review, clinical validation, or acquired dataset access. Sailesh identifies Mahesh P as the pharmacy reviewer with limited availability; agreed scope and clinical/bilingual review are still needed. The pharmacy dean's reported permission remains institutional context, not a blanket data/study permission. A tiny fictional model smoke check is recorded separately in [models](../models/README.md); it is not clinical evaluation.
 
 ## Questions and hypothesis

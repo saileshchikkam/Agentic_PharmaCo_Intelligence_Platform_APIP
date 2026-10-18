@@ -1,0 +1,15 @@
+.account-profile { max-inline-size: 896px; margin-inline: auto; padding-block: 24px 64px; }
+.account-profile h1 { font: 500 clamp(28px, 4vw, 40px)/1.2 var(--access-font); margin-block: 12px 20px; }
+.account-profile p, .account-shared p { line-height: 1.6; }
+.account-profile-form { display: grid; gap: 28px; margin-block-start: 32px; }
+.account-profile fieldset { border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; padding: 24px; min-inline-size: 0; display: grid; gap: 20px; }
+.account-profile legend { font-size: 20px; font-weight: 500; padding-inline: 8px; }
+.account-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.account-grid > * { min-inline-size: 0; }
+.account-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.account-notice, .account-shared { border-radius: 20px; padding: 20px; background: var(--md-sys-color-surface-container); }
+.account-shared { margin-block: 16px 24px; }
+.account-shared dd { white-space: pre-wrap; overflow-wrap: anywhere; margin-inline-start: 0; }
+.account-shared dt { font-weight: 500; text-transform: capitalize; margin-block-start: 12px; }
+.account-divider { text-align: center; color: var(--md-sys-color-on-surface-variant); }
+@media (max-width: 600px) { .account-grid { grid-template-columns: 1fr; } .account-profile fieldset { padding: 20px 16px; } }

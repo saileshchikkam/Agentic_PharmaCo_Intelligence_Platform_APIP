@@ -1,6 +1,6 @@
 export const steps = ['concern', 'duration', 'impact', 'changes'] as const;
 export type Field = typeof steps[number];
-export type Language = 'en' | 'te';
+export type Language = 'en';
 export type Answers = Record<Field, string | null>;
 export const emptyAnswers = (): Answers => ({ concern: null, duration: null, impact: null, changes: null });
 
@@ -25,17 +25,10 @@ export const prompts = {
     impact: 'How is it affecting their usual activities? Describe it in their own words.',
     changes: 'Has anything changed since it started? Is there anything else they want to share?',
   },
-  te: {
-    concern: 'ఈ కల్పిత వ్యక్తికి ఏ లక్షణాలు లేదా ఆరోగ్య సమస్య ఉన్నాయి?',
-    duration: 'ఇది ఎప్పుడు మొదలైంది? ఎంతకాలంగా ఉంది? తెలియకపోతే తెలియదు అని ఉంచండి.',
-    impact: 'ఇది వారి రోజువారీ పనులను ఎలా ప్రభావితం చేస్తోంది? వారి మాటల్లో చెప్పండి.',
-    changes: 'మొదలైనప్పటి నుంచి ఏమైనా మార్పులు వచ్చాయా? ఇంకా ఏదైనా చెప్పాలనుకుంటున్నారా?',
-  },
 };
 
 export const labels = {
   en: { concern: 'Symptoms or concern', duration: 'When it started', impact: 'Effect on usual activities', changes: 'Changes and other details' },
-  te: { concern: 'లక్షణాలు లేదా సమస్య', duration: 'ఎప్పుడు మొదలైంది', impact: 'రోజువారీ పనులపై ప్రభావం', changes: 'మార్పులు, ఇతర వివరాలు' },
 };
 
 /** Only an explicitly supplied location goes to Maps; patient statements never enter this URL. */

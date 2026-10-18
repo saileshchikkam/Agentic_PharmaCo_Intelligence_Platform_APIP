@@ -4,6 +4,8 @@ Use actual dated entries to preserve the project's journey without a fixed-durat
 
 ## Entries
 
+- [2026-10-18](2026-10-18.md): English-only account/profile foundation, local PostgreSQL ownership tests, and deferred cloud provisioning.
+
 - [2026-10-17](2026-10-17.md): model-access research, the earlier fictional ADR draft slice, the developer-reference/palette correction, and the rough welcome/sign-in UI.
 
 - [2026-10-16](2026-10-16.md): repository connection/context reconstruction, authoritative vision, planning, and documentation consolidation.

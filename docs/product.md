@@ -57,7 +57,7 @@ Reporting, Validation, Knowledge, and Analysis agents coordinate supported steps
 - Keep user statements, AI suggestions, confirmations, and professional conclusions separate.
 - Follow strict Material 3 across phones, tablets, and desktop.
 - Treat the current build as a design demo, not delivered product functionality.
-- The first test version uses English and Telugu with fictional cases, as selected by the user on 2026-10-16. This does not establish live-patient deployment permission.
+- The current test version uses English only and fictional cases, revised by the user on 2026-10-17. Development must require no paid services; the earlier INR 500 ceiling is withdrawn. All-age product scope includes caregiver-managed child profiles; suitable data and evaluation are required before claiming clinical coverage. This does not establish live-patient deployment permission.
 - Sharing, public datasets, official submissions, and training reuse need the appropriate permissions.
 
 ## Success to demonstrate
@@ -74,6 +74,10 @@ Developer-only sign-in and role enforcement are required before making this refe
 
 ## Initial sign-in framework
 
-**Selected 2026-10-17:** design the front end first, with a simple main-page sign-in action and three shared-layout sign-in views: personal/patient, pharmacovigilance specialist, and developer design reference intended for Sailesh. Authentication is explicitly deferred. The UI must use Material 3, clear typography, white surfaces, responsive spacing, rounded shapes, and restrained accessible motion. A visible role selection is not proof of permission; server-enforced roles are still required later.
+**Selected 2026-10-17:** design the front end first, with a simple main-page sign-in action and three shared-layout sign-in views: personal/patient, pharmacovigilance specialist, and developer design reference intended for Sailesh. Authentication was initially deferred; the configuration-gated account/profile foundation now exists, with live provider setup still pending. The UI must use Material 3, clear typography, white surfaces, responsive spacing, rounded shapes, and restrained accessible motion. A visible role selection is not proof of permission; server-enforced roles are still required later.
 
 Patient task links should remember the selected destination through sign-in and return only after the session is verified. This is a product requirement for a future authentication integration; the current preview merely demonstrates the intended route and does not establish a session or unlock patient features.
+
+## Shared signup profile
+
+The user selected one account-backed profile available across MedAssist and ADR reporting, with required name/age context and optional conditions, surgeries, medicines, allergies and history. Users confirm and control sharing; unknown details stay unknown. Google sign-in is preferred with email sign-in also supported. See the [account foundation](../database/README.md) for actual implementation and remaining connection/privacy work. Prototypes evolve into product versions; no fictional feature is silently promoted to clinical functionality.

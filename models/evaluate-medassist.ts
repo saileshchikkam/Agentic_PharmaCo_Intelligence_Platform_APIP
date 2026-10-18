@@ -6,9 +6,6 @@ const fixtures = [
   { id: 'symptom-en', language: 'en', answers: {
     concern: 'A fictional adult has a cough, without chest pain.', duration: 'Since yesterday.', impact: null, changes: 'No change so far.',
   } },
-  { id: 'symptom-te-mixed', language: 'te', answers: {
-    concern: 'కల్పిత వ్యక్తికి దగ్గు ఉంది; chest pain లేదు.', duration: 'నిన్నటి నుంచి.', impact: null, changes: 'మార్పు లేదు.',
-  } },
 ];
 const fields = ['concern', 'duration', 'impact', 'changes'] as const;
 const outputIndex = process.argv.indexOf('--output');
@@ -37,6 +34,6 @@ for (const fixture of fixtures) {
     results.push({ fixture, passed: false, elapsedMs: Math.round(performance.now() - start), error: error instanceof Error ? error.name : 'Error' });
   }
 }
-await writeFile(output, JSON.stringify({ checkedAt: new Date().toISOString(), purpose: 'Two fictional symptom quote-selection smoke checks. No urgency, medical advice, clinical effectiveness, or language-quality validation.', results }, null, 2) + '\n', { flag: 'wx' });
+await writeFile(output, JSON.stringify({ checkedAt: new Date().toISOString(), purpose: 'One English fictional symptom quote-selection smoke checks. No urgency, medical advice, clinical effectiveness, or language-quality validation.', results }, null, 2) + '\n', { flag: 'wx' });
 console.log(JSON.stringify({ output, passed: results.filter((item) => item.passed).length, total: results.length }));
 if (results.some((item) => !item.passed)) process.exitCode = 1;

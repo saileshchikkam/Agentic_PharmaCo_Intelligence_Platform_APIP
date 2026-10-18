@@ -1,3 +1,7 @@
+import { AccountSignIn } from '../account/AccountSignIn';
+import { ProfilePage } from '../account/ProfilePage';
+import { SharedProfile } from '../account/SharedProfile';
+import { useAccount } from '../account/AccountProvider';
 import React, { useEffect, useRef, useState } from 'react';
 import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
@@ -12,7 +16,7 @@ const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview'
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = { screen: 'home' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'medassist-preview' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'medassist-preview' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -23,6 +27,7 @@ const roleCopy = {
 
 export function readPreviewRoute(): PreviewRoute {
   const [path, query] = window.location.hash.slice(1).split('?');
+  if (path === '/account/profile') return { screen: 'profile' };
   if (path === '/developer-reference') return { screen: 'developer-reference' };
   if (path === '/patient/home') return { screen: 'patient-home' };
   if (path === '/preview/adr-report') return { screen: 'adr-preview' };
@@ -121,6 +126,8 @@ interface Props {
 }
 
 export function AccessPreview({ route, appearance, setAppearance, preferencesSaved }: Props) {
+  const account = useAccount();
+  const openTask = (task: PatientTask) => navigatePreview(account.user && account.profile ? `/preview/${task}` : `/sign-in/patient?continue=${task}`);
   const [homeMessage, setHomeMessage] = useState('');
   const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
@@ -169,7 +176,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <ul><li>Share symptoms in your own words</li><li>Get help organizing what to discuss with a professional</li><li>Continue to a medicine report whenever you choose</li></ul>
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">info</span> Assistant guidance is a planned preview; it does not diagnose or replace professional care.</p>
             </div>
-            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient?continue=medassist')}>Explore MedAssist</M3Button>
+            <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => openTask('medassist')}>Explore MedAssist</M3Button>
           </article>
           <article className="patient-task-card patient-report-card">
             <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">description</span></div>
@@ -180,7 +187,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> The intake preview uses fictional details, saves only in this browser, and sends nothing.</p>
             </div>
-            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient?continue=adr-report')}>Start an ADR report</M3Button>
+            <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => openTask('adr-report')}>Start an ADR report</M3Button>
           </article>
         </div>
         {homeMessage && <div className="patient-home-message" role="status"><span>{homeMessage}</span>
@@ -204,21 +211,22 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </div>
         <div className="access-sign-in-fields">
           <RoleTabs role={route.role} onChange={(role) => navigatePreview(`/sign-in/${role}`)} />
-          {route.requestedTask && <p className="access-requested-task" role="status">
+          {route.role !== 'patient' && route.requestedTask && <p className="access-requested-task" role="status">
             Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
           </p>}
-          <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />
+          {route.role === 'patient' ? <AccountSignIn requestedTask={route.requestedTask} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
         </div>
       </section>}
 
+      {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
         <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p className="access-form-intro" role="status">Opening the fictional intake preview…</p></>}>
-          <ReportReactionView renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
+          <SharedProfile layer="adr" /><ReportReactionView renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
             onExit={() => goBackPreview(backFallback)} />
         </React.Suspense>
       </section>}
       {route.screen === 'medassist-preview' && <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p role="status">Opening the MedAssist preview…</p></>}>
-        <MedAssistPreview onOpenAdr={() => navigatePreview('/preview/adr-report')} onExit={() => goBackPreview(backFallback)}
+        <SharedProfile layer="medassist" /><MedAssistPreview onOpenAdr={() => navigatePreview('/preview/adr-report')} onExit={() => goBackPreview(backFallback)}
           renderNavigation={(onBack, label) => <PageNavigation onBack={onBack} backLabel={label} />} />
       </React.Suspense>}
       </div>

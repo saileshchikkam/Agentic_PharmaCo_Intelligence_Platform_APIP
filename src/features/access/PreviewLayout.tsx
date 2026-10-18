@@ -1,3 +1,4 @@
+import { useAccount } from '../account/AccountProvider';
 import React, { useEffect, useState } from 'react';
 import { M3Button } from '../../components/material/core';
 import type { Appearance } from '../../design-system/appearance';
@@ -15,7 +16,7 @@ export function Brand({ large = false }: { large?: boolean }) {
 }
 
 interface HeaderProps {
-  screen: 'home' | 'patient-home' | 'sign-in' | 'adr-preview' | 'medassist-preview' | 'developer-reference';
+  screen: 'profile' | 'home' | 'patient-home' | 'sign-in' | 'adr-preview' | 'medassist-preview' | 'developer-reference';
   appearance: Appearance;
   setAppearance: React.Dispatch<React.SetStateAction<Appearance>>;
   preferencesSaved: boolean;
@@ -23,6 +24,7 @@ interface HeaderProps {
 }
 
 export function PreviewHeader({ screen, appearance, setAppearance, preferencesSaved, onHelp }: HeaderProps) {
+  const account = useAccount();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const closeSettings = () => { setSettingsOpen(false); document.getElementById('access-settings-button')?.focus(); };
   useEffect(() => { setSettingsOpen(false); }, [screen]);
@@ -44,8 +46,8 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
           {!settingsOpen && <>
             <a className="access-nav-link access-patients-link" href="#/patient/home" aria-current={screen === 'patient-home' ? 'page' : undefined}
               onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a>
-            <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
-              onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>
+            {account.user ? <><a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a><md-icon-button aria-label="Sign out" onClick={() => { void account.signOut(); }}><md-icon><span className="material-symbols-outlined">logout</span></md-icon></md-icon-button></> : <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
+              onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>}
           </>}
         </nav>
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">

@@ -1,6 +1,6 @@
 # Development setup and verification
 
-This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation previews plus the preserved developer design reference. MedAssist provides guided English/Telugu symptom intake, optional local-model source-quote selection, and a location-only Maps handoff; clinical urgency and tailored precautions are disabled. ADR stores fictional drafts in a browser-local collection, not an account-isolated backend. See the dated [development history](history/2026-10-17.md) for actual checks and limits.
+This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation previews plus the preserved developer design reference. MedAssist provides guided English-only symptom intake, optional local-model source-quote selection, and a location-only Maps handoff; clinical urgency and tailored precautions are disabled. ADR stores fictional drafts in a browser-local collection, not an account-isolated backend. See the dated [development history](history/2026-10-17.md) for actual checks and limits.
 
 ## Prerequisites and installation
 
@@ -77,4 +77,8 @@ Run `node --test scripts/preview-navigation.test.mjs` with Node 24 for the isola
 
 ## Sign-in UI preview
 
-The current client uses hash URLs described in the [access guide](../src/features/access/README.md). Submitting fictional details performs local-only validation and displays a pending-authentication message. No sign-in API, account, session, password persistence, or role enforcement exists. Local Google Sans Flex files and their licence/provenance are under [public/fonts](../public/fonts/README.md); Vite serves and copies them into the build.
+See the [account/database setup](../database/README.md) for the newer patient signup/profile flow. Specialist/developer screens remain previews. The current client uses hash URLs described in the [access guide](../src/features/access/README.md). The specialist/developer preview forms perform local-only validation and display a pending-authentication message. Patient forms use the new account client, disabled until its service is configured. Specialist/developer role enforcement remains absent; patient signup/sign-in and profile persistence now have configuration-gated Supabase code, pending live provider setup. Local Google Sans Flex files and their licence/provenance are under [public/fonts](../public/fonts/README.md); Vite serves and copies them into the build.
+
+## Account configuration
+
+Follow [database/README.md](../database/README.md) to connect Supabase Auth and the profile schema. Only the URL and publishable key use `VITE_*` configuration; Vite loads local `.env` for these browser values. This does not load server-only variables. No service-role or Google secret belongs in the client. Accounts are disabled until configured. Run `node --import tsx --test scripts/account-profile.test.ts` for local SQL ownership and profile validation checks. These are not live authentication tests.

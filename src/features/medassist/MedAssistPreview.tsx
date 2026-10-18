@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { M3Button, M3Checkbox, M3Chip, M3TextField } from '../../components/material/core';
+import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
 import { emptyAnswers, hospitalSearchUrl, labels, prompts, readSuggestions, steps } from './flow';
 import type { Answers, Field, Language } from './flow';
 import { copy } from './copy';
@@ -9,7 +9,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
   onOpenAdr: () => void; onExit: () => void;
   renderNavigation: (onBack: () => void, label: string) => React.ReactNode;
 }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const language: Language = 'en';
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
   const [index, setIndex] = useState(0);
   const [review, setReview] = useState(false);
@@ -121,19 +121,13 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 0 });
   };
 
-  const backLabel = language === 'en' ? (review ? 'Back to the last question' : editing ? 'Back to review' : 'Previous question or page')
-    : (review ? 'చివరి ప్రశ్నకు తిరిగి వెళ్ళు' : editing ? 'సమీక్షకు తిరిగి వెళ్ళు' : 'మునుపటి ప్రశ్న లేదా పేజీ');
+  const backLabel = (review ? 'Back to the last question' : editing ? 'Back to review' : 'Previous question or page');
   return <>{renderNavigation(back, backLabel)}
   <section className="medassist-preview" lang={language} aria-labelledby="medassist-title">
     <div className="medassist-preview-topline">
       <a href="#medassist-care" className="access-text-link" onClick={(event) => {
         event.preventDefault(); document.getElementById('medassist-care')?.focus(); document.getElementById('medassist-care')?.scrollIntoView({ block: 'start' });
       }}>{t.care}<span className="material-symbols-outlined" aria-hidden="true">location_on</span></a>
-      <div className="medassist-language" role="group" aria-label={t.language}>
-        <span>{t.language}</span>
-        <M3Chip type="filter" label="English" selected={language === 'en'} disabled={busy} onClick={() => setLanguage('en')} />
-        <M3Chip type="filter" label="తెలుగు" selected={language === 'te'} disabled={busy} onClick={() => setLanguage('te')} />
-      </div>
     </div>
     <header className="medassist-heading">
       <span className="medassist-preview-badge">{t.badge}</span><p className="access-eyebrow">MedAssist AI</p>
@@ -142,7 +136,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     <div className="medassist-preview-notice" role="note"><span className="material-symbols-outlined" aria-hidden="true">info</span><p>{t.notice}</p></div>
 
     {!review && <>
-      <div ref={log} className="medassist-conversation" role="log" aria-label={language === 'en' ? 'Symptom conversation' : 'లక్షణాల సంభాషణ'}>
+      <div ref={log} className="medassist-conversation" role="log" aria-label="Symptom conversation">
         <p className="medassist-empty-hint">{t.welcome}</p>
         {steps.slice(0, index).map((item) => <React.Fragment key={item}>
           <div className="medassist-message medassist-message-assistant"><p>{prompts[language][item]}</p></div>

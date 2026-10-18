@@ -1,5 +1,7 @@
 # AI implementation guide
 
+**Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
+
 **Status: proposed engineering approach, checked against official references on 2026-10-16.** The installed-model inventory and a four-case local smoke check are recorded in the [model catalogue](../models/README.md); no model was downloaded, trained, or clinically validated. This is not a representative model benchmark. The [roadmap](roadmap.md) owns sequence and tasks; the [layer guides](layers/README.md) own product requirements; [research and validation](research-and-validation.md) owns evidence and release gates.
 
 ## What each technology does

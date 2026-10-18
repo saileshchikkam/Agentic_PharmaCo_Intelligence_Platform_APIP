@@ -1,5 +1,7 @@
 # Model catalogue and evaluation
 
+**Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
+
 This directory records local models and hosted-provider candidates for APIP. The [MedAssist fictional slice](../src/features/medassist/README.md) now connects installed Ollama `qwen3.5:2b` for bounded source-quote selection. The older agent handlers do not use this catalogue or a general provider switch. No custom urgency model is trained or enabled.
 
 - [Local catalogue](local/models.json): five models observed through Ollama on 2026-10-16, with sizes/quantization and a proposed first shortlist.

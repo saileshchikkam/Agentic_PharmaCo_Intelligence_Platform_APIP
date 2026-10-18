@@ -2,7 +2,7 @@
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
-**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. The ADR draft is stored in this browser only; authentication and protected access are pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
+**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. The ADR draft is stored in this browser only; a Supabase account/profile foundation is implemented but cloud connection, real sign-in and protected task records remain pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
 
 ## The product
 
@@ -12,14 +12,17 @@ APIP aims to make suspected adverse drug reaction (ADR) reporting simple for pat
 
 ADR reporting must work directly, without requiring MedAssist first. Important decisions remain reviewable by people. Read the [product vision](docs/product.md) for origin, team, journeys, and scope.
 
+**Current direction:** English only, no required paid services, and all-age scope with caregiver-managed child profiles. Clinical model coverage is not established.
+
 ## Start here
 
 - [Documentation guide](docs/README.md): where to find information and how to maintain it.
+- [Account and shared-profile setup](database/README.md): signup, Google/email configuration, database ownership rules and current limitations.
 - [Development setup](docs/development.md): commands, configuration, and verification limits.
 - [Architecture](docs/architecture.md): actual code and proposed application design.
 - [Layer guides](docs/layers/README.md): responsibilities, boundaries, and acceptance criteria.
 - [Roadmap](docs/roadmap.md): sequenced milestones, blockers, and future ideas.
-- [AI implementation guide](docs/ai-implementation.md): custom ML, local/API models, bilingual RAG, agents, and budget-aware evaluation.
+- [AI implementation guide](docs/ai-implementation.md): custom ML, local/API models, evidence-backed RAG, agents, and budget-aware evaluation.
 - [Model catalogue and local checks](models/README.md): installed Ollama inventory, hosted-provider candidates, and reproducible fictional diagnostics.
 - [Decisions](docs/decisions.md): confirmed direction versus engineering proposals.
 - [Research and validation](docs/research-and-validation.md): evidence, datasets, experiments, and release gates.

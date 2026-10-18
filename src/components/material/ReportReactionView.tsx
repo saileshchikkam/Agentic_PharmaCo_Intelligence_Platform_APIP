@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { M3Button, M3Card, M3Checkbox, M3Select, M3TextField } from './core';
-import type { AdrDraft, AdrDraftLanguage } from '../../features/adr/draftStorage';
+import { M3Button, M3Card, M3Checkbox, M3TextField } from './core';
+import type { AdrDraft } from '../../features/adr/draftStorage';
 import { loadAdrDrafts, saveAdrDrafts } from '../../features/adr/draftStorage';
 
 const copy = {
@@ -9,7 +9,7 @@ const copy = {
     title: 'Create a fictional ADR draft',
     draftsTitle: 'Your fictional drafts',
     draftsIntro: 'Open a saved draft or start another fictional case.',
-    sharedStorage: 'Drafts are saved in this browser profile. Sign-in is only a preview, so drafts are not separated by account and anyone using this browser profile may see them. Do not enter real patient information.',
+    sharedStorage: 'Drafts are saved in this browser profile. These preview drafts are not separated by account and anyone using this browser profile may see them. Do not enter real patient information.',
     newDraft: 'New fictional draft',
     openDraft: 'Open draft',
     deleteDraft: 'Delete',
@@ -57,60 +57,7 @@ const copy = {
     stepDetails: 'Step 1 of 2 · Add details',
     stepReview: 'Step 2 of 2 · Review and confirm',
   },
-  te: {
-    badge: 'కల్పిత పరీక్ష కోసం మాత్రమే',
-    title: 'కల్పిత ADR ముసాయిదా సృష్టించండి',
-    draftsTitle: 'మీ కల్పిత ముసాయిదాలు',
-    draftsIntro: 'సేవ్ చేసిన ముసాయిదాను తెరవండి లేదా మరొక కల్పిత కేసును ప్రారంభించండి.',
-    sharedStorage: 'ముసాయిదాలు ఈ బ్రౌజర్ ప్రొఫైల్‌లో సేవ్ అవుతాయి. సైన్-ఇన్ ఇంకా ప్రివ్యూ మాత్రమే కాబట్టి, ఖాతాల వారీగా వేరు కావు; ఈ బ్రౌజర్‌ను ఉపయోగించే ఇతరులు కూడా వీటిని చూడవచ్చు. నిజమైన రోగి వివరాలను నమోదు చేయవద్దు.',
-    newDraft: 'కొత్త కల్పిత ముసాయిదా',
-    openDraft: 'ముసాయిదా తెరవండి',
-    deleteDraft: 'తొలగించు',
-    deleteDraftLabel: 'ముసాయిదాను తొలగించండి',
-    noSavedDrafts: 'సేవ్ చేసిన ముసాయిదాలు లేవు',
-    noSavedDraftsDescription: 'ఈ బ్రౌజర్‌లో మీరు సేవ్ చేసే ముసాయిదాలు ఇక్కడ కనిపిస్తాయి.',
-    confirmDeleteTitle: 'ఈ సేవ్ చేసిన ముసాయిదాను తొలగించాలా?',
-    confirmDeleteDescription: 'ఈ కల్పిత ముసాయిదా ఈ బ్రౌజర్ నుండి తొలగించబడుతుంది. ఈ చర్యను రద్దు చేయలేరు.',
-    cancelDelete: 'రద్దు చేయండి',
-    confirmDelete: 'ముసాయిదాను తొలగించండి',
-    deleted: 'కల్పిత ముసాయిదా ఈ బ్రౌజర్ నుండి తొలగించబడింది.',
-    deleteError: 'సేవ్ చేసిన ముసాయిదాలను బ్రౌజర్‌లో నవీకరించలేకపోయాం. ముసాయిదా తొలగించబడలేదు.',
-    savedDrafts: 'సేవ్ చేసిన ముసాయిదాలు',
-    draftNumber: 'ముసాయిదా',
-    needsReview: 'మీ సమీక్ష అవసరం',
-    userConfirmed: 'మీరు నిర్ధారించారు · నిపుణుడు సమీక్షించలేదు',
-    backToDrafts: 'మీ ముసాయిదాలు',
-    discardChanges: 'సేవ్ చేయని మార్పులను వదిలి మీ ముసాయిదాలకు తిరిగి వెళ్లాలా?',
-    leaveChanges: 'ఈ ముసాయిదా నుండి వెళ్లాలా? సేవ్ చేయని మార్పులు పోతాయి.',
-    backToDetails: 'వివరాలకు తిరిగి వెళ్లండి',
-    reviewTitle: 'మీ ముసాయిదాను సమీక్షించండి',
-    intro: 'ఈ చిన్న ప్రివ్యూ కల్పిత మందు అనుభవాన్ని క్రమబద్ధం చేయడానికి సహాయపడుతుంది. మీ వివరాలు వృత్తిపరమైన అంచనా నుండి వేరుగా ఉంటాయి.',
-    reviewIntro: 'ఈ సారాంశం మీరు నమోదు చేసిన వివరాలతో సరిపోతుందో చూడండి. తెలియని వివరాలు అలాగే తెలియనివిగా ఉంటాయి.',
-    notice: 'నిజమైన రోగి వివరాలను నమోదు చేయవద్దు. ఇది సాఫ్ట్‌వేర్ ప్రివ్యూ మాత్రమే; ఏదీ పంపబడదు, వైద్య సమీక్ష కూడా లేదు.',
-    language: 'ముసాయిదా భాష',
-    medicine: 'మందు పేరు',
-    medicineHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
-    dose: 'మోతాదు లేదా తీసుకున్న విధానం',
-    doseHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
-    reaction: 'ఏమి జరిగింది?',
-    reactionHelp: 'కల్పిత నివేదకుడు అనుభవించిన విషయాన్ని మాత్రమే వివరించండి. నిర్ధారణను జోడించవద్దు.',
-    timing: 'ఇది ఎప్పుడు ప్రారంభమైంది?',
-    timingHelp: 'ఐచ్ఛికం. తెలియకపోతే ఖాళీగా ఉంచండి.',
-    review: 'ముసాయిదాను సమీక్షించండి',
-    reporterOrigin: 'మీరు తెలిపిన వివరాలు',
-    unknown: 'ఇవ్వలేదు (తెలియదు)',
-    confirmLabel: 'ఈ సారాంశాన్ని పరిశీలించాను. నేను నమోదు చేసిన కల్పిత వివరాలనే ఇది చూపిస్తుందని నిర్ధారిస్తున్నాను.',
-    confirmSave: 'నిర్ధారించి ముసాయిదాను సేవ్ చేయండి',
-    confirmed: 'మీరు ఈ సారాంశాన్ని నిర్ధారించారు. దీనిని నిపుణుడు సమీక్షించలేదు.',
-    saved: 'మీ కల్పిత ముసాయిదా ఈ బ్రౌజర్‌లో మాత్రమే సేవ్ అయింది. ఇది సమర్పించబడలేదు.',
-    loaded: 'ఈ బ్రౌజర్‌లో సేవ్ చేసిన కల్పిత ముసాయిదా తిరిగి తెరవబడింది.',
-    savingError: 'బ్రౌజర్ ఈ ముసాయిదాను సేవ్ చేయలేకపోయింది. బ్రౌజర్ నిల్వను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.',
-    loadError: 'సేవ్ చేసిన ముసాయిదాను చదవలేకపోయాం. కొత్త కల్పిత ముసాయిదా ప్రారంభించి మళ్లీ సేవ్ చేయండి.',
-    revision: 'సేవ్ చేసిన ముసాయిదా సంచిక',
-    stepDetails: 'దశ 1 / 2 · వివరాలు నమోదు చేయండి',
-    stepReview: 'దశ 2 / 2 · సమీక్షించి నిర్ధారించండి',
-  },
-} satisfies Record<AdrDraftLanguage, Record<string, string>>;
+} satisfies Record<'en', Record<string, string>>;
 
 type DraftStep = 'list' | 'edit' | 'review';
 
@@ -125,7 +72,7 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   const [drafts, setDrafts] = useState<AdrDraft[]>(initial.drafts);
   const [canReturnToList, setCanReturnToList] = useState(initial.drafts.length > 0);
   const [step, setStep] = useState<DraftStep>(initial.drafts.length > 0 ? 'list' : 'edit');
-  const [language, setLanguage] = useState<AdrDraftLanguage>(existingDraft?.language ?? 'en');
+  const language = 'en' as const;
   const [medicineName, setMedicineName] = useState(existingDraft?.statements.medicineName ?? '');
   const [dose, setDose] = useState(existingDraft?.statements.dose ?? '');
   const [reaction, setReaction] = useState(existingDraft?.statements.reaction ?? '');
@@ -172,21 +119,19 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   const openDraft = (draft: AdrDraft) => {
     setSavedDraft(draft);
     setCanReturnToList(true);
-    setLanguage(draft.language);
     setMedicineName(draft.statements.medicineName ?? '');
     setDose(draft.statements.dose ?? '');
     setReaction(draft.statements.reaction);
     setOnset(draft.statements.onset ?? '');
     setConfirmationChecked(draft.status === 'user-confirmed');
     setHasUnsavedChanges(false);
-    setMessage(copy[draft.language].loaded);
+    setMessage(copy.en.loaded);
     setStorageError(false);
     setStep(draft.status === 'user-confirmed' ? 'review' : 'edit');
   };
 
   const startNewDraft = () => {
     setSavedDraft(null);
-    setLanguage('en');
     setMedicineName('');
     setDose('');
     setReaction('');
@@ -363,13 +308,6 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
         </dialog>
       </div> : step === 'edit' ? <form onSubmit={handleReview} className="space-y-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <M3Select id="adr-draft-language" label={text.language} value={language}
-            onChange={(value) => {
-              if (value === 'en' || value === 'te') setLanguage(value);
-              setMessage(null);
-              setHasUnsavedChanges(true);
-            }}
-            options={[{ value: 'en', label: 'English' }, { value: 'te', label: 'తెలుగు' }]} />
           <M3TextField id="adr-draft-medicine" label={text.medicine} value={medicineName}
             onChange={(event) => { setMedicineName(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
             supportingText={text.medicineHelp} maxLength={200} />

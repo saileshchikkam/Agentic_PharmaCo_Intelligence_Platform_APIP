@@ -5,7 +5,7 @@
 ## Implementation
 
 - `MedAssistPreview.tsx`: four questions (concern, duration, activity impact, changes), explicit unknown answers, original statements, editable review, separate AI suggestions/user confirmation, cancellation, reset confirmation, and care navigation.
-- `copy.ts` and `flow.ts`: English/Telugu interface text and question labels, response validation, and location-only Maps URLs. Telugu wording is an engineering draft pending qualified review. Questions are currently fixed, not model-adaptive clinical questions.
+- `copy.ts` and `flow.ts`: English-only interface text and question labels, response validation, and location-only Maps URLs. Questions are currently fixed, not model-adaptive clinical questions.
 - `medassist.css`: responsive composition within the shared Material 3 page shell. Inputs, chips, checkbox, and actions use official Material Web wrappers. Standard HTML supplies semantic conversation/review layout and external navigation links.
 - [Local server module](../../../server/medassist.ts): a bounded quote-selection experiment through installed Ollama. No hosted fallback, diagnosis, urgency prediction, precautions, RAG, or training is connected.
 
@@ -61,10 +61,14 @@ node node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck --esModule
 
 The default lint covers frontend TypeScript; the explicit command checks the new server module/tests/runner. Unit checks cover strict input/output validation, unknown/mixed-language fidelity, local-origin restrictions, timeout, provider failure, concurrency/rate limiting, and Maps URL separation.
 
-With APIP and the local Ollama service running, optionally run two fixed fictional live cases:
+With APIP and the local Ollama service running, optionally run one fixed English fictional live cases:
 
 ```sh
 node --import tsx models/evaluate-medassist.ts --output models/evaluations/new-medassist-smoke.json
 ```
 
 The runner refuses to overwrite a report and records the model digest, prompt version, outputs, and individual timings. The [2026-10-17 observations](../../../models/evaluations/2026-10-17-medassist-smoke.json) passed two quote/unknown checks; this is not a clinical, triage, or representative Telugu benchmark. See [Ollama structured outputs](https://docs.ollama.com/capabilities/structured-outputs) and the [MedAssist requirements](../../../docs/layers/medassist.md) for the remaining scope and gates.
+
+## Scope revision
+
+The current interface and request contract are English only (`language: "en"`). The earlier bilingual smoke result is retained as historical evidence, not a current test. The runner now uses one English case. Optional account profile context appears separately when sharing is enabled; no profile is sent to the local model. See [account setup](../../../database/README.md).

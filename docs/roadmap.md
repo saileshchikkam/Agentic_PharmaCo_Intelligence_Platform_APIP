@@ -1,10 +1,14 @@
 # Milestone roadmap
 
+**Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
+
 This is the single work-planning entry point. It is organized by deliverables and acceptance evidence, not a fixed calendar or a completed-feature claim. Individual implementation tasks still require the current user's authorization. Read the [AI implementation guide](ai-implementation.md) for how local models, APIs, custom ML, RAG, and agents will be built and evaluated; it is not a second task queue.
 
 ## Current position
 
 The app offers welcome/sign-in, patient-home, guided MedAssist symptom questions/review, fictional ADR drafts, and the preserved developer reference. MedAssist now optionally selects source quotes through local Ollama and offers location-only Google Maps search. It has no persistent patient storage, urgency classifier, approved clinical RAG, or tailored precautions. ADR drafts remain shared within a browser profile, not authenticated or submitted. Appearance and shared Back navigation continue across previews. Clinical validation and the connected product workflow remain incomplete.
+
+The account/shared-profile client and owner-RLS schema are now prepared and locally tested. On 2026-10-18 the user deferred cloud provisioning. A running local authentication/database service and end-to-end account checks are the next dependency; the in-memory SQL tests are not application storage. See [account setup](../database/README.md).
 
 ### Current phase and next handoff
 

@@ -1,3 +1,4 @@
+import { AccountProvider } from './features/account/AccountProvider';
 import React, { useEffect, useState } from 'react';
 import './design-system/material-web-imports';
 import { DeveloperReference } from './DeveloperReference';
@@ -18,15 +19,15 @@ export function App() {
   useEffect(() => {
     document.title = route.screen === 'developer-reference'
       ? 'APIP — Developer design reference'
-      : route.screen === 'sign-in' ? 'Sign in — APIP'
+      : route.screen === 'profile' ? 'Your profile — APIP' : route.screen === 'sign-in' ? 'Sign in — APIP'
       : route.screen === 'adr-preview' ? 'Fictional ADR intake preview — APIP'
           : route.screen === 'medassist-preview' ? 'MedAssist design preview — APIP'
             : route.screen === 'patient-home' ? 'Patient home preview — APIP' : 'APIP — Agentic Pharma Co-intelligence Platform';
   }, [route]);
 
-  return route.screen === 'developer-reference'
+  return <AccountProvider>{route.screen === 'developer-reference'
     ? <DeveloperReference appearance={appearance} setAppearance={setAppearance} preferencesSaved={preferencesSaved} />
-    : <AccessPreview route={route} appearance={appearance} setAppearance={setAppearance} preferencesSaved={preferencesSaved} />;
+    : <AccessPreview route={route} appearance={appearance} setAppearance={setAppearance} preferencesSaved={preferencesSaved} />}</AccountProvider>;
 }
 
 export default App;

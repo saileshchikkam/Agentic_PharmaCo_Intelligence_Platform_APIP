@@ -3,7 +3,7 @@ import express, { type Express, type Request, type Response } from 'express';
 export const fields = ['concern', 'duration', 'impact', 'changes'] as const;
 type Field = typeof fields[number];
 type Answers = Record<Field, string | null>;
-export type Intake = { fictionalOnly: true; language: 'en' | 'te'; answers: Answers };
+export type Intake = { fictionalOnly: true; language: 'en'; answers: Answers };
 
 function exactKeys(value: unknown, keys: readonly string[]): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value)
@@ -12,7 +12,7 @@ function exactKeys(value: unknown, keys: readonly string[]): value is Record<str
 
 export function validateIntake(body: unknown): Intake | null {
   if (!exactKeys(body, ['fictionalOnly', 'language', 'answers']) || body.fictionalOnly !== true
-    || !['en', 'te'].includes(body.language as string) || !exactKeys(body.answers, fields)) return null;
+    || body.language !== 'en' || !exactKeys(body.answers, fields)) return null;
   for (const field of fields) {
     const value = body.answers[field];
     if (value !== null && (typeof value !== 'string' || !value.trim() || value.length > 1200)) return null;
