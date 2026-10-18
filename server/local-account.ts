@@ -5,6 +5,8 @@ import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { homedir } from 'node:os';
 import { emptyProfile, historyFields, validateProfile, type ProfileInput } from '../src/features/account/profile';
+import { isDraftId, validateDraftCommand } from '../src/features/adr/accountDraft';
+import type { AdrDraft } from '../src/features/adr/draftStorage';
 
 const cookieName = 'apip.local.session';
 const lifetime = 8 * 60 * 60 * 1000;
@@ -35,7 +37,7 @@ export function registerLocalAccount(app: Express, {
   if (process.env.NODE_ENV === 'production') throw new Error('Local account service is development-only');
   mkdirSync(dirname(file), { recursive: true, mode: 0o700 });
   const db = new DatabaseSync(file);
-  if (Number(db.prepare('PRAGMA user_version').get()?.user_version) > 1) {
+  if (Number(db.prepare('PRAGMA user_version').get()?.user_version) > 2) {
     db.close(); throw new Error('Local account schema is newer than this application');
   }
   db.exec(`PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;
@@ -52,7 +54,13 @@ export function registerLocalAccount(app: Express, {
       payload TEXT NOT NULL CHECK(json_valid(payload)), revision INTEGER NOT NULL CHECK(revision > 0),
       updated_at TEXT NOT NULL
     ) STRICT;
-    PRAGMA user_version=1;`);
+    CREATE TABLE IF NOT EXISTS local_adr_drafts (
+      user_id TEXT NOT NULL REFERENCES local_users(id) ON DELETE CASCADE,
+      id TEXT NOT NULL, payload TEXT NOT NULL CHECK(json_valid(payload)),
+      revision INTEGER NOT NULL CHECK(revision > 0), updated_at TEXT NOT NULL,
+      PRIMARY KEY(user_id, id)
+    ) STRICT;
+    PRAGMA user_version=2;`);
   const router = express.Router();
   const allowedOrigins = [`http://localhost:${originPort}`, `http://127.0.0.1:${originPort}`, `http://[::1]:${originPort}`];
   const fail = (res: Response, status: number, error: string) => res.status(status).json({ error });
@@ -122,7 +130,7 @@ export function registerLocalAccount(app: Express, {
     res.json({ success: true });
   });
   // Cookies are shared by tabs. Refuse an edit from a tab still displaying a different account.
-  router.use('/profile', (req, res, next) => {
+  router.use(['/profile', '/drafts'], (req, res, next) => {
     const user = readUser(req);
     if (!user) return void fail(res, 401, 'SIGN_IN_REQUIRED');
     if (req.get('X-APIP-Account') !== user.id) return void fail(res, 409, 'ACCOUNT_CHANGED');
@@ -161,6 +169,45 @@ export function registerLocalAccount(app: Express, {
     if (Object.keys(req.body ?? {}).join(',') !== 'expectedRevision' || !Number.isInteger(req.body.expectedRevision)) return void fail(res, 400, 'INVALID_PROFILE');
     const result = db.prepare('DELETE FROM local_profiles WHERE user_id=? AND revision=?').run(user.id, req.body.expectedRevision);
     if (!result.changes) return void fail(res, 409, 'PROFILE_CONFLICT');
+    res.json({ success: true });
+  });
+  const getDraft = (userId: string, id: string): AdrDraft | null => {
+    const row = db.prepare('SELECT payload FROM local_adr_drafts WHERE user_id=? AND id=?').get(userId, id) as { payload: string } | undefined;
+    return row ? JSON.parse(row.payload) : null;
+  };
+  router.get('/drafts', (req, res) => {
+    const user = readUser(req)!;
+    const rows = db.prepare('SELECT payload FROM local_adr_drafts WHERE user_id=? ORDER BY updated_at DESC, id').all(user.id) as { payload: string }[];
+    res.json({ drafts: rows.map(row => JSON.parse(row.payload)) });
+  });
+  router.post('/drafts/save', (req, res) => {
+    const user = readUser(req)!;
+    const command = validateDraftCommand(req.body);
+    if (!command) return void fail(res, 400, 'INVALID_DRAFT');
+    const existing = getDraft(user.id, command.id);
+    // A retried request after a lost response returns the already saved revision.
+    if (existing && (command.expectedRevision === existing.revision || (command.expectedRevision ?? 0) === existing.revision - 1)
+      && existing.status === command.status && JSON.stringify(existing.statements) === JSON.stringify(command.statements)) return void res.json({ draft: existing });
+    if ((existing?.revision ?? null) !== command.expectedRevision) return void fail(res, 409, 'DRAFT_CONFLICT');
+    if (!existing && Number(db.prepare('SELECT count(*) AS total FROM local_adr_drafts WHERE user_id=?').get(user.id)?.total) >= 200) return void fail(res, 409, 'DRAFT_LIMIT');
+    const time = new Date(now()).toISOString();
+    const draft: AdrDraft = { schemaVersion: 2, id: command.id, language: 'en', status: command.status,
+      confirmedAt: command.status === 'user-confirmed' ? time : null, revision: (existing?.revision ?? 0) + 1,
+      createdAt: existing?.createdAt ?? time, updatedAt: time, statements: command.statements };
+    if (existing) {
+      const result = db.prepare('UPDATE local_adr_drafts SET payload=?, revision=?, updated_at=? WHERE user_id=? AND id=? AND revision=?')
+        .run(JSON.stringify(draft), draft.revision, time, user.id, command.id, command.expectedRevision!);
+      if (!result.changes) return void fail(res, 409, 'DRAFT_CONFLICT');
+    } else db.prepare('INSERT INTO local_adr_drafts VALUES (?, ?, ?, ?, ?)').run(user.id, draft.id, JSON.stringify(draft), draft.revision, time);
+    res.json({ draft });
+  });
+  router.post('/drafts/delete', (req, res) => {
+    const user = readUser(req)!;
+    const body = req.body;
+    if (!body || Object.keys(body).sort().join(',') !== 'expectedRevision,fictionalOnly,id' || body.fictionalOnly !== true
+      || !isDraftId(body.id) || !Number.isSafeInteger(body.expectedRevision) || body.expectedRevision < 1) return void fail(res, 400, 'INVALID_DRAFT');
+    const result = db.prepare('DELETE FROM local_adr_drafts WHERE user_id=? AND id=? AND revision=?').run(user.id, body.id, body.expectedRevision);
+    if (!result.changes) return void fail(res, 409, 'DRAFT_CONFLICT');
     res.json({ success: true });
   });
   router.use((_req, res) => { fail(res, 404, 'NOT_FOUND'); });

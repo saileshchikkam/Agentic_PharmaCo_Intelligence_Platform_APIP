@@ -5,7 +5,7 @@ Recorded 2026-10-18 from the user's supplied transcription attributed to Mahesh 
 ## Existing implementation and boundaries
 
 - Local email/password accounts and owner-isolated SQLite health profiles are implemented and tested. Name/date of birth, optional conditions, surgeries, medicines and allergies can be saved. They do not establish hospital affiliation, professional credentials or permission to view patient cases.
-- The English-only ADR preview collects medicine, dose, reaction narrative and onset as user text, supports review, multiple saved drafts and confirmed deletion. Its browser-local records are shared within a browser profile, even after login. These are fictional drafts, not protected hospital cases or official submissions.
+- The English-only ADR preview collects medicine, dose, reaction narrative and onset as user text, supports review, multiple saved drafts and confirmed deletion. Local account records now use owner-isolated server storage; the separate browser demo remains shared. These are fictional drafts, not protected hospital cases or official submissions.
 - MedAssist collects symptoms with fixed follow-ups, optional local source-quote selection and location-only Maps navigation. Its intended custom urgency ML remains separate from ADR causality, seriousness and professional assessment; no trained urgency model is present.
 - Reporting, Validation, Knowledge and Analysis have experimental handlers in `server.ts`. Embedded references, heuristics or simulated results are not validated clinical capabilities. Production agent contracts, approved evidence ingestion, role enforcement, review attribution and case-level audit remain missing.
 
@@ -36,7 +36,7 @@ Statuses describe current evidence. **Implemented** means working software, **Pa
 - **INT-06 Management/outcome — Missing.** Treatment given, clinical management and outcome need attributable, authorized clinical records. Patient descriptions and professional conclusions must remain separate.
 - **INT-07 Background/allergies — Partially implemented.** Optional account profile fields exist; importing selected facts into a versioned ADR case still needs explicit confirmation and source revision. Blank history is not "no history."
 - **INT-08 Missingness/completeness — Partially implemented.** Null unknowns and local schemas exist. Hospital case fields need distinct provided, unknown, not-applicable and not-yet-collected states, plus validated pathway-specific requirements. Do not make identifiers universally mandatory before selecting the intended form/SOP.
-- **INT-09 Draft/follow-up/versioning — Partially implemented.** Fictional drafts and account profiles have revisions. Owner-/case-authorized server ADR drafts, idempotency, immutable submitted versions and linked follow-ups are missing.
+- **INT-09 Draft/follow-up/versioning — Partially implemented.** Local account fictional drafts have owner checks, server revisions, restart persistence and bounded duplicate-save handling. Immutable submitted versions, hospital case permissions and linked follow-ups remain missing.
 
 ## Clinical review and responsibility traceability
 

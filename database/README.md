@@ -2,7 +2,7 @@
 
 ## Current local connection
 
-**Connected 2026-10-18:** development now uses persistent SQLite and same-origin cookie authentication when Supabase configuration is empty. See the [local setup, API and verification guide](local-development.md). Signup, login, profile save/reload/edit/delete and logout run without Docker or cloud services. The database lives outside the repository. Google and email verification/recovery remain unconfigured. Existing fictional ADR drafts remain browser-local and are not account-isolated.
+**Connected 2026-10-18:** development now uses persistent SQLite and same-origin cookie authentication when Supabase configuration is empty. See the [local setup, API and verification guide](local-development.md). Signup, login, profile save/reload/edit/delete and logout run without Docker or cloud services. The database lives outside the repository. Google and email verification/recovery remain unconfigured. Fictional ADR drafts now support owner-isolated local account storage; legacy browser drafts remain separate.
 
 ## Supabase foundation status (hosted path deferred)
 
@@ -32,7 +32,7 @@ One login owns one care-recipient profile in this version. A parent/caregiver ca
 - Versioning: server-assigned revision and update time; edits/deletes match the fetched revision to avoid silent concurrent overwrites. Network failures leave the edit form available.
 - Deletion: owner can delete the profile after confirmation. This keeps the authentication account. Account deletion, backups/retention erasure and data export need separate implementation.
 
-Both task previews can show an expandable, consent-enabled profile-context panel. Context excludes name, birth date and account ID, and includes calculated age, history and source revision. The previews **do not automatically prefill reports or send profiles to models**. Existing ADR drafts remain shared browser-local fictional drafts, separate from account profiles, even after sign-in. Do not describe them as protected account records.
+Both task previews can show an expandable, consent-enabled profile-context panel. Context excludes name, birth date and account ID, and includes calculated age, history and source revision. The previews **do not automatically prefill reports or send profiles to models**. Local account ADR drafts are stored separately from profiles and isolated by the authenticated owner. The optional legacy browser demo remains shared; there is no automatic import. The Supabase adapter does not yet implement ADR storage.
 
 ## Supabase access and session boundaries
 

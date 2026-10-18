@@ -167,3 +167,9 @@ Application code and dependency versions are unchanged. See [dated history](docs
 - `4b0e6e3`: initial pharmacovigilance prototype and documentation, as recorded in Git.
 
 Earlier templates did not establish a reliable release history. No version tags or completion dates are invented for that work.
+
+## 2026-10-18 — Local account ADR persistence
+
+- Added owner-isolated fictional ADR drafts with unfinished save, reopen/edit, explicit user confirmation and revision-checked deletion.
+- Preserved legacy browser drafts in a separate demo; no automatic import or cloud provision.
+- Added HTTP persistence/ownership/migration checks and a separate UI failure regression fixture. Hospital review/submission remains unimplemented.

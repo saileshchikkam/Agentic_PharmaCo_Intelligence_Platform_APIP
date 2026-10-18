@@ -64,14 +64,19 @@ type DraftStep = 'list' | 'edit' | 'review';
 interface Props {
   renderNavigation?: (onBack: () => void, label: string) => React.ReactNode;
   onExit?: () => void;
+  initialDrafts?: AdrDraft[];
+  onSaveDraft?: (draft: AdrDraft, expectedRevision: number | null) => Promise<AdrDraft>;
+  onDeleteDraft?: (draft: AdrDraft) => Promise<void>;
+  headerContext?: React.ReactNode;
 }
 
-export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }) => {
-  const [initial] = useState(() => loadAdrDrafts());
+export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit, initialDrafts, onSaveDraft, onDeleteDraft, headerContext }) => {
+  const accountMode = !!onSaveDraft;
+  const [initial] = useState(() => initialDrafts ? { drafts: initialDrafts, error: false } : loadAdrDrafts());
   const existingDraft = initial.drafts.length === 1 ? initial.drafts[0] : null;
   const [drafts, setDrafts] = useState<AdrDraft[]>(initial.drafts);
-  const [canReturnToList, setCanReturnToList] = useState(initial.drafts.length > 0);
-  const [step, setStep] = useState<DraftStep>(initial.drafts.length > 0 ? 'list' : 'edit');
+  const [canReturnToList, setCanReturnToList] = useState(accountMode || initial.drafts.length > 0);
+  const [step, setStep] = useState<DraftStep>(accountMode || initial.drafts.length > 0 ? 'list' : 'edit');
   const language = 'en' as const;
   const [medicineName, setMedicineName] = useState(existingDraft?.statements.medicineName ?? '');
   const [dose, setDose] = useState(existingDraft?.statements.dose ?? '');
@@ -85,17 +90,33 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   );
   const [storageError, setStorageError] = useState(initial.error);
   const [draftPendingDeletion, setDraftPendingDeletion] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const pendingId = useRef(existingDraft?.id ?? crypto.randomUUID());
+  const alive = useRef(true);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
   const heading = useRef<HTMLHeadingElement>(null);
   const deleteDialog = useRef<HTMLDialogElement>(null);
-  const text = copy[language];
+  const text = accountMode ? { ...copy.en,
+    draftsTitle: 'Your ADR drafts',
+    sharedStorage: 'These fictional drafts are saved to your local account on this computer. Other APIP accounts cannot access them. They are not submitted or professionally reviewed.',
+    notice: 'Use fictional details only. Saving stores this draft in your local account; nothing is submitted to a hospital, regulator or AI provider.',
+    confirmDeleteDescription: 'This fictional draft will be removed from your local account. This cannot be undone.',
+    noSavedDraftsDescription: 'Drafts saved to your account will appear here.',
+    loaded: 'Your saved account draft is open.', saved: 'Draft saved to your local account. It was not submitted.',
+    deleted: 'The fictional draft was deleted from your local account.',
+    savingError: 'Not saved. Your edits are still here. Check your connection; if another tab changed the draft, copy your edits before reopening it.',
+    deleteError: 'Deletion failed or the draft changed in another tab. Nothing was removed from this list.',
+  } : copy[language];
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'auto' }); heading.current?.focus({ preventScroll: true }); }, [step]);
   useEffect(() => {
-    if (!hasUnsavedChanges) return;
-    const guard = (event: Event) => { if (!window.confirm(text.leaveChanges)) event.preventDefault(); };
+    if (!hasUnsavedChanges && !busy) return;
+    const guard = (event: Event) => { if (busy || !window.confirm(text.leaveChanges)) event.preventDefault(); };
+    const unloading = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ''; };
     window.addEventListener('apip:before-navigate', guard);
-    return () => window.removeEventListener('apip:before-navigate', guard);
-  }, [hasUnsavedChanges, text.leaveChanges]);
+    window.addEventListener('beforeunload', unloading);
+    return () => { window.removeEventListener('apip:before-navigate', guard); window.removeEventListener('beforeunload', unloading); };
+  }, [hasUnsavedChanges, busy, text.leaveChanges]);
 
   const handleReview = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -110,6 +131,7 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   };
 
   const editDetails = () => {
+    if (busy) return;
     setStep('edit');
     setConfirmationChecked(false);
     setMessage(null);
@@ -117,6 +139,8 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   };
 
   const openDraft = (draft: AdrDraft) => {
+    if (busy) return;
+    pendingId.current = draft.id;
     setSavedDraft(draft);
     setCanReturnToList(true);
     setMedicineName(draft.statements.medicineName ?? '');
@@ -125,12 +149,14 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
     setOnset(draft.statements.onset ?? '');
     setConfirmationChecked(draft.status === 'user-confirmed');
     setHasUnsavedChanges(false);
-    setMessage(copy.en.loaded);
+    setMessage(text.loaded);
     setStorageError(false);
     setStep(draft.status === 'user-confirmed' ? 'review' : 'edit');
   };
 
   const startNewDraft = () => {
+    if (busy) return;
+    pendingId.current = crypto.randomUUID();
     setSavedDraft(null);
     setMedicineName('');
     setDose('');
@@ -144,6 +170,7 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   };
 
   const showDrafts = () => {
+    if (busy) return;
     if (hasUnsavedChanges && !window.confirm(text.discardChanges)) return;
     setHasUnsavedChanges(false);
     setMessage(null);
@@ -152,33 +179,33 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
   };
 
   const requestDraftDeletion = (draft: AdrDraft) => {
+    if (busy) return;
     setMessage(null);
     setStorageError(false);
     setDraftPendingDeletion(draft.id);
     deleteDialog.current?.showModal();
   };
 
-  const finishDraftDeletion = () => {
-    if (!draftPendingDeletion) return;
-    const nextDrafts = drafts.filter((draft) => draft.id !== draftPendingDeletion);
+  const finishDraftDeletion = async () => {
+    if (!draftPendingDeletion || busy) return;
+    const target = drafts.find(draft => draft.id === draftPendingDeletion);
+    if (!target) return;
+    const nextDrafts = drafts.filter(draft => draft.id !== target.id);
+    setBusy(true);
     try {
-      saveAdrDrafts(nextDrafts);
-      setDrafts(nextDrafts);
-      setMessage(text.deleted);
-      setStorageError(false);
-      deleteDialog.current?.close();
-      setDraftPendingDeletion(null);
-      window.requestAnimationFrame(() => {
-        const nextOpenDraft = document.querySelector<HTMLElement>('.adr-draft-open');
-        (nextOpenDraft ?? document.getElementById('adr-new-draft'))?.focus();
-      });
+      if (onDeleteDraft) await onDeleteDraft(target); else saveAdrDrafts(nextDrafts);
+      if (!alive.current) return;
+      setDrafts(nextDrafts); setMessage(text.deleted); setStorageError(false);
+      deleteDialog.current?.close(); setDraftPendingDeletion(null);
+      requestAnimationFrame(() => (document.querySelector<HTMLElement>('.adr-draft-open') ?? document.getElementById('adr-new-draft'))?.focus());
     } catch {
-      setStorageError(true);
-      setMessage(text.deleteError);
-    }
+      if (!alive.current) return;
+      setStorageError(true); setMessage(text.deleteError);
+    } finally { if (alive.current) setBusy(false); }
   };
 
   const cancelDraftDeletion = () => {
+    if (busy) return;
     const previousDraftId = draftPendingDeletion;
     deleteDialog.current?.close();
     setDraftPendingDeletion(null);
@@ -187,57 +214,43 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
     }
   };
 
-  const confirmAndSave = () => {
-    if (!confirmationChecked) return;
+  const persistDraft = async (status: 'draft' | 'user-confirmed') => {
+    if (busy || (status === 'user-confirmed' && !confirmationChecked)) return;
+    setBusy(true);
     const timestamp = new Date().toISOString();
-    const draft: AdrDraft = {
-      schemaVersion: 2,
-      id: savedDraft?.id ?? crypto.randomUUID(),
-      language,
-      status: 'user-confirmed',
-      confirmedAt: timestamp,
-      revision: (savedDraft?.revision ?? 0) + 1,
-      createdAt: savedDraft?.createdAt ?? timestamp,
-      updatedAt: timestamp,
-      statements: {
-        source: 'reporter',
-        medicineName: medicineName.trim() || null,
-        dose: dose.trim() || null,
-        reaction: reaction.trim(),
-        onset: onset.trim() || null,
-      },
-    };
-
+    let draft: AdrDraft = { schemaVersion: 2, id: savedDraft?.id ?? pendingId.current,
+      language, status, confirmedAt: status === 'user-confirmed' ? timestamp : null,
+      revision: (savedDraft?.revision ?? 0) + 1, createdAt: savedDraft?.createdAt ?? timestamp, updatedAt: timestamp,
+      statements: { source: 'reporter', medicineName: medicineName.trim() ? medicineName : null,
+        dose: dose.trim() ? dose : null, reaction, onset: onset.trim() ? onset : null } };
     try {
-      const existingIndex = drafts.findIndex((item) => item.id === draft.id);
-      const nextDrafts = existingIndex === -1
-        ? [...drafts, draft]
-        : drafts.map((item) => item.id === draft.id ? draft : item);
-      saveAdrDrafts(nextDrafts);
-      setDrafts(nextDrafts);
-      setSavedDraft(draft);
-      setCanReturnToList(true);
-      setHasUnsavedChanges(false);
-      setStorageError(false);
-      setMessage(copy[language].saved);
+      if (onSaveDraft) draft = await onSaveDraft(draft, savedDraft?.revision ?? null);
+      if (!alive.current) return;
+      const nextDrafts = drafts.some(item => item.id === draft.id)
+        ? drafts.map(item => item.id === draft.id ? draft : item) : [...drafts, draft];
+      if (!onSaveDraft) saveAdrDrafts(nextDrafts);
+      setDrafts(nextDrafts); setSavedDraft(draft); setCanReturnToList(true);
+      setHasUnsavedChanges(false); setStorageError(false);
+      setMessage(status === 'draft' ? 'Unfinished fictional draft saved to your account. Review and confirm it later.' : text.saved);
     } catch {
-      setStorageError(true);
-      setMessage(copy[language].savingError);
-    }
+      if (!alive.current) return;
+      setStorageError(true); setMessage(text.savingError);
+    } finally { if (alive.current) setBusy(false); }
   };
+  const confirmAndSave = () => void persistDraft('user-confirmed');
 
   const reviewRows = [
-    [text.medicine, medicineName.trim() || text.unknown],
-    [text.dose, dose.trim() || text.unknown],
-    [text.timing, onset.trim() || text.unknown],
-    [text.reaction, reaction.trim() || text.unknown],
+    [text.medicine, medicineName.trim() ? medicineName : text.unknown],
+    [text.dose, dose.trim() ? dose : text.unknown],
+    [text.timing, onset.trim() ? onset : text.unknown],
+    [text.reaction, reaction.trim() ? reaction : text.unknown],
   ];
 
   const back = step === 'review' ? editDetails : step === 'edit' && canReturnToList ? showDrafts : onExit;
   const backLabel = step === 'review' ? text.backToDetails : step === 'edit' && canReturnToList ? text.backToDrafts : 'Back to previous page';
 
   return (<>
-    {renderNavigation && back && renderNavigation(back, backLabel)}
+    {renderNavigation && back && renderNavigation(() => { if (!busy) back(); }, backLabel)}
     <section id="adr-draft-view" className="mx-auto max-w-4xl space-y-6" aria-labelledby="adr-draft-title">
       <header className="space-y-2">
         <span className="m3-label-large inline-flex rounded-full bg-[var(--md-sys-color-secondary-container)] px-3 py-1 text-[var(--md-sys-color-on-secondary-container)]">
@@ -250,6 +263,8 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
           {step === 'list' ? text.draftsIntro : step === 'edit' ? text.intro : text.reviewIntro}
         </p>
       </header>
+
+      {headerContext}
 
       {step !== 'list' && <div className="adr-draft-progress">
         <span className="m3-label-medium">{step === 'edit' ? text.stepDetails : text.stepReview}</span>
@@ -302,32 +317,33 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
           <p id="adr-delete-description">{text.confirmDeleteDescription}</p>
           {storageError && message && <p className="adr-delete-error" role="alert">{message}</p>}
           <div className="adr-delete-dialog-actions">
-            <M3Button type="button" variant="text" onClick={cancelDraftDeletion}>{text.cancelDelete}</M3Button>
-            <M3Button type="button" variant="filled" leadingIcon="delete" onClick={finishDraftDeletion}>{text.confirmDelete}</M3Button>
+            <M3Button type="button" variant="text" disabled={busy} onClick={cancelDraftDeletion}>{text.cancelDelete}</M3Button>
+            <M3Button type="button" variant="filled" leadingIcon="delete" loading={busy} onClick={() => void finishDraftDeletion()}>{text.confirmDelete}</M3Button>
           </div>
         </dialog>
       </div> : step === 'edit' ? <form onSubmit={handleReview} className="space-y-6">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <M3TextField id="adr-draft-medicine" label={text.medicine} value={medicineName}
+          <M3TextField disabled={busy} id="adr-draft-medicine" label={text.medicine} value={medicineName}
             onChange={(event) => { setMedicineName(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
             supportingText={text.medicineHelp} maxLength={200} />
-          <M3TextField id="adr-draft-dose" label={text.dose} value={dose}
+          <M3TextField disabled={busy} id="adr-draft-dose" label={text.dose} value={dose}
             onChange={(event) => { setDose(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
             supportingText={text.doseHelp} maxLength={200} />
-          <M3TextField id="adr-draft-onset" label={text.timing} value={onset}
+          <M3TextField disabled={busy} id="adr-draft-onset" label={text.timing} value={onset}
             onChange={(event) => { setOnset(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
             supportingText={text.timingHelp} maxLength={200} />
         </div>
 
-        <M3TextField id="adr-draft-reaction" label={text.reaction} type="textarea" rows={5}
+        <M3TextField disabled={busy} id="adr-draft-reaction" label={text.reaction} type="textarea" rows={5}
           required value={reaction}
           onChange={(event) => { setReaction(event.target.value); setMessage(null); setHasUnsavedChanges(true); }}
           supportingText={text.reactionHelp} maxLength={4000} />
 
         <div className="flex flex-wrap items-center gap-4">
-          <M3Button type="submit" variant="filled" trailingIcon="arrow_forward" disabled={!reaction.trim()}>
+          <M3Button type="submit" variant="filled" trailingIcon="arrow_forward" disabled={busy || !reaction.trim()}>
             {text.review}
           </M3Button>
+          {accountMode && <M3Button variant="outlined" loading={busy} onClick={() => void persistDraft('draft')}>Save unfinished draft</M3Button>}
           {!renderNavigation && canReturnToList && <M3Button type="button" variant="text" leadingIcon="arrow_back" onClick={showDrafts}>{text.backToDrafts}</M3Button>}
           {savedDraft && <span className="m3-body-small text-[var(--md-sys-color-on-surface-variant)]">
             {text.revision}: {savedDraft.revision}
@@ -356,11 +372,11 @@ export const ReportReactionView: React.FC<Props> = ({ renderNavigation, onExit }
           {text.confirmed}
         </p>}
 
-        <M3Checkbox id="adr-draft-confirm" checked={confirmationChecked} onChange={setConfirmationChecked}
+        <M3Checkbox disabled={busy} id="adr-draft-confirm" checked={confirmationChecked} onChange={setConfirmationChecked}
           label={text.confirmLabel} />
         <div className="flex flex-wrap items-center gap-3">
           {!renderNavigation && <M3Button type="button" variant="outlined" leadingIcon="arrow_back" onClick={editDetails}>{text.backToDetails}</M3Button>}
-          <M3Button type="button" variant="filled" leadingIcon="check" disabled={!confirmationChecked} onClick={confirmAndSave}>
+          <M3Button type="button" variant="filled" leadingIcon="check" loading={busy} disabled={!confirmationChecked || (!hasUnsavedChanges && savedDraft?.status === 'user-confirmed')} onClick={confirmAndSave}>
             {text.confirmSave}
           </M3Button>
         </div>

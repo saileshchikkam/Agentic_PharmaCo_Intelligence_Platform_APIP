@@ -12,7 +12,7 @@ No Docker, Supabase runtime, cloud project, model API or paid service is needed 
 
 On Windows, the database is `%LOCALAPPDATA%/APIP/accounts.sqlite`, outside the repository and its synced documents folder. Other platforms use a user-local application-data directory. `APIP_LOCAL_DB_PATH` can override the file through the **server environment**; the server still does not automatically read server variables from `.env`. Never put the database under `public`, `dist`, or another served/synced directory. SQLite/WAL files are ignored by Git as an additional safeguard. Credentials and records are never committed.
 
-`server/local-account.ts` creates schema version 1: `local_users`, `local_sessions`, and `local_profiles`. Foreign keys, prepared parameters, WAL and a busy timeout are enabled. A newer schema version refuses startup. This is a single-process local development store; cloud migration, operational backups and recovery tooling are not implemented. Backups must include consistent SQLite/WAL state; do not copy a running database casually.
+`server/local-account.ts` creates schema version 2: `local_users`, `local_sessions`, `local_profiles`, and `local_adr_drafts`. The additive v1-to-v2 upgrade preserves existing accounts and profiles. Foreign keys, prepared parameters, WAL and a busy timeout are enabled. A newer schema version refuses startup. This is a single-process local development store; cloud migration, operational backups and recovery tooling are not implemented. Backups must include consistent SQLite/WAL state; do not copy a running database casually.
 
 Passwords use unique 16-byte random salts and scrypt (`N=32768, r=8, p=3`, 32-byte key). The database stores salt/hash, never plaintext passwords. Sessions use random 32-byte tokens; only their SHA-256 hashes are stored server-side. The browser receives an HttpOnly, SameSite=Strict cookie scoped to `/api/account`, with an eight-hour absolute expiry. Logout deletes the current session. Local HTTP cookies intentionally omit Secure for loopback development; this configuration is not a public deployment recipe.
 
@@ -29,13 +29,14 @@ All routes are under `/api/account`, with `Cache-Control: no-store`:
 - `POST /signout`: clears the current cookie/session.
 - `GET /profile`: current user's profile or null.
 - `POST /profile`: `{profile, expectedRevision}`; null expected revision creates once, otherwise a matching revision is required for update.
-- `POST /profile/delete`: `{expectedRevision}`; deletes only the current profile, preserving the login.
+- `POST /profile/delete`: `{expectedRevision}`; deletes only the current profile, preserving the login and drafts.
+- `GET /drafts`, `POST /drafts/save`, `POST /drafts/delete`: owner-isolated fictional draft listing, revision-checked save and deletion; see the ADR storage guide.
 
-Profile routes require `X-APIP-Account` to match the authenticated account. It is a consistency check, not an authorization credential: ownership always comes from the server-verified cookie. This prevents an old tab from writing one person's edits into another account after cookies change. Extra profile fields, missing values/types, unconfirmed ownership fields, invalid dates and unsupported child/self combinations are rejected. Missing optional medical history remains null.
+Profile and draft routes require `X-APIP-Account` to match the authenticated account. It is a consistency check, not an authorization credential: ownership always comes from the server-verified cookie. This prevents an old tab from writing one person's edits into another account after cookies change. Extra profile fields, missing values/types, unconfirmed ownership fields, invalid dates and unsupported child/self combinations are rejected. Missing optional medical history remains null.
 
 The browser adapter keeps profile data in React memory and uses the HttpOnly cookie for requests, without storing local session tokens in JavaScript storage. It rechecks session state on focus and every 30 seconds. A same-origin BroadcastChannel carries only a change signal so other tabs clear stale account state and ask the server again. Native history/reload can still discard unsaved profile edits; app navigation and reload have existing discard protection. Device/browser compromise, XSS and user-level filesystem access remain outside these ownership checks.
 
-The shared profile remains distinct from MedAssist statements and ADR report data. The fictional ADR draft collection still uses shared browser storage; it is **not migrated into account storage** by this task.
+The shared profile remains distinct from MedAssist statements and ADR report data. Signed-in local accounts now save fictional ADR drafts in SQLite. Legacy browser drafts are available only through the explicitly separate browser demo and are never automatically imported. See the [ADR storage guide](../src/features/adr/README.md).
 
 ## Verification
 

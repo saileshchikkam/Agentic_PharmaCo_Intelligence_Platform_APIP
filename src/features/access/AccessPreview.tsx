@@ -9,8 +9,8 @@ import { Appearance } from '../../design-system/appearance';
 import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
 import { Brand, PageNavigation, PreviewHeader } from './PreviewLayout';
 
-const ReportReactionView = React.lazy(() => import('../../components/material/ReportReactionView')
-  .then((module) => ({ default: module.ReportReactionView })));
+const AdrWorkspace = React.lazy(() => import('../adr/AdrWorkspace')
+  .then((module) => ({ default: module.AdrWorkspace })));
 const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
   .then((module) => ({ default: module.MedAssistPreview })));
 
@@ -221,7 +221,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
         <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p className="access-form-intro" role="status">Opening the fictional intake preview…</p></>}>
-          <SharedProfile layer="adr" /><ReportReactionView renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
+          <AdrWorkspace renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
             onExit={() => goBackPreview(backFallback)} />
         </React.Suspense>
       </section>}

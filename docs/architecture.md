@@ -1,6 +1,6 @@
 # Architecture and implementation status
 
-Last inspected: 2026-10-18. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview uses browser-local fictional drafts. Neither task preview is a protected clinical workflow. Local email/password authentication, cookie sessions and SQLite profiles now work in development. The optional Supabase client/RLS schema remain prepared; hosted setup is unverified.
+Last inspected: 2026-10-18. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview now uses owner-isolated SQLite drafts for local accounts, with a separate optional browser demo. Neither task preview is a protected clinical workflow. Local email/password authentication, cookie sessions and SQLite profiles now work in development. The optional Supabase client/RLS schema remain prepared; hosted setup is unverified.
 
 ## Current repository
 
@@ -11,7 +11,7 @@ Last inspected: 2026-10-18. The current shell presents welcome, sign-in, patient
 - [src/features/access/navigation.ts](../src/features/access/navigation.ts) marks in-app hash-history entries, provides a shared Back behavior, and replaces direct-entry routes with safe parent fallbacks when no prior APIP screen exists.
 - [src/DeveloperReference.tsx](../src/DeveloperReference.tsx) preserves Domain Components, Core Components, and Design Tokens, reached through an explicit preview link.
 - [src/components/material](../src/components/material) contains the current demonstration and core/domain wrappers.
-- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English/Telugu fictional ADR draft and review preview at `#/preview/adr-report`. The patient reviews and explicitly confirms the summary before it saves a versioned draft in browser storage. User confirmation is distinct from professional review. It does not transmit, authenticate, submit, or add a case to professional records.
+- [src/components/material/ReportReactionView.tsx](../src/components/material/ReportReactionView.tsx) contains the English-only fictional ADR draft and review preview at `#/preview/adr-report`. It supports unfinished account saves and explicit confirmation after review. User confirmation is distinct from professional review. The account workspace selects server persistence; the separate browser demo retains browser storage. Neither mode submits to professional records.
 - [src/features/adr/draftStorage.ts](../src/features/adr/draftStorage.ts) validates draft schema v2 in a versioned browser-local collection, and loads previous single-draft v1/v2 keys into that collection in memory. Optional blank statements remain `null`; saved drafts can be deleted from the fictional list after confirmation. This storage is shared within a browser profile and provides no account isolation, so any user of that profile can view or delete its drafts.
 - [src/design-system](../src/design-system) registers Material Web and defines tokens; [src/index.css](../src/index.css) provides styles.
 - [src/components](../src/components) also contains an earlier UI generation and experimental integrations. Their presence does not mean they are mounted by the current app.
@@ -37,9 +37,9 @@ These observations are not validated clinical capabilities or a committed produc
 
 ## Baseline limitations
 
-- The new ADR draft prototype supports multiple browser-local fictional drafts. It is not authenticated, isolated between users, encrypted by APIP, or suitable for real patient data; anyone using the same browser profile can access the drafts.
+- The ADR workspace supports multiple account-isolated fictional drafts in local SQLite. Its separate browser demo remains shared. Neither store is suitable for real patient data or encrypted at rest by APIP.
 - The earlier demo's mock cases remain separate from the ADR draft and do not receive it.
-- Cases use mock/browser state, not a server-backed database.
+- Earlier experimental cases use mock/browser state; local account ADR drafts use the server database.
 - Local authentication and durable account profiles are implemented; hosted authentication/storage, permissioned review, durable audit and official integrations remain unverified.
 - Patient assistance, scores, evidence text, reviewer identities, and compliance labels include illustrative behavior.
 - A fresh-project SQL bootstrap and focused account/MedAssist/navigation tests now exist; applied migrations and CI are absent. `lint` checks `src`, not the full server.
@@ -90,3 +90,7 @@ The component reference is now a separate hash view alongside the rough welcome/
 ## Local development account service
 
 [Local account guide](../database/local-development.md) describes the connected SQLite backend in `server/local-account.ts` and the shared account-client interface. Server-verified cookie ownership protects each profile; the requested account header only checks tab consistency. Credentials/sessions are hashed, records remain local, optimistic revisions prevent silent overwrites, and production cannot enable the local adapter. Google/email verification and task-record persistence remain separate unfinished work. The optional Supabase backend retains its RLS contract.
+
+### Local account ADR boundary
+
+[AdrWorkspace](../src/features/adr/AdrWorkspace.tsx) selects the authenticated local repository and clears state between accounts. The [ADR storage guide](../src/features/adr/README.md) describes the strict contract, additive schema v2, API, revision checks, unfinished saves and separate legacy demo. Supabase ADR persistence and hospital case workflow remain pending.

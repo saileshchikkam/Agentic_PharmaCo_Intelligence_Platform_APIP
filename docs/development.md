@@ -1,10 +1,10 @@
 # Development setup and verification
 
-This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation previews plus the preserved developer design reference. MedAssist provides guided English-only symptom intake, optional local-model source-quote selection, and a location-only Maps handoff; clinical urgency and tailored precautions are disabled. ADR stores fictional drafts in a browser-local collection, not an account-isolated backend. See the dated [development history](history/2026-10-17.md) for actual checks and limits.
+This page describes the welcome/sign-in, patient, MedAssist, and ADR evaluation previews plus the preserved developer design reference. MedAssist provides guided English-only symptom intake, optional local-model source-quote selection, and a location-only Maps handoff; clinical urgency and tailored precautions are disabled. ADR now stores fictional drafts in owner-isolated local SQLite, with a separate browser demo. See the dated [development history](history/2026-10-17.md) for actual checks and limits.
 
 ## Prerequisites and installation
 
-The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Supported runtime/package-manager versions are not declared. Establish a tested baseline before claiming reproducible deployment. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage` under a versioned collection key. Existing single-draft v1 and v2 keys load as a one-item collection; legacy v1 drafts remain unconfirmed. The collection is shared in the browser profile because authentication is not implemented. It does not use the server or support real patient information. Patient confirmation is not clinical or professional review.
+The current script runs `tsx server.ts` in Node.js; the server uses built-in `fetch`. Use Node 24 and the tracked Bun dependency workflow. The ADR draft preview uses a review/confirmation step and stores fictional data in browser `localStorage` under a versioned collection key. Existing single-draft v1 and v2 keys load as a one-item collection; legacy v1 drafts remain unconfirmed. This legacy collection remains shared only in the explicitly separate browser demo. Signed-in local accounts use the server draft API; neither mode supports real patient information. Patient confirmation is not clinical or professional review.
 
 The repository tracks `bun.lock`. With Bun available, the intended commands are:
 
@@ -71,7 +71,7 @@ This is currently a local development screen with no login enforcement. A develo
 ## Preview navigation
 
 Use the shared Back control in the page navigation row below the app header to return to the previous in-app screen. It follows APIP routes entered during the current browser history session; a direct route entry falls back to that screen's safe parent. The ADR editor's own Back action returns to the list when available, confirms before discarding unsaved edits, and moves from review back to editing. Browser back/forward remains supported for route changes.
-All routes, including the developer reference, share Home/Log in text links and a centered 1160 px page shell. The Back row reserves 48 px at the same top/left position for each viewport; sign-in and ADR content can remain narrower within it. Scrollbar space is reserved to prevent horizontal shifts. ADR review uses the same row to return to details. Native browser history remains route-level. In-app links/Back prompt before leaving unsaved ADR edits; reload/tab-close/native-history protection remains pending.
+All routes, including the developer reference, share Home/Log in text links and a centered 1160 px page shell. The Back row reserves 48 px at the same top/left position for each viewport; sign-in and ADR content can remain narrower within it. Scrollbar space is reserved to prevent horizontal shifts. ADR review uses the same row to return to details. Native browser history remains route-level. In-app links/Back prompt before leaving unsaved ADR edits; reload/tab-close protection uses the browser leave prompt; native history remains route-level.
 
 Run `node --test scripts/preview-navigation.test.mjs` with Node 24 for the isolated navigation checks. Browser checks are still needed for custom-element interaction, focus, and responsive geometry.
 

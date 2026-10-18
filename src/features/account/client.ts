@@ -1,9 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import type { PatientProfile, ProfileInput } from './profile';
+import { readAccountDraft, type AccountDraftRepository } from '../adr/accountDraft';
 
 export type AccountUser = { id: string; email?: string };
 interface AccountClient {
   kind: 'local' | 'supabase';
+  drafts?: AccountDraftRepository;
   subscribe: (listener: (user: AccountUser | null, error?: string) => void) => () => void;
   signUp: (email: string, password: string) => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<void>;
@@ -41,6 +43,23 @@ function localClient(): AccountClient {
   if (channel) channel.onmessage = () => { epoch++; emit(null); void refresh(); };
   return {
     kind: 'local',
+    drafts: {
+      async load(userId) {
+        const result = await request('drafts', undefined, userId);
+        if (!Array.isArray(result.drafts) || result.drafts.length > 200) throw new Error('INVALID_DRAFTS');
+        const drafts: ReturnType<typeof readAccountDraft>[] = result.drafts.map(readAccountDraft);
+        if (drafts.some(draft => !draft) || new Set(drafts.map(draft => draft!.id)).size !== drafts.length) throw new Error('INVALID_DRAFTS');
+        return drafts as NonNullable<ReturnType<typeof readAccountDraft>>[];
+      },
+      async save(userId, draft, expectedRevision) {
+        const result = await request('drafts/save', { fictionalOnly: true, id: draft.id, expectedRevision,
+          status: draft.status, statements: draft.statements }, userId);
+        const saved = readAccountDraft(result.draft);
+        if (!saved || saved.id !== draft.id) throw new Error('INVALID_DRAFT');
+        return saved;
+      },
+      async remove(userId, draft) { await request('drafts/delete', { fictionalOnly: true, id: draft.id, expectedRevision: draft.revision }, userId); },
+    },
     subscribe(listener) {
       listeners.add(listener); void refresh();
       const interval = window.setInterval(() => void refresh(), 30000);

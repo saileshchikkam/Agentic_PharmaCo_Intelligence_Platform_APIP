@@ -107,3 +107,7 @@ The implementation foundation uses Supabase Auth/Postgres with PKCE, publishable
 ## DEC-019 — SQLite accounts for zero-cost local development
 
 **User-authorized 2026-10-18.** Connect local database and authentication without provisioning cloud resources. Because Docker/Supabase CLI are unavailable, use Node 24 SQLite with server-verified HttpOnly cookie sessions and scrypt password hashes. Share one profile contract with the optional Supabase adapter; do not silently synchronize databases. Restrict local routes to loopback development and disable them in production. Keep the database outside Git and synced project directories. No real-patient readiness, email verification or Google setup is implied.
+
+## DEC-020 — Owner-isolated local fictional ADR drafts
+
+**Implemented 2026-10-18.** Use the verified local account session for ADR ownership, additive SQLite schema v2 and server-controlled revisions/timestamps. Permit unfinished saves and separately confirmed drafts. Preserve reporter text and unknown values. Keep legacy browser drafts behind an explicit separate demo, with no automatic transfer or fallback on account failures. Supabase ADR storage, clinical case history, confirmed profile imports and hospital workflow remain pending. See the [ADR storage guide](../src/features/adr/README.md).

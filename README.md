@@ -2,7 +2,7 @@
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
-**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. The ADR draft is stored in this browser only; local email/password signup, cookie sessions and durable SQLite health profiles are connected for development. Google/cloud connection and protected task records remain pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
+**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. Fictional ADR drafts now save to each local account with revision checks; local email/password signup, cookie sessions and durable SQLite health profiles are connected for development. Google/cloud connection and clinical case workflows remain pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
 
 ## The product
 
@@ -45,7 +45,7 @@ The server is configured for port `3000`. In the current checkout, the frozen Bu
 
 Open the main page and choose **Sign in**. The Patient, Specialist, and Developer views share a consistent layout. Use only fictional credentials; the preview shows local field feedback and does not sign in or send credentials. See the [welcome/sign-in guide](src/features/access/README.md).
 
-The Developer view includes an explicit **Open developer reference preview** link to the preserved Domain Components, Core Components, and Design Tokens. Appearance settings remain available throughout. The ADR intake can be previewed from the patient sign-in route after selecting ADR reporting; it is fictional-only and saves to this browser. Earlier patient/report/records experiments remain separate. See the [design-system guide](src/design-system/README.md).
+The Developer view includes an explicit **Open developer reference preview** link to the preserved Domain Components, Core Components, and Design Tokens. Appearance settings remain available throughout. The ADR intake can be previewed from the patient sign-in route after selecting ADR reporting; it is fictional-only and supports local account storage or an explicitly separate browser demo. Earlier patient/report/records experiments remain separate. See the [design-system guide](src/design-system/README.md).
 
 ## Design direction
 

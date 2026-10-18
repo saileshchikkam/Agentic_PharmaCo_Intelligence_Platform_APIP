@@ -4,9 +4,22 @@ import express from 'express';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 import { registerLocalAccount } from '../server/local-account';
 import { emptyProfile } from '../src/features/account/profile';
+import { validateDraftCommand, readAccountDraft } from '../src/features/adr/accountDraft';
+
+test('ADR storage distinguishes unfinished, confirmed, unknown and unsupported fields', () => {
+  const command = { id: randomUUID(), fictionalOnly: true, expectedRevision: null, status: 'draft',
+    statements: { source: 'reporter', medicineName: null, dose: null, reaction: '', onset: null } };
+  assert.notEqual(validateDraftCommand(command), null);
+  assert.equal(validateDraftCommand({ ...command, status: 'user-confirmed' }), null);
+  assert.equal(validateDraftCommand({ ...command, fictionalOnly: false }), null);
+  assert.equal(validateDraftCommand({ ...command, user_id: 'forged-owner' }), null);
+  assert.equal(validateDraftCommand({ ...command, expectedRevision: -1 }), null);
+  assert.equal(validateDraftCommand({ ...command, statements: { ...command.statements, medicineName: '' } }), null);
+  assert.equal(readAccountDraft({}), null);
+});
 
 test('local account service refuses production registration', () => {
   const previous = process.env.NODE_ENV;
@@ -65,14 +78,48 @@ test('real local HTTP auth: durable profiles, isolated accounts, cookies, expiry
     assert.equal((await call('profile', undefined, otherCookie, id)).status, 409);
     assert.equal((await call('profile', { profile, expectedRevision: null }, otherCookie, id)).status, 409);
     assert.equal((await call('profile/delete', { expectedRevision: 1 }, otherCookie, id)).status, 409);
+    // Reproduce an existing v1 account/profile database before the additive draft-store upgrade.
+    runtime.service.db.exec('DROP TABLE local_adr_drafts; PRAGMA user_version=1;');
     await stop(); runtime = await boot();
+    assert.equal(runtime.service.db.prepare('PRAGMA user_version').get()?.user_version, 2);
     assert.equal((await call('profile', undefined, cookie, id)).body.profile.conditions, profile.conditions);
+    const draftId = randomUUID();
+    const unfinished = { fictionalOnly: true, id: draftId, expectedRevision: null, status: 'draft',
+      statements: { source: 'reporter', medicineName: null, dose: null, reaction: '', onset: null } };
+    assert.equal((await call('drafts', undefined, '', id)).status, 401);
+    const created = await call('drafts/save', unfinished, cookie, id);
+    assert.equal(created.status, 200); assert.equal(created.body.draft.revision, 1);
+    assert.equal(created.body.draft.confirmedAt, null);
+    assert.equal((await call('drafts/save', unfinished, cookie, id)).body.draft.revision, 1);
+    assert.equal((await call('drafts', undefined, cookie, id)).body.drafts.length, 1);
+    assert.equal((await call('drafts', undefined, otherCookie, otherId)).body.drafts.length, 0);
+    assert.equal((await call('drafts', undefined, otherCookie, id)).status, 409);
+    assert.equal((await call('drafts/save', { ...unfinished, user_id: otherId }, cookie, id)).status, 400);
+    assert.equal((await call('drafts/save', { ...unfinished, createdAt: 'forged' }, cookie, id)).status, 400);
+    const exactReaction = '  Fictional itching after a medicine.\nNo other details supplied.  ';
+    const confirmed = { ...unfinished, expectedRevision: 1, status: 'user-confirmed', statements: { ...unfinished.statements, reaction: exactReaction } };
+    const updated = await call('drafts/save', confirmed, cookie, id);
+    assert.equal(updated.body.draft.revision, 2); assert.equal(updated.body.draft.statements.reaction, exactReaction);
+    assert.equal(updated.body.draft.createdAt, created.body.draft.createdAt);
+    assert.equal(updated.body.draft.language, 'en'); assert.ok(updated.body.draft.confirmedAt);
+    assert.ok(readAccountDraft(updated.body.draft));
+    assert.equal((await call('drafts/save', confirmed, cookie, id)).body.draft.revision, 2);
+    assert.equal((await call('drafts/save', { ...confirmed, statements: { ...confirmed.statements, reaction: 'Stale changed words' } }, cookie, id)).status, 409);
+    assert.equal((await call('drafts/save', { ...confirmed, expectedRevision: 2 }, otherCookie, otherId)).status, 409);
+    assert.equal((await call('drafts/delete', { fictionalOnly: true, id: draftId, expectedRevision: 2 }, otherCookie, otherId)).status, 409);
+    await stop(); runtime = await boot();
+    assert.equal((await call('drafts', undefined, cookie, id)).body.drafts[0].statements.reaction, exactReaction);
     assert.equal((await call('signin', { email: 'first@example.test', password: 'incorrect-test-password' })).status, 401);
     assert.equal((await call('signin', { email: 'FIRST@example.test', password })).status, 200);
     assert.equal((await call('profile', { profile: { ...profile, surgeries: 'Fictional surgery' }, expectedRevision: 1 }, cookie, id)).body.profile.revision, 2);
     assert.equal((await call('profile/delete', { expectedRevision: 1 }, cookie, id)).status, 409);
     assert.equal((await call('profile/delete', { expectedRevision: 2 }, cookie, id)).status, 200);
     assert.equal((await call('profile', undefined, cookie, id)).body.profile, null);
+    // Deleting a personal profile must not silently delete independent ADR records.
+    assert.equal((await call('drafts', undefined, cookie, id)).body.drafts.length, 1);
+    assert.equal((await call('drafts/delete', { fictionalOnly: true, id: draftId, expectedRevision: 1 }, cookie, id)).status, 409);
+    assert.equal((await call('drafts/delete', { fictionalOnly: true, id: draftId, expectedRevision: 2 }, cookie, id)).status, 200);
+    assert.equal((await call('drafts', undefined, cookie, id)).body.drafts.length, 0);
     assert.equal((await call('signout', {}, cookie)).status, 200);
     assert.equal((await call('session', undefined, cookie)).body.user, null);
     time += 9 * 60 * 60 * 1000;

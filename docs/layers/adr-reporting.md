@@ -1,6 +1,6 @@
 # ADR reporting
 
-**Status:** core confirmed requirement. A small English-only fictional draft interface is available at `#/preview/adr-report` for design evaluation. Its two steps collect and review user-entered details, then save multiple user-confirmed drafts in browser storage. The list and drafts are shared by anyone using the same browser profile; they are not separated by sign-in or account. Local accounts and health profiles now exist, but this ADR route still has no account-backed case persistence, case isolation, official form, professional review, or submission.
+**Status:** English-only fictional intake/review now supports local account-isolated SQLite drafts, unfinished saves, user confirmation, reopen/edit and confirmed deletion. Signed-out users can choose a separate shared browser demo. No official form, professional review or submission is implemented. See the [ADR storage guide](../../src/features/adr/README.md).
 
 The [hospital requirements register](../hospital-requirements.md) maps the notes attributed to Mahesh P to actual modules, gaps, source uncertainties and phased integration. It is not an approved SOP or authorization to enable clinical workflows.
 
@@ -18,7 +18,9 @@ Make it easy to describe a suspected medicine-related problem while preserving a
 - Save/resume drafts; confirm a version; generate a report; link professional clarification and follow-up versions.
 - Use idempotent requests and review potential duplicates without silently merging different people.
 
-The preview at `ReportReactionView` is limited to fictional evaluation. Reporter statements remain labelled as user-originated, optional blank values remain unknown, and only the reaction narrative is required before review. The review screen separates the user's confirmation from any professional assessment. Back navigation returns from review to editing, and from an editor opened from the list to that list; unsaved changes require confirmation before leaving the editor. From the saved-drafts list, a user can remove a draft after a Material 3 confirmation dialog; cancelling preserves it, and a storage error leaves the draft in the list. Removing the last draft shows a clear empty state. Draft schema v2 records the user's confirmation and timestamp; v1 browser drafts migrate in memory as unconfirmed. Multiple drafts are stored in a validated browser-local collection; existing single-draft v1/v2 entries load into the list and remain in their original keys until a subsequent save writes the collection. Browser storage is a temporary engineering step, shared within the browser profile; anyone with access to the profile can view or delete these fictional drafts. Never enter real patient information into it.
+The preview preserves reporter statements exactly, leaves optional blanks unknown, and requires a reaction narrative before review and explicit user confirmation. Account drafts may be saved unfinished. Back returns through internal steps; unsaved edits and active requests are guarded. Failed saves preserve edits, and failed deletion preserves the list. Server revisions reject stale changes. User confirmation is distinct from professional assessment.
+
+The optional browser demo retains the previous validated local collection and legacy single-draft loading. It is shared by the browser profile and is not claimed by a login or imported into account storage. Use fictional data in both modes.
 
 Current care urgency, symptom intensity, regulatory seriousness, and causality are separate fields/concepts. Reviewed urgent guidance can interrupt intake.
 
