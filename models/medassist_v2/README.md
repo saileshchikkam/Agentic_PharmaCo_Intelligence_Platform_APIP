@@ -1,5 +1,7 @@
 # MedAssist Symptom Assessment v2 — research foundation
 
+**Task 4B in progress:** [official fitting and validation status](task4b-validation.md). All three frozen real SGD fits completed without recorded warnings; validation selection/reporting and the pre-test seal are pending. No official test rows have been opened. Preserve the original running campaign; do not launch another fit.
+
 **Task 4A runner/software preflight completed:** [actual checks and remaining gates](task4a-preflight.md), [runner stages and exact commands](training/README.md). The frozen pipeline is implemented and fictional end-to-end checks passed with a non-learning stand-in. Official source/environment preflight decoded zero patient rows and performed no fitting/evaluation. Real support, convergence, resource and pre-test gates remain unexecuted; no v2 model or clinical service is claimed.
 
 **Task 3.5: [adaptive-questioning protocol v1 frozen](adaptive-questioning-protocol.md)** with [JSON settings](adaptive-questioning-protocol.json), [integrity checksum](adaptive-questioning-protocol.sha256) and pure validation/leakage references. The restricted 218-question task quarantines five unresolved history questions, preserves UNKNOWN/default distinctions and official partitions, and predeclares training-overlap sensitivity, capped prefixes, three baselines, one SGD ranking family and locked evaluation. This is a protocol GO, not a trained model or clinical approval. [Task 3.5 checks](task35-verification.json); training requires separate authorisation and pre-fit/parity gates.

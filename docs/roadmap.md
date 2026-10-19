@@ -6,6 +6,8 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**MedAssist v2 Task 4B in progress, 2026-10-19:** [actual fitting/status report](../models/medassist_v2/task4b-validation.md) records verified source/environment/parity, frozen cohorts/pairs and all three completed official SGD fits. Validation-only selection, baseline/full/sensitivity/uncertainty reports and pre-test sealing remain pending in the original campaign. Do not rerun fitting, infer a winner or open the locked test. The following v2 task entries retain their historical completion evidence.
+
 **Security foundation completed 2026-10-18:** legacy agent APIs default off, cannot run in production and require trusted local development opt-in. Explicit modes and loopback HTTP/HMR replace ambiguous startup and global permissive CORS. This is a bounded security task, not completed M1 or release readiness. MedAssist task/data planning remains next.
 
 The [hospital requirements register](hospital-requirements.md) is the source for hospital ADR document/intake/review requirements and their implementation gaps. Confirm the applicable form, SOP, role matrix and escalation protocol before clinical or mandatory hospital workflow behavior. Versioned account-isolated local fictional ADR drafts are now implemented. Confirmed profile imports and refined, reviewed intake remain next; legacy browser drafts stay separate. This does not replace the separate MedAssist ML research track.

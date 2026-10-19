@@ -1,0 +1,93 @@
+{
+  "task": "MedAssist v2 Task 4B",
+  "date": "2026-10-19",
+  "starting_commit": "6dbcf43401255f414df14cdac31d11231df55722",
+  "status": "official_fitting_complete_validation_running_pre_test_unsealed",
+  "changed_files": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/history/2026-10-19.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/training/README.md",
+    "models/medassist_v2/task4b-validation.md",
+    "models/medassist_v2/task4b-verification.json"
+  ],
+  "official_fit_invocations": 1,
+  "official_test_rows_opened": 0,
+  "official_test_command_invocations": 0,
+  "protocol_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "checks": [
+    {
+      "command": "python -W error -m unittest models.medassist_v2.tests.test_training_runner -q",
+      "tests": 22,
+      "seconds": 64.603,
+      "status": "passed"
+    },
+    {
+      "command": "python -W error -m models.medassist_v2.training preflight --data-root <external-sources>",
+      "verified_files": 5,
+      "synthetic_token_vectors": 640,
+      "synthetic_prefix_pairs": 256,
+      "status": "passed"
+    },
+    {
+      "name": "raw_git_blob_equals_frozen_working_bytes",
+      "status": "failed_preexisting_line_ending_difference",
+      "details": "344 CRLF working endings; LF Git blob. No frozen bytes changed."
+    },
+    {
+      "name": "links_fences_privacy_normalised_git_content_and_exact_local_protocol_digest",
+      "status": "passed"
+    }
+  ],
+  "completed_counts": {
+    "train_rows": 1025602,
+    "train_groups": 1005107,
+    "fit_groups": 4096,
+    "validation_rows": 132448,
+    "selection_groups": 4096,
+    "prefixes": 32768,
+    "pairs": 1048576,
+    "negative_targets": 1006794,
+    "positive_targets": 41782,
+    "positive_selection_cases": 4096
+  },
+  "alpha_outcomes": [
+    {
+      "alpha": 1e-05,
+      "status": "fitted",
+      "seconds": 108.328,
+      "epochs": 3,
+      "updates": 1536,
+      "warnings": 0
+    },
+    {
+      "alpha": 0.0001,
+      "status": "fitted",
+      "seconds": 87.187,
+      "epochs": 3,
+      "updates": 1536,
+      "warnings": 0
+    },
+    {
+      "alpha": 0.001,
+      "status": "fitted",
+      "seconds": 85.016,
+      "epochs": 3,
+      "updates": 1536,
+      "warnings": 0
+    }
+  ],
+  "pending": [
+    "validation_selection",
+    "full_and_sensitivity_baseline_comparisons",
+    "subgroup_bootstrap_reports",
+    "pre_test_seal_and_integrity_check"
+  ],
+  "limitations": [
+    "Fresh LF checkout protocol digest differs from current frozen CRLF checksum; preserved, not fixed."
+  ],
+  "preserved_unrelated_work": "models/medassist/dataset-manifest.json; not opened or staged",
+  "decision": "NO-GO locked test; Task 4B incomplete while original campaign continues"
+}

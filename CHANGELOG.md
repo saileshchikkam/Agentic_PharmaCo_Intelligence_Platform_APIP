@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist v2 official fitting milestone — 2026-10-19
+
+- Verified sources/environment/parity and prepared frozen training/validation cohorts and 1,048,576 training pairs; all three real SGD alpha fits completed without recorded warnings or numerical failures.
+- Validation-only selection remains in progress. No winner, baseline comparison, full uncertainty report, pre-test seal or locked-test result is claimed; the original campaign is preserved without retraining.
+
 ## MedAssist v2 frozen runner and software preflight — 2026-10-19
 
 - Implemented frozen training-reference/prefix/grid/selection/seal/test-cache/report stages with durable one-use test governance and aggregate subgroup/paired-bootstrap calculations.
