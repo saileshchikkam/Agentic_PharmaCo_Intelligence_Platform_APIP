@@ -1,5 +1,7 @@
 # Symptom-interview data contract v2.1
 
+**Subsequent Task 2:** the [loader/simulator guide](task2-loader-simulator.md) records the implemented streaming source reader and separate minimal selector view. This original Task 1 schema is unchanged; no archival snapshot converter or clinical assessment is introduced. Later implementation supersedes only the historical “not implemented” status notes below.
+
 This contract is a research storage/validation design. It does not determine what to ask clinically, make care recommendations, supply a trained model or validate source facts. Clinical review remains required. JSON Schema draft 2020-12 provides shape checks; `validate_interview` adds typed-value, chronology, provenance and reference consistency. It never changes inputs to make them pass.
 
 ## Source fields and separation

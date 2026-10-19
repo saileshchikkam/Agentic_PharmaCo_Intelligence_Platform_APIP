@@ -1,5 +1,7 @@
 # MedAssist Symptom Assessment v2 — research foundation
 
+**Task 2 now implemented:** [read-only local loader and staged simulator](task2-loader-simulator.md), [actual readiness/blockers and acquisition commands](task2-readiness.md), [Task 2 checks](task2-verification.json). Pinned real files are not locally configured; no real dataset statistics were produced. The Task 1 implementation and then-next-step statements below are historical context. Its unchanged verification receipt describes the Task 1 commit, not subsequent source/documentation bytes.
+
 **Task 1: implemented software contracts and synthetic checks, 2026-10-19.** This is a separate English-only research track for symptom interviewing and future adaptive question selection. It is not the NHAMCS ED-acuity task, an urgency model, a clinical algorithm or an application service. No model training, dataset archive download, LLM integration or inference endpoint is included. Required services cost zero.
 
 The [Phase 4A findings](../medassist/reports/2026-10-19-phase4a/README.md) and all earlier NHAMCS artifacts remain unchanged. No APIP frontend, backend, API route, ADR, account or patient-facing behavior is modified. This package imports no legacy research or application code. The existing unrelated manifest under models/medassist is not its input.

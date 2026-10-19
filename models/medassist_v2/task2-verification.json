@@ -1,0 +1,62 @@
+{
+  "task": 2,
+  "base_commit": "1e132194b77f89f9d4d2a2ff3864086b3df9002e",
+  "checks": {
+    "distinct_Task2_tests_passed": 19,
+    "initial_focused_suite": 18,
+    "CRC_and_expansion_targeted_rerun": "passed",
+    "final_partition_and_read_only_targeted_checks": "passed",
+    "initial_CRC_test_placement_error": "fixed and affected tests passed",
+    "old_full_suites_run": false,
+    "fixture_command": "passed",
+    "readiness_command_status": "missing_root",
+    "readiness_expected_exit": 2
+  },
+  "data_availability": {
+    "configured_root": false,
+    "dedicated_candidate_roots_present": false,
+    "whole_machine_search_performed": false,
+    "missing_files": [
+      "release_conditions.json",
+      "release_evidences.json",
+      "release_test_patients.zip",
+      "release_train_patients.zip",
+      "release_validate_patients.zip"
+    ],
+    "real_data_statistics": null,
+    "archives_downloaded": false
+  },
+  "boundaries": {
+    "original_research_and_application_paths_unchanged": true,
+    "source_manifest_and_Task1_receipt_unchanged": true,
+    "training": false,
+    "LLM": false,
+    "clinical_urgency": false,
+    "inference_API": false
+  },
+  "changed_files": [
+    "CHANGELOG.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-19.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/__main__.py",
+    "models/medassist_v2/data-contract.md",
+    "models/medassist_v2/loader.py",
+    "models/medassist_v2/simulator.py",
+    "models/medassist_v2/task2-loader-simulator.md",
+    "models/medassist_v2/task2-readiness.md",
+    "models/medassist_v2/task2-verification.json",
+    "models/medassist_v2/tests/test_loader_simulator.py"
+  ],
+  "files_sha256": {
+    "models/medassist_v2/README.md": "9d465391e871bec23cc240586b9b0ea39d8d6c8d69a190a0bf1f2b1c478b4cb2",
+    "models/medassist_v2/__main__.py": "3c3a9eeb26e73950b112ceae6c6f6e1dfd0f5cad153ffcfcc6917183764b98b8",
+    "models/medassist_v2/data-contract.md": "0b60e3423aa484db4c4fcd873224338ec5a77e6b87ceda45aa5d82dd78b886cd",
+    "models/medassist_v2/loader.py": "f7ed826249f187824ebd933f6227a62271cc5fc5253777541c1556219469aa52",
+    "models/medassist_v2/simulator.py": "41d4b03c486a5e8ce706b33c9dbe74114ca60720c4dcbe56933e7979ecd7c946",
+    "models/medassist_v2/task2-loader-simulator.md": "e2c4daf71081e569a2f45ff24e90222156cc60f8f74bbd65d7598a3c749ca57c",
+    "models/medassist_v2/task2-readiness.md": "b13db249c76bbf011f3cd42f1aec504f3c4e1699607c311902f46a1d8280ac91",
+    "models/medassist_v2/tests/test_loader_simulator.py": "c0a4a077bc4f8e140ae697040e36ca0182b22d88f26b8483105285b497e3d0b3"
+  }
+}

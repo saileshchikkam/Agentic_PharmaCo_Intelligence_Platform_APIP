@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist v2 read-only loader and simulator — 2026-10-19
+
+- Added pinned source-size/hash verification, safe bounded CSV-in-ZIP streaming and deterministic staged answers with separate hidden oracle/evaluator data.
+- Added 19 Task 2 synthetic regressions and a truthful missing-data report with manual acquisition commands. No source files downloaded, models trained or application behavior changed.
+
 ## MedAssist Symptom Assessment v2 foundation — 2026-10-19
 
 - Added an isolated research directory with verified English DDXPlus v2 provenance, structured interview and separate proposed urgency-label contracts.
