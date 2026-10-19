@@ -27,6 +27,8 @@ Before using a source/dataset, record its owner, URL/version/date, licence/permi
 
 ## Candidate data and evidence sources
 
+**Phase 4A, 2026-10-19:** [error audit and independent study design](../models/medassist/reports/2026-10-19-phase4a/README.md) now separate cached development investigations from post-hoc opened-test descriptions. The linked feature ledger, nine-source feasibility matrix, source manifest, reviewable study and risk register own the next research gates. No new dataset archives, training, threshold tuning or clinical behavior were introduced. No candidate is approved as independent all-age home-triage ground truth.
+
 **Research checked 2026-10-16; no dataset was downloaded or approved for ingestion by this pass.** Sources serve different tasks. Do not combine them into a single supposed clinical training set. Before adoption, complete the governance fields above, select a snapshot/version, inspect quality and rights, and document the actual ingestion.
 
 ### First evidence and reporting research

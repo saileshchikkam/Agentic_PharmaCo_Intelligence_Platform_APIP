@@ -1,0 +1,37 @@
+# Phase 3 cached error analysis
+
+This analysis preserves the Phase 3 choices at commit 853f7d69059ba2685de44362a890a615f6a5de47. Counts below come from [the read-only audit](error-audit.json), not a new model run. It retains all six primary and six secondary pipelines. Prominent examples use winners declared by **fitting-partition CV before testing**, without ranking models on opened-test results.
+
+## Development investigations — hypothesis generation only
+
+The fitting cohorts contain 5,933 all-labelled and 4,184 symptom-coded visits. There are no retained fit/OOF row predictions, and no secondary development row-prediction caches. Consequently this phase audits fitting input quality and existing CV summaries, **not fit error rates**. Of the all-labelled fitting visits, 3,954 have all seven vitals observed after frozen cleaning; 1,979 have at least one missing. One age is quarantined and nine sex values are imputed/unknown. BP ordering is unassessable for 460; no recorded positive pair has systolic below diastolic. These facts do not establish physiological correctness or measurement timing.
+
+Existing primary development arrays permit calibration and threshold-partition descriptions. For the CV-selected vitals RF, at the **unchanged threshold 0.12**:
+
+- Calibration: 35/180 high-acuity misses, 7/16 Immediate not detected as high, 512 false positives among 927 other visits.
+- Threshold-selection: 30/200 high misses, 0/17 Immediate misses, 559 false positives among 978 other visits.
+- Complete-vitals cases already include 21/102 high misses in calibration and 19/105 in threshold selection. Age 5–17 includes 11/21 and 8/15 high misses respectively. These are development hypotheses requiring independent review, not reasons to fit age-specific rules.
+
+Calibration records fitted the calibrator; threshold records selected the threshold. Neither is an unbiased generalization estimate, and zero Immediate misses in 17 threshold records proves no safety guarantee. Development abstention masks were not cached; abstentions are **unknown**, not reported as zero. No thresholds were searched or recomputed. Secondary CV scores remain the original aggregate evidence; clinical causes of errors cannot be inferred from them.
+
+## Opened-test descriptions — no selection or optimization
+
+Primary test: 1,989 labelled visits, 411 high, 26 Immediate. Age/sex LR, its predeclared profile winner, missed 75 high and eight Immediate, with 1,085 false positives. The vitals RF missed **86 high / seven Immediate**, with **956 false positives** among 1,578 other visits. These matched-profile results do not establish that vitals improve sensitivity at their different development-selected thresholds. No family or threshold is replaced based on this comparison.
+
+For the selected vitals RF:
+
+- **Missingness:** complete-vitals visits contribute 51/230 high misses and 580 false positives; one-missing visits 22/135 and 296; two-missing 3/23 and 33; three-missing 8/11 and 16. More-missing cells are sparse. Errors are not confined to missing measurements, and counts are not adjusted causal effects. Among 25 visits missing all seven vitals, eight are high and none are raw false negatives; three high abstain. This illustrates why raw detection alone can conceal withheld outputs.
+- **Immediate:** seven raw misses: two with complete vitals and five with one missing vital. Twenty of the 26 Immediate visits have a negative-sentinel pain scale; five of seven misses fall in that group. This overlap does not explain causation: urgency itself may affect what staff can record. There are too few Immediate cases for reliable feature-specific estimates.
+- **Age:** high misses/support are 1/5 (<1), 10/16 (1–4), 14/31 (5–17), 39/115 (18–44), 21/110 (45–64), 1/134 (65+). The older group also has 290 false positives and 26 high abstentions. Low raw missed counts do not establish age-group safety. No paediatric Immediate cases are present in this test; paediatric emergency performance is unmeasured.
+- **Demographic provenance:** one test age is quarantined; it contributes one false positive. Five sex values are imputed/unknown, including two high visits and one miss. Cells are too sparse for comparative conclusions. Original race/ethnicity unknown categories and original sex strata are retained in the JSON; survey codes are not social or biological explanations. Imputed demographics never become clinical truth.
+- **Symptom coverage:** the primary test includes 1,406 symptom-coded visits (281 high, 55 misses, three Immediate misses) and 583 other RFV-module visits (130 high, 31 misses, four Immediate misses). The independent secondary split is **not** the primary test subset. Across all eligible data the symptom restriction excludes 69/139 Immediate visits. RFV coverage is a selection limitation, not a missing-symptom repair opportunity.
+- **Measurement uncertainty:** BP is unassessable in 182 test visits, including 28 high with 13 misses. No observed pair has the prespecified arithmetic ordering conflict. Doppler-coded pulse is masked under v1; its 14 test visits are all non-high and all false positives. Numeric extremes, device quality, repeat readings and chronology cannot be clinically adjudicated from these fields. No new physiological cutoffs or replacement measurements were introduced.
+- **Abstentions:** 99 total, including 48 high and four Immediate. The union of raw miss or abstention is **134/411 high** and **11/26 Immediate**; the union avoids double counting. The frozen 0.4–0.6 probability diagnostic is neither a safety boundary nor a calibrated danger guarantee. Abstention must not hide failed detection.
+
+Secondary test: 1,593 visits, 289 high, ten Immediate. CV-selected symptom-only HGB has 202 high misses, 327 ordinal under-triages and 23 gaps of at least two levels. Vitals HGB has **189 high misses, 316 under-triages and 23 severe under-triages**; 95 other visits are predicted high. Every secondary pipeline misses exact class 1 on all ten Immediate cases. For vitals HGB, three Immediate cases are predicted class 2 (detected as high), six class 3 and one class 4. Thus **ten exact Immediate errors differs from seven failures to detect high acuity**. It abstains on 21 visits, including three high and one Immediate; these three high already fall among raw high misses. No five-class calibration, rescue threshold or post-test tuning is attempted.
+
+## Interpretation limits
+
+The audit emits count-only single-attribute views, not row-level narratives or intersections that could reconstruct individuals. Existing sparse guards flag n<30 or relevant support<10; no new subgroup rates, statistical tests, intervals or causal claims are published. All denominators refer to selected labelled ED visits. PATWT descriptions and original uncertainty restrictions remain in the [Phase 3 report](../2026-10-19-phase3/locked-test-evaluation.md); this audit makes no new national, incidence or significance claim. Singleton strata still prevent the frozen cluster intervals.
+
+Missingness, age imbalance, RFV selection and workflow-dependent labels warrant review; this audit cannot determine why an individual was misclassified. It contains no histories, symptom narratives, outcomes, repeated measurements or independent adjudication capable of establishing clinical error causes. Any hypotheses informed by the opened test require new confirmatory data. No automatic feedback, retraining or application inference follows.

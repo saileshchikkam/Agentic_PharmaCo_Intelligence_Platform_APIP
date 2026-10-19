@@ -16,9 +16,11 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 
 ## Start here
 
+- [MedAssist Phase 4A error audit and validation plan](models/medassist/reports/2026-10-19-phase4a/README.md): preserved benchmark, cached error patterns, dataset feasibility and independent-study gates. Offline research only.
+
 - [MedAssist Phase 3 actual ML results](models/medassist/reports/2026-10-19-phase3/README.md): completed offline training, locked evaluation, error findings and model cards. Clinical inference remains disabled.
 
-- [MedAssist Phase 2 baseline protocol](models/medassist/baseline-protocol.md): frozen offline binary/secondary research tasks, existing split reuse and training-readiness evidence. Training remains unperformed.
+- [MedAssist Phase 2 baseline protocol](models/medassist/baseline-protocol.md): frozen offline binary/secondary tasks and split reuse. Its freeze-time readiness evidence precedes the completed Phase 3 training.
 
 - [MedAssist ML Phase 1](models/medassist/reports/2026-10-19-phase1/README.md): acquired/profiled NHAMCS offline, reproducible Python pipeline and actual quality/split blockers. No model training or clinical integration.
 

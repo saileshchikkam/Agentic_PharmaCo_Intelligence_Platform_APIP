@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist Phase 4A error audit and validation design — 2026-10-19
+
+- Added a read-only cached-prediction auditor with preservation checks and synthetic regression tests; frozen Phase 3 models, thresholds, assignments and protocol remain unchanged.
+- Documented development versus opened-test error patterns, feature/target mismatch, nine-source feasibility, a clinician-reviewable independent study and research risks. No training, clinical rules or application inference changed.
+
 ## Profile editability and hospital requirements — 2026-10-18
 
 - Fixed Material controls staying disabled after profile loading by controlling each field and checkbox explicitly. Added a browser regression fixture.

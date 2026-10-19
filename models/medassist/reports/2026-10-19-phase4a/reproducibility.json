@@ -1,0 +1,75 @@
+{
+  "phase": "4A",
+  "phase3_commit": "853f7d69059ba2685de44362a890a615f6a5de47",
+  "protocol_sha256": "c9445327a349b193f29af121d4bbb9c26208c34d32a9868a3b2380d9d7dc013c",
+  "source_dta_sha256": "0e00cd5aea4511cd619f7af1e0dc2f6825f111b7c87d3ebbb1358410a4c881c2",
+  "pretest_sha256": "c226785bdda4fa6f756f468a8f82f551bc2c97fc82a9db3516808ff6e81d9ec4",
+  "split_and_CV_digests": {
+    "all_labelled": {
+      "assignment_sha256": "9c1a7393ab205aee97b6e0ab75dbfd5948e2ff796087f5c70b70714c2e431f96",
+      "cv_assignment_sha256": "ff11fbd30f458885444d57d692048e140cea40a899c3c784054b83c8b2e86ffd",
+      "phase1_assignment_file_sha256": "212c5f72c82c45f55f0bd7d64d0f40b4499a8cb17e1dad3287d5e7ec3c7efb4f"
+    },
+    "symptom_coded": {
+      "assignment_sha256": "4735d16049130a9b7e346721e1393d922aff96b9f6fac65d10de7c78d681b90e",
+      "cv_assignment_sha256": "eb2c08054091cae7b94419fd72a7c9dc5444d7c6684a96dcea0de309ef34c7d2",
+      "phase1_assignment_file_sha256": "5a8ae1b94b1f82b6c7a7050e2254aa4ae3dcdc2e5d3bf8a75a548da8c2bda09b"
+    }
+  },
+  "protected_external_files": {
+    "files_hashed": 332,
+    "inventory_sha256": "a82f1329ec61329a89759969dd3bf13a94d6909cf08df62151ccb23f71e3e9c5",
+    "all_protected_files_byte_identical": true
+  },
+  "files_sha256": {
+    "models/medassist/reports/2026-10-19-phase4a/error-analysis.md": "e8ef93a67c03d4f95c70b41e16cce27c0edb4eb63a225dcbb2ef4ae48d0e91d9",
+    "models/medassist/reports/2026-10-19-phase4a/error-audit.json": "b4feeee232439f99f225128cbfe98a23cbd0d710dbe646a8d5b43924065b1e3a",
+    "models/medassist/reports/2026-10-19-phase4a/external-datasets.md": "fe3751c872db3447ad9597c91ae4d7e669c05f9eb8873fc299a928183fca6d24",
+    "models/medassist/reports/2026-10-19-phase4a/feature-and-target-assessment.md": "5fe5621b4de4bc0881763b395443afabdef72c54cea586d791eafd9ec107239f",
+    "models/medassist/reports/2026-10-19-phase4a/README.md": "234e7587986ce908b3bb5b365189d81742f3a30c24198d43a0ed6585317af54c",
+    "models/medassist/reports/2026-10-19-phase4a/risk-register.md": "6d8f159d384ffea32ab4f9047f3a39837c5624d2725a3f3d83d43d9d8203c256",
+    "models/medassist/reports/2026-10-19-phase4a/validation-sources.json": "3ea8272d4dc65040273c395448d67ed8fedd2dd8d3d23d569db8dd6cc9be99ed",
+    "models/medassist/reports/2026-10-19-phase4a/validation-study.md": "82491008ca115c6a9ad219841adc7dbd8f98f57d3eca4cd6ff74b67464ca0864",
+    "models/medassist/research/audit/__init__.py": "79976723b602917a1234ef66cf84c9521c08106bd75cd7d94f8305ce77e27c82",
+    "models/medassist/research/audit/cli.py": "b125f158c47cc349308ab3514ea8d300525a8bbd2789665593f33b2861af51ef",
+    "models/medassist/research/audit/errors.py": "36602d9e5ed28f2775b878c492649c6461e1ebecd562ad56b611e87b9482a4b0",
+    "models/medassist/research/tests/test_phase4a.py": "9f0839ac89eb12cdd248b9c7c45184a0d28848df868f20a948b8cce966452b8a"
+  },
+  "changed_files": [
+    ".gitattributes",
+    "CHANGELOG.md",
+    "README.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-19.md",
+    "docs/research-and-validation.md",
+    "docs/roadmap.md",
+    "models/medassist/README.md",
+    "models/medassist/reports/2026-10-19-phase4a/README.md",
+    "models/medassist/reports/2026-10-19-phase4a/error-analysis.md",
+    "models/medassist/reports/2026-10-19-phase4a/error-audit.json",
+    "models/medassist/reports/2026-10-19-phase4a/external-datasets.md",
+    "models/medassist/reports/2026-10-19-phase4a/feature-and-target-assessment.md",
+    "models/medassist/reports/2026-10-19-phase4a/reproducibility.json",
+    "models/medassist/reports/2026-10-19-phase4a/risk-register.md",
+    "models/medassist/reports/2026-10-19-phase4a/validation-sources.json",
+    "models/medassist/reports/2026-10-19-phase4a/validation-study.md",
+    "models/medassist/research/README.md",
+    "models/medassist/research/audit/README.md",
+    "models/medassist/research/audit/__init__.py",
+    "models/medassist/research/audit/cli.py",
+    "models/medassist/research/audit/errors.py",
+    "models/medassist/research/tests/test_phase4a.py"
+  ],
+  "tests": {
+    "synthetic_research_tests": 50,
+    "new_phase4a_tests": 12,
+    "warnings_as_errors": true,
+    "pip_check": "no broken requirements",
+    "actual_cached_repeat_equal": true,
+    "fit_predict_threshold_and_outer_split_calls_blocked": true
+  },
+  "patient_archives_acquired": false,
+  "patient_facing_behavior_changed": false,
+  "training_or_prediction_replay": false,
+  "human_clinical_signoff": false
+}

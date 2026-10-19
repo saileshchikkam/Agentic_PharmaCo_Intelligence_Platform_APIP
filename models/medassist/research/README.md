@@ -2,6 +2,8 @@
 
 For the subsequently authorized offline baseline runner, see [Phase 3 training and test-lock instructions](training.md). Phase 1/2 findings below remain dated evidence; training outcomes are reported separately.
 
+For the completed read-only cached error audit and independent-study design, see [Phase 4A auditor](audit/README.md) and [findings](../reports/2026-10-19-phase4a/README.md). It adds no model fitting, prediction replay or patient-facing behavior.
+
 Implemented and checked 2026-10-19. Acquisition, deterministic decoding, aggregate profiling and split feasibility only. There are no estimators, training calls, application routes or clinical predictions here. Read the [approved experiment plan](../experiment-plan.md), [pinned source manifest](../open-access-manifest.json) and [actual Phase 1 findings](../reports/2026-10-19-phase1/README.md) first.
 
 ## Windows setup
