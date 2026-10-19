@@ -1,0 +1,9 @@
+{
+  "catalogue_id": "apip-fictional-catalogue-1",
+  "evidences": {
+    "FX_SYM": {"kind": "symptom", "data_type": "B", "question_en": "Is fictional symptom A present?", "possible_values": []},
+    "FX_CAT": {"kind": "symptom", "data_type": "C", "question_en": "Which fictional option describes symptom B?", "possible_values": ["option_a", "option_b"]},
+    "FX_MULTI": {"kind": "symptom", "data_type": "M", "question_en": "Which fictional options apply to symptom C?", "possible_values": ["option_x", "option_y"]},
+    "FX_ANT": {"kind": "antecedent", "data_type": "B", "question_en": "Is fictional history item D present?", "possible_values": []}
+  }
+}

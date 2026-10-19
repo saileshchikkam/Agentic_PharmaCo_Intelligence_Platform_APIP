@@ -16,6 +16,8 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 
 ## Start here
 
+- [MedAssist Symptom Assessment v2](models/medassist_v2/README.md): isolated interviewing-data contracts, verified DDXPlus provenance, separate proposed urgency annotations and synthetic validation tests. No training or application inference.
+
 - [MedAssist Phase 4A error audit and validation plan](models/medassist/reports/2026-10-19-phase4a/README.md): preserved benchmark, cached error patterns, dataset feasibility and independent-study gates. Offline research only.
 
 - [MedAssist Phase 3 actual ML results](models/medassist/reports/2026-10-19-phase3/README.md): completed offline training, locked evaluation, error findings and model cards. Clinical inference remains disabled.

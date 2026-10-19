@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "dataset_id": "ddxplus-en",
+  "title": "DDXPlus Dataset (English)",
+  "dataset_url": "https://figshare.com/articles/dataset/DDXPlus_Dataset_English_/22687585/2",
+  "doi": "10.6084/m9.figshare.22687585.v2",
+  "version": 2,
+  "metadata_url": "https://api.figshare.com/v2/articles/22687585/versions/2",
+  "verified_date": "2026-10-19",
+  "metadata_response_utf8_sha256": "4c583e09a40907b51245798265eab0fa16fc90a9e8a6b3c03ac9e52fb334645d",
+  "publisher_reported_publication_date": "2026-03-09T20:13:00Z",
+  "licence": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "obligations": "Attribution, licence link, and indication of changes; no endorsement is implied"
+  },
+  "source_documentation": [
+    "https://github.com/mila-iqia/ddxplus",
+    "https://arxiv.org/abs/2205.09148"
+  ],
+  "evidence_origin": "Synthetic patients generated using a proprietary medical knowledge base and commercial rule-based system",
+  "source_partition_names": [
+    "train",
+    "validate",
+    "test"
+  ],
+  "normalised_partition_names": [
+    "train",
+    "validation",
+    "test"
+  ],
+  "files": [
+    {
+      "name": "release_evidences.json",
+      "file_id": 40278013,
+      "bytes": 120263,
+      "url": "https://ndownloader.figshare.com/files/40278013",
+      "publisher_reported_md5": "0660962abe0bbf99e1fb77188c253597",
+      "local_sha256": null,
+      "downloaded": false
+    },
+    {
+      "name": "release_test_patients.zip",
+      "file_id": 40278016,
+      "bytes": 18986243,
+      "url": "https://ndownloader.figshare.com/files/40278016",
+      "publisher_reported_md5": "6fd53d331cf19ed4439bf4f46b92ee94",
+      "local_sha256": null,
+      "downloaded": false
+    },
+    {
+      "name": "release_train_patients.zip",
+      "file_id": 40278019,
+      "bytes": 140923730,
+      "url": "https://ndownloader.figshare.com/files/40278019",
+      "publisher_reported_md5": "f75a78420ccb061951daa4db2d62139b",
+      "local_sha256": null,
+      "downloaded": false
+    },
+    {
+      "name": "release_validate_patients.zip",
+      "file_id": 40278022,
+      "bytes": 18706053,
+      "url": "https://ndownloader.figshare.com/files/40278022",
+      "publisher_reported_md5": "e4db88e9082f18410de6fd0cb7e74d18",
+      "local_sha256": null,
+      "downloaded": false
+    },
+    {
+      "name": "release_conditions.json",
+      "file_id": 62561569,
+      "bytes": 20889,
+      "url": "https://ndownloader.figshare.com/files/62561569",
+      "publisher_reported_md5": "a992eadcff3099dd72e1820fbd2115aa",
+      "local_sha256": null,
+      "downloaded": false
+    }
+  ],
+  "scope": "Separate symptom-interview and question-collection research only; no source urgency labels",
+  "clinical_urgency_ground_truth": false,
+  "patient_files_downloaded_in_task1": false,
+  "provenance_limits": [
+    "Metadata response digest describes observed UTF-8 metadata, not downloaded dataset bytes or publisher authentication",
+    "Reverify metadata and files before future acquisition; a version label alone does not guarantee immutable files",
+    "No real-patient, India-specific, all-age, pregnancy or postpartum clinical validation is established",
+    "No dataset loader, model training, inference or diagnosis/severity-to-urgency mapping is implemented"
+  ]
+}

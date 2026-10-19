@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist Symptom Assessment v2 foundation — 2026-10-19
+
+- Added an isolated research directory with verified English DDXPlus v2 provenance, structured interview and separate proposed urgency-label contracts.
+- Added source/evidence/provenance checks, aggregate quality and group-split feasibility, external storage guards and synthetic regressions. Original Phase 1–4A artifacts and application behavior remain unchanged; no training or patient-data download occurred.
+
 ## MedAssist Phase 4A error audit and validation design — 2026-10-19
 
 - Added a read-only cached-prediction auditor with preservation checks and synthetic regression tests; frozen Phase 3 models, thresholds, assignments and protocol remain unchanged.

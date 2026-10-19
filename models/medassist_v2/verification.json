@@ -1,0 +1,81 @@
+{
+  "task": "MedAssist Symptom Assessment v2 Task 1",
+  "base_commit": "9e7302a5cc0475afd8bd88ae3d16f5e4b2763443",
+  "verified_date": "2026-10-19",
+  "runtime": {
+    "python": "3.12.2",
+    "packages": {
+      "jsonschema": "4.23.0",
+      "attrs": "24.2.0",
+      "jsonschema-specifications": "2023.12.1",
+      "referencing": "0.35.1",
+      "rpds-py": "0.20.0"
+    }
+  },
+  "checks": {
+    "focused_tests": 32,
+    "warnings_as_errors": true,
+    "test_command": "python -W error -m unittest discover -s models/medassist_v2/tests -v",
+    "fixture_command": "python -W error -m models.medassist_v2 verify-fixtures",
+    "synthetic_fixture_validation": "passed",
+    "actual_dataset_profile_run": false,
+    "clinical_accuracy_evaluated": false,
+    "application_build_run": false
+  },
+  "preservation": {
+    "existing_medassist_and_application_paths_unchanged": true,
+    "external_benchmark_files": 332,
+    "external_inventory_sha256": "a82f1329ec61329a89759969dd3bf13a94d6909cf08df62151ccb23f71e3e9c5",
+    "matches_phase4a_receipt": true,
+    "unrelated_untracked_manifest_unchanged": true
+  },
+  "dataset_archives_downloaded": false,
+  "training_performed": false,
+  "inference_integrated": false,
+  "clinical_rules_approved": false,
+  "files_sha256": {
+    "models/medassist_v2/.gitignore": "6f199b6a320313f4f60ac3daf9aaa29df5869be7d6d4f9974d77c7715d3beaae",
+    "models/medassist_v2/__init__.py": "fdeb4b81373a144eec25fdacecd736e2e90a7c85285c1333320658f370856db6",
+    "models/medassist_v2/__main__.py": "e214cf19c0061f6d3d5c446a3f5715b6a4a1fedef98882e76adccd87893f51bb",
+    "models/medassist_v2/data-contract.md": "a66ff29142c15b282091092997059c6ddb450437a8845cb02f6d6b8f2db81e7a",
+    "models/medassist_v2/dataset-manifest.json": "970036ad3e38755ad95147450c3ec97f2dec507c13951df77349b832bd431d04",
+    "models/medassist_v2/fixtures/catalogue.json": "fbcde0c8abfd678aa71b50bb75325be5b69ce8d75a016c0a07df0078ead88cb3",
+    "models/medassist_v2/fixtures/ddxplus-shaped-record.json": "680784ec2bc8e4a7e2d784088811e560cedb40d02c664b7244a80218c95142f1",
+    "models/medassist_v2/fixtures/interview.json": "d34d8e11608842bdcec90aad5922fa9ba5f19a57b57a310f76c60a403c0ff45d",
+    "models/medassist_v2/quality.py": "a4dafeadf53e07f3e26f3db45abb3899545624e1a1f21719945ee3ee705f594b",
+    "models/medassist_v2/README.md": "c26e6ff44dc5f11ad9204d5eab7c39b763de078fc69039141c0311b52090d756",
+    "models/medassist_v2/requirements.txt": "95405b03cbeb29e4f6ad4321287e40b0c0599a7ac3a88b9efebe72f8a378fb78",
+    "models/medassist_v2/schemas/interview.schema.json": "a610ce115c83577b8c905e516a6b59edde4f4234b41e7325491febf60da8c2fd",
+    "models/medassist_v2/schemas/urgency-annotation.schema.json": "31519232388ee6415c6b6fb01a310c422bb686bc4cd0278f4e936aa8b0de6f60",
+    "models/medassist_v2/storage.py": "9e70030784c2d956181a531f8040b408fc7482be7d1c6edbd5f6aa5ef1bd9437",
+    "models/medassist_v2/tests/test_foundation.py": "8434d96b87e9c4fab48dde11a3355c897fe1bbc9020bb8fe7ce63aa8576c7759",
+    "models/medassist_v2/urgency-labels.md": "06ede16885a52eb4c46487136db3676c1cab588fa05b50ef7d811fa068c3f286",
+    "models/medassist_v2/validation.py": "d5438da305582a788e3a92caa1c77c00fb908e83271b97430e6c7b10bfb0cb2e"
+  },
+  "changed_files": [
+    ".gitattributes",
+    "CHANGELOG.md",
+    "README.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-19.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/.gitignore",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/__init__.py",
+    "models/medassist_v2/__main__.py",
+    "models/medassist_v2/data-contract.md",
+    "models/medassist_v2/dataset-manifest.json",
+    "models/medassist_v2/fixtures/catalogue.json",
+    "models/medassist_v2/fixtures/ddxplus-shaped-record.json",
+    "models/medassist_v2/fixtures/interview.json",
+    "models/medassist_v2/quality.py",
+    "models/medassist_v2/requirements.txt",
+    "models/medassist_v2/schemas/interview.schema.json",
+    "models/medassist_v2/schemas/urgency-annotation.schema.json",
+    "models/medassist_v2/storage.py",
+    "models/medassist_v2/tests/test_foundation.py",
+    "models/medassist_v2/urgency-labels.md",
+    "models/medassist_v2/validation.py",
+    "models/medassist_v2/verification.json"
+  ]
+}
