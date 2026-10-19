@@ -1,6 +1,8 @@
 # MedAssist Symptom Assessment v2 — research foundation
 
-**Task 2 now implemented:** [read-only local loader and staged simulator](task2-loader-simulator.md), [actual readiness/blockers and acquisition commands](task2-readiness.md), [Task 2 checks](task2-verification.json). Pinned real files are not locally configured; no real dataset statistics were produced. The Task 1 implementation and then-next-step statements below are historical context. Its unchanged verification receipt describes the Task 1 commit, not subsequent source/documentation bytes.
+**Task 3 completed:** [official-source acquisition, full audit and next-study gates](task3-readiness.md), [aggregate statistics](task3-aggregate.json), [observed checksums](task3-source-verification.json), [verification receipt](task3-verification.json). All five pinned files are verified externally; 1,292,579 source records passed validation. Cross-partition duplicates require a frozen overlap policy before any independent-evaluation claim; source defaults/dependencies also need an explicit experiment design. No training or application inference occurred. Task 4 is not started.
+
+**Historical Task 2:** [read-only local loader and staged simulator](task2-loader-simulator.md), [then-missing data and acquisition commands](task2-readiness.md), [Task 2 checks](task2-verification.json). No real dataset statistics were produced in Task 2. Task 1/2 implementation and then-next-step statements below are historical context; unchanged receipts describe their respective task, not current source/documentation bytes. Current availability and findings are owned by Task 3.
 
 **Task 1: implemented software contracts and synthetic checks, 2026-10-19.** This is a separate English-only research track for symptom interviewing and future adaptive question selection. It is not the NHAMCS ED-acuity task, an urgency model, a clinical algorithm or an application service. No model training, dataset archive download, LLM integration or inference endpoint is included. Required services cost zero.
 
@@ -8,7 +10,7 @@ The [Phase 4A findings](../medassist/reports/2026-10-19-phase4a/README.md) and a
 
 ## Contracts and navigation
 
-- [Dataset provenance/licence manifest](dataset-manifest.json): official English DDXPlus **v2**, DOI 10.6084/m9.figshare.22687585.v2, CC BY 4.0, observed metadata digest, documentation, five exact public file references and publisher MD5 values. Local data hashes remain null because no source files were acquired.
+- [Dataset provenance/licence manifest](dataset-manifest.json): official English DDXPlus **v2**, DOI 10.6084/m9.figshare.22687585.v2, CC BY 4.0, observed metadata digest, documentation, five exact public file references and publisher MD5 values. Historical Task 1 local hashes remain null; actual acquisition hashes are in the separate Task 3 source receipt.
 - [Interview schema](schemas/interview.schema.json) and [data contract](data-contract.md): current disclosed facts, context, evidence types, answer history, confirmation, unknowns, contradictions and question candidates. Supports ages in days/months/years, caregivers, pregnancy and postpartum without inferring clinical context from sex or age.
 - [Separate research urgency schema](schemas/urgency-annotation.schema.json) and [label specification](urgency-labels.md): proposed labels, explicit insufficient-information/abstention, no clinical approval or source-label mapping. Stored separately from interview inputs.
 - `validation.py`: schema, provenance, typed evidence, source-record and cross-field checks; fixed error codes exclude record values.

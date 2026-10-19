@@ -225,6 +225,14 @@ def validate_annotation(annotation, interview):
 def validate_ddxplus_record(record, catalogue):
     """Validate documented raw source shape, kept separate from an interview snapshot."""
     definitions = validate_catalogue(catalogue)
+    return _validate_ddxplus_record(record, definitions)
+
+
+def _validate_ddxplus_record(record, definitions):
+    """Internal stream path: definitions must already pass validate_catalogue.
+
+    Every record check is identical to the public wrapper; do not accept unchecked metadata here.
+    """
     expected = {'AGE', 'SEX', 'PATHOLOGY', 'EVIDENCES', 'INITIAL_EVIDENCE', 'DIFFERENTIAL_DIAGNOSIS'}
     require(isinstance(record, dict) and set(record) == expected, 'ddxplus_raw_fields')
     finite_tree(record)

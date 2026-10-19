@@ -12,7 +12,7 @@ import zipfile
 import zlib
 
 from .storage import external_path
-from .validation import HERE, InvalidRecord, read_json, require, validate_catalogue, validate_ddxplus_record
+from .validation import HERE, InvalidRecord, read_json, require, validate_catalogue, _validate_ddxplus_record
 
 PARTITIONS = {'train': 'release_train_patients.zip', 'validation': 'release_validate_patients.zip',
               'test': 'release_test_patients.zip'}
@@ -59,13 +59,14 @@ def verified_file(root, specification, served_roots=()):
         raise InvalidRecord('source_io_failure') from None
 
 
-def archive_member(archive):
+def archive_member(archive, expected_source_name=None):
     entries = archive.infolist()
     require(len(entries) == 1, 'archive_member_count')
     item = entries[0]
     name = item.filename
     require(name and '/' not in name and '\\' not in name and ':' not in name
-            and not name.startswith('.') and name.lower().endswith('.csv'), 'unsafe_archive_path')
+            and not name.startswith('.') and (name.lower().endswith('.csv')
+            or (expected_source_name is not None and name == expected_source_name)), 'unsafe_archive_path')
     mode = item.external_attr >> 16
     require(not item.is_dir() and not stat.S_ISLNK(mode)
             and stat.S_IFMT(mode) in (0, stat.S_IFREG), 'unsafe_archive_member_type')
@@ -173,7 +174,8 @@ class DatasetLoader:
             with verified_file(self.root, self.specs[PARTITIONS[partition]], self.served_roots) as (file, digest, original):
                 archive_preflight(file)
                 with zipfile.ZipFile(file) as archive:
-                    member = archive_member(archive)
+                    # Official v2 archives contain one extensionless, partition-named CSV.
+                    member = archive_member(archive, PARTITIONS[partition].removesuffix('.zip'))
                     with archive.open(member) as stream:
                         lines = BoundedLines(stream)
                         reader = csv.reader(lines, strict=True)
@@ -188,7 +190,7 @@ class DatasetLoader:
                                 raw['AGE'] = float(raw['AGE'])
                             except ValueError:
                                 raise InvalidRecord('source_age_encoding') from None
-                            validated = validate_ddxplus_record(raw, catalogue)
+                            validated = _validate_ddxplus_record(raw, catalogue['evidences'])
                             require(validated['PATHOLOGY'] in conditions and all(d[0] in conditions for d in validated['DIFFERENTIAL_DIAGNOSIS']), 'unknown_source_condition')
                             lines.bytes_in_record = 0
                             yield partition, digest, validated

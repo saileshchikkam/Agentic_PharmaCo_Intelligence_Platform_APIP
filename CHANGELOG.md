@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist v2 official data acquisition and audit — 2026-10-19
+
+- Verified all five pinned English v2 sources externally and audited 1,292,579 records without changing official partitions; published aggregate checksums, duplicate/coverage findings and Task 4 design gates.
+- Fixed the official extensionless CSV-member format without relaxing archive/record/oracle checks; added acquisition/audit tooling and ten focused regressions. No model training or application behavior changed.
+
 ## MedAssist v2 read-only loader and simulator — 2026-10-19
 
 - Added pinned source-size/hash verification, safe bounded CSV-in-ZIP streaming and deterministic staged answers with separate hidden oracle/evaluator data.

@@ -134,7 +134,7 @@ class LoaderSimulatorTests(unittest.TestCase):
                 next(lines)
         name = loader.PARTITIONS['train']
         self.zip(name, [self.raw, self.raw]); self.pin(self.root / name)
-        with patch.object(loader, 'validate_ddxplus_record', wraps=loader.validate_ddxplus_record) as validate:
+        with patch.object(loader, '_validate_ddxplus_record', wraps=loader._validate_ddxplus_record) as validate:
             stream = loader.DatasetLoader(self.root).records('train')
             next(stream); self.assertEqual(validate.call_count, 1)
             stream.close()
