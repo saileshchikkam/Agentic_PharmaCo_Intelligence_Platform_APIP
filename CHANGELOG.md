@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist v2 frozen runner and software preflight — 2026-10-19
+
+- Implemented frozen training-reference/prefix/grid/selection/seal/test-cache/report stages with durable one-use test governance and aggregate subgroup/paired-bootstrap calculations.
+- Passed 22 distinct focused tests, fictional end-to-end dry runs with a non-learning estimator and source/environment-only official preflight. No DDXPlus fitting, official validation/test outcomes, protocol change or application integration occurred.
+
 ## MedAssist v2 adaptive-questioning protocol freeze — 2026-10-19
 
 - Froze the restricted 218-question synthetic collection task, unknown/default/conditional semantics, training-only overlap reference, prefix sampling, three baselines, lightweight ranking grid and one-time test design.

@@ -1,0 +1,116 @@
+{
+  "task": "MedAssist v2 Task 4A",
+  "date": "2026-10-19",
+  "starting_commit": "04dfb3eed1da256b9f25bd624b0e048684ed5e8c",
+  "decision": "GO software implementation and preflight; official fitting/evaluation/support/resource gates remain unexecuted",
+  "changed_files": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-19.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/training/__init__.py",
+    "models/medassist_v2/training/__main__.py",
+    "models/medassist_v2/training/campaign.py",
+    "models/medassist_v2/training/data.py",
+    "models/medassist_v2/training/fictional.py",
+    "models/medassist_v2/training/flow.py",
+    "models/medassist_v2/training/metrics.py",
+    "models/medassist_v2/training/runner.py",
+    "models/medassist_v2/training/README.md",
+    "models/medassist_v2/tests/test_training_runner.py",
+    "models/medassist_v2/task4a-preflight.md",
+    "models/medassist_v2/task4a-verification.json"
+  ],
+  "initial_untracked_starter_sha256": {
+    "models/medassist_v2/training/data.py": "835498a714db07070b227a85108cd81f6dd68d709d81d5c6e975e8388f2ea05d",
+    "models/medassist_v2/training/flow.py": "ab15e197ee41e21e9852efc8f0c346b9df085cfee4010a007dc6a2fbf49fde40",
+    "models/medassist_v2/training/__init__.py": "be9b0514e4cf251afe9d1c2b70d13ab5445f224828364c1e3bdefb376dbbf8f6"
+  },
+  "unrelated_untracked_file": "models/medassist/dataset-manifest.json preserved; not opened or staged",
+  "protocol_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "checks": [
+    {
+      "command": "python -W error -m unittest models.medassist_v2.tests.test_training_runner -v",
+      "result": "passed",
+      "tests": 21,
+      "seconds": 51.418
+    },
+    {
+      "command": "python -W error -m unittest models.medassist_v2.tests.test_training_runner.PipelineRunnerTests.test_global_ledger_blocks_another_sealed_run_of_same_campaign -v",
+      "result": "passed",
+      "tests": 1,
+      "seconds": 11.885
+    },
+    {
+      "command": "python -W error -m models.medassist_v2.training preflight --data-root <existing-external-v2-source>",
+      "result": "passed",
+      "verified_source_files": 5,
+      "official_patient_rows_decoded": 0,
+      "official_models_fitted": 0,
+      "official_outcomes_evaluated": 0,
+      "reference_token_comparisons": 640,
+      "synthetic_prefix_pairs": 256,
+      "threadpools_limit": 1
+    },
+    {
+      "command": "python -W error -m models.medassist_v2.training fictional-dry-run --run-root <new-external-fictional-run> --ledger-root <separate-external-fictional-ledger>",
+      "result": "two separately preserved runs passed; final after execution metadata addition",
+      "fictional_counts": {
+        "train": 5,
+        "validation": 4,
+        "test": 4
+      },
+      "fitting_groups": 4,
+      "pairs": 1024,
+      "standin": "non-learning zero coefficients/scores",
+      "dummy_selected_alpha": 0.001,
+      "full_test_cases": 4,
+      "sensitivity_cases": 3,
+      "residual_nontraining_validation_test_groups": 1
+    }
+  ],
+  "environment": {
+    "python": "3.12.2",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.2.2",
+    "scipy": "1.16.1",
+    "jsonschema": "4.23.0",
+    "sqlite": "3.43.1",
+    "blas": "OpenBLAS 0.3.28; one thread under execution limit",
+    "openmp": "vcomp; one thread"
+  },
+  "distinct_focused_tests_passed": 22,
+  "official_training_performed": false,
+  "official_outcomes_evaluated": false,
+  "frozen_settings_changed": false,
+  "remaining_gates": [
+    "real active reference and official stream counts",
+    "actual target and validation support",
+    "real grid convergence/warnings/durations",
+    "full-scale resource profile",
+    "real artifacts/pre-test seal and unopened stable ledger"
+  ],
+  "files_sha256": {
+    "models/medassist_v2/README.md": "717e4389b68f5149f813c0a66b85f967bc3c3818782a1d2dc1124f89d497620a",
+    "models/medassist_v2/training/__init__.py": "be9b0514e4cf251afe9d1c2b70d13ab5445f224828364c1e3bdefb376dbbf8f6",
+    "models/medassist_v2/training/__main__.py": "956866ff6e4708b81992da32ba1cfb6e03d82f7049ac23e1d005083d11b05808",
+    "models/medassist_v2/training/campaign.py": "3a9a199aa99eb646a138633599b95a69aa8edfe11b81592f171c319ef73c431b",
+    "models/medassist_v2/training/data.py": "3f06366415adbb6baae0c5a89535b0dac75bd92914cffe43d9704b7c933f1523",
+    "models/medassist_v2/training/fictional.py": "df3a1488af3abfa645b89d085ae1b39bd795f7e3b01f90e945ce89f28681b448",
+    "models/medassist_v2/training/flow.py": "3a3fd8e67059257fd59f8ff277ce5994f064d93ce9deff141fae1e922571fecd",
+    "models/medassist_v2/training/metrics.py": "0ce963452709cd11aabd49073bf70a3d3e7c4fa3fd6dd7fb4554d6dbb2f8dba1",
+    "models/medassist_v2/training/runner.py": "567ed1b52e76b622359de1e1e5ba5f74d472410583c57f4c3ed6308361a8120f",
+    "models/medassist_v2/training/README.md": "65e0d1b0780135a7b9cfd2026f980ff64ea0fbec0c1b7274965cca42d4cf64b2",
+    "models/medassist_v2/tests/test_training_runner.py": "0237bb787d0c3065746045a23960efb35b96979a76eb3f32a1b561d0f5e91435",
+    "models/medassist_v2/task4a-preflight.md": "e746e1b2a0b29f43e3a5f7222e26198053f7f19e664f25b08199f52fd713fd4d"
+  },
+  "publication_checks": {
+    "explicit_files": 18,
+    "markdown_files": 8,
+    "utf8_links_fences_privacy_python_json": "passed",
+    "protected_scope": "unchanged",
+    "index_at_start_of_completion": "empty"
+  }
+}
