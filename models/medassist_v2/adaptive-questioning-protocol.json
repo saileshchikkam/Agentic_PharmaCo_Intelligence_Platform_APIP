@@ -1,0 +1,344 @@
+{
+  "protocol_id": "medassist-v2-adaptive-questioning-v1",
+  "version": 1,
+  "status": "frozen",
+  "date": "2026-10-19",
+  "scope": "offline synthetic encoded-evidence collection; no diagnosis, clinical urgency or care recommendations",
+  "source": {
+    "doi": "10.6084/m9.figshare.22687585.v2",
+    "manifest_sha256": "970036ad3e38755ad95147450c3ec97f2dec507c13951df77349b832bd431d04",
+    "files": [
+      {
+        "name": "release_evidences.json",
+        "bytes": 120263,
+        "md5": "0660962abe0bbf99e1fb77188c253597",
+        "sha256": "281c78b044ae60514e28ecc9052d08a8225dd3e2db3f00f8788b99c47b05e0c0"
+      },
+      {
+        "name": "release_test_patients.zip",
+        "bytes": 18986243,
+        "md5": "6fd53d331cf19ed4439bf4f46b92ee94",
+        "sha256": "ad3bb981f3453fd7abffb35cc595a1c02197e409c581bff97c1265c33eb00d23"
+      },
+      {
+        "name": "release_train_patients.zip",
+        "bytes": 140923730,
+        "md5": "f75a78420ccb061951daa4db2d62139b",
+        "sha256": "174ae1d56f36a15b7144838ecd214e1e1748a5369fc90c559529b6dc6ecfb218"
+      },
+      {
+        "name": "release_validate_patients.zip",
+        "bytes": 18706053,
+        "md5": "e4db88e9082f18410de6fd0cb7e74d18",
+        "sha256": "625a96855becf0efe5da339fd3d440aa99597d48f784957a97dacc3fceaa7e40"
+      },
+      {
+        "name": "release_conditions.json",
+        "bytes": 20889,
+        "md5": "a992eadcff3099dd72e1820fbd2115aa",
+        "sha256": "56edf4682d8e86a4209fc3a33932e50ce03d1cc1fecc326c26d5ef8fa5c24890"
+      }
+    ],
+    "official_partitions": {
+      "train": 1025602,
+      "validation": 132448,
+      "test": 134529
+    },
+    "documentation_url": "https://github.com/mila-iqia/ddxplus/blob/4f5ec677099ef99f7cc1dc0bfe2378bb29a29bda/README.md",
+    "documentation_utf8_sha256": "257fbd5ff7c197b1641f16907beeed862aaddebf22b4303f368e613e424afa05"
+  },
+  "answers": {
+    "absent": "UNKNOWN",
+    "unknown_value": null,
+    "binary": "only encoded bare evidence is true; absence never false",
+    "categorical": "one exact typed source value, including explicit default/NA",
+    "multichoice": "one question reveals the complete encoded typed set; preserve explicit default/NA even if mixed; no inferred negatives",
+    "default_usefulness": "explicit nondefault values count as useful encoded content, not medical utility; default/NA remains confirmed with zero reward",
+    "case_unavailable": "no inferred demographics, pregnancy, postpartum or answers"
+  },
+  "eligibility": {
+    "catalogue_size": 223,
+    "active_size": 218,
+    "quarantined_child_to_missing_root": {
+      "E_69": "E_68",
+      "E_37": "E_36",
+      "E_118": "E_117",
+      "E_123": "E_122",
+      "E_87": "E_85"
+    },
+    "known_child_to_binary_parent": {
+      "E_55": "E_53",
+      "E_57": "E_53",
+      "E_54": "E_53",
+      "E_59": "E_53",
+      "E_56": "E_53",
+      "E_58": "E_53",
+      "E_133": "E_129",
+      "E_130": "E_129",
+      "E_134": "E_129",
+      "E_132": "E_129",
+      "E_136": "E_129",
+      "E_135": "E_129",
+      "E_131": "E_129",
+      "E_152": "E_151"
+    },
+    "missing_parent_policy": "globally exclude child; never invent parent, alias or activation",
+    "self_root": "eligible unless already disclosed/asked or contradictory",
+    "known_parent": "child eligible only after confirmed boolean true parent; UNKNOWN/false/conflict blocks",
+    "unexpected_graph": "abort before fitting if graph/types/hashes differ",
+    "initial": "only original INITIAL_EVIDENCE; abort if quarantined or unsupported"
+  },
+  "information": {
+    "initial_context": [
+      "AGE",
+      "SEX"
+    ],
+    "model_inputs": [
+      "initial evidence ID",
+      "explicit source AGE and SEX",
+      "already disclosed answer IDs/states/typed values",
+      "asked IDs and turn count",
+      "candidate ID/type",
+      "eligibility computed from public graph and disclosed state"
+    ],
+    "oracle_only": [
+      "full encoded evidence",
+      "per-candidate useful-content target",
+      "evaluation denominators and unreachable-content counts",
+      "overlap/sampling fingerprints"
+    ],
+    "evaluator_only": [
+      "PATHOLOGY",
+      "DIFFERENTIAL_DIAGNOSIS"
+    ],
+    "forbidden": [
+      "diagnoses or severity in model features/targets",
+      "future/hidden answers in features or masks",
+      "case/group/partition IDs or fingerprint bytes in features",
+      "condition-to-evidence maps",
+      "validation/test rows for prefixes, preprocessing, priors or fitting",
+      "oracle-completion stopping",
+      "LLM/RAG/prompts or inference API"
+    ],
+    "public_transcript": "canonical JSON of initial evidence, explicit AGE/SEX, asked order, disclosed ID/state/typed values and contradiction state; no oracle, source IDs, labels or unasked values; SHA-256 transiently computed from this state only",
+    "feature_kind": "kind is omitted from v1 model tokens because the existing selector view does not expose it; never infer kind from ID"
+  },
+  "overlap": {
+    "fingerprint": "active-interview-v1; canonical UTF-8 JSON sorted keys compact separators allow_nan=false; AGE float, SEX, INITIAL_EVIDENCE and sorted [active evidence ID, typed value] pairs; M values sorted by typed JSON; SHA-256 hex",
+    "reference": "training-only unique fingerprint dictionary, sealed externally before validation/test outcomes",
+    "full_reports": "retain every original source row including duplicates, with source membership unchanged",
+    "sensitivity": "validation/test exclude only fingerprints present in sealed training reference; report full and sensitivity separately",
+    "within_training": "one earliest-source-row representative per active fingerprint for capped fitting; full source remains unchanged",
+    "validation_selection": "only non-training-overlap validation subset; no test-based exclusions",
+    "validation_test_overlap": "not removed by training-only rule; report residual overlap and do not claim complete independence",
+    "prior_task3_fingerprints": "cached descriptive evidence only; active fingerprint differs; no new overlap counts claimed now",
+    "storage": "private SQLite/reference/row maps external only; no public fingerprint bytes"
+  },
+  "prefixes": {
+    "partition": "train only",
+    "max_unique_cases": 4096,
+    "case_order": "ascending SHA256 of UTF-8 1729|fit|<active fingerprint>, earliest source ordinal breaks ties",
+    "policies": [
+      "random-eligible",
+      "lexical"
+    ],
+    "trajectory_seed": "SHA256 of UTF-8 1729|prefix|<policy>|<public transcript SHA256>|<turn>; first 16 hex digits as unsigned integer",
+    "maximum_questions": 20,
+    "saved_before_question_turns": [
+      0,
+      2,
+      5,
+      10
+    ],
+    "candidate_cap_per_prefix": 32,
+    "candidate_order": "ascending SHA256 of UTF-8 1729|candidate|<policy>|<public transcript SHA256>|<turn>|<evidence ID>; first 32 eligible; never case/oracle fingerprint",
+    "targets": "1 iff eligible question has at least one explicitly encoded nondefault value; otherwise 0 (zero is collection utility, never a negative clinical answer)",
+    "no_target_sampling": "do not use oracle to choose trajectories, lengths, candidate sample or saved-prefix positions",
+    "zero_positive_prefix": "retain eligible sampled candidates with target 0; do not invent a positive or oracle stop",
+    "batch_pairs": 2048,
+    "max_saved_prefixes": 32768,
+    "max_pairs_per_pass": 1048576,
+    "stream_order": "case sampling order, then declared policy order, then ascending saved turn, then candidate digest/ID order; skip unsaved turns after structural stops; never oracle-completion padding"
+  },
+  "stopping": {
+    "report_budgets": [
+      5,
+      10,
+      20
+    ],
+    "max_questions": 20,
+    "initial_cost": 0,
+    "question_cost": "one per evidence ID, including M set; no repeat",
+    "reasons": [
+      "question_budget",
+      "no_eligible_question",
+      "unresolved_contradiction",
+      "invalid_policy_output"
+    ],
+    "unknown": "disclosed unknown remains asked, not re-eligible; unknown answer alone does not stop",
+    "policy_stop": "no learned stop or score threshold; continue if eligible until budget",
+    "failure": "invalid/repeated/ineligible policy output is a recorded failed trajectory; no oracle retry or silent fallback"
+  },
+  "baselines": {
+    "lexical": "lexicographically smallest eligible ID by Unicode code-point order",
+    "random_eligible": "uniform index into sorted eligible IDs; SHA256-seeded random.Random.randrange; seed material 1729|eval|random|<public transcript SHA256>|<turn>",
+    "training_frequency": "descending useful-encoded frequency per active ID from the same capped 4096 training representatives; ties lexical; eligibility always enforced"
+  },
+  "ranking_model": {
+    "family": "sklearn.linear_model.SGDClassifier pointwise logistic candidate ranker",
+    "loss": "log_loss",
+    "penalty": "l2",
+    "alpha_grid": [
+      1e-05,
+      0.0001,
+      0.001
+    ],
+    "epochs": 3,
+    "average": true,
+    "fit_intercept": true,
+    "learning_rate": "optimal",
+    "class_weight": null,
+    "tol": null,
+    "early_stopping": false,
+    "n_jobs": 1,
+    "random_state": 1729,
+    "training": "partial_fit fixed prefix/candidate stream order, classes [0,1], no shuffle; reset estimator per alpha; both classes required globally or abort",
+    "features": {
+      "hasher": "sklearn.feature_extraction.FeatureHasher",
+      "n_features": 65536,
+      "input_type": "string",
+      "alternate_sign": false,
+      "dtype": "float32",
+      "tokens": [
+        "candidate ID/type",
+        "source AGE band and SEX",
+        "initial ID",
+        "candidate x initial ID",
+        "candidate x each disclosed evidence ID/state/typed value token",
+        "candidate x asked-turn bin [0,1-4,5-9,10-19]"
+      ],
+      "multichoice": "one typed value token per explicitly disclosed M member plus state token; no hidden count or unasked value token",
+      "normalisation": "exact JSON-array token grammar in questioning_protocol.feature_tokens; typed_key compact sorted-key ASCII-escaped JSON, no learned vocabulary/imputation/scaler",
+      "tie_break": "exact same score -> lexical ID"
+    },
+    "resources": {
+      "dense_corpus": "forbidden",
+      "stream_batch_pairs": 2048,
+      "threads": 1,
+      "fit_cases": 4096,
+      "laptop_ram_gib": 16,
+      "runtime": "unmeasured; no elapsed-time guarantee"
+    },
+    "shuffle": false
+  },
+  "selection": {
+    "validation_cap_unique_nontraining_groups": 4096,
+    "validation_order": "ascending SHA256 of UTF-8 1729|select|<active fingerprint>; earliest source ordinal representative; no outcome-dependent sample",
+    "primary": "macro useful-encoded recall@20, cases with positive denominator only",
+    "tie_tolerance": 1e-12,
+    "tie_break": [
+      "macro recall@10",
+      "useful yield@20",
+      "larger alpha"
+    ],
+    "no_valid_support": "abort if no supported positive-denominator validation cases or reference/membership verification fails",
+    "test": "one sealed final evaluation campaign for fixed three baselines and validation-selected ranker; no candidate grid or test retuning",
+    "pre_test_seal": [
+      "protocol/source digests",
+      "training reference and selected fitting membership hashes",
+      "prefix/candidate-generation hashes",
+      "all alpha validation results and selected alpha",
+      "preprocessing/feature grammar and estimator hashes",
+      "baseline frequency hashes",
+      "validation selection and sensitivity masks",
+      "test outcome files must not yet exist"
+    ],
+    "no_post_selection_refit": "retain train-only selected estimator; no validation refit or extra fit cases",
+    "test_aggregation": "one trajectory per frozen policy/case, cached externally once; full/sensitivity/subgroups/bootstrap derive from the same cached trajectory, never a second policy evaluation"
+  },
+  "evaluation": {
+    "useful_unit": "one active evidence ID with true B or at least one C/M value not typed-equal to publisher default; initial excluded; never medical importance",
+    "denominator": "all useful active IDs excluding initial, including conditionally unreachable encoded items; unreachable count reported separately, not silently dropped",
+    "zero_denominator": "recall undefined; exclude from macro, report count; include all cases in cost/unknown/failure metrics",
+    "metrics": [
+      "macro and micro useful recall@5,@10,@20",
+      "useful yield per actual question",
+      "all-encoded answer coverage including defaults",
+      "unknown/default/invalid/repeat rates",
+      "useful-recall curve mean over turns 1..20, final state carried forward after stop",
+      "actual questions and stopping counts",
+      "unreachable useful IDs and quarantined encoded counts",
+      "micro per-type useful recall and yield with asked counts and interview support"
+    ],
+    "stopped_tail": "carry final disclosed state to later fixed budgets, including failures; report failures, no row dropping",
+    "subgroups": {
+      "age_bands": [
+        "under_1",
+        "1_to_4",
+        "5_to_17",
+        "18_to_64",
+        "65_plus",
+        "unknown"
+      ],
+      "source_sex": [
+        "M",
+        "F",
+        "unknown"
+      ],
+      "question_types": [
+        "B",
+        "C",
+        "M"
+      ],
+      "oracle_unencoded_active_fraction_bins": [
+        "[0,0.90)",
+        "[0.90,0.95)",
+        "[0.95,1]"
+      ],
+      "observed_unknown_rate": "descriptive only; never selection feature from future turns",
+      "support": "always report n; suppress subgroup rates/intervals below 50 cases or 20 positive-denominator cases"
+    },
+    "uncertainty": {
+      "unit": "active fingerprint cluster",
+      "replicates": 1000,
+      "seed": 2718,
+      "interval": "paired percentile 2.5/97.5 bootstrap, clusters sampled with replacement and all original rows retained within cluster; sensitivity reported separately",
+      "rare_groups": "undefined metrics stay null; no zero substitution or clinical claims",
+      "minimum_valid_replicates": 950,
+      "undefined": "use only defined replicate metrics for percentiles; suppress interval if fewer than 950/1000 are defined; report valid counts, never zero-fill"
+    },
+    "diagnosis": "optional aggregate label support only, no diagnosis accuracy/urgency metrics; labels never choose questions",
+    "all_encoded_denominator": "all explicitly encoded active IDs excluding initial, including defaults and conditionally unreachable items; one ID per question",
+    "failure_accounting": "stop on invalid/repeated/ineligible output, retain last valid state in all denominators and carry forward; nonfinite model score aborts the campaign, not a negative/unknown answer"
+  },
+  "seeds": {
+    "master": 1729,
+    "bootstrap": 2718,
+    "random_draw": "int(first 16 hex SHA256(seed-prefix UTF-8),16); random.Random(seed).randrange(len(sorted eligible)); no Python hash()",
+    "noninterference": "Selector RNG/candidate subsampling use disclosed-transcript digest only, never case fingerprint, row ordinal, hidden answers, diagnosis or partition."
+  },
+  "environment": {
+    "python": "3.12.2",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.2.2",
+    "scipy": "1.16.1",
+    "jsonschema": "4.23.0",
+    "environment_mutation": "none in Task 3.5; separate external research env for future execution"
+  },
+  "gates": {
+    "decision": "GO frozen restricted synthetic evidence-collection protocol; implementation parity and pre-fit verification required before separately authorised training",
+    "source_semantics": "five orphan histories remain unresolved and excluded, not reconstructed",
+    "independence": "training-overlap sensitivity does not remove all validation/test/template dependence",
+    "clinical": "NO-GO; no clinical urgency labels or India-specific validation",
+    "task_boundary": "no training, LLM, app, ADR or NHAMCS changes",
+    "pre_fit_checks": [
+      "protocol/source/group metadata hashes verified",
+      "exact official memberships preserved",
+      "training-only active fingerprint reference and selected source ordinal map sealed",
+      "prefix/mask/features pass synthetic leakage and deterministic replay parity",
+      "both utility-target classes and eligible validation positive-denominator support exist",
+      "all warnings/failures/durations and dependency versions recorded; nonfinite fits/scores abort before test",
+      "any incomplete/failed required alpha experiment blocks pre-test sealing; no replacement family/grid or test access"
+    ]
+  }
+}

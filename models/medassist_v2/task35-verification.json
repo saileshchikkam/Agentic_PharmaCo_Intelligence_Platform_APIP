@@ -1,0 +1,75 @@
+{
+  "task": "MedAssist v2 Task 3.5",
+  "date": "2026-10-19",
+  "starting_commit": "283f041606b218899e2bf4a81592f41534b04b7b",
+  "decision": "GO frozen restricted synthetic evidence-collection protocol; no training authorised/performed",
+  "changed_files": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-19.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/adaptive-questioning-protocol.json",
+    "models/medassist_v2/adaptive-questioning-protocol.md",
+    "models/medassist_v2/adaptive-questioning-protocol.sha256",
+    "models/medassist_v2/questioning_protocol.py",
+    "models/medassist_v2/tests/test_questioning_protocol.py",
+    "models/medassist_v2/task35-verification.json"
+  ],
+  "protocol_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "checks": [
+    {
+      "command": "python -W error -m unittest models.medassist_v2.tests.test_questioning_protocol -q",
+      "result": "passed",
+      "tests": 19
+    },
+    {
+      "command": "python -W error -m models.medassist_v2.questioning_protocol",
+      "result": "checksum verified; no training"
+    },
+    {
+      "command": "python -W error -m models.medassist_v2.questioning_protocol --root <existing-external-v2-root>",
+      "result": {
+        "checksum": "verified",
+        "catalogue": 223,
+        "active": 218,
+        "conditional": 14,
+        "quarantined": 5,
+        "evidence_bytes": 120263,
+        "publisher_md5_and_local_sha256": "matched"
+      }
+    }
+  ],
+  "investigation": {
+    "source_documentation_revision": "4f5ec677099ef99f7cc1dc0bfe2378bb29a29bda",
+    "source_documentation_utf8_sha256": "257fbd5ff7c197b1641f16907beeed862aaddebf22b4303f368e613e424afa05",
+    "full_corpus_rescans": 0,
+    "patient_records_published": 0,
+    "training_reference_created": false,
+    "new_overlap_counts_computed": false
+  },
+  "remaining_limits": [
+    "five missing parent definitions remain unresolved; children quarantined",
+    "validation/test and template dependence not removed by training-only sensitivity",
+    "future runner parity/source/reference/target-support/environment gates not yet executed",
+    "no clinical urgency or India-specific validation"
+  ],
+  "training_performed": false,
+  "application_changes": false,
+  "files_sha256": {
+    "models/medassist_v2/README.md": "120f2bd7d1deb0ea74e9445678bc5debea8f6c775a154c09162b23123be1ae7f",
+    "models/medassist_v2/adaptive-questioning-protocol.json": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+    "models/medassist_v2/adaptive-questioning-protocol.md": "d7b2ef51dfca80d87972083aeba2ffdd3722aee53cd6ab6595c54d7ab99da048",
+    "models/medassist_v2/adaptive-questioning-protocol.sha256": "f6bfa41f868f30dd634b2b53235d50e59589e8195d86c036eb2bdc39899ab716",
+    "models/medassist_v2/questioning_protocol.py": "4f2f55a52bf4ba106259fba2512ba425db91010ddf8d68ca372460aa7059ab6b",
+    "models/medassist_v2/tests/test_questioning_protocol.py": "3e921509d31e91a122962f35a234068706166423eb2fb45c18f6136f7b6916d8"
+  },
+  "publication_checks": {
+    "explicit_files": 12,
+    "markdown_files": 7,
+    "links_fences_privacy_syntax": "passed",
+    "protected_scope": "passed",
+    "unrelated_manifest_sha256": "e60284bb74da6215986b8d00d6a13aab404422c41fddad13fe7c3b37e4c6b9b2"
+  }
+}

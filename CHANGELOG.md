@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist v2 adaptive-questioning protocol freeze — 2026-10-19
+
+- Froze the restricted 218-question synthetic collection task, unknown/default/conditional semantics, training-only overlap reference, prefix sampling, three baselines, lightweight ranking grid and one-time test design.
+- Added checksum/metadata/protocol validation and synthetic leakage tests. Five unresolved history questions remain quarantined; no model training, corpus rescan or application behavior changed.
+
 ## MedAssist v2 official data acquisition and audit — 2026-10-19
 
 - Verified all five pinned English v2 sources externally and audited 1,292,579 records without changing official partitions; published aggregate checksums, duplicate/coverage findings and Task 4 design gates.
