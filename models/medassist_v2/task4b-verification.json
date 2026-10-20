@@ -12,7 +12,8 @@
     "models/medassist_v2/training/README.md",
     "models/medassist_v2/task4b-validation.md",
     "models/medassist_v2/task4b-verification.json",
-    "models/medassist_v2/task4b-aggregate.json"
+    "models/medassist_v2/task4b-aggregate.json",
+    "docs/safety-framework.md"
   ],
   "official_fit_invocations": 1,
   "official_test_rows_opened": 0,
@@ -115,5 +116,10 @@
   "seal_sha256": "bd93cb1716b4780b3cdefe26bb197fa402f3d46b237dd9971f2cadfb750fece7",
   "sealed_artifacts_verified": 17,
   "source_files_reverified": 5,
-  "monitor": "Existing monitor paused after verified terminal success; persisted PAUSED status verified; no replacement monitor created"
+  "monitor": "Existing monitor paused after verified terminal success; persisted PAUSED status verified; no replacement monitor created",
+  "sync_reconciliation": {
+    "results_commit": "885aa795b4b50413946ea0245132754e9f1d2f4b",
+    "remote_docs_preserving_merge": "5b27c33c8f9caa170fd4c1ff248fa280d2db1ce0",
+    "force_push_reset_rebase": false
+  }
 }

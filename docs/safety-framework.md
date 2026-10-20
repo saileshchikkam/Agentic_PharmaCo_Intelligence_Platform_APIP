@@ -42,11 +42,11 @@ APIP (Agentic Pharma Co-intelligence Platform) prioritizes suspected adverse dru
 | DDXPlus source authenticity | [Task 3 readiness](../models/medassist_v2/task3-readiness.md) | Five official synthetic source files verified; not real-world patient validation |
 | Frozen question-selection research protocol | [Protocol v1](../models/medassist_v2/adaptive-questioning-protocol.md) | Restricted 218-question task; five unresolved roots quarantined |
 | Training runner isolation | [Task 4A preflight](../models/medassist_v2/task4a-preflight.md) | Focused fictional parity/security-boundary tests passed; not a clinical safety audit |
-| Real model fitting | [Task 4B status](../models/medassist_v2/task4b-validation.md) | Three official SGD configurations fitted; as of this document's drafting, full validation/seal not verified from repository |
+| Real model fitting and validation | [Task 4B results](../models/medassist_v2/task4b-validation.md), [aggregate/hash receipt](../models/medassist_v2/task4b-aggregate.json) | Three SGD configurations completed; 132,448 synthetic validation interviews reported; 17 sealed artifact hashes and five sources independently verified on 2026-10-20. Locked test remains unopened; no clinical/generalisation claim |
 | Clinical accuracy, safe triage or patient deployment | No independent clinical evaluation/approval evidence | **Do not claim** |
 | Overall leak-proof or secure system | No independent end-to-end penetration/security assessment | **Do not claim** |
 
-Later stage updates must be supported by new receipts, not inferred from a running process or chat status. In particular, do not touch the live Task 4B run, frozen protocol, sealed artifacts, stable test ledger or test partition for this documentation task.
+Later stage updates must be supported by new receipts, not inferred from a running process or chat status. Preserve the completed Task 4B run, frozen protocol, sealed artifacts and stable test ledger; locked-test execution requires separate explicit authorisation. Validation/pre-test completion does not satisfy the separately authorised locked-test part of G1 below.
 
 ## Release and evaluation gates
 
