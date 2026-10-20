@@ -6,14 +6,14 @@
 
 ## Origin and team
 
-According to Sailesh, the idea began in September 2024 when he and Mahesh P joined a multidisciplinary university event he calls Pharma Cognizance Week. Coming from B.Tech rather than pharmacy, Sailesh noticed that unwanted medicine effects can go unreported after a patient's original problem improves.
+According to Sailesh, the idea began in September 2024 when he and Mahesh P joined a multidisciplinary university event he calls Pharma Covigilence 2024 Week. Coming from B.Tech rather than pharmacy, Sailesh noticed that unwanted medicine effects can go unreported after a patient's original problem improves.
 
 Wearable hardware and an initial SaaS direction were explored and dropped. The ADR Reporting System grew into Sailesh's final-year engineering project and the broader APIP vision.
 
 - **Sailesh:** product vision and generative-AI experience.
 - **Jayanth:** originated MedAssist AI.
 - **Mitravind:** backend engineer.
-- **Mahesh P:** co-originator of the initial ADR concept and pharmacy reviewer, as identified by Sailesh. Routine availability and agreed review scope are not established.
+- **Mahesh P:** co-originator of the initial ADR concept and pharmacy reviewer. Routine availability and agreed review scope are not established.
 
 Sailesh reports consultation with and permission from the college pharmacy dean. Mahesh may be available for targeted/final checks; exact availability, review scope, and patient-data/study/dataset permissions remain to be established. Codex can prepare and check engineering/evidence work but does not provide human clinical validation. No additional qualifications are inferred for team members.
 
