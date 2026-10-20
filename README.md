@@ -16,7 +16,7 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 
 ## Start here
 
-- [MedAssist Symptom Assessment v2](models/medassist_v2/README.md): verified DDXPlus English v2, frozen restricted protocol and offline runner. Task 4B's three official fits completed; validation and pre-test sealing remain in progress. Locked testing and clinical integration remain unexecuted; five questions remain quarantined.
+- [MedAssist Symptom Assessment v2](models/medassist_v2/README.md): Task 4B official training/validation completed with a verified pre-test seal. All 132,448 synthetic validation interviews were evaluated; selected ranker recall@20 is 77.1866%. This is evidence collection, not clinical accuracy. Locked testing and clinical integration remain unexecuted; five questions remain quarantined and fresh-checkout checksum portability remains unresolved.
 
 - [MedAssist Phase 4A error audit and validation plan](models/medassist/reports/2026-10-19-phase4a/README.md): preserved benchmark, cached error patterns, dataset feasibility and independent-study gates. Offline research only.
 

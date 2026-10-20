@@ -1,6 +1,6 @@
 # Frozen v1 offline runner
 
-Task 4B separately authorised the first official fitting/validation campaign. Its [live status report](../task4b-validation.md) records three completed fits and pending validation/seal gates. Do not rerun the official fit command while that campaign exists. Test execution remains separately unauthorised.
+Task 4B completed the first official fitting/validation campaign on 2026-10-20. Its [result report](../task4b-validation.md) records all three fits, actual validation comparisons and an independently verified pre-test seal; [safe aggregate results](../task4b-aggregate.json) include artifact hashes. Do not rerun fitting or change sealed artifacts. Test execution remains separately unauthorised. The existing local protocol passes its exact frozen digest, but the Git LF/local CRLF byte difference blocks a fresh-checkout portability claim; preserve this campaign rather than normalising its frozen files.
 
 This package implements the [unchanged adaptive-questioning protocol](../adaptive-questioning-protocol.md). It is independent of APIP application code, ADR and NHAMCS research. Importing it does not fit a model or open data. [Task 4A preflight](../task4a-preflight.md) owns actual results and limits; the protocol JSON owns settings.
 

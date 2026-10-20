@@ -1,5 +1,11 @@
 # Changelog
 
+## MedAssist v2 official validation and verified pre-test seal — 2026-10-20
+
+- Completed the original single campaign with 132,448 validation interviews and 529,792 cached policy trajectories; selected alpha 0.00001 using the frozen validation rule without refitting.
+- Recorded full/sensitivity baseline comparisons, subgroup support and paired cluster-bootstrap uncertainty; full-validation synthetic recall@20 is 77.1866% versus 59.5172% training frequency.
+- Independently verified all 17 sealed artifacts and five sources; original process exited 0, locked test/ledger remained unopened, and existing monitor was paused. Preserved the unresolved fresh-checkout CRLF/LF protocol-digest caveat. No application or clinical functionality changed.
+
 ## MedAssist v2 official fitting milestone — 2026-10-19
 
 - Verified sources/environment/parity and prepared frozen training/validation cohorts and 1,048,576 training pairs; all three real SGD alpha fits completed without recorded warnings or numerical failures.

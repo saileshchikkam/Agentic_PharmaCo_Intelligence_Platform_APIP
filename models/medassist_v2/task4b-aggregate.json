@@ -1,0 +1,3558 @@
+{
+  "task": "MedAssist v2 Task 4B",
+  "completed_date": "2026-10-20",
+  "scope": "Official synthetic DDXPlus validation only; locked test unopened; not clinical accuracy",
+  "starting_commit": "6dbcf43401255f414df14cdac31d11231df55722",
+  "protocol_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "source_hashes": {
+    "release_conditions.json": "56edf4682d8e86a4209fc3a33932e50ce03d1cc1fecc326c26d5ef8fa5c24890",
+    "release_evidences.json": "281c78b044ae60514e28ecc9052d08a8225dd3e2db3f00f8788b99c47b05e0c0",
+    "release_test_patients.zip": "ad3bb981f3453fd7abffb35cc595a1c02197e409c581bff97c1265c33eb00d23",
+    "release_train_patients.zip": "174ae1d56f36a15b7144838ecd214e1e1748a5369fc90c559529b6dc6ecfb218",
+    "release_validate_patients.zip": "625a96855becf0efe5da339fd3d440aa99597d48f784957a97dacc3fceaa7e40"
+  },
+  "artifact_hashes": {
+    "cohorts.json": "3b92d12797e9943730cbbd17f899c85df88686a97cb5b026ef3ef7b6329590ec",
+    "cohorts.sqlite": "9e15360e98977b124b142e072355595df550c9d880ae5aab96959f3f2c443504",
+    "fit-results.json": "1a64488c7e0ec97ddcd7935d0adc3ed74e12c4df4ad4772486349e877d06c92f",
+    "frequency.json": "471d77ea56323f0b29ba3f0b89ae19fd11836c8542c7590c613532e098040cfb",
+    "model-0.0001.pkl": "c032418397451ba8e689f83794aa2cf8533dcb3f616e9db36acdbfa124183ee1",
+    "model-0.001.pkl": "943eae7b13adb96050c6cc3d73933aa00a161b0a073e800b19459eb3b54f1f51",
+    "model-1e-05.pkl": "6c87e366993561aff6ada22617a71033f83a68e2aeab1fc794f7303b8d289137",
+    "pair-lineage.jsonl": "e1d4ba2a9832c7b1bb6a10a9f22b3ac648d822ca241ba29c9ca119159cce27cf",
+    "pairs-features.jsonl": "81380ae2d45c48d00eeb0bddb1e238aab3cd3379b7c691121acdbc05d767875e",
+    "pairs-targets.jsonl": "e81c68e1f63a3faf6477e17c2a3ebc566dac322fe2782ea8d45f15935b6fbde3",
+    "pairs.json": "94232beab34917e6a31432ab4a5c6581aec2f2960e1838057aea4e5460069738",
+    "run.json": "86b457aee13d6c417641c43eb07d84006c1e89661d04dde1f3ea5c5637230fbe",
+    "selection.json": "b8b65965bf1af18de10191c4769d36f146929fb044f818d766c080d903f53684",
+    "training-reference.json": "343a8a2e9f2deba31bc0cbf49ffc76ab02bc879ea84e1af58a8d12f7e289018b",
+    "training-reference.sqlite": "dc6ed67777ade6ebee8d3c9eb971ec1a7488f77ad5dadb8ae9d6e9f0e4f840a0",
+    "validation-aggregate.json": "5a12cbd3e89ff2e8104019360d100a322514e20844d96c4f73d8fe4a977f7966",
+    "validation-trajectories.sqlite": "80148e9d5a6fe6620d372dd88ea3201f37c8f05d646347cb5e9d2e00e5351536"
+  },
+  "seal_sha256": "bd93cb1716b4780b3cdefe26bb197fa402f3d46b237dd9971f2cadfb750fece7",
+  "seal_independently_verified": true,
+  "source_files_reverified": 5,
+  "process_exit_code": 0,
+  "process_final_status": "pre_test_sealed",
+  "locked_test_rows_opened": 0,
+  "locked_test_ledger_empty": true,
+  "cohorts": {
+    "cohorts_sha256": "9e15360e98977b124b142e072355595df550c9d880ae5aab96959f3f2c443504",
+    "fit_groups": 4096,
+    "mode": "official",
+    "selection_groups": 4096,
+    "test_rows_opened": 0,
+    "train_groups": 1005107,
+    "train_rows": 1025602,
+    "validation_rows": 132448
+  },
+  "pairs": {
+    "features_sha256": "81380ae2d45c48d00eeb0bddb1e238aab3cd3379b7c691121acdbc05d767875e",
+    "lineage_sha256": "e1d4ba2a9832c7b1bb6a10a9f22b3ac648d822ca241ba29c9ca119159cce27cf",
+    "pairs": 1048576,
+    "positive_validation_cases": 4096,
+    "prefixes": 32768,
+    "target_counts": {
+      "0": 1006794,
+      "1": 41782
+    },
+    "targets_sha256": "e81c68e1f63a3faf6477e17c2a3ebc566dac322fe2782ea8d45f15935b6fbde3"
+  },
+  "fits": [
+    {
+      "alpha": 1e-05,
+      "artifact": "model-1e-05.pkl",
+      "epochs": 3,
+      "seconds": 108.328,
+      "sha256": "6c87e366993561aff6ada22617a71033f83a68e2aeab1fc794f7303b8d289137",
+      "status": "complete",
+      "steps": 1536,
+      "warnings": {}
+    },
+    {
+      "alpha": 0.0001,
+      "artifact": "model-0.0001.pkl",
+      "epochs": 3,
+      "seconds": 87.187,
+      "sha256": "c032418397451ba8e689f83794aa2cf8533dcb3f616e9db36acdbfa124183ee1",
+      "status": "complete",
+      "steps": 1536,
+      "warnings": {}
+    },
+    {
+      "alpha": 0.001,
+      "artifact": "model-0.001.pkl",
+      "epochs": 3,
+      "seconds": 85.016,
+      "sha256": "943eae7b13adb96050c6cc3d73933aa00a161b0a073e800b19459eb3b54f1f51",
+      "status": "complete",
+      "steps": 1536,
+      "warnings": {}
+    }
+  ],
+  "selection": {
+    "model_refitted_after_selection": false,
+    "partition": "validation",
+    "scores": [
+      {
+        "alpha": 1e-05,
+        "positive_cases": 4096,
+        "recall10": 0.5618521497139439,
+        "recall20": 0.7659509994920692,
+        "yield20": 0.4575927734375
+      },
+      {
+        "alpha": 0.0001,
+        "positive_cases": 4096,
+        "recall10": 0.5135398145678902,
+        "recall20": 0.6590344542710933,
+        "yield20": 0.40538330078125
+      },
+      {
+        "alpha": 0.001,
+        "positive_cases": 4096,
+        "recall10": 0.48457775818406357,
+        "recall20": 0.6052813118844735,
+        "yield20": 0.37147216796875
+      }
+    ],
+    "selected_alpha": 1e-05,
+    "training_overlap_excluded": true
+  },
+  "reports": {
+    "full_original_partition": {
+      "overall": {
+        "clusters": 132270,
+        "paired_ranker_minus_baseline": {
+          "lexical": {
+            "curve_mean": {
+              "interval": [
+                0.5013016671529504,
+                0.5030696894982986
+              ],
+              "valid_replicates": 1000
+            },
+            "default_rate": {
+              "interval": [
+                0.02004656493739572,
+                0.020380599277194076
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@10": {
+              "interval": [
+                0.4395828891913755,
+                0.44120568418294664
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@20": {
+              "interval": [
+                0.6237340500318107,
+                0.6259442163103942
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@5": {
+              "interval": [
+                0.2933274861751636,
+                0.2943523659670691
+              ],
+              "valid_replicates": 1000
+            },
+            "invalid_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@10": {
+              "interval": [
+                0.5346868925562751,
+                0.5368214841245204
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@20": {
+              "interval": [
+                0.7312467992892263,
+                0.7336097579176966
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@5": {
+              "interval": [
+                0.35792716093113647,
+                0.35953272772435413
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@10": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@20": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@5": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@10": {
+              "interval": [
+                0.5035249464850977,
+                0.5055493153154406
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@20": {
+              "interval": [
+                0.702393778795901,
+                0.7050330878664529
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@5": {
+              "interval": [
+                0.34195005947011126,
+                0.34328561127039553
+              ],
+              "valid_replicates": 1000
+            },
+            "repeat_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "unknown_rate": {
+              "interval": [
+                -0.44975367795972937,
+                -0.44788995607239157
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@10": {
+              "interval": [
+                0.6134942581077342,
+                0.6158623902273213
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@20": {
+              "interval": [
+                0.42773911712043816,
+                0.4295691395555283
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@5": {
+              "interval": [
+                0.8331304089351405,
+                0.8363611412168307
+              ],
+              "valid_replicates": 1000
+            }
+          },
+          "random-eligible": {
+            "curve_mean": {
+              "interval": [
+                0.48780596866692477,
+                0.4895681286605404
+              ],
+              "valid_replicates": 1000
+            },
+            "default_rate": {
+              "interval": [
+                0.013812292300338017,
+                0.01419328829087371
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@10": {
+              "interval": [
+                0.4301591521098367,
+                0.4319188442835313
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@20": {
+              "interval": [
+                0.5931736896438139,
+                0.595530698200928
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@5": {
+              "interval": [
+                0.2832330776456664,
+                0.28432961325077494
+              ],
+              "valid_replicates": 1000
+            },
+            "invalid_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@10": {
+              "interval": [
+                0.5277182048998892,
+                0.5299426553697262
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@20": {
+              "interval": [
+                0.6999538265089026,
+                0.7023972702622728
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@5": {
+              "interval": [
+                0.3507332487538615,
+                0.35243731549149243
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@10": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@20": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@5": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@10": {
+              "interval": [
+                0.4975282527018385,
+                0.4996034384005236
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@20": {
+              "interval": [
+                0.6766268599638643,
+                0.6792798500424626
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@5": {
+              "interval": [
+                0.3326831797568283,
+                0.334055498063044
+              ],
+              "valid_replicates": 1000
+            },
+            "repeat_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "unknown_rate": {
+              "interval": [
+                -0.42791732340821315,
+                -0.4259923861456578
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@10": {
+              "interval": [
+                0.6062114366765946,
+                0.6086057935769136
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@20": {
+              "interval": [
+                0.41200899258238527,
+                0.41391141323786995
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@5": {
+              "interval": [
+                0.8106275508796082,
+                0.813902968642231
+              ],
+              "valid_replicates": 1000
+            }
+          },
+          "training-frequency": {
+            "curve_mean": {
+              "interval": [
+                0.08910319322381588,
+                0.09088349530972867
+              ],
+              "valid_replicates": 1000
+            },
+            "default_rate": {
+              "interval": [
+                -0.017418387766934412,
+                -0.017073210551611134
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@10": {
+              "interval": [
+                0.03922462400755795,
+                0.040526683934252426
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@20": {
+              "interval": [
+                0.0860989467246322,
+                0.08856684245522321
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@5": {
+              "interval": [
+                0.010252092995354017,
+                0.010782809307107316
+              ],
+              "valid_replicates": 1000
+            },
+            "invalid_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@10": {
+              "interval": [
+                0.08765176684827733,
+                0.08990315471792464
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@20": {
+              "interval": [
+                0.17516631841889768,
+                0.17822384747702105
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@5": {
+              "interval": [
+                0.02499794233345011,
+                0.026202296432064308
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@10": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@20": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@5": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@10": {
+              "interval": [
+                0.05936179156525968,
+                0.060825351962326184
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@20": {
+              "interval": [
+                0.12987425792976248,
+                0.13266534174317574
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@5": {
+              "interval": [
+                0.010918170880754644,
+                0.011564251706351166
+              ],
+              "valid_replicates": 1000
+            },
+            "repeat_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "unknown_rate": {
+              "interval": [
+                -0.063543951857607,
+                -0.06186911197290358
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@10": {
+              "interval": [
+                0.07234354449118431,
+                0.07400249540712586
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@20": {
+              "interval": [
+                0.07912514723354823,
+                0.08074741023639799
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@5": {
+              "interval": [
+                0.026628812515268406,
+                0.028169418662399616
+              ],
+              "valid_replicates": 1000
+            }
+          }
+        },
+        "policies": {
+          "lexical": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.023275110088837838,
+                  0.02375100775271823
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.022767249954369524,
+                  0.023250332896086166
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.035044964606775655,
+                  0.03562317440554309
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.006018933998877942,
+                  0.006240129164895871
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.0274919130980006,
+                  0.028094820944770536
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.03909292033516116,
+                  0.03979402703126399
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.009980461694167614,
+                  0.010379316477063952
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.026858986831631543,
+                  0.027415065039556985
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.04133700042050009,
+                  0.04199465315252086
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.007096421267844494,
+                  0.00735873538667174
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.9744176487519558,
+                  0.9748361405752606
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.032723600806121786,
+                  0.03339751419934401
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.025163859424739414,
+                  0.025582351248044123
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.01730928762330166,
+                  0.017901279658748517
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.023508436912820948,
+              "default_rate": 0.0,
+              "encoded_coverage@10": 0.02300833704709612,
+              "encoded_coverage@20": 0.035326292599661975,
+              "encoded_coverage@5": 0.0061298107242257855,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.027784148786421176,
+              "macro_recall@20": 0.03944159235144132,
+              "macro_recall@5": 0.010185255415883132,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.0271334740589337,
+              "micro_recall@20": 0.04165990101280289,
+              "micro_recall@5": 0.007228817099276003,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.9746240033824596,
+              "useful_yield@10": 0.03305523677216719,
+              "useful_yield@20": 0.025375996617540468,
+              "useful_yield@5": 0.017612949987919787
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 132448,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 132448,
+              "cost20": 2648960,
+              "n": 132448,
+              "positive": 132423,
+              "quarantined": 31964,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 25
+          },
+          "random-eligible": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.03673907552583954,
+                  0.03730189717632355
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.006114068555224811,
+                  0.006292525417881697
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.03210035655542094,
+                  0.03260740508959801
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.06545220281873487,
+                  0.06616431567356036
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.016016426416975364,
+                  0.016378016621035416
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.03439355406072283,
+                  0.035052583554396756
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.07020174132101373,
+                  0.0711354507022315
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.017116152000358674,
+                  0.017593590948911622
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.03281185062444395,
+                  0.03336002945770259
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.06703784535709953,
+                  0.06782508914674
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.016276762013251563,
+                  0.016683259769570944
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.9524453129557097,
+                  0.9529867264183951
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.039973863459084914,
+                  0.04066088736925351
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.04082112834570696,
+                  0.04133082606597784
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.03965722142692936,
+                  0.04064707522764645
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.03700887444462205,
+              "default_rate": 0.006202811669485383,
+              "encoded_coverage@10": 0.03235703414699774,
+              "encoded_coverage@20": 0.06581505881759399,
+              "encoded_coverage@5": 0.016190078787827827,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.034725985410867986,
+              "macro_recall@20": 0.07066788309517202,
+              "macro_recall@5": 0.017354630100063797,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.03309241408032763,
+              "micro_recall@20": 0.06743177432009827,
+              "micro_recall@5": 0.01648175256671348,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.9527229554240154,
+              "useful_yield@10": 0.040314689538535876,
+              "useful_yield@20": 0.041074232906499156,
+              "useful_yield@5": 0.040157646774583236
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 132448,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 132448,
+              "cost20": 2648960,
+              "n": 132448,
+              "positive": 132423,
+              "quarantined": 31964,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 25
+          },
+          "ranker": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.5248579813230861,
+                  0.5265098485262694
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.02004656493739572,
+                  0.020380599277194076
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.4625923916745486,
+                  0.4642472547867731
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.6591239600684374,
+                  0.6612298019612907
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.2994565966066105,
+                  0.3004939110977397
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.5625012461643994,
+                  0.5645872116099092
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.7707285369143133,
+                  0.7729989747217347
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.3680938574767433,
+                  0.36972412201375765
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.5306946717891607,
+                  0.53265559239857
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.744117165787829,
+                  0.7466086538262595
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.3492005032042229,
+                  0.3504997198248602
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.5248134923801624,
+                  0.5267282540634671
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.6465894956088467,
+                  0.6489196528282689
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.4531177339668737,
+                  0.454962135879762
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.8508263302149637,
+                  0.8539783258134138
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.5257044477474427,
+              "default_rate": 0.02020377808649432,
+              "encoded_coverage@10": 0.46340244435662215,
+              "encoded_coverage@20": 0.660183873300428,
+              "encoded_coverage@5": 0.29995606548555,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.5635441883266855,
+              "macro_recall@20": 0.7718660558123702,
+              "macro_recall@5": 0.3688791615655244,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.531672556400763,
+              "micro_recall@20": 0.7453788001799767,
+              "micro_recall@5": 0.34982727440624417,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.5257689810340662,
+              "useful_yield@10": 0.647707779656922,
+              "useful_yield@20": 0.45402724087943946,
+              "useful_yield@5": 0.8523511113795603
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 132448,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 132448,
+              "cost20": 2648960,
+              "n": 132448,
+              "positive": 132423,
+              "quarantined": 31964,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 25
+          },
+          "training-frequency": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.4348031802116363,
+                  0.43664820269697013
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.0372535101370913,
+                  0.0376522918922126
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.422740538636202,
+                  0.4242360712106603
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.5720644849016729,
+                  0.5736458165215464
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.28891217538357244,
+                  0.2899702884517429
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.4736836830348233,
+                  0.4758870127869986
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.5940226950623142,
+                  0.5963906919009696
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.3424759649809897,
+                  0.3441358304478053
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.4706949513962005,
+                  0.472454861871584
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.613156424748086,
+                  0.6150234153056539
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.33791611784664755,
+                  0.33924702698808096
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.5874202551017476,
+                  0.5896487550916918
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.5732288653054155,
+                  0.5758518933020055
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.37302852793175467,
+                  0.3750357130158352
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.8231193636284403,
+                  0.8267334280252043
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.4357028482643758,
+              "default_rate": 0.0374531891761295,
+              "encoded_coverage@10": 0.4235098001294912,
+              "encoded_coverage@20": 0.5728619237010939,
+              "encoded_coverage@5": 0.28944699269299656,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.47477408181361075,
+              "macro_recall@20": 0.5951715037489197,
+              "macro_recall@5": 0.3432965909577275,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.47160780444512757,
+              "micro_recall@20": 0.6140825587434352,
+              "micro_recall@5": 0.3385768700163987,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.5884951075138922,
+              "useful_yield@10": 0.5745341568011597,
+              "useful_yield@20": 0.3740517033099783,
+              "useful_yield@5": 0.8249395989369412
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 132448,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 132448,
+              "cost20": 2648960,
+              "n": 132448,
+              "positive": 132423,
+              "quarantined": 31964,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 25
+          }
+        }
+      },
+      "selected_ranker_subgroups": {
+        "age=18_to_64": {
+          "clusters": 88486,
+          "support": {
+            "asked_interviews": 88607,
+            "cost20": 1772140,
+            "n": 88607,
+            "positive": 88591,
+            "quarantined": 22362,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.525225012174453,
+            "default_rate": 0.02196158317062986,
+            "encoded_coverage@10": 0.4658444942920339,
+            "encoded_coverage@20": 0.664477491936266,
+            "encoded_coverage@5": 0.3012504653658323,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5621512294003215,
+            "macro_recall@20": 0.771745697704434,
+            "macro_recall@5": 0.3695857589444542,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5314179854076906,
+            "micro_recall@20": 0.7456740020677958,
+            "micro_recall@5": 0.350759970123663,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5205926168361417,
+            "useful_yield@10": 0.6520139492365163,
+            "useful_yield@20": 0.45744579999322854,
+            "useful_yield@5": 0.860717550532125
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7703706676439918,
+              0.7730447068848976
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=1_to_4": {
+          "clusters": 4722,
+          "support": {
+            "asked_interviews": 4725,
+            "cost20": 94500,
+            "n": 4725,
+            "positive": 4724,
+            "quarantined": 874,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5185473745466095,
+            "default_rate": 0.020264550264550263,
+            "encoded_coverage@10": 0.44943935058108975,
+            "encoded_coverage@20": 0.6494335104829762,
+            "encoded_coverage@5": 0.29015067453133214,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5560072143813508,
+            "macro_recall@20": 0.7655391430907614,
+            "macro_recall@5": 0.36270900115121574,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5264302119676701,
+            "micro_recall@20": 0.7462874975892841,
+            "micro_recall@5": 0.3441976261023546,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5293015873015873,
+            "useful_yield@10": 0.6354708994708995,
+            "useful_yield@20": 0.4504338624338624,
+            "useful_yield@5": 0.8309841269841269
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7586699137078831,
+              0.7720259852368997
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=5_to_17": {
+          "clusters": 17267,
+          "support": {
+            "asked_interviews": 17294,
+            "cost20": 345880,
+            "n": 17294,
+            "positive": 17289,
+            "quarantined": 3318,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5326377654782568,
+            "default_rate": 0.017962877298485024,
+            "encoded_coverage@10": 0.46087999254586925,
+            "encoded_coverage@20": 0.6520176792536146,
+            "encoded_coverage@5": 0.2992833501456391,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5749801047172856,
+            "macro_recall@20": 0.7754667249237015,
+            "macro_recall@5": 0.37467240609876296,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5371795552253065,
+            "micro_recall@20": 0.746597121364915,
+            "micro_recall@5": 0.3526448605796836,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5346767665086157,
+            "useful_yield@10": 0.6437550595582283,
+            "useful_yield@20": 0.44736035619289927,
+            "useful_yield@5": 0.845217994680236
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7721524264413842,
+              0.7789493287099131
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=65_plus": {
+          "clusters": 19740,
+          "support": {
+            "asked_interviews": 19765,
+            "cost20": 395300,
+            "n": 19765,
+            "positive": 19763,
+            "quarantined": 5026,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5256824168401061,
+            "default_rate": 0.01430812041487478,
+            "encoded_coverage@10": 0.4609850005735918,
+            "encoded_coverage@20": 0.6543571469542274,
+            "encoded_coverage@5": 0.29886643914190664,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5638442183872578,
+            "macro_recall@20": 0.7737963304423228,
+            "macro_recall@5": 0.3633771001985148,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5317633965270839,
+            "micro_recall@20": 0.7456483156062005,
+            "micro_recall@5": 0.3460690451799483,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5382519605363015,
+            "useful_yield@10": 0.6381887174298001,
+            "useful_yield@20": 0.4474399190488237,
+            "useful_yield@5": 0.8306602580318745
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7709959188576567,
+              0.7767063228726725
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=under_1": {
+          "clusters": 2055,
+          "support": {
+            "asked_interviews": 2057,
+            "cost20": 41140,
+            "n": 2057,
+            "positive": 2056,
+            "quarantined": 384,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5047165864736257,
+            "default_rate": 0.019834710743801654,
+            "encoded_coverage@10": 0.4344259561839341,
+            "encoded_coverage@20": 0.6230951348827903,
+            "encoded_coverage@5": 0.282837040248091,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5418337002867342,
+            "macro_recall@20": 0.7427566176043714,
+            "macro_recall@5": 0.35678164379196764,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5080926944857224,
+            "micro_recall@20": 0.7176995060042572,
+            "micro_recall@5": 0.3343507771396442,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5457948468643656,
+            "useful_yield@10": 0.6150218765192027,
+            "useful_yield@20": 0.43437044239183276,
+            "useful_yield@5": 0.8094312105007292
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7321124814554084,
+              0.7526604086447574
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=unknown": {
+          "cases": 0,
+          "rates": null,
+          "status": "no_cases"
+        },
+        "missingness=[0,0.90)": {
+          "clusters": 17107,
+          "support": {
+            "asked_interviews": 17107,
+            "cost20": 342140,
+            "n": 17107,
+            "positive": 17107,
+            "quarantined": 6326,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.3583598454673508,
+            "default_rate": 0.038542701817969253,
+            "encoded_coverage@10": 0.3213759965796851,
+            "encoded_coverage@20": 0.4954549650437985,
+            "encoded_coverage@5": 0.20435895816430144,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.3752492311794713,
+            "macro_recall@20": 0.5623145411885215,
+            "macro_recall@5": 0.24380083232318697,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.3671658395404017,
+            "micro_recall@20": 0.5526854805299403,
+            "micro_recall@5": 0.23792844705957336,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.4038756064768808,
+            "useful_yield@10": 0.7408370842345239,
+            "useful_yield@20": 0.5575816917051499,
+            "useful_yield@5": 0.9601449698953645
+          },
+          "recall20_interval": {
+            "interval": [
+              0.5601858476037916,
+              0.5644621813472771
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "missingness=[0.90,0.95)": {
+          "clusters": 91571,
+          "support": {
+            "asked_interviews": 91586,
+            "cost20": 1831720,
+            "n": 91586,
+            "positive": 91586,
+            "quarantined": 16249,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5589538570274238,
+            "default_rate": 0.019989954796584632,
+            "encoded_coverage@10": 0.5049002998405008,
+            "encoded_coverage@20": 0.7073523655544796,
+            "encoded_coverage@5": 0.3332662179452023,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5985555301718051,
+            "macro_recall@20": 0.8084418084834653,
+            "macro_recall@5": 0.40591915526812655,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5778279153028907,
+            "micro_recall@20": 0.7987569777664791,
+            "micro_recall@5": 0.3878420032412851,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.485994038390147,
+            "useful_yield@10": 0.7147511628414823,
+            "useful_yield@20": 0.4940160068132684,
+            "useful_yield@5": 0.9594916253575874
+          },
+          "recall20_interval": {
+            "interval": [
+              0.8073205800134,
+              0.8096206750918402
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "missingness=[0.95,1]": {
+          "clusters": 23592,
+          "support": {
+            "asked_interviews": 23755,
+            "cost20": 475100,
+            "n": 23755,
+            "positive": 23730,
+            "quarantined": 9389,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5180172885771862,
+            "default_rate": 0.007821511260787202,
+            "encoded_coverage@10": 0.4835792747278824,
+            "encoded_coverage@20": 0.6915876177927098,
+            "encoded_coverage@5": 0.26883278274933964,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5641599943812425,
+            "macro_recall@20": 0.7817679048020351,
+            "macro_recall@5": 0.316092398611345,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5648438595584816,
+            "micro_recall@20": 0.7899650889015182,
+            "micro_recall@5": 0.3170414873751725,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.7668996000841928,
+            "useful_yield@10": 0.3221595453588718,
+            "useful_yield@20": 0.22527888865502,
+            "useful_yield@5": 0.36165017890970325
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7781350063541421,
+              0.785528071637572
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "question_type=B": {
+          "clusters": 132270,
+          "support": {
+            "asked_interviews": 132448,
+            "cost20": 1991529,
+            "n": 132448,
+            "positive": 132389,
+            "quarantined": 0,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.3756972396717121,
+            "default_rate": 0.0,
+            "encoded_coverage@10": 0.3369526147230165,
+            "encoded_coverage@20": 0.6469489770915572,
+            "encoded_coverage@5": 0.13313623199669267,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.3676583950987848,
+            "macro_recall@20": 0.6622934172007915,
+            "macro_recall@5": 0.15335329383956908,
+            "mean_questions@10": 5.698674196665861,
+            "mean_questions@20": 15.036308589031167,
+            "mean_questions@5": 1.621881795119594,
+            "micro_recall@10": 0.3369526147230165,
+            "micro_recall@20": 0.6469489770915572,
+            "micro_recall@5": 0.13313623199669267,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.699049825536058,
+            "useful_yield@10": 0.4135812119590131,
+            "useful_yield@20": 0.300950174463942,
+            "useful_yield@5": 0.5741731257128226
+          },
+          "recall20_interval": {
+            "interval": [
+              0.6606955070856049,
+              0.6639784349280212
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "question_type=C": {
+          "clusters": 132270,
+          "support": {
+            "asked_interviews": 111845,
+            "cost20": 378335,
+            "n": 132448,
+            "positive": 109526,
+            "quarantined": 0,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.7351686868438077,
+            "default_rate": 0.07367280320351012,
+            "encoded_coverage@10": 0.5462473659144436,
+            "encoded_coverage@20": 0.6161525714546676,
+            "encoded_coverage@5": 0.39230912258039263,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.8615979238385579,
+            "macro_recall@20": 0.9075051723602912,
+            "macro_recall@5": 0.6481002445166817,
+            "mean_questions@10": 2.5292945155834743,
+            "mean_questions@20": 2.856479524039623,
+            "mean_questions@5": 1.816041012321817,
+            "micro_recall@10": 0.7800083320948884,
+            "micro_recall@20": 0.8524561407782957,
+            "micro_recall@5": 0.570641303315053,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.001485456011206999,
+            "useful_yield@10": 0.9557104477611941,
+            "useful_yield@20": 0.9248417407852829,
+            "useful_yield@5": 0.9737871625694817
+          },
+          "recall20_interval": {
+            "interval": [
+              0.906270285035661,
+              0.9087298884654419
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "question_type=M": {
+          "clusters": 132270,
+          "support": {
+            "asked_interviews": 107994,
+            "cost20": 279096,
+            "n": 132448,
+            "positive": 108332,
+            "quarantined": 0,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.77121122259985,
+            "default_rate": 0.09188952905093588,
+            "encoded_coverage@10": 0.6460476370052493,
+            "encoded_coverage@20": 0.7682451161471996,
+            "encoded_coverage@5": 0.5695025172796314,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.850621238415452,
+            "macro_recall@20": 0.9320514714028778,
+            "macro_recall@5": 0.7904481901317073,
+            "mean_questions@10": 1.7720312877506643,
+            "mean_questions@20": 2.10721188692921,
+            "mean_questions@5": 1.562077192558589,
+            "micro_recall@10": 0.8152819044727349,
+            "micro_recall@20": 0.9161226658569911,
+            "micro_recall@5": 0.747843877189558,
+            "repeat_rate": 0.0,
+            "unknown_rate": 3.582996531659357e-06,
+            "useful_yield@10": 0.9610101319971709,
+            "useful_yield@20": 0.9081068879525325,
+            "useful_yield@5": 1.0
+          },
+          "recall20_interval": {
+            "interval": [
+              0.931142251327281,
+              0.9328884436655852
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "sex=F": {
+          "clusters": 68040,
+          "support": {
+            "asked_interviews": 68133,
+            "cost20": 1362660,
+            "n": 68133,
+            "positive": 68123,
+            "quarantined": 16297,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5236853103858033,
+            "default_rate": 0.022321782396195675,
+            "encoded_coverage@10": 0.46247169332317845,
+            "encoded_coverage@20": 0.6599035288144199,
+            "encoded_coverage@5": 0.2990891089108911,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5606547914329665,
+            "macro_recall@20": 0.7691441021636147,
+            "macro_recall@5": 0.3674922726566159,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5289063379556327,
+            "micro_recall@20": 0.7418790377249568,
+            "micro_recall@5": 0.34882829623277417,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5231092128630767,
+            "useful_yield@10": 0.6481499420251566,
+            "useful_yield@20": 0.4545690047407277,
+            "useful_yield@5": 0.8549454742929271
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7676035481409643,
+              0.7707685569646453
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "sex=M": {
+          "clusters": 64230,
+          "support": {
+            "asked_interviews": 64315,
+            "cost20": 1286300,
+            "n": 64315,
+            "positive": 64300,
+            "quarantined": 15667,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5278436342868927,
+            "default_rate": 0.017960040426028143,
+            "encoded_coverage@10": 0.46440078337229135,
+            "encoded_coverage@20": 0.660484575451866,
+            "encoded_coverage@5": 0.3008859775052773,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5666053762673229,
+            "macro_recall@20": 0.7747498450565151,
+            "macro_recall@5": 0.37034850889271825,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5346389178581153,
+            "micro_recall@20": 0.7491317794411536,
+            "micro_recall@5": 0.3508985312174096,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5285866438622405,
+            "useful_yield@10": 0.647239368732022,
+            "useful_yield@20": 0.4534533157117313,
+            "useful_yield@5": 0.8496027365311358
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7730797338839865,
+              0.7763729509453899
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "sex=unknown": {
+          "cases": 0,
+          "rates": null,
+          "status": "no_cases"
+        }
+      }
+    },
+    "training_overlap_excluded_sensitivity": {
+      "overall": {
+        "clusters": 129365,
+        "paired_ranker_minus_baseline": {
+          "lexical": {
+            "curve_mean": {
+              "interval": [
+                0.5009011944121146,
+                0.5025772491829772
+              ],
+              "valid_replicates": 1000
+            },
+            "default_rate": {
+              "interval": [
+                0.0200837021615933,
+                0.02043364826937676
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@10": {
+              "interval": [
+                0.4393212814238119,
+                0.44103394408715485
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@20": {
+              "interval": [
+                0.6227808368606061,
+                0.6250546153306894
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@5": {
+              "interval": [
+                0.29401656924871933,
+                0.295070404819139
+              ],
+              "valid_replicates": 1000
+            },
+            "invalid_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@10": {
+              "interval": [
+                0.5338156883357278,
+                0.5360049232815348
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@20": {
+              "interval": [
+                0.729533564539962,
+                0.7319036884087624
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@5": {
+              "interval": [
+                0.35945349811494054,
+                0.36103681392780196
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@10": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@20": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@5": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@10": {
+              "interval": [
+                0.5032401089589233,
+                0.5052248909284999
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@20": {
+              "interval": [
+                0.7015461377003742,
+                0.7040553506593359
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@5": {
+              "interval": [
+                0.3427393578792137,
+                0.34404231810792885
+              ],
+              "valid_replicates": 1000
+            },
+            "repeat_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "unknown_rate": {
+              "interval": [
+                -0.45455356833719435,
+                -0.4527353380846703
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@10": {
+              "interval": [
+                0.6207737446118757,
+                0.6230785524283153
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@20": {
+              "interval": [
+                0.43247111757634543,
+                0.43426482041137343
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@5": {
+              "interval": [
+                0.8456043938034656,
+                0.848623083684249
+              ],
+              "valid_replicates": 1000
+            }
+          },
+          "random-eligible": {
+            "curve_mean": {
+              "interval": [
+                0.4876191708868211,
+                0.4894075699202687
+              ],
+              "valid_replicates": 1000
+            },
+            "default_rate": {
+              "interval": [
+                0.013814956170683977,
+                0.014203611462005458
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@10": {
+              "interval": [
+                0.4299871692927673,
+                0.43175741359021935
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@20": {
+              "interval": [
+                0.592533418740805,
+                0.5948815411018418
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@5": {
+              "interval": [
+                0.2838132736548918,
+                0.2849257403202609
+              ],
+              "valid_replicates": 1000
+            },
+            "invalid_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@10": {
+              "interval": [
+                0.5270321457935396,
+                0.5293057728904627
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@20": {
+              "interval": [
+                0.6989170852393674,
+                0.7014851755465056
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@5": {
+              "interval": [
+                0.352094062358641,
+                0.35374810975279913
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@10": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@20": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@5": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@10": {
+              "interval": [
+                0.49726857211045156,
+                0.49932628624996417
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@20": {
+              "interval": [
+                0.6759908151184862,
+                0.6786201670465771
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@5": {
+              "interval": [
+                0.3333030766112808,
+                0.33468459746398943
+              ],
+              "valid_replicates": 1000
+            },
+            "repeat_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "unknown_rate": {
+              "interval": [
+                -0.43265314690831924,
+                -0.430747129874907
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@10": {
+              "interval": [
+                0.6134110684948919,
+                0.6157185104119024
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@20": {
+              "interval": [
+                0.4167379460445643,
+                0.4185766993462356
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@5": {
+              "interval": [
+                0.8223913028619416,
+                0.8253961113532908
+              ],
+              "valid_replicates": 1000
+            }
+          },
+          "training-frequency": {
+            "curve_mean": {
+              "interval": [
+                0.08413119908866849,
+                0.08591807382397781
+              ],
+              "valid_replicates": 1000
+            },
+            "default_rate": {
+              "interval": [
+                -0.018212231431405435,
+                -0.017885895398599715
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@10": {
+              "interval": [
+                0.036810394848150164,
+                0.038151659991667475
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@20": {
+              "interval": [
+                0.08184022428638754,
+                0.0843504973726056
+              ],
+              "valid_replicates": 1000
+            },
+            "encoded_coverage@5": {
+              "interval": [
+                0.009062462882851629,
+                0.009582457923774984
+              ],
+              "valid_replicates": 1000
+            },
+            "invalid_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@10": {
+              "interval": [
+                0.08243295648541442,
+                0.08467334152593349
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@20": {
+              "interval": [
+                0.16746442743723866,
+                0.1705064127432267
+              ],
+              "valid_replicates": 1000
+            },
+            "macro_recall@5": {
+              "interval": [
+                0.021795359114808573,
+                0.02292785895730113
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@10": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@20": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "mean_questions@5": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@10": {
+              "interval": [
+                0.05679170496694482,
+                0.05825649174378163
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@20": {
+              "interval": [
+                0.12589000675131226,
+                0.12864681194195285
+              ],
+              "valid_replicates": 1000
+            },
+            "micro_recall@5": {
+              "interval": [
+                0.009545148305375444,
+                0.010164703108646185
+              ],
+              "valid_replicates": 1000
+            },
+            "repeat_rate": {
+              "interval": [
+                0.0,
+                0.0
+              ],
+              "valid_replicates": 1000
+            },
+            "unknown_rate": {
+              "interval": [
+                -0.061271434867792324,
+                -0.05957520142472281
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@10": {
+              "interval": [
+                0.07003198408253473,
+                0.07181738732193978
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@20": {
+              "interval": [
+                0.07767795013569417,
+                0.07929598194948136
+              ],
+              "valid_replicates": 1000
+            },
+            "useful_yield@5": {
+              "interval": [
+                0.023563289287108928,
+                0.025051984273966415
+              ],
+              "valid_replicates": 1000
+            }
+          }
+        },
+        "policies": {
+          "lexical": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.02324181223016389,
+                  0.023727658092921905
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.0226522108718208,
+                  0.023140354479696368
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.03503535932766055,
+                  0.0356121719049308
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.005859590952225189,
+                  0.006073755453947035
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.027408098476049064,
+                  0.028042315918664833
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.039220144324433416,
+                  0.039912560271944154
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.009746886277350113,
+                  0.01014337887328608
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.026720307307951538,
+                  0.027267368709866433
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.04131962384030524,
+                  0.04198143501634296
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.006910665569738671,
+                  0.007160354307541941
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.9740997007758734,
+                  0.9745288211309914
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.03296187523616079,
+                  0.033646012710522866
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.02547117886900855,
+                  0.025900299224126674
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.01704641721476743,
+                  0.017659852130860645
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.023483760134803806,
+              "default_rate": 0.0,
+              "encoded_coverage@10": 0.022900998447425935,
+              "encoded_coverage@20": 0.035321590974256155,
+              "encoded_coverage@5": 0.005966578241449692,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.02773191655628033,
+              "macro_recall@20": 0.03957158000924746,
+              "macro_recall@5": 0.00994502488142958,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.02700279606972519,
+              "micro_recall@20": 0.041648040810346836,
+              "micro_recall@5": 0.007035252015661997,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.9743150367578921,
+              "useful_yield@10": 0.033306048063260645,
+              "useful_yield@20": 0.025684963242107863,
+              "useful_yield@5": 0.01735497621548156
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 129496,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 129496,
+              "cost20": 2589920,
+              "n": 129496,
+              "positive": 129484,
+              "quarantined": 30547,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 12
+          },
+          "random-eligible": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.03644001004475266,
+                  0.03701588363732158
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.006157264858494735,
+                  0.00633083592419543
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.03196488307287699,
+                  0.03245668477250904
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.06514069882489464,
+                  0.06588699790761261
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.015956675703008953,
+                  0.016315128816672
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.03413973177552151,
+                  0.03479094550850955
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.06960136327129048,
+                  0.07055650054863354
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.01701627313284364,
+                  0.017497185885457865
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.03267607283450768,
+                  0.03323741618486092
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.06671804969775444,
+                  0.0675307635627232
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.01622161770800336,
+                  0.016615552483566474
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.9520769010321433,
+                  0.952621623040826
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.04028905774170255,
+                  0.0410009611815047
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.04113720785373644,
+                  0.04165444061438764
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.04002247585595745,
+                  0.041002809799634575
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.03673681207735786,
+              "default_rate": 0.006244208315314759,
+              "encoded_coverage@10": 0.03222175260337573,
+              "encoded_coverage@20": 0.0655320061763138,
+              "encoded_coverage@5": 0.016139549010154387,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.03448126031741918,
+              "macro_recall@20": 0.07010798351877974,
+              "macro_recall@5": 0.01726937766864377,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.0329561832208269,
+              "micro_recall@20": 0.0671444903151808,
+              "micro_recall@5": 0.016425813996877116,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.9523467906344597,
+              "useful_yield@10": 0.04064913201952184,
+              "useful_yield@20": 0.04140900105022549,
+              "useful_yield@5": 0.04052017050719713
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 129496,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 129496,
+              "cost20": 2589920,
+              "n": 129496,
+              "positive": 129484,
+              "quarantined": 30547,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 12
+          },
+          "ranker": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.5243869285966646,
+                  0.5260259828506861
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.0200837021615933,
+                  0.02043364826937676
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.4622599962732307,
+                  0.46390853672407395
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.6581226233324207,
+                  0.6603295722684372
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.3000058470040366,
+                  0.3010479751756326
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.5615363832269946,
+                  0.5636979097371105
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.7691380330724958,
+                  0.7714161544158108
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.3694050327529779,
+                  0.3709405372388861
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.5302295628482424,
+                  0.5321813038190266
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.7432321660121795,
+                  0.7456966918642991
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.3497620723751626,
+                  0.3510762598874103
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.5197334962465582,
+                  0.5215950274592386
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.6540260202618075,
+                  0.6563704219708437
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.4581391362007364,
+                  0.4600006042960789
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.8629577795384853,
+                  0.8658569058837924
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.52521974314034,
+              "default_rate": 0.020255451905850375,
+              "encoded_coverage@10": 0.46308548077760386,
+              "encoded_coverage@20": 0.6591914083822008,
+              "encoded_coverage@5": 0.30051334767676724,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.5626383945434594,
+              "macro_recall@20": 0.7702602562965405,
+              "macro_recall@5": 0.3701601276126406,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.5312388479641783,
+              "micro_recall@20": 0.7444150604604687,
+              "micro_recall@5": 0.3504040089103592,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.520652761475258,
+              "useful_yield@10": 0.6552457218755792,
+              "useful_yield@20": 0.4590917866188917,
+              "useful_yield@5": 0.864397355902885
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 129496,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 129496,
+              "cost20": 2589920,
+              "n": 129496,
+              "positive": 129484,
+              "quarantined": 30547,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 12
+          },
+          "training-frequency": {
+            "intervals": {
+              "curve_mean": {
+                "interval": [
+                  0.43925511167986864,
+                  0.44110830526181877
+                ],
+                "valid_replicates": 1000
+              },
+              "default_rate": {
+                "interval": [
+                  0.038118442093254226,
+                  0.03850798782765072
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@10": {
+                "interval": [
+                  0.4247664323872071,
+                  0.4263483877129063
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@20": {
+                "interval": [
+                  0.5752345330039504,
+                  0.5769764020195282
+                ],
+                "valid_replicates": 1000
+              },
+              "encoded_coverage@5": {
+                "interval": [
+                  0.2906282285323979,
+                  0.2917600150555918
+                ],
+                "valid_replicates": 1000
+              },
+              "invalid_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@10": {
+                "interval": [
+                  0.4779669508931532,
+                  0.4801883485601211
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@20": {
+                "interval": [
+                  0.600045446457687,
+                  0.6025087082690893
+                ],
+                "valid_replicates": 1000
+              },
+              "macro_recall@5": {
+                "interval": [
+                  0.3469096831979439,
+                  0.3486527630203446
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@10": {
+                "interval": [
+                  10.0,
+                  10.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@20": {
+                "interval": [
+                  20.0,
+                  20.0
+                ],
+                "valid_replicates": 1000
+              },
+              "mean_questions@5": {
+                "interval": [
+                  5.0,
+                  5.0
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@10": {
+                "interval": [
+                  0.4728071909276687,
+                  0.4745542653497463
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@20": {
+                "interval": [
+                  0.61624430638424,
+                  0.618143529699487
+                ],
+                "valid_replicates": 1000
+              },
+              "micro_recall@5": {
+                "interval": [
+                  0.3398692614219345,
+                  0.34123444320982427
+                ],
+                "valid_replicates": 1000
+              },
+              "repeat_rate": {
+                "interval": [
+                  0.0,
+                  0.0
+                ],
+                "valid_replicates": 1000
+              },
+              "unknown_rate": {
+                "interval": [
+                  0.5799977702031742,
+                  0.5821523600545946
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@10": {
+                "interval": [
+                  0.5830147562081931,
+                  0.5854849543472492
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@20": {
+                "interval": [
+                  0.37962598500581296,
+                  0.3816033776849147
+                ],
+                "valid_replicates": 1000
+              },
+              "useful_yield@5": {
+                "interval": [
+                  0.838375483907097,
+                  0.8418674801142946
+                ],
+                "valid_replicates": 1000
+              }
+            },
+            "metrics": {
+              "curve_mean": 0.44020162038906935,
+              "default_rate": 0.03830504417124853,
+              "encoded_coverage@10": 0.42560228617062174,
+              "encoded_coverage@20": 0.5761032090070535,
+              "encoded_coverage@5": 0.2911910005925693,
+              "invalid_rate": 0.0,
+              "macro_recall@10": 0.47911651597586175,
+              "macro_recall@20": 0.6013009107163353,
+              "macro_recall@5": 0.3477936224853291,
+              "mean_questions@10": 10.0,
+              "mean_questions@20": 20.0,
+              "mean_questions@5": 5.0,
+              "micro_recall@10": 0.4737159428564989,
+              "micro_recall@20": 0.6171776099050739,
+              "micro_recall@5": 0.34055327871418356,
+              "repeat_rate": 0.0,
+              "unknown_rate": 0.5810723883363192,
+              "useful_yield@10": 0.5842952678074999,
+              "useful_yield@20": 0.3806225674924322,
+              "useful_yield@5": 0.8400969914128622
+            },
+            "rates_suppressed": false,
+            "stops": {
+              "stop_budget": 129496,
+              "stop_conflict": 0,
+              "stop_empty": 0,
+              "stop_invalid": 0
+            },
+            "support": {
+              "asked_interviews": 129496,
+              "cost20": 2589920,
+              "n": 129496,
+              "positive": 129484,
+              "quarantined": 30547,
+              "unreachable": 0
+            },
+            "zero_denominator_cases": 12
+          }
+        }
+      },
+      "selected_ranker_subgroups": {
+        "age=18_to_64": {
+          "clusters": 86483,
+          "support": {
+            "asked_interviews": 86574,
+            "cost20": 1731480,
+            "n": 86574,
+            "positive": 86566,
+            "quarantined": 21321,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5248726644134674,
+            "default_rate": 0.022075911936609145,
+            "encoded_coverage@10": 0.465646248016753,
+            "encoded_coverage@20": 0.6635748961833907,
+            "encoded_coverage@5": 0.30190099219665906,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5613307267211728,
+            "macro_recall@20": 0.7702309130194773,
+            "macro_recall@5": 0.3710682182267579,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.531053080210116,
+            "micro_recall@20": 0.7447375735159469,
+            "micro_recall@5": 0.351422725874174,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5152106868112828,
+            "useful_yield@10": 0.6598978908217248,
+            "useful_yield@20": 0.462713401252108,
+            "useful_yield@5": 0.8733707579642849
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7689091367296409,
+              0.7716187378723658
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=1_to_4": {
+          "clusters": 4606,
+          "support": {
+            "asked_interviews": 4607,
+            "cost20": 92140,
+            "n": 4607,
+            "positive": 4606,
+            "quarantined": 836,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5165237026361942,
+            "default_rate": 0.020186672454959843,
+            "encoded_coverage@10": 0.4479108223829913,
+            "encoded_coverage@20": 0.6476155322604459,
+            "encoded_coverage@5": 0.29027019046212904,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5529673823875786,
+            "macro_recall@20": 0.7625983377565758,
+            "macro_recall@5": 0.3630544915555819,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.524841306429306,
+            "micro_recall@20": 0.7447604524983156,
+            "micro_recall@5": 0.34433845171814603,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5239526807032776,
+            "useful_yield@10": 0.6425005426524854,
+            "useful_yield@20": 0.45586064684176253,
+            "useful_yield@5": 0.8430649012372476
+          },
+          "recall20_interval": {
+            "interval": [
+              0.755864686735363,
+              0.7685954034524779
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=5_to_17": {
+          "clusters": 16892,
+          "support": {
+            "asked_interviews": 16910,
+            "cost20": 338200,
+            "n": 16910,
+            "positive": 16909,
+            "quarantined": 3166,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5321255566450002,
+            "default_rate": 0.017797161442933175,
+            "encoded_coverage@10": 0.46022459958680223,
+            "encoded_coverage@20": 0.6507537791232844,
+            "encoded_coverage@5": 0.29969930656411725,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5740579189926365,
+            "macro_recall@20": 0.7738292231468457,
+            "macro_recall@5": 0.37604529762583405,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5366415747034032,
+            "micro_recall@20": 0.7456844259299861,
+            "micro_recall@5": 0.35314867597261806,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5296658781785926,
+            "useful_yield@10": 0.6513483146067416,
+            "useful_yield@20": 0.4525369603784743,
+            "useful_yield@5": 0.8572678888231815
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7708338586222424,
+              0.7772317524021706
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=65_plus": {
+          "clusters": 19403,
+          "support": {
+            "asked_interviews": 19422,
+            "cost20": 388440,
+            "n": 19422,
+            "positive": 19420,
+            "quarantined": 4868,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5249411585198495,
+            "default_rate": 0.01433683451755741,
+            "encoded_coverage@10": 0.46071919045898085,
+            "encoded_coverage@20": 0.653375496928081,
+            "encoded_coverage@5": 0.2992482833393567,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5630095852281276,
+            "macro_recall@20": 0.7719911344445214,
+            "macro_recall@5": 0.36398941343980606,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5313655331843177,
+            "micro_recall@20": 0.744596765283314,
+            "micro_recall@5": 0.3464401968366749,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5345767686129131,
+            "useful_yield@10": 0.6438162908042426,
+            "useful_yield@20": 0.4510863968695294,
+            "useful_yield@5": 0.8395118937287612
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7689074339722698,
+              0.7748531069330021
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=under_1": {
+          "clusters": 1981,
+          "support": {
+            "asked_interviews": 1983,
+            "cost20": 39660,
+            "n": 1983,
+            "positive": 1983,
+            "quarantined": 356,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5044123263033867,
+            "default_rate": 0.019868885526979324,
+            "encoded_coverage@10": 0.4340070537167661,
+            "encoded_coverage@20": 0.622253119913185,
+            "encoded_coverage@5": 0.28313212154096584,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5411774730506141,
+            "macro_recall@20": 0.7419544634557153,
+            "macro_recall@5": 0.3572714322301945,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5076357697019191,
+            "micro_recall@20": 0.7170681910984075,
+            "micro_recall@5": 0.3347080440996325,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5373424104891579,
+            "useful_yield@10": 0.626928895612708,
+            "useful_yield@20": 0.44278870398386283,
+            "useful_yield@5": 0.82672718103883
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7320686786826186,
+              0.7518691008308699
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "age=unknown": {
+          "cases": 0,
+          "rates": null,
+          "status": "no_cases"
+        },
+        "missingness=[0,0.90)": {
+          "clusters": 17107,
+          "support": {
+            "asked_interviews": 17107,
+            "cost20": 342140,
+            "n": 17107,
+            "positive": 17107,
+            "quarantined": 6326,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.3583598454673508,
+            "default_rate": 0.038542701817969253,
+            "encoded_coverage@10": 0.3213759965796851,
+            "encoded_coverage@20": 0.4954549650437985,
+            "encoded_coverage@5": 0.20435895816430144,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.3752492311794713,
+            "macro_recall@20": 0.5623145411885215,
+            "macro_recall@5": 0.24380083232318697,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.3671658395404017,
+            "micro_recall@20": 0.5526854805299403,
+            "micro_recall@5": 0.23792844705957336,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.4038756064768808,
+            "useful_yield@10": 0.7408370842345239,
+            "useful_yield@20": 0.5575816917051499,
+            "useful_yield@5": 0.9601449698953645
+          },
+          "recall20_interval": {
+            "interval": [
+              0.5601858476037916,
+              0.5644621813472771
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "missingness=[0.90,0.95)": {
+          "clusters": 91270,
+          "support": {
+            "asked_interviews": 91284,
+            "cost20": 1825680,
+            "n": 91284,
+            "positive": 91284,
+            "quarantined": 16104,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5590534878668553,
+            "default_rate": 0.020005148766487006,
+            "encoded_coverage@10": 0.505041695943824,
+            "encoded_coverage@20": 0.7072261672642596,
+            "encoded_coverage@5": 0.333589390786601,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5987322176663481,
+            "macro_recall@20": 0.808191441035805,
+            "macro_recall@5": 0.4064468089280745,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5779184756498404,
+            "micro_recall@20": 0.7985488025099117,
+            "micro_recall@5": 0.3881860385281343,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.48563055957232376,
+            "useful_yield@10": 0.715553656719688,
+            "useful_yield@20": 0.4943642916611893,
+            "useful_yield@5": 0.9612703211953902
+          },
+          "recall20_interval": {
+            "interval": [
+              0.8069733679315516,
+              0.8093698463857688
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "missingness=[0.95,1]": {
+          "clusters": 20988,
+          "support": {
+            "asked_interviews": 21105,
+            "cost20": 422100,
+            "n": 21105,
+            "positive": 21093,
+            "quarantined": 8117,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5141256700297057,
+            "default_rate": 0.006515043828476664,
+            "encoded_coverage@10": 0.48133677236354533,
+            "encoded_coverage@20": 0.6843693295976752,
+            "encoded_coverage@5": 0.2703647828474892,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5584131950793948,
+            "macro_recall@20": 0.7747554480949569,
+            "macro_recall@5": 0.3156034048758978,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5630376255827697,
+            "micro_recall@20": 0.7854176242694858,
+            "micro_recall@5": 0.31856162584542647,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.7667874911158493,
+            "useful_yield@10": 0.32502250651504383,
+            "useful_yield@20": 0.226697465055674,
+            "useful_yield@5": 0.36778962331201137
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7710102557782588,
+              0.7786735303883039
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "question_type=B": {
+          "clusters": 129365,
+          "support": {
+            "asked_interviews": 129496,
+            "cost20": 1933581,
+            "n": 129496,
+            "positive": 129450,
+            "quarantined": 0,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.371807255830819,
+            "default_rate": 0.0,
+            "encoded_coverage@10": 0.3327187927463702,
+            "encoded_coverage@20": 0.6435041997879505,
+            "encoded_coverage@5": 0.13028516807392065,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.3623032128071221,
+            "macro_recall@20": 0.6581976502807495,
+            "macro_recall@5": 0.14974932019708295,
+            "mean_questions@10": 5.6029684314573425,
+            "mean_questions@20": 14.93158862049793,
+            "mean_questions@5": 1.5451983072836226,
+            "micro_recall@10": 0.3327187927463702,
+            "micro_recall@20": 0.6435041997879505,
+            "micro_recall@5": 0.13028516807392065,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.6970931137614612,
+            "useful_yield@10": 0.4173716374341545,
+            "useful_yield@20": 0.30290688623853873,
+            "useful_yield@5": 0.5926175804734704
+          },
+          "recall20_interval": {
+            "interval": [
+              0.6564786326833264,
+              0.6598529666670724
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "question_type=C": {
+          "clusters": 129365,
+          "support": {
+            "asked_interviews": 110774,
+            "cost20": 377254,
+            "n": 129496,
+            "positive": 109508,
+            "quarantined": 0,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.7352208873195403,
+            "default_rate": 0.07107943189469164,
+            "encoded_coverage@10": 0.5485404505120349,
+            "encoded_coverage@20": 0.6175106595389964,
+            "encoded_coverage@5": 0.3942496684518628,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.861684755509569,
+            "macro_recall@20": 0.907535627606506,
+            "macro_recall@5": 0.6481732906661377,
+            "mean_questions@10": 2.584682152344474,
+            "mean_questions@20": 2.913248285661333,
+            "mean_questions@5": 1.857192500154445,
+            "micro_recall@10": 0.7800225615386677,
+            "micro_recall@20": 0.8524582574987879,
+            "micro_recall@5": 0.5706534318634223,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.0014897125013916353,
+            "useful_yield@10": 0.956502124252329,
+            "useful_yield@20": 0.9274308556039167,
+            "useful_yield@5": 0.9738709932265831
+          },
+          "recall20_interval": {
+            "interval": [
+              0.9062310462134541,
+              0.9086365954576608
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "question_type=M": {
+          "clusters": 129365,
+          "support": {
+            "asked_interviews": 107989,
+            "cost20": 279085,
+            "n": 129496,
+            "positive": 108327,
+            "quarantined": 0,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.771205970503078,
+            "default_rate": 0.09188956769443002,
+            "encoded_coverage@10": 0.6462816198622027,
+            "encoded_coverage@20": 0.7685258108398367,
+            "encoded_coverage@5": 0.5697055146471628,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.8506143436079902,
+            "macro_recall@20": 0.9320483351335914,
+            "macro_recall@5": 0.7904385179442622,
+            "mean_questions@10": 1.8123494161981837,
+            "mean_questions@20": 2.1551630938407365,
+            "mean_questions@5": 1.5976091925619325,
+            "micro_recall@10": 0.8152752273680254,
+            "micro_recall@20": 0.9161196338977169,
+            "micro_recall@5": 0.7478347623660734,
+            "repeat_rate": 0.0,
+            "unknown_rate": 3.583137753730942e-06,
+            "useful_yield@10": 0.9610084706764611,
+            "useful_yield@20": 0.9081068491678163,
+            "useful_yield@5": 1.0
+          },
+          "recall20_interval": {
+            "interval": [
+              0.9311868944874261,
+              0.9328797519964488
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "sex=F": {
+          "clusters": 66554,
+          "support": {
+            "asked_interviews": 66627,
+            "cost20": 1332540,
+            "n": 66627,
+            "positive": 66623,
+            "quarantined": 15571,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5233613018700984,
+            "default_rate": 0.022344545004277544,
+            "encoded_coverage@10": 0.4622164722104805,
+            "encoded_coverage@20": 0.6588555880675173,
+            "encoded_coverage@5": 0.2997474053129014,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5600765529615428,
+            "macro_recall@20": 0.7676812613015286,
+            "macro_recall@5": 0.36908905160800926,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5285710310349793,
+            "micro_recall@20": 0.7409400146881076,
+            "micro_recall@5": 0.34953824412989903,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.5180812583487174,
+            "useful_yield@10": 0.6557011421795969,
+            "useful_yield@20": 0.459574196647005,
+            "useful_yield@5": 0.8672159935161421
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7660504713656621,
+              0.7692949105291624
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "sex=M": {
+          "clusters": 62811,
+          "support": {
+            "asked_interviews": 62869,
+            "cost20": 1257380,
+            "n": 62869,
+            "positive": 62861,
+            "quarantined": 14976,
+            "unreachable": 0
+          },
+          "rates_suppressed": false,
+          "metrics": {
+            "curve_mean": 0.5271894052956873,
+            "default_rate": 0.018041483083872815,
+            "encoded_coverage@10": 0.46401765275576684,
+            "encoded_coverage@20": 0.6595516376122557,
+            "encoded_coverage@5": 0.3013349621412221,
+            "invalid_rate": 0.0,
+            "macro_recall@10": 0.5653535529358901,
+            "macro_recall@20": 0.7729935946706882,
+            "macro_recall@5": 0.3712953035826948,
+            "mean_questions@10": 10.0,
+            "mean_questions@20": 20.0,
+            "mean_questions@5": 5.0,
+            "micro_recall@10": 0.5340997997983712,
+            "micro_recall@20": 0.7481416799550552,
+            "micro_recall@5": 0.351332450179896,
+            "repeat_rate": 0.0,
+            "unknown_rate": 0.523377976427174,
+            "useful_yield@10": 0.654763078782866,
+            "useful_yield@20": 0.45858054048895325,
+            "useful_yield@5": 0.8614102339785904
+          },
+          "recall20_interval": {
+            "interval": [
+              0.7714650534775098,
+              0.77467337891339
+            ],
+            "valid_replicates": 1000
+          }
+        },
+        "sex=unknown": {
+          "cases": 0,
+          "rates": null,
+          "status": "no_cases"
+        }
+      }
+    }
+  },
+  "milestones_ist": {
+    "run.json": "2026-10-19T19:47:37.667203+05:30",
+    "training-reference.json": "2026-10-19T19:59:05.414108+05:30",
+    "cohorts.json": "2026-10-19T20:01:10.705594+05:30",
+    "pairs.json": "2026-10-19T20:10:51.471952+05:30",
+    "fit-results.json": "2026-10-19T20:15:33.673347+05:30",
+    "selection.json": "2026-10-19T22:17:32.452118+05:30",
+    "validation-trajectories.sqlite": "2026-10-20T20:15:32.980761+05:30",
+    "validation-aggregate.json": "2026-10-20T20:24:44.646181+05:30",
+    "pre-test-seal-hash.json": "2026-10-20T20:24:59.525527+05:30"
+  },
+  "resource_observations": {
+    "private_run_bytes": 3630661930,
+    "validation_cache_bytes": 2533289984,
+    "sampled_reporting_working_set_bytes": 1332584448,
+    "final_peak_memory_not_captured": true
+  }
+}
