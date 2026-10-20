@@ -194,6 +194,16 @@ Steps that change the application belong to the selected implementation task. Th
 
 **Acceptance:** a reviewer reproduces the complete journey from a clean account; recovery works; release claims match the evidence. Real-patient/public expansion is a separate decision.
 
+## MedAssist capability-based development
+
+<a id="medassist-five-day-researchdemo-sprint"></a>
+
+The [MedAssist master blueprint, sections 12–13](architecture/MEDASSIST_MASTER_BLUEPRINT.md#12-capability-based-development-levels) is the source of truth for L1 foundation/adaptive questioning, L2 conversational intelligence, L3 severity intelligence, L4 independent safety/precautions, L5 hospital navigation and L6 complete APIP integration, with observable evidence gates and current blockers.
+
+This replaces the active five-day MedAssist schedule. Earlier Day 1/Day 2 reports and completed-work receipts remain historical records; their old schedule links resolve here for continuity. Do not interpret their next-day instructions as the current plan. Advance by verified capabilities, not dates or an hourly sprint budget. The immediate open gate is L1 patch review and robustness/accessibility evidence; L2 integration is not established, and Model B remains untrained/disabled pending L3 data/evaluation prerequisites. L4 clinical approval and L5 verified facility capabilities remain open; L6 requires reviewed four-agent connectivity, privacy, accessibility, monitoring design and end-to-end fictional tests.
+
+ADR remains APIP's core priority, independently accessible. Keep broader APIP milestones visible without imposing a MedAssist deadline. Preserve frozen Model A assets/protocol and the stable locked-test ledger; no training, test access, guidance, background service or deployment is automatically authorized. Do not invent data, labels, guidance or performance to pass a gate.
+
 ## Future candidates
 
 These are preserved ideas, not current commitments:

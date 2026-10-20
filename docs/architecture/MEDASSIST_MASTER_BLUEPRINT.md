@@ -102,32 +102,60 @@ The following are **previously reported results**, read from existing local docu
 
 Task 5A/Day 1/Day 2 work is present as an uncommitted patch on `codex/medassist-v2-task5a-adapter` at this inspection. A documentation commit does not publish or approve that implementation. Some evidence links therefore require this preserved working tree until those files receive separate review and commitment.
 
-## 12. Delivery plan and deadlines
+## 12. Capability-based development levels
 
-The MedAssist research/demo sprint ends **October 25, 2026**. The broader APIP planning deadline is **November 14, 2026**, as requested here; neither date grants clinical readiness. The [roadmap sprint section](../roadmap.md#medassist-five-day-researchdemo-sprint) owns the detailed actionable backlog. Preserve its six-hour days and October 25 review buffer; do not restart completed days or add a competing task queue.
+Development advances through verified functionality and evidence gates, not elapsed days, sprint milestones or a fixed MedAssist completion date. The earlier five-day schedule is superseded as an active plan. Historical Day 1/Day 2 reports and their actual results remain unchanged. The [roadmap capability entry](../roadmap.md#medassist-capability-based-development) points here as the single source for MedAssist capability definitions and acceptance criteria.
 
-- **Day 1, October 20:** reviewed research adapter, evidence contract, dataset readiness and safe fallback; completed as previously reported.
-- **Day 2, October 21 (user target October 22):** local fictional Model A question workflow, evidence export and bounded checks; completed pending review as previously reported.
-- **Day 3, October 22:** finish broader browser B/C/M/default/UNKNOWN/contradiction/budget/failure coverage plus tablet, keyboard and accessibility checks. Retain the existing lab rather than rebuild it.
-- **Day 4, October 23:** bounded robustness/privacy checks, measured small-fixture latency/memory if separately authorized, and protected-artifact verification. Report limitations rather than retune frozen inference to meet a target.
-- **Day 5, October 24:** rehearse authored fictional end-to-end scenarios, verify startup/stop/export/reset, prepare reviewer handoff and record failures. Use October 25 for review/defect resolution.
+- **L1 — Foundation and adaptive questioning:** preserve the existing trained sealed Model A, research FastAPI adapter, `model-a-to-b.evidence.v1` and fictional question lab. These are implemented with previously reported checks; patch review, remaining robustness/accessibility verification and safe integration remain. Do not mark the whole level complete from model training alone.
+- **L2 — Conversational intelligence:** integrate a simple user-facing chat into the original APIP website, with an evaluated medical-language model, validated structured extraction, clarification and Model A orchestration. Keep the developer research lab separate. No medical LLM has been selected; the existing fictional chat/quote helper is not evidence of this integrated capability.
+- **L3 — Severity intelligence:** develop clinically grounded Model B only after authorized-data and prospective evaluation gates. Intended targets are four clinically defined urgency levels plus an independent unable-to-assess state. Model B is currently untrained and disabled; suitable labels, held-out evaluation, calibration and abstention are prerequisites, not inferred capabilities.
+- **L4 — Independent safety and precautions:** establish clinician-reviewed red flags and escalation, vetted source guidance and bounded source-grounded explanations. Safety checks cannot be overridden by the LLM or Model B. Clinical rules/guidance are not yet approved.
+- **L5 — Hospital navigation:** add optional consent-based location, Maps/Places integration, relevant verified facility capabilities and safe emergency-navigation handling. The current location-only Maps search is a limited preview, not completion of this level.
+- **L6 — Complete APIP integration:** connect MedAssist to the Reporting, Validation, Knowledge and Analysis agents only through reviewed contracts, with privacy, access control, testing, accessibility, operational monitoring and reproducible end-to-end fictional demonstrations. Existing experimental handlers do not establish complete connectivity or clinical readiness.
 
-Fallback: keep Model B and clinical guidance explicitly unavailable. A fictional evidence-collection demo can be complete without a clinical classifier. If trusted Model A cannot load in a review environment, a labelled fixture replay may illustrate the UI but must never be presented as live trained inference. Further product integration and clinical research follow gated work after this sprint, not deadline-driven invented labels or unnecessary training, repeated evaluations, background jobs or deployment.
+Levels describe capabilities and dependencies, not permission to implement them automatically or a requirement to wait before preparing independent prerequisites. L4 safety design and L3 data/reviewer preparation can proceed alongside L2 engineering when separately authorized. Never enable a dependent clinical capability while its safety/data gates remain unmet. Record partial capability evidence explicitly; completing a fictional demo is not completing L3–L6 clinical functions.
 
-## 13. Acceptance criteria and decision gates
+ADR reporting remains the core APIP priority and independently accessible. Retain the broader APIP roadmap and November 14, 2026 planning target as project context, not an artificial MedAssist sprint or proof of readiness. Scope and reviewer/data availability determine what is deliverable; no date waives evidence, privacy or clinical review.
 
-Each gate requires recorded evidence and an owner/reviewer before enabling the corresponding capability:
+Fallback: keep Model B and clinical guidance explicitly unavailable while developing a useful fictional evidence-collection workflow. If trusted Model A cannot load in a review environment, clearly labelled fixture replay may illustrate the UI but must never be presented as live inference or satisfy its correctness gate. Do not invent labels, guidance or performance to close a level. No unnecessary retraining, repeated heavy evaluation, background jobs or deployment is authorized by this plan.
 
-- **Conversational interface:** authored fictional scenarios complete intake → supported clarification → adaptive follow-up → correction/uncertainty → end/export/reset. Technical IDs stay out of the eventual product view; the research lab stays separate. Passing the existing coded lab does not satisfy natural-language integration.
-- **Model A correctness:** read-only trusted loading, frozen encoder/reference parity, deterministic disclosed-state inference where applicable, correct eligibility/exclusions, duplicate prevention and unavailable/corrupt-artifact abstention. Preserve all 17 hashes and original protocol/implementation; do not rerun official evaluation to demonstrate the UI.
-- **Evidence integrity:** schema/version checks, exact typed values, explicit negative versus missing/UNKNOWN, chronological dependencies, unresolved contradiction retention, provenance and disabled Model B. No unsupported ingress produces accepted evidence. A stopped interview makes no safety claim.
-- **Model B data readiness — BLOCKED:** approved intended use/labels, rights/ethics, compatible inputs, grouped leakage controls, untouched evaluation, suitable population/high-acuity support and qualified clinical review. Only then authorize prospective training/evaluation; clinical claims remain blocked pending accepted calibration, sensitivity, abstention and external-validation results.
-- **LLM extraction — NOT ESTABLISHED:** prospectively specified fictional structured-extraction checks and clinician-reviewed wording; no invented evidence/questions or clinical output, measured latency/memory/privacy, and a deterministic unsupported-input path. Select a model only after comparative evidence and licence review.
-- **Clinical safety and guidance — BLOCKED:** named qualified approval of escalation rules, source scope, wording, retrieval citations and failure paths; demonstrate that neither model nor LLM overrides escalation or delays urgent help for more questions. No AI-generated sign-off.
-- **Location/navigation — PARTIAL PREVIEW ONLY:** denied/revoked/unavailable location has a manual fallback; provider egress is explicit; capability claims have verified provenance/freshness and uncertainty. Test Maps failures without implying referral or availability.
-- **Accessibility/privacy/end-to-end:** phone/tablet/desktop, keyboard, labels, focus and reduced motion; no credentials/paths/real records in browser/logs/exports; production research routes absent/disabled; fictional state resets predictably. Record actual checks and known gaps rather than claim certification.
+## 13. Evidence-based acceptance and decision gates
 
-Research-demo acceptance can pass while clinical gates remain blocked. No patient pilot, autonomous assessment or clinical training is authorized by this document.
+A level is complete only when its observable checks have dated evidence, actual results, known limitations and an accountable reviewer/owner. Agree task-specific acceptance thresholds prospectively; do not fabricate performance or select flattering thresholds after seeing results. Prior reported test counts remain historical evidence, not newly executed checks. Failures block the affected capability; partial functionality must stay labelled partial.
+
+### L1 gate — foundation and adaptive questioning
+
+Verify read-only trusted Model A loading and frozen encoder/reference parity, deterministic disclosed-state inference where applicable, eligible questions/dependencies, all five exclusions, duplicate prevention and safe unavailable/corrupt-artifact abstention. Exercise binary/categorical/multichoice controls, exact scalar types, explicit defaults/empty sets, UNKNOWN versus false/not asked, unresolved contradictions, budget/user stops and reset/export. Confirm `model-a-to-b.evidence.v1` provenance, no accepted handoff for unsupported ingress and no clinical meaning attached to stopping.
+
+Review the existing patch and record focused browser/proxy failure, cancellation/stale-response, tablet/keyboard/focus/labels/reduced-motion checks still missing from prior evidence. Demonstrate startup, fictional interview, export and reset in the preserved environment. Preserve all 17 sealed hashes, frozen code/protocol/environment and the unchanged ledger; locked-test execution remains separately unauthorized. Keep the CRLF/LF and trusted-pickle limits visible. **Status: implemented foundation, completion/review gate still open.**
+
+### L2 gate — conversational intelligence
+
+Demonstrate authored fictional free-text intake → validated structured suggestions → user clarification/confirmation → actual Model A follow-up → correction/uncertainty → end/export/reset in the original APIP website. Hide technical evidence IDs in that user-facing chat while retaining the separate developer lab. Preserve statements, extraction suggestions, confirmed observations and conclusions separately; missing/UNKNOWN never becomes negative. Unsupported or ambiguous mappings must clarify or abstain without invented evidence or questions.
+
+Compare permitted medical-language candidates, including MedGemma and smaller practical alternatives, on a prospectively specified bounded extraction set. Record licence/privacy review, structured-output and typed-ID/value validity, negation/contradiction handling, unsupported additions, latency and memory, plus qualified review of clinical wording. The LLM handles language, not autonomous clinical decisions. **Status: evaluated model selection and integrated orchestration not established.**
+
+### L3 gate — severity intelligence
+
+**Training gate — BLOCKED:** approve intended use, population, prediction time and four urgency targets with a separate unable-to-assess state; establish data permission/ethical provenance, a clinician-reviewed rubric, compatible pre-assessment inputs, adjudication, adequate rare/high-acuity/age support, grouped patient/family/source leakage controls and untouched held-out evaluation. ED-acuity records do not establish home-care safety; do not invent clinical labels or silently remap them. Only then separately authorize prospective Model B research/training.
+
+**Clinical-use gate — BLOCKED:** report held-out performance and uncertainty against prospectively accepted criteria, including calibration, high-acuity sensitivity, false-reassurance errors, abstention/coverage and subgroup support; obtain external/intended-population validation and qualified review. Model confidence is not a disposition guarantee. No validation/test-driven retuning of frozen studies. **Model B remains untrained and disabled until its prerequisites and separate enablement decision are satisfied.**
+
+### L4 gate — independent safety and precautions
+
+Obtain named qualified clinical approval of versioned source-backed red flags, thresholds, wording, population limits, uncertainty paths and escalation behaviour; no invented rules or AI-generated sign-off. Demonstrate that neither the LLM nor Model B can suppress escalation or delay urgent help for more questions. Separately verify vetted guidance retrieval, source/version citations, applicability, freshness and abstention when evidence is missing. No autonomous medication, treatment or home-care clearance. **Status: clinical safety/guidance approval blocked.**
+
+### L5 gate — hospital navigation
+
+Test granted/denied/revoked/unavailable location, manual-location fallback, explicit provider consent and minimized data egress. Facility specialist/emergency capability claims require verified provenance and freshness, not name inference. Demonstrate relevant facility selection and safe uncertainty/provider-outage handling under the reviewed escalation pathway; navigation must not imply a confirmed referral, capacity or guaranteed acceptance. Emergency-specific behaviour depends on the L4 safety review. **Status: location-only preview exists; capability-aware navigation not established.**
+
+### L6 gate — complete APIP integration
+
+Demonstrate reviewed connections to all four agents with versioned data/provenance, validation, explicit user confirmation/sharing and failure recovery; retain direct ADR access and prevent automatic retraining or promotion of new reports into trusted evidence. Test end-to-end authored fictional cases, timeouts/cancellation, access denial, provider outages and reset/export while disabled clinical functions stay visibly disabled. A fictional integration demonstration can pass its software subset without satisfying clinical gates.
+
+Verify privacy/retention/consent, server-side credentials, safe logging, research/production isolation, authorized access, and phone/tablet/desktop accessibility including keyboard, labels, focus and reduced motion. Define operational health/error monitoring, incident ownership and recovery before deployment; this document starts no monitoring job or service. Record enabled versus blocked capabilities, measured results and reviewer decisions. **Complete product/clinical integration cannot be claimed while required L2–L5 gates remain open; public release and real-patient use require separate approval.**
+
+Across all levels, preserve Model A, its frozen artifacts/protocol and the stable locked-test ledger; no official test access follows from a level transition. Clinical training and real-world clinical claims remain blocked until their specific prerequisites are met. Software verification is not clinical certification.
 
 ## 14. Known limitations and next actions
 
@@ -135,8 +163,12 @@ The frozen local protocol uses CRLF bytes matching its pinned digest; Git stores
 
 Trusted pickle and preserved scientific-package versions remain constraints. Hash verification is necessary but does not establish authenticity or make arbitrary pickle safe. Clean-environment installation, public security, clinical question validity and real-world generalization are not established.
 
-Immediate next work is the existing Day 3 backlog and review of the uncommitted implementation. Separately resolve Model B cohort/label rights, clinical reviewer scope, constrained language extraction benchmarks and deployment/privacy safeguards. Do not treat the previously opened NHAMCS research test as the unopened Model A test; they are different research tracks. No reuse of test outcomes for tuning is permitted.
+Immediate next work is the open L1 review/robustness gate, with separately scoped L2 language-integration and L3 data-readiness preparation. Separately resolve Model B cohort/label rights, clinical reviewer scope, constrained language extraction benchmarks and deployment/privacy safeguards. Do not treat the previously opened NHAMCS research test as the unopened Model A test; they are different research tracks. No reuse of test outcomes for tuning is permitted.
 
 ### Preservation record for this documentation task
 
 On 2026-10-21, reviewed repository status/branch, architecture/layer/roadmap documentation, frozen protocol description, Task 4B aggregate/report/receipt and Task 5A/Day 1/Day 2 reports/contract. Created this blueprint and a documentation-index link only. Checks are limited to documentation links, structure, privacy and Git scope. No implementation, models, sealed assets, ledger or running preview services were changed; no application tests, training, official evaluation or deployment ran. Existing unrelated work remains preserved. This record is kept here because the requested commit explicitly excludes the already-uncommitted dated history files. Future implementation/history updates remain separately scoped.
+
+### Capability-planning revision — 2026-10-21
+
+Replaced the active day/sprint plan with L1–L6 capabilities and observable evidence gates. Preserved the original product vision, reported Day 1/Day 2 outcomes and frozen-research constraints; updated the roadmap pointer without committing prior implementation work. No new capability, test, seal verification or clinical approval is claimed by this documentation revision.
