@@ -1,0 +1,64 @@
+# MedAssist baseline protocol v1 — frozen 2026-10-19
+
+**Decision: GO for later offline retrospective baseline training under this protocol; NO-GO for patient-facing inference or clinical claims.** No models were trained during this freeze. User approval covers the approximate 80% development/20% testing strategy and preservation of existing group-disjoint assignments, not exact row percentages. The [machine-readable protocol](baseline-protocol.json) owns numerical settings, grids and guards; its [SHA-256](baseline-protocol.sha256) detects unreviewed local edits. Changes require a reviewed protocol revision, new digest and updated evidence, never an unlogged adjustment after test results.
+
+Read [Phase 1](reports/2026-10-19-phase1/README.md) and [actual Phase 2 preflight](reports/2026-10-19-phase2/README.md). The [source manifest](open-access-manifest.json) owns publisher provenance. The prior five-class-primary planning proposal is superseded for NHAMCS by this protocol; DDXPlus and MIMIC demo plans remain separate and unchanged.
+
+## Tasks, cohorts and frozen partitions
+
+**Primary:** binary high acuity, positive IMMEDR `{1,2}`, negative `{3,4,5}`, on **all 10,207 labelled visits**. Preserve original IMMEDR in the audit frame; create a separate binary target. Excluded/unknown targets are never inferred. This is recorded US ED-acuity research, not home urgency classification.
+
+Compare AGE/nonimputed SEX alone against AGE/nonimputed SEX plus seven initial vital fields, **without RFV**. Both variants retain identical rows and assignments, including rows with missing predictors. No-RFV vitals avoid the severe-case loss under symptom-module restriction; a demographic-only model remains a weak reference, not a useful symptom assistant.
+
+**Secondary exploratory:** original five-class prediction on **7,657 symptom-coded visits**. Compare AGE/SEX/symptom RFV1 against the same fields plus initial vitals on identical rows. The restriction loses 69/139 Immediate visits; it is not a representative five-class comparison for the full labelled population. Do not present differences between primary/secondary cohorts as a pure RFV benefit or pool their scores/labels.
+
+Load the **existing external Phase 1 row assignments**. Verify source SHA-256, membership/order, assignment digest, partition supports and connected-group isolation. Missing/mismatching assignments are a hard failure; no regeneration, percentage adjustment, seed search or random-row fallback is allowed. In fit/calibration/threshold/test order:
+
+- All-labelled: **5,933 / 1,107 / 1,178 / 1,989**, or 58.13/10.85/11.54/19.49%. Development totals 8,218 (80.51%). Digest begins `9c1a7393`.
+- Symptom-coded: **4,184 / 1,012 / 868 / 1,593**, or 54.64/13.22/11.34/20.80%. Development totals 6,064 (79.20%). Digest begins `4735d160`.
+
+Each cohort retains its own Phase 1 split. A visit can have different roles across the two experiments; prohibit cross-task transfer, tuning and model selection. Freeze **both tasks'** model choices, preprocessing, calibration, thresholds and artifact hashes before opening either test for predictions. Phase 1 support inspection was permitted; it supplied no test performance. Never refit on development+test or on fit+calibration before evaluation.
+
+## Fixed feature and missingness policy
+
+`research_matrix` performs fixed, label-independent decoding only; the source frame remains unchanged. Initial features remain **retrospective proxies** because precise pre-label ordering is unproved. No claim of strict prospective timing is made.
+
+- Mask numeric missing sentinels; retain distinct raw reasons in audits. Mask PULSE/BPDIAS Doppler 998. Decode TEMPF tenths once, after sentinel masking.
+- Convert zero TEMPF/PULSE/RESPR/BPSYS/BPDIAS/POPCT to missing in Phase 2 research matrices: zero is not treated as an ordinary numeric observation for these fields. Keep zero pain and zero age. This is an explicit engineering cleaning rule, not a clinical threshold or repair to raw data.
+- Require AGEFL in `{0,1}` and BDATEFL=0. Quarantine all eight ambiguous/imputed age inputs, including the six AGEFL=0/BDATEFL=1 cases. Require SEXFL=0. Do not use flags or demographic missingness indicators as predictors; this limits exploitation of target-informed publisher imputation provenance. Missing values themselves may still correlate with workflow; evaluate that limitation.
+- Retain other finite non-sentinel extremes; do not derive physiological limits from test data, winsorize, clip or drop complete rows. Report sensitivity/quality concerns without inventing new rules after results. Nonfinite inputs fail preflight.
+- Deny diagnoses, treatment, disposition, later measurements, elapsed outcomes, target derivatives, audit flags, IDs and survey weights from X. RFV is allowed only in the secondary symptom profiles. All matrix columns are allowlisted and ordered.
+
+## Within-fit preprocessing and fixed comparison
+
+Use three-fold StratifiedGroupKFold, seed 42, **within fit only**. Keep Phase 1's original five-class IMMEDR for fold stratification even for binary fitting. This preserves rare-class balance without changing outer assignments. Reuse identical fold indices across all model families and matched feature variants; preflight records fold-assignment digests. No class disappears from a training/validation fold. No calibration/threshold/test examples enter cross-validation or preprocessing fitting.
+
+For LR/RF: training-fold median numeric imputation, zero constant only for an entirely empty training column, fixed missingness indicators for vital fields present in the profile, and categorical `__UNKNOWN__` for missing values. One-hot vocabularies fit only on that training fold, with unseen-category ignore; LR additionally standardizes numeric values. Preserve empty-column shapes. No demographic indicator is added. Imputed/scaled model inputs must never overwrite original statements or unknowns.
+
+For HGB: native numeric missing values; fit-only categorical mapping with count-at-least-10 frequent categories, retaining at most 253 plus a rare bucket. Unknown/unseen categories map to NaN; record them for uncertainty auditing. Use dense bounded categorical representations with an explicit categorical mask, never raw ordinal RFV numbers or sparse one-hot. No automatic random validation/early stopping. The pinned [HGB documentation](https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html) establishes representation limits, not medical suitability.
+
+Freeze three families and bounded JSON grids: **LR 3 configurations, RF 4, HGB 8**, all unweighted/no class balancing. At three folds and four task/profile variants, at most **180 candidate fold fits**, followed by 12 family-best final fits. CPU threads are limited to one and each candidate's three-fold run has a 20-minute budget. A timeout/convergence/fitting failure makes that declared comparison incomplete; resolve/document it before test, rather than silently dropping candidates or substituting a model. A majority-prior reference uses fit prevalence only and is reported separately, not treated as a fourth competing family.
+
+Tune each family separately per task/profile. Primary selection uses mean fold average precision; secondary uses mean macro F1. Ties within 1e-12 choose first JSON grid configuration; predeclared overall family ties use LR, RF, HGB order. Keep all three family-best models for final paired comparison; declare any overall CV winner **before** test. Test scores cannot select the winner. Refit each selected pipeline on fit only, then freeze it. No oversampling, synthetic augmentation or weighted-fit sensitivity is part of v1; PATWT is used for separately labelled evaluation descriptions only.
+
+## Calibration and threshold selection
+
+**Primary binary only:** fit one sigmoid calibrator per family/profile using calibration only and an already fitted frozen base pipeline. Freeze all preprocessing too. In scikit-learn 1.7.2 use `FrozenEstimator` with `CalibratedClassifierCV(method="sigmoid")`; explicit disjoint inputs are the caller's responsibility ([official API](https://scikit-learn.org/1.7/modules/generated/sklearn.calibration.CalibratedClassifierCV.html)). Do not use default internal CV to fit base models across reserved partitions. No isotonic calibration or calibration-model selection is allowed.
+
+Calibration and threshold partitions must each have at least **50 positives, 50 negatives and five connected groups**. These are conservative engineering guards, not clinical approval or a power calculation. Actual primary support is 180/927 in calibration and 200/978 in threshold selection, ten groups each. Any failure or unconverged calibrator means no calibrated result/tuned threshold; label the run incomplete rather than silently using a fallback or borrowing other partitions.
+
+Use calibrated primary probabilities on **threshold selection only**. Evaluate `p_high >= t` on a fixed grid 0.00–1.00 inclusive in steps of 0.01. Maximize unweighted F2; ties prefer higher high-acuity recall, then fewer false positives, then larger threshold. Freeze separately for each model/profile; report 0.5 as a fixed descriptive reference. F2 is a research utility choice, not a clinically acceptable under-triage tradeoff. No Immediate-specific threshold or claimed clinical recall target is allowed.
+
+**Secondary:** five-class argmax and explicitly uncalibrated scores only. Do not fit per-class/Immediate calibrators, tune class thresholds or normalize a binary calibrator back into a five-class probability vector. Report aggregate high-acuity misses from argmax, with Immediate support/errors visible. Calibration/threshold rows stay reserved and unused for secondary model fitting; sparse 10/5 Immediate counts do not become permission to merge/borrow partitions. Secondary probability metrics describe uncalibrated performance only.
+
+## Locked evaluation, uncertainty and audit trail
+
+Primary: confusion counts, high-acuity and Immediate recall/misses, miss rate, precision, specificity, F2, average precision, ROC-AUC and balanced accuracy. Evaluate raw versus calibrated binary log loss, Brier and reliability/ECE using ten fixed equal-width bins; empty bins remain explicit. Secondary: per-class support/precision/recall, macro F1, balanced accuracy, under-triage (predicted class greater than true), gaps of at least two classes, high-acuity misses and uncalibrated probability metrics. Multiclass Brier is the mean sum of squared errors across all five classes.
+
+Report unweighted results first and PATWT-weighted eligible-cohort descriptions separately. Neither constitutes national home-triage performance. Use 1,000 stratified masked-cluster bootstrap replicates, seed 43, for exploratory percentile 95% intervals and paired feature/model differences; retain all selected cluster rows and replicate multiplicities. Singleton/absent strata or missing-event replicates are flagged, not repaired with an IID bootstrap or post hoc stratum merging. If a singleton stratum prevents variance estimation, suppress the affected interval. Report usable replicate counts; with fewer than 950 valid replicates for a metric, suppress its interval. These are exploratory cluster intervals, **not** a claim of full survey-design variance correction.
+
+Audit age bands, nonimputed sex, original race/ethnicity with unknown groups, symptom coverage and missing-vitals patterns. For groups below 30 visits or ten relevant positives, publish supports/miss counts and instability flags, suppress derived comparative subgroup scores. These guards do not establish subgroup validity. Primary Immediate counts remain small (26 test cases); secondary has ten. No all-age/paediatric or India transportability claim follows.
+
+Uncertainty is a fixed research diagnostic: all model inputs missing (checked before imputation), unseen observed categorical values, or primary calibrated probability in [0.4,0.6] produce an abstention flag. It is not medical advice. Report raw full-cohort threshold recall, plus abstention-aware unconditional recall counting abstentions as not detected, coverage, selective error and high-acuity abstentions. Never hide missed urgent examples by reporting selective recall alone. No tuned secondary uncertainty cutoff or clinical risk boundary is introduced.
+
+Later training must record protocol/code/environment hashes, unchanged source/assignment/CV digests, every candidate/failure, final pipeline/calibrator/threshold hashes, frozen pre-test selection, private predictions, metrics and a model card. No raw rows/identifiers enter Git. Any test-informed protocol revision becomes a new exploratory version and cannot reuse the same test as fresh confirmatory evidence. DDXPlus/MIMIC labels remain outside this study. Clinical deployment remains NO-GO regardless of offline scores.

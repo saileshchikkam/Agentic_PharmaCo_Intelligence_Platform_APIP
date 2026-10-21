@@ -1,0 +1,38 @@
+{
+  "schema_version": "medassist-interview-v2.1",
+  "record_id": "fixture-record-1",
+  "case_id": "fixture-case-1",
+  "language": "en",
+  "disclosure_index": 0,
+  "catalogue_id": "apip-fictional-catalogue-1",
+  "provenance": {
+    "dataset_id": "apip-synthetic-fixture",
+    "dataset_version": "task1-fixtures-1",
+    "source_url": null,
+    "licence": "Project-authored fictional software fixture; no third-party patient data",
+    "origin": "synthetic_fixture",
+    "source_record_id": "fixture-source-1",
+    "source_group_id": "fixture-group-1",
+    "case_family_id": "fixture-family-1",
+    "original_partition": "unassigned",
+    "data_sha256": null,
+    "rights_status": "synthetic_fixture"
+  },
+  "presenting_complaint": {"text": "Fictional symptom A is present.", "initial_evidence_id": "FX_SYM", "source": "patient_report"},
+  "context": {
+    "age": {"value": 25, "unit": "years", "status": "reported"},
+    "sex_or_gender": {"value": null, "construct": "unspecified", "status": "not_collected"},
+    "reporter": "self",
+    "caregiver_relationship": null,
+    "pregnancy": {"status": "not_collected", "gestational_age_weeks": null},
+    "postpartum": {"status": "not_collected", "days_since_birth": null}
+  },
+  "symptoms": ["FX_SYM", "FX_CAT", "FX_MULTI"],
+  "antecedents": ["FX_ANT"],
+  "evidence_types": {"FX_SYM": "B", "FX_CAT": "C", "FX_MULTI": "M", "FX_ANT": "B"},
+  "answer_history": [{"answer_id": "fixture-answer-1", "evidence_id": "FX_SYM", "state": "confirmed", "value": true, "turn_index": 0, "source": "patient_report"}],
+  "confirmed_answers": ["fixture-answer-1"],
+  "unknown_information": [{"evidence_id": "FX_CAT", "reason": "not_asked"}, {"evidence_id": "FX_MULTI", "reason": "not_asked"}, {"evidence_id": "FX_ANT", "reason": "not_asked"}],
+  "contradictions": [],
+  "potential_follow_up_questions": [{"evidence_id": "FX_CAT", "question_text": "Which fictional option describes symptom B?", "depends_on": ["FX_SYM"], "status": "candidate", "purpose": "collect_unknown"}]
+}

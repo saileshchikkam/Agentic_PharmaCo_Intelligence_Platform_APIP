@@ -1,0 +1,121 @@
+{
+  "run_id": "phase3-baseline-v1-20261019",
+  "protocol_sha256": "c9445327a349b193f29af121d4bbb9c26208c34d32a9868a3b2380d9d7dc013c",
+  "source_dta_sha256": "0e00cd5aea4511cd619f7af1e0dc2f6825f111b7c87d3ebbb1358410a4c881c2",
+  "pretest_sha256": "c226785bdda4fa6f756f468a8f82f551bc2c97fc82a9db3516808ff6e81d9ec4",
+  "code_sha256": {
+    "acquire.py": "3f3e7b45031056384436000aad6696091e151189acaf739e9181e25e1b6b4413",
+    "cli.py": "9324f4d26dd178a997b702981dfb8fc0442c580b3945d9dc1df851a31dec3733",
+    "data.py": "0e0a958b88474c353435651f002a2601d98bfc2ad49f2b0d75b7fc1187cdad00",
+    "estimators.py": "4202278ea600f3672bc383d2d49ea7c5c9e59b980f47329e5baf01d85921ff2c",
+    "metrics.py": "4127be02536889af24a0e6b99855ba740b2f9285893080d53c20e2e88d2e7389",
+    "profile.py": "15ffc0ab77580961982475d8de60b9e9595225eeb6e4f66ca4848301515d05c8",
+    "protocol.py": "754b3f3dbbbe77dd5d4720d771d582b9206c7856938c98d7b09f3f538d6413f7",
+    "splits.py": "d88c008a2f9d788ffd6acad8339057a350ced5cd7035505c9afdadedb0b58f46",
+    "train.py": "6143ba4fb7a3a3e6a6966ad7eba0e9a3c1b809e6d7cd57a7bba25971241f5533",
+    "train_worker.py": "0c5e725a672c1247c72f49110781024afd50d351b25c9aebb69d741637ddf085",
+    "__init__.py": "421c5686660b0ef85e99290653c76fbfa8072c0da6ef5dac943c43ec82cdd790"
+  },
+  "runtime": {
+    "python": "3.12.2",
+    "platform": "Windows",
+    "packages": {
+      "pandas": "2.3.3",
+      "numpy": "2.2.6",
+      "scikit-learn": "1.7.2",
+      "pyreadstat": "1.3.1",
+      "scipy": "1.15.3",
+      "joblib": "1.5.2",
+      "threadpoolctl": "3.6.0",
+      "narwhals": "2.8.0",
+      "python-dateutil": "2.9.0.post0",
+      "pytz": "2025.2",
+      "tzdata": "2025.2",
+      "six": "1.17.0"
+    }
+  },
+  "requirements_sha256": "c1b276c7c19ee1b601989807872ff72f6b9e8d83df97177066d26ebabf708ee6",
+  "split_and_CV_digests": {
+    "all_labelled": {
+      "assignment_sha256": "9c1a7393ab205aee97b6e0ab75dbfd5948e2ff796087f5c70b70714c2e431f96",
+      "cv_assignment_sha256": "ff11fbd30f458885444d57d692048e140cea40a899c3c784054b83c8b2e86ffd",
+      "phase1_assignment_file_sha256": "212c5f72c82c45f55f0bd7d64d0f40b4499a8cb17e1dad3287d5e7ec3c7efb4f"
+    },
+    "symptom_coded": {
+      "assignment_sha256": "4735d16049130a9b7e346721e1393d922aff96b9f6fac65d10de7c78d681b90e",
+      "cv_assignment_sha256": "eb2c08054091cae7b94419fd72a7c9dc5444d7c6684a96dcea0de309ef34c7d2",
+      "phase1_assignment_file_sha256": "5a8ae1b94b1f82b6c7a7050e2254aa4ae3dcdc2e5d3bf8a75a548da8c2bda09b"
+    }
+  },
+  "model_artifact_hashes": {
+    "primary_binary--demographic_reference--LogisticRegression": {
+      "base.joblib": "60839e8c2deb85d5be49a8fb551f3ff6ecffb3e544708db539d206f2a154e330",
+      "calibrated.joblib": "d4822416669414ac98a591f58b1d47c5d6d8e0f0389e914601938cccb320a335",
+      "private-development-predictions.joblib": "66ddbd8addde76e014b1791b4a80c353b83abb7e7b22eaa32273fff0cec53762"
+    },
+    "primary_binary--demographic_reference--RandomForestClassifier": {
+      "base.joblib": "8dffca48b149665bdf4a906946613fa7a733fb0a41ca75c5ceeb2acccae8d4f6",
+      "calibrated.joblib": "ca8937d79bd62010f149ae8c24b5c7822fe48aff82cc8bc60b8ecc763e32fadd",
+      "private-development-predictions.joblib": "5e53cc2c880a13f2274dac93e84233065878be3f0b667145dbde85c7bf1cb157"
+    },
+    "primary_binary--demographic_reference--HistGradientBoostingClassifier": {
+      "base.joblib": "eaa60e4eed4415306d30dadf56309ba8fdee714680191cef9851e2be7a131982",
+      "calibrated.joblib": "91b583cf2f0eaf4665cf54ee346fac6b5cb957b465af0eda8f629225a93688bf",
+      "private-development-predictions.joblib": "e9dd448d7a9d048119f01b0ed89dc398c5c3344730a2cec1b11c4366d56fdc42"
+    },
+    "primary_binary--all_labelled_initial_vitals--LogisticRegression": {
+      "base.joblib": "5a5e5b0beed007d2bac30434e0c6d9893654964b6f826053a7c970c76ea7de82",
+      "calibrated.joblib": "9c73316d63e21c6483a5a95ef0925ae4eb68cd81c36b1e910e116f39a9bd44e6",
+      "private-development-predictions.joblib": "47e160f6821f0a406e0770ba1bf6eafda72e018f4ac83c5f6b122d38ffa56786"
+    },
+    "primary_binary--all_labelled_initial_vitals--RandomForestClassifier": {
+      "base.joblib": "fbe587b440c167c54496434b76c39cc5995add981baba4c53c8844000d669dcd",
+      "calibrated.joblib": "ef8db5d18811c1254a2c2633fe7e03b5070e86bab836e99ea5039888ce41a25c",
+      "private-development-predictions.joblib": "6030051a557aac1a088d2923870e3d21c199dee5c23df7af422b8a65112c3998"
+    },
+    "primary_binary--all_labelled_initial_vitals--HistGradientBoostingClassifier": {
+      "base.joblib": "dc4ce9eee4fced1db904367122d3373f59ef00a62e75ccd34ac0bdc4f14bee2f",
+      "calibrated.joblib": "f16ce6a607e1ba1b8f4937297bfccb9fec1f7117304e34e17a91b3135a88f6ce",
+      "private-development-predictions.joblib": "53b058507498f0b20d1bf689f61fa46c967acd4014f246ef1f128d2c8a387ff2"
+    },
+    "secondary_five_class--presentation_symptom_proxy--LogisticRegression": {
+      "base.joblib": "fbbdfc7eb4e72e029ca476e1841e7a7d98b87f7a822087d9389bb901f267350f"
+    },
+    "secondary_five_class--presentation_symptom_proxy--RandomForestClassifier": {
+      "base.joblib": "062624b4fdf358404b86b601b0633ff586f964cc3e91f74a1c547f862e4b9011"
+    },
+    "secondary_five_class--presentation_symptom_proxy--HistGradientBoostingClassifier": {
+      "base.joblib": "553cbc5b71f73da5c1d6b46d9f63a5c2ae0d1a9f9f6073718c2f71733030897a"
+    },
+    "secondary_five_class--ed_initial_symptom_proxy--LogisticRegression": {
+      "base.joblib": "2b712bb2c0438c228bc90c7b031b1e574f2d5937263bea88b3728038d0a18402"
+    },
+    "secondary_five_class--ed_initial_symptom_proxy--RandomForestClassifier": {
+      "base.joblib": "9f6e22474b32c86510221d3cc46480377821fa293606dfcbf6c467bfd5236aa7"
+    },
+    "secondary_five_class--ed_initial_symptom_proxy--HistGradientBoostingClassifier": {
+      "base.joblib": "8fa16ee93b7b6c6cbded14c7b3615d8a39bbc10e6828fe53eb1cc2f718d0eefb"
+    }
+  },
+  "report_file_sha256": {
+    "aggregate-manifest.json": "aeda7f604f7df7e2b36bb3e04ab93314d3bf00ff953b662587b3f0de3f95773a",
+    "calibration-and-thresholds.md": "ab46ff938d826a354ce91b853dd8a6499abb7c9565c742c52996e696fa6866f1",
+    "completed.json": "b2e72571560f784b2ba951083b0053621aed379cd63eef76f90c6dfaf6783152",
+    "locked-test-evaluation.md": "4ab5075451d6bd1407015b0a455a001808fb023250b29cc20cb9595801afc548",
+    "model-card-primary-demographics.md": "f40c45d16a9ad1b5e1bc67fb16e172c091c4d919e58085122b26b04f69657db5",
+    "model-card-primary-vitals.md": "5389d1e0da5ec23a140b565c4f7551cd844d2312043e292cddd860a05d6655c5",
+    "model-card-secondary-symptoms.md": "b32f4989bcb34425cd9a62ea0d70cf22428e89971404e630a74216483b66436a",
+    "model-card-secondary-vitals.md": "072d629e238326edf72c6b1c5fd5feb5939431b91bcfc94e05533ed8c2d4bfb4",
+    "model-comparison.md": "8344cd35a976b132e8c332f8f1e0f72fd2047ab17c2418969594084e0aae7f7d",
+    "preflight.json": "2aacd0253d731a9d38d1d1df007bddba60b0c3c2e3a586b6af0bc5e6bec94077",
+    "pretest-manifest.json": "c226785bdda4fa6f756f468a8f82f551bc2c97fc82a9db3516808ff6e81d9ec4",
+    "pretest-verification.json": "f72918b4040f7ff60ea732cdb6ce561800228b6b3fccd2595db7506fc717aa8c",
+    "README.md": "cae3ed07bc85debbb707ca9a5920804938f3d6ccf08beeca8cc1b277da2da605",
+    "test-results.json": "07ecde079e6c32d55cb9271b3f9d14b8bbb2b5f716b863970830ed86f5d50366",
+    "test-started.json": "46d86c1844a7bb36b3d76db75f799ed337fb5eb95fbc7791dc73e69451f710e2",
+    "training-results.json": "e487cf4f8dfc3198b145bf98ef01584e7602ad8e09fe46631cad0a4069b08a7c",
+    "verification.json": "9a3373529770e5fd3de6918bd6e5df5cd4c304bcf7c2ed7dcb87e22cb3f10b5a"
+  },
+  "raw_rows_or_fitted_artifacts_in_Git": false,
+  "clinical_release_authorized": false
+}

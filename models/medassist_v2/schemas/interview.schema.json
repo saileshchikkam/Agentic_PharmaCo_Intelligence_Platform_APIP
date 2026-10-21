@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:apip:medassist-v2:interview:1",
+  "title": "MedAssist Symptom Assessment v2 research interview snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "case_id", "language", "disclosure_index", "catalogue_id", "provenance", "presenting_complaint", "context", "symptoms", "antecedents", "evidence_types", "answer_history", "confirmed_answers", "unknown_information", "contradictions", "potential_follow_up_questions"],
+  "properties": {
+    "schema_version": {"const": "medassist-interview-v2.1"},
+    "record_id": {"$ref": "#/$defs/id"},
+    "case_id": {"$ref": "#/$defs/id"},
+    "language": {"const": "en"},
+    "disclosure_index": {"type": "integer", "minimum": 0},
+    "catalogue_id": {"$ref": "#/$defs/id"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["dataset_id", "dataset_version", "source_url", "licence", "origin", "source_record_id", "source_group_id", "case_family_id", "original_partition", "data_sha256", "rights_status"],
+      "properties": {
+        "dataset_id": {"$ref": "#/$defs/id"},
+        "dataset_version": {"$ref": "#/$defs/id"},
+        "source_url": {"type": ["string", "null"], "format": "uri"},
+        "licence": {"$ref": "#/$defs/id"},
+        "origin": {"enum": ["synthetic_fixture", "synthetic_ddxplus", "clinician_authored", "real_deidentified"]},
+        "source_record_id": {"$ref": "#/$defs/id"},
+        "source_group_id": {"$ref": "#/$defs/id"},
+        "case_family_id": {"$ref": "#/$defs/id"},
+        "original_partition": {"enum": ["train", "validation", "test", "unassigned"]},
+        "data_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "rights_status": {"enum": ["synthetic_fixture", "verified_for_research", "pending_review"]}
+      }
+    },
+    "presenting_complaint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["text", "initial_evidence_id", "source"],
+      "properties": {
+        "text": {"type": ["string", "null"], "minLength": 1},
+        "initial_evidence_id": {"type": ["string", "null"], "minLength": 1},
+        "source": {"enum": ["patient_report", "caregiver_report", "synthetic_initial_evidence", "unprovided"]}
+      }
+    },
+    "context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["age", "sex_or_gender", "reporter", "caregiver_relationship", "pregnancy", "postpartum"],
+      "properties": {
+        "age": {
+          "type": "object", "additionalProperties": false,
+          "required": ["value", "unit", "status"],
+          "properties": {
+            "value": {"type": ["number", "null"], "minimum": 0},
+            "unit": {"enum": ["days", "months", "years"]},
+            "status": {"$ref": "#/$defs/contextStatus"}
+          }
+        },
+        "sex_or_gender": {
+          "type": "object", "additionalProperties": false,
+          "required": ["value", "construct", "status"],
+          "properties": {
+            "value": {"type": ["string", "null"], "minLength": 1},
+            "construct": {"enum": ["source_sex", "sex_at_birth", "gender", "unspecified"]},
+            "status": {"$ref": "#/$defs/contextStatus"}
+          }
+        },
+        "reporter": {"enum": ["self", "caregiver", "synthetic_source", "unknown"]},
+        "caregiver_relationship": {"type": ["string", "null"], "minLength": 1},
+        "pregnancy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "gestational_age_weeks"],
+          "properties": {
+            "status": {"enum": ["pregnant", "not_pregnant", "unknown", "declined", "not_collected"]},
+            "gestational_age_weeks": {"type": ["number", "null"], "minimum": 0}
+          }
+        },
+        "postpartum": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "days_since_birth"],
+          "properties": {
+            "status": {"enum": ["postpartum", "not_postpartum", "unknown", "declined", "not_collected"]},
+            "days_since_birth": {"type": ["integer", "null"], "minimum": 0}
+          }
+        }
+      }
+    },
+    "symptoms": {"$ref": "#/$defs/ids"},
+    "antecedents": {"$ref": "#/$defs/ids"},
+    "evidence_types": {"type": "object", "additionalProperties": {"enum": ["B", "C", "M"]}},
+    "answer_history": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["answer_id", "evidence_id", "state", "value", "turn_index", "source"],
+        "properties": {
+          "answer_id": {"$ref": "#/$defs/id"},
+          "evidence_id": {"$ref": "#/$defs/id"},
+          "state": {"enum": ["confirmed", "unknown", "declined"]},
+          "value": {"type": ["boolean", "string", "number", "array", "null"], "items": {"type": ["string", "number"]}, "uniqueItems": true},
+          "turn_index": {"type": "integer", "minimum": 0},
+          "source": {"enum": ["patient_report", "caregiver_report", "synthetic_oracle_disclosure"]}
+        }
+      }
+    },
+    "confirmed_answers": {"$ref": "#/$defs/ids"},
+    "unknown_information": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["evidence_id", "reason"],
+        "properties": {
+          "evidence_id": {"$ref": "#/$defs/id"},
+          "reason": {"enum": ["not_asked", "unknown", "declined", "unavailable", "contradiction"]}
+        }
+      }
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["evidence_id", "answer_ids", "status", "resolution_answer_id"],
+        "properties": {
+          "evidence_id": {"$ref": "#/$defs/id"},
+          "answer_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true, "minItems": 2},
+          "status": {"enum": ["unresolved", "resolved"]},
+          "resolution_answer_id": {"type": ["string", "null"], "minLength": 1}
+        }
+      }
+    },
+    "potential_follow_up_questions": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["evidence_id", "question_text", "depends_on", "status", "purpose"],
+        "properties": {
+          "evidence_id": {"$ref": "#/$defs/id"},
+          "question_text": {"$ref": "#/$defs/id"},
+          "depends_on": {"$ref": "#/$defs/ids"},
+          "status": {"enum": ["candidate", "blocked"]},
+          "purpose": {"enum": ["collect_unknown", "clarify_contradiction", "research_catalogue_candidate"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "ids": {"type": "array", "items": {"$ref": "#/$defs/id"}, "uniqueItems": true},
+    "contextStatus": {"enum": ["reported", "unknown", "declined", "not_collected"]}
+  }
+}

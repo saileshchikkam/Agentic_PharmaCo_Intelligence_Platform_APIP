@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "observedOn": "2026-10-16",
+  "status": "inventory-and-evaluation-only-not-application-configuration",
+  "runtime": "ollama",
+  "initialShortlist": ["qwen3.5:2b", "qwen3:4b"],
+  "models": [
+    {"id": "llama3.2:latest", "observedDigestPrefix": "a80c4f17acd5", "diskSizeGBApprox": 2.0, "parameters": "3.2B", "quantization": "Q4_K_M", "reportedCapabilities": ["completion", "tools"], "proposedRole": "baseline-control", "clinicalValidation": "not-established"},
+    {"id": "qwen3.5:2b", "observedDigestPrefix": "324d162be6ca", "diskSizeGBApprox": 2.7, "parameters": "2.3B", "quantization": "Q8_0", "reportedCapabilities": ["completion", "vision", "tools", "thinking"], "proposedRole": "initial-local-extraction-candidate", "clinicalValidation": "not-established"},
+    {"id": "qwen3:4b", "observedDigestPrefix": "359d7dd4bcda", "diskSizeGBApprox": 2.5, "parameters": "4.0B", "quantization": "Q4_K_M", "reportedCapabilities": ["completion", "tools", "thinking"], "proposedRole": "initial-local-extraction-candidate", "clinicalValidation": "not-established"},
+    {"id": "phi4-mini:latest", "observedDigestPrefix": "78fad5d182a7", "diskSizeGBApprox": 2.5, "parameters": "3.8B", "quantization": "Q4_K_M", "reportedCapabilities": ["completion", "tools"], "proposedRole": "comparison-control", "clinicalValidation": "not-established"},
+    {"id": "qwen3:latest", "observedDigestPrefix": "500a1f067a9f", "diskSizeGBApprox": 5.2, "parameters": "8.2B", "quantization": "Q4_K_M", "reportedCapabilities": ["completion", "tools", "thinking"], "proposedRole": "optional-heavier-comparison", "clinicalValidation": "not-established"}
+  ]
+}

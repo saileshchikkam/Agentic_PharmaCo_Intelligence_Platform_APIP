@@ -1,0 +1,125 @@
+{
+  "task": "MedAssist v2 Task 4B",
+  "date": "2026-10-19",
+  "starting_commit": "6dbcf43401255f414df14cdac31d11231df55722",
+  "status": "official_training_validation_complete_pre_test_seal_verified",
+  "changed_files": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/history/2026-10-20.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/training/README.md",
+    "models/medassist_v2/task4b-validation.md",
+    "models/medassist_v2/task4b-verification.json",
+    "models/medassist_v2/task4b-aggregate.json",
+    "docs/safety-framework.md"
+  ],
+  "official_fit_invocations": 1,
+  "official_test_rows_opened": 0,
+  "official_test_command_invocations": 0,
+  "protocol_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "checks": [
+    {
+      "command": "python -W error -m unittest models.medassist_v2.tests.test_training_runner -q",
+      "tests": 22,
+      "seconds": 64.603,
+      "status": "passed"
+    },
+    {
+      "command": "python -W error -m models.medassist_v2.training preflight --data-root <external-sources>",
+      "verified_files": 5,
+      "synthetic_token_vectors": 640,
+      "synthetic_prefix_pairs": 256,
+      "status": "passed"
+    },
+    {
+      "name": "raw_git_blob_equals_frozen_working_bytes",
+      "status": "failed_preexisting_line_ending_difference",
+      "details": "344 CRLF working endings; LF Git blob. No frozen bytes changed."
+    },
+    {
+      "name": "links_fences_privacy_normalised_git_content_and_exact_local_protocol_digest",
+      "status": "passed"
+    },
+    {
+      "name": "read_only_verify_seal_with_reverified_OfficialDataset",
+      "status": "passed",
+      "sealed_artifacts": 17,
+      "source_files": 5,
+      "test_markers_absent": true,
+      "ledger_empty": true
+    },
+    {
+      "name": "original_campaign_exit",
+      "status": "passed",
+      "exit_code": 0,
+      "runner_status": "pre_test_sealed",
+      "official_fit_invocations": 1
+    },
+    {
+      "name": "final_documentation_links_fences_json_privacy_metrics_scope_frozen_content",
+      "status": "passed",
+      "date": "2026-10-20"
+    }
+  ],
+  "completed_counts": {
+    "train_rows": 1025602,
+    "train_groups": 1005107,
+    "fit_groups": 4096,
+    "validation_rows": 132448,
+    "selection_groups": 4096,
+    "prefixes": 32768,
+    "pairs": 1048576,
+    "negative_targets": 1006794,
+    "positive_targets": 41782,
+    "positive_selection_cases": 4096,
+    "validation_interviews": 132448,
+    "validation_policy_trajectories": 529792,
+    "sensitivity_interviews": 129496
+  },
+  "alpha_outcomes": [
+    {
+      "alpha": 1e-05,
+      "status": "fitted",
+      "seconds": 108.328,
+      "epochs": 3,
+      "updates": 1536,
+      "warnings": 0
+    },
+    {
+      "alpha": 0.0001,
+      "status": "fitted",
+      "seconds": 87.187,
+      "epochs": 3,
+      "updates": 1536,
+      "warnings": 0
+    },
+    {
+      "alpha": 0.001,
+      "status": "fitted",
+      "seconds": 85.016,
+      "epochs": 3,
+      "updates": 1536,
+      "warnings": 0
+    }
+  ],
+  "pending": [],
+  "limitations": [
+    "Fresh LF checkout protocol digest differs from current frozen CRLF checksum; preserved, not fixed."
+  ],
+  "preserved_unrelated_work": "models/medassist/dataset-manifest.json; not opened or staged",
+  "decision": "GO for completed offline pre-test benchmark; locked testing requires separate explicit authorisation; clinical use remains NO-GO",
+  "completed_date": "2026-10-20",
+  "process_exit_code": 0,
+  "selected_alpha": 1e-05,
+  "seal_sha256": "bd93cb1716b4780b3cdefe26bb197fa402f3d46b237dd9971f2cadfb750fece7",
+  "sealed_artifacts_verified": 17,
+  "source_files_reverified": 5,
+  "monitor": "Existing monitor paused after verified terminal success; persisted PAUSED status verified; no replacement monitor created",
+  "sync_reconciliation": {
+    "results_commit": "885aa795b4b50413946ea0245132754e9f1d2f4b",
+    "remote_docs_preserving_merge": "5b27c33c8f9caa170fd4c1ff248fa280d2db1ce0",
+    "force_push_reset_rebase": false
+  }
+}

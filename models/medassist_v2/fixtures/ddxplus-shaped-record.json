@@ -1,0 +1,8 @@
+{
+  "AGE": 25,
+  "SEX": "F",
+  "PATHOLOGY": "Fictional software-test condition",
+  "EVIDENCES": ["FX_SYM", "FX_CAT_@_option_a", "FX_MULTI_@_option_x", "FX_MULTI_@_option_y"],
+  "INITIAL_EVIDENCE": "FX_SYM",
+  "DIFFERENTIAL_DIAGNOSIS": [["Fictional software-test condition", 1.0]]
+}

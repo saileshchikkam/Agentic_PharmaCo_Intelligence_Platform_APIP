@@ -1,0 +1,18 @@
+# Research source data, private annotations/prefixes/splits and weights stay external.
+raw/
+private/
+runs/
+*.jsonl
+*.gz
+*.zip
+*.csv
+*.parquet
+*.arrow
+*.npy
+*.npz
+*.joblib
+*.pkl
+*.pickle
+*.pt
+*.onnx
+__pycache__/

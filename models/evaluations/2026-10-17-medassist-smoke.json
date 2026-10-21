@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-10-17T11:24:31.067Z",
+  "purpose": "Two fictional symptom quote-selection smoke checks. No urgency, medical advice, clinical effectiveness, or language-quality validation.",
+  "results": [
+    {
+      "fixture": {
+        "id": "symptom-en",
+        "language": "en",
+        "answers": {
+          "concern": "A fictional adult has a cough, without chest pain.",
+          "duration": "Since yesterday.",
+          "impact": null,
+          "changes": "No change so far."
+        }
+      },
+      "status": 200,
+      "passed": true,
+      "elapsedMs": 25450,
+      "modelDigest": "324d162be6ca5629ae4517c8710434d0bd2d665bc94dbad46e9af8fbf8a2f0df",
+      "result": {
+        "suggestions": {
+          "concern": "A fictional adult has a cough, without chest pain.",
+          "duration": "Since yesterday.",
+          "impact": null,
+          "changes": "No change so far."
+        },
+        "provider": "ollama-local",
+        "model": "qwen3.5:2b",
+        "promptVersion": "medassist-quotes-v1",
+        "assessment": {
+          "urgency": "not_assessed",
+          "reason": "clinical_validation_pending"
+        }
+      }
+    },
+    {
+      "fixture": {
+        "id": "symptom-te-mixed",
+        "language": "te",
+        "answers": {
+          "concern": "కల్పిత వ్యక్తికి దగ్గు ఉంది; chest pain లేదు.",
+          "duration": "నిన్నటి నుంచి.",
+          "impact": null,
+          "changes": "మార్పు లేదు."
+        }
+      },
+      "status": 200,
+      "passed": true,
+      "elapsedMs": 23389,
+      "modelDigest": "324d162be6ca5629ae4517c8710434d0bd2d665bc94dbad46e9af8fbf8a2f0df",
+      "result": {
+        "suggestions": {
+          "concern": "కల్పిత వ్యక్తికి దగ్గు ఉంది; chest pain లేదు.",
+          "duration": "నిన్నటి నుంచి.",
+          "impact": null,
+          "changes": "మార్పు లేదు."
+        },
+        "provider": "ollama-local",
+        "model": "qwen3.5:2b",
+        "promptVersion": "medassist-quotes-v1",
+        "assessment": {
+          "urgency": "not_assessed",
+          "reason": "clinical_validation_pending"
+        }
+      }
+    }
+  ]
+}

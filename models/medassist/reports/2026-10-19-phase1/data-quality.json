@@ -1,0 +1,2277 @@
+{
+  "dataset": "nhamcs-ed-2022",
+  "archive_sha256": "aa32e635ef9564b1c8e03cea16c87ec2ed02e9a928d22a257df18100a38ad683",
+  "source_dta_sha256": "0e00cd5aea4511cd619f7af1e0dc2f6825f111b7c87d3ebbb1358410a4c881c2",
+  "source_shape": {
+    "rows": 16025,
+    "columns": 913
+  },
+  "parser": {
+    "python": "3.12.2",
+    "platform": "Windows",
+    "packages": {
+      "pandas": "2.3.3",
+      "numpy": "2.2.6",
+      "scikit-learn": "1.7.2",
+      "pyreadstat": "1.3.1",
+      "scipy": "1.15.3",
+      "joblib": "1.5.2",
+      "threadpoolctl": "3.6.0",
+      "narwhals": "2.8.0",
+      "python-dateutil": "2.9.0.post0",
+      "pytz": "2025.2",
+      "tzdata": "2025.2",
+      "six": "1.17.0"
+    }
+  },
+  "target_distribution": {
+    "-9": {
+      "label": "Blank",
+      "count": 364
+    },
+    "-8": {
+      "label": "Unknown",
+      "count": 3788
+    },
+    "0": {
+      "label": "No triage this visit",
+      "count": 587
+    },
+    "1": {
+      "label": "Immediate",
+      "count": 139
+    },
+    "2": {
+      "label": "Emergent",
+      "count": 1595
+    },
+    "3": {
+      "label": "Urgent",
+      "count": 5340
+    },
+    "4": {
+      "label": "Semi-urgent",
+      "count": 2826
+    },
+    "5": {
+      "label": "Nonurgent",
+      "count": 307
+    },
+    "7": {
+      "label": "No nursing triage in ESA",
+      "count": 1079
+    }
+  },
+  "published_reconciliation": {
+    "-9": {
+      "expected": 364,
+      "actual": 364,
+      "difference": 0
+    },
+    "-8": {
+      "expected": 3788,
+      "actual": 3788,
+      "difference": 0
+    },
+    "0": {
+      "expected": 587,
+      "actual": 587,
+      "difference": 0
+    },
+    "1": {
+      "expected": 139,
+      "actual": 139,
+      "difference": 0
+    },
+    "2": {
+      "expected": 1595,
+      "actual": 1595,
+      "difference": 0
+    },
+    "3": {
+      "expected": 5340,
+      "actual": 5340,
+      "difference": 0
+    },
+    "4": {
+      "expected": 2826,
+      "actual": 2826,
+      "difference": 0
+    },
+    "5": {
+      "expected": 307,
+      "actual": 307,
+      "difference": 0
+    },
+    "7": {
+      "expected": 1079,
+      "actual": 1079,
+      "difference": 0
+    }
+  },
+  "reconciliation_passed": true,
+  "eligible": 10207,
+  "excluded": 5818,
+  "class_imbalance": {
+    "majority_class": 3,
+    "majority_count": 5340,
+    "largest_to_smallest_valid_class_ratio": 38.41726618705036
+  },
+  "cohorts": {
+    "all": {
+      "rows": 16025,
+      "age_groups": {
+        "1-4": 1057,
+        "18-44": 5673,
+        "45-64": 3699,
+        "5-17": 1942,
+        "65+": 3218,
+        "<1": 428,
+        "unknown_or_provenance_quarantined": 8
+      },
+      "median_nonimputed_age": 38.0,
+      "nonimputed_sex": {
+        "1": 8452,
+        "2": 7551,
+        "unknown": 22
+      },
+      "predictor_missingness": {
+        "AGE": {
+          "denominator": 16025,
+          "missing_or_unusable": 8,
+          "percent": 0.0499,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 0,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 428
+          }
+        },
+        "SEX": {
+          "denominator": 16025,
+          "missing_or_unusable": 22,
+          "percent": 0.1373,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 0,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "RFV1": {
+          "denominator": 16025,
+          "missing_or_unusable": 25,
+          "percent": 0.156,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 25,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "TEMPF": {
+          "denominator": 16025,
+          "missing_or_unusable": 937,
+          "percent": 5.8471,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 937,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "PULSE": {
+          "denominator": 16025,
+          "missing_or_unusable": 1053,
+          "percent": 6.571,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 965,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 88,
+            "zero_observed_not_automatically_missing": 2
+          }
+        },
+        "RESPR": {
+          "denominator": 16025,
+          "missing_or_unusable": 856,
+          "percent": 5.3417,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 856,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 2
+          }
+        },
+        "BPSYS": {
+          "denominator": 16025,
+          "missing_or_unusable": 1722,
+          "percent": 10.7457,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 1722,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 1
+          }
+        },
+        "BPDIAS": {
+          "denominator": 16025,
+          "missing_or_unusable": 1754,
+          "percent": 10.9454,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 1753,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 1,
+            "zero_observed_not_automatically_missing": 1
+          }
+        },
+        "POPCT": {
+          "denominator": 16025,
+          "missing_or_unusable": 969,
+          "percent": 6.0468,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 969,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 13
+          }
+        },
+        "PAINSCALE": {
+          "denominator": 16025,
+          "missing_or_unusable": 7055,
+          "percent": 44.025,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 780,
+            "unknown": 6275,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 2842
+          }
+        },
+        "ARREMS": {
+          "denominator": 16025,
+          "missing_or_unusable": 495,
+          "percent": 3.0889,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 106,
+            "unknown": 389,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "SEEN72": {
+          "denominator": 16025,
+          "missing_or_unusable": 1717,
+          "percent": 10.7145,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 444,
+            "unknown": 1273,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        }
+      },
+      "initial_vitals": {
+        "all_seven_recorded": 7930,
+        "six_without_pain_recorded": 13079,
+        "missing_field_count_distribution": {
+          "0": 7930,
+          "1": 5632,
+          "2": 1037,
+          "3": 712,
+          "4": 114,
+          "5": 34,
+          "6": 84,
+          "7": 482
+        }
+      }
+    },
+    "labelled": {
+      "rows": 10207,
+      "age_groups": {
+        "1-4": 633,
+        "18-44": 3621,
+        "45-64": 2445,
+        "5-17": 1166,
+        "65+": 2090,
+        "<1": 247,
+        "unknown_or_provenance_quarantined": 5
+      },
+      "median_nonimputed_age": 40.0,
+      "nonimputed_sex": {
+        "1": 5350,
+        "2": 4842,
+        "unknown": 15
+      },
+      "predictor_missingness": {
+        "AGE": {
+          "denominator": 10207,
+          "missing_or_unusable": 5,
+          "percent": 0.049,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 0,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 247
+          }
+        },
+        "SEX": {
+          "denominator": 10207,
+          "missing_or_unusable": 15,
+          "percent": 0.147,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 0,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "RFV1": {
+          "denominator": 10207,
+          "missing_or_unusable": 6,
+          "percent": 0.0588,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 6,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "TEMPF": {
+          "denominator": 10207,
+          "missing_or_unusable": 299,
+          "percent": 2.9294,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 299,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "PULSE": {
+          "denominator": 10207,
+          "missing_or_unusable": 206,
+          "percent": 2.0182,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 168,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 38,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "RESPR": {
+          "denominator": 10207,
+          "missing_or_unusable": 239,
+          "percent": 2.3415,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 239,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "BPSYS": {
+          "denominator": 10207,
+          "missing_or_unusable": 828,
+          "percent": 8.1121,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 828,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "BPDIAS": {
+          "denominator": 10207,
+          "missing_or_unusable": 844,
+          "percent": 8.2688,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 843,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 1,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "POPCT": {
+          "denominator": 10207,
+          "missing_or_unusable": 219,
+          "percent": 2.1456,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 219,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 5
+          }
+        },
+        "PAINSCALE": {
+          "denominator": 10207,
+          "missing_or_unusable": 2984,
+          "percent": 29.2348,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 353,
+            "unknown": 2631,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 2376
+          }
+        },
+        "ARREMS": {
+          "denominator": 10207,
+          "missing_or_unusable": 165,
+          "percent": 1.6165,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 67,
+            "unknown": 98,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "SEEN72": {
+          "denominator": 10207,
+          "missing_or_unusable": 637,
+          "percent": 6.2408,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 90,
+            "unknown": 547,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        }
+      },
+      "initial_vitals": {
+        "all_seven_recorded": 6529,
+        "six_without_pain_recorded": 8865,
+        "missing_field_count_distribution": {
+          "0": 6529,
+          "1": 2617,
+          "2": 525,
+          "3": 391,
+          "4": 54,
+          "5": 20,
+          "6": 34,
+          "7": 37
+        }
+      }
+    },
+    "excluded": {
+      "rows": 5818,
+      "age_groups": {
+        "1-4": 424,
+        "18-44": 2052,
+        "45-64": 1254,
+        "5-17": 776,
+        "65+": 1128,
+        "<1": 181,
+        "unknown_or_provenance_quarantined": 3
+      },
+      "median_nonimputed_age": 36.0,
+      "nonimputed_sex": {
+        "1": 3102,
+        "2": 2709,
+        "unknown": 7
+      },
+      "predictor_missingness": {
+        "AGE": {
+          "denominator": 5818,
+          "missing_or_unusable": 3,
+          "percent": 0.0516,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 0,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 181
+          }
+        },
+        "SEX": {
+          "denominator": 5818,
+          "missing_or_unusable": 7,
+          "percent": 0.1203,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 0,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "RFV1": {
+          "denominator": 5818,
+          "missing_or_unusable": 19,
+          "percent": 0.3266,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 19,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "TEMPF": {
+          "denominator": 5818,
+          "missing_or_unusable": 638,
+          "percent": 10.966,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 638,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "PULSE": {
+          "denominator": 5818,
+          "missing_or_unusable": 847,
+          "percent": 14.5583,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 797,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 50,
+            "zero_observed_not_automatically_missing": 2
+          }
+        },
+        "RESPR": {
+          "denominator": 5818,
+          "missing_or_unusable": 617,
+          "percent": 10.605,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 617,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 2
+          }
+        },
+        "BPSYS": {
+          "denominator": 5818,
+          "missing_or_unusable": 894,
+          "percent": 15.3661,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 894,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 1
+          }
+        },
+        "BPDIAS": {
+          "denominator": 5818,
+          "missing_or_unusable": 910,
+          "percent": 15.6411,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 910,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 1
+          }
+        },
+        "POPCT": {
+          "denominator": 5818,
+          "missing_or_unusable": 750,
+          "percent": 12.891,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 750,
+            "unknown": 0,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 8
+          }
+        },
+        "PAINSCALE": {
+          "denominator": 5818,
+          "missing_or_unusable": 4071,
+          "percent": 69.9725,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 427,
+            "unknown": 3644,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 466
+          }
+        },
+        "ARREMS": {
+          "denominator": 5818,
+          "missing_or_unusable": 330,
+          "percent": 5.6721,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 39,
+            "unknown": 291,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        },
+        "SEEN72": {
+          "denominator": 5818,
+          "missing_or_unusable": 1080,
+          "percent": 18.5631,
+          "raw_reasons": {
+            "system_missing": 0,
+            "blank": 354,
+            "unknown": 726,
+            "not_applicable": 0,
+            "refused": 0,
+            "doppler_998": 0,
+            "zero_observed_not_automatically_missing": 0
+          }
+        }
+      },
+      "initial_vitals": {
+        "all_seven_recorded": 1401,
+        "six_without_pain_recorded": 4214,
+        "missing_field_count_distribution": {
+          "0": 1401,
+          "1": 3015,
+          "2": 512,
+          "3": 321,
+          "4": 60,
+          "5": 14,
+          "6": 50,
+          "7": 445
+        }
+      }
+    }
+  },
+  "missingness_by_target": {
+    "-9": {
+      "AGE": {
+        "denominator": 364,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 13
+        }
+      },
+      "SEX": {
+        "denominator": 364,
+        "missing_or_unusable": 1,
+        "percent": 0.2747,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 364,
+        "missing_or_unusable": 9,
+        "percent": 2.4725,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 9,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 364,
+        "missing_or_unusable": 233,
+        "percent": 64.011,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 233,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 364,
+        "missing_or_unusable": 232,
+        "percent": 63.7363,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 231,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 1,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 364,
+        "missing_or_unusable": 233,
+        "percent": 64.011,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 233,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 364,
+        "missing_or_unusable": 243,
+        "percent": 66.7582,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 243,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 364,
+        "missing_or_unusable": 243,
+        "percent": 66.7582,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 243,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 364,
+        "missing_or_unusable": 242,
+        "percent": 66.4835,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 242,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 364,
+        "missing_or_unusable": 325,
+        "percent": 89.2857,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 303,
+          "unknown": 22,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 7
+        }
+      },
+      "ARREMS": {
+        "denominator": 364,
+        "missing_or_unusable": 29,
+        "percent": 7.967,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 17,
+          "unknown": 12,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 364,
+        "missing_or_unusable": 242,
+        "percent": 66.4835,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 228,
+          "unknown": 14,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "-8": {
+      "AGE": {
+        "denominator": 3788,
+        "missing_or_unusable": 1,
+        "percent": 0.0264,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 122
+        }
+      },
+      "SEX": {
+        "denominator": 3788,
+        "missing_or_unusable": 5,
+        "percent": 0.132,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 3788,
+        "missing_or_unusable": 8,
+        "percent": 0.2112,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 8,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 3788,
+        "missing_or_unusable": 241,
+        "percent": 6.3622,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 241,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 3788,
+        "missing_or_unusable": 407,
+        "percent": 10.7445,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 403,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 4,
+          "zero_observed_not_automatically_missing": 2
+        }
+      },
+      "RESPR": {
+        "denominator": 3788,
+        "missing_or_unusable": 191,
+        "percent": 5.0422,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 191,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 2
+        }
+      },
+      "BPSYS": {
+        "denominator": 3788,
+        "missing_or_unusable": 396,
+        "percent": 10.4541,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 396,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 1
+        }
+      },
+      "BPDIAS": {
+        "denominator": 3788,
+        "missing_or_unusable": 413,
+        "percent": 10.9029,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 413,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 1
+        }
+      },
+      "POPCT": {
+        "denominator": 3788,
+        "missing_or_unusable": 338,
+        "percent": 8.9229,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 338,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 3
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 3788,
+        "missing_or_unusable": 2706,
+        "percent": 71.4361,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 27,
+          "unknown": 2679,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 268
+        }
+      },
+      "ARREMS": {
+        "denominator": 3788,
+        "missing_or_unusable": 130,
+        "percent": 3.4319,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 18,
+          "unknown": 112,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 3788,
+        "missing_or_unusable": 408,
+        "percent": 10.7709,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 35,
+          "unknown": 373,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "0": {
+      "AGE": {
+        "denominator": 587,
+        "missing_or_unusable": 1,
+        "percent": 0.1704,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 23
+        }
+      },
+      "SEX": {
+        "denominator": 587,
+        "missing_or_unusable": 1,
+        "percent": 0.1704,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 587,
+        "missing_or_unusable": 1,
+        "percent": 0.1704,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 1,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 587,
+        "missing_or_unusable": 38,
+        "percent": 6.4736,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 38,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 587,
+        "missing_or_unusable": 99,
+        "percent": 16.8654,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 54,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 45,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 587,
+        "missing_or_unusable": 71,
+        "percent": 12.0954,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 71,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 587,
+        "missing_or_unusable": 80,
+        "percent": 13.6286,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 80,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 587,
+        "missing_or_unusable": 80,
+        "percent": 13.6286,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 80,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 587,
+        "missing_or_unusable": 40,
+        "percent": 6.8143,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 40,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 5
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 587,
+        "missing_or_unusable": 267,
+        "percent": 45.4855,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 2,
+          "unknown": 265,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 134
+        }
+      },
+      "ARREMS": {
+        "denominator": 587,
+        "missing_or_unusable": 18,
+        "percent": 3.0664,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 1,
+          "unknown": 17,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 587,
+        "missing_or_unusable": 74,
+        "percent": 12.6065,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 2,
+          "unknown": 72,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "1": {
+      "AGE": {
+        "denominator": 139,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 1
+        }
+      },
+      "SEX": {
+        "denominator": 139,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 139,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 139,
+        "missing_or_unusable": 28,
+        "percent": 20.1439,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 28,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 139,
+        "missing_or_unusable": 18,
+        "percent": 12.9496,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 17,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 1,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 139,
+        "missing_or_unusable": 15,
+        "percent": 10.7914,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 15,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 139,
+        "missing_or_unusable": 11,
+        "percent": 7.9137,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 11,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 139,
+        "missing_or_unusable": 11,
+        "percent": 7.9137,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 11,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 139,
+        "missing_or_unusable": 13,
+        "percent": 9.3525,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 13,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 139,
+        "missing_or_unusable": 72,
+        "percent": 51.7986,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 5,
+          "unknown": 67,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 34
+        }
+      },
+      "ARREMS": {
+        "denominator": 139,
+        "missing_or_unusable": 3,
+        "percent": 2.1583,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 2,
+          "unknown": 1,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 139,
+        "missing_or_unusable": 7,
+        "percent": 5.036,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 2,
+          "unknown": 5,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "2": {
+      "AGE": {
+        "denominator": 1595,
+        "missing_or_unusable": 1,
+        "percent": 0.0627,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 26
+        }
+      },
+      "SEX": {
+        "denominator": 1595,
+        "missing_or_unusable": 2,
+        "percent": 0.1254,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 1595,
+        "missing_or_unusable": 1,
+        "percent": 0.0627,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 1,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 1595,
+        "missing_or_unusable": 69,
+        "percent": 4.326,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 69,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 1595,
+        "missing_or_unusable": 29,
+        "percent": 1.8182,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 27,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 2,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 1595,
+        "missing_or_unusable": 39,
+        "percent": 2.4451,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 39,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 1595,
+        "missing_or_unusable": 74,
+        "percent": 4.6395,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 74,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 1595,
+        "missing_or_unusable": 74,
+        "percent": 4.6395,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 74,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 1595,
+        "missing_or_unusable": 39,
+        "percent": 2.4451,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 39,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 1
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 1595,
+        "missing_or_unusable": 534,
+        "percent": 33.4796,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 101,
+          "unknown": 433,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 455
+        }
+      },
+      "ARREMS": {
+        "denominator": 1595,
+        "missing_or_unusable": 41,
+        "percent": 2.5705,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 15,
+          "unknown": 26,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 1595,
+        "missing_or_unusable": 75,
+        "percent": 4.7022,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 20,
+          "unknown": 55,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "3": {
+      "AGE": {
+        "denominator": 5340,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 110
+        }
+      },
+      "SEX": {
+        "denominator": 5340,
+        "missing_or_unusable": 7,
+        "percent": 0.1311,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 5340,
+        "missing_or_unusable": 4,
+        "percent": 0.0749,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 4,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 5340,
+        "missing_or_unusable": 145,
+        "percent": 2.7154,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 145,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 5340,
+        "missing_or_unusable": 97,
+        "percent": 1.8165,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 73,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 24,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 5340,
+        "missing_or_unusable": 98,
+        "percent": 1.8352,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 98,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 5340,
+        "missing_or_unusable": 314,
+        "percent": 5.8801,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 314,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 5340,
+        "missing_or_unusable": 325,
+        "percent": 6.0861,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 324,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 1,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 5340,
+        "missing_or_unusable": 89,
+        "percent": 1.6667,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 89,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 4
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 5340,
+        "missing_or_unusable": 1415,
+        "percent": 26.4981,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 167,
+          "unknown": 1248,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 1166
+        }
+      },
+      "ARREMS": {
+        "denominator": 5340,
+        "missing_or_unusable": 78,
+        "percent": 1.4607,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 27,
+          "unknown": 51,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 5340,
+        "missing_or_unusable": 360,
+        "percent": 6.7416,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 39,
+          "unknown": 321,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "4": {
+      "AGE": {
+        "denominator": 2826,
+        "missing_or_unusable": 3,
+        "percent": 0.1062,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 101
+        }
+      },
+      "SEX": {
+        "denominator": 2826,
+        "missing_or_unusable": 5,
+        "percent": 0.1769,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 2826,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 2826,
+        "missing_or_unusable": 51,
+        "percent": 1.8047,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 51,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 2826,
+        "missing_or_unusable": 51,
+        "percent": 1.8047,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 46,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 5,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 2826,
+        "missing_or_unusable": 74,
+        "percent": 2.6185,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 74,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 2826,
+        "missing_or_unusable": 387,
+        "percent": 13.6943,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 387,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 2826,
+        "missing_or_unusable": 391,
+        "percent": 13.8358,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 391,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 2826,
+        "missing_or_unusable": 67,
+        "percent": 2.3708,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 67,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 2826,
+        "missing_or_unusable": 875,
+        "percent": 30.9625,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 71,
+          "unknown": 804,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 612
+        }
+      },
+      "ARREMS": {
+        "denominator": 2826,
+        "missing_or_unusable": 41,
+        "percent": 1.4508,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 21,
+          "unknown": 20,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 2826,
+        "missing_or_unusable": 165,
+        "percent": 5.8386,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 27,
+          "unknown": 138,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "5": {
+      "AGE": {
+        "denominator": 307,
+        "missing_or_unusable": 1,
+        "percent": 0.3257,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 9
+        }
+      },
+      "SEX": {
+        "denominator": 307,
+        "missing_or_unusable": 1,
+        "percent": 0.3257,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 307,
+        "missing_or_unusable": 1,
+        "percent": 0.3257,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 1,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 307,
+        "missing_or_unusable": 6,
+        "percent": 1.9544,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 6,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 307,
+        "missing_or_unusable": 11,
+        "percent": 3.5831,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 5,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 6,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 307,
+        "missing_or_unusable": 13,
+        "percent": 4.2345,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 13,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 307,
+        "missing_or_unusable": 42,
+        "percent": 13.6808,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 42,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 307,
+        "missing_or_unusable": 43,
+        "percent": 14.0065,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 43,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 307,
+        "missing_or_unusable": 11,
+        "percent": 3.5831,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 11,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 307,
+        "missing_or_unusable": 88,
+        "percent": 28.6645,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 9,
+          "unknown": 79,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 109
+        }
+      },
+      "ARREMS": {
+        "denominator": 307,
+        "missing_or_unusable": 2,
+        "percent": 0.6515,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 2,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 307,
+        "missing_or_unusable": 30,
+        "percent": 9.772,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 2,
+          "unknown": 28,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    },
+    "7": {
+      "AGE": {
+        "denominator": 1079,
+        "missing_or_unusable": 1,
+        "percent": 0.0927,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 23
+        }
+      },
+      "SEX": {
+        "denominator": 1079,
+        "missing_or_unusable": 0,
+        "percent": 0.0,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 0,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RFV1": {
+        "denominator": 1079,
+        "missing_or_unusable": 1,
+        "percent": 0.0927,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 1,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "TEMPF": {
+        "denominator": 1079,
+        "missing_or_unusable": 126,
+        "percent": 11.6775,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 126,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PULSE": {
+        "denominator": 1079,
+        "missing_or_unusable": 109,
+        "percent": 10.1019,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 109,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "RESPR": {
+        "denominator": 1079,
+        "missing_or_unusable": 122,
+        "percent": 11.3068,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 122,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPSYS": {
+        "denominator": 1079,
+        "missing_or_unusable": 175,
+        "percent": 16.2187,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 175,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "BPDIAS": {
+        "denominator": 1079,
+        "missing_or_unusable": 174,
+        "percent": 16.126,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 174,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "POPCT": {
+        "denominator": 1079,
+        "missing_or_unusable": 130,
+        "percent": 12.0482,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 130,
+          "unknown": 0,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "PAINSCALE": {
+        "denominator": 1079,
+        "missing_or_unusable": 773,
+        "percent": 71.6404,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 95,
+          "unknown": 678,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 57
+        }
+      },
+      "ARREMS": {
+        "denominator": 1079,
+        "missing_or_unusable": 153,
+        "percent": 14.1798,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 3,
+          "unknown": 150,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      },
+      "SEEN72": {
+        "denominator": 1079,
+        "missing_or_unusable": 356,
+        "percent": 32.9935,
+        "raw_reasons": {
+          "system_missing": 0,
+          "blank": 89,
+          "unknown": 267,
+          "not_applicable": 0,
+          "refused": 0,
+          "doppler_998": 0,
+          "zero_observed_not_automatically_missing": 0
+        }
+      }
+    }
+  },
+  "target_value_labels": {
+    "-9": "Blank",
+    "-8": "Unknown",
+    "0": "No triage for this visit but ESA does conduct triage",
+    "1": "Immediate",
+    "2": "Emergent",
+    "3": "Urgent",
+    "4": "Semi-urgent",
+    "5": "Nonurgent",
+    "7": "Visit occurred in ESA that does not conduct nursing triage"
+  },
+  "survey_limitations": [
+    "visit sample, not longitudinal patients",
+    "masked grouping is imperfect",
+    "weighted eligible-cohort descriptions are not national home-triage performance",
+    "US ED selection, nonresponse and symptom-cohort restriction can bias generalization"
+  ]
+}

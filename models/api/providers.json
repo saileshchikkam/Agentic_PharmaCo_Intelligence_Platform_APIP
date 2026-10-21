@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-10-16",
+  "updatedOn": "2026-10-17",
+  "status": "research-catalogue-not-live-adapters",
+  "applicationReadsThisFile": false,
+  "monthlyBudget": {"currency": "INR", "amount": 500},
+  "automaticCloudFallback": false,
+  "providers": [
+    {"id": "groq", "enabled": false, "checkedOn": "2026-10-17", "preferredTier": "free", "candidateModel": "openai/gpt-oss-20b", "medicalSpecialistListed": false, "credentialEnvironmentName": "GROQ_API_KEY", "freeAccess": "rate-limited-free-plan-listed-account-access-not-verified", "source": "https://console.groq.com/docs/rate-limits", "modelSource": "https://console.groq.com/docs/models"},
+    {"id": "google-gemini", "enabled": false, "candidateModel": "gemini-3.8-flash", "credentialEnvironmentName": "GEMINI_API_KEY", "freeAccess": "model-and-account-specific-verify-current-eligibility", "source": "https://ai.google.dev/gemini-api/docs/pricing"},
+    {"id": "hugging-face-inference-providers", "enabled": false, "checkedOn": "2026-10-17", "candidateModel": null, "credentialEnvironmentName": "HF_TOKEN", "freeAccess": "live-page-lists-no-included-credits-for-free-users-purchase-or-upgrade-required", "source": "https://huggingface.co/docs/inference-providers/pricing"},
+    {"id": "openai", "enabled": false, "candidateModel": null, "credentialEnvironmentName": "OPENAI_API_KEY", "freeAccess": "do-not-assume-free-api-credit-verify-account-and-pricing", "source": "https://developers.openai.com/api/docs/pricing"},
+    {"id": "xai-grok", "enabled": false, "candidateModel": null, "credentialEnvironmentName": "XAI_API_KEY", "freeAccess": "no-free-production-entitlement-verified-distinct-from-groq", "source": "https://docs.x.ai/developers/models"}
+  ]
+}

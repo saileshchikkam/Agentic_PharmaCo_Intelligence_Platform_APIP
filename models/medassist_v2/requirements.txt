@@ -1,0 +1,6 @@
+# Separate from the frozen NHAMCS environment; versions verified in this task.
+jsonschema==4.23.0
+attrs==24.2.0
+jsonschema-specifications==2023.12.1
+referencing==0.35.1
+rpds-py==0.20.0

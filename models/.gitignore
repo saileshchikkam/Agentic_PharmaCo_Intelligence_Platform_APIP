@@ -1,0 +1,35 @@
+# Credentials and private runtime configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Weights, downloaded caches, training checkpoints, and raw data stay out of Git.
+weights/
+cache/
+checkpoints/
+artifacts/
+datasets/
+*.gguf
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.bin
+__pycache__/
+
+# Public-use research records still stay outside this repository.
+raw/
+*.dta
+*.sas7bdat
+*.zip
+*.csv
+*.csv.gz
+*-private-assignments.json
+acquisition-receipt.json
+*.joblib
+*.pkl
+*.pickle
+private-test-predictions/

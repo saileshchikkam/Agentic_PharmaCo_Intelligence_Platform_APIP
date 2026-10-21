@@ -1,0 +1,77 @@
+{
+  "task": "MedAssist v2 Task 3",
+  "date": "2026-10-19",
+  "starting_commit": "9e625f1290b51a896e9080cc6336bdc71e9363ef",
+  "changed_files": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-19.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/data-contract.md",
+    "models/medassist_v2/loader.py",
+    "models/medassist_v2/validation.py",
+    "models/medassist_v2/tests/test_loader_simulator.py",
+    "models/medassist_v2/acquire.py",
+    "models/medassist_v2/audit.py",
+    "models/medassist_v2/task3-aggregate.json",
+    "models/medassist_v2/task3-readiness.md",
+    "models/medassist_v2/task3-source-verification.json",
+    "models/medassist_v2/tests/test_real_formats.py",
+    "models/medassist_v2/task3-verification.json"
+  ],
+  "checks": [
+    {
+      "command": "python -W error -m unittest discover -s models/medassist_v2/tests -q",
+      "result": "passed",
+      "tests": 61
+    },
+    {
+      "command": "python -W error -m models.medassist_v2 verify-fixtures",
+      "result": "passed"
+    },
+    {
+      "command": "python -m pip check",
+      "result": "No broken requirements found"
+    },
+    {
+      "command": "python -u -W error -m models.medassist_v2.audit --root <external-v2-root> --output <external-v2-root>/audit-task3 --sample 32",
+      "result": "completed",
+      "records": 1292579,
+      "elapsed_seconds": 800.94
+    }
+  ],
+  "initial_failures": "Official extensionless archive naming required narrow loader fix; regression setup/import/spy/header errors corrected before final 61-test pass.",
+  "source_integrity": "Five exact sizes/MD5 matched; observed SHA-256 values match acquisition receipt again after full audit. Full CRC streams consumed.",
+  "simulations": {
+    "train_only_cases": 32,
+    "replays_per_case": 2,
+    "disclosure_and_replay_checks": "passed"
+  },
+  "scope": "No training, LLM, external medical API, application change, original research write, source reassignment or raw publication.",
+  "historical_pins_and_receipts": "Original source manifest, schemas, dependencies and Task 1/2 receipts unchanged.",
+  "decision": "GO gated synthetic question-research design; NO-GO independent split claim/training before freeze; NO-GO clinical urgency integration.",
+  "files_sha256": {
+    "models/medassist_v2/README.md": "baa139326f5525e4547e6c0eb6203a3cf0b9ee3f097691e9af5c536b810dfacd",
+    "models/medassist_v2/data-contract.md": "99845665bb9377991fe552d08b4727dc02cc424d14fff4d259b5b5e6b05f501a",
+    "models/medassist_v2/loader.py": "0a306c190b6bd74071f8fb658739829e81d173813c6ee3e58372c0d6f76670e7",
+    "models/medassist_v2/validation.py": "6a7ff2db97511cdfd35307cb28bc57abfab22337930d240435c9d14612f894f4",
+    "models/medassist_v2/tests/test_loader_simulator.py": "f80e33f4a9abc3a3e0680d77ba76e32d54f006783c6f7319d18d36af07132b62",
+    "models/medassist_v2/acquire.py": "c31a6fec3fdbce419ce39f38dc6875842e9cf983e61da5eb48ce15a6d8309b90",
+    "models/medassist_v2/audit.py": "f92d91ec736f9c08a224566f3234f2840466c47968f554eb88f2a6afd31530c6",
+    "models/medassist_v2/task3-aggregate.json": "f5d41abcc4c8d43e0afa924cc80c87b6f403cd272ea57af8cbd01fadb24cc0a5",
+    "models/medassist_v2/task3-readiness.md": "5e8244dc58f8cfaa2974087970935c6015c061b23b8650a54c346f95a94f2b0e",
+    "models/medassist_v2/task3-source-verification.json": "c5913723aea25e23c661870b1d395bc4bd333c232be4c22e4643aa67301b2aa0",
+    "models/medassist_v2/tests/test_real_formats.py": "f4d3eb4e21b22e516b42a50bf8b7b3a4ce67b7e49989ac8371b95b03fe59d34c"
+  },
+  "preserved_untracked_manifest_sha256": "e60284bb74da6215986b8d00d6a13aab404422c41fddad13fe7c3b37e4c6b9b2",
+  "publication_checks": {
+    "explicit_files": 17,
+    "markdown_files": 8,
+    "local_links_fences_privacy": "passed",
+    "json_python_syntax": "passed",
+    "protected_scope": "passed",
+    "unrelated_manifest": "unchanged"
+  }
+}

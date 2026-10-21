@@ -1,0 +1,19 @@
+{
+  "raw_manifest_sha256": "2b82e90f98364abff6bf6ae3ccc426652e57f18768ed46c65f69edac0a5a8213",
+  "training_performed": false,
+  "code_sha256": {
+    "acquire.py": "3f3e7b45031056384436000aad6696091e151189acaf739e9181e25e1b6b4413",
+    "cli.py": "9324f4d26dd178a997b702981dfb8fc0442c580b3945d9dc1df851a31dec3733",
+    "data.py": "e6ea46f425de71fe51fe0dc2986cac956bd4ce814483237c6576e825c2edb0da",
+    "profile.py": "15ffc0ab77580961982475d8de60b9e9595225eeb6e4f66ca4848301515d05c8",
+    "splits.py": "d88c008a2f9d788ffd6acad8339057a350ced5cd7035505c9afdadedb0b58f46",
+    "__init__.py": "421c5686660b0ef85e99290653c76fbfa8072c0da6ef5dac943c43ec82cdd790"
+  },
+  "aggregate_report_sha256": {
+    "acquisition.json": "f1f15949358bf1678efeb23a7cf1a57c898383709b4e23a8148d23c3ec03afcc",
+    "data-quality.json": "a98ff786f7a2a1be57332ffd6c3eba7867065b261af0c12380d0c3bb89ce43be",
+    "feature-provenance.json": "81f9300e07607229e2caab7438c967530d668aeb923590c08c31e0e25035e4bb",
+    "split-feasibility.json": "04fedae5bd34c771a5bc1471af40e9daca1ebf03a5cb4c84033181eae3861238",
+    "column-inventory.json": "29e210396ef17e00083d0432c69b9cdbad7aa28459b18f3f96ed060b0f0f1d09"
+  }
+}

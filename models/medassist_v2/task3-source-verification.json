@@ -1,0 +1,45 @@
+{
+  "dataset_doi": "10.6084/m9.figshare.22687585.v2",
+  "licence": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "obligations": "Attribution, licence link, and indication of changes; no endorsement is implied"
+  },
+  "metadata_sha256": "4c583e09a40907b51245798265eab0fa16fc90a9e8a6b3c03ac9e52fb334645d",
+  "files": [
+    {
+      "name": "release_evidences.json",
+      "bytes": 120263,
+      "md5": "0660962abe0bbf99e1fb77188c253597",
+      "sha256": "281c78b044ae60514e28ecc9052d08a8225dd3e2db3f00f8788b99c47b05e0c0"
+    },
+    {
+      "name": "release_test_patients.zip",
+      "bytes": 18986243,
+      "md5": "6fd53d331cf19ed4439bf4f46b92ee94",
+      "sha256": "ad3bb981f3453fd7abffb35cc595a1c02197e409c581bff97c1265c33eb00d23"
+    },
+    {
+      "name": "release_train_patients.zip",
+      "bytes": 140923730,
+      "md5": "f75a78420ccb061951daa4db2d62139b",
+      "sha256": "174ae1d56f36a15b7144838ecd214e1e1748a5369fc90c559529b6dc6ecfb218"
+    },
+    {
+      "name": "release_validate_patients.zip",
+      "bytes": 18706053,
+      "md5": "e4db88e9082f18410de6fd0cb7e74d18",
+      "sha256": "625a96855becf0efe5da339fd3d440aa99597d48f784957a97dacc3fceaa7e40"
+    },
+    {
+      "name": "release_conditions.json",
+      "bytes": 20889,
+      "md5": "a992eadcff3099dd72e1820fbd2115aa",
+      "sha256": "56edf4682d8e86a4209fc3a33932e50ce03d1cc1fecc326c26d5ef8fa5c24890"
+    }
+  ],
+  "verified_date": "2026-10-19",
+  "publisher_metadata_url": "https://api.figshare.com/v2/articles/22687585/versions/2",
+  "source_documentation": "https://github.com/mila-iqia/ddxplus",
+  "checks": "All five exact sizes and publisher MD5 values matched; SHA-256 calculated locally. Original manifest unchanged."
+}

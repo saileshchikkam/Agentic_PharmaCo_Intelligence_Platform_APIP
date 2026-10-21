@@ -1,0 +1,6 @@
+{
+  "name": "APIP — Agentic Pharma Intelligence Platform",
+  "description": "An Intelligent AI Platform for Patient Health Assistance, Adverse Drug Reaction Reporting and Pharmacovigilance Decision Support.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

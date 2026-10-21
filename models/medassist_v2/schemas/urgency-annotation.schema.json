@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:apip:medassist-v2:urgency-annotation:1",
+  "title": "Separate proposed research urgency annotation, never an input feature",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "record_id", "scope", "clinical_use_approved", "reference_status", "label", "basis", "rubric_version", "recommended_care_settings", "maximum_delay_minutes", "reviewers", "adjudication_reference"],
+  "properties": {
+    "schema_version": {"const": "medassist-urgency-v2.1"},
+    "record_id": {"type": "string", "minLength": 1},
+    "scope": {"const": "research_only"},
+    "clinical_use_approved": {"const": false},
+    "reference_status": {"enum": ["unlabelled", "proposed", "independently_reviewed"]},
+    "label": {"enum": [null, "emergency_evaluation", "prompt_clinician_review", "routine_clinician_review", "general_non_prescriptive_information", "insufficient_information", "abstain"]},
+    "basis": {"enum": ["none", "software_fixture", "independent_clinician_assessment"]},
+    "rubric_version": {"type": ["string", "null"], "minLength": 1},
+    "recommended_care_settings": {"type": "array", "uniqueItems": true, "items": {"enum": ["primary_care", "specialist", "emergency_service", "undetermined"]}},
+    "maximum_delay_minutes": {"type": ["number", "null"], "minimum": 0},
+    "reviewers": {
+      "type": "array", "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["reviewer_reference", "qualification_verified", "independent_of_model", "proposed_label"],
+        "properties": {
+          "reviewer_reference": {"type": "string", "minLength": 1},
+          "qualification_verified": {"type": "boolean"},
+          "independent_of_model": {"type": "boolean"},
+          "proposed_label": {"enum": ["emergency_evaluation", "prompt_clinician_review", "routine_clinician_review", "general_non_prescriptive_information", "insufficient_information", "abstain"]}
+        }
+      }
+    },
+    "adjudication_reference": {"type": ["string", "null"], "minLength": 1}
+  }
+}

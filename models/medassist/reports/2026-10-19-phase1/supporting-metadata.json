@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-10-18T19:00:33.166781+00:00",
+  "ddxplus_version": 2,
+  "ddxplus_license": "CC BY 4.0",
+  "ddxplus_files_verified": 5,
+  "mimic_demo_publisher_digests_verified": 2,
+  "patient_archives_downloaded": false,
+  "metadata_sha256": "4c583e09a40907b51245798265eab0fa16fc90a9e8a6b3c03ac9e52fb334645d",
+  "source_urls": [
+    "https://api.figshare.com/v2/articles/22687585/versions/2",
+    "https://physionet.org/files/mimic-iv-ed-demo/2.2/SHA256SUMS.txt",
+    "https://www.cdc.gov/nchs/policy/data-user-agreement.html",
+    "https://www.cdc.gov/other/agencymaterials.html",
+    "https://physionet.org/content/mimic-iv-ed-demo/view-license/2.2/"
+  ]
+}

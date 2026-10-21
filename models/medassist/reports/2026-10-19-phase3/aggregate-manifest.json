@@ -1,0 +1,12 @@
+{
+  "files": {
+    "completed.json": "b2e72571560f784b2ba951083b0053621aed379cd63eef76f90c6dfaf6783152",
+    "preflight.json": "2aacd0253d731a9d38d1d1df007bddba60b0c3c2e3a586b6af0bc5e6bec94077",
+    "pretest-manifest.json": "c226785bdda4fa6f756f468a8f82f551bc2c97fc82a9db3516808ff6e81d9ec4",
+    "test-results.json": "07ecde079e6c32d55cb9271b3f9d14b8bbb2b5f716b863970830ed86f5d50366",
+    "test-started.json": "46d86c1844a7bb36b3d76db75f799ed337fb5eb95fbc7791dc73e69451f710e2",
+    "training-results.json": "e487cf4f8dfc3198b145bf98ef01584e7602ad8e09fe46631cad0a4069b08a7c"
+  },
+  "raw_rows_or_model_files_published": false,
+  "pretest_seal_sha256": "c226785bdda4fa6f756f468a8f82f551bc2c97fc82a9db3516808ff6e81d9ec4"
+}
