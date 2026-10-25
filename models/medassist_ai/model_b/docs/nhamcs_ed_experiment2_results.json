@@ -1,0 +1,2029 @@
+{
+  "schema_version": "medassist.nhamcs-ed-experiment2-results.v1",
+  "date": "2026-10-24",
+  "frozen_plan": {
+    "schema_version": "medassist.nhamcs-ed-experiment2.v1",
+    "research_only": true,
+    "live_enabled": false,
+    "seed": 20261024,
+    "task": "source-recorded five-class ED immediacy",
+    "features": [
+      "AGE",
+      "TEMPF",
+      "PULSE",
+      "RESPR",
+      "BPSYS",
+      "BPDIAS",
+      "POPCT",
+      "PAINSCALE",
+      "SEX",
+      "RFV1",
+      "RFV2",
+      "RFV3",
+      "RFV4",
+      "RFV5"
+    ],
+    "development_partitions": [
+      "train",
+      "calibration"
+    ],
+    "test_policy": "previously exposed; excluded from feature construction, fitting, audits, prediction and scoring",
+    "source_access": "shared archive decoded for original eligible-row indexing; only frozen development rows materialized",
+    "imputation_policy": "SEXFL != 0 -> sex unknown; AGEFL not in [0,1] or BDATEFL != 0 -> age unknown; flags not predictors",
+    "preprocessing": "same explicit-state/one-hot algorithms as experiment1, fit on leakage-masked training rows only",
+    "sample_weight": "n_train / (5 * training_class_count); no oversampling or survey weights",
+    "classifier": "ExtraTreesClassifier",
+    "common_parameters": {
+      "n_estimators": 200,
+      "max_depth": 16,
+      "max_features": 0.5,
+      "bootstrap": false,
+      "criterion": "gini",
+      "n_jobs": 1,
+      "random_state": 20261024,
+      "class_weight": null
+    },
+    "configurations": [
+      {
+        "id": "leaf2",
+        "min_samples_leaf": 2
+      },
+      {
+        "id": "leaf5",
+        "min_samples_leaf": 5
+      }
+    ],
+    "selection": "eligible only if macro-F1 improves over both original and masked frozen-logistic references, each severe-class recall is no worse than either reference and each severe underclassification count is no larger than either reference; select maximum validation macro-F1 then leaf5 on exact tie; otherwise reject both and retain the highest-macro-F1 diagnostic candidate without promotion",
+    "severe_classes": [
+      "1",
+      "2"
+    ],
+    "abstention_threshold": 0.6,
+    "abstention": "fixed descriptive threshold; not selected or fitted on validation",
+    "calibration_fitted": false,
+    "independent_test_evaluation": false,
+    "clinical_validation": false,
+    "source_sha256": "aa32e635ef9564b1c8e03cea16c87ec2ed02e9a928d22a257df18100a38ad683",
+    "prior_artifact_sha256": {
+      "artifact-receipt.json": "c6a6c8289c3073d17c3a742fdc358d4d817c303f6e2ed083b228b95efe3364ba",
+      "configuration.json": "0a45abd429298c3ae0c26897c79945742108179b2ee3fea156084c5f954f65dd",
+      "evaluation.json": "130dcf10396ccd9f0a869d054390fa0ba58b22e99b83c3ada5ceedf5c10dd901",
+      "leakage-audit.json": "01bb2d16a21fe136e2b5f659bd3b1b620b8636d3ef4705323fd97a2c4edd987a",
+      "research-only-model.joblib": "095be678cfe0629a0ce2d28f57797a79b1e6bf941d41aed8e64858957aa85928",
+      "source-audit.json": "4b397bcd2b1e199f856e0a4f996591003b124133ef40ed27a0f20524aadf74f9",
+      "split-membership.private.json": "7494b0a075a9215827fe160df8b424b8c1897b4cdf2bf7f8735ff41960b83f6e"
+    },
+    "implementation_sha256": {
+      "ed_experiment2.py": "2b0c754fde282867510af0739b6fb9337a1a7274f79c64c29488c753b76d3830",
+      "ed_research.py": "c118d41d92e8be30dc44831d3d0c8de1bc5609bc8f9723451960480742501d53",
+      "evaluation.py": "0f93cc037280d7c5f03b2a2e528a26e2ee3d87b4ba9f743449d57b78fa482aac",
+      "training.py": "e859b09eeb9c1a58b254b598766e2f137ebf72a054642870b176c474ec23ba7d",
+      "data.py": "c6f620b0c0c0d9a523feb6d144ac4e15450b93e3f80e1201c8ea3a8890af26d3",
+      "splitting.py": "b071559429496f3fbcb2451928f4a56356c61dbe558550ec5ce2fff6bc16965f"
+    },
+    "environment": {
+      "python": "3.12.2",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.2.2",
+      "scipy": "1.16.1",
+      "pandas": "3.0.0",
+      "joblib": "1.6.0",
+      "threadpoolctl": "3.6.0"
+    }
+  },
+  "comparison": {
+    "schema_version": "medassist.nhamcs-ed-experiment2.v1",
+    "selection": {
+      "selected_id": null,
+      "eligible_ids": [],
+      "diagnostic_id": "leaf2",
+      "status": "rejected_severe_or_macro_f1_regression",
+      "independent_confirmation": false,
+      "live_enabled": false
+    },
+    "references": {
+      "original_validation": {
+        "scope": "unweighted source-label prediction, offline research only",
+        "class_order": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "n": 2042,
+        "accuracy": 0.4701273261508325,
+        "macro_f1": 0.34583265702831195,
+        "balanced_accuracy": 0.4094326944231277,
+        "per_class": {
+          "1": {
+            "precision": 0.07,
+            "recall": 0.25,
+            "f1": 0.109375,
+            "support": 28
+          },
+          "2": {
+            "precision": 0.3362637362637363,
+            "recall": 0.47962382445141066,
+            "f1": 0.3953488372093023,
+            "support": 319
+          },
+          "3": {
+            "precision": 0.6771117166212534,
+            "recall": 0.4653558052434457,
+            "f1": 0.5516093229744728,
+            "support": 1068
+          },
+          "4": {
+            "precision": 0.4991119005328597,
+            "recall": 0.49734513274336284,
+            "f1": 0.49822695035460995,
+            "support": 565
+          },
+          "5": {
+            "precision": 0.11578947368421053,
+            "recall": 0.3548387096774194,
+            "f1": 0.1746031746031746,
+            "support": 62
+          }
+        },
+        "confusion_matrix": [
+          [
+            7,
+            11,
+            8,
+            1,
+            1
+          ],
+          [
+            23,
+            153,
+            92,
+            35,
+            16
+          ],
+          [
+            54,
+            235,
+            497,
+            219,
+            63
+          ],
+          [
+            15,
+            53,
+            128,
+            281,
+            88
+          ],
+          [
+            1,
+            3,
+            9,
+            27,
+            22
+          ]
+        ],
+        "confusion_orientation": "rows actual, columns predicted, order 1-5",
+        "severe_acuity_underclassification": {
+          "1": {
+            "support": 28,
+            "correct": 7,
+            "predicted_less_acute": 21,
+            "underclassified_by_at_least_two_levels": 10,
+            "abstained_at_fixed_threshold": 12,
+            "accepted_less_acute": 11
+          },
+          "2": {
+            "support": 319,
+            "correct": 153,
+            "predicted_less_acute": 143,
+            "underclassified_by_at_least_two_levels": 51,
+            "abstained_at_fixed_threshold": 178,
+            "accepted_less_acute": 36
+          }
+        },
+        "calibration": {
+          "multiclass_brier": 0.6643232495299453,
+          "negative_log_likelihood": 1.2179726813795928,
+          "top_label_ece": 0.09249372397105977,
+          "bins": [
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 34,
+              "mean_confidence": 0.2825617171170651,
+              "accuracy": 0.38235294117647056
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 304,
+              "mean_confidence": 0.3568409443943854,
+              "accuracy": 0.34868421052631576
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 472,
+              "mean_confidence": 0.45151092738931403,
+              "accuracy": 0.451271186440678
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 467,
+              "mean_confidence": 0.5486540995245024,
+              "accuracy": 0.4261241970021413
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 353,
+              "mean_confidence": 0.6465194156909927,
+              "accuracy": 0.5410764872521246
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 241,
+              "mean_confidence": 0.7449767755561569,
+              "accuracy": 0.6058091286307054
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 140,
+              "mean_confidence": 0.8414438683718771,
+              "accuracy": 0.5571428571428572
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 31,
+              "mean_confidence": 0.9387779099766207,
+              "accuracy": 0.45161290322580644
+            }
+          ],
+          "fitted": false,
+          "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+        },
+        "abstention": {
+          "threshold": 0.6,
+          "selected_using_test": false,
+          "coverage": 0.3746327130264447,
+          "abstention_rate": 0.6253672869735554,
+          "selective_error": 0.4392156862745098,
+          "confusion_matrix": [
+            [
+              5,
+              6,
+              4,
+              1,
+              0,
+              12
+            ],
+            [
+              12,
+              93,
+              31,
+              2,
+              3,
+              178
+            ],
+            [
+              11,
+              86,
+              196,
+              77,
+              11,
+              687
+            ],
+            [
+              9,
+              10,
+              38,
+              121,
+              26,
+              361
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              14,
+              39
+            ]
+          ],
+          "prediction_columns": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "research_abstain"
+          ],
+          "operational": false
+        },
+        "clinical_validation": false
+      },
+      "masked_train": {
+        "scope": "unweighted source-label prediction, offline research only",
+        "class_order": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "n": 6123,
+        "accuracy": 0.6371059937938919,
+        "macro_f1": 0.5525666876463168,
+        "balanced_accuracy": 0.7658245357788542,
+        "per_class": {
+          "1": {
+            "precision": 0.24471299093655588,
+            "recall": 0.9759036144578314,
+            "f1": 0.391304347826087,
+            "support": 83
+          },
+          "2": {
+            "precision": 0.5347384855581577,
+            "recall": 0.7157784743991641,
+            "f1": 0.612153708668454,
+            "support": 957
+          },
+          "3": {
+            "precision": 0.8549976536837166,
+            "recall": 0.5686641697877652,
+            "f1": 0.6830365510777882,
+            "support": 3204
+          },
+          "4": {
+            "precision": 0.647887323943662,
+            "recall": 0.6780660377358491,
+            "f1": 0.6626332469029098,
+            "support": 1696
+          },
+          "5": {
+            "precision": 0.2694214876033058,
+            "recall": 0.8907103825136612,
+            "f1": 0.4137055837563452,
+            "support": 183
+          }
+        },
+        "confusion_matrix": [
+          [
+            81,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            60,
+            685,
+            115,
+            63,
+            34
+          ],
+          [
+            142,
+            518,
+            1822,
+            550,
+            172
+          ],
+          [
+            47,
+            74,
+            190,
+            1150,
+            235
+          ],
+          [
+            1,
+            3,
+            4,
+            12,
+            163
+          ]
+        ],
+        "confusion_orientation": "rows actual, columns predicted, order 1-5",
+        "severe_acuity_underclassification": {
+          "1": {
+            "support": 83,
+            "correct": 81,
+            "predicted_less_acute": 2,
+            "underclassified_by_at_least_two_levels": 1,
+            "abstained_at_fixed_threshold": 14,
+            "accepted_less_acute": 0
+          },
+          "2": {
+            "support": 957,
+            "correct": 685,
+            "predicted_less_acute": 212,
+            "underclassified_by_at_least_two_levels": 97,
+            "abstained_at_fixed_threshold": 489,
+            "accepted_less_acute": 26
+          }
+        },
+        "calibration": {
+          "multiclass_brier": 0.4992909792627209,
+          "negative_log_likelihood": 0.9118659073773656,
+          "top_label_ece": 0.06990907115986585,
+          "bins": [
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 74,
+              "mean_confidence": 0.28368847681120296,
+              "accuracy": 0.36486486486486486
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 749,
+              "mean_confidence": 0.3595065870122913,
+              "accuracy": 0.4205607476635514
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 1463,
+              "mean_confidence": 0.45106620358869687,
+              "accuracy": 0.5283663704716336
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 1326,
+              "mean_confidence": 0.5485139300621635,
+              "accuracy": 0.6289592760180995
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 1139,
+              "mean_confidence": 0.6471701464564922,
+              "accuracy": 0.7287093942054433
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 799,
+              "mean_confidence": 0.7475377371863653,
+              "accuracy": 0.8022528160200251
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 458,
+              "mean_confidence": 0.8434342747633579,
+              "accuracy": 0.851528384279476
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 115,
+              "mean_confidence": 0.9326808473761267,
+              "accuracy": 0.7913043478260869
+            }
+          ],
+          "fitted": false,
+          "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+        },
+        "abstention": {
+          "threshold": 0.6,
+          "selected_using_test": false,
+          "coverage": 0.41009309162175406,
+          "abstention_rate": 0.589906908378246,
+          "selective_error": 0.2226204699322979,
+          "confusion_matrix": [
+            [
+              69,
+              0,
+              0,
+              0,
+              0,
+              14
+            ],
+            [
+              18,
+              424,
+              15,
+              10,
+              1,
+              489
+            ],
+            [
+              39,
+              185,
+              778,
+              139,
+              38,
+              2025
+            ],
+            [
+              14,
+              10,
+              31,
+              556,
+              59,
+              1026
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              125,
+              58
+            ]
+          ],
+          "prediction_columns": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "research_abstain"
+          ],
+          "operational": false
+        },
+        "clinical_validation": false
+      },
+      "masked_validation": {
+        "scope": "unweighted source-label prediction, offline research only",
+        "class_order": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "n": 2042,
+        "accuracy": 0.4701273261508325,
+        "macro_f1": 0.34583265702831195,
+        "balanced_accuracy": 0.4094326944231277,
+        "per_class": {
+          "1": {
+            "precision": 0.07,
+            "recall": 0.25,
+            "f1": 0.109375,
+            "support": 28
+          },
+          "2": {
+            "precision": 0.3362637362637363,
+            "recall": 0.47962382445141066,
+            "f1": 0.3953488372093023,
+            "support": 319
+          },
+          "3": {
+            "precision": 0.6771117166212534,
+            "recall": 0.4653558052434457,
+            "f1": 0.5516093229744728,
+            "support": 1068
+          },
+          "4": {
+            "precision": 0.4991119005328597,
+            "recall": 0.49734513274336284,
+            "f1": 0.49822695035460995,
+            "support": 565
+          },
+          "5": {
+            "precision": 0.11578947368421053,
+            "recall": 0.3548387096774194,
+            "f1": 0.1746031746031746,
+            "support": 62
+          }
+        },
+        "confusion_matrix": [
+          [
+            7,
+            11,
+            8,
+            1,
+            1
+          ],
+          [
+            23,
+            153,
+            92,
+            35,
+            16
+          ],
+          [
+            54,
+            235,
+            497,
+            219,
+            63
+          ],
+          [
+            15,
+            53,
+            128,
+            281,
+            88
+          ],
+          [
+            1,
+            3,
+            9,
+            27,
+            22
+          ]
+        ],
+        "confusion_orientation": "rows actual, columns predicted, order 1-5",
+        "severe_acuity_underclassification": {
+          "1": {
+            "support": 28,
+            "correct": 7,
+            "predicted_less_acute": 21,
+            "underclassified_by_at_least_two_levels": 10,
+            "abstained_at_fixed_threshold": 12,
+            "accepted_less_acute": 11
+          },
+          "2": {
+            "support": 319,
+            "correct": 153,
+            "predicted_less_acute": 143,
+            "underclassified_by_at_least_two_levels": 51,
+            "abstained_at_fixed_threshold": 178,
+            "accepted_less_acute": 36
+          }
+        },
+        "calibration": {
+          "multiclass_brier": 0.664345861034862,
+          "negative_log_likelihood": 1.2179981689323103,
+          "top_label_ece": 0.09250398799557102,
+          "bins": [
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 34,
+              "mean_confidence": 0.2825617171170651,
+              "accuracy": 0.38235294117647056
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 304,
+              "mean_confidence": 0.3568409443943854,
+              "accuracy": 0.34868421052631576
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 472,
+              "mean_confidence": 0.45151092738931403,
+              "accuracy": 0.451271186440678
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 467,
+              "mean_confidence": 0.5486540995245024,
+              "accuracy": 0.4261241970021413
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 352,
+              "mean_confidence": 0.6464201664774751,
+              "accuracy": 0.5426136363636364
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 242,
+              "mean_confidence": 0.7448008974625412,
+              "accuracy": 0.6033057851239669
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 140,
+              "mean_confidence": 0.8414438683718771,
+              "accuracy": 0.5571428571428572
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 31,
+              "mean_confidence": 0.9387779099766207,
+              "accuracy": 0.45161290322580644
+            }
+          ],
+          "fitted": false,
+          "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+        },
+        "abstention": {
+          "threshold": 0.6,
+          "selected_using_test": false,
+          "coverage": 0.3746327130264447,
+          "abstention_rate": 0.6253672869735554,
+          "selective_error": 0.4392156862745098,
+          "confusion_matrix": [
+            [
+              5,
+              6,
+              4,
+              1,
+              0,
+              12
+            ],
+            [
+              12,
+              93,
+              31,
+              2,
+              3,
+              178
+            ],
+            [
+              11,
+              86,
+              196,
+              77,
+              11,
+              687
+            ],
+            [
+              9,
+              10,
+              38,
+              121,
+              26,
+              361
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              14,
+              39
+            ]
+          ],
+          "prediction_columns": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "research_abstain"
+          ],
+          "operational": false
+        },
+        "clinical_validation": false
+      }
+    },
+    "candidates": {
+      "leaf2": {
+        "parameters": {
+          "n_estimators": 200,
+          "max_depth": 16,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "criterion": "gini",
+          "n_jobs": 1,
+          "random_state": 20261024,
+          "class_weight": null,
+          "min_samples_leaf": 2
+        },
+        "fit_seconds": 16.947124399943277,
+        "train": {
+          "scope": "unweighted source-label prediction, offline research only",
+          "class_order": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "n": 6123,
+          "accuracy": 0.6060754532092112,
+          "macro_f1": 0.6065293877255271,
+          "balanced_accuracy": 0.7183641267727499,
+          "per_class": {
+            "1": {
+              "precision": 0.6587301587301587,
+              "recall": 1.0,
+              "f1": 0.7942583732057417,
+              "support": 83
+            },
+            "2": {
+              "precision": 0.7997032640949555,
+              "recall": 0.5632183908045977,
+              "f1": 0.6609442060085837,
+              "support": 957
+            },
+            "3": {
+              "precision": 0.8020398701900788,
+              "recall": 0.5399500624219725,
+              "f1": 0.6454019772430517,
+              "support": 3204
+            },
+            "4": {
+              "precision": 0.4744838332684067,
+              "recall": 0.7181603773584906,
+              "f1": 0.5714285714285714,
+              "support": 1696
+            },
+            "5": {
+              "precision": 0.2353923205342237,
+              "recall": 0.7704918032786885,
+              "f1": 0.36061381074168797,
+              "support": 183
+            }
+          },
+          "confusion_matrix": [
+            [
+              83,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              3,
+              539,
+              135,
+              230,
+              50
+            ],
+            [
+              38,
+              121,
+              1730,
+              1094,
+              221
+            ],
+            [
+              2,
+              14,
+              275,
+              1218,
+              187
+            ],
+            [
+              0,
+              0,
+              17,
+              25,
+              141
+            ]
+          ],
+          "confusion_orientation": "rows actual, columns predicted, order 1-5",
+          "severe_acuity_underclassification": {
+            "1": {
+              "support": 83,
+              "correct": 83,
+              "predicted_less_acute": 0,
+              "underclassified_by_at_least_two_levels": 0,
+              "abstained_at_fixed_threshold": 16,
+              "accepted_less_acute": 0
+            },
+            "2": {
+              "support": 957,
+              "correct": 539,
+              "predicted_less_acute": 415,
+              "underclassified_by_at_least_two_levels": 280,
+              "abstained_at_fixed_threshold": 650,
+              "accepted_less_acute": 0
+            }
+          },
+          "calibration": {
+            "multiclass_brier": 0.5752343164852715,
+            "negative_log_likelihood": 1.0978223688052702,
+            "top_label_ece": 0.19592380897808667,
+            "bins": [
+              {
+                "lower": 0.2,
+                "upper": 0.3,
+                "n": 1852,
+                "mean_confidence": 0.2739014603668104,
+                "accuracy": 0.46220302375809935
+              },
+              {
+                "lower": 0.3,
+                "upper": 0.4,
+                "n": 2461,
+                "mean_confidence": 0.3389464794094864,
+                "accuracy": 0.5327102803738317
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.5,
+                "n": 526,
+                "mean_confidence": 0.4423140130206049,
+                "accuracy": 0.7110266159695817
+              },
+              {
+                "lower": 0.5,
+                "upper": 0.6,
+                "n": 341,
+                "mean_confidence": 0.5452585958292993,
+                "accuracy": 0.7448680351906158
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.7,
+                "n": 211,
+                "mean_confidence": 0.6450470678840706,
+                "accuracy": 0.8862559241706162
+              },
+              {
+                "lower": 0.7,
+                "upper": 0.8,
+                "n": 217,
+                "mean_confidence": 0.7500269077933791,
+                "accuracy": 0.9861751152073732
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.9,
+                "n": 336,
+                "mean_confidence": 0.8491634944630672,
+                "accuracy": 1.0
+              },
+              {
+                "lower": 0.9,
+                "upper": 1.0,
+                "n": 179,
+                "mean_confidence": 0.9339422945261129,
+                "accuracy": 1.0
+              }
+            ],
+            "fitted": false,
+            "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+          },
+          "abstention": {
+            "threshold": 0.6,
+            "selected_using_test": false,
+            "coverage": 0.15400947248081007,
+            "abstention_rate": 0.8459905275191899,
+            "selective_error": 0.02863202545068929,
+            "confusion_matrix": [
+              [
+                67,
+                0,
+                0,
+                0,
+                0,
+                16
+              ],
+              [
+                0,
+                307,
+                0,
+                0,
+                0,
+                650
+              ],
+              [
+                2,
+                20,
+                450,
+                1,
+                1,
+                2730
+              ],
+              [
+                0,
+                0,
+                3,
+                57,
+                0,
+                1636
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                35,
+                148
+              ]
+            ],
+            "prediction_columns": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "research_abstain"
+            ],
+            "operational": false
+          },
+          "clinical_validation": false
+        },
+        "validation": {
+          "scope": "unweighted source-label prediction, offline research only",
+          "class_order": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "n": 2042,
+          "accuracy": 0.44123408423114596,
+          "macro_f1": 0.3265016910520959,
+          "balanced_accuracy": 0.3538275712647876,
+          "per_class": {
+            "1": {
+              "precision": 0.19047619047619047,
+              "recall": 0.14285714285714285,
+              "f1": 0.16326530612244897,
+              "support": 28
+            },
+            "2": {
+              "precision": 0.40408163265306124,
+              "recall": 0.3103448275862069,
+              "f1": 0.35106382978723405,
+              "support": 319
+            },
+            "3": {
+              "precision": 0.6230661040787623,
+              "recall": 0.4147940074906367,
+              "f1": 0.4980326025857223,
+              "support": 1068
+            },
+            "4": {
+              "precision": 0.38009049773755654,
+              "recall": 0.5946902654867257,
+              "f1": 0.463768115942029,
+              "support": 565
+            },
+            "5": {
+              "precision": 0.10497237569060773,
+              "recall": 0.3064516129032258,
+              "f1": 0.15637860082304528,
+              "support": 62
+            }
+          },
+          "confusion_matrix": [
+            [
+              4,
+              9,
+              8,
+              5,
+              2
+            ],
+            [
+              4,
+              99,
+              105,
+              84,
+              27
+            ],
+            [
+              11,
+              119,
+              443,
+              425,
+              70
+            ],
+            [
+              2,
+              17,
+              147,
+              336,
+              63
+            ],
+            [
+              0,
+              1,
+              8,
+              34,
+              19
+            ]
+          ],
+          "confusion_orientation": "rows actual, columns predicted, order 1-5",
+          "severe_acuity_underclassification": {
+            "1": {
+              "support": 28,
+              "correct": 4,
+              "predicted_less_acute": 24,
+              "underclassified_by_at_least_two_levels": 15,
+              "abstained_at_fixed_threshold": 22,
+              "accepted_less_acute": 5
+            },
+            "2": {
+              "support": 319,
+              "correct": 99,
+              "predicted_less_acute": 216,
+              "underclassified_by_at_least_two_levels": 111,
+              "abstained_at_fixed_threshold": 261,
+              "accepted_less_acute": 14
+            }
+          },
+          "calibration": {
+            "multiclass_brier": 0.6836033555699428,
+            "negative_log_likelihood": 1.3229236735136147,
+            "top_label_ece": 0.10960132820626466,
+            "bins": [
+              {
+                "lower": 0.2,
+                "upper": 0.3,
+                "n": 675,
+                "mean_confidence": 0.2722596603018573,
+                "accuracy": 0.3718518518518519
+              },
+              {
+                "lower": 0.3,
+                "upper": 0.4,
+                "n": 838,
+                "mean_confidence": 0.3385902904254952,
+                "accuracy": 0.4606205250596659
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.5,
+                "n": 196,
+                "mean_confidence": 0.44201754705871543,
+                "accuracy": 0.336734693877551
+              },
+              {
+                "lower": 0.5,
+                "upper": 0.6,
+                "n": 102,
+                "mean_confidence": 0.5442384762074697,
+                "accuracy": 0.4411764705882353
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.7,
+                "n": 60,
+                "mean_confidence": 0.6397693017075096,
+                "accuracy": 0.38333333333333336
+              },
+              {
+                "lower": 0.7,
+                "upper": 0.8,
+                "n": 85,
+                "mean_confidence": 0.7509747462490799,
+                "accuracy": 0.7176470588235294
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.9,
+                "n": 73,
+                "mean_confidence": 0.8480127304302802,
+                "accuracy": 0.7945205479452054
+              },
+              {
+                "lower": 0.9,
+                "upper": 1.0,
+                "n": 13,
+                "mean_confidence": 0.9267801250621603,
+                "accuracy": 0.8461538461538461
+              }
+            ],
+            "fitted": false,
+            "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+          },
+          "abstention": {
+            "threshold": 0.6,
+            "selected_using_test": false,
+            "coverage": 0.11312438785504407,
+            "abstention_rate": 0.8868756121449559,
+            "selective_error": 0.33766233766233766,
+            "confusion_matrix": [
+              [
+                1,
+                4,
+                1,
+                0,
+                0,
+                22
+              ],
+              [
+                0,
+                44,
+                13,
+                1,
+                0,
+                261
+              ],
+              [
+                0,
+                41,
+                103,
+                2,
+                1,
+                921
+              ],
+              [
+                0,
+                2,
+                10,
+                2,
+                1,
+                550
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                3,
+                57
+              ]
+            ],
+            "prediction_columns": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "research_abstain"
+            ],
+            "operational": false
+          },
+          "clinical_validation": false
+        }
+      },
+      "leaf5": {
+        "parameters": {
+          "n_estimators": 200,
+          "max_depth": 16,
+          "max_features": 0.5,
+          "bootstrap": false,
+          "criterion": "gini",
+          "n_jobs": 1,
+          "random_state": 20261024,
+          "class_weight": null,
+          "min_samples_leaf": 5
+        },
+        "fit_seconds": 12.20910809992347,
+        "train": {
+          "scope": "unweighted source-label prediction, offline research only",
+          "class_order": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "n": 6123,
+          "accuracy": 0.5351951657684142,
+          "macro_f1": 0.4869259446867879,
+          "balanced_accuracy": 0.6729628356356632,
+          "per_class": {
+            "1": {
+              "precision": 0.30943396226415093,
+              "recall": 0.9879518072289156,
+              "f1": 0.47126436781609193,
+              "support": 83
+            },
+            "2": {
+              "precision": 0.6060975609756097,
+              "recall": 0.5193312434691745,
+              "f1": 0.5593697242543613,
+              "support": 957
+            },
+            "3": {
+              "precision": 0.7659685863874346,
+              "recall": 0.4566167290886392,
+              "f1": 0.5721548689870942,
+              "support": 3204
+            },
+            "4": {
+              "precision": 0.4640439932318105,
+              "recall": 0.6468160377358491,
+              "f1": 0.5403940886699508,
+              "support": 1696
+            },
+            "5": {
+              "precision": 0.1806282722513089,
+              "recall": 0.7540983606557377,
+              "f1": 0.2914466737064414,
+              "support": 183
+            }
+          },
+          "confusion_matrix": [
+            [
+              82,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              39,
+              497,
+              146,
+              208,
+              67
+            ],
+            [
+              112,
+              291,
+              1463,
+              1034,
+              304
+            ],
+            [
+              32,
+              31,
+              282,
+              1097,
+              254
+            ],
+            [
+              0,
+              1,
+              19,
+              25,
+              138
+            ]
+          ],
+          "confusion_orientation": "rows actual, columns predicted, order 1-5",
+          "severe_acuity_underclassification": {
+            "1": {
+              "support": 83,
+              "correct": 82,
+              "predicted_less_acute": 1,
+              "underclassified_by_at_least_two_levels": 1,
+              "abstained_at_fixed_threshold": 21,
+              "accepted_less_acute": 0
+            },
+            "2": {
+              "support": 957,
+              "correct": 497,
+              "predicted_less_acute": 421,
+              "underclassified_by_at_least_two_levels": 275,
+              "abstained_at_fixed_threshold": 736,
+              "accepted_less_acute": 0
+            }
+          },
+          "calibration": {
+            "multiclass_brier": 0.6170628965959563,
+            "negative_log_likelihood": 1.1681335016743022,
+            "top_label_ece": 0.13924556172150196,
+            "bins": [
+              {
+                "lower": 0.2,
+                "upper": 0.3,
+                "n": 1659,
+                "mean_confidence": 0.2720560590632491,
+                "accuracy": 0.4062688366485835
+              },
+              {
+                "lower": 0.3,
+                "upper": 0.4,
+                "n": 2664,
+                "mean_confidence": 0.3385395290921813,
+                "accuracy": 0.509009009009009
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.5,
+                "n": 640,
+                "mean_confidence": 0.4441598615341006,
+                "accuracy": 0.54375
+              },
+              {
+                "lower": 0.5,
+                "upper": 0.6,
+                "n": 387,
+                "mean_confidence": 0.5447644504961016,
+                "accuracy": 0.537467700258398
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.7,
+                "n": 249,
+                "mean_confidence": 0.6477922198276328,
+                "accuracy": 0.7469879518072289
+              },
+              {
+                "lower": 0.7,
+                "upper": 0.8,
+                "n": 272,
+                "mean_confidence": 0.7469029142771215,
+                "accuracy": 0.9411764705882353
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.9,
+                "n": 208,
+                "mean_confidence": 0.8473210106137012,
+                "accuracy": 0.9855769230769231
+              },
+              {
+                "lower": 0.9,
+                "upper": 1.0,
+                "n": 44,
+                "mean_confidence": 0.9329550778136714,
+                "accuracy": 1.0
+              }
+            ],
+            "fitted": false,
+            "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+          },
+          "abstention": {
+            "threshold": 0.6,
+            "selected_using_test": false,
+            "coverage": 0.12624530458925362,
+            "abstention_rate": 0.8737546954107464,
+            "selective_error": 0.10608020698576973,
+            "confusion_matrix": [
+              [
+                62,
+                0,
+                0,
+                0,
+                0,
+                21
+              ],
+              [
+                3,
+                218,
+                0,
+                0,
+                0,
+                736
+              ],
+              [
+                14,
+                41,
+                333,
+                3,
+                4,
+                2809
+              ],
+              [
+                3,
+                2,
+                3,
+                43,
+                9,
+                1636
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                35,
+                148
+              ]
+            ],
+            "prediction_columns": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "research_abstain"
+            ],
+            "operational": false
+          },
+          "clinical_validation": false
+        },
+        "validation": {
+          "scope": "unweighted source-label prediction, offline research only",
+          "class_order": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "n": 2042,
+          "accuracy": 0.4167482859941234,
+          "macro_f1": 0.31314827201499423,
+          "balanced_accuracy": 0.3708584122857072,
+          "per_class": {
+            "1": {
+              "precision": 0.08955223880597014,
+              "recall": 0.21428571428571427,
+              "f1": 0.12631578947368421,
+              "support": 28
+            },
+            "2": {
+              "precision": 0.3859060402684564,
+              "recall": 0.3605015673981191,
+              "f1": 0.3727714748784441,
+              "support": 319
+            },
+            "3": {
+              "precision": 0.6324237560192616,
+              "recall": 0.36891385767790263,
+              "f1": 0.46599645180366644,
+              "support": 1068
+            },
+            "4": {
+              "precision": 0.3871763255240444,
+              "recall": 0.5557522123893806,
+              "f1": 0.4563953488372093,
+              "support": 565
+            },
+            "5": {
+              "precision": 0.09053497942386832,
+              "recall": 0.3548387096774194,
+              "f1": 0.14426229508196722,
+              "support": 62
+            }
+          },
+          "confusion_matrix": [
+            [
+              6,
+              8,
+              7,
+              4,
+              3
+            ],
+            [
+              16,
+              115,
+              87,
+              68,
+              33
+            ],
+            [
+              32,
+              149,
+              394,
+              391,
+              102
+            ],
+            [
+              13,
+              24,
+              131,
+              314,
+              83
+            ],
+            [
+              0,
+              2,
+              4,
+              34,
+              22
+            ]
+          ],
+          "confusion_orientation": "rows actual, columns predicted, order 1-5",
+          "severe_acuity_underclassification": {
+            "1": {
+              "support": 28,
+              "correct": 6,
+              "predicted_less_acute": 22,
+              "underclassified_by_at_least_two_levels": 14,
+              "abstained_at_fixed_threshold": 22,
+              "accepted_less_acute": 5
+            },
+            "2": {
+              "support": 319,
+              "correct": 115,
+              "predicted_less_acute": 188,
+              "underclassified_by_at_least_two_levels": 101,
+              "abstained_at_fixed_threshold": 260,
+              "accepted_less_acute": 14
+            }
+          },
+          "calibration": {
+            "multiclass_brier": 0.692086925826637,
+            "negative_log_likelihood": 1.342274646328301,
+            "top_label_ece": 0.08767388529008326,
+            "bins": [
+              {
+                "lower": 0.2,
+                "upper": 0.3,
+                "n": 604,
+                "mean_confidence": 0.27212613036960887,
+                "accuracy": 0.3526490066225166
+              },
+              {
+                "lower": 0.3,
+                "upper": 0.4,
+                "n": 883,
+                "mean_confidence": 0.33794632224766735,
+                "accuracy": 0.4190260475651189
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.5,
+                "n": 203,
+                "mean_confidence": 0.4381213446472718,
+                "accuracy": 0.35467980295566504
+              },
+              {
+                "lower": 0.5,
+                "upper": 0.6,
+                "n": 123,
+                "mean_confidence": 0.5505841044590033,
+                "accuracy": 0.3821138211382114
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.7,
+                "n": 98,
+                "mean_confidence": 0.6557652845064977,
+                "accuracy": 0.5306122448979592
+              },
+              {
+                "lower": 0.7,
+                "upper": 0.8,
+                "n": 83,
+                "mean_confidence": 0.7491359613808353,
+                "accuracy": 0.6626506024096386
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.9,
+                "n": 39,
+                "mean_confidence": 0.8369791923287115,
+                "accuracy": 0.8717948717948718
+              },
+              {
+                "lower": 0.9,
+                "upper": 1.0,
+                "n": 9,
+                "mean_confidence": 0.9265874514448975,
+                "accuracy": 0.8888888888888888
+              }
+            ],
+            "fitted": false,
+            "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+          },
+          "abstention": {
+            "threshold": 0.6,
+            "selected_using_test": false,
+            "coverage": 0.11214495592556317,
+            "abstention_rate": 0.8878550440744368,
+            "selective_error": 0.34934497816593885,
+            "confusion_matrix": [
+              [
+                1,
+                4,
+                1,
+                0,
+                0,
+                22
+              ],
+              [
+                3,
+                42,
+                10,
+                3,
+                1,
+                260
+              ],
+              [
+                2,
+                34,
+                91,
+                6,
+                1,
+                934
+              ],
+              [
+                0,
+                4,
+                9,
+                11,
+                1,
+                540
+              ],
+              [
+                0,
+                0,
+                0,
+                1,
+                4,
+                57
+              ]
+            ],
+            "prediction_columns": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "research_abstain"
+            ],
+            "operational": false
+          },
+          "clinical_validation": false
+        }
+      }
+    },
+    "live_enabled": false,
+    "clinical_validation": false,
+    "test_evaluated": false,
+    "prior_files_unchanged": true,
+    "training_class_weight": {
+      "1": 14.75421686746988,
+      "2": 1.2796238244514107,
+      "3": 0.38220973782771533,
+      "4": 0.7220518867924528,
+      "5": 6.691803278688525
+    }
+  },
+  "source_audit": {
+    "train": {
+      "n": 6123,
+      "class_support": {
+        "1": 83,
+        "2": 957,
+        "3": 3204,
+        "4": 1696,
+        "5": 183
+      },
+      "source_flags": {
+        "AGEFL": {
+          "0": 6118,
+          "1": 4,
+          "-9": 1
+        },
+        "BDATEFL": {
+          "0": 6118,
+          "1": 5
+        },
+        "SEXFL": {
+          "0": 6115,
+          "1": 8
+        }
+      },
+      "feature_states": {
+        "AGE": {
+          "observed_value": 6118,
+          "unknown": 5
+        },
+        "TEMPF": {
+          "observed_value": 5938,
+          "not_asked": 185
+        },
+        "PULSE": {
+          "observed_value": 5996,
+          "not_asked": 100,
+          "unsupported": 27
+        },
+        "RESPR": {
+          "observed_value": 5985,
+          "not_asked": 138
+        },
+        "BPSYS": {
+          "observed_value": 5651,
+          "not_asked": 472
+        },
+        "BPDIAS": {
+          "observed_value": 5639,
+          "not_asked": 484
+        },
+        "POPCT": {
+          "observed_value": 5992,
+          "not_asked": 131
+        },
+        "PAINSCALE": {
+          "unknown": 1604,
+          "observed_value": 4316,
+          "not_asked": 203
+        },
+        "SEX": {
+          "observed_value": 6115,
+          "unknown": 8
+        },
+        "RFV1": {
+          "observed_value": 6120,
+          "not_asked": 3
+        },
+        "RFV2": {
+          "observed_value": 4165,
+          "not_asked": 1958
+        },
+        "RFV3": {
+          "observed_value": 2763,
+          "not_asked": 3360
+        },
+        "RFV4": {
+          "not_asked": 4443,
+          "observed_value": 1680
+        },
+        "RFV5": {
+          "not_asked": 5134,
+          "observed_value": 989
+        }
+      }
+    },
+    "calibration": {
+      "n": 2042,
+      "class_support": {
+        "1": 28,
+        "2": 319,
+        "3": 1068,
+        "4": 565,
+        "5": 62
+      },
+      "source_flags": {
+        "AGEFL": {
+          "0": 2041,
+          "1": 1
+        },
+        "BDATEFL": {
+          "0": 2042
+        },
+        "SEXFL": {
+          "0": 2041,
+          "1": 1
+        }
+      },
+      "feature_states": {
+        "AGE": {
+          "observed_value": 2042
+        },
+        "TEMPF": {
+          "observed_value": 1995,
+          "not_asked": 47
+        },
+        "PULSE": {
+          "observed_value": 2009,
+          "not_asked": 27,
+          "unsupported": 6
+        },
+        "RESPR": {
+          "observed_value": 1992,
+          "not_asked": 50
+        },
+        "BPSYS": {
+          "not_asked": 166,
+          "observed_value": 1876
+        },
+        "BPDIAS": {
+          "not_asked": 169,
+          "observed_value": 1872,
+          "unsupported": 1
+        },
+        "POPCT": {
+          "observed_value": 1994,
+          "not_asked": 48
+        },
+        "PAINSCALE": {
+          "unknown": 521,
+          "observed_value": 1441,
+          "not_asked": 80
+        },
+        "SEX": {
+          "observed_value": 2041,
+          "unknown": 1
+        },
+        "RFV1": {
+          "observed_value": 2040,
+          "not_asked": 2
+        },
+        "RFV2": {
+          "not_asked": 590,
+          "observed_value": 1452
+        },
+        "RFV3": {
+          "not_asked": 1072,
+          "observed_value": 970
+        },
+        "RFV4": {
+          "not_asked": 1443,
+          "observed_value": 599
+        },
+        "RFV5": {
+          "not_asked": 1699,
+          "observed_value": 343
+        }
+      }
+    }
+  },
+  "leakage_audit": {
+    "rows": 8165,
+    "symptom_groups": 7670,
+    "repeated_symptom_groups": 495,
+    "conflicting_labels_in_symptom_groups": 181,
+    "class_support": {
+      "1": 111,
+      "2": 1276,
+      "3": 4272,
+      "4": 2261,
+      "5": 245
+    },
+    "imbalance_ratio": 38.486486486486484,
+    "missing_patient_ids": 8165,
+    "missing_encounter_ids": 8165,
+    "split_class_support": {
+      "train": {
+        "1": 83,
+        "2": 957,
+        "3": 3204,
+        "4": 1696,
+        "5": 183
+      },
+      "calibration": {
+        "1": 28,
+        "2": 319,
+        "3": 1068,
+        "4": 565,
+        "5": 62
+      },
+      "test": {}
+    },
+    "cross_split_overlap": 0,
+    "limitation": "Identifiers absent from source cannot be audited; grouping review and intended-use assessment remain required",
+    "scope": "training and validation only; empty test slot is not a test audit",
+    "patient_independent": false,
+    "hospital_independent": false
+  },
+  "frozen_selection": {
+    "selected_id": null,
+    "eligible_ids": [],
+    "diagnostic_id": "leaf2",
+    "status": "rejected_severe_or_macro_f1_regression",
+    "independent_confirmation": false,
+    "live_enabled": false,
+    "plan_sha256": "33e573f3cab0d8f44675491e1372f1d5ac41194a30d53b227e5744beafce1c5c",
+    "selected_parameters": null,
+    "evaluation_protocol": "No test evaluation in Experiment 2; any new independent dataset needs separate authorization"
+  },
+  "artifact_receipt": {
+    "research_only": true,
+    "live_enabled": false,
+    "files": {
+      "comparison.json": "30a453db3b6f3da864163ee7db539f38db02453f1a253c32e0677eb7ee6ba85f",
+      "development-leakage-audit.json": "ef0416a542a9928359feedae18b2bea3e89858c7cb61d7201ab5f7db8e2e3ae5",
+      "development-source-audit.json": "754f4725e3bf2ebe085842a44bf068d10bd3d7850efda41319c971d59ccc27b6",
+      "frozen-plan.json": "33e573f3cab0d8f44675491e1372f1d5ac41194a30d53b227e5744beafce1c5c",
+      "frozen-selection.json": "5e6e65c255a335540f826d1773793395db6f080a6c262357c5f1e37f44b0b54e",
+      "leaf2-evaluation.json": "3b34a8954b0e16b5aa4e8524f11064d031c166ec887dbe89289ba27f67f8ed6f",
+      "leaf2-research-only.joblib": "7e42f1cd67d6d57ac557b2913aa94faab3a5bb7a6305fca3dc3f9cfcd24f3699",
+      "leaf5-evaluation.json": "e886a2d15c8073f37624f96f94e534588828e7532bb34b9eefce01c6a3b2fa2b",
+      "leaf5-research-only.joblib": "e6af9fe563eb3a78fad96c55462d58a14c734bd1a43eb30dfecad4df2a4ea853",
+      "reference-validation.json": "0e18407761ec739c5d4e730124ba5e398ab7a2d6d90d6db7e481b5ed0d6be29c"
+    },
+    "implementation_sha256": {
+      "ed_experiment2.py": "2b0c754fde282867510af0739b6fb9337a1a7274f79c64c29488c753b76d3830",
+      "ed_research.py": "c118d41d92e8be30dc44831d3d0c8de1bc5609bc8f9723451960480742501d53",
+      "evaluation.py": "0f93cc037280d7c5f03b2a2e528a26e2ee3d87b4ba9f743449d57b78fa482aac",
+      "training.py": "e859b09eeb9c1a58b254b598766e2f137ebf72a054642870b176c474ec23ba7d",
+      "data.py": "c6f620b0c0c0d9a523feb6d144ac4e15450b93e3f80e1201c8ea3a8890af26d3",
+      "splitting.py": "b071559429496f3fbcb2451928f4a56356c61dbe558550ec5ce2fff6bc16965f"
+    }
+  },
+  "verification": {
+    "hash_checked_reloads_reproduce_train_and_validation": true,
+    "prior_files_unchanged": true,
+    "heldout_test_predicted_or_scored": false,
+    "test_rows_materialized_as_feature_records": false,
+    "focused_tests_passed": 25,
+    "live_model_b_status": "unable_to_assess",
+    "source_archive_requires_shared_file_decode_for_eligible_indexing": true,
+    "sealed_model_a_artifacts_matched_before_and_after": 17,
+    "model_a_protocol_and_implementation": "matched; known CRLF/LF caveat preserved",
+    "model_a_locked_test_and_ledger": "not accessed"
+  },
+  "resolved_classifier_parameters": {
+    "leaf2": {
+      "bootstrap": false,
+      "ccp_alpha": 0.0,
+      "class_weight": null,
+      "criterion": "gini",
+      "max_depth": 16,
+      "max_features": 0.5,
+      "max_leaf_nodes": null,
+      "max_samples": null,
+      "min_impurity_decrease": 0.0,
+      "min_samples_leaf": 2,
+      "min_samples_split": 2,
+      "min_weight_fraction_leaf": 0.0,
+      "monotonic_cst": null,
+      "n_estimators": 200,
+      "n_jobs": 1,
+      "oob_score": false,
+      "random_state": 20261024,
+      "verbose": 0,
+      "warm_start": false
+    },
+    "leaf5": {
+      "bootstrap": false,
+      "ccp_alpha": 0.0,
+      "class_weight": null,
+      "criterion": "gini",
+      "max_depth": 16,
+      "max_features": 0.5,
+      "max_leaf_nodes": null,
+      "max_samples": null,
+      "min_impurity_decrease": 0.0,
+      "min_samples_leaf": 5,
+      "min_samples_split": 2,
+      "min_weight_fraction_leaf": 0.0,
+      "monotonic_cst": null,
+      "n_estimators": 200,
+      "n_jobs": 1,
+      "oob_score": false,
+      "random_state": 20261024,
+      "verbose": 0,
+      "warm_start": false
+    }
+  }
+}

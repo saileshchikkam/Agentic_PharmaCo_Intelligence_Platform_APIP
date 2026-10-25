@@ -1,0 +1,254 @@
+{
+  "$defs": {
+    "Context": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "ge": 0,
+          "title": "Age"
+        },
+        "source_sex": {
+          "enum": [
+            "M",
+            "F"
+          ],
+          "title": "Source Sex",
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "source_sex"
+      ],
+      "title": "Context",
+      "type": "object"
+    },
+    "EvidenceItem": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "pattern": "^E_[0-9]{1,3}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "data_type": {
+          "enum": [
+            "B",
+            "C",
+            "M"
+          ],
+          "title": "Data Type",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "observed_positive",
+            "observed_negative",
+            "observed_value",
+            "unknown",
+            "not_asked",
+            "unsupported",
+            "contradiction"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "unsupported_reason": {
+          "anyOf": [
+            {
+              "const": "quarantined_question",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unsupported Reason"
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "data_type",
+        "status",
+        "value",
+        "provenance"
+      ],
+      "title": "EvidenceItem",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": [
+            "developer_fictional_fixture",
+            "not_disclosed",
+            "frozen_scope_exclusion"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "disclosure": {
+          "enum": [
+            "initial",
+            "followup",
+            "none"
+          ],
+          "title": "Disclosure",
+          "type": "string"
+        },
+        "turn": {
+          "anyOf": [
+            {
+              "maximum": 20,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Turn"
+        }
+      },
+      "required": [
+        "source",
+        "disclosure",
+        "turn"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "model-a-to-b.evidence.v1",
+      "default": "model-a-to-b.evidence.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "research_only": {
+      "const": true,
+      "default": true,
+      "title": "Research Only",
+      "type": "boolean"
+    },
+    "intended_use": {
+      "const": "fictional_demo_evidence_only",
+      "default": "fictional_demo_evidence_only",
+      "title": "Intended Use",
+      "type": "string"
+    },
+    "producer": {
+      "const": "model-a.adapter.v1",
+      "default": "model-a.adapter.v1",
+      "title": "Producer",
+      "type": "string"
+    },
+    "protocol_id": {
+      "const": "medassist-v2-adaptive-questioning-v1",
+      "default": "medassist-v2-adaptive-questioning-v1",
+      "title": "Protocol Id",
+      "type": "string"
+    },
+    "context": {
+      "$ref": "#/$defs/Context"
+    },
+    "context_origin": {
+      "const": "developer_fictional_fixture",
+      "default": "developer_fictional_fixture",
+      "title": "Context Origin",
+      "type": "string"
+    },
+    "initial_evidence_id": {
+      "title": "Initial Evidence Id",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/EvidenceItem"
+      },
+      "maxItems": 223,
+      "minItems": 1,
+      "title": "Items",
+      "type": "array"
+    },
+    "missing_item_semantics": {
+      "const": "unspecified_never_negative",
+      "default": "unspecified_never_negative",
+      "title": "Missing Item Semantics",
+      "type": "string"
+    },
+    "model_b_status": {
+      "const": "not_enabled",
+      "default": "not_enabled",
+      "title": "Model B Status",
+      "type": "string"
+    },
+    "human_clinical_review": {
+      "const": false,
+      "default": false,
+      "title": "Human Clinical Review",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "context",
+    "initial_evidence_id",
+    "items"
+  ],
+  "title": "EvidenceHandoff",
+  "type": "object"
+}

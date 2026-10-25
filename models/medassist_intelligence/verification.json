@@ -1,0 +1,68 @@
+{
+  "task": "MedAssist accelerated intelligence integration",
+  "date": "2026-10-21",
+  "scope": "UI frozen; bounded fictional model/evaluation/governance work only",
+  "created_files": [
+    "models/medassist_intelligence/README.md",
+    "models/medassist_intelligence/__init__.py",
+    "models/medassist_intelligence/candidate-results.json",
+    "models/medassist_intelligence/evaluate.py",
+    "models/medassist_intelligence/extraction-v1.json",
+    "models/medassist_intelligence/extraction-v1.sha256",
+    "models/medassist_intelligence/extraction.py",
+    "models/medassist_intelligence/model-a-smoke.json",
+    "models/medassist_intelligence/model-b-readiness.json",
+    "models/medassist_intelligence/source-binding.json",
+    "models/medassist_intelligence/test_extraction.py",
+    "models/medassist_intelligence/verification.json",
+    "src/features/medassist-intelligence/governance.ts",
+    "scripts/medassist-governance.test.ts"
+  ],
+  "modified_files": [
+    "CHANGELOG.md",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/roadmap.md",
+    "docs/layers/medassist.md",
+    "docs/history/2026-10-21.md"
+  ],
+  "task_file_count": 19,
+  "checks": {
+    "python": {
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 2.185
+    },
+    "node": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.788
+    },
+    "frontend_types": "passed",
+    "governance_test_types": "passed",
+    "production_build": "passed_existing_chunk_warning",
+    "actual_model_a": "model-a-smoke.json",
+    "candidate_screen": "candidate-results.json",
+    "llm_candidates_passing": 0,
+    "live_provider": "unchanged_null",
+    "all_prior_ui_files": "byte_for_byte_unchanged",
+    "frozen_implementation_protocol_environment": "passed",
+    "sealed_artifacts_verified_before_after": 17,
+    "official_test_ledger_access": false,
+    "staging_commit_merge_push": false,
+    "links_json_privacy_inventory_and_git_scope": "passed"
+  },
+  "scientific_limits": [
+    "48 authored cases are development engineering gold, not independent clinical validation",
+    "Two failed first-case screens are not a complete LLM benchmark or reliable accuracy estimate",
+    "No warm p95/TTFT measured; process/API memory telemetry is sampled and approximate",
+    "Qwen3.5 request/parse error category and Qwen3 contract invariant/raw response were not retained",
+    "No provider connected; live positive-only interface and original evidence contract unchanged",
+    "Model B labels/data and independent clinical review remain hard blockers",
+    "No new clinical rules or actual location/provider calls",
+    "Frozen CRLF/LF portability and trusted pickle constraints persist"
+  ],
+  "suite_sha256": "f3a829af1433aaf6a01ab07587aea79c0ffbc572ae8dc3f2cc496b400ca28ba4",
+  "runtime_state": "candidate models unloaded; existing local preview services left unchanged; no new service"
+}

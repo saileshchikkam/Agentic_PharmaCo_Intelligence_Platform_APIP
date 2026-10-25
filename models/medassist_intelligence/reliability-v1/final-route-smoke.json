@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "qualification_blocked_cases": 6,
+  "blocked_request_median_ms": 2.5,
+  "blocked_request_p95_ms": 3.400000035762787,
+  "measured_latency_scope": "six blocked loopback requests; no language inference, not extraction latency or accuracy",
+  "free_text_did_not_create_candidate": true,
+  "ui_layout_changed": false,
+  "actual_model_a": true,
+  "initial_source": "explicit structured button and confirmation",
+  "unknown_preserved": true,
+  "distinct_questions": 2,
+  "handoff_version": "model-a-to-b.evidence.v1",
+  "handoff_items": 223,
+  "model_b": "not_enabled",
+  "selected_provider_pipeline": false
+}

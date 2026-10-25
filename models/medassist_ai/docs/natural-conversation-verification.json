@@ -1,0 +1,151 @@
+{
+  "task": "MedAssist natural conversation, relevance and full-page chat",
+  "local_date": "2026-10-25",
+  "status": "CONDITIONAL_GO_FICTIONAL_ONLY",
+  "clinical_use": "NO_GO",
+  "files_created": [
+    "models/medassist_ai/docs/natural-conversation-verification.json",
+    "models/medassist_ai/docs/natural-conversation.md",
+    "models/medassist_ai/docs/natural-http-observations.json",
+    "models/medassist_ai/docs/natural-language-spot-check.json",
+    "models/medassist_ai/docs/natural-model-a-observations.json",
+    "models/medassist_v2/research_adapter/natural.py",
+    "scripts/medassist-natural-http.ts",
+    "scripts/medassist-natural-live.ts",
+    "scripts/medassist-natural-model-a.py",
+    "scripts/medassist-natural.browser.mjs",
+    "scripts/medassist-natural.test.ts",
+    "src/features/medassist-conversation/natural.ts"
+  ],
+  "files_modified": [
+    "CHANGELOG.md",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/decisions.md",
+    "docs/history/2026-10-25.md",
+    "docs/layers/medassist.md",
+    "docs/roadmap.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_v2/research_adapter/app.py",
+    "scripts/medassist-conversation.test.ts",
+    "scripts/medassist-safety.browser.mjs",
+    "scripts/medassist-safety.test.ts",
+    "server/groq-extraction.ts",
+    "server/medassist-ai.ts",
+    "server/model-a-demo.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist-conversation/README.md",
+    "src/features/medassist-conversation/conversation.css"
+  ],
+  "checks": {
+    "focused_typescript": {
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    },
+    "python_existing_workflow_contract": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    "real_model": {
+      "scenarios": 6,
+      "invalid_transcripts_rejected": 4,
+      "direct_http_checks": 3,
+      "report": "natural-model-a-observations.json"
+    },
+    "actual_loopback": {
+      "report": "natural-http-observations.json",
+      "ninth_routine_question_rejected": true,
+      "unknown_count": 8,
+      "emergency_precedence": true,
+      "external_origin_rejected": true
+    },
+    "browser": {
+      "fictional_transport_fixtures": true,
+      "widths": [
+        320,
+        390,
+        820,
+        1440
+      ],
+      "routine_questions": 8,
+      "document_scrolling": true,
+      "transcript_internal_scroll": false,
+      "composer_visible_at_end": true,
+      "session_export": true,
+      "zero_horizontal_overflow": true,
+      "zero_page_errors": true,
+      "keyboard_enter_shift_enter": true,
+      "pending_emergency_precedence": true
+    },
+    "safety_navigation_browser": {
+      "widths": [
+        390,
+        820,
+        1440
+      ],
+      "offline_emergency": true,
+      "permission_denial": true,
+      "manual_location": true,
+      "network_failure": true,
+      "pending_cancelled": true,
+      "legacy_preview_guard": true,
+      "external_maps_opened": false,
+      "real_location_used": false
+    },
+    "groq": {
+      "actual_requests": 4,
+      "observed_end_to_end_proposals": 2,
+      "predeclared_spot_checks": 2,
+      "spot_checks_exact": 2,
+      "measured_spot_latency_ms": [
+        1132,
+        881
+      ],
+      "profile": "medassist.natural-extraction.v1",
+      "broad_accuracy_claim": false,
+      "original_three_symptom_qualification_unchanged": true
+    },
+    "frontend_typecheck": "passed",
+    "production_build": "passed_with_existing_large_bundle_warning",
+    "final_seal": {
+      "artifacts": 17,
+      "seal_verified": true,
+      "implementation_protocol_match": true,
+      "pinned_environment_match": true,
+      "source_attestations_match": true,
+      "source_archives_opened": false,
+      "locked_test_or_ledger_accessed": false
+    }
+  },
+  "runtime": {
+    "url": "http://127.0.0.1:3000/#/preview/medassist-conversation",
+    "loopback_only": true,
+    "private_configuration_printed": false,
+    "active_preview_services_only": true
+  },
+  "preservation": {
+    "prior_receipts_unchanged": true,
+    "no_training": true,
+    "no_dependency_installation": true,
+    "no_staging": true,
+    "no_commit": true,
+    "no_push": true
+  },
+  "limitations": [
+    "28 anchored concepts are narrower than 110 symptom fields and 96 possible initial symptoms.",
+    "Topic filtering and fixed question phrasing are engineering changes, not clinical validation or improved model accuracy.",
+    "Broader extraction has only four bounded live integration spot checks, not a qualification benchmark.",
+    "Earlier accepted conflicting details require stop/restart; original evidence plus unresolved-conflict block are preserved.",
+    "The frozen study and handoff still permit at most 20 chronological disclosures, separately from eight conversational routine questions.",
+    "Trusted local pickle and exact-byte CRLF/LF protocol portability caveats remain.",
+    "Model B, personalized guidance, clinical specialty routing and verified hospital results remain unavailable."
+  ],
+  "resolved_attempt_issues": [
+    "Restored unchanged original Groq payload after regression test found a context:null addition.",
+    "Sandbox loopback/platform stalls passed with approved local access; only stalled test processes were stopped.",
+    "Updated obsolete source/layout assertions for separate natural transport and document scrolling.",
+    "Replaced premature keyboard-scroll assertion with observed wheel/document-scroll completion.",
+    "Navigation browser check passed after holding the Vite source tree steady."
+  ]
+}

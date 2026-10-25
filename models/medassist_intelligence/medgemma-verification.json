@@ -1,0 +1,74 @@
+{
+  "task": "explicit local MedGemma fictional integration",
+  "date": "2026-10-21",
+  "verdict": "restricted fictional demo functional; general extraction promotion NO-GO",
+  "inventory": [
+    ".env.example",
+    "server/medgemma.ts",
+    "server/model-a-demo.ts",
+    "src/features/medassist-intelligence/medgemma.ts",
+    "src/features/medassist-conversation/ollama.ts",
+    "src/features/medassist-conversation/language.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist-conversation/README.md",
+    "scripts/medgemma.test.ts",
+    "scripts/evaluate-medgemma.ts",
+    "scripts/medgemma.browser.mjs",
+    "models/medassist_intelligence/README.md",
+    "models/medassist_intelligence/medgemma-results.json",
+    "models/medassist_intelligence/medgemma-results-v2.json",
+    "models/medassist_intelligence/medgemma-diagnostic.json",
+    "models/medassist_intelligence/medgemma-protocol-v1.json",
+    "models/medassist_intelligence/medgemma-protocol-v2.json",
+    "models/medassist_intelligence/medgemma-model-a-verification.json",
+    "models/medassist_intelligence/medgemma-browser-smoke.json",
+    "models/medassist_intelligence/medgemma-verification.json",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/history/2026-10-21.md",
+    "CHANGELOG.md"
+  ],
+  "checks": {
+    "node": {
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0
+    },
+    "python": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend_types": "passed",
+    "backend_provider_proxy_types": "passed",
+    "production_build": "passed; existing >500kB client chunk warning",
+    "actual_browser": "medgemma-browser-smoke.json",
+    "sealed_artifacts": 17,
+    "post_integration_seal_hashes": "passed",
+    "protected_local_files": 15,
+    "protected_files_changed": 0,
+    "listeners": "127.0.0.1 only: 11434, 8766, 3000",
+    "official_test_and_ledger": "not accessed",
+    "git": "not staged, committed, merged or pushed"
+  },
+  "execution_limitations": [
+    "Initial restricted-sandbox loopback tests denied/stalled; stopped only own test process, reran with loopback permissions and passed.",
+    "First browser runner used an incorrect End button selector; corrected runner then passed.",
+    "Original system-turn prompt failed 20 cases; separate template-aware revision preserved both runs.",
+    "Final literal guards added after v2 benchmark; actual cough lifecycle and two unsafe regression cases checked, no new full-suite accuracy claim."
+  ],
+  "preservation": {
+    "trusted_pickle": "existing verified local artifact only; unchanged package environment required",
+    "protocol_portability": "preexisting CRLF-local versus LF-Git exact-byte caveat unchanged",
+    "locked_test": "unopened; ledger not read or consumed",
+    "ui": "CSS and shell hashes unchanged; component logic/information text only"
+  },
+  "scope_limits": [
+    "Only one confirmed literal positive initial after explicit user confirmation",
+    "Multiple/negative/unknown/conflicting/duration-bearing ingress cannot bulk-merge into frozen handoff",
+    "Unaccepted extraction proposals kept separately in page memory; not clinical facts",
+    "No Model B, clinical safety, diagnoses, severity, treatment or recommendations",
+    "No downloads, paid APIs or cloud exposure",
+    "Full 48-case acceptance gate remains failed; installed model upstream provenance/terms not independently established"
+  ],
+  "final_guard_sha256": "36ae09e85a90c034aa0b88e84a99847a30fe54fc738911cbba333eda3807c765"
+}

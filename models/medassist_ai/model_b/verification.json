@@ -1,0 +1,80 @@
+{
+  "date_ist": "2026-10-24",
+  "status": "foundation_implemented_live_model_disabled",
+  "tests": {
+    "new_model_b_synthetic_tests_passed": 13,
+    "existing_modular_python_passed": 20,
+    "existing_evidence_workflow_passed": 14,
+    "existing_node_integration_passed": 39,
+    "failed": 0,
+    "skipped": 0
+  },
+  "models_or_estimators_fitted": 0,
+  "clinical_datasets_ingested": 0,
+  "synthetic_tests_are_clinical_performance": false,
+  "active_provider": "unchanged DisabledModelB returns unable_to_assess",
+  "label_schema": "four unapproved provisional classes; separate abstention; no emergency mapping",
+  "training_positive_clinical_path": "not executed: no legitimate dataset or clinical approval established",
+  "calibration": "diagnostic metrics implemented; no calibrator fitted or threshold optimized",
+  "registry": "research-only JSON metadata; no trained weights created, loaded or enabled",
+  "typed_input_limitation": "numeric/binary evidence v1; categorical/multichoice require a separately reviewed mapping",
+  "preservation": {
+    "sealed_model_a_artifacts_matched": 17,
+    "seal_digest_matched": true,
+    "frozen_files_checked": 13,
+    "frozen_changes": [],
+    "existing_application_and_component_files_checked": 106,
+    "existing_component_changes": [],
+    "jayanth_archived_files_match": true,
+    "model_b_active_provider": "unchanged_disabled",
+    "official_locked_test_and_ledger": "not accessed",
+    "models_trained": 0,
+    "cloud_requests": 0
+  },
+  "preexisting_work_files_checked": 224,
+  "intentional_existing_changes": [
+    "CHANGELOG.md",
+    "docs/history/2026-10-24.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_ai/model_b/README.md"
+  ],
+  "unexpected_existing_changes": [],
+  "files_created": [
+    "models/medassist_ai/model_b/data.py",
+    "models/medassist_ai/model_b/evaluation.py",
+    "models/medassist_ai/model_b/label-schema.v1.json",
+    "models/medassist_ai/model_b/preservation.json",
+    "models/medassist_ai/model_b/readiness-before.json",
+    "models/medassist_ai/model_b/splitting.py",
+    "models/medassist_ai/model_b/tests/__init__.py",
+    "models/medassist_ai/model_b/tests/test_foundation.py",
+    "models/medassist_ai/model_b/training.py",
+    "models/medassist_ai/model_b/verification.json"
+  ],
+  "files_modified": [
+    "CHANGELOG.md",
+    "docs/history/2026-10-24.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_ai/model_b/README.md"
+  ],
+  "secret_pattern_findings": [],
+  "broken_checked_links": [],
+  "head_unchanged": true,
+  "staged_files": [],
+  "committed_or_pushed": false,
+  "next_training_requirements": [
+    "Qualified approved four-label definitions, intended use/population and emergency mapping if used",
+    "Rights-cleared task-matched urgency data, source and alignment documents",
+    "Qualified adjudication provenance and record-level references; never disease-proxy or synthetic targets",
+    "Reviewed prediction-time features and typed mappings",
+    "Patient/encounter/source grouping, adequate class/subgroup support and immutable held-out plan",
+    "Prospective evaluation/calibration/abstention/emergency-safety criteria and explicit research training authorization"
+  ],
+  "remaining_release_gates": [
+    "Independent held-out/external evaluation and clinical safety review",
+    "Trusted persistence/runtime, privacy/access/security and explicit release authorization"
+  ],
+  "clinical_performance_claims": false
+}

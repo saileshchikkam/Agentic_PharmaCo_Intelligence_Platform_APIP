@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "actual_local_llm": true,
+  "selected_provider_pipeline": false,
+  "unqualified_extraction_withheld": true,
+  "model": "medgemma1.5:latest",
+  "extraction_ms": 16586.18,
+  "actual_model_a": true,
+  "initial_source": "independent_authored_structured_confirmation",
+  "questions": [
+    "E_53",
+    "E_79"
+  ],
+  "unknown_preserved": true,
+  "duplicate_question_prevented": true,
+  "handoff_items": 223,
+  "handoff_version": "model-a-to-b.evidence.v1",
+  "model_b": "not_enabled",
+  "locked_test_and_ledger": "not_accessed"
+}

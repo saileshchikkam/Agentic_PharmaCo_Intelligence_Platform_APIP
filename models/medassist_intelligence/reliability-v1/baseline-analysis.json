@@ -1,0 +1,71 @@
+{
+  "source": "../medgemma-results-v2.json",
+  "groups": {
+    "single": {
+      "n": 5,
+      "semantic_correct": 5,
+      "schema_valid": 5,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "runtime_rejected": 0,
+      "wrong_bridge": []
+    },
+    "multiple": {
+      "n": 3,
+      "semantic_correct": 1,
+      "schema_valid": 3,
+      "unsupported_assertions": 0,
+      "polarity_errors": 1,
+      "runtime_rejected": 1,
+      "wrong_bridge": []
+    },
+    "negation": {
+      "n": 3,
+      "semantic_correct": 0,
+      "schema_valid": 3,
+      "unsupported_assertions": 0,
+      "polarity_errors": 3,
+      "runtime_rejected": 3,
+      "wrong_bridge": []
+    },
+    "uncertainty": {
+      "n": 4,
+      "semantic_correct": 0,
+      "schema_valid": 4,
+      "unsupported_assertions": 4,
+      "polarity_errors": 0,
+      "runtime_rejected": 3,
+      "wrong_bridge": [
+        "fictional-31"
+      ]
+    },
+    "adversarial": {
+      "n": 3,
+      "semantic_correct": 0,
+      "schema_valid": 3,
+      "unsupported_assertions": 4,
+      "polarity_errors": 2,
+      "runtime_rejected": 1,
+      "wrong_bridge": [
+        "fictional-47"
+      ]
+    },
+    "typed_duration": {
+      "n": 2,
+      "semantic_correct": 0,
+      "schema_valid": 2,
+      "unsupported_assertions": 2,
+      "polarity_errors": 0,
+      "runtime_rejected": 2,
+      "wrong_bridge": []
+    }
+  },
+  "limits": [
+    "All 20 expected outcomes are expressible; unsupported/duration cases have explicit clarification targets.",
+    "Original raw v2 responses were not retained; cannot attribute every status/type/span error precisely.",
+    "The v2 30% semantic score excludes quote exactness; 5% exact output also penalizes quote choice.",
+    "Two wrong bridges predated final literal guards; separate later regressions rejected them.",
+    "Current 48-case schema additionally includes conditional numeric E_56; not used by this 20-case subset.",
+    "No valid mapping from duration to frozen Model A evidence exists."
+  ]
+}

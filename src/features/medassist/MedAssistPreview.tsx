@@ -3,6 +3,8 @@ import { M3Button, M3Checkbox, M3TextField } from '../../components/material/cor
 import { emptyAnswers, hospitalSearchUrl, labels, prompts, readSuggestions, steps } from './flow';
 import type { Answers, Field, Language } from './flow';
 import { copy } from './copy';
+import { evaluateStatement, type SafetyDecision } from '../medassist-safety/safety';
+import HospitalNavigation from '../medassist-safety/HospitalNavigation';
 import './medassist.css';
 
 export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
@@ -20,6 +22,8 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
   const [confirmed, setConfirmed] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [emergency, setEmergency] = useState<SafetyDecision | null>(null);
+  const safetyLatch = useRef(false);
   const [resetOpen, setResetOpen] = useState(false);
   const [resetVersion, setResetVersion] = useState(0);
   const [location, setLocation] = useState('');
@@ -59,8 +63,18 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
   }, [hasAnswers, t.leave]);
 
   const cancel = () => { generation.current++; request.current?.abort(); setBusy(false); };
+  const escalate = (text: string) => {
+    const decision = evaluateStatement(text);
+    if (decision.status !== 'escalate') return false;
+    if (!safetyLatch.current) {
+      safetyLatch.current = true; cancel(); geoGeneration.current++; setLocating(false);
+      setEmergency(decision); setSuggestions(null); setError(''); setDraft('');
+    }
+    return true;
+  };
   const clearAi = () => { cancel(); setSuggestions(null); setConfirmed(false); setError(''); setConsent(false); };
   const answer = (value: string | null) => {
+    if (escalate(value ?? '') || safetyLatch.current) return;
     clearAi(); setAnswers((current) => ({ ...current, [field]: value })); setDraft('');
     if (editing || index === steps.length - 1) { setReview(true); setEditing(false); }
     else setIndex(index + 1);
@@ -69,6 +83,8 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     clearAi(); setIndex(steps.indexOf(item)); setDraft(answers[item] ?? ''); setEditing(true); setReview(false);
   };
   const reset = () => {
+    safetyLatch.current = false; setEmergency(null);
+    geoGeneration.current++; setLocation(''); setLocationStatus(''); setLocating(false);
     opening.current = true;
     clearAi(); setAnswers(emptyAnswers()); setIndex(0); setReview(false); setEditing(false); setDraft(''); setResetOpen(false);
     setResetVersion((version) => version + 1);
@@ -82,6 +98,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     else { setIndex(index - 1); setDraft(answers[steps[index - 1]] ?? ''); }
   };
   const analyse = async () => {
+    if (escalate(Object.values(answers).filter(v => v !== null).join('. ')) || safetyLatch.current) return;
     if (!consent || busy) return;
     const id = ++generation.current;
     const controller = new AbortController();
@@ -125,6 +142,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
   return <>{renderNavigation(back, backLabel)}
   <section className="medassist-preview" lang={language} aria-labelledby="medassist-title">
     <div className="medassist-preview-topline">
+      <M3Button variant="outlined" onClick={() => escalate('I need emergency help')}>Emergency help</M3Button>
       <a href="#medassist-care" className="access-text-link" onClick={(event) => {
         event.preventDefault(); document.getElementById('medassist-care')?.focus(); document.getElementById('medassist-care')?.scrollIntoView({ block: 'start' });
       }}>{t.care}<span className="material-symbols-outlined" aria-hidden="true">location_on</span></a>
@@ -135,7 +153,11 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     </header>
     <div className="medassist-preview-notice" role="note"><span className="material-symbols-outlined" aria-hidden="true">info</span><p>{t.notice}</p></div>
 
-    {!review && <>
+    {emergency && <section role="alert" aria-label="Emergency help"><h2>Emergency help</h2>
+      <p>{emergency.guidance}</p><p>Provisional statement guard · not clinically validated. Ordinary questions and self-care are paused.</p>
+      <p>For a real emergency only: <a href="tel:112">Call 112 in India</a>. Elsewhere use your local emergency number. Do not place test calls for fictional cases.</p>
+      <HospitalNavigation emergency={true} /></section>}
+    {!emergency && !review && <>
       <div ref={log} className="medassist-conversation" role="log" aria-label="Symptom conversation">
         <p className="medassist-empty-hint">{t.welcome}</p>
         {steps.slice(0, index).map((item) => <React.Fragment key={item}>
@@ -147,7 +169,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
       <form className="medassist-composer" onSubmit={(event) => { event.preventDefault(); if (draft.trim()) answer(draft); }}>
         <p className="medassist-step">{index + 1} / {steps.length} · {labels[language][field]}</p>
         <M3TextField id="medassist-message" label={t.answer} type="textarea" rows={3} value={draft} maxLength={1200}
-          onChange={(event) => setDraft(event.target.value)} />
+          onChange={(event) => { if (!escalate(event.target.value) && !safetyLatch.current) setDraft(event.target.value); }} />
         <div className="medassist-composer-footer"><span>{t.helper}</span><div className="medassist-actions">
           {index > 0 && <M3Button variant="text" onClick={() => answer(null)}>{t.unknown}</M3Button>}
           <M3Button type="submit" trailingIcon="arrow_forward" disabled={!draft.trim()}>{editing || index === 3 ? t.reviewAction : t.next}</M3Button>
@@ -155,7 +177,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
       </form>
     </>}
 
-    {review && <section className="medassist-review" aria-labelledby="medassist-review-title">
+    {!emergency && review && <section className="medassist-review" aria-labelledby="medassist-review-title">
       <h2 id="medassist-review-title" tabIndex={-1}>{t.review}</h2><p>{t.reviewIntro}</p>
       <dl className="medassist-summary">{steps.map((item) => <div key={item}>
         <dt>{labels[language][item]}</dt><dd>{answers[item] ?? t.unknownValue}</dd>
@@ -177,7 +199,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
       <div className="medassist-assessment"><span className="material-symbols-outlined" aria-hidden="true">pending</span><div><h3>{t.assessment}</h3><p>{t.assessmentDetail}</p></div></div>
     </section>}
 
-    <section id="medassist-care" className="medassist-care" tabIndex={-1} aria-labelledby="medassist-care-title">
+    {!emergency && <section id="medassist-care" className="medassist-care" tabIndex={-1} aria-labelledby="medassist-care-title">
       <h2 id="medassist-care-title">{t.care}</h2><p>{t.careIntro}</p>
       <M3TextField id="medassist-location" label={t.locality} value={location} maxLength={180} onChange={(event) => {
         geoGeneration.current++; setLocating(false); setLocation(event.target.value); setLocationStatus('');
@@ -187,8 +209,8 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
       <p role="status" className="medassist-status">{locationStatus}</p>
       {mapUrl && <a className="medassist-maps-link" href={mapUrl} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer">{t.maps}<span className="material-symbols-outlined" aria-hidden="true">open_in_new</span></a>}
       <p className="medassist-privacy">{t.mapsPrivacy}</p>
-    </section>
-    {hasAnswers && <div className="medassist-reset"><M3Button variant="text" leadingIcon="add_comment" onClick={() => setResetOpen(true)}>{t.restart}</M3Button>
+    </section>}
+    {(hasAnswers || emergency) && <div className="medassist-reset"><M3Button variant="text" leadingIcon="add_comment" onClick={() => setResetOpen(true)}>{t.restart}</M3Button>
       {resetOpen && <div className="medassist-reset-confirm" role="alert"><p>{t.resetPrompt}</p><div className="medassist-actions"><M3Button variant="text" onClick={() => setResetOpen(false)}>{t.cancel}</M3Button><M3Button variant="outlined" onClick={reset}>{t.resetConfirm}</M3Button></div></div>}</div>}
     <aside className="medassist-adr-link"><div><h2>{t.report}</h2><p>{t.reportIntro}</p></div><M3Button variant="outlined" trailingIcon="arrow_forward" onClick={onOpenAdr}>{t.openAdr}</M3Button></aside>
   </section></>;

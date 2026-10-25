@@ -1,0 +1,2661 @@
+{
+  "summary": {
+    "suite_sha256": "0c79de4f464ee51950e5d28eae0dcd3e853243b8549fb290d250f7add66444a6",
+    "cases": 115,
+    "fictional_only": true,
+    "clinical_accuracy": false,
+    "method": "deterministic normalization + strict proposal validation; no LLM calls",
+    "true_positive_mappings": 82,
+    "false_positive_mappings": 1,
+    "missed_mappings": 1,
+    "concept_precision": 0.9879518072289156,
+    "concept_recall": 0.9879518072289156,
+    "evidence_exact": {
+      "correct": 113,
+      "total": 115
+    },
+    "negation": {
+      "correct": 9,
+      "total": 10
+    },
+    "question_answer": {
+      "correct": 15,
+      "total": 16
+    },
+    "unsupported_abstention": {
+      "correct": 8,
+      "total": 8
+    },
+    "emergency_preservation": {
+      "correct": 113,
+      "total": 115
+    },
+    "context_annotations": {
+      "correct": 114,
+      "total": 115
+    },
+    "deterministic_complete": 115,
+    "failed_ids": [
+      "nlp-040",
+      "nlp-089",
+      "nlp-100",
+      "nlp-114",
+      "nlp-115"
+    ]
+  },
+  "rows": [
+    {
+      "id": "nlp-001",
+      "text": "I have a cough.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-002",
+      "text": "I am coughing.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-003",
+      "text": "I coughed today.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-004",
+      "text": "I have been coughing.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-005",
+      "text": "I have a persistent cough.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-006",
+      "text": "I keep coughing.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-007",
+      "text": "I have a couhg.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-008",
+      "text": "I am coughng.",
+      "category": "cough_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-009",
+      "text": "I have stomach pain.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-010",
+      "text": "My head hurts.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-011",
+      "text": "My stomach has hurt since yesterday.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-012",
+      "text": "My lower back has been aching for three days.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-013",
+      "text": "My headache started this morning.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-014",
+      "text": "I have abdominal pain.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-015",
+      "text": "I have a belly ache.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-016",
+      "text": "I have a head ache.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-017",
+      "text": "My head is hurting.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-018",
+      "text": "My back aches.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-019",
+      "text": "I have a stomache ache.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-020",
+      "text": "I have a headach.",
+      "category": "pain_variation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-021",
+      "text": "I feel nauseous.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-022",
+      "text": "I have nausea.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-023",
+      "text": "I am feeling sick to my stomach.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-024",
+      "text": "I feel like vomiting.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-025",
+      "text": "I feel like throwing up.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-026",
+      "text": "I have diarrhoea.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-027",
+      "text": "I have diarhea.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-028",
+      "text": "I have a fever.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-029",
+      "text": "I feel feverish.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-030",
+      "text": "I have a sore throat.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-031",
+      "text": "My throat feels sore.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-032",
+      "text": "I have a clear runny nose.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_181",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_181",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-033",
+      "text": "I have nasal congestion.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_181",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_181",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-034",
+      "text": "I have yellow nasal discharge.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_182",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_182",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-035",
+      "text": "I have chills.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_94",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_94",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-036",
+      "text": "I have a rash.",
+      "category": "synonym",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_129",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_129",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-037",
+      "text": "I am not coughing.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-038",
+      "text": "I have no cough.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-039",
+      "text": "I don't have a fever.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-040",
+      "text": "I haven't had a fever.",
+      "category": "negation",
+      "evidence_exact": false,
+      "observations": [],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-041",
+      "text": "I have no stomach pain.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-042",
+      "text": "I deny nausea.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-043",
+      "text": "I do not have diarrhea.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-044",
+      "text": "I am without a sore throat.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-045",
+      "text": "I have no rash.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_129",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_129",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-046",
+      "text": "I can breathe normally.",
+      "category": "negation",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_66",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_66",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-047",
+      "text": "I am not sure about a cough.",
+      "category": "unknown",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-048",
+      "text": "Maybe I have a fever.",
+      "category": "unknown",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_91",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-049",
+      "text": "I might have nausea.",
+      "category": "unknown",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-050",
+      "text": "I don't know whether I have a headache.",
+      "category": "unknown",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_53",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-051",
+      "text": "I am unsure about diarrhea.",
+      "category": "unknown",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_51",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-052",
+      "text": "I used to cough, but it stopped.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-053",
+      "text": "I had a cough last year.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-054",
+      "text": "My headache has resolved.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-055",
+      "text": "I had a fever yesterday but it is gone now.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-056",
+      "text": "I no longer have nausea.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-057",
+      "text": "I had stomach pain as a child.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-058",
+      "text": "The rash cleared up last week.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-059",
+      "text": "I recovered from diarrhea.",
+      "category": "historical_resolved",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-060",
+      "text": "My brother is coughing.",
+      "category": "third_party",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-061",
+      "text": "My mother has a headache.",
+      "category": "third_party",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-062",
+      "text": "My friend has nausea.",
+      "category": "third_party",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-063",
+      "text": "My sister has a fever.",
+      "category": "third_party",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-064",
+      "text": "My father has stomach pain.",
+      "category": "third_party",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-065",
+      "text": "My son has a sore throat.",
+      "category": "third_party",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-066",
+      "text": "What if I develop a cough?",
+      "category": "hypothetical",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-067",
+      "text": "If I had a fever, what would happen?",
+      "category": "hypothetical",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-068",
+      "text": "Suppose I had nausea.",
+      "category": "hypothetical",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-069",
+      "text": "Imagine I have stomach pain.",
+      "category": "hypothetical",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-070",
+      "text": "I think I have cancer.",
+      "category": "suspected_diagnosis",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-071",
+      "text": "I think I have a tumor in my breast.",
+      "category": "suspected_diagnosis",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-072",
+      "text": "Could this be pneumonia?",
+      "category": "suspected_diagnosis",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-073",
+      "text": "I am worried about a heart attack.",
+      "category": "suspected_diagnosis",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-074",
+      "text": "I have a lump in my breast.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-075",
+      "text": "I am feeling sick.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-076",
+      "text": "I have a runny nose.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-077",
+      "text": "I have nasal discharge.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-078",
+      "text": "I have shortness of breath.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-079",
+      "text": "I have difficulty breathing.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-080",
+      "text": "My ankle feels odd.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-081",
+      "text": "Bright lights make things worse.",
+      "category": "unsupported_or_ambiguous",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-082",
+      "text": "I have diarrhea and nausea, but I haven't vomited.",
+      "category": "multiple",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_51",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-083",
+      "text": "I have a cough and a fever.",
+      "category": "multiple",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-084",
+      "text": "I have a cough but no fever.",
+      "category": "multiple",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-085",
+      "text": "I have nausea but no stomach pain.",
+      "category": "multiple",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-086",
+      "text": "My brother has a cough. I have a fever.",
+      "category": "multiple",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-087",
+      "text": "I used to cough. I have nausea today.",
+      "category": "multiple",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-088",
+      "text": "I have a cough but I do not have a cough.",
+      "category": "contradiction",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "contradiction",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "contradiction",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-089",
+      "text": "I have a fever. Actually, I do not have a fever.",
+      "category": "correction",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_91",
+          "state": "contradiction",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_91",
+          "state": "contradiction",
+          "value": null
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": false,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-090",
+      "text": "My cough is worse at night.",
+      "category": "temporal",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_219",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_219",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-091",
+      "text": "I've been coughing for three days.",
+      "category": "temporal",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-092",
+      "text": "It's mostly a dry cough. I can breathe normally.",
+      "category": "temporal",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_66",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_66",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-093",
+      "text": "I have significant shortness of breath.",
+      "category": "qualified",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_66",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_66",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-094",
+      "text": "I have repeated vomiting.",
+      "category": "qualified",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_211",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_211",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-095",
+      "text": "I have constant fatigue.",
+      "category": "qualified",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_89",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_89",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-096",
+      "text": "I have body aches.",
+      "category": "qualified",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_175",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_175",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-097",
+      "text": "anus",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "ambiguous",
+      "expected_compatibility": "ambiguous",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-098",
+      "text": "posterior aspect of the ankle",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "ambiguous",
+      "expected_compatibility": "ambiguous",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-099",
+      "text": "It radiates to my left ankle.",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_57",
+          "state": "confirmed",
+          "value": [
+            "V_35"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_57",
+          "state": "confirmed",
+          "value": [
+            "V_35"
+          ]
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-100",
+      "text": "I also have pain in my anus.",
+      "category": "question_answer",
+      "evidence_exact": false,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_22"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_22"
+          ]
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-101",
+      "text": "anus",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "unrelated",
+      "expected_compatibility": "unrelated",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-102",
+      "text": "7",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_56",
+          "state": "confirmed",
+          "value": 7
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_56",
+          "state": "confirmed",
+          "value": 7
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-103",
+      "text": "severe",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "ambiguous",
+      "expected_compatibility": "ambiguous",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-104",
+      "text": "Not sure",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_55",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_55",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-105",
+      "text": "none of these",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": []
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": []
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-106",
+      "text": "no",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "ambiguous",
+      "expected_compatibility": "ambiguous",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-107",
+      "text": "Yes",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-108",
+      "text": "No",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_201",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-109",
+      "text": "I feel nauseous.",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_148",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "compatibility": "unrelated",
+      "expected_compatibility": "unrelated",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-110",
+      "text": "right ankle",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_34"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_34"
+          ]
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-111",
+      "text": "left ankle",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_35"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_35"
+          ]
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-112",
+      "text": "lumbar spine",
+      "category": "question_answer",
+      "evidence_exact": true,
+      "observations": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_40"
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "evidence_id": "E_55",
+          "state": "confirmed",
+          "value": [
+            "V_40"
+          ]
+        }
+      ],
+      "compatibility": "valid",
+      "expected_compatibility": "valid",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-113",
+      "text": "I cannot breathe",
+      "category": "emergency",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": true
+    },
+    {
+      "id": "nlp-114",
+      "text": "I am having a heart attack",
+      "category": "emergency",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": false
+    },
+    {
+      "id": "nlp-115",
+      "text": "I am having a stroke",
+      "category": "emergency",
+      "evidence_exact": true,
+      "observations": [],
+      "expected": [],
+      "compatibility": "not_applicable",
+      "expected_compatibility": "not_applicable",
+      "annotations_correct": true,
+      "validation_failed": false,
+      "complete_deterministic": true,
+      "safety_correct": false
+    }
+  ]
+}

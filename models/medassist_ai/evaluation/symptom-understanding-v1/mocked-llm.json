@@ -1,0 +1,117 @@
+{
+  "fictional_only": true,
+  "model_calls": 0,
+  "method": "manually authored mocked provider outputs + real validation/context gates",
+  "cases": 20,
+  "passed": 20,
+  "clinical_accuracy": false,
+  "rows": [
+    {
+      "id": "mock-01",
+      "passed": true,
+      "accepted_evidence_ids": []
+    },
+    {
+      "id": "mock-02",
+      "passed": true,
+      "accepted_evidence_ids": []
+    },
+    {
+      "id": "mock-03",
+      "passed": true,
+      "accepted_evidence_ids": []
+    },
+    {
+      "id": "mock-04",
+      "passed": true,
+      "accepted_evidence_ids": []
+    },
+    {
+      "id": "mock-05",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-06",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-07",
+      "passed": true,
+      "accepted_evidence_ids": [
+        "E_51",
+        "E_148"
+      ]
+    },
+    {
+      "id": "mock-08",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-09",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-10",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-11",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-12",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-13",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-14",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-15",
+      "passed": true,
+      "accepted_evidence_ids": []
+    },
+    {
+      "id": "mock-16",
+      "passed": true,
+      "accepted_evidence_ids": null
+    },
+    {
+      "id": "mock-17",
+      "passed": true,
+      "accepted_evidence_ids": [
+        "E_57"
+      ]
+    },
+    {
+      "id": "mock-18",
+      "passed": true,
+      "accepted_evidence_ids": [
+        "E_201"
+      ]
+    },
+    {
+      "id": "mock-19",
+      "passed": true,
+      "accepted_evidence_ids": []
+    },
+    {
+      "id": "mock-20",
+      "passed": true,
+      "accepted_evidence_ids": null
+    }
+  ]
+}

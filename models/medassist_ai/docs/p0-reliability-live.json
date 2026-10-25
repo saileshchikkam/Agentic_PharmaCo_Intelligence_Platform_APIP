@@ -1,0 +1,191 @@
+{
+  "started": "2026-10-25T15:08:46.371Z",
+  "completed": "2026-10-25T15:08:53.020Z",
+  "actual_groq": true,
+  "actual_model_a": true,
+  "rows": [
+    {
+      "case": 1,
+      "at": "2026-10-25T15:08:48.857Z",
+      "fictional_text": "Hi, I've been coughing for three days. I also have a mild fever and feel tired, especially at night.",
+      "http_status": 200,
+      "elapsed_ms": 2004,
+      "request_id": "9b485d6a-223e-4483-a15e-2bec9dce2c3c",
+      "extraction": {
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "quote": "I've been coughing for three days",
+            "state": "confirmed",
+            "value": true
+          },
+          {
+            "evidence_id": "E_91",
+            "quote": "I also have a mild fever",
+            "state": "confirmed",
+            "value": true
+          }
+        ],
+        "schema_version": "medassist.natural-extraction.v1",
+        "unmapped": [
+          {
+            "kind": "duration",
+            "quote": "for three days"
+          },
+          {
+            "kind": "unsupported",
+            "quote": "feel tired, especially at night"
+          }
+        ]
+      },
+      "user_bubbles": 1,
+      "confirmation": true,
+      "model_a": {
+        "http_status": 200,
+        "question_id": "E_181",
+        "question": "Do you have nasal congestion or a clear runny nose?",
+        "exported_items": 223,
+        "model_b_status": "not_enabled",
+        "handoff_observations": [
+          {
+            "id": "E_201",
+            "status": "observed_positive",
+            "value": true
+          },
+          {
+            "id": "E_91",
+            "status": "observed_positive",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "case": 2,
+      "at": "2026-10-25T15:08:51.190Z",
+      "fictional_text": "I've had stomach pain since yesterday evening. I feel like vomiting, but I haven't actually vomited.",
+      "http_status": 502,
+      "elapsed_ms": 1589,
+      "request_id": "3ecee74d-c153-4fd1-bbe4-79c610d3fe7c",
+      "extraction": {
+        "error": "INVALID_STRUCTURED_OUTPUT",
+        "source": "application_validation"
+      },
+      "user_bubbles": 1,
+      "confirmation": false,
+      "model_a": null
+    },
+    {
+      "case": 3,
+      "at": "2026-10-25T15:08:52.802Z",
+      "fictional_text": "My head has been hurting since this morning, and bright lights make it worse. I don't have a fever.",
+      "http_status": 429,
+      "elapsed_ms": 148,
+      "request_id": "46925b02-5695-4999-a2a8-936b5b803e55",
+      "extraction": {
+        "error": "RATE_LIMITED",
+        "source": "groq"
+      },
+      "user_bubbles": 1,
+      "confirmation": false,
+      "model_a": null
+    },
+    {
+      "case": 4,
+      "at": "2026-10-25T15:08:52.984Z",
+      "fictional_text": "I am coughing.",
+      "http_status": 429,
+      "elapsed_ms": 21,
+      "request_id": "ce614a33-f38b-4912-b57d-33b775af59b2",
+      "extraction": {
+        "error": "RATE_LIMITED",
+        "source": "groq"
+      },
+      "user_bubbles": 1,
+      "confirmation": false,
+      "model_a": null
+    }
+  ],
+  "diagnostics": {
+    "model": "qwen/qwen3.8-27b",
+    "calls": 3,
+    "active": false,
+    "blocked": null,
+    "cooldown_until": 1792940971944,
+    "application_caps": {
+      "per_minute": 4,
+      "per_process": 20
+    },
+    "attempts": [
+      {
+        "at": "2026-10-25T15:08:48.900Z",
+        "status": 200,
+        "latency_ms": 1919,
+        "category": null,
+        "source": "groq",
+        "request_id": "req_01m5sspwb4eqpsj9spm32v7ptv",
+        "usage": {
+          "prompt_tokens": 1732,
+          "completion_tokens": 645,
+          "total_tokens": 2377
+        },
+        "finish_reason": "stop",
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-remaining-tokens": "6127",
+          "x-ratelimit-reset-requests": "1m26.4s",
+          "x-ratelimit-reset-tokens": "14.047s"
+        },
+        "retry_after_ms": null,
+        "validation": null
+      },
+      {
+        "at": "2026-10-25T15:08:51.205Z",
+        "status": 200,
+        "latency_ms": 1567,
+        "category": "INVALID_STRUCTURED_OUTPUT",
+        "source": "application_validation",
+        "request_id": "req_01m5sspy8qev9tkdg7gc828hg7",
+        "usage": {
+          "prompt_tokens": 1729,
+          "completion_tokens": 645,
+          "total_tokens": 2374
+        },
+        "finish_reason": "stop",
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "998",
+          "x-ratelimit-remaining-tokens": "3942",
+          "x-ratelimit-reset-requests": "2m52.8s",
+          "x-ratelimit-reset-tokens": "49.559s"
+        },
+        "retry_after_ms": null,
+        "validation": "SCHEMA_OR_EVIDENCE_VALIDATION"
+      },
+      {
+        "at": "2026-10-25T15:08:52.817Z",
+        "status": 429,
+        "latency_ms": 128,
+        "category": "RATE_LIMITED",
+        "source": "groq",
+        "request_id": "req_01m5sspztweb89mn9z56pv9fk2",
+        "usage": {},
+        "finish_reason": null,
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "998",
+          "x-ratelimit-remaining-tokens": "3723",
+          "x-ratelimit-reset-requests": "2m52.8s",
+          "x-ratelimit-reset-tokens": "32.077s"
+        },
+        "retry_after_ms": 39000,
+        "validation": null
+      }
+    ]
+  }
+}

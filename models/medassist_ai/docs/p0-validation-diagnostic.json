@@ -1,0 +1,71 @@
+{
+  "fictional_only": true,
+  "at": "2026-10-25T15:11:18.532Z",
+  "one_diagnostic_request": true,
+  "outcome": {
+    "error": "INVALID_STRUCTURED_OUTPUT"
+  },
+  "structured_output": {
+    "instruction_attempt": false,
+    "observations": [
+      {
+        "evidence_id": "E_53",
+        "quote": "I've had stomach pain since yesterday evening",
+        "state": "confirmed",
+        "value": true
+      },
+      {
+        "evidence_id": "E_148",
+        "quote": "I feel like vomiting",
+        "state": "confirmed",
+        "value": true
+      },
+      {
+        "evidence_id": "E_211",
+        "quote": "I haven't actually vomited",
+        "state": "confirmed",
+        "value": false
+      }
+    ],
+    "schema_version": "medassist.natural-extraction.v1",
+    "unmapped": []
+  },
+  "diagnostics": {
+    "model": "qwen/qwen3.8-27b",
+    "calls": 1,
+    "active": false,
+    "blocked": null,
+    "cooldown_until": null,
+    "application_caps": {
+      "per_minute": 4,
+      "per_process": 20
+    },
+    "attempts": [
+      {
+        "at": "2026-10-25T15:11:16.464Z",
+        "status": 200,
+        "latency_ms": 2068,
+        "category": "INVALID_STRUCTURED_OUTPUT",
+        "source": "application_validation",
+        "request_id": "req_01m5ssvcj9ef2v33jwmmbdrzbp",
+        "application_request_id": null,
+        "usage": {
+          "prompt_tokens": 1729,
+          "completion_tokens": 645,
+          "total_tokens": 2374
+        },
+        "finish_reason": "stop",
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "998",
+          "x-ratelimit-remaining-tokens": "5626",
+          "x-ratelimit-reset-requests": "2m52.8s",
+          "x-ratelimit-reset-tokens": "17.805s"
+        },
+        "retry_after_ms": null,
+        "validation": "VALIDATION_UNSUPPORTED_ANCHOR"
+      }
+    ]
+  }
+}

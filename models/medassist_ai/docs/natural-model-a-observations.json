@@ -1,0 +1,100 @@
+{
+  "fictional_only": true,
+  "scenarios": [
+    {
+      "scenario": "cough",
+      "unfiltered_first_id": "E_53",
+      "filtered_sequence": [
+        "E_181",
+        "E_77",
+        "E_97",
+        "E_103",
+        "E_212",
+        "E_203",
+        "E_182",
+        "E_219"
+      ],
+      "stop": "question_budget",
+      "answered": 8,
+      "handoff_items": 223
+    },
+    {
+      "scenario": "diarrhea",
+      "unfiltered_first_id": "E_53",
+      "filtered_sequence": [
+        "E_148",
+        "E_161",
+        "E_211",
+        "E_30",
+        "E_173",
+        "E_32",
+        "E_150"
+      ],
+      "stop": "no_eligible_questions",
+      "answered": 7,
+      "handoff_items": 223
+    },
+    {
+      "scenario": "rash",
+      "unfiltered_first_id": "E_130",
+      "filtered_sequence": [
+        "E_130",
+        "E_133",
+        "E_135",
+        "E_132",
+        "E_134",
+        "E_136",
+        "E_151",
+        "E_131"
+      ],
+      "stop": "question_budget",
+      "answered": 8,
+      "handoff_items": 223
+    },
+    {
+      "scenario": "fever-and-cough",
+      "unfiltered_first_id": "E_53",
+      "filtered_sequence": [
+        "E_181",
+        "E_97",
+        "E_77",
+        "E_50",
+        "E_212",
+        "E_161",
+        "E_103",
+        "E_94"
+      ],
+      "stop": "question_budget",
+      "answered": 8,
+      "handoff_items": 223
+    },
+    {
+      "scenario": "user-stop",
+      "unfiltered_first_id": "E_53",
+      "filtered_sequence": [
+        "E_51"
+      ],
+      "stop": "user_stopped",
+      "answered": 1,
+      "handoff_items": 223
+    },
+    {
+      "scenario": "conflict",
+      "unfiltered_first_id": "E_53",
+      "filtered_sequence": [
+        "E_181"
+      ],
+      "stop": "unresolved_contradiction",
+      "answered": 1,
+      "handoff_items": 223
+    }
+  ],
+  "invalid_transcripts_rejected": 4,
+  "http_checks": 3,
+  "seal_verified_before_after": true,
+  "sealed_artifact_count": 17,
+  "symptom_fields": 110,
+  "initial_symptoms": 96,
+  "locked_test_or_ledger_accessed": false,
+  "clinical_performance_claim": false
+}

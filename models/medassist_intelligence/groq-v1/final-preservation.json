@@ -1,0 +1,13 @@
+{
+  "protected_files": 30,
+  "intentional_provider_logic_and_privacy_copy_changes": [
+    "src/features/medassist-conversation/MedAssistConversation.tsx"
+  ],
+  "unexpected_changes": [],
+  "sealed_artifacts_matched": 17,
+  "sealed_artifacts_expected": 17,
+  "seal_digest_matched": true,
+  "official_test_and_ledger": "not accessed; no emptiness claim from current inspection",
+  "frozen_protocol_and_implementation": "unchanged against task-start hashes",
+  "checked_at": "2026-10-23T00:00:34.393650+05:30"
+}

@@ -1,0 +1,59 @@
+{
+  "fictional_only": true,
+  "profile": "medassist.natural-extraction.v1",
+  "purpose": "predeclared two-case engineering spot check; not broad accuracy or clinical qualification",
+  "observations": [
+    {
+      "fictional_text": "I have a rash, but no fever.",
+      "status": 200,
+      "latency_ms": 1132,
+      "validated": true,
+      "expected": [
+        {
+          "evidence_id": "E_129",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "actual": [
+        {
+          "evidence_id": "E_129",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "exact_semantics": true
+    },
+    {
+      "fictional_text": "I am not sure whether I have diarrhea.",
+      "status": 200,
+      "latency_ms": 881,
+      "validated": true,
+      "expected": [
+        {
+          "evidence_id": "E_51",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "actual": [
+        {
+          "evidence_id": "E_51",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "exact_semantics": true
+    }
+  ]
+}

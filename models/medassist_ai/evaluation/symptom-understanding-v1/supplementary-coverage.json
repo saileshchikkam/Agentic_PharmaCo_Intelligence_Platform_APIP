@@ -1,0 +1,113 @@
+{
+  "fictional_only": true,
+  "purpose": "Canonical positive checks for the 15 mapped fields absent from the primary suite; authored after primary development, not an independent holdout.",
+  "cases": [
+    {
+      "id": "coverage-01",
+      "text": "I have swelling.",
+      "expected_evidence_ids": [
+        "E_151"
+      ]
+    },
+    {
+      "id": "coverage-02",
+      "text": "My stomach feels bloated.",
+      "expected_evidence_ids": [
+        "E_30"
+      ]
+    },
+    {
+      "id": "coverage-03",
+      "text": "I am sweating.",
+      "expected_evidence_ids": [
+        "E_50"
+      ]
+    },
+    {
+      "id": "coverage-04",
+      "text": "I have muscle aches all over.",
+      "expected_evidence_ids": [
+        "E_144"
+      ]
+    },
+    {
+      "id": "coverage-05",
+      "text": "I lost my sense of smell.",
+      "expected_evidence_ids": [
+        "E_103"
+      ]
+    },
+    {
+      "id": "coverage-06",
+      "text": "I have a hoarse voice.",
+      "expected_evidence_ids": [
+        "E_212"
+      ]
+    },
+    {
+      "id": "coverage-07",
+      "text": "I have severe coughing fits.",
+      "expected_evidence_ids": [
+        "E_201",
+        "E_203"
+      ]
+    },
+    {
+      "id": "coverage-08",
+      "text": "I am vomiting after coughing.",
+      "expected_evidence_ids": [
+        "E_201",
+        "E_166"
+      ]
+    },
+    {
+      "id": "coverage-09",
+      "text": "I have reduced appetite.",
+      "expected_evidence_ids": [
+        "E_32"
+      ]
+    },
+    {
+      "id": "coverage-10",
+      "text": "I have red eyes.",
+      "expected_evidence_ids": [
+        "E_74"
+      ]
+    },
+    {
+      "id": "coverage-11",
+      "text": "I have excessive tears.",
+      "expected_evidence_ids": [
+        "E_127"
+      ]
+    },
+    {
+      "id": "coverage-12",
+      "text": "I have severely itchy eyes.",
+      "expected_evidence_ids": [
+        "E_170"
+      ]
+    },
+    {
+      "id": "coverage-13",
+      "text": "My feet feel numb.",
+      "expected_evidence_ids": [
+        "E_93"
+      ]
+    },
+    {
+      "id": "coverage-14",
+      "text": "I have tingling.",
+      "expected_evidence_ids": [
+        "E_177"
+      ]
+    },
+    {
+      "id": "coverage-15",
+      "text": "I feel lightheaded.",
+      "expected_evidence_ids": [
+        "E_76"
+      ]
+    }
+  ]
+}

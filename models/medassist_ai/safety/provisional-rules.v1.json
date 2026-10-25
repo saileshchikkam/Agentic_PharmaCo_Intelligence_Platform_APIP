@@ -1,0 +1,18 @@
+{
+  "schema_version": "medassist.safety-rules.v1",
+  "version": "explicit-emergency-statements.v1",
+  "review_status": "provisional_unreviewed",
+  "clinically_validated": false,
+  "clinical_reviewer": null,
+  "scope": "English literal emergency declarations only; no symptom scoring, thresholds or negative safety conclusion",
+  "guidance": "If this describes a real emergency, contact local emergency services now. Do not wait for this demo, further questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+  "sources": [
+    {"id": "india-erss", "url": "https://www.mha.gov.in/en/commoncontent/emergency-response-support-system-erss", "scope": "India emergency number 112; no location inference or response-time guarantee"},
+    {"id": "nhs-breathing", "url": "https://www.nhs.uk/symptoms/shortness-of-breath/", "scope": "Severe breathing difficulty requires emergency help; reference context, not approval of this English matcher"}
+  ],
+  "rules": [
+    {"id": "explicit_emergency_request", "review_status": "provisional_unreviewed", "phrases": ["i need emergency help", "i need urgent help", "this is a medical emergency", "i am having a medical emergency", "i need an ambulance", "we need an ambulance", "call an ambulance", "call emergency services"]},
+    {"id": "explicit_cannot_breathe", "review_status": "provisional_unreviewed", "phrases": ["i cannot breathe", "i can't breathe", "i can not breathe", "he cannot breathe", "he can't breathe", "she cannot breathe", "she can't breathe", "my child cannot breathe", "my child can't breathe", "the fictional person cannot breathe", "the fictional person can't breathe"]}
+  ],
+  "limitations": ["No match is not clearance or a non-emergency finding.", "Incomplete literal grammar may miss emergencies or trigger on quoted, historical or hypothetical statements.", "Not a red-flag protocol, diagnosis, Model B urgency classification or approved clinical guidance.", "Independent qualified review and prospective language/safety evaluation are required before clinical use."]
+}

@@ -1,0 +1,11 @@
+{
+  "qualification": "fixed protocol gate; errors and incomplete runs cannot qualify",
+  "eligible_preference": "first qualified model in user-requested priority order",
+  "priority": [
+    "openai/gpt-oss-120b",
+    "qwen/qwen3.8-27b",
+    "openai/gpt-oss-20b"
+  ],
+  "additional_live_smoke": "at most one separate fictional request after qualification; not a benchmark retry",
+  "clinical_promotion": false
+}

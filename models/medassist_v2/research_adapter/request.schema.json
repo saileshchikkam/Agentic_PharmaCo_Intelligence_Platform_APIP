@@ -1,0 +1,152 @@
+{
+  "$defs": {
+    "Answer": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "maxLength": 8,
+          "pattern": "^E_[0-9]{1,3}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "confirmed",
+            "unknown",
+            "contradiction"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "state",
+        "value"
+      ],
+      "title": "Answer",
+      "type": "object"
+    },
+    "Context": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "ge": 0,
+          "title": "Age"
+        },
+        "source_sex": {
+          "enum": [
+            "M",
+            "F"
+          ],
+          "title": "Source Sex",
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "source_sex"
+      ],
+      "title": "Context",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "model-a.request.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "fictional_case": {
+      "const": true,
+      "title": "Fictional Case",
+      "type": "boolean"
+    },
+    "context": {
+      "$ref": "#/$defs/Context"
+    },
+    "initial": {
+      "$ref": "#/$defs/Answer"
+    },
+    "answers": {
+      "items": {
+        "$ref": "#/$defs/Answer"
+      },
+      "maxItems": 20,
+      "title": "Answers",
+      "type": "array"
+    },
+    "stop": {
+      "anyOf": [
+        {
+          "enum": [
+            "user_stopped",
+            "unresolved_contradiction"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Stop"
+    }
+  },
+  "required": [
+    "schema_version",
+    "fictional_case",
+    "context",
+    "initial"
+  ],
+  "title": "NextRequest",
+  "type": "object"
+}

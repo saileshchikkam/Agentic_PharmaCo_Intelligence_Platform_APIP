@@ -1,47 +1,32 @@
+# APIP frontend and generated output
 node_modules/
 dist/
 coverage/
 
+# Backend credentials and local account data
 .env
 .env.*
 !.env.example
-
-*.log
-Thumbs.db
-.DS_Store
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
 *.sqlite-journal
-.venv/
-venv/
 
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Virtual environments
+# Python environments, bytecode and test caches
 venv/
 .venv/
 env/
-
-# Environment variables and secrets
-.env
-.env.*
-!.env.example
-
-# IDE and operating system files
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# Test and cache files
+__pycache__/
+*.py[cod]
+*.pyo
 .pytest_cache/
 .mypy_cache/
 .coverage
 htmlcov/
 
-# Logs
+# Contributor editor, OS and log exclusions
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
 *.log

@@ -74,6 +74,17 @@ test('successful endpoint uses one bounded local provider and returns no clinica
   assert.equal(output.headers['Cache-Control'], 'no-store');
 });
 
+test('explicit emergency statements bypass legacy quote extraction before provider and rate/concurrency logic', async () => {
+  let calls=0;
+  const handler=createMedAssistHandler({fetchImpl:(async()=>{calls++;throw Error('must not run');}) as typeof fetch});
+  const ctx=context({...intake,answers:{...intake.answers,changes:'I need an ambulance'}});
+  await handler(ctx.req,ctx.res);
+  assert.equal(calls,0);assert.equal(ctx.output.status,409);
+  assert.equal(ctx.output.body.error.code,'SAFETY_ESCALATION');
+  assert.equal(ctx.output.body.safety.suppress_self_care,true);
+  assert.equal(ctx.output.body.safety.clinical_validation,false);
+});
+
 test('invalid and cross-origin requests never call the provider', async () => {
   let count = 0;
   const handler = createMedAssistHandler({ fetchImpl: (async () => { count++; throw Error(); }) as typeof fetch });

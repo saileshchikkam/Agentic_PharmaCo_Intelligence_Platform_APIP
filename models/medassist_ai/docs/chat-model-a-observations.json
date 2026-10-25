@@ -1,0 +1,386 @@
+{
+  "status": "passed",
+  "actual_model_a": true,
+  "scenario_origin": "authored software contexts, not corpus patients",
+  "observations": [
+    {
+      "fictional_scenario": "adult-cough",
+      "context": {
+        "age": 35,
+        "source_sex": "F"
+      },
+      "initial_evidence_id": "E_201",
+      "turns": [
+        {
+          "question_id": "E_53",
+          "visible_question": "Do you have pain somewhere, related to your reason for consulting?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_79",
+          "visible_question": "Do you smoke cigarettes?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_181",
+          "visible_question": "Do you have nasal congestion or a clear runny nose?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_91",
+          "visible_question": "Do you have a fever (either felt or measured with a thermometer)?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_124",
+          "visible_question": "Do you have asthma or have you ever had to use a bronchodilator in the past?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_66",
+          "visible_question": "Are you experiencing shortness of breath or difficulty breathing in a significant way?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_222",
+          "visible_question": "Are you exposed to secondhand cigarette smoke on a daily basis?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_227",
+          "visible_question": "Are you immunosuppressed?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_48",
+          "visible_question": "Do you live with 4 or more people?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_214",
+          "visible_question": "Have you noticed a wheezing sound when you exhale?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_129",
+          "visible_question": "Do you have any lesions, redness or problems on your skin that you believe are related to the condition you are consulting for?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_162",
+          "visible_question": "Have you had an involuntary weight loss over the last 3 months?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_226",
+          "visible_question": "Are you more likely to develop common allergies than the general population?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_199",
+          "visible_question": "Do you work in construction?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_170",
+          "visible_question": "Do you have severe itching in one or both eyes?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_209",
+          "visible_question": "Are your vaccinations up to date?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_77",
+          "visible_question": "Do you have a cough that produces colored or more abundant sputum than usual?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_144",
+          "visible_question": "Do you have diffuse (widespread) muscle pain?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_121",
+          "visible_question": "Do you have a deviated nasal septum?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        },
+        {
+          "question_id": "E_45",
+          "visible_question": "Have you been coughing up blood?",
+          "data_type": "B",
+          "answer_state": "unknown",
+          "answer_value": null
+        }
+      ],
+      "stop_reason": "question_budget",
+      "answered": 20,
+      "handoff_schema": "model-a-to-b.evidence.v1",
+      "handoff_items": 223,
+      "model_b": "unable_to_assess"
+    },
+    {
+      "fictional_scenario": "teen-fever",
+      "context": {
+        "age": 16,
+        "source_sex": "M"
+      },
+      "initial_evidence_id": "E_91",
+      "turns": [
+        {
+          "question_id": "E_53",
+          "visible_question": "Do you have pain somewhere, related to your reason for consulting?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_181",
+          "visible_question": "Do you have nasal congestion or a clear runny nose?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_49",
+          "visible_question": "Do you attend or work in a daycare?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_201",
+          "visible_question": "Do you have a cough?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_48",
+          "visible_question": "Do you live with 4 or more people?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_79",
+          "visible_question": "Do you smoke cigarettes?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_41",
+          "visible_question": "Have you been in contact with a person with similar symptoms in the past 2 weeks?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_45",
+          "visible_question": "Have you been coughing up blood?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_120",
+          "visible_question": "Do you have polyps in your nose?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_97",
+          "visible_question": "Do you have a sore throat?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_77",
+          "visible_question": "Do you have a cough that produces colored or more abundant sputum than usual?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_144",
+          "visible_question": "Do you have diffuse (widespread) muscle pain?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_209",
+          "visible_question": "Are your vaccinations up to date?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_222",
+          "visible_question": "Are you exposed to secondhand cigarette smoke on a daily basis?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_50",
+          "visible_question": "Have you had significantly increased sweating?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_78",
+          "visible_question": "Do you drink alcohol excessively or do you have an addiction to alcohol?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_129",
+          "visible_question": "Do you have any lesions, redness or problems on your skin that you believe are related to the condition you are consulting for?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_94",
+          "visible_question": "Have you had chills or shivers?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_107",
+          "visible_question": "Have you ever had a stroke?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_190",
+          "visible_question": "Have you noticed that you produce more saliva than usual?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        }
+      ],
+      "stop_reason": "question_budget",
+      "answered": 20,
+      "handoff_schema": "model-a-to-b.evidence.v1",
+      "handoff_items": 223,
+      "model_b": "unable_to_assess"
+    },
+    {
+      "fictional_scenario": "age-zero-sore-throat",
+      "context": {
+        "age": 0,
+        "source_sex": "F"
+      },
+      "initial_evidence_id": "E_97",
+      "turns": [
+        {
+          "question_id": "E_91",
+          "visible_question": "Do you have a fever (either felt or measured with a thermometer)?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_53",
+          "visible_question": "Do you have pain somewhere, related to your reason for consulting?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        },
+        {
+          "question_id": "E_181",
+          "visible_question": "Do you have nasal congestion or a clear runny nose?",
+          "data_type": "B",
+          "answer_state": "confirmed",
+          "answer_value": false
+        }
+      ],
+      "stop_reason": "user_stopped",
+      "answered": 3,
+      "handoff_schema": "model-a-to-b.evidence.v1",
+      "handoff_items": 223,
+      "model_b": "unable_to_assess"
+    },
+    {
+      "fictional_scenario": "adult-unresolved-conflict",
+      "context": {
+        "age": 35,
+        "source_sex": "F"
+      },
+      "initial_evidence_id": "E_201",
+      "turns": [
+        {
+          "question_id": "E_53",
+          "visible_question": "Do you have pain somewhere, related to your reason for consulting?",
+          "data_type": "B",
+          "answer_state": "contradiction",
+          "answer_value": null
+        }
+      ],
+      "stop_reason": "unresolved_contradiction",
+      "answered": 1,
+      "handoff_schema": "model-a-to-b.evidence.v1",
+      "handoff_items": 223,
+      "model_b": "unable_to_assess"
+    }
+  ],
+  "sealed_artifacts_matched": 17,
+  "frozen_code_protocol_environment": "matched",
+  "source_archive_hashes": "compared to existing sealed attestations; archives not opened",
+  "official_locked_test_and_ledger": "not accessed",
+  "clinical_accuracy_measured": false,
+  "cloud_calls": 0,
+  "limitations": [
+    "These authored interviews verify behavior, not clinical relevance or model accuracy.",
+    "Question wording is frozen synthetic metadata, not LLM generation or clinician-reviewed phrasing.",
+    "Frequent UNKNOWN answers may still use the entire frozen 20-question budget."
+  ]
+}

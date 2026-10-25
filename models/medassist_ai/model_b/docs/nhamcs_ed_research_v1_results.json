@@ -1,0 +1,742 @@
+{
+  "schema_version": "medassist.nhamcs-ed-research-results.v1",
+  "date": "2026-10-24",
+  "configuration": {
+    "schema_version": "medassist.nhamcs-ed-research.v1",
+    "research_only": true,
+    "live_enabled": false,
+    "seed": 20261024,
+    "classes": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "target": "IMMEDR",
+    "target_meaning": "recorded five-level ED immediacy, not community urgency",
+    "source_label_adjudication": "source recorded; no independent clinical adjudication claimed",
+    "features": [
+      "AGE",
+      "TEMPF",
+      "PULSE",
+      "RESPR",
+      "BPSYS",
+      "BPDIAS",
+      "POPCT",
+      "PAINSCALE",
+      "SEX",
+      "RFV1",
+      "RFV2",
+      "RFV3",
+      "RFV4",
+      "RFV5"
+    ],
+    "split": "StratifiedGroupKFold(5,shuffle=True); fold0 test,fold1 validation,fold2-4 train",
+    "grouping": "age, sex, sorted recorded RFV codes plus explicit missing-state counts; ignore vitals",
+    "algorithm": "L2 multinomial logistic regression",
+    "C": 1.0,
+    "solver": "lbfgs",
+    "class_weight": "balanced",
+    "max_iter": 2000,
+    "tol": 0.0001,
+    "threads": 1,
+    "sample_weight": null,
+    "survey_inference": false,
+    "tuning": "none; configuration frozen before first fit",
+    "abstention_threshold": 0.6,
+    "abstention_scope": "fixed descriptive experiment, no clinical threshold",
+    "calibration_fitted": false,
+    "clinical_validation": false,
+    "source_sha256": "aa32e635ef9564b1c8e03cea16c87ec2ed02e9a928d22a257df18100a38ad683",
+    "feature_schema": {
+      "version": "medassist.model-b.numeric-evidence.v1",
+      "names": [
+        "AGE",
+        "TEMPF",
+        "PULSE",
+        "RESPR",
+        "BPSYS",
+        "BPDIAS",
+        "POPCT",
+        "PAINSCALE",
+        "SEX",
+        "RFV1",
+        "RFV2",
+        "RFV3",
+        "RFV4",
+        "RFV5"
+      ],
+      "symptom_group_features": [
+        "AGE",
+        "SEX",
+        "RFV1",
+        "RFV2",
+        "RFV3",
+        "RFV4",
+        "RFV5"
+      ],
+      "prediction_time": "source-coded complaints and initial vitals; exact chronology unverified",
+      "review": null
+    },
+    "implementation_sha256": {
+      "ed_research.py": "c118d41d92e8be30dc44831d3d0c8de1bc5609bc8f9723451960480742501d53",
+      "training.py": "e859b09eeb9c1a58b254b598766e2f137ebf72a054642870b176c474ec23ba7d",
+      "evaluation.py": "0f93cc037280d7c5f03b2a2e528a26e2ee3d87b4ba9f743449d57b78fa482aac",
+      "data.py": "c6f620b0c0c0d9a523feb6d144ac4e15450b93e3f80e1201c8ea3a8890af26d3",
+      "splitting.py": "b071559429496f3fbcb2451928f4a56356c61dbe558550ec5ce2fff6bc16965f"
+    },
+    "environment": {
+      "python": "3.12.2",
+      "numpy": "2.2.2",
+      "scipy": "1.16.1",
+      "pandas": "3.0.0",
+      "scikit-learn": "1.9.1",
+      "joblib": "1.6.0",
+      "threadpoolctl": "3.6.0"
+    }
+  },
+  "evaluation": {
+    "schema_version": "medassist.nhamcs-ed-research.v1",
+    "status": "research_only_not_release",
+    "fit_seconds": 0.8201308000134304,
+    "iterations": [
+      251
+    ],
+    "convergence_warning": false,
+    "partitions": {
+      "validation": {
+        "scope": "unweighted source-label prediction, offline research only",
+        "class_order": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "n": 2042,
+        "accuracy": 0.4701273261508325,
+        "macro_f1": 0.34583265702831195,
+        "balanced_accuracy": 0.4094326944231277,
+        "per_class": {
+          "1": {
+            "precision": 0.07,
+            "recall": 0.25,
+            "f1": 0.109375,
+            "support": 28
+          },
+          "2": {
+            "precision": 0.3362637362637363,
+            "recall": 0.47962382445141066,
+            "f1": 0.3953488372093023,
+            "support": 319
+          },
+          "3": {
+            "precision": 0.6771117166212534,
+            "recall": 0.4653558052434457,
+            "f1": 0.5516093229744728,
+            "support": 1068
+          },
+          "4": {
+            "precision": 0.4991119005328597,
+            "recall": 0.49734513274336284,
+            "f1": 0.49822695035460995,
+            "support": 565
+          },
+          "5": {
+            "precision": 0.11578947368421053,
+            "recall": 0.3548387096774194,
+            "f1": 0.1746031746031746,
+            "support": 62
+          }
+        },
+        "confusion_matrix": [
+          [
+            7,
+            11,
+            8,
+            1,
+            1
+          ],
+          [
+            23,
+            153,
+            92,
+            35,
+            16
+          ],
+          [
+            54,
+            235,
+            497,
+            219,
+            63
+          ],
+          [
+            15,
+            53,
+            128,
+            281,
+            88
+          ],
+          [
+            1,
+            3,
+            9,
+            27,
+            22
+          ]
+        ],
+        "confusion_orientation": "rows actual, columns predicted, order 1-5",
+        "severe_acuity_underclassification": {
+          "1": {
+            "support": 28,
+            "correct": 7,
+            "predicted_less_acute": 21,
+            "underclassified_by_at_least_two_levels": 10,
+            "abstained_at_fixed_threshold": 12,
+            "accepted_less_acute": 11
+          },
+          "2": {
+            "support": 319,
+            "correct": 153,
+            "predicted_less_acute": 143,
+            "underclassified_by_at_least_two_levels": 51,
+            "abstained_at_fixed_threshold": 178,
+            "accepted_less_acute": 36
+          }
+        },
+        "calibration": {
+          "multiclass_brier": 0.6643232495299453,
+          "negative_log_likelihood": 1.2179726813795928,
+          "top_label_ece": 0.09249372397105977,
+          "bins": [
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 34,
+              "mean_confidence": 0.2825617171170651,
+              "accuracy": 0.38235294117647056
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 304,
+              "mean_confidence": 0.3568409443943854,
+              "accuracy": 0.34868421052631576
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 472,
+              "mean_confidence": 0.45151092738931403,
+              "accuracy": 0.451271186440678
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 467,
+              "mean_confidence": 0.5486540995245024,
+              "accuracy": 0.4261241970021413
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 353,
+              "mean_confidence": 0.6465194156909927,
+              "accuracy": 0.5410764872521246
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 241,
+              "mean_confidence": 0.7449767755561569,
+              "accuracy": 0.6058091286307054
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 140,
+              "mean_confidence": 0.8414438683718771,
+              "accuracy": 0.5571428571428572
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 31,
+              "mean_confidence": 0.9387779099766207,
+              "accuracy": 0.45161290322580644
+            }
+          ],
+          "fitted": false,
+          "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+        },
+        "abstention": {
+          "threshold": 0.6,
+          "selected_using_test": false,
+          "coverage": 0.3746327130264447,
+          "abstention_rate": 0.6253672869735554,
+          "selective_error": 0.4392156862745098,
+          "confusion_matrix": [
+            [
+              5,
+              6,
+              4,
+              1,
+              0,
+              12
+            ],
+            [
+              12,
+              93,
+              31,
+              2,
+              3,
+              178
+            ],
+            [
+              11,
+              86,
+              196,
+              77,
+              11,
+              687
+            ],
+            [
+              9,
+              10,
+              38,
+              121,
+              26,
+              361
+            ],
+            [
+              0,
+              0,
+              0,
+              9,
+              14,
+              39
+            ]
+          ],
+          "prediction_columns": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "research_abstain"
+          ],
+          "operational": false
+        },
+        "clinical_validation": false
+      },
+      "test": {
+        "scope": "unweighted source-label prediction, offline research only",
+        "class_order": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "n": 2042,
+        "accuracy": 0.4583741429970617,
+        "macro_f1": 0.33416338893682684,
+        "balanced_accuracy": 0.393544378290823,
+        "per_class": {
+          "1": {
+            "precision": 0.05,
+            "recall": 0.17857142857142858,
+            "f1": 0.078125,
+            "support": 28
+          },
+          "2": {
+            "precision": 0.344017094017094,
+            "recall": 0.5047021943573667,
+            "f1": 0.409148665819568,
+            "support": 319
+          },
+          "3": {
+            "precision": 0.6766809728183119,
+            "recall": 0.44288389513108617,
+            "f1": 0.5353706847764572,
+            "support": 1068
+          },
+          "4": {
+            "precision": 0.48845470692717585,
+            "recall": 0.48672566371681414,
+            "f1": 0.4875886524822695,
+            "support": 565
+          },
+          "5": {
+            "precision": 0.10377358490566038,
+            "recall": 0.3548387096774194,
+            "f1": 0.16058394160583941,
+            "support": 62
+          }
+        },
+        "confusion_matrix": [
+          [
+            5,
+            11,
+            4,
+            6,
+            2
+          ],
+          [
+            30,
+            161,
+            79,
+            38,
+            11
+          ],
+          [
+            49,
+            241,
+            473,
+            226,
+            79
+          ],
+          [
+            14,
+            52,
+            126,
+            275,
+            98
+          ],
+          [
+            2,
+            3,
+            17,
+            18,
+            22
+          ]
+        ],
+        "confusion_orientation": "rows actual, columns predicted, order 1-5",
+        "severe_acuity_underclassification": {
+          "1": {
+            "support": 28,
+            "correct": 5,
+            "predicted_less_acute": 23,
+            "underclassified_by_at_least_two_levels": 12,
+            "abstained_at_fixed_threshold": 17,
+            "accepted_less_acute": 6
+          },
+          "2": {
+            "support": 319,
+            "correct": 161,
+            "predicted_less_acute": 128,
+            "underclassified_by_at_least_two_levels": 49,
+            "abstained_at_fixed_threshold": 180,
+            "accepted_less_acute": 37
+          }
+        },
+        "calibration": {
+          "multiclass_brier": 0.6694794285979614,
+          "negative_log_likelihood": 1.2410492397552502,
+          "top_label_ece": 0.09883364999994523,
+          "bins": [
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "n": 32,
+              "mean_confidence": 0.27786197552927455,
+              "accuracy": 0.0625
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "n": 293,
+              "mean_confidence": 0.3611033289468862,
+              "accuracy": 0.3583617747440273
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "n": 489,
+              "mean_confidence": 0.4528416348485883,
+              "accuracy": 0.38650306748466257
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "n": 486,
+              "mean_confidence": 0.5492489306638402,
+              "accuracy": 0.48148148148148145
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "n": 361,
+              "mean_confidence": 0.6461628636215182,
+              "accuracy": 0.5650969529085873
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "n": 244,
+              "mean_confidence": 0.7476759702456419,
+              "accuracy": 0.5450819672131147
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "n": 102,
+              "mean_confidence": 0.8448384987971146,
+              "accuracy": 0.5294117647058824
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "n": 35,
+              "mean_confidence": 0.9393616449519239,
+              "accuracy": 0.42857142857142855
+            }
+          ],
+          "fitted": false,
+          "limitations": "descriptive, not certified calibrated; class-balanced training changes effective prior"
+        },
+        "abstention": {
+          "threshold": 0.6,
+          "selected_using_test": false,
+          "coverage": 0.3633692458374143,
+          "abstention_rate": 0.6366307541625857,
+          "selective_error": 0.4528301886792453,
+          "confusion_matrix": [
+            [
+              5,
+              3,
+              2,
+              1,
+              0,
+              17
+            ],
+            [
+              15,
+              87,
+              25,
+              9,
+              3,
+              180
+            ],
+            [
+              14,
+              87,
+              184,
+              70,
+              18,
+              695
+            ],
+            [
+              3,
+              12,
+              27,
+              119,
+              29,
+              375
+            ],
+            [
+              0,
+              0,
+              8,
+              10,
+              11,
+              33
+            ]
+          ],
+          "prediction_columns": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "research_abstain"
+          ],
+          "operational": false
+        },
+        "clinical_validation": false
+      }
+    },
+    "live_enabled": false,
+    "clinical_validation": false,
+    "training_class_weights": {
+      "1": 14.75421686746988,
+      "2": 1.2796238244514107,
+      "3": 0.38220973782771533,
+      "4": 0.7220518867924528,
+      "5": 6.691803278688525
+    },
+    "majority_baseline": {
+      "calibration": 0.5230166503428012,
+      "test": 0.5230166503428012
+    }
+  },
+  "source_audit": {
+    "source_rows": 16025,
+    "eligible_rows": 10207,
+    "excluded_rows": 5818,
+    "target_counts": {
+      "-9": 364,
+      "-8": 3788,
+      "0": 587,
+      "1": 139,
+      "2": 1595,
+      "3": 5340,
+      "4": 2826,
+      "5": 307,
+      "7": 1079
+    },
+    "feature_states": {
+      "AGE": {
+        "observed_value": 10207
+      },
+      "TEMPF": {
+        "observed_value": 9908,
+        "not_asked": 299
+      },
+      "PULSE": {
+        "observed_value": 10001,
+        "not_asked": 168,
+        "unsupported": 38
+      },
+      "RESPR": {
+        "observed_value": 9968,
+        "not_asked": 239
+      },
+      "BPSYS": {
+        "observed_value": 9379,
+        "not_asked": 828
+      },
+      "BPDIAS": {
+        "observed_value": 9363,
+        "not_asked": 843,
+        "unsupported": 1
+      },
+      "POPCT": {
+        "observed_value": 9988,
+        "not_asked": 219
+      },
+      "PAINSCALE": {
+        "unknown": 2631,
+        "observed_value": 7223,
+        "not_asked": 353
+      },
+      "SEX": {
+        "observed_value": 10207
+      },
+      "RFV1": {
+        "observed_value": 10201,
+        "not_asked": 6
+      },
+      "RFV2": {
+        "not_asked": 3144,
+        "observed_value": 7063
+      },
+      "RFV3": {
+        "not_asked": 5557,
+        "observed_value": 4650
+      },
+      "RFV4": {
+        "not_asked": 7351,
+        "observed_value": 2856
+      },
+      "RFV5": {
+        "not_asked": 8561,
+        "observed_value": 1646
+      }
+    },
+    "source_imputation_flags": {
+      "AGEFL": {
+        "0": 10201,
+        "1": 5,
+        "-9": 1
+      },
+      "SEXFL": {
+        "0": 10192,
+        "1": 15
+      }
+    },
+    "feature_allowlist_only": true,
+    "outcomes_diagnoses_treatment_used": false,
+    "patient_independence_verified": false,
+    "source_missing_mapping": "blank -> not_asked channel means unrecorded here, not known unasked; no negative observation",
+    "exact_feature_duplicates": 5
+  },
+  "leakage_audit": {
+    "rows": 10207,
+    "symptom_groups": 9585,
+    "repeated_symptom_groups": 622,
+    "conflicting_labels_in_symptom_groups": 226,
+    "class_support": {
+      "1": 139,
+      "2": 1595,
+      "3": 5340,
+      "4": 2826,
+      "5": 307
+    },
+    "imbalance_ratio": 38.41726618705036,
+    "missing_patient_ids": 10207,
+    "missing_encounter_ids": 10207,
+    "split_class_support": {
+      "train": {
+        "1": 83,
+        "2": 957,
+        "3": 3204,
+        "4": 1696,
+        "5": 183
+      },
+      "calibration": {
+        "1": 28,
+        "2": 319,
+        "3": 1068,
+        "4": 565,
+        "5": 62
+      },
+      "test": {
+        "1": 28,
+        "2": 319,
+        "3": 1068,
+        "4": 565,
+        "5": 62
+      }
+    },
+    "cross_split_overlap": 0,
+    "limitation": "Identifiers absent from source cannot be audited; grouping review and intended-use assessment remain required",
+    "split_strategy": "StratifiedGroupKFold(5,shuffle=True); fold0 test,fold1 validation,fold2-4 train",
+    "patient_independent": false,
+    "hospital_independent": false,
+    "stratification": "approximate under indivisible duplicate groups; no split seed search"
+  },
+  "artifact_receipt": {
+    "research_only": true,
+    "live_enabled": false,
+    "trusted_local_pickle_only": true,
+    "files": {
+      "configuration.json": "0a45abd429298c3ae0c26897c79945742108179b2ee3fea156084c5f954f65dd",
+      "evaluation.json": "130dcf10396ccd9f0a869d054390fa0ba58b22e99b83c3ada5ceedf5c10dd901",
+      "leakage-audit.json": "01bb2d16a21fe136e2b5f659bd3b1b620b8636d3ef4705323fd97a2c4edd987a",
+      "research-only-model.joblib": "095be678cfe0629a0ce2d28f57797a79b1e6bf941d41aed8e64858957aa85928",
+      "source-audit.json": "4b397bcd2b1e199f856e0a4f996591003b124133ef40ed27a0f20524aadf74f9",
+      "split-membership.private.json": "7494b0a075a9215827fe160df8b424b8c1897b4cdf2bf7f8735ff41960b83f6e"
+    },
+    "configuration_sha256": "0a45abd429298c3ae0c26897c79945742108179b2ee3fea156084c5f954f65dd",
+    "implementation_sha256": {
+      "ed_research.py": "c118d41d92e8be30dc44831d3d0c8de1bc5609bc8f9723451960480742501d53",
+      "training.py": "e859b09eeb9c1a58b254b598766e2f137ebf72a054642870b176c474ec23ba7d",
+      "evaluation.py": "0f93cc037280d7c5f03b2a2e528a26e2ee3d87b4ba9f743449d57b78fa482aac",
+      "data.py": "c6f620b0c0c0d9a523feb6d144ac4e15450b93e3f80e1201c8ea3a8890af26d3",
+      "splitting.py": "b071559429496f3fbcb2451928f4a56356c61dbe558550ec5ce2fff6bc16965f"
+    }
+  },
+  "verification": {
+    "saved_model_reload_metrics_match": true,
+    "artifact_hashes_match": true,
+    "implementation_hashes_match": true,
+    "model_b_disabled": true,
+    "focused_tests_passed": 19,
+    "sealed_model_a_artifacts_matched_before_and_after": 17,
+    "locked_test_and_ledger": "not accessed",
+    "patient_rows_and_split_membership_in_repository": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "medassist.urgency-labels.v1",
+  "version": "provisional-1",
+  "approved": false,
+  "classes": {
+    "level_1": "Unapproved technical slot; clinical meaning not defined",
+    "level_2": "Unapproved technical slot; clinical meaning not defined",
+    "level_3": "Unapproved technical slot; clinical meaning not defined",
+    "level_4": "Unapproved technical slot; clinical meaning not defined"
+  },
+  "abstention": "unable_to_assess",
+  "emergency_class": null,
+  "clinical_review": null
+}

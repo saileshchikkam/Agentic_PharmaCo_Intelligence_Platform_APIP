@@ -6,6 +6,14 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**MedAssist L2 conversational refinement, 2026-10-25:** [current evidence and blockers](../models/medassist_ai/docs/natural-conversation.md) support a local fictional demo with full-page chat, confirmed broader sparse descriptions and eight topical routine questions. These engineering gates do not establish clinical completeness or improved model accuracy. Next work requires separate authorization: freeze/evaluate broader language coverage, review topic exclusions/question wording and improve earlier-conflict correction. Model B and clinical guidance remain disabled; ADR remains the core priority. Older implementation snapshots below are historical.
+
+**MedAssist Day 2 implemented 2026-10-21 (user target October 22):** [fictional question lab and run guide](../src/features/model-a-research/README.md) connect the existing actual Model A through a guarded local development proxy, with typed answers, UNKNOWN/conflict/stop/reset and unchanged Day 1 evidence export. [Actual checks/inventory](../models/medassist_v2/research_adapter/day2-verification.json). Model B stays unavailable; no production/patient workflow or frozen study behavior changed. Commit/merge/push remain blocked pending review; Day 3 now focuses on browser/control/accessibility robustness, not rebuilding the completed basic loop.
+
+**MedAssist five-day demo sprint, Day 1 (2026-10-20):** the [adapter review and dataset-readiness findings](../models/medassist_v2/research_adapter/day1-review.md) preserve Task 5A's original 21-file patch, fix one invalid-initial adapter defect and define a research-only Model A-to-B evidence handoff. Model B clinical training is not ready. The [Days 2–5 backlog](#medassist-five-day-researchdemo-sprint) selects a nonclinical fallback, with no severity prediction or test access. Stop after Day 1; later entries are acceptance targets, not completed work or automatic authorization.
+
+**MedAssist v2 Task 5A prototype for review, 2026-10-20:** [isolated local Model A adapter](../models/medassist_v2/research_adapter/README.md) reuses the sealed alpha 0.00001 ranker with unchanged features/masks, structured fictional disclosures and versioned evidence. Parity tests and measured latency/memory support CONDITIONAL GO for developer research only; no application routes, clinical behavior, fitting/validation or locked test were enabled. Next: review the uncommitted patch, then separately scope input mapping/question review/Model B contracts. The original frozen CRLF/LF portability defect remains unresolved.
+
 **MedAssist v2 Task 4B completed 2026-10-20:** [actual results and verified seal](../models/medassist_v2/task4b-validation.md) record all three frozen fits, validation-selected alpha 0.00001, 132,448 interviews/529,792 trajectories, full/sensitivity/baseline/subgroup/bootstrap reports and exit 0. All 17 sealed artifacts, implementation/protocol and five source hashes passed independent read-only verification; locked test remains unopened. Synthetic ranker recall@20 is 77.1866%, versus 59.5172% training frequency; this is not clinical validity. Next step requires separate explicit locked-test authorisation and unchanged integrity/one-use gates, with the fresh-checkout CRLF/LF portability caveat addressed explicitly. Do not rerun fitting, retune or alter the seal. Clinical deployment remains NO-GO. The following v2 task entries retain historical completion evidence.
 
 **Security foundation completed 2026-10-18:** legacy agent APIs default off, cannot run in production and require trusted local development opt-in. Explicit modes and loopback HTTP/HMR replace ambiguous startup and global permissive CORS. This is a bounded security task, not completed M1 or release readiness. MedAssist task/data planning remains next.
@@ -194,6 +202,24 @@ Steps that change the application belong to the selected implementation task. Th
 
 **Acceptance:** a reviewer reproduces the complete journey from a clean account; recovery works; release claims match the evidence. Real-patient/public expansion is a separate decision.
 
+## MedAssist capability-based development
+
+**2026-10-25 symptom-understanding gate:** [current inventory and context-integrity evidence](../models/medassist_ai/docs/symptom-understanding.md) advance the fictional L2 ingress: deterministic supported English, strict contextual validation, anatomical/typed clarification, traceable confirmation/export and unchanged sealed Model A. The 115-case development suite and supplementary/mock checks are not independent clinical qualification. Two explicit emergency declarations remain missed under unchanged provisional rules. Next gates are independent unseen-language/anatomical evaluation, qualified wording/safety review and separately authorized rule remediation; clinical Model B remains disabled. No training or broader clinical functionality follows automatically.
+
+**2026-10-25 evidence update:** [conversational UI and real-model verification](../src/features/medassist-conversation/README.md#current-conversational-experience--2026-10-25) advance the existing fictional L2 slice: confirmation/context, one qualified Groq integration, frozen Model A and responsive status/navigation presentation work. This does not complete L2 or authorize clinical severity, guidance or verified-facility claims. Next: qualified question-wording review and a separately reviewed broader sparse-evidence ingress; no automatic retraining. Older dated status notes below are historical.
+
+**Intelligence evidence:** the [bounded integration report](../models/medassist_intelligence/README.md) records actual Model A integrity/20-follow-up checks, the frozen 48-case extraction set and failed installed-candidate screens. Next L2 gate is a reviewed extraction/acquisition/diagnostic decision, not UI work or repeated model fitting. No provider qualifies for connection. L3 remains blocked on permitted intended-population urgency labels; new L4/L5 governance seams remain unavailable, with no invented rules or location disclosure.
+
+**L2 implementation 1:** the [main-site fictional conversation](../src/features/medassist-conversation/README.md) now reuses actual Model A from the original APIP shell with a limited metadata-verified phrase/confirmation path and unchanged evidence semantics. It does not complete L2: no medical LLM is configured/evaluated and general language extraction/clinical wording review remain open. Model B, safety guidance and capability-aware navigation remain unavailable. Continue by the blueprint evidence gates, not the historical sprint schedule.
+
+<a id="medassist-five-day-researchdemo-sprint"></a>
+
+The [MedAssist master blueprint, sections 12–13](architecture/MEDASSIST_MASTER_BLUEPRINT.md#12-capability-based-development-levels) is the source of truth for L1 foundation/adaptive questioning, L2 conversational intelligence, L3 severity intelligence, L4 independent safety/precautions, L5 hospital navigation and L6 complete APIP integration, with observable evidence gates and current blockers.
+
+This replaces the active five-day MedAssist schedule. Earlier Day 1/Day 2 reports and completed-work receipts remain historical records; their old schedule links resolve here for continuity. Do not interpret their next-day instructions as the current plan. Advance by verified capabilities, not dates or an hourly sprint budget. The immediate open gate is L1 patch review and robustness/accessibility evidence; evaluated L2 language integration is not established, and Model B remains untrained/disabled pending L3 data/evaluation prerequisites. L4 clinical approval and L5 verified facility capabilities remain open; L6 requires reviewed four-agent connectivity, privacy, accessibility, monitoring design and end-to-end fictional tests.
+
+ADR remains APIP's core priority, independently accessible. Keep broader APIP milestones visible without imposing a MedAssist deadline. Preserve frozen Model A assets/protocol and the stable locked-test ledger; no training, test access, guidance, background service or deployment is automatically authorized. Do not invent data, labels, guidance or performance to pass a gate.
+
 ## Future candidates
 
 These are preserved ideas, not current commitments:
@@ -210,3 +236,11 @@ These are preserved ideas, not current commitments:
 ## Tracking practice
 
 Put new actionable defects or research blockers here under the affected milestone, or link a focused GitHub issue when one exists. Include observed behavior, impact, evidence, and the condition for resolution. Demo placeholders are not automatically product bugs. Completion boxes change only with linked history/check evidence.
+
+## Checkpoint evidence — 2026-10-25
+
+The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md) records the reviewed fictional MedAssist pipeline and fresh software checks. It does not advance clinical gates: incomplete provisional emergency coverage, independent language/wording review, Model B data/validation, personalized precautions and verified facilities remain blockers. Existing real-data ED experiments are research-only and cannot qualify the four-level community interface. Capability-based progression in the [master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) remains the development source of truth; historical day/sprint receipts stay intact.
+
+## P0 main reconciliation — 2026-10-26
+
+[Integration branch evidence](reconciliation-2026-10-26.md) records resolved README/ignore conflicts, preserved contributor history and passing frontend/HTTP/browser checks. **Main merge is blocked** by the preexisting fresh-checkout frozen-protocol checksum failure in Python; do not count integration as completed on main or bypass its integrity gate. Next: separately reviewed byte-portability remediation, affected Python verification and required PR checks before a history-preserving merge. Clinical gates remain unchanged.

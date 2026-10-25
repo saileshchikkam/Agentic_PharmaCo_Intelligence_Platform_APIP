@@ -1,0 +1,10 @@
+{
+  "model": "qwen/qwen3.8-27b",
+  "results_file": "continuation-results.json",
+  "results_sha256": "d03d739a8cc01e137e9c80e6bdaf8f7d230ab7ad4e9e3117103ea1a8817bc5e7",
+  "prompt_sha256": "101889e8a7a76221ed384e312ebb2ecee532b44dd04f6f6c22b0e2a30f03d62c",
+  "schema_sha256": "791ecc85d38c619312bd06e598061ce580ddb1aa2256aec66509d803b400a351",
+  "scope": "user-reviewed 20-case fictional engineering qualification; explicit confirmation required",
+  "clinical_validation": false,
+  "model_a_authority": "unchanged frozen selector"
+}
