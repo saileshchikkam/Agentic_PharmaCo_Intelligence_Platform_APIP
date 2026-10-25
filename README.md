@@ -1,4 +1,4 @@
-# APIP — Agentic Pharma Intelligence Platform
+# APIP â€” Agentic Pharma Intelligence Platform
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
@@ -6,8 +6,8 @@ APIP aims to make suspected adverse drug reaction (ADR) reporting simple for pat
 
 ## The product
 
-- **MedAssist AI:** conversational assistance and care navigation, with a proposed custom-ML research component. Approximately 20–30% of intended scope.
-- **ADR reporting and professional intelligence:** guided intake, user-confirmed reports, PDF export, follow-up, professional review, evidence retrieval, and descriptive analytics. Approximately 70–80% of intended scope.
+- **MedAssist AI:** conversational assistance and care navigation, with a proposed custom-ML research component. Approximately 20â€“30% of intended scope.
+- **ADR reporting and professional intelligence:** guided intake, user-confirmed reports, PDF export, follow-up, professional review, evidence retrieval, and descriptive analytics. Approximately 70â€“80% of intended scope.
 - **Four coordinated agents:** Reporting, Validation, Knowledge, and Analysis. Their production workflow is planned; experimental endpoints do not establish validated capability.
 
 ADR reporting must work directly, without requiring MedAssist first. Important decisions remain reviewable by people. Read the [product vision](docs/product.md) for origin, team, journeys, and scope.
@@ -16,7 +16,7 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 
 ## Start here
 
-- [MedAssist Symptom Assessment v2](models/medassist_v2/README.md): Task 4B official training/validation completed with a verified pre-test seal. All 132,448 synthetic validation interviews were evaluated; selected ranker recall@20 is 77.1866%. This is evidence collection, not clinical accuracy. Locked testing and clinical integration remain unexecuted; five questions remain quarantined and fresh-checkout checksum portability remains unresolved.
+- [MedAssist Symptom Assessment v2](models/medassist_v2/README.md): Task 4B official training/validation completed with a verified pre-test seal. All 132,448 synthetic validation interviews were evaluated; selected ranker recall@20 is 77.1866%. This is evidence collection, not clinical accuracy. Locked testing and clinical integration remain unexecuted; five questions remain quarantined and read-only checksum portability is covered by the [authenticated compatibility verifier](docs/model-a-protocol-portability.md); frozen study commands retain their strict original gate.
 - [Model A research adapter](models/medassist_v2/research_adapter/README.md): opt-in local FastAPI reuses the preserved ranker through the fictional lab and DEV-only conversation. Frozen scoring/encoding and the A-to-B contract are unchanged; this is not a clinical route.
 - [Fictional Model A question lab](src/features/model-a-research/README.md): Day 2 adds a development-only loopback workflow with typed answer controls, explicit UNKNOWN/conflict/stop states and unchanged versioned evidence export. Model B stays disabled; the screen is excluded from the production client and has no patient-navigation link.
 
@@ -80,3 +80,5 @@ MedAssist engineering: [modular research composition](models/medassist_ai/README
 ## Contributor backend and main-branch reconciliation
 
 APIP combines MedAssist with direct ADR reporting and the planned Reporting, Validation, Knowledge and Analysis agents; their production coordination and professional review remain unfinished. The standalone FastAPI/PostgreSQL disease-classifier contribution under `app/` is preserved alongside the APIP React/Express application, not activated as clinical Model B. Its original documentation is [preserved separately](docs/contributors/jayanth-medassist-backend.md) with current safety and execution caveats. Do not use its import-time model/database startup as the APIP preview command. Root `requirements.txt` belongs to that isolated contributor backend; it is not a replacement for the frozen Model A environment. [Reconciliation evidence and remaining limits](docs/reconciliation-2026-10-26.md).
+
+Read-only Model A protocol portability: [verified repair and fresh-checkout results](docs/model-a-protocol-portability.md). This does not authorize training/locked testing or qualify clinical use. The seventeen sealed artifacts and historical evidence remain unchanged.

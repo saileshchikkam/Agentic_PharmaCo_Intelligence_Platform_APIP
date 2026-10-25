@@ -1,4 +1,4 @@
-# Frozen Model A protocol portability — 2026-10-26
+# Frozen Model A protocol portability â€” 2026-10-26
 
 ## Identity and root cause
 
@@ -19,3 +19,15 @@ Frozen study code remains unchanged. Old training/campaign/locked-test functions
 The new 22-method suite covers historical/canonical acceptance, inverse transformation, field/numeric/add/remove/whitespace tampering, mixed/malformed endings, encoding/BOM/corrupt/missing/substituted paths or pins, symlinks, bounds, deterministic byte mutations, exact binary checks, seal substitution, unchanged locked-test implementation and read-only verification. Synthetic files are software fixtures, never patient records. The initial focused integrity/protocol/adapter run passed 63 tests, zero failures/errors/skips.
 
 Clean-checkout full verification is pending at this implementation checkpoint. Record its actual results and PR status separately before declaring readiness or merging. Do not rewrite the original reconciliation failure receipt as a pass.
+
+## Clean-checkout verification completed
+
+Verified repair commit `2f1fc18c49382d6a39bae64e60e5988b7d6027a0` in a newly created clean managed worktree. The protocol there is the unmodified canonical LF blob; no copied CRLF protocol, verifier monkeypatch or private configuration file was used.
+
+- Python: **210 passed, zero failures, errors or skips**, warnings treated as errors. Includes 22 new portability tests, protocol semantics, loader/simulator/format fixtures, adapter/modular/disabled-provider/evidence tests, Model B software fixtures and four actual trusted Model A tests. Explicit module selection excludes training/locked-stage execution fixtures and the unsafe legacy root prediction script; no model training or official test was run.
+- TypeScript/HTTP: **113 passed, zero failed/skipped**. Git workflow: **10 passed, zero failed/skipped**. Frontend and strict backend types pass; production build passes with the existing 961.67 kB client-chunk warning.
+- Independent read-only compatibility seal verification matches all **17 artifacts**, original published seal/hash receipt, source attestations, thirteen implementation hashes and pinned environment. Historical frozen Git blobs and protocol/pin remain unchanged.
+- Additional actual-model HTTP smoke returns three HTTP 200 responses: initial question, UNKNOWN answer with a different follow-up, user stop and 223-item export with disabled Model B. No old receipt was overwritten and no cloud request occurred.
+- No official source archive, locked test or stable ledger was opened. The original sixteen untracked contributor files and original working tree remain preserved.
+
+The prior 73-test/18-error reconciliation result is retained as historical evidence, not overwritten. [Machine-readable results and exact repair inventory](model-a-protocol-portability-verification.json) record this new verification. Read-only inference portability is resolved for these authenticated representations; strict legacy study commands, exact package versions, original trusted artifact roots/pickle and independent clinical gates remain constraints.

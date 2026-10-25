@@ -42,3 +42,7 @@ The repository completion helper explicitly refuses an in-progress merge. Comple
 ## Subsequent portability repair checkpoint
 
 The [narrow read-only compatibility boundary](model-a-protocol-portability.md) preserves the failure report above and all frozen identities. Initial integrity tests pass; clean-checkout verification is pending at this commit. PR #1 stays draft until actual fresh checks and applicable review conditions pass. Historical outcomes above are not relabelled.
+
+## Current readiness after clean-checkout verification
+
+The [subsequent authenticated repair](model-a-protocol-portability.md#clean-checkout-verification-completed) passes 210 Python tests, 113 TypeScript/HTTP tests, ten workflow tests, types/build and independent seal/actual-model HTTP verification in a clean LF checkout. Zero test failures/errors/skips remain in that scope. The earlier failure above is historical; the protocol/pin and thirteen sealed implementation files remain unchanged. PR #1 can now be marked ready subject to final scope and GitHub check/review conditions. This is engineering readiness only; all clinical limitations remain.

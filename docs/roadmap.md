@@ -244,3 +244,7 @@ The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md)
 ## P0 main reconciliation — 2026-10-26
 
 [Integration branch evidence](reconciliation-2026-10-26.md) records resolved README/ignore conflicts, preserved contributor history and passing frontend/HTTP/browser checks. **Main merge is blocked** by the preexisting fresh-checkout frozen-protocol checksum failure in Python; do not count integration as completed on main or bypass its integrity gate. Next: separately reviewed byte-portability remediation, affected Python verification and required PR checks before a history-preserving merge. Clinical gates remain unchanged.
+
+## P0 read-only protocol portability verified — 2026-10-26
+
+[Authenticated LF/CRLF compatibility](model-a-protocol-portability.md) passes clean-checkout Python, actual-model/HTTP/seal, TypeScript and build verification. The previous reconciliation portability blocker is resolved for read-only inference without changing frozen study evidence or locked-test behavior. PR readiness/main merge still require actual GitHub state confirmation. Legacy study commands remain strict; clinical and data-governance gates are unchanged.

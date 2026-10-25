@@ -202,3 +202,7 @@ The [Groq fictional extraction evaluation](../../models/medassist_intelligence/g
 ### Modular component evidence — 2026-10-23
 
 [Implemented modular composition](../../models/medassist_ai/README.md) reuses the canonical Groq transport and Model A service with dependency injection, a registry, evidence validators and isolated disabled disease/urgency/safety/navigation seams. The existing API/UI contracts remain unchanged. Jayanth remote artifacts are manifested but not downloaded/deserialized; provenance, licence, serialization compatibility and duplicate-safe evaluation remain blockers. This is engineering organization, not a new clinical capability or level promotion.
+
+## Read-only protocol portability evidence — 2026-10-26
+
+The [authenticated LF/CRLF adapter boundary](../model-a-protocol-portability.md) resolves the demonstrated fresh-checkout inference checksum failure while preserving all frozen files, digests and seventeen artifacts. The full relevant clean-checkout suite and actual-model checks pass. It does not port/authorize frozen training or locked-test commands, relocate trusted artifacts, establish cross-platform package compatibility or advance clinical capability gates.
