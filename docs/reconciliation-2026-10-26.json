@@ -1,0 +1,118 @@
+{
+  "schema_version": "apip.reconciliation.v1",
+  "date": "2026-10-26",
+  "timezone": "Asia/Kolkata",
+  "status": "blocked_for_main_merge",
+  "original_main": "6965b204bbc70eac91fccad5669a8a1c384c6844",
+  "original_feature": "161a14cce8e3923ff7beed8f10ca225b5156d246",
+  "common_ancestor": "7618d4e63df4ef12615f264cddcf8320237cb2cd",
+  "feature_ahead": 3,
+  "feature_behind": 2,
+  "integration_branch": "codex/apip-main-reconciliation",
+  "strategy": "isolated managed worktree from origin/main; ordinary two-parent merge; draft PR; no main merge while verification fails",
+  "conflicts": {
+    ".gitignore": "reviewed union of both parents",
+    "README.md": "full APIP overview, historical contributor section preserved separately, all literal markers removed"
+  },
+  "task_specific_files": [
+    ".gitattributes",
+    ".gitignore",
+    "README.md",
+    "CHANGELOG.md",
+    "docs/architecture.md",
+    "docs/development.md",
+    "docs/roadmap.md",
+    "docs/history/2026-10-26.md",
+    "docs/contributors/jayanth-medassist-backend.md",
+    "docs/reconciliation-2026-10-26.md",
+    "docs/reconciliation-2026-10-26.json"
+  ],
+  "contributor_preservation": {
+    "canonical_git_blobs_unchanged": 58,
+    "recovered_sha256_matches": 16,
+    "original_untracked_files_preserved": 16,
+    "source_commits": [
+      "357906c45945e9e42fcd0dabe234f9c178ad2ec3",
+      "6965b204bbc70eac91fccad5669a8a1c384c6844"
+    ],
+    "canonical_text_checkout_bytes_restored": 10,
+    "untrusted_deserialization": false
+  },
+  "checks": {
+    "typescript_http": {
+      "passed": 113,
+      "failed": 0,
+      "skipped": 0
+    },
+    "python_merged_checkout": {
+      "status": "failed",
+      "tests_run": 73,
+      "errors": 18,
+      "skipped": 4,
+      "class_setup_failures": true,
+      "error": "InvalidRecord: protocol_checksum",
+      "all_intended_tests_executed": false
+    },
+    "actual_model_a_preserved_workspace": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend_types": "passed",
+    "backend_strict_types": "passed",
+    "production_build": "passed",
+    "warning": "existing 961.67 kB client chunk exceeds 500 kB",
+    "browser": {
+      "scripts": [
+        "scripts/medassist-understanding.browser.mjs",
+        "scripts/medassist-reliability.browser.mjs",
+        "scripts/medassist-safety.browser.mjs"
+      ],
+      "widths": [
+        390,
+        820,
+        1440
+      ],
+      "passed": true,
+      "page_errors": 0,
+      "cloud_calls": 0,
+      "mocked_model_transports": true
+    },
+    "static": {
+      "tracked_text_files_initial_scan": 672,
+      "conflict_marker_files": 0,
+      "secret_pattern_hits": 0,
+      "json_errors": 0,
+      "contributor_python_syntax_errors": 0,
+      "missing_app_import_paths": 0,
+      "dedicated_secret_scanner_installed": false
+    },
+    "final_static": {
+      "tracked_text_files_checked": 675,
+      "conflict_marker_files": 0,
+      "secret_pattern_or_exact_value_hits": 0,
+      "broken_relative_links": 0,
+      "feature_files_preserved_outside_reviewed_docs": 614,
+      "protocol_git_blob_unchanged": true,
+      "whitespace_passed": true,
+      "unstaged_or_untracked_integration_files": 0
+    },
+    "github_markdown_readme_render": "passed"
+  },
+  "seal": {
+    "artifacts_verified": 17,
+    "seal_hash_receipt_source_attestations_frozen_code_and_environment": "matched in preserved original workspace",
+    "locked_test_ledger_source_archives_opened": false
+  },
+  "portability": {
+    "original_protocol_matches_frozen_digest": true,
+    "fresh_checkout_protocol_matches_digest": false,
+    "fresh_bytes_equal_original_after_crlf_to_lf": true,
+    "frozen_files_modified": false,
+    "verification_bypassed": false,
+    "required_action": "separately authorized, reviewed integrity-preserving portability repair and affected Python retest"
+  },
+  "clinical_status": "NO-GO; existing provisional safety misses, disabled Model B/disease inference, unavailable personalized precautions and unverified external Maps facilities",
+  "pr_status_at_creation": "pending; create draft and report actual URL/SHA; do not merge",
+  "main_status_at_creation": "unchanged; must verify actual remote before final report"
+}

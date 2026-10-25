@@ -1,0 +1,204 @@
+{
+  "suite_id": "medassist-fictional-extraction-v1",
+  "runtime_version": "0.40.6",
+  "scope": "bounded fictional development screen; not clinical validation",
+  "inventory": [
+    {
+      "name": "llama3.2:latest",
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "bytes": 2019393189,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "3.2B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 131072,
+        "embedding_length": 3072,
+        "runner": "ggml"
+      }
+    },
+    {
+      "name": "qwen3.5:2b",
+      "digest": "324d162be6ca5629ae4517c8710434d0bd2d665bc94dbad46e9af8fbf8a2f0df",
+      "bytes": 2741192820,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen35",
+        "families": [
+          "qwen35"
+        ],
+        "parameter_size": "2.3B",
+        "quantization_level": "Q8_0",
+        "context_length": 262144,
+        "embedding_length": 2048,
+        "runner": "ggml"
+      }
+    },
+    {
+      "name": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "bytes": 2497293931,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 262144,
+        "embedding_length": 2560,
+        "runner": "ggml"
+      }
+    },
+    {
+      "name": "phi4-mini:latest",
+      "digest": "78fad5d182a7c33065e153a5f8ba210754207ba9d91973f57dffa7f487363753",
+      "bytes": 2491876774,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "phi3",
+        "families": [
+          "phi3"
+        ],
+        "parameter_size": "3.8B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 131072,
+        "embedding_length": 3072,
+        "runner": "ggml"
+      }
+    },
+    {
+      "name": "qwen3:latest",
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "bytes": 5225388164,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "8.2B",
+        "quantization_level": "Q4_K_M",
+        "context_length": 40960,
+        "embedding_length": 4096,
+        "runner": "ggml"
+      }
+    }
+  ],
+  "unavailable_requested_candidates": [
+    "Qwen3 1.7B",
+    "MedGemma 4B IT"
+  ],
+  "configuration": {
+    "temperature": 0,
+    "seed": 23,
+    "num_ctx": 2048,
+    "num_predict": 256,
+    "think": false,
+    "per_request_seconds": 10,
+    "global_generation_seconds": 120,
+    "per_model_seconds": 55,
+    "safety_failure_early_stop": true,
+    "retries": 0
+  },
+  "candidates": [
+    {
+      "name": "qwen3.5:2b",
+      "results": [
+        {
+          "case_id": "fictional-45",
+          "group": "adversarial",
+          "transport_error": true,
+          "schema_valid": false,
+          "contract_valid": false,
+          "exact_match": false,
+          "elapsed_ms": 10125.0,
+          "peak_process_rss_bytes": 83460096,
+          "peak_gpu_bytes": null
+        }
+      ],
+      "status": "failed_screen_stopped_without_retry",
+      "digest": "324d162be6ca5629ae4517c8710434d0bd2d665bc94dbad46e9af8fbf8a2f0df",
+      "observations": {
+        "attempts": 1,
+        "schema_valid": 0,
+        "contract_valid": 0,
+        "exact_outputs": 0,
+        "unsupported_assertions": 0,
+        "wrong_polarity_or_unknown": 0,
+        "warm_p50_ms": null,
+        "warm_p95_ms": null,
+        "warm_sample_size": 0,
+        "reliability_observed": 0.0,
+        "peak_process_rss_bytes": 83460096,
+        "peak_model_size_vram_bytes": null
+      },
+      "decision": {
+        "software_gate_passed": false,
+        "complete_repeated_suite": false,
+        "observed_exact_accuracy": 0.0,
+        "runtime_enablement": false,
+        "reason": "Separate clinical wording review and live-contract integration approval also required"
+      }
+    },
+    {
+      "name": "qwen3:4b",
+      "results": [
+        {
+          "case_id": "fictional-45",
+          "group": "adversarial",
+          "schema_valid": true,
+          "contract_valid": false,
+          "exact_match": false,
+          "unsupported_assertions": 0,
+          "wrong_polarity_or_unknown": 0,
+          "missed_expected_items": 0,
+          "load_ms": 7988.3591,
+          "generated_tokens": 30,
+          "first_token_ms": null,
+          "elapsed_ms": 9765.0,
+          "peak_process_rss_bytes": 285024256,
+          "peak_gpu_bytes": 2340327259
+        }
+      ],
+      "status": "failed_screen_stopped_without_retry",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "observations": {
+        "attempts": 1,
+        "schema_valid": 1,
+        "contract_valid": 0,
+        "exact_outputs": 0,
+        "unsupported_assertions": 0,
+        "wrong_polarity_or_unknown": 0,
+        "warm_p50_ms": null,
+        "warm_p95_ms": null,
+        "warm_sample_size": 0,
+        "reliability_observed": 1.0,
+        "peak_process_rss_bytes": 285024256,
+        "peak_model_size_vram_bytes": 2340327259
+      },
+      "decision": {
+        "software_gate_passed": false,
+        "complete_repeated_suite": false,
+        "observed_exact_accuracy": 0.0,
+        "runtime_enablement": false,
+        "reason": "Separate clinical wording review and live-contract integration approval also required"
+      }
+    }
+  ],
+  "downloads": false,
+  "paid_calls": false,
+  "live_provider_changed": false,
+  "memory_measurement": "sampled Ollama process RSS aggregate and per-model API size_vram; not precise CUDA allocation/total system peak",
+  "loaded_models_after": [],
+  "elapsed_seconds": 22.11
+}

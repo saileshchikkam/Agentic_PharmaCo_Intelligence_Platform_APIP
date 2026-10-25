@@ -1,5 +1,7 @@
 # MedAssist fictional conversation slice
 
+**Safety/navigation update, 2026-10-25:** this older preview now shares the [provisional emergency guard and consent-based Maps handoff](../../../models/medassist_ai/docs/safety-navigation.md). Emergency guidance precedes optional language work and survives navigation failure. Rules are unreviewed, facilities are not verified and no clinical urgency model is enabled. See [verification](../../../models/medassist_ai/docs/safety-navigation-verification.json); dated flow details below retain their original scope.
+
 `#/preview/medassist` implements symptom intake, guided follow-ups, review/edit, optional local-model quote selection, and care-search handoff. It is not an authenticated patient service or a clinically validated urgency model.
 
 ## Implementation

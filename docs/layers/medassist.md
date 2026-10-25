@@ -1,5 +1,13 @@
 # MedAssist AI
 
+**Current consolidated scope, 2026-10-25:** [checkpoint and verification](../../models/medassist_ai/docs/checkpoint-2026-10-25.md). The DEV-only conversation integrates sealed Model A, 30 constrained language concepts, confirmation, UNKNOWN/context preservation, eight topical questions and versioned export. Optional Groq extraction remains experimental beyond its narrow historical qualification. Independent safety is provisional with known heart-attack/stroke declaration misses; Maps is consent-based external search with no facility verification. Live four-level Model B and personalized clinical precautions remain disabled. Earlier entries below retain their dated evidence and coverage counts.
+
+**Latest natural-conversation refinement, 2026-10-25:** [current scope and evidence](../../models/medassist_ai/docs/natural-conversation.md) add document scrolling, confirmed rich sparse proposals, 28 anchored language concepts and an eight-question topical wrapper around unchanged sealed inference. The original research lab and frozen protocol retain their study behavior. Broader language accuracy and clinical question relevance remain unqualified; severity/guidance stay disabled. Earlier same-day notes below describe the preceding implementation.
+
+**Conversational update, 2026-10-25:** the [main-site fictional chatbot](../../src/features/medassist-conversation/README.md#current-conversational-experience--2026-10-25) now collects required fictional context through chat and confirms extracted suggestions before real Model A questioning. An unassessed severity-status panel, one composer, contextual location-only Maps handoff and unchanged independent emergency precedence are verified separately from clinical capabilities. [Evidence receipt](../../models/medassist_ai/docs/chat-verification.json) includes actual inference; L2 remains partial and L3–L5 clinical gates stay blocked.
+
+**Safety/navigation update, 2026-10-25:** [independent provisional emergency guards](../../models/medassist_ai/docs/safety-navigation.md) now interrupt both fictional previews and backend extraction before model work, including pending/offline states. Explicit location consent prepares the existing Maps search only; no facilities, availability or emergency suitability are verified. Clinical review remains outstanding and Model B stays disabled. [Check receipt](../../models/medassist_ai/docs/safety-navigation-verification.json) records engineering evidence without clinical approval.
+
 **Status:** English-only guided symptom intake, editable review, optional local-model quote selection, and a Google Maps search handoff are implemented for fictional evaluation. Custom urgency ML, adaptive clinical questioning, approved RAG guidance, tailored precautions, and clinical evaluation remain pending. Jayanth originated this part of APIP. See the [implementation/API guide](../../src/features/medassist/README.md).
 
 ## Responsibility
@@ -17,6 +25,18 @@ Provide an understandable conversation about symptoms/context and help a person 
 Urgent-care interruptions must also be available in reporting. Do not require a lengthy interview, map selection, or report animation before displaying reviewed urgent guidance.
 
 ## Model research
+
+**Controlled ED follow-up, 2026-10-24:** [Experiment 2](../../models/medassist_ai/model_b/docs/nhamcs_ed_experiment2.md) excludes the previously exposed test from development/scoring and compares two fixed Extra Trees candidates using training-only weights. Neither qualifies: validation macro-F1 and severe recalls worsen. Source-imputed sex was masked because the codebook describes diagnosis/triage-based imputation; age flags are corrected in an addendum while Experiment 1 remains unchanged. No clinical provider is enabled.
+
+**Five-class ED statistical experiment, 2026-10-24:** the [NHAMCS baseline report](../../models/medassist_ai/model_b/docs/real_data_training.md) records one real-data source-label logistic-regression fit and held-out evaluation. Test accuracy 45.84%, macro-F1 0.3342 and immediate recall 17.86% do not support clinical use. The isolated research runner has no patient-route registration; four-class conversational Model B remains disabled and unapproved. Patient-independent testing, task-matched data and independent clinical review remain unresolved.
+
+**Intelligence integration check, 2026-10-21:** [frozen extraction suite and actual local evidence](../../models/medassist_intelligence/README.md) preserve the UI and live contract. Real Model A passed bounded interview/integrity checks. Two installed Qwen candidates failed a short predeclared screen; Qwen3 1.7B/MedGemma acquisition requirements are explicit and no provider was enabled. Model B remains untrained without approved four-level urgency data. Separate unavailable safety/guidance/navigation ports define review and consent boundaries without enabling clinical functions.
+
+**L2 implementation 1, 2026-10-21:** the [main-site fictional conversation](../../src/features/medassist-conversation/README.md) adds a DEV-only APIP route with three metadata-verified initial symptoms, exact limited phrase matching, explicit mapping confirmation and existing actual Model A follow-ups. No language model is configured; unsupported/ambiguous input clarifies rather than guessing. Evidence and disabled Model B semantics remain unchanged, and the developer lab stays separate. This is a partial language/integration capability, not clinical questioning or completed L2.
+
+**Day 2, 2026-10-21:** [fictional Model A question lab](../../src/features/model-a-research/README.md) implements a separate developer-only structured interview, with typed B/C/M choices, UNKNOWN, declared conflict, stop/reset and versioned evidence export. It reuses the actual selected ranker via a local development proxy. The patient MedAssist preview, ADR and clinical behavior are unchanged; Model B stays not enabled. This is software-demo evidence, not clinical assessment or an approved patient questionnaire.
+
+**Task 5A, 2026-10-20:** a separate [Model A research adapter](../../models/medassist_v2/research_adapter/README.md) now demonstrates read-only use of the selected v2 question ranker with versioned fictional-input/evidence schemas and measured local inference. It does not interpret free text, assess urgency, provide clinical guidance or connect to the patient application. Source AGE/SEX and coded answers are mandatory; unknown context is not guessed. Clinical question review, domain mapping and any future Model B remain separate gates. The uncommitted prototype is awaiting review.
 
 The current `#/preview/medassist` flow asks fixed questions about concern, duration, activity impact, and changes, retaining exact user statements and null unknowns. Only after explicit fictional-case consent does a local Ollama model select source quotes for user confirmation. Answers remain in page memory; no urgency model, clinical RAG, hosted inference, training, or clinical conclusion is connected. Care search is available throughout, with manual location or deliberately requested geolocation and an external Google Maps link. A two-day target cannot establish clinical effectiveness or authorize real-patient use.
 
@@ -59,3 +79,16 @@ The user now requires English-only data/interface and no paid service dependency
 Use the [separate NHAMCS/DDXPlus experiment plan](../../models/medassist/experiment-plan.md) and [verified manifest](../../models/medassist/open-access-manifest.json). IMMEDR supports recorded ED-acuity research, not validated home triage. DDXPlus severity is not an acuity label; MIMIC-IV-ED Demo is smoke-only. No restricted downloads, training, model deployment or new clinical behavior is authorized by this plan.
 
 The subsequently authorized [Phase 1 implementation and findings](../../models/medassist/reports/2026-10-19-phase1/README.md) now provide external NHAMCS acquisition, actual quality/provenance audits and candidate grouped partitions. Fourteen synthetic data-engineering tests passed. Training remains unperformed: review rare Immediate support, symptom-cohort selection and timing before a separate baseline task. Supporting datasets remain metadata-only; application behavior is unchanged.
+
+
+## Local extraction reliability — 2026-10-21
+
+[Measured comparison](../../models/medassist_intelligence/reliability-v1/README.md): 120 real local requests across three installed models/two fixed variants; no candidate met correctness, safety and latency requirements. Natural-language proposals now fail closed with prompt structured clarification, without waiting for unqualified generation. This does not improve model accuracy. Explicit structured symptom selection/confirmation continues to use real sealed Model A, with UNKNOWN and handoff semantics preserved. UI is unchanged; Model B and clinical output remain disabled. Prior results and official test protections remain intact.
+
+## Qualified hosted fictional extraction — 2026-10-23
+
+The explicitly enabled development conversation can use backend-only Groq Qwen extraction after a hash-bound 20-case gate. Proposals remain unaccepted until explicit confirmation, and frozen Model A retains question selection. Multiple/unresolved/unsupported details clarify. See [measured results, privacy and limits](../../models/medassist_intelligence/groq-v1/README.md). No clinical capability or production route was enabled.
+
+## Modular research composition — 2026-10-23
+
+[MedAssist AI package](../../models/medassist_ai/README.md) adds injectable component boundaries and an opt-in composition flag inside the existing backend. The real preserved Model A parity/UNKNOWN/export smoke and seal checks passed; no new cloud comparison or UI change occurred. Jayanth contribution provenance and duplicate-leakage concerns are documented; canonical binaries are absent locally and execution remains disabled. Model B always abstains.

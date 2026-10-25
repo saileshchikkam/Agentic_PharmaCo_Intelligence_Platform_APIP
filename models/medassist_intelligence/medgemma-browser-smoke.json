@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "actual_ollama": true,
+  "actual_model_a": true,
+  "explicit_confirmation": true,
+  "unknown_preserved": true,
+  "handoff_version": "model-a-to-b.evidence.v1",
+  "handoff_items": 223,
+  "model_b": "not_enabled",
+  "questions": [
+    "E_53",
+    "E_79"
+  ],
+  "final_guard_actual_regressions": [
+    {
+      "status": 503,
+      "hasSuggestion": false
+    },
+    {
+      "status": 503,
+      "hasSuggestion": false
+    }
+  ],
+  "page_errors": [],
+  "ui_layout_changed": false
+}

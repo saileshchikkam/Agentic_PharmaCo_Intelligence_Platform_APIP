@@ -1,0 +1,14 @@
+{
+  "status": "verified",
+  "scope": "public evidence metadata only; no source patient archives",
+  "ids": [
+    "E_201",
+    "E_91",
+    "E_97",
+    "E_56"
+  ],
+  "metadata_sha256": "281c78b044ae60514e28ecc9052d08a8225dd3e2db3f00f8788b99c47b05e0c0",
+  "protocol_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "suite_sha256": "f3a829af1433aaf6a01ab07587aea79c0ffbc572ae8dc3f2cc496b400ca28ba4",
+  "live_contract_changed": false
+}

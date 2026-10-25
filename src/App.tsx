@@ -4,6 +4,7 @@ import './design-system/material-web-imports';
 import { DeveloperReference } from './DeveloperReference';
 import { applyAppearance, loadAppearance } from './design-system/appearance';
 import { AccessPreview, readPreviewRoute } from './features/access/AccessPreview';
+const ModelAResearch = import.meta.env.DEV ? React.lazy(() => import('./features/model-a-research/ModelAResearch')) : null;
 
 export function App() {
   const [appearance, setAppearance] = useState(loadAppearance);
@@ -17,14 +18,18 @@ export function App() {
   }, []);
   useEffect(() => { setPreferencesSaved(applyAppearance(appearance)); }, [appearance]);
   useEffect(() => {
-    document.title = route.screen === 'developer-reference'
+    document.title = import.meta.env.DEV && window.location.hash === '#/research/model-a' ? 'Fictional MedAssist question lab — APIP' : route.screen === 'developer-reference'
       ? 'APIP — Developer design reference'
       : route.screen === 'profile' ? 'Your profile — APIP' : route.screen === 'sign-in' ? 'Sign in — APIP'
       : route.screen === 'adr-preview' ? 'Fictional ADR intake preview — APIP'
+          : route.screen === 'medassist-conversation' ? 'Fictional MedAssist conversation — APIP'
           : route.screen === 'medassist-preview' ? 'MedAssist design preview — APIP'
             : route.screen === 'patient-home' ? 'Patient home preview — APIP' : 'APIP — Agentic Pharma Co-intelligence Platform';
   }, [route]);
 
+  if (ModelAResearch && window.location.hash === '#/research/model-a') {
+    return <React.Suspense fallback={<p role="status">Loading local research screen…</p>}><ModelAResearch /></React.Suspense>;
+  }
   return <AccountProvider>{route.screen === 'developer-reference'
     ? <DeveloperReference appearance={appearance} setAppearance={setAppearance} preferencesSaved={preferencesSaved} />
     : <AccessPreview route={route} appearance={appearance} setAppearance={setAppearance} preferencesSaved={preferencesSaved} />}</AccountProvider>;

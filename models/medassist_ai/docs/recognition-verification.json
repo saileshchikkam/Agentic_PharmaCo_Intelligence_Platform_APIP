@@ -1,0 +1,122 @@
+{
+  "task": "Symptom recognition and bounded fallback repair",
+  "local_date": "2026-10-25",
+  "status": "FIXED_FICTIONAL_ENGINEERING_ONLY",
+  "files_created": [
+    "models/medassist_ai/docs/recognition-after.json",
+    "models/medassist_ai/docs/recognition-before.json",
+    "models/medassist_ai/docs/recognition-fix.md",
+    "models/medassist_ai/docs/recognition-model-a.json",
+    "models/medassist_ai/docs/recognition-verification.json",
+    "scripts/medassist-recognition-live.mjs",
+    "scripts/medassist-recognition.browser.mjs",
+    "scripts/medassist-recognition.test.ts",
+    "src/features/medassist-conversation/clarification.ts"
+  ],
+  "files_modified": [
+    "CHANGELOG.md",
+    "docs/history/2026-10-25.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_v2/research_adapter/app.py",
+    "models/medassist_v2/research_adapter/natural.py",
+    "models/medassist_v2/research_adapter/service.py",
+    "server/groq-extraction.ts",
+    "server/model-a-demo.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist-conversation/README.md",
+    "src/features/medassist-conversation/natural.ts"
+  ],
+  "root_causes": {
+    "reported_stomach_descriptions": "Existing general-pain E_53 omitted from constrained Groq catalogue; two initial real-browser cases returned HTTP 200 empty observations before Model A.",
+    "headache": "Same static catalogue omission; later before-API attempt was unavailable, not a captured empty observation.",
+    "repetition": "No unresolved-concept/attempt state, plus non-progressing duplicate proposals could re-enter confirmation.",
+    "service_failure": "Seven later before-API requests returned generic 503 including all controls. Original transport did not retain the upstream cause; no exact quota/auth attribution is claimed.",
+    "candidate_filter": "Not the pain failure: confirmed E_53 yielded 13 candidates and E_56 before mapping repair."
+  },
+  "checks": {
+    "typescript": {
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0
+    },
+    "python_workflow_contract": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    "real_browser_api": {
+      "cases": 7,
+      "successful_extractions": 7,
+      "explicit_confirmations": 7,
+      "actual_model_selections": 7,
+      "report": "recognition-after.json",
+      "quota_spacing_seconds": 22
+    },
+    "real_model": {
+      "pain_unknown_answers": 8,
+      "routine_maximum": 8,
+      "duplicate_questions": 0,
+      "empty_pool": "no_eligible_questions",
+      "model_b": "not_enabled",
+      "report": "recognition-model-a.json"
+    },
+    "browser_fixtures": {
+      "width": 390,
+      "repeated_unsupported_cloud_requests": 0,
+      "repeated_unsupported_extraction_requests": 1,
+      "equivalent_mapping_extraction_requests": 1,
+      "bounded_operational_retries": true,
+      "duplicate_assistant_message_suppression": true,
+      "timeout": true,
+      "invalid_output": true,
+      "emergency_override": true,
+      "numeric_controls_above_composer": true
+    },
+    "interactive_preview": {
+      "headache_confirmed": true,
+      "actual_E_56_selected": true,
+      "numeric_controls_0_to_10_and_unknown_visible": true
+    },
+    "frontend_typecheck": "passed",
+    "production_build": "passed_with_existing_large_client_bundle_warning",
+    "seal": {
+      "artifacts": 17,
+      "verified": true,
+      "frozen_implementation_protocol_match": true,
+      "pinned_environment_match": true,
+      "source_attestations_match": true,
+      "source_archives_opened": false,
+      "locked_test_or_ledger_accessed": false
+    }
+  },
+  "preservation": {
+    "provider_model": "qwen/qwen3.8-27b",
+    "provider_selection_unchanged": true,
+    "original_groq_qualification_files_unchanged": true,
+    "source_symptom_fields": 110,
+    "root_initial_symptoms": 96,
+    "language_anchors": 29,
+    "new_trained_features": 0,
+    "topic_membership_unchanged": true,
+    "safety_rules_unchanged": true,
+    "live_model_b_disabled": true,
+    "prior_reports_preserved": true,
+    "no_training": true,
+    "no_new_dependencies": true,
+    "no_stage_commit_push": true,
+    "no_ui_redesign_or_css_change": true
+  },
+  "limitations": [
+    "General pain is supported; anatomy/duration are not guessed into specific encoded subregions.",
+    "Seven successful cases are integration evidence, not broad extraction or clinical accuracy.",
+    "Source value labels are metadata, not clinical approval.",
+    "Earlier accepted conflicts still require clarification/restart.",
+    "Trusted local pickle and CRLF/LF portability constraints remain.",
+    "Original upstream cause of the persistent before-phase service failure is unavailable."
+  ],
+  "verification_attempt_notes": [
+    "Two initial headless before-state attempts stalled; only their observed first-two results are reported as browser reproductions.",
+    "The completed after-state run reused one browser page and recorded incremental fictional receipts.",
+    "The added numeric-control visibility test initially used the wrong Material Web tag; the selector was corrected before the final passing run."
+  ]
+}

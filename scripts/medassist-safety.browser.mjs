@@ -1,0 +1,72 @@
+import { createServer } from 'vite';
+const { chromium } = await import(process.env.MEDASSIST_PLAYWRIGHT_MODULE || 'playwright');
+const assert=(v,m)=>{if(!v)throw Error(m);};
+const server=await createServer({root:process.cwd(),server:{host:'127.0.0.1',port:0}});
+let browser;
+const observations=[];
+try {
+ await server.listen();browser=await chromium.launch({channel:'chrome',headless:true});
+ for(const width of [390,820,1440]) {
+  const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));let modelCalls=0,geoCalls=0;
+  await page.route('**/api/research/model-a/natural/vocabulary',r=>r.fulfill({status:503,json:{error:'offline'}}));
+  await page.route('**/api/research/model-a/language',r=>r.fulfill({json:{schema_version:'medassist.language-status.v2',configured:false,provider:'groq-cloud',model:null,timeout_ms:null}}));
+  await page.route('**/api/research/model-a/natural/extract',r=>{modelCalls++;return r.fulfill({status:503,json:{error:'must-not-be-called'}});});
+  await page.route('**/api/research/model-a/natural/interview',r=>{modelCalls++;return r.fulfill({status:503,json:{error:'must-not-be-called'}});});
+  await page.addInitScript(()=>Object.defineProperty(navigator,'geolocation',{configurable:true,value:{getCurrentPosition(_success,fail){window.__geoCalls=(window.__geoCalls||0)+1;fail({code:1});}}}));
+  await page.goto(server.resolvedUrls.local[0]+'#/preview/medassist-conversation',{waitUntil:'domcontentloaded',timeout:60000});
+  await page.getByRole('textbox',{name:'Fictional symptom description',exact:true}).fill('I cannot breathe');
+  await page.getByRole('alert',{name:'Emergency help',exact:true}).waitFor();
+  assert(await page.getByRole('link',{name:'Call 112 in India',exact:true}).getAttribute('href')==='tel:112','no explicit regional emergency contact');
+  assert(modelCalls===0,'offline emergency attempted model work');
+  assert(await page.getByText('Provisional statement guard · not clinically validated.',{exact:false}).count()>0,'missing provisional status');
+  assert(await page.evaluate(()=>window.__geoCalls||0)===0,'location requested automatically');
+  await page.getByRole('button',{name:'Use my location',exact:true}).click();
+  await page.getByText('Location permission was denied.',{exact:false}).waitFor();
+  await page.getByRole('textbox',{name:'City, area or approximate coordinates',exact:true}).fill('Chennai');
+  await page.getByRole('button',{name:'Prepare Maps search',exact:true}).click();
+  const href=await page.getByRole('link',{name:'Open Maps search',exact:true}).getAttribute('href');
+  assert(new URL(href).searchParams.get('query')==='hospital emergency departments near Chennai','wrong search handoff');
+  assert(!href.includes('breathe'),'symptom leaked into Maps');
+  await page.getByRole('button',{name:'Clear location',exact:true}).click();
+  assert(await page.getByRole('link',{name:'Open Maps search',exact:true}).count()===0,'clear kept sensitive link');
+  // A fresh user action supplies coordinates; failed local navigation must not remove emergency help.
+  await page.evaluate(()=>Object.defineProperty(navigator,'geolocation',{configurable:true,value:{getCurrentPosition(ok){ok({coords:{latitude:13,longitude:80,accuracy:50},timestamp:Date.now()});}}}));
+  await page.route('**/api/research/medassist/navigation/emergency',r=>r.fulfill({status:503,json:{error:'offline'}}));
+  await page.getByRole('button',{name:'Use my location',exact:true}).click();
+  await page.getByText('Approximate device coordinates ready.',{exact:false}).waitFor();
+  await page.getByRole('button',{name:'Prepare Maps search',exact:true}).click();
+  await page.getByText('Search could not be prepared:',{exact:false}).waitFor();
+  assert(await page.getByRole('link',{name:'Open Maps search',exact:true}).count()===0,'failed provider fabricated a link/result');
+  assert(await page.getByRole('link',{name:'Call 112 in India',exact:true}).count()===1,'network failure hid emergency help');
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'horizontal overflow '+width);
+  assert(errors.length===0,'browser errors '+JSON.stringify(errors));
+  observations.push({width,offlineEmergency:true,modelsCalled:modelCalls,permissionDenial:true,manualMaps:true,navigationFailureRetainsEmergency:true,pageErrors:errors.length});
+  await page.close();
+ }
+ // Emergency during a pending extraction cancels/invalidate late language results.
+ const page=await browser.newPage();let release,entered;const waiting=new Promise(r=>entered=r);let calls=0;
+ const initials=[{evidence_id:'E_201',label:'Cough',question_en:'Do you have a cough?'},{evidence_id:'E_91',label:'Fever',question_en:'Do you have a fever (either felt or measured with a thermometer)?'},{evidence_id:'E_97',label:'Sore throat',question_en:'Do you have a sore throat?'}];
+ await page.route('**/api/research/model-a/natural/vocabulary',r=>r.fulfill({json:{schema_version:'medassist.natural-vocabulary.v1',fictional_only:true,items:initials.map(i=>({...i,kind:'symptom',data_type:'B',possible_values:[],initial_allowed:true})),coverage:{symptom_fields:110,universal_coverage:false}}}));
+ await page.route('**/api/research/model-a/language',r=>r.fulfill({json:{schema_version:'medassist.language-status.v2',configured:true,provider:'groq-cloud',model:'qwen/qwen3.8-27b',timeout_ms:1000}}));
+ await page.route('**/api/research/model-a/natural/extract',async r=>{calls++;entered();await new Promise(done=>release=done);try{await r.fulfill({status:503,json:{error:'late'}});}catch{}});
+ await page.goto(server.resolvedUrls.local[0]+'#/preview/medassist-conversation',{waitUntil:'domcontentloaded',timeout:60000});
+ await page.getByText('Ready to listen',{exact:false}).waitFor();
+ await page.getByRole('textbox',{name:'Fictional symptom description',exact:true}).fill('cough');
+ await page.getByRole('button',{name:'Send description',exact:true}).click();await waiting;
+ await page.getByRole('textbox',{name:'Fictional symptom description',exact:true}).fill('I need an ambulance');
+ await page.getByRole('alert',{name:'Emergency help',exact:true}).waitFor();release();
+ await page.waitForTimeout(100);
+ assert(await page.getByRole('alert',{name:'Emergency help',exact:true}).count()===1,'late language result removed guard');
+ assert(await page.getByText('Confirm what you meant',{exact:true}).count()===0,'late candidate visible');
+ await page.close();
+ const legacy=await browser.newPage();let legacyCalls=0;
+ await legacy.route('**/api/medassist/structure',r=>{legacyCalls++;return r.fulfill({status:503,json:{error:{code:'must-not-call'}}});});
+ await legacy.goto(server.resolvedUrls.local[0]+'#/preview/medassist',{waitUntil:'domcontentloaded',timeout:60000});
+ await legacy.locator('#medassist-message').evaluate(el=>{el.value='I cannot breathe';el.dispatchEvent(new Event('input',{bubbles:true}));});
+ await legacy.getByRole('alert',{name:'Emergency help',exact:true}).waitFor();
+ assert(legacyCalls===0,'older preview bypassed emergency guard');
+ assert(await legacy.locator('.medassist-composer').count()===0,'ordinary older questions remained');
+ await legacy.close();
+ process.stdout.write(JSON.stringify({viewports:observations,pendingLanguageCancelled:true,legacyPreviewGuard:true,cloudCalls:0,extractionRequestsMocked:calls,externalMapsOpened:false})+'\n');
+} finally {await browser?.close();await server.close();}

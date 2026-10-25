@@ -1,0 +1,254 @@
+{
+  "fictional_only": true,
+  "actual_http": true,
+  "actual_model_a": true,
+  "cloud_calls": 0,
+  "existing_emergency_guard": true,
+  "rows": [
+    {
+      "text": "I have a cough.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 40,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "I have a cough",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "actual_model_a": {
+        "first_question_id": "E_181",
+        "items": 223,
+        "model_b_status": "not_enabled",
+        "authored_fictional_confirmation": true
+      }
+    },
+    {
+      "text": "I've been coughing for three days.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 21,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "I've been coughing for three days",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "I've been coughing for three days",
+          "kind": "duration"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "It's mostly a dry cough. I can breathe normally.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 19,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "It's mostly a dry cough",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_66",
+          "quote": "I can breathe normally",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "It's mostly a dry cough",
+          "kind": "unsupported"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "I am not coughing.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 15,
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "I am not coughing",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "unmapped": [],
+      "actual_model_a": null
+    },
+    {
+      "text": "I used to cough, but it stopped.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 30,
+      "observations": [],
+      "unmapped": [
+        {
+          "quote": "I used to cough",
+          "kind": "ambiguous"
+        },
+        {
+          "quote": "ut it stopped",
+          "kind": "ambiguous"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "My brother is coughing.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 31,
+      "observations": [],
+      "unmapped": [
+        {
+          "quote": "My brother is coughing",
+          "kind": "ambiguous"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "I have stomach pain.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 31,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "quote": "I have stomach pain",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "I have stomach pain",
+          "kind": "unsupported"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "My head hurts.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 31,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "quote": "My head hurts",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "My head hurts",
+          "kind": "unsupported"
+        }
+      ],
+      "actual_model_a": {
+        "first_question_id": "E_56",
+        "items": 223,
+        "model_b_status": "not_enabled",
+        "authored_fictional_confirmation": true
+      }
+    },
+    {
+      "text": "I've had lower back pain for three days.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 25,
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "quote": "I've had lower back pain for three days",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "I've had lower back pain for three days",
+          "kind": "duration"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "I think I have a tumor in my breast.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 31,
+      "observations": [],
+      "unmapped": [
+        {
+          "quote": "I think I have a tumor in my breast",
+          "kind": "ambiguous"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "I have a lump in my breast.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 19,
+      "observations": [],
+      "unmapped": [
+        {
+          "quote": "I have a lump in my breast",
+          "kind": "ambiguous"
+        }
+      ],
+      "actual_model_a": null
+    },
+    {
+      "text": "I have diarrhea and nausea, but I haven't vomited.",
+      "method": "deterministic.v1",
+      "status": 200,
+      "elapsed_ms": 28,
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "I have diarrhea",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_148",
+          "quote": "nd nausea",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "ut I haven't vomited",
+          "kind": "ambiguous"
+        }
+      ],
+      "actual_model_a": {
+        "first_question_id": "E_161",
+        "items": 223,
+        "model_b_status": "not_enabled",
+        "authored_fictional_confirmation": true
+      }
+    }
+  ]
+}

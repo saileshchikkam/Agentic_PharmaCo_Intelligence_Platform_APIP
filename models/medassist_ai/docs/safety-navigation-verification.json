@@ -1,0 +1,212 @@
+{
+  "schema_version": "medassist.safety-navigation-verification.v1",
+  "completed_local_date": "2026-10-25",
+  "timezone": "Asia/Kolkata",
+  "scope": "Continuation of interrupted 2026-10-24 implementation; fictional local development only",
+  "final_scope_check": {
+    "inventory_files": 28,
+    "missing_inventory_files": 0,
+    "duplicate_inventory_entries": 0,
+    "broken_local_documentation_links": 0,
+    "git_diff_check": "passed; ordinary existing LF/CRLF working-tree warnings remain",
+    "index": "empty",
+    "resume_changes": "10 documentation/receipt files only; no files removed; all other nonignored workspace file hashes match the resumed snapshot",
+    "runtime_changes_after_successful_checks": false
+  },
+  "inventory": {
+    "created": [
+      "models/medassist_ai/safety/provisional-rules.v1.json",
+      "models/medassist_ai/safety/provisional.py",
+      "models/medassist_ai/hospital/maps_search.py",
+      "server/medassist-safety.ts",
+      "src/features/medassist-safety/safety.ts",
+      "src/features/medassist-safety/navigation.ts",
+      "src/features/medassist-safety/HospitalNavigation.tsx",
+      "models/medassist_ai/tests/test_safety_navigation.py",
+      "scripts/medassist-safety.test.ts",
+      "scripts/medassist-safety.browser.mjs",
+      "models/medassist_ai/docs/safety-navigation.md",
+      "models/medassist_ai/docs/safety-navigation-verification.json",
+      "docs/history/2026-10-25.md"
+    ],
+    "modified": [
+      "models/medassist_ai/core/orchestrator.py",
+      "models/medassist_ai/config/model_registry.py",
+      "models/medassist_ai/hospital/interface.py",
+      "server/model-a-demo.ts",
+      "server/medassist.ts",
+      "src/features/medassist-conversation/MedAssistConversation.tsx",
+      "src/features/medassist/MedAssistPreview.tsx",
+      "scripts/medassist.test.ts",
+      "models/medassist_ai/README.md",
+      "models/medassist_ai/docs/integration_status.md",
+      "models/medassist_ai/docs/component_registry.md",
+      "src/features/medassist-conversation/README.md",
+      "src/features/medassist/README.md",
+      "docs/layers/medassist.md",
+      "CHANGELOG.md"
+    ],
+    "note": "Task-relative inventory, including previously implemented changes; Git already contained substantial unrelated dirty/untracked work."
+  },
+  "rules": {
+    "version": "explicit-emergency-statements.v1",
+    "review_status": "provisional_unreviewed",
+    "clinical_reviewer": null,
+    "clinically_validated": false,
+    "no_match": "not_assessed"
+  },
+  "navigation": {
+    "status": "search_handoff",
+    "verified_facility_provider": false,
+    "external_maps_opened_during_tests": false,
+    "symptoms_disclosed": false,
+    "location_permission": "separate explicit user action",
+    "external_search_availability": "not checked"
+  },
+  "checks": [
+    {
+      "name": "focused TypeScript",
+      "phase": "resumed final checkpoint",
+      "passed": 43,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "command": "node --import tsx --test scripts/medassist-safety.test.ts scripts/medassist-ai.test.ts scripts/medassist-conversation.test.ts scripts/medassist-governance.test.ts scripts/model-a-demo.test.ts scripts/medassist.test.ts"
+    },
+    {
+      "name": "focused Python including FastAPI HTTP",
+      "phase": "resumed final checkpoint",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "warnings": "treated as errors",
+      "modules": [
+        "models.medassist_ai.tests.test_safety_navigation",
+        "models.medassist_ai.tests.test_orchestrator",
+        "models.medassist_ai.tests.test_model_a_adapter",
+        "models.medassist_ai.tests.test_evidence_contract",
+        "models.medassist_ai.tests.test_model_b_disabled"
+      ],
+      "jayanth_tests_run": false
+    },
+    {
+      "name": "frontend TypeScript",
+      "phase": "verified pre-interruption checkpoint",
+      "status": "passed"
+    },
+    {
+      "name": "backend and affected tests TypeScript",
+      "phase": "verified pre-interruption checkpoint",
+      "status": "passed",
+      "command": "node node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck --esModuleInterop --resolveJsonModule --target ES2022 --module ESNext --moduleResolution bundler server/model-a-demo.ts server/medassist-safety.ts server/medassist.ts scripts/medassist-safety.test.ts scripts/medassist.test.ts"
+    },
+    {
+      "name": "application build",
+      "phase": "verified pre-interruption checkpoint",
+      "command": "npm run build",
+      "status": "passed",
+      "warning": "existing large bundle warning",
+      "runtime_changes_after_success": false
+    },
+    {
+      "name": "safety browser",
+      "phase": "verified pre-interruption checkpoint",
+      "command": "node scripts/medassist-safety.browser.mjs",
+      "viewports": [
+        390,
+        820,
+        1440
+      ],
+      "status": "passed",
+      "checks": [
+        "offline emergency",
+        "no model calls on emergency",
+        "location permission denial",
+        "manual Maps preparation",
+        "navigation failure retains guidance",
+        "pending language cancellation",
+        "legacy preview emergency guard",
+        "no page errors or horizontal overflow"
+      ],
+      "transport": "mocked; no Groq or external Maps calls"
+    },
+    {
+      "name": "20-question browser regression",
+      "phase": "verified pre-interruption checkpoint",
+      "command": "node scripts/medassist-conversation.browser.mjs",
+      "viewports": [
+        390,
+        820,
+        1440
+      ],
+      "status": "passed",
+      "questions": 20,
+      "handoff_items": 223,
+      "checks": [
+        "bounded page and scrollable history",
+        "keyboard access",
+        "UNKNOWN and explicit negative retained",
+        "collapsed bounded developer inspector",
+        "export"
+      ],
+      "inference": "fixture responses; real model separately checked"
+    },
+    {
+      "name": "actual sealed Model A smoke",
+      "phase": "verified pre-interruption checkpoint",
+      "status": "passed",
+      "actual_model_a": true,
+      "unknown_preserved": true,
+      "duplicate_question_prevented": true,
+      "handoff_items": 223,
+      "emergency_precedes_model_a": true,
+      "model_b": "unable_to_assess",
+      "navigation": "location_only_search_handoff"
+    },
+    {
+      "name": "frozen preservation",
+      "phase": "fresh resumed read-only verification",
+      "status": "passed",
+      "sealed_artifacts_matched": 17,
+      "seal_and_hash_receipt": "matched",
+      "implementation_hashes": "matched",
+      "exact_protocol_digest": "matched",
+      "locked_test_and_ledger": "not accessed",
+      "frozen_files_normalized": false,
+      "portability_caveat": "preexisting local CRLF versus Git LF protocol digest difference remains"
+    }
+  ],
+  "environmental_blocks": {
+    "initial_sandbox": "loopback EACCES and blocked TestClient runner; only identified own test processes stopped",
+    "interruption": "automatic-review usage limit prevented final commands from executing",
+    "resolution": "approved bounded resumed reruns passed; no remaining approval block"
+  },
+  "preservation": {
+    "model_b_disabled": true,
+    "model_b_research_unchanged": true,
+    "groq_configuration_unchanged": true,
+    "jayanth_artifacts_unchanged": true,
+    "unrelated_dirty_work_preserved": true,
+    "training": false,
+    "downloads": false,
+    "cloud_benchmarking": false,
+    "new_monitoring": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false,
+    "existing_preview_restarted": false
+  },
+  "remaining_gates": [
+    "qualified clinical review and language/context/error evaluation",
+    "clinician-approved comprehensive red flags and precautions",
+    "separately governed verified facility provider and suitability/currentness evidence",
+    "deliberate next preview restart to load changed backend code"
+  ],
+  "limitations": [
+    "literal English matcher can miss emergencies or falsely match contextual statements",
+    "not a diagnosis, urgency classifier or safety clearance",
+    "navigation provides a search link, not verified hospitals or dispatch",
+    "CRLF/LF frozen protocol portability caveat and trusted-pickle restrictions remain"
+  ]
+}

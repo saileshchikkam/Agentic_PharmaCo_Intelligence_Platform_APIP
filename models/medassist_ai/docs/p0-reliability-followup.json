@@ -1,0 +1,190 @@
+{
+  "at": "2026-10-25T15:15:56.187Z",
+  "fictional_only": true,
+  "rows": [
+    {
+      "source": "recorded_groq_response_with_final_normalization",
+      "at": "2026-10-25T15:15:53.339Z",
+      "fictional_text": "I've had stomach pain since yesterday evening. I feel like vomiting, but I haven't actually vomited.",
+      "status": 200,
+      "elapsed_ms": 113,
+      "extraction": {
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_53",
+            "quote": "I've had stomach pain since yesterday evening",
+            "state": "confirmed",
+            "value": true
+          },
+          {
+            "evidence_id": "E_148",
+            "quote": "I feel like vomiting",
+            "state": "confirmed",
+            "value": true
+          }
+        ],
+        "schema_version": "medassist.natural-extraction.v1",
+        "unmapped": [
+          {
+            "quote": "I haven't actually vomited",
+            "kind": "unsupported"
+          }
+        ]
+      },
+      "user_bubbles": 1,
+      "actual_model_a": {
+        "first_question_id": "E_58",
+        "next_question_id": "E_54",
+        "unknown_preserved": true,
+        "repeat_prevented": true,
+        "http_replay_cached": true,
+        "export_items": 223,
+        "model_b_status": "not_enabled",
+        "observed": [
+          {
+            "id": "E_148",
+            "status": "observed_positive",
+            "value": true
+          },
+          {
+            "id": "E_53",
+            "status": "observed_positive",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "source": "live_groq",
+      "at": "2026-10-25T15:15:53.919Z",
+      "fictional_text": "My head has been hurting since this morning, and bright lights make it worse. I don't have a fever.",
+      "status": 200,
+      "elapsed_ms": 1812,
+      "extraction": {
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_53",
+            "quote": "My head has been hurting",
+            "state": "confirmed",
+            "value": true
+          },
+          {
+            "evidence_id": "E_91",
+            "quote": "I don't have a fever",
+            "state": "confirmed",
+            "value": false
+          }
+        ],
+        "schema_version": "medassist.natural-extraction.v1",
+        "unmapped": [
+          {
+            "kind": "duration",
+            "quote": "since this morning"
+          },
+          {
+            "kind": "unsupported",
+            "quote": "bright lights make it worse"
+          }
+        ]
+      },
+      "user_bubbles": 1,
+      "actual_model_a": {
+        "first_question_id": "E_56",
+        "next_question_id": "E_54",
+        "unknown_preserved": true,
+        "repeat_prevented": true,
+        "http_replay_cached": true,
+        "export_items": 223,
+        "model_b_status": "not_enabled",
+        "observed": [
+          {
+            "id": "E_53",
+            "status": "observed_positive",
+            "value": true
+          },
+          {
+            "id": "E_91",
+            "status": "observed_negative",
+            "value": false
+          }
+        ]
+      }
+    },
+    {
+      "source": "live_groq",
+      "at": "2026-10-25T15:15:55.998Z",
+      "fictional_text": "I am coughing.",
+      "status": 429,
+      "elapsed_ms": 184,
+      "extraction": {
+        "error": "RATE_LIMITED",
+        "source": "groq"
+      },
+      "user_bubbles": 1,
+      "actual_model_a": null
+    }
+  ],
+  "diagnostics": {
+    "model": "qwen/qwen3.8-27b",
+    "calls": 2,
+    "active": false,
+    "blocked": null,
+    "cooldown_until": 1792941371174,
+    "application_caps": {
+      "per_minute": 4,
+      "per_process": 20
+    },
+    "attempts": [
+      {
+        "at": "2026-10-25T15:15:53.938Z",
+        "status": 200,
+        "latency_ms": 1782,
+        "category": null,
+        "source": "groq",
+        "request_id": "req_01m5st3vb0enrb1kysbfwkmgx3",
+        "application_request_id": "b19f72e5-cfa5-4940-9824-31b2c085920e",
+        "usage": {
+          "prompt_tokens": 1730,
+          "completion_tokens": 623,
+          "total_tokens": 2353
+        },
+        "finish_reason": "stop",
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-remaining-tokens": "6033",
+          "x-ratelimit-reset-requests": "1m26.4s",
+          "x-ratelimit-reset-tokens": "14.752s"
+        },
+        "retry_after_ms": null,
+        "validation": null,
+        "limit_kind": null
+      },
+      {
+        "at": "2026-10-25T15:15:56.018Z",
+        "status": 429,
+        "latency_ms": 156,
+        "category": "RATE_LIMITED",
+        "source": "groq",
+        "request_id": "req_01m5st3x4kefhv6hr1ss1vgbwn",
+        "application_request_id": "c156533e-d6f0-4e6d-8e39-219ac533b6fa",
+        "usage": {},
+        "finish_reason": null,
+        "rate_limits": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-remaining-tokens": "5892",
+          "x-ratelimit-reset-requests": "1m26.4s",
+          "x-ratelimit-reset-tokens": "15.81s"
+        },
+        "retry_after_ms": 15000,
+        "validation": null,
+        "limit_kind": "TPM"
+      }
+    ]
+  }
+}

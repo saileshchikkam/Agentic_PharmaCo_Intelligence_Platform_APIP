@@ -1,0 +1,63 @@
+{
+  "status": "stopped",
+  "stop_reason": "PROVIDER_REQUEST_REJECTED_NO_RETRIES",
+  "groups": [
+    {
+      "model": "openai/gpt-oss-120b",
+      "attempts": 14,
+      "expected_cases": 20,
+      "semantic_correct": 12,
+      "schema_and_span_valid": 13,
+      "median_ms": 1300.61,
+      "p95_ms": 2644.81,
+      "errors": 1,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 1,
+      "unmapped_assertions": 0,
+      "qualified": false
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "attempts": 0,
+      "expected_cases": 20,
+      "semantic_correct": 0,
+      "schema_and_span_valid": 0,
+      "median_ms": null,
+      "p95_ms": null,
+      "errors": 0,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0,
+      "qualified": false
+    },
+    {
+      "model": "openai/gpt-oss-20b",
+      "attempts": 0,
+      "expected_cases": 20,
+      "semantic_correct": 0,
+      "schema_and_span_valid": 0,
+      "median_ms": null,
+      "p95_ms": null,
+      "errors": 0,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0,
+      "qualified": false
+    }
+  ],
+  "suite_sha256": "1ac0a1674ce9fecf45af18b7c33b4ce392d1c736df150adcea78cef4c097b844",
+  "inference_requests": 14,
+  "retries": 0,
+  "selected_provider": null,
+  "live_enablement": false,
+  "clinical_validation": false
+}

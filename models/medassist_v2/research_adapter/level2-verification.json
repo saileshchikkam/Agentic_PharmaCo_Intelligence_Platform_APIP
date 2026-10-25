@@ -1,0 +1,107 @@
+{
+  "task": "MedAssist L2 implementation 1",
+  "date": "2026-10-21",
+  "status": "limited_structured_input_conversation_implemented_pending_review",
+  "recommendation": "CONDITIONAL GO for local fictional demo; L2 remains partial; clinical use NO-GO",
+  "created_files": [
+    "models/medassist_v2/research_adapter/conversation.py",
+    "models/medassist_v2/research_adapter/level2-preservation-baseline.json",
+    "models/medassist_v2/research_adapter/level2-verification.json",
+    "models/medassist_v2/tests/test_conversation.py",
+    "scripts/medassist-conversation.test.ts",
+    "src/features/medassist-conversation/README.md",
+    "src/features/medassist-conversation/language.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist-conversation/conversation.css"
+  ],
+  "modified_files": [
+    "CHANGELOG.md",
+    "docs/architecture.md",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/history/2026-10-21.md",
+    "docs/layers/medassist.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/research_adapter/app.py",
+    "server/model-a-demo.ts",
+    "src/App.tsx",
+    "src/features/access/AccessPreview.tsx",
+    "src/features/access/PreviewLayout.tsx"
+  ],
+  "task_file_count": 20,
+  "checks": {
+    "python": {
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 3.485,
+      "preserved_model_test_suite_run": false
+    },
+    "node": {
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend_typecheck": "passed",
+    "explicit_proxy_test_typecheck": "passed",
+    "production_build": "passed_with_existing_large_chunk_warning",
+    "browser": {
+      "status": "passed",
+      "engine": "fresh local Chrome",
+      "widths_px": [
+        390,
+        768,
+        1280
+      ],
+      "horizontal_overflow": false,
+      "page_errors": 0,
+      "navigation": true,
+      "unsupported_negation_abstains": true,
+      "initial_confirmation": true,
+      "actual_model_call": true,
+      "simulated_failure_retry": true,
+      "unknown_preserved": true,
+      "completion_restart_reload": true,
+      "keyboard_enter": true,
+      "unavailable_vocabulary_retry": true,
+      "raw_evidence_ids_hidden": true,
+      "handoff_entries": 223,
+      "handoff_version": "model-a-to-b.evidence.v1"
+    },
+    "loopback_smoke": {
+      "vocabulary_http": 200,
+      "interview_http": 200,
+      "actual_selected_model": true
+    },
+    "language_provider": null,
+    "model_b": "not_enabled",
+    "official_test_access": false,
+    "ledger_access_or_modification": false,
+    "training_retuning_or_official_validation": false,
+    "staging_commit_merge_push": false,
+    "production_client_conversation_and_lab_code_absent": true,
+    "documentation_links_structure_json_privacy_scope": "passed",
+    "final_frontend_types_and_build": "passed_after_keyboard_change",
+    "git_head_unchanged": "389b18523863131d26aaa2421472c2af8a2f7b00"
+  },
+  "corrections_and_limits": [
+    "Initial sandbox Node socket failures EACCES; normal loopback permission rerun passed",
+    "New test vocabulary initially assumed a complete fictional catalogue; corrected the authored fixture setup, no production mapping changed",
+    "Initial sandbox Python test invocation produced no result and was interrupted; normal-permission focused suite passed",
+    "Initial browser failure-injection harness double-handled a route; corrected harness passed",
+    "In-app browser automation unavailable in prior session; browser verification is fresh Chrome on the Windows host",
+    "Focused keyboard/responsive smoke is not full accessibility certification or typed-value browser matrix",
+    "General free text, multi-symptom extraction, clinical wording review and comparative medical LLM evaluation remain open",
+    "Frozen CRLF/LF portability and trusted-pickle/environment constraints remain",
+    "Only existing preview services were refreshed for the active session; no new monitor or unrelated background service"
+  ],
+  "preservation": {
+    "sealed_artifacts": 17,
+    "seal": "unchanged",
+    "frozen_code_protocol_environment": "passed",
+    "handoff_code_schema": "unchanged",
+    "official_test": "not_accessed",
+    "ledger": "not_accessed_or_modified",
+    "source_archives": "not_opened",
+    "prior_test_counts": "historical_receipts_not_rewritten"
+  }
+}

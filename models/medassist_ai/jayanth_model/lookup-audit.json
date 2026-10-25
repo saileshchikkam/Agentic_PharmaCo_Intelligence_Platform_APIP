@@ -1,0 +1,27 @@
+{
+  "commit": "6965b204bbc70eac91fccad5669a8a1c384c6844",
+  "files": [
+    {
+      "path": "app/data/symptom_precaution.csv",
+      "read": true,
+      "header": "Disease,Precaution_1,Precaution_2,Precaution_3,Precaution_4",
+      "url_citations": 0,
+      "clinical_review_established": false
+    },
+    {
+      "path": "app/data/symptom_Description.csv",
+      "read": true,
+      "header": "Disease,Description",
+      "url_citations": 0,
+      "clinical_review_established": false
+    },
+    {
+      "path": "app/data/Symptom-severity.csv",
+      "read": true,
+      "header": "Symptom,weight",
+      "url_citations": 0,
+      "clinical_review_established": false
+    }
+  ],
+  "scope": "Read-only header/citation inspection; no clinical endorsement or dataset rights established"
+}

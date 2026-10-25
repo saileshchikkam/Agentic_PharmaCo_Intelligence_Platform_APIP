@@ -13,10 +13,11 @@ const AdrWorkspace = React.lazy(() => import('../adr/AdrWorkspace')
   .then((module) => ({ default: module.AdrWorkspace })));
 const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
   .then((module) => ({ default: module.MedAssistPreview })));
+const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../medassist-conversation/MedAssistConversation')) : null;
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'medassist-preview' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-preview' } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -32,6 +33,7 @@ export function readPreviewRoute(): PreviewRoute {
   if (path === '/patient/home') return { screen: 'patient-home' };
   if (path === '/preview/adr-report') return { screen: 'adr-preview' };
   if (path === '/preview/medassist') return { screen: 'medassist-preview' };
+  if (import.meta.env.DEV && path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
   const role = path.replace('/sign-in/', '');
   if (roles.includes(role as AccessRole) && path.startsWith('/sign-in/')) {
     const requestedTask = new URLSearchParams(query).get('continue');
@@ -137,10 +139,10 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? '/patient/home' : '/';
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
-    document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : 'access-title')?.focus({ preventScroll: true });
+    document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : route.screen === 'medassist-conversation' ? 'medassist-conversation-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
 
-  return <div className="access-app">
+  return <div className={`access-app ${route.screen === 'medassist-conversation' ? 'access-app-conversation' : ''}`}>
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
       event.preventDefault();
       document.getElementById('access-main')?.focus();
@@ -148,7 +150,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <PreviewHeader screen={route.screen} appearance={appearance} setAppearance={setAppearance}
       preferencesSaved={preferencesSaved} onHelp={isPatientHome ? () => helpDialog.current?.showModal() : undefined} />
 
-    <main id="access-main" tabIndex={-1} className={`access-main ${isSignIn ? 'access-main-sign-in' : ''}`}>
+    <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''} ${isSignIn ? 'access-main-sign-in' : ''}`}>
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
@@ -158,6 +160,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
         <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient')}>Sign in to APIP</M3Button>
         <div className="access-welcome-links"><a href="#/patient/home" onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
+        {import.meta.env.DEV && <p><a href="#/preview/medassist-conversation" onClick={event => followPreviewLink(event, '/preview/medassist-conversation')}>Try the fictional MedAssist conversation</a></p>}
       </section>}
 
       {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
@@ -177,6 +180,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">info</span> Assistant guidance is a planned preview; it does not diagnose or replace professional care.</p>
             </div>
             <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => openTask('medassist')}>Explore MedAssist</M3Button>
+            {import.meta.env.DEV && <M3Button variant="text" onClick={() => navigatePreview('/preview/medassist-conversation')}>Try fictional adaptive conversation</M3Button>}
           </article>
           <article className="patient-task-card patient-report-card">
             <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">description</span></div>
@@ -218,6 +222,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </div>
       </section>}
 
+      {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
         <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p className="access-form-intro" role="status">Opening the fictional intake preview…</p></>}>

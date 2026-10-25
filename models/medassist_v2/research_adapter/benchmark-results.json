@@ -1,0 +1,41 @@
+{
+  "schema_version": "model-a.benchmark.v1",
+  "timestamp_utc": "2026-10-20T17:31:13.392883+00:00",
+  "scope": "30 authored disclosed transcripts; no patient records or clinical relevance assessment",
+  "loaded_model": "selected_alpha_1e-5",
+  "startup_including_17_artifact_hashes_seconds": 15.440501700039022,
+  "startup_python_tracing_enabled": true,
+  "timed_latency_tracing_enabled": false,
+  "direct": {
+    "n": 100,
+    "median_ms": 83.61570001579821,
+    "p95_ms": 100.13291001960168,
+    "min_ms": 68.29490000382066,
+    "max_ms": 117.6712000160478
+  },
+  "in_process_http": {
+    "n": 100,
+    "median_ms": 85.6838500185404,
+    "p95_ms": 111.53323499893304,
+    "min_ms": 69.38459997763857,
+    "max_ms": 129.36650001211092
+  },
+  "rss_before_load_bytes": 185757696,
+  "rss_after_load_bytes": 188518400,
+  "sampled_peak_rss_bytes": 202498048,
+  "rss_sample_interval_ms": 5,
+  "startup_and_warmup_python_peak_bytes": 17528418,
+  "all_17_artifacts_unchanged_after": true,
+  "official_patient_rows_opened": 0,
+  "versions": {
+    "fastapi": "0.115.12",
+    "starlette": "0.46.2",
+    "pydantic": "2.11.7",
+    "uvicorn": "0.51.0",
+    "httpx": "0.27.0",
+    "psutil": "6.0.0",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.2.2",
+    "scipy": "1.16.1"
+  }
+}

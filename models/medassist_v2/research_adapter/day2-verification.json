@@ -1,0 +1,120 @@
+{
+  "task": "MedAssist five-day sprint Day 2",
+  "date": "2026-10-21",
+  "user_target": "2026-10-22",
+  "status": "day2_complete_pending_user_review",
+  "branch": "codex/medassist-v2-task5a-adapter",
+  "base_commit": "7618d4e63df4ef12615f264cddcf8320237cb2cd",
+  "recommendation": "CONDITIONAL GO for local fictional research demo; no clinical or production release",
+  "commit_stage_merge_push_performed": false,
+  "prior_task5a_inventory_count": 21,
+  "prior_day1_file_count": 12,
+  "prior_combined_patch_files": 26,
+  "day2_created_files": [
+    "models/medassist_v2/research_adapter/demo.py",
+    "models/medassist_v2/tests/test_demo_workflow.py",
+    "server/model-a-demo.ts",
+    "scripts/model-a-demo.test.ts",
+    "src/vite-env.d.ts",
+    "src/features/model-a-research/contracts.ts",
+    "src/features/model-a-research/flow.ts",
+    "src/features/model-a-research/ModelAResearch.tsx",
+    "src/features/model-a-research/research.css",
+    "src/features/model-a-research/README.md",
+    "docs/history/2026-10-21.md",
+    "models/medassist_v2/research_adapter/day2-verification.json"
+  ],
+  "day2_modified_files": [
+    "models/medassist_v2/research_adapter/app.py",
+    "models/medassist_v2/tests/test_research_adapter.py",
+    "server.ts",
+    "src/App.tsx",
+    ".env.example",
+    "README.md",
+    "CHANGELOG.md",
+    "docs/architecture.md",
+    "docs/layers/medassist.md",
+    "docs/decisions.md",
+    "docs/roadmap.md",
+    "models/medassist_v2/README.md",
+    "models/medassist_v2/research_adapter/README.md"
+  ],
+  "day2_file_count": 25,
+  "combined_patch_files": 41,
+  "checks": {
+    "python": {
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 54.301,
+      "warnings_as_errors": true,
+      "preserved_model_tests": 4,
+      "command": "python -W error -m unittest models.medassist_v2.tests.test_research_adapter models.medassist_v2.tests.test_evidence_handoff models.medassist_v2.tests.test_demo_workflow -v"
+    },
+    "node": {
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 1.316,
+      "command": "node --import tsx --test scripts/model-a-demo.test.ts scripts/medassist.test.ts scripts/legacy-security.test.ts"
+    },
+    "frontend_types": "passed",
+    "explicit_proxy_test_types": "passed",
+    "production_build": "passed",
+    "production_client_research_code_absent": true,
+    "build_warning": "Client chunk exceeds 500 kB; no claim this sprint resolves existing bundle size",
+    "dependencies_or_lockfiles_changed": false,
+    "model_b_status": "not_enabled",
+    "handoff_schema_version": "model-a-to-b.evidence.v1",
+    "official_patient_rows_decoded": 0,
+    "official_test_invocations": 0,
+    "training_or_retuning_invocations": 0
+  },
+  "smoke": {
+    "actual_selected_model": true,
+    "loopback_interview_end_export": "passed",
+    "export_items": 223,
+    "unknown_preserved": true,
+    "cross_origin_http": 403,
+    "browser": "Fresh headless Chrome with bundled Playwright",
+    "browser_lifecycle": "fixture -> UNKNOWN -> end -> export -> reset",
+    "desktop_width_px": 1280,
+    "phone_width_px": 390,
+    "phone_page_width_overflow": false,
+    "page_errors": 0,
+    "temporary_services_stopped": true,
+    "separate_temporary_empty_account_database": true,
+    "new_background_monitor": false
+  },
+  "corrections_and_limits": [
+    "Initial sandboxed Node socket tests hit EACCES; focused rerun with normal local-socket access passed",
+    "Initial browser fixture reads overlapped in React StrictMode and returned 429; fixed and regression passed",
+    "In-app browser tool failed to initialize; fresh headless Chrome provided browser verification",
+    "B/C/M semantics covered by focused tests; full browser type matrix, tablet, keyboard and accessibility checks remain Day 3",
+    "Original frozen CRLF-local/LF-Git portability defect and trusted-pickle/operator assumptions remain",
+    "Historical latency/memory benchmark not rerun; no new performance or clinical validity claim",
+    "Final production-asset audit initially used Windows default text decoding; rerun with explicit UTF-8 passed, with no research/app behavior change"
+  ],
+  "preserved_handoff_hashes": {
+    "handoff.py": "dbb3dba7a27702553c02322fb5cedf87123cb29b4f9391c66d41475a5e362f89",
+    "handoff.schema.json": "a9d52227a1aa7898666541d429bfd1a64a5c8dec0f3e8e629b9c15cc87e206b2"
+  },
+  "review_images_outside_git": [
+    "medassist-day2-desktop.png",
+    "medassist-day2-mobile.png",
+    "medassist-day2-debug.png"
+  ],
+  "scope": "Stop after Day 2; review required before Git publication",
+  "final_preservation": {
+    "sealed_artifacts": 17,
+    "seal_sha256": "bd93cb1716b4780b3cdefe26bb197fa402f3d46b237dd9971f2cadfb750fece7",
+    "frozen_implementation_protocol_environment": "passed",
+    "handoff_code_schema_and_historical_receipts": "unchanged",
+    "ledger_entries": 0,
+    "test_and_failed_fit_markers": "absent",
+    "temporary_ports_3000_8766": "closed",
+    "staged_files": 0,
+    "links_fences_json_privacy_exact_scope": "passed",
+    "combined_patch_files": 41
+  }
+}

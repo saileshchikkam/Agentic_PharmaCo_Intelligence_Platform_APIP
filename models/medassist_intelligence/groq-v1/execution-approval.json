@@ -1,0 +1,9 @@
+{
+  "plan": "free",
+  "operator_confirmed": true,
+  "billable_usage_allowed": false,
+  "verified_by": "user explicit Free-plan benchmark confirmation",
+  "confirmed_at": "2026-10-21T18:41:33.998193+00:00",
+  "account_plan_independently_reported_by_model_list": false,
+  "scope": "at most 20 fictional cases for each of three available models; stop on quota/access rejection"
+}

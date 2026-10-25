@@ -1,5 +1,114 @@
 # Changelog
 
+## Authenticated read-only Model A protocol compatibility — 2026-10-26
+
+- Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.
+- Add tampering tests and migrate read-only adapter/fixture/smoke entry points. Fresh-checkout verification remains a separate readiness gate. [Guarantees](docs/model-a-protocol-portability.md).
+
+## Main reconciliation prepared; merge blocked — 2026-10-26
+
+- Resolved README and ignore-rule conflicts in an isolated integration branch; preserved contributor documentation and both commit histories.
+- Preserved canonical contributor file bytes with scoped attributes; no model/provider or frozen-study changes.
+- TypeScript/HTTP, types/build and responsive regressions pass, but fresh-checkout Python fails the existing protocol checksum gate. Main remains unmerged pending a separately reviewed integrity-preserving repair. [Evidence and next action](docs/reconciliation-2026-10-26.md).
+
+## MedAssist verified checkpoint consolidation — 2026-10-25
+
+- Synchronized current README, setup, architecture, capability gates and safety status with the implemented fictional conversation, without rewriting historical verification receipts.
+- Preserved byte hashes for newly tracked research sources/reports using scoped Git attributes, and excluded Python caches. Frozen Model A protocol portability remains unresolved.
+- Consolidated pending adapter, modular research, language/reliability, evidence, UI and evaluation work for a reviewed feature-branch checkpoint. Recovered contributor data/weights remain local and already available in the cited remote-main history. See [scope, checks and exclusions](models/medassist_ai/docs/checkpoint-2026-10-25.md).
+
+## MedAssist symptom understanding and evidence integrity — 2026-10-25
+
+- Added exact schema/language/question-target inventory, deterministic supported-English normalization and source/context provenance without new model features.
+- Added typed/anatomical question compatibility, bounded clarification outside the eight-question budget, full-source polarity validation and explicit v2 conversation export with unchanged v1 evidence handoff.
+- Preserved actual sealed Model A ranking, disabled clinical Model B and the existing UI. Fictional development/mocked checks and real-model integration are separated; two unchanged emergency-rule misses remain blockers. [Evidence and limitations](models/medassist_ai/docs/symptom-understanding.md).
+
+## MedAssist P0 submission and provider recovery — 2026-10-25
+
+- Prevented duplicate description bubbles, confirmations and question transitions through stable request IDs and bounded local replay.
+- Replaced permanent temporary-rate blocking with categorized failures, Retry-After recovery, bounded transient retries and sanitized development diagnostics.
+- Preserved strict evidence validation, explicit confirmation, unsupported wording and independent emergency help. Live/recorded integration and confirmed Groq TPM limits are separated in the [verification report](models/medassist_ai/docs/p0-reliability.md). No UI redesign or clinical activation.
+
+## MedAssist symptom recognition and bounded fallback — 2026-10-25
+
+- Added the existing general-pain field to the constrained language catalogue; actual stomach-pain/headache cases now reach confirmation and real Model A pain questions without inventing anatomical codes.
+- Added bounded, phase-aware clarification for repeated/equivalent wording and already-recorded facts; separated provider/quota, timeout, invalid-output, mapping and question-service failures.
+- Display trusted source labels for encoded answer choices while preserving original values and UNKNOWN. Preserved the eight-question stop, independent safety, disabled Model B and all sealed research protections. [Actual evidence and limitations](models/medassist_ai/docs/recognition-fix.md).
+
+## MedAssist natural conversation and topical questions — 2026-10-25
+
+- Reused the existing Material 3 chat with document scrolling, an accessible sticky composer, neutral progress and a concise natural summary.
+- Added a separate experimental Groq sparse-language profile, explicit rich-reply confirmation and traceable session export; actual coverage is 28 anchors, not universal symptom understanding.
+- Added an eight-routine-question topical wrapper around unchanged sealed Model A, preserving original research endpoints, frozen protocol and evidence contract. Verified real-model sequences, UNKNOWN, emergency precedence, responsive layout and consent/failure navigation. Clinical use remains blocked. See [current evidence and limitations](models/medassist_ai/docs/natural-conversation.md).
+
+## MedAssist conversational experience — 2026-10-25
+
+- Replaced research-form controls with a Material 3 chat, one animated/reduced-motion greeting, inline confirmation and explicit fictional-context questions, typed answers, retry, summary and unchanged evidence export.
+- Added neutral desktop/mobile assessment status without enabling Model B; made Maps contextual while preserving immediate independent emergency help. Fixed shared-preview CSS height collision and offscreen-focus page growth.
+- Verified five responsive widths, 20-question history, safety/failure behavior, four actual Model A conversations and one fictional live qualified Groq integration. Preserved all 17 sealed artifacts and frozen implementation/protocol. See [exact evidence and limitations](models/medassist_ai/docs/chat-verification.json).
+
+## Provisional MedAssist safety and navigation — 2026-10-25
+
+- Added independent emergency-statement precedence across both fictional previews and backend extraction, including pending/offline models. Shared rules remain provisional and unreviewed; no clinical clearance or urgency prediction is enabled.
+- Added separately consented location-only Maps search with permission/network failure handling and explicit unverified-facility semantics. Existing layout, confirmed evidence and Model A question authority are preserved.
+- Completed 43 TypeScript and 15 Python tests, responsive safety and 20-question browser regressions, actual Model A smoke and fresh verification of all 17 sealed artifacts/frozen code and protocol. See [scope and release blockers](models/medassist_ai/docs/safety-navigation.md).
+
+## NHAMCS ED Experiment 2 — 2026-10-24
+
+- Compared two fixed, training-weighted Extra Trees configurations on the existing training/validation partitions, excluding the previously exposed test from prediction and scoring. Neither improved macro-F1 or severe recall; no model was selected.
+- Documented source-imputation leakage, corrected age-flag interpretation and preserved Experiment 1 artifacts/results. Four-class Model B stays disabled; all 17 Model A sealed artifact hashes and frozen code/protocol matched before and after.
+
+## NHAMCS five-class ED research baseline — 2026-10-24
+
+- Trained one isolated real-data multinomial logistic-regression baseline with explicit missing states and stratified duplicate-group separation; documented held-out errors, calibration, abstention, source limitations and reproducible artifact hashes.
+- Test accuracy 45.84%, macro-F1 0.3342 and immediate-class recall 17.86% keep clinical integration NO-GO. Four-class Model B remains disabled; all 17 sealed Model A artifacts and frozen code/protocol matched before and after.
+
+## MedAssist extraction qualification and bounded comparison — 2026-10-21
+
+- Compared three installed local models on 20 identical fictional cases using two fixed variants; preserved baseline and all failures. No candidate qualified.
+- Added hash/digest-bound qualification, stricter uncertainty/negative validation and fast rejection of unqualified live language requests. Explicit structured Model A interviews and the existing UI are preserved.
+- Verified actual Model A, 17 sealed artifacts and untouched official test/ledger protections. No training, downloads or Git publication.
+
+## Explicit local MedGemma fictional integration — 2026-10-21
+
+- Added an opt-in installed-only loopback Ollama provider, constrained extraction guards and existing-chat confirmation bridge to real Model A; preserved UI layout and frozen contracts.
+- Preserved both 20-case development runs and disclosed failed extraction-quality gates, latency, memory limits and strengthened hallucination guards. No clinical enablement, downloads, training or Git publication.
+
+## MedAssist intelligence evidence and governed boundaries — 2026-10-21
+
+- Froze a 48-case fictional extraction benchmark, strict evaluation-only contract and promotion gates; implemented a capped local-only installed-model evaluator and preserved failed screen results without provider enablement.
+- Verified actual sealed Model A over 20 follow-ups, UNKNOWN/dependency/duplicate/export behaviour and all 17 artifact hashes; froze the UI and existing evidence contract.
+- Recorded blocked Model B label/data readiness and defined unavailable clinician-review/precautions/consented-navigation interfaces. No training, official test/ledger access, downloads or Git publication.
+
+## MedAssist compact conversation UI correction — 2026-10-21
+
+- Kept the normal conversation within a responsive viewport shell, with bounded scrollable history, one accessible composer and optional summary/privacy details; developer evidence remains exclusive to the separate inspector.
+- Verified 20-turn layouts at 390/820/1440px, keyboard replies/history navigation, unchanged evidence semantics and focused tests. No frozen/research data changes or Git publication.
+
+
+## MedAssist L2 implementation 1 — limited fictional conversation — 2026-10-21
+
+- Added a DEV-only conversational page in the existing APIP shell and navigation, separate from the developer lab; confirmed supported symptoms feed actual preserved Model A follow-ups and unchanged evidence semantics.
+- Added an exact metadata-verified initial vocabulary and strict candidate-extraction boundary. No language model is configured or selected; ambiguous/unsupported text clarifies, and clinical capabilities remain unavailable.
+- Verified focused tests, local actual-model/browser behaviour and preservation gates; no training, official test/ledger access or Git publication. Full L2 remains open pending comparative language evaluation and clinical wording review.
+
+## MedAssist sprint Day 2 — fictional adaptive question lab — 2026-10-21
+
+- Added a DEV-only Material Web workflow using the preserved actual Model A: authored fixture start, typed B/C/M answers, UNKNOWN/conflict handling, stop/reset, evidence summary and unchanged versioned evidence export.
+- Added a development-only guarded loopback proxy with server-side token, bounded validated transport and no production/patient inference integration. Fixed overlapping fixture startup reads discovered in browser smoke; inference remains serialized.
+- Verified focused lifecycle/isolation tests and short real-model loopback/browser checks. Model B remains disabled; no training, official locked test, ledger claim or commit/merge/push.
+
+## MedAssist sprint Day 1 review and evidence contract — 2026-10-20
+
+- Reviewed the preserved 21-file Task 5A patch; fixed unsupported false binary initial complaints while preserving explicit negative follow-up answers and frozen ranker behavior.
+- Defined a separate versioned research evidence handoff with positive/negative/value/unknown/not-asked/unsupported/conflict provenance; 28 focused tests passed. No Model B or clinical output was enabled.
+- Verified existing NHAMCS availability without parsing records; clinical Model B data readiness remains NO-GO. Planned Days 2–5 around a nonclinical fallback; no commit, merge or push.
+
+## Model A research integration prototype for review — 2026-10-20
+
+- Added an isolated, opt-in loopback FastAPI adapter using the existing sealed selected v2 ranker and frozen features/eligibility, with versioned fictional request/response/evidence contracts and safe abstention.
+- Added focused contract/safety/parity tests and local latency/memory measurements; no production routes, model fitting, validation replay, official patient decoding or locked-test access. Frozen assets remain unchanged; the patch is uncommitted pending review.
+
 ## MedAssist v2 official validation and verified pre-test seal — 2026-10-20
 
 - Completed the original single campaign with 132,448 validation interviews and 529,792 cached policy trajectories; selected alpha 0.00001 using the frozen validation rule without refitting.
@@ -247,3 +356,30 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Completed all 60 configurations/180 CV fold fits, 12 final models and six calibrators under unchanged v1, then evaluated each frozen model once. No recorded training warnings/failures.
 - Added 15 synthetic regressions (38 total), actual cached-result/threshold verification, aggregate comparisons/calibration/evaluation reports, four research model cards and reproducibility hashes. Raw data, private predictions and fitted artifacts remain external.
 - Recorded material negative findings: primary vitals CV winner missed 86/411 high and 7/26 Immediate cases; every five-class variant missed exact Immediate class on all ten cases. Singleton strata suppress intervals. No clinical/app/ADR integration or safety behavior changed.
+
+
+### 2026-10-21 — MedAssist conversational refinement (uncommitted)
+
+- Removed duplicate initial confirmation bubbles and duplicate follow-up headings; added a shared exact-answer composer, retry locking and client replay rejection.
+- Kept the provider disabled; added a validated suggestion-only evaluation seam and current candidate feasibility notes. L2 remains partial with clinical features unavailable.
+- Verified 15 Node and 18 authored Python tests, type/build checks and three-width Chrome lifecycle with response stubs; actual-model/LLM benchmarking remains open.
+
+### MedAssist Groq fictional extraction — 2026-10-23
+
+Added a backend-only, explicitly enabled, hash-qualified Groq provider with sparse evidence validation and confirmation before frozen Model A inference. Qwen passed the bounded 20-case gate; real browser smoke passed. See [evaluation and limitations](models/medassist_intelligence/groq-v1/README.md). Clinical functions remain disabled; no UI layout redesign.
+
+### Modular MedAssist research architecture — 2026-10-23
+
+Added injectable component registry/orchestrator, canonical Model A adapter, qualified Groq OOP wrapper and safe operational metadata, evidence boundaries, pinned disabled Jayanth adapter, and disabled urgency/safety/hospital interfaces. Existing routes/UI and frozen assets remain preserved. [Implementation and checks](models/medassist_ai/README.md).
+
+### Jayanth canonical artifact recovery — 2026-10-24
+
+Verified remote merge ancestry and restored 16 missing canonical ML/data/dependency files from pinned remote main without merging or overwriting work. Adapter integrity now checks Git blob identity and SHA-256; Joblib execution stays disabled. [Recovery evidence](models/medassist_ai/docs/artifact-recovery.md).
+
+### Jayanth compatibility and leakage validation — 2026-10-24
+
+Reproduced declared dependencies in an isolated hash-locked environment, added literal-only vocabulary inspection and deterministic explicit-unknown normalization, and audited duplicate-group leakage. Disease execution and clinical guidance remain disabled. [Evidence and limitations](models/medassist_ai/docs/jayanth-technical-validation.md).
+
+### Model B gated readiness foundation — 2026-10-24
+
+Added provisional urgency schema, provenance-gated ingestion, group-safe splits, offline trainer/evaluator and research-only registration. Synthetic checks do not train or clinically validate Model B; the active provider remains disabled. [Implementation and gates](models/medassist_ai/model_b/README.md).

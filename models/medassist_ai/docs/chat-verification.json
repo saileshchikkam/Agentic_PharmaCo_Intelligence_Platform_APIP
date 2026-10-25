@@ -1,0 +1,246 @@
+{
+  "schema_version": "medassist.chat-verification.v1",
+  "completed_local_date": "2026-10-25",
+  "timezone": "Asia/Kolkata",
+  "status": "conditional_go_local_fictional_demo",
+  "inventory": {
+    "created": [
+      "models/medassist_ai/docs/chat-live-integration.json",
+      "models/medassist_ai/docs/chat-model-a-observations.json",
+      "scripts/medassist-chat-live.browser.mjs",
+      "scripts/medassist-chat-model-a-smoke.py",
+      "scripts/medassist-chat.browser.mjs",
+      "scripts/medassist-chat.test.ts",
+      "src/features/medassist-conversation/presentation.ts",
+      "models/medassist_ai/docs/chat-verification.json"
+    ],
+    "modified": [
+      "docs/history/2026-10-25.md",
+      "models/medassist_ai/README.md",
+      "models/medassist_ai/docs/integration_status.md",
+      "scripts/medassist-conversation.browser.mjs",
+      "scripts/medassist-conversation.test.ts",
+      "scripts/medassist-safety.browser.mjs",
+      "scripts/medassist-safety.test.ts",
+      "src/features/medassist-conversation/MedAssistConversation.tsx",
+      "src/features/medassist-conversation/README.md",
+      "src/features/medassist-conversation/conversation.css",
+      "CHANGELOG.md",
+      "docs/architecture.md",
+      "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+      "docs/decisions.md",
+      "docs/layers/medassist.md",
+      "docs/roadmap.md"
+    ],
+    "removed": []
+  },
+  "source_preservation": "Compared all nonignored files to task-start SHA-256 snapshot; exact listed changes only, none removed. Protected external artifacts verified separately.",
+  "implementation": {
+    "existing_architecture_reused": true,
+    "ui": "existing DEV-only main-site conversation",
+    "greeting": "one per conversation; reduced-motion-aware; stable normal rerenders",
+    "context": "explicit fictional age/source-sex; no defaults or account import",
+    "confirmed_evidence": "unchanged model-a-to-b.evidence.v1",
+    "question_selection": "actual preserved Model A; no LLM rewriting",
+    "assessment": "neutral Low/Moderate/High/Very High slots; colour names reserved only",
+    "model_b": "disabled, unable_to_assess",
+    "navigation": "explicit request/emergency only; location-only Maps search; no specialty or verified facility inference",
+    "safety_rules": "unchanged provisional_unreviewed"
+  },
+  "checks": [
+    {
+      "name": "focused TypeScript",
+      "command": "node --import tsx --test scripts/medassist-chat.test.ts scripts/medassist-conversation.test.ts scripts/medassist-safety.test.ts scripts/medassist-ai.test.ts scripts/medassist-governance.test.ts scripts/model-a-demo.test.ts scripts/medassist.test.ts",
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "name": "focused Python",
+      "modules": [
+        "models.medassist_ai.tests.test_safety_navigation",
+        "models.medassist_ai.tests.test_orchestrator",
+        "models.medassist_ai.tests.test_model_a_adapter",
+        "models.medassist_ai.tests.test_evidence_contract",
+        "models.medassist_ai.tests.test_model_b_disabled"
+      ],
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "warnings": "errors",
+      "bound_seconds": 45,
+      "includes": "FastAPI HTTP integration",
+      "jayanth_tests_run": false
+    },
+    {
+      "name": "frontend TypeScript",
+      "command": "node node_modules/typescript/bin/tsc --noEmit",
+      "status": "passed after final runtime edit"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "status": "passed",
+      "warning": "existing >500 kB client bundle warning",
+      "note": "Subsequent source-sex reply change affects transcript text only; final TypeScript and browser checks rerun."
+    },
+    {
+      "name": "five-width chatbot browser",
+      "command": "node --import tsx scripts/medassist-chat.browser.mjs",
+      "widths": [
+        320,
+        390,
+        768,
+        820,
+        1440
+      ],
+      "height": 900,
+      "status": "passed after final runtime edit",
+      "checks": [
+        "one greeting and preserved DOM node on rerenders",
+        "normal/reduced-motion greeting",
+        "single multiline composer",
+        "Enter versus Shift+Enter",
+        "no research dropdown/shortcuts/checklist",
+        "explicit confirmation and context",
+        "provider and interview failure/retry",
+        "UNKNOWN versus explicit negative",
+        "223-item JSON export and not-asked preservation",
+        "context abstention",
+        "neutral desktop/mobile assessment",
+        "contextual navigation",
+        "numeric categorical zero",
+        "explicit empty multichoice set",
+        "emergency supersedes delayed question response",
+        "page bounds and accessible composer"
+      ],
+      "inference": "authored transport fixtures, not actual models"
+    },
+    {
+      "name": "20-question browser regression",
+      "command": "node scripts/medassist-conversation.browser.mjs",
+      "widths": [
+        390,
+        820,
+        1440
+      ],
+      "status": "passed after final runtime edit",
+      "answers_per_interview": 20,
+      "maximum_page_height": 900,
+      "checks": [
+        "no repeated question",
+        "one composer",
+        "no raw IDs/checklist",
+        "UNKNOWN/false retained",
+        "keyboard history scrolling",
+        "bounded summary",
+        "developer lab 223-row bounded inspector/export preserved"
+      ],
+      "inference": "authored transport fixtures"
+    },
+    {
+      "name": "safety browser",
+      "command": "node scripts/medassist-safety.browser.mjs",
+      "widths": [
+        390,
+        820,
+        1440
+      ],
+      "status": "passed",
+      "checks": [
+        "models offline; zero model calls on emergency",
+        "no automatic location collection",
+        "denied location/manual fallback",
+        "navigation network failure retains emergency guidance",
+        "pending extraction cancellation",
+        "legacy fixed-question preview guard"
+      ],
+      "external_maps_opened": false,
+      "cloud_calls": 0
+    },
+    {
+      "name": "actual Model A",
+      "command": "python -B -W error -m scripts.medassist-chat-model-a-smoke",
+      "status": "passed",
+      "receipt": "chat-model-a-observations.json",
+      "scenarios": 4,
+      "answers": [
+        20,
+        20,
+        3,
+        1
+      ],
+      "stop_reasons": [
+        "question_budget",
+        "question_budget",
+        "user_stopped",
+        "unresolved_contradiction"
+      ],
+      "selected_types_in_these_real_scenarios": [
+        "B"
+      ],
+      "notes": "Typed categorical/multichoice controls are covered separately by authored fixtures, not claimed as real scenario coverage."
+    },
+    {
+      "name": "one actual qualified Groq-to-Model-A browser check",
+      "command": "node scripts/medassist-chat-live.browser.mjs",
+      "status": "passed",
+      "receipt": "chat-live-integration.json",
+      "model": "qwen/qwen3.8-27b",
+      "cloud_requests": 1,
+      "fictional_input": "I am coughing.",
+      "single_extraction_ms": 1377,
+      "benchmark": false,
+      "new_accuracy_claim": false,
+      "checks": [
+        "no inference before confirmation/context",
+        "actual follow-up",
+        "UNKNOWN",
+        "unique questions",
+        "user termination",
+        "223-item unchanged handoff",
+        "emergency precedence",
+        "zero page errors"
+      ],
+      "note": "Subsequent change preserves the original source-sex reply in the user bubble; adapter/provider/evidence behavior unchanged and final fictional browser tests rerun."
+    },
+    {
+      "name": "sealed integrity",
+      "status": "passed before and after real conversations",
+      "sealed_artifacts_matched": 17,
+      "seal_and_hash_receipt": "matched",
+      "implementation_and_protocol": "matched",
+      "environment": "existing pinned environment accepted",
+      "source_archives": "existing sealed attestations compared; no archives opened",
+      "official_locked_test_and_ledger": "not accessed",
+      "frozen_files_normalized": false
+    }
+  ],
+  "resolved_failures": [
+    "Initial browser load-event timeout: wait for DOM content and actual UI readiness instead.",
+    "Long transcript exposed absolutely positioned hidden heading affecting document height: containing block/explicit origin fixed, 20-turn bounds verified.",
+    "Real-smoke harness initially imported protocol from wrong module and assumed binary questions had a possible-values list: corrected harness, no frozen code change.",
+    "Authored categorical fixture incorrectly marked numeric zero as binary negative: validator rejected it; fixture corrected without weakening validation."
+  ],
+  "preservation": {
+    "no_training": true,
+    "no_new_models_or_dependencies": true,
+    "no_model_b_activation": true,
+    "no_groq_model_configuration_changes": true,
+    "no_authentication_or_adr_changes": true,
+    "no_jayanth_or_nhamcs_changes": true,
+    "no_locked_test_or_ledger_access": true,
+    "no_staging_commit_push": true,
+    "preview": "existing identity-checked loopback services restarted for active preview; no public exposure or automation"
+  },
+  "limitations": [
+    "Fictional software only; question wording is synthetic and not clinically approved.",
+    "Single-present initial symptom bridge remains limited; multiple/negative/UNKNOWN/contradictory/duration-bearing ingress clarifies instead of inventing accepted facts.",
+    "Age/source-sex must be explicit and limited source codes are not inclusive clinical coverage.",
+    "Broad selected questions and full UNKNOWN 20-question budget are frozen research behavior; no measured clinical relevance/accuracy improvement.",
+    "Model B and precautions remain unavailable; literal English safety guard remains provisional.",
+    "Maps handoff provides no verified facilities, specialty matching or emergency suitability.",
+    "Trusted-pickle and existing CRLF/LF protocol portability caveats remain."
+  ],
+  "next_milestone": "Qualified clinical wording review and a separately versioned/reviewed broader sparse-evidence ingress; no automatic retraining or clinical activation."
+}

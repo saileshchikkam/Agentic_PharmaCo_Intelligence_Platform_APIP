@@ -1,0 +1,165 @@
+{
+  "status": "static_checks_complete_execution_disabled",
+  "canonical_files": {
+    "checks": [
+      {
+        "path": "app/data/Symptom-severity.csv",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/data/dataset.csv",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/data/disease_specialization.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/data/processed/processed_dataset.csv",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/data/symptom_Description.csv",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/data/symptom_precaution.csv",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/evaluation.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/feature_engineering.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/label_encoder.joblib",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/model.joblib",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/model_loader.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/predict.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/preprocessing.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/symptom_columns.joblib",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "app/ml/train.py",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      },
+      {
+        "path": "requirements.txt",
+        "present": true,
+        "git_blob_matched": true,
+        "sha256_matched": true
+      }
+    ],
+    "integrity_complete": true,
+    "trusted_to_deserialize": false,
+    "execution_enabled": false
+  },
+  "processed_csv": {
+    "rows": 4920,
+    "features": 131,
+    "labels": 41,
+    "binary_cells_valid": true,
+    "feature_order_matches_derived_source_vocabulary": true,
+    "serialized_feature_order_verified": false
+  },
+  "raw_csv": {
+    "rows": 4920,
+    "distinct_disease_symptom_sets": 304,
+    "repeated_sets": 4616
+  },
+  "training_source_ast": {
+    "train_test_split": {
+      "test_size": 0.2,
+      "random_state": 42,
+      "stratify": "source expression"
+    },
+    "RandomForestClassifier": {
+      "n_estimators": 300,
+      "max_depth": null,
+      "random_state": 42,
+      "n_jobs": -1
+    }
+  },
+  "requirements_original_encoding": "utf-16",
+  "dependencies": {
+    "scikit-learn": {
+      "declared_in_contribution": "1.9.0",
+      "installed": "1.9.1",
+      "exact_match": false
+    },
+    "joblib": {
+      "declared_in_contribution": "1.5.3",
+      "installed": "1.6.0",
+      "exact_match": false
+    },
+    "numpy": {
+      "declared_in_contribution": "2.5.1",
+      "installed": "2.2.2",
+      "exact_match": false
+    },
+    "pandas": {
+      "declared_in_contribution": "3.0.5",
+      "installed": "3.0.0",
+      "exact_match": false
+    },
+    "scipy": {
+      "declared_in_contribution": "1.18.0",
+      "installed": "1.16.1",
+      "exact_match": false
+    }
+  },
+  "joblib_artifacts_deserialized": false,
+  "binary_estimator_dimensions_and_encoder_classes": "not verified without trusted loading",
+  "training_path_issue": "source expects data/processed/processed_dataset.csv; canonical file is app/data/processed/processed_dataset.csv",
+  "execution_enabled": false,
+  "licence_clinical_source_calibration_and_grouped_evaluation_gates": "unresolved"
+}

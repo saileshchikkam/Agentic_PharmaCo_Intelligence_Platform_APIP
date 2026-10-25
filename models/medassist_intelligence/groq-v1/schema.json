@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observations",
+    "unmapped",
+    "instruction_attempt"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "medassist.sparse-extraction.v1"
+      ]
+    },
+    "instruction_attempt": {
+      "type": "boolean"
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "state",
+          "quote"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "enum": [
+              "E_201",
+              "E_91",
+              "E_97"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "present",
+              "absent",
+              "unknown",
+              "contradictory"
+            ]
+          },
+          "quote": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "unmapped": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "quote",
+          "kind"
+        ],
+        "properties": {
+          "quote": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "unsupported_symptom",
+              "duration",
+              "ambiguous_wording",
+              "unsupported_value"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

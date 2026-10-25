@@ -1,0 +1,52 @@
+# Natural conversation and topical questioning — 2026-10-25
+
+**CONDITIONAL GO for a local fictional demonstration. NO-GO for clinical use.** This update supersedes the preceding conversational UI's internal-scroll, three-entry and 20-routine-question behavior. Earlier receipts remain unchanged historical evidence. No training, locked-test access or clinical activation occurred.
+
+## Current behavior
+
+The existing Material 3 bubbles, controls, desktop assessment sidebar and mobile collapse remain. The transcript grows with the document rather than scrolling internally. The composer stays in document flow with sticky positioning; expandable scope/summary and assessment areas have no internal height caps. One composer supports Enter, Shift+Enter and IME safeguards. The normal conversation has no model names, internal IDs, versions or stop codes. Diagnostics remain in the separate developer lab; clinical severity stays unassessed.
+
+Free text uses the already-selected backend Groq provider, with a **separate experimental** `medassist.natural-extraction.v1` profile. The original qualified three-symptom profile, frozen prompt/schema/results and provider selection are preserved. Its previous qualification does not certify this broader profile. Every new proposal is checked against trusted metadata, supported lexical anchors, exact source spans, states and typed values. Presence, absence, UNKNOWN, contradiction and omission remain distinct. Unsupported/duration spans and original narratives are retained without invented features. Proposals require explicit user confirmation. Model failure, timeout, quota rejection and ambiguity produce clarification rather than guessed facts.
+
+The broad profile shares the existing fixed HTTPS transport, backend-only key, deterministic decoding, 15-second timeout, one active request, four requests/minute and 20/process caps. No fallback model, model download or additional background benchmark was introduced. Free-text replies as well as initial descriptions are sent to Groq; the privacy notice now states this. Only fictional cases are authorized.
+
+## Vocabulary and relevance findings
+
+Verified metadata contains **223 fields: 110 symptoms and 113 antecedents**. Five quarantined antecedents are excluded from the 218-entry conversation catalogue. **96 root symptom fields** can supply an initial premise; the remaining 14 symptom fields are conditional. Metadata exposure is not natural-language or clinical coverage.
+
+The expanded language profile currently supports **28 anchored binary symptom/context concepts**, including diarrhea, nausea, repeated vomiting, rash, swelling, bloating, chills, sweating, nasal symptoms, hoarseness, fatigue, red eyes and numbness. It additionally supports the current question's exact typed choices. The complete anchor list is in [natural.ts](../../../src/features/medassist-conversation/natural.ts). Duration has no general source feature and stays unmapped; generic chest tightness is not silently converted into the more specific chest-pain-at-rest field. No universal symptom, pediatric or language coverage is claimed.
+
+The original ranker scores all frozen eligible candidates for synthetic evidence recovery. In authored cough and diarrhea examples its first choice was general pain. The new **`topical-candidates.v1`** wrapper intersects frozen eligibility with explicit topic memberships and positive-parent conditional children, then uses the **same sealed estimator, hasher, feature function and candidate order** to rank that subset. No LLM selects or invents questions. Filter memberships are engineering heuristics requiring independent review; these changes do not demonstrate improved trained-model accuracy, clinical completeness or appropriate screening.
+
+The wrapper stops at **eight routine questions**, earlier on exhausted topical candidates, user stop or contradiction. Eight is the operational target and is below the hard upper bound of ten; a ninth answer is rejected. Emergency checks and clarification do not consume this budget. The original research endpoints and 20-disclosure frozen protocol remain unchanged. Additional volunteered observations are explicitly distinguished from routine turns in the new request/export. The unchanged handoff still records chronological disclosures, not a new clinical interview protocol.
+
+## Rich replies, summary and conflict limits
+
+A fictional live example, “I have diarrhea and nausea for two days,” proposed two positive symptoms and retained the duration as unmapped. After confirmation and explicit fictional age/female-or-male context, actual Model A selected appetite/fullness. “No, I have no loss of appetite, and I have chills” proposed one negative and one new positive; after confirmation Model A selected fever. An explicit UNKNOWN remained UNKNOWN, followed by user-requested completion.
+
+Complete-sentence replies can supply the pending answer and additional observations in one confirmed update. If the pending question was not answered, additional confirmed details are held pending that answer or an explicit user stop; no automatic UNKNOWN is inserted. More than the existing 20 total disclosures, invalid dependencies or duplicate IDs fail closed instead of dropping data. Pending categorical/multichoice values must match exact source types, including numeric zero and explicitly empty lists.
+
+The five-part summary reports confirmed symptoms, context, uncertainty, unavailable personalized precautions and professional/emergency next steps. It has no diagnosis, inferred urgency, reassurance or raw termination code. Two fixed wording corrections simplify appetite/fullness and activity-limiting fatigue while retaining their question IDs and propositions; other questions retain original wording. No unrestricted LLM paraphrasing or medical advice is enabled.
+
+An explicitly conflicting current answer is exported as contradiction by the original contract. A conflict with an **earlier** accepted detail stops the interview, preserves the original accepted record and conflicting narrative/proposal, and marks the conversation export unresolved. It does not rewrite frozen chronological evidence or choose which statement is true; restarting with clarified information is required. Consumers must respect the export's conflict block. This remains a limitation, not resolved clinical evidence.
+
+`medassist.conversation-export.v1` wraps the unchanged `model-a-to-b.evidence.v1` object with original narratives, user-confirmed proposals/quotes, routine trace, unmapped text and conflict status. Raw information stays in page memory until explicit download. No account data is imported or logged.
+
+## Safety, navigation and research preservation
+
+Existing independent provisional statement guards precede language and question work, including models offline or pending. No ordinary precautions or urgency classification override an escalation. Emergency help remains immediately available. Maps is contextual and separately consented, accepts manual location, and handles denied permission/provider failures. No symptoms are sent to Maps and no facilities, specialty suitability or availability are fabricated. No approved symptom-to-specialty rule exists, so specialty routing remains unavailable.
+
+[Real-model observations](natural-model-a-observations.json) verified all 17 artifacts, seal, unchanged frozen implementation/protocol and pinned inference environment before/after. Source hashes were compared with prior attestations; source patient archives were not reopened. The official locked test and stable ledger were not accessed, consumed or replaced. The known exact-byte CRLF-local versus LF-Git protocol caveat and trusted local pickle constraint remain; no normalization occurred. Model B stays disabled; Jayanth and NHAMCS artifacts are not activated.
+
+## Checks and remaining gates
+
+- 49 focused TypeScript tests; 18 existing Python workflow/contract tests; six authored real-model scenarios with 223-item exports and four invalid transcripts rejected. Three direct HTTP checks cover the natural adapter and Origin rejection.
+- [Actual loopback checks](natural-http-observations.json): eight-question stop, rejected ninth question, eight UNKNOWN values, external-Origin rejection and safety before language, with zero cloud calls.
+- Browser transport fixtures at **320, 390, 820 and 1440px** cover eight-turn histories, confirmation, rich initial proposals, UNKNOWN/negative answers, retry, document scrolling, reachable composer, no horizontal overflow/technical checklist and pending-model emergency precedence. These fixtures are not inference accuracy evidence.
+- Separate safety/navigation browser regression at **390, 820 and 1440px** covers offline emergency, denied location, manual Maps preparation, network failures, pending extraction cancellation and the older preview guard. No real location or external Maps visit was used.
+- Four bounded actual Groq calls: two observed end-to-end conversation proposals, plus [two predeclared spot checks](natural-language-spot-check.json), both exact semantics (rash/absent fever and explicit UNKNOWN diarrhea), at 1,132ms and 881ms. No broad accuracy percentage is inferred from these checks.
+- Frontend type check and production build pass; the existing large client-bundle warning remains. Read-only scope verification and exact changed-file inventory are in [the task receipt](natural-conversation-verification.json).
+
+Initial checks encountered restricted loopback/platform access; their stalled test-only processes were stopped and the same checks passed with approved local access. A keyboard-scroll assertion was replaced with observed wheel/document-scroll completion. A separate browser check was interrupted by Vite reloading during another test-file edit and passed after the source tree was held steady. No final test failure is hidden by those earlier attempts.
+
+Next gates are a separately frozen broader extraction evaluation, clinician review of question meanings/topic exclusions and safety wording, robust correction of earlier conflicting observations, and independently validated urgency/guidance/facility data. L2 remains partial and clinical L3–L5 remain blocked. Existing run instructions apply; enable the existing Groq flag alongside the research/modular opt-ins. Keep private roots/token server-side. The active local preview is `http://127.0.0.1:3000/#/preview/medassist-conversation`.

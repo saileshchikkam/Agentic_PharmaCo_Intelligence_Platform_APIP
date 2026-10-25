@@ -1,0 +1,145 @@
+{
+  "date_ist": "2026-10-24",
+  "status": "completed_with_explicit_disabled_execution",
+  "dependency_resolution": "five exact pins reproduced; 10 binary wheel packages hash locked; pip check passed",
+  "compatibility_environment": {
+    "python": "3.12.2",
+    "platform": "Windows amd64",
+    "isolated_venv": true,
+    "user_site_enabled": false,
+    "versions": {
+      "scikit-learn": "1.9.0",
+      "joblib": "1.5.3",
+      "numpy": "2.5.1",
+      "pandas": "3.0.5",
+      "scipy": "1.18.0"
+    },
+    "resolved_wheel_packages": 10,
+    "hash_locked": true,
+    "pip_check": "passed",
+    "original_build_environment_attested": false,
+    "joblib_loaded": false
+  },
+  "ignored_environment_location": "venv/jayanth-compat; no system/user-site sharing; no public service",
+  "artifact_integrity_and_model_a_preservation": {
+    "sealed_artifacts_matched": 17,
+    "seal_digest_matched": true,
+    "frozen_code_protocol_evidence_files_checked": 13,
+    "frozen_changes": [],
+    "all_recovered_canonical_files_match": true,
+    "original_application_scientific_environment_before": {
+      "scikit-learn": "1.9.1",
+      "joblib": "1.6.0",
+      "numpy": "2.2.2",
+      "pandas": "3.0.0",
+      "scipy": "1.16.1"
+    },
+    "original_application_scientific_environment_after": {
+      "scikit-learn": "1.9.1",
+      "joblib": "1.6.0",
+      "numpy": "2.2.2",
+      "pandas": "3.0.0",
+      "scipy": "1.16.1"
+    },
+    "application_environment_unchanged": true,
+    "official_test_and_ledger": "not accessed",
+    "cloud_requests": 0,
+    "ui_changes": false
+  },
+  "vocabulary": "131 serialized primitive strings verified with non-executing grammar; matches canonical CSV order",
+  "dataset": {
+    "rows": 4920,
+    "features": 131,
+    "labels": 41,
+    "symptom_groups": 304,
+    "repeated_symptom_vectors": 4616,
+    "class_min": 120,
+    "class_max": 120,
+    "unique_group_min": 5,
+    "unique_group_max": 10,
+    "historical_row_split_audit": {
+      "test_rows": 984,
+      "test_rows_with_symptom_group_in_training": 984,
+      "overlap_fraction": 1.0,
+      "accuracy_computed": false
+    },
+    "prospective_group_partition": {
+      "method": "GroupShuffleSplit seed42 test_size0.2; group=symptom vector without label",
+      "train_rows": 3828,
+      "test_rows": 1092,
+      "train_groups": 243,
+      "test_groups": 61,
+      "group_overlap": 0,
+      "train_label_count": 41,
+      "test_label_count": 32,
+      "assignment_sha256": "7bbf298592252f800ae0f4c3c628347162bd508847d46da5c2b6c4b766f9c78d",
+      "independent_test_for_existing_model": false,
+      "reason": "post-hoc grouping cannot undo the existing model training exposure; original exact training membership not attested"
+    }
+  },
+  "execution_enabled": false,
+  "joblib_or_pickle_loader_called": false,
+  "controlled_disease_inference": "not run: executable serialization/build trust gate unmet",
+  "precautions_and_descriptions": "disabled; source/rights/review not established",
+  "tests": {
+    "modular_python_passed": 20,
+    "existing_evidence_workflow_python_passed": 14,
+    "dataset_audit_repeated_in_isolated_environment_passed": 1,
+    "affected_node_integration_passed": 39,
+    "failed": 0,
+    "skipped": 0
+  },
+  "new_accuracy_claim": false,
+  "source_patient_records_or_official_test_accessed": false,
+  "locked_ledger_accessed": false,
+  "preexisting_work_files_checked": 210,
+  "intentional_existing_changes": [
+    "CHANGELOG.md",
+    "docs/history/2026-10-24.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_ai/jayanth_model/adapter.py",
+    "models/medassist_ai/jayanth_model/manifest.json",
+    "models/medassist_ai/jayanth_model/vocabulary_mapping.py"
+  ],
+  "unexpected_existing_changes": [],
+  "files_created": [
+    "models/medassist_ai/docs/validation-before.json",
+    "models/medassist_ai/docs/compat-install-report.json",
+    "models/medassist_ai/docs/jayanth-compat-environment.json",
+    "models/medassist_ai/docs/jayanth-dataset-validation.json",
+    "models/medassist_ai/docs/jayanth-trust-assessment.json",
+    "models/medassist_ai/docs/jayanth-validation-preservation.json",
+    "models/medassist_ai/docs/jayanth-technical-validation.md",
+    "models/medassist_ai/docs/jayanth-validation-verification.json",
+    "models/medassist_ai/jayanth_model/requirements-compat.txt",
+    "models/medassist_ai/jayanth_model/requirements-compat.lock",
+    "models/medassist_ai/jayanth_model/static_inspection.py",
+    "models/medassist_ai/jayanth_model/dataset_audit.py",
+    "models/medassist_ai/tests/test_jayanth_validation.py",
+    "models/medassist_ai/tests/test_jayanth_dataset_audit.py"
+  ],
+  "files_modified": [
+    "CHANGELOG.md",
+    "docs/history/2026-10-24.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_ai/jayanth_model/adapter.py",
+    "models/medassist_ai/jayanth_model/manifest.json",
+    "models/medassist_ai/jayanth_model/vocabulary_mapping.py"
+  ],
+  "ignored_environment_files": "not enumerated; generated dependency environment only",
+  "broken_checked_links": [],
+  "secret_pattern_findings": [],
+  "head_unchanged": true,
+  "staged_files": [],
+  "commits_or_pushes": false,
+  "limitations": [
+    "Reproduced declared dependencies do not attest original binary build/runtime",
+    "Static model/encoder opcode inspection is incomplete; no isolated-security-boundary loading performed",
+    "Prospective group split is not independent evaluation of an already-trained artifact and misses nine test labels",
+    "Crosswalk, data rights, calibration and clinical sources remain unestablished",
+    "Model A trusted-pickle/environment and preexisting CRLF/LF portability caveats remain"
+  ],
+  "resolved_setup_issue": "Installer JSON required explicit UTF-8 decoding on Windows; corrected before recording final lock"
+}

@@ -1,0 +1,80 @@
+/* Scoped against the older fixed-question preview, which also uses this class name. */
+.access-app.access-app-conversation { height: auto; min-height: 100dvh; }
+.access-app-conversation .access-main.access-main-conversation { display: flex; flex: 1; min-height: 0; padding: 0 16px 12px; }
+.access-app-conversation .access-page-shell { display: flex; flex-direction: column; min-height: 0; }
+.access-app-conversation .access-page-navigation { flex: none; margin-bottom: 4px; }
+.access-app-conversation > .access-footer { display: none; }
+.access-app-conversation .medassist-conversation { width: 100%; max-width: 1160px; max-height: none; overflow: visible; flex: 1; min-height: 0; margin: 0 auto; padding: 0; border: 0; display: flex; flex-direction: column; gap: 8px; color: var(--md-sys-color-on-surface); }
+.medassist-conversation h1 { font-size: clamp(22px, 3vw, 30px); line-height: 1.2; margin: 0; }
+.medassist-conversation h2 { font-size: 18px; margin: 8px 0; }
+.medassist-conversation p { line-height: 1.5; margin: 6px 0; overflow-wrap: anywhere; }
+.conversation-header { display: flex; align-items: center; gap: 12px; flex: none; }
+.conversation-header > div { flex: 1; min-width: 0; }
+.conversation-avatar { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 16px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+.conversation-service-status { font-size: 12px; color: var(--md-sys-color-on-surface-variant); }
+.conversation-notice { flex: none; font-size: 12px; color: var(--md-sys-color-on-surface-variant); }
+.conversation-notice details[open] { max-height: none; overflow: visible; background: var(--md-sys-color-surface-container); border-radius: 12px; padding: 8px 12px; }
+.conversation-layout { display: grid; grid-template-columns: minmax(0,1fr) 260px; gap: 20px; flex: 1; min-height: 0; }
+.conversation-workspace { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+.conversation-messages { flex: 1; min-height: 0; overflow: visible; list-style: none; padding: 16px 12px; display: flex; flex-direction: column; gap: 16px; margin: 0; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface); }
+.conversation-message { flex: none; border-radius: 20px; padding: 12px 16px; max-width: min(92%, 620px); overflow-wrap: anywhere; }
+.conversation-message p { white-space: pre-wrap; }
+.conversation-speaker { font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface-variant); }
+.conversation-assistant { background: var(--md-sys-color-surface-container); align-self: flex-start; border-bottom-left-radius: 6px; }
+.conversation-user { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); align-self: flex-end; border-bottom-right-radius: 6px; }
+.conversation-welcome { animation: conversation-welcome-enter 240ms cubic-bezier(.2,0,0,1) both; }
+@keyframes conversation-welcome-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.conversation-turn { flex: none; min-width: 0; }
+.conversation-turn:empty { display: none; }
+.conversation-messages { position: relative; }
+.medassist-conversation .conversation-sr-only { top: 0; left: 0; }
+.conversation-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
+.conversation-actions > * { min-height: 48px; max-width: 100%; white-space: normal; }
+.conversation-input { position: sticky; bottom: 0; z-index: 2; padding: 8px 0; border-top: 1px solid var(--md-sys-color-outline-variant); flex: none; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 6px 8px; min-width: 0; margin: 0; background: var(--md-sys-color-surface); }
+.conversation-input > :last-child { grid-column: 1 / -1; }
+.conversation-composer-help { font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin: 0 !important; }
+.conversation-question { padding: 8px 4px; }
+.conversation-emergency { border: 1px solid var(--md-sys-color-error); border-radius: 16px; padding: 12px; }
+.medassist-conversation fieldset { display: grid; gap: 8px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 12px; padding: 12px; }
+.conversation-session { flex: none; display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 4px; font-size: 12px; }
+.conversation-session .conversation-actions { margin: 0; }
+.conversation-summary { flex: 1; min-width: 140px; max-height: none; overflow: visible; }
+.medassist-conversation summary { cursor: pointer; min-height: 32px; padding-block: 4px; }
+.conversation-error { color: var(--md-sys-color-error); padding: 8px; border: 1px solid currentColor; border-radius: 12px; }
+.medassist-conversation :focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: -3px; }
+.conversation-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.conversation-typing { display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 8px; }
+.conversation-typing > span { color: var(--md-sys-color-primary); letter-spacing: 3px; }
+.conversation-assessment { min-width: 0; align-self: start; position: sticky; top: 16px; max-height: none; overflow: visible; background: var(--md-sys-color-surface-container-low); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 20px; padding: 12px 16px; font-size: 13px; }
+.assessment-details summary { font-weight: 600; }
+.assessment-details > p[role="status"] { font-size: 18px; }
+.assessment-details ul { list-style: none; padding: 0; display: grid; gap: 8px; margin: 16px 0; }
+.severity-neutral { display: grid; grid-template-columns: 10px 1fr; align-items: center; gap: 4px 8px; padding: 8px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface-variant); }
+.severity-neutral > span { width: 8px; height: 8px; border-radius: 50%; background: var(--md-sys-color-outline); }
+.severity-neutral small { grid-column: 2; font-size: 11px; }
+/* Reserved labels: Low green, Moderate yellow, High orange, Very High red.
+   All swatches remain neutral because no assessed Model B result is authorized. */
+.assessment-warning { color: var(--md-sys-color-error); border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 8px; }
+@media (max-width: 999px) {
+  .conversation-layout { display: flex; flex-direction: column-reverse; gap: 8px; }
+  .conversation-workspace { flex: 1; }
+  .conversation-assessment { align-self: stretch; flex: none; max-height: none; position: static; padding: 4px 12px; font-size: 12px; }
+}
+@media (max-width: 600px) {
+  .access-app-conversation .access-main.access-main-conversation { padding: 0 8px 8px; }
+  .conversation-header { gap: 8px; flex-wrap: wrap; }
+  .conversation-header .conversation-avatar { display: none; }
+  .conversation-header h1 { font-size: 22px; }
+  .conversation-message { max-width: 96%; padding: 10px 12px; }
+  .conversation-messages { padding: 10px 8px; gap: 12px; border-radius: 18px; }
+  .conversation-input { grid-template-columns: minmax(0,1fr); }
+  .conversation-input > md-filled-button { justify-self: end; }
+  .conversation-composer-help { font-size: 10px; }
+  .conversation-session { font-size: 11px; }
+}
+@media (max-height: 700px) {
+  .access-app.access-app-conversation { height: auto; min-height: 100dvh; }
+  .access-app-conversation .medassist-conversation { min-height: 540px; }
+  .conversation-messages { flex-basis: auto; max-height: none; }
+}
+@media (prefers-reduced-motion: reduce) { .medassist-conversation *, .medassist-conversation *::before, .medassist-conversation *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }

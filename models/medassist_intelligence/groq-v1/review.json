@@ -1,0 +1,8 @@
+{
+  "status": "approved_by_user",
+  "suite_sha256": "a165642cee9b019c11c67d364175a72a6bf08ed71a6295571553239bbb8db07b",
+  "reviewer": "user",
+  "reviewed_at": "2026-10-21T18:39:41.549557+00:00",
+  "clinical_signoff": false,
+  "approval": "Explicit selection of approval option 1 for the exact 20 candidate annotations; not clinical sign-off"
+}

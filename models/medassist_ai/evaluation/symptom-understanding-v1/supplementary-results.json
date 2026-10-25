@@ -1,0 +1,116 @@
+{
+  "fictional_only": true,
+  "cases": 15,
+  "passed": 15,
+  "independent_holdout": false,
+  "cloud_calls": 0,
+  "rows": [
+    {
+      "id": "coverage-01",
+      "passed": true,
+      "evidence_ids": [
+        "E_151"
+      ]
+    },
+    {
+      "id": "coverage-02",
+      "passed": true,
+      "evidence_ids": [
+        "E_30"
+      ]
+    },
+    {
+      "id": "coverage-03",
+      "passed": true,
+      "evidence_ids": [
+        "E_50"
+      ]
+    },
+    {
+      "id": "coverage-04",
+      "passed": true,
+      "evidence_ids": [
+        "E_144"
+      ]
+    },
+    {
+      "id": "coverage-05",
+      "passed": true,
+      "evidence_ids": [
+        "E_103"
+      ]
+    },
+    {
+      "id": "coverage-06",
+      "passed": true,
+      "evidence_ids": [
+        "E_212"
+      ]
+    },
+    {
+      "id": "coverage-07",
+      "passed": true,
+      "evidence_ids": [
+        "E_201",
+        "E_203"
+      ]
+    },
+    {
+      "id": "coverage-08",
+      "passed": true,
+      "evidence_ids": [
+        "E_201",
+        "E_166"
+      ]
+    },
+    {
+      "id": "coverage-09",
+      "passed": true,
+      "evidence_ids": [
+        "E_32"
+      ]
+    },
+    {
+      "id": "coverage-10",
+      "passed": true,
+      "evidence_ids": [
+        "E_74"
+      ]
+    },
+    {
+      "id": "coverage-11",
+      "passed": true,
+      "evidence_ids": [
+        "E_127"
+      ]
+    },
+    {
+      "id": "coverage-12",
+      "passed": true,
+      "evidence_ids": [
+        "E_170"
+      ]
+    },
+    {
+      "id": "coverage-13",
+      "passed": true,
+      "evidence_ids": [
+        "E_93"
+      ]
+    },
+    {
+      "id": "coverage-14",
+      "passed": true,
+      "evidence_ids": [
+        "E_177"
+      ]
+    },
+    {
+      "id": "coverage-15",
+      "passed": true,
+      "evidence_ids": [
+        "E_76"
+      ]
+    }
+  ]
+}

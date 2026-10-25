@@ -1,0 +1,128 @@
+{
+  "date_ist": "2026-10-24",
+  "status": "passed",
+  "source_commit": "6965b204bbc70eac91fccad5669a8a1c384c6844",
+  "exact_remote_branch": "refs/heads/MedAssist-Jay",
+  "remote_named_branch_head": "54006967a0325acdae83e46f04a84b4ce1ad4f92",
+  "remote_main_head": "6965b204bbc70eac91fccad5669a8a1c384c6844",
+  "local_main": "7618d4e63df4ef12615f264cddcf8320237cb2cd",
+  "commit_reachability": {
+    "HEAD": {
+      "357906c45945e9e42fcd0dabe234f9c178ad2ec3": false,
+      "6965b204bbc70eac91fccad5669a8a1c384c6844": false
+    },
+    "main": {
+      "357906c45945e9e42fcd0dabe234f9c178ad2ec3": false,
+      "6965b204bbc70eac91fccad5669a8a1c384c6844": false
+    },
+    "origin/main": {
+      "357906c45945e9e42fcd0dabe234f9c178ad2ec3": true,
+      "6965b204bbc70eac91fccad5669a8a1c384c6844": true
+    },
+    "origin/MedAssist-Jay": {
+      "357906c45945e9e42fcd0dabe234f9c178ad2ec3": false,
+      "6965b204bbc70eac91fccad5669a8a1c384c6844": false
+    },
+    "origin/JAYANTH": {
+      "357906c45945e9e42fcd0dabe234f9c178ad2ec3": false,
+      "6965b204bbc70eac91fccad5669a8a1c384c6844": false
+    }
+  },
+  "restored_files": 16,
+  "overwritten_files": [],
+  "raw_git_blob_and_sha256_reverified": true,
+  "tests": {
+    "modular_python_passed": 15,
+    "existing_evidence_workflow_python_passed": 14,
+    "failed": 0,
+    "skipped": 0
+  },
+  "model_a_preservation": {
+    "sealed_artifacts_matched": 17,
+    "expected_artifacts": 17,
+    "seal_digest_matched": true,
+    "frozen_code_protocol_and_evidence_files_checked": 13,
+    "frozen_changes": [],
+    "official_test_and_ledger": "not accessed",
+    "joblib_deserialization": false
+  },
+  "joblib_deserialized": false,
+  "execution_enabled": false,
+  "existing_work_files_checked": 187,
+  "intentional_existing_work_changes": [
+    "CHANGELOG.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/component_registry.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_ai/jayanth_model/artifact_manifest.py",
+    "models/medassist_ai/jayanth_model/manifest.json",
+    "models/medassist_ai/tests/test_jayanth_adapter.py"
+  ],
+  "unexpected_existing_work_changes": [],
+  "head_unchanged": true,
+  "branch_unchanged": true,
+  "staged_files": [],
+  "secret_pattern_findings": [],
+  "broken_checked_links": [],
+  "files_restored": [
+    "app/data/Symptom-severity.csv",
+    "app/data/dataset.csv",
+    "app/data/disease_specialization.py",
+    "app/data/processed/processed_dataset.csv",
+    "app/data/symptom_Description.csv",
+    "app/data/symptom_precaution.csv",
+    "app/ml/evaluation.py",
+    "app/ml/feature_engineering.py",
+    "app/ml/label_encoder.joblib",
+    "app/ml/model.joblib",
+    "app/ml/model_loader.py",
+    "app/ml/predict.py",
+    "app/ml/preprocessing.py",
+    "app/ml/symptom_columns.joblib",
+    "app/ml/train.py",
+    "requirements.txt"
+  ],
+  "files_created": [
+    "app/data/Symptom-severity.csv",
+    "app/data/dataset.csv",
+    "app/data/disease_specialization.py",
+    "app/data/processed/processed_dataset.csv",
+    "app/data/symptom_Description.csv",
+    "app/data/symptom_precaution.csv",
+    "app/ml/evaluation.py",
+    "app/ml/feature_engineering.py",
+    "app/ml/label_encoder.joblib",
+    "app/ml/model.joblib",
+    "app/ml/model_loader.py",
+    "app/ml/predict.py",
+    "app/ml/preprocessing.py",
+    "app/ml/symptom_columns.joblib",
+    "app/ml/train.py",
+    "docs/history/2026-10-24.md",
+    "models/medassist_ai/docs/artifact-recovery.json",
+    "models/medassist_ai/docs/artifact-recovery.md",
+    "models/medassist_ai/docs/recovery-before.json",
+    "models/medassist_ai/docs/recovery-compatibility.json",
+    "models/medassist_ai/docs/recovery-model-a-preservation.json",
+    "models/medassist_ai/docs/recovery-verification.json",
+    "requirements.txt"
+  ],
+  "files_incrementally_modified": [
+    "CHANGELOG.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/component_registry.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_ai/jayanth_model/manifest.json",
+    "models/medassist_ai/jayanth_model/artifact_manifest.py",
+    "models/medassist_ai/tests/test_jayanth_adapter.py"
+  ],
+  "commit_merge_push_training_or_ui_changes": false,
+  "remaining_blockers": [
+    "Trusted serialization/build approval and actual binary/runtime compatibility",
+    "Five declared scientific dependency versions differ from preserved environment; no install performed",
+    "Reviewed crosswalk, data licence and intended-use rights",
+    "Duplicate-safe evaluation, calibration and traceable clinical sources",
+    "Training source relative-path mismatch; requirements retained in canonical UTF-16 format",
+    "Existing Model A trusted-pickle/environment and CRLF/LF portability caveats"
+  ]
+}

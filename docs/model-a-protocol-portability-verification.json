@@ -1,0 +1,109 @@
+{
+  "schema_version": "medassist.protocol-portability.v1",
+  "date": "2026-10-26",
+  "timezone": "Asia/Kolkata",
+  "verified_code_commit": "2f1fc18c49382d6a39bae64e60e5988b7d6027a0",
+  "base_integration_commit": "d329b372cf63b607b8f4e3a8f28752ebac57cf7f",
+  "protocol": "models/medassist_v2/adaptive-questioning-protocol.json",
+  "historical_sha256": "734050555cb9c42e4bc0b47884cf4bac27ec20da5b531c3457685b86dc2c899a",
+  "canonical_git_sha256": "569169b5c119c01beb408fe35e20139b0e9e932a92e8c31fccc20468a19da076",
+  "line_endings": 344,
+  "accepted_representations": [
+    "exact UTF-8 LF",
+    "exact UTF-8 CRLF"
+  ],
+  "authentication": "both fixed digests plus original adjacent pin; no generic normalization",
+  "frozen_protocol_pin_implementation_and_study_results_changed": false,
+  "binary_hashing_changed": false,
+  "locked_test_code_or_access_changed": false,
+  "checks": {
+    "initial_focused_python": {
+      "passed": 63,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "clean_checkout_python": {
+      "passed": 210,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "warnings_as_errors": true,
+      "actual_model_a_tests": 4,
+      "new_integrity_methods": 22
+    },
+    "typescript_http": {
+      "passed": 113,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "git_workflow": {
+      "passed": 10,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "frontend_types": "passed",
+    "strict_backend_types": "passed",
+    "production_build": "passed",
+    "existing_build_warning": "main client chunk 961.67 kB exceeds 500 kB",
+    "independent_seal": {
+      "artifacts_matched": 17,
+      "published_seal_hash_receipt_source_attestations_frozen_implementation_environment": "matched"
+    },
+    "actual_model_a_http_smoke": {
+      "status": "passed",
+      "responses": [
+        200,
+        200,
+        200
+      ],
+      "unknown_preserved": true,
+      "repeat_prevention": true,
+      "export_items": 223,
+      "model_b_disabled": true,
+      "cloud_calls": 0,
+      "historical_receipts_written": false
+    }
+  },
+  "excluded_execution": [
+    "training/locked-stage fixture classes",
+    "legacy root disease-prediction import script"
+  ],
+  "official_locked_test_ledger_or_source_archives_opened": false,
+  "training_or_dependency_changes": false,
+  "original_untracked_contributor_files_preserved": 16,
+  "remaining_constraints": [
+    "Frozen study commands remain strict and unchanged.",
+    "Original external artifact roots and exact scientific environment required.",
+    "Trusted-pickle and clinical/data/safety limitations persist."
+  ],
+  "files_count": 22,
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/development.md",
+    "docs/history/2026-10-26.md",
+    "docs/model-a-protocol-portability-verification.json",
+    "docs/model-a-protocol-portability.md",
+    "docs/reconciliation-2026-10-26.md",
+    "docs/roadmap.md",
+    "models/medassist_ai/tests/fixtures.py",
+    "models/medassist_v2/research_adapter/README.md",
+    "models/medassist_v2/research_adapter/protocol_integrity.py",
+    "models/medassist_v2/research_adapter/service.py",
+    "models/medassist_v2/tests/test_demo_workflow.py",
+    "models/medassist_v2/tests/test_evidence_handoff.py",
+    "models/medassist_v2/tests/test_protocol_portability.py",
+    "models/medassist_v2/tests/test_questioning_protocol.py",
+    "models/medassist_v2/tests/test_research_adapter.py",
+    "models/medassist_v2/tests/test_understanding_candidates.py",
+    "scripts/medassist-chat-model-a-smoke.py",
+    "scripts/medassist-natural-model-a.py",
+    "scripts/medassist-understanding-model-a.py"
+  ],
+  "pr": "https://github.com/saileshchikkam/Agentic_PharmaCo_Intelligence_Platform_APIP/pull/1",
+  "github_completion_status": "must be confirmed from actual final PR/main state; no future SHA invented"
+}

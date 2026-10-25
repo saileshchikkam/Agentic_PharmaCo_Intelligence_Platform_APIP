@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "actual_groq": true,
+  "model": "qwen/qwen3.8-27b",
+  "cloud_requests": 1,
+  "fictional_input": "I am coughing.",
+  "single_extraction_ms": 1377,
+  "actual_model_a": true,
+  "explicit_confirmation_and_context": true,
+  "questions": [
+    {
+      "id": "E_53",
+      "visible_question": "Do you have pain somewhere, related to your reason for consulting?"
+    },
+    {
+      "id": "E_79",
+      "visible_question": "Do you smoke cigarettes?"
+    }
+  ],
+  "unknown_preserved": true,
+  "termination": "user_stopped",
+  "handoff_schema": "model-a-to-b.evidence.v1",
+  "handoff_items": 223,
+  "model_b": "unable_to_assess",
+  "emergency_precedence": true,
+  "page_errors": 0,
+  "accuracy_claim": false,
+  "locked_test_and_ledger": "not accessed"
+}

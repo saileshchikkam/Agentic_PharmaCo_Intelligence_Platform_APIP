@@ -1,0 +1,18 @@
+{
+  "input": "I have a cough.",
+  "fictional_only": true,
+  "raw_untrusted_model_output": {
+    "schema_version": "medassist.extraction.eval.v1",
+    "status": "proposed",
+    "issues": [],
+    "items": [
+      {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": null,
+        "quote": "I have a cough."
+      }
+    ]
+  },
+  "error": "INVALID_MODEL_EXTRACTION"
+}

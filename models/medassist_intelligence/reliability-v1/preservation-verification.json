@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "protected_files": 22,
+  "changed": [],
+  "sealed_artifacts": 17,
+  "seal_digest": "matched",
+  "official_test_and_ledger": "not opened or consumed",
+  "source_hashes": "metadata and implementation checked by preserved adapter startup; no source-patient archives read",
+  "protocol_portability": "preexisting CRLF-local versus LF-Git byte mismatch caveat preserved"
+}
