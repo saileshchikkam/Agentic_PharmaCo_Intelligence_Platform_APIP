@@ -1,4 +1,4 @@
-# APIP â€” Agentic Pharma Intelligence Platform
+# APIP - Agentic Pharma Intelligence Platform
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
