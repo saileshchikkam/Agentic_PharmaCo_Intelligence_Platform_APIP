@@ -1,0 +1,343 @@
+{
+  "$defs": {
+    "Answer": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "maxLength": 8,
+          "pattern": "^E_[0-9]{1,3}$",
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "confirmed",
+            "unknown",
+            "contradiction"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "state",
+        "value"
+      ],
+      "title": "Answer",
+      "type": "object"
+    },
+    "Context": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "ge": 0,
+          "title": "Age"
+        },
+        "source_sex": {
+          "enum": [
+            "M",
+            "F"
+          ],
+          "title": "Source Sex",
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "source_sex"
+      ],
+      "title": "Context",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "model-a.evidence.v1",
+          "default": "model-a.evidence.v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "origin": {
+          "const": "developer_fictional_fixture",
+          "default": "developer_fictional_fixture",
+          "title": "Origin",
+          "type": "string"
+        },
+        "context": {
+          "$ref": "#/$defs/Context"
+        },
+        "initial": {
+          "$ref": "#/$defs/Answer"
+        },
+        "answers": {
+          "items": {
+            "$ref": "#/$defs/Answer"
+          },
+          "title": "Answers",
+          "type": "array"
+        },
+        "unobserved_semantics": {
+          "const": "unknown_not_negative",
+          "default": "unknown_not_negative",
+          "title": "Unobserved Semantics",
+          "type": "string"
+        },
+        "human_clinical_review": {
+          "const": false,
+          "default": false,
+          "title": "Human Clinical Review",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "context",
+        "initial",
+        "answers"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Question": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "title": "Evidence Id",
+          "type": "string"
+        },
+        "question_en": {
+          "title": "Question En",
+          "type": "string"
+        },
+        "data_type": {
+          "enum": [
+            "B",
+            "C",
+            "M"
+          ],
+          "title": "Data Type",
+          "type": "string"
+        },
+        "possible_values": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "title": "Possible Values",
+          "type": "array"
+        },
+        "allows_unknown": {
+          "const": true,
+          "default": true,
+          "title": "Allows Unknown",
+          "type": "boolean"
+        },
+        "unknown_value": {
+          "default": null,
+          "title": "Unknown Value",
+          "type": "null"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "question_en",
+        "data_type",
+        "possible_values"
+      ],
+      "title": "Question",
+      "type": "object"
+    },
+    "QuestioningState": {
+      "additionalProperties": false,
+      "properties": {
+        "answered_question_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Answered Question Ids",
+          "type": "array"
+        },
+        "pending_question_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pending Question Id"
+        },
+        "questions_answered": {
+          "title": "Questions Answered",
+          "type": "integer"
+        },
+        "remaining_budget": {
+          "title": "Remaining Budget",
+          "type": "integer"
+        },
+        "stopping_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Stopping Reason"
+        }
+      },
+      "required": [
+        "answered_question_ids",
+        "pending_question_id",
+        "questions_answered",
+        "remaining_budget",
+        "stopping_reason"
+      ],
+      "title": "QuestioningState",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "model-a.response.v1",
+      "default": "model-a.response.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "research_only": {
+      "const": true,
+      "default": true,
+      "title": "Research Only",
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "question",
+        "abstained"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reason"
+    },
+    "question": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Question"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "state": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/QuestioningState"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Evidence"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "reason",
+    "question",
+    "state",
+    "evidence",
+    "limitations"
+  ],
+  "title": "NextResponse",
+  "type": "object"
+}

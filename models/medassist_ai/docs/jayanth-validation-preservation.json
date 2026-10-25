@@ -1,0 +1,25 @@
+{
+  "sealed_artifacts_matched": 17,
+  "seal_digest_matched": true,
+  "frozen_code_protocol_evidence_files_checked": 13,
+  "frozen_changes": [],
+  "all_recovered_canonical_files_match": true,
+  "original_application_scientific_environment_before": {
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0",
+    "numpy": "2.2.2",
+    "pandas": "3.0.0",
+    "scipy": "1.16.1"
+  },
+  "original_application_scientific_environment_after": {
+    "scikit-learn": "1.9.1",
+    "joblib": "1.6.0",
+    "numpy": "2.2.2",
+    "pandas": "3.0.0",
+    "scipy": "1.16.1"
+  },
+  "application_environment_unchanged": true,
+  "official_test_and_ledger": "not accessed",
+  "cloud_requests": 0,
+  "ui_changes": false
+}

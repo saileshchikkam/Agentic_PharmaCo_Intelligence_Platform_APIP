@@ -1,0 +1,214 @@
+{
+  "task": "Symptom understanding and evidence integrity",
+  "local_date": "2026-10-25",
+  "status": "CONDITIONAL_FICTIONAL_ENGINEERING_GO_CLINICAL_MODEL_B_INPUT_NO_GO",
+  "files_modified": [
+    "docs/history/2026-10-25.md",
+    "models/medassist_ai/README.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "models/medassist_v2/research_adapter/natural.py",
+    "scripts/medassist-natural.browser.mjs",
+    "server/groq-extraction.ts",
+    "server/medassist-idempotency.ts",
+    "server/model-a-demo.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist-conversation/README.md",
+    "src/features/medassist-conversation/natural.ts",
+    "CHANGELOG.md",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/roadmap.md"
+  ],
+  "files_created": [
+    "models/medassist_ai/docs/symptom-coverage-inventory.json",
+    "models/medassist_ai/docs/symptom-coverage.md",
+    "models/medassist_ai/docs/symptom-schema-metadata.json",
+    "models/medassist_ai/docs/symptom-topic-memberships.json",
+    "models/medassist_ai/docs/symptom-understanding-browser.json",
+    "models/medassist_ai/docs/symptom-understanding-http.json",
+    "models/medassist_ai/docs/symptom-understanding-model-a.json",
+    "models/medassist_ai/docs/symptom-understanding-verification.json",
+    "models/medassist_ai/docs/symptom-understanding.md",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/README.md",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/additional-adversarial-cases.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/deterministic-final.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/deterministic-initial.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/deterministic-refined.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/mock-provider-cases.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/mocked-llm-final.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/mocked-llm.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/suite.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/suite.sha256",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/supplementary-coverage.json",
+    "models/medassist_ai/evaluation/symptom-understanding-v1/supplementary-results.json",
+    "models/medassist_v2/tests/test_understanding_candidates.py",
+    "scripts/evaluate-symptom-understanding.ts",
+    "scripts/inventory-symptom-coverage.ts",
+    "scripts/medassist-understanding-http.ts",
+    "scripts/medassist-understanding-model-a.py",
+    "scripts/medassist-understanding.browser.mjs",
+    "scripts/medassist-understanding.test.ts",
+    "src/features/medassist-conversation/concepts.ts",
+    "src/features/medassist-conversation/language-context.ts",
+    "src/features/medassist-conversation/understanding.ts"
+  ],
+  "inventory": {
+    "schema_definitions": 223,
+    "active": 218,
+    "quarantined": 5,
+    "symptom_fields": 110,
+    "antecedent_fields": 113,
+    "active_antecedents": 108,
+    "initial_schema_eligible": 96,
+    "mapped_language_fields": 30,
+    "ambiguous_unmapped_concepts": 4,
+    "natural_question_targets": 55,
+    "fields_are_not_disease_counts": true
+  },
+  "evaluation": {
+    "primary_fictional_cases": 115,
+    "categories": 17,
+    "expected_labels_manually_specified_before_implementation": true,
+    "expected_labels_generated_by_extractor": false,
+    "human_clinical_signoff": false,
+    "development_set_not_independent_holdout": true,
+    "evidence_exact": {
+      "initial_correct": 113,
+      "final_correct": 115,
+      "total": 115
+    },
+    "final_mappings": {
+      "true_positive": 83,
+      "false_positive": 0,
+      "false_negative": 0,
+      "precision": 1,
+      "recall": 1
+    },
+    "negation": {
+      "correct": 10,
+      "total": 10
+    },
+    "question_answer": {
+      "correct": 16,
+      "total": 16
+    },
+    "unsupported_abstention": {
+      "correct": 8,
+      "total": 8
+    },
+    "context_annotations": {
+      "correct": 115,
+      "total": 115
+    },
+    "supplementary_canonical_cases": {
+      "correct": 15,
+      "total": 15,
+      "independent_holdout": false
+    },
+    "adversarial_mocked_provider": {
+      "passed": 22,
+      "total": 22,
+      "nonempty_accepted": 3,
+      "quarantined_empty": 6,
+      "rejected": 13,
+      "real_model_accuracy": false
+    },
+    "safety": {
+      "matching_cases": 113,
+      "total_cases": 115,
+      "positive_emergency_recognized": 1,
+      "positive_emergency_cases": 3,
+      "unresolved_failures": [
+        "nlp-114: I am having a heart attack",
+        "nlp-115: I am having a stroke"
+      ],
+      "existing_rules_unchanged": true
+    },
+    "fresh_live_groq_calls": 0
+  },
+  "checks": {
+    "typescript_http": {
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0
+    },
+    "python": {
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend_typecheck": "passed",
+    "affected_backend_strict_typecheck": "passed",
+    "production_build": "passed_existing_large_bundle_warning",
+    "browser": {
+      "understanding_widths": [
+        390,
+        820,
+        1440
+      ],
+      "natural_lifecycle_widths": [
+        320,
+        390,
+        820,
+        1440
+      ],
+      "recovery_and_safety_widths": [
+        390,
+        820,
+        1440
+      ],
+      "actual_nlp_with_mocked_model_a": true,
+      "browser_page_errors": 0,
+      "eight_turns_and_bounded_clarifications": true
+    },
+    "scope_audit": {
+      "files": 45,
+      "modified": 14,
+      "created": 31,
+      "deleted": 0,
+      "unrelated_hash_changes": 0,
+      "private_key_absent_from_task_files": true,
+      "new_files_no_private_machine_paths": true,
+      "utf8_and_document_links_checked": true,
+      "diff_check": true,
+      "index_empty": true
+    },
+    "actual_http_reported_inputs": 12,
+    "actual_http_model_a_handoffs": 3,
+    "real_model_a_scenarios": 5,
+    "sealed_artifacts_verified_before_after": 17,
+    "seal_source_attestations_frozen_code_protocol_and_pinned_environment": "passed",
+    "locked_test_ledger_patient_archives_opened": false
+  },
+  "versions": {
+    "input": "medassist.natural-extract-request.v2 (v1 accepted)",
+    "proposal": "medassist.natural-extraction.v1",
+    "conversation_export": "medassist.conversation-export.v2",
+    "handoff": "model-a-to-b.evidence.v1 unchanged",
+    "candidate_mask": "topical-candidates.v2: added E_66 only"
+  },
+  "preservation": {
+    "provider_model": "qwen/qwen3.8-27b unchanged",
+    "model_b_disabled": true,
+    "model_b_and_jayanth_research_unchanged": true,
+    "safety_rules_unchanged": true,
+    "authentication_boundaries_unchanged": true,
+    "no_training_or_new_dependencies": true,
+    "no_ui_redesign": true,
+    "no_stage_commit_push": true,
+    "prior_receipts_preserved": true
+  },
+  "initial_failures": [
+    "A synthetic metadata transport fixture included null labels; corrected to mirror the adapter string-only label projection.",
+    "Direct Python script import failed before any model access; the workspace module invocation passed.",
+    "The first deterministic run had two evidence mismatches and one context annotation mismatch; fixed without changing frozen gold.",
+    "Two expected emergency declarations remain unhandled under the unchanged rules and are not counted as passes."
+  ],
+  "remaining_blockers": [
+    "Independent unseen English/context/anatomical evaluation and qualified annotation review.",
+    "Review and separately authorized remediation of the two literal-emergency safety misses.",
+    "Unreviewed source anatomical/question wording, conservative grammar/coreference coverage and broad topical masks.",
+    "Previous-confirmed-fact corrections still stop/restart instead of overwriting.",
+    "Cloud availability/semantic accuracy not remeasured; historical TPM limits still apply.",
+    "Trusted local pickle and exact-byte CRLF/LF portability caveats remain."
+  ]
+}

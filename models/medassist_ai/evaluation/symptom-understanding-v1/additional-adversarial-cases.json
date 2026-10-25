@@ -1,0 +1,45 @@
+{
+  "fictional_only": true,
+  "cases": [
+    {
+      "id": "extra-1",
+      "text": "I have no cough.",
+      "response": {
+        "schema_version": "medassist.natural-extraction.v1",
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "confirmed",
+            "value": true,
+            "quote": "cough"
+          }
+        ],
+        "unmapped": [],
+        "instruction_attempt": false
+      },
+      "expected_evidence_ids": null,
+      "question_id": null,
+      "prior_context": []
+    },
+    {
+      "id": "extra-2",
+      "text": "I can breathe normally at rest but I have difficulty breathing with exercise.",
+      "response": {
+        "schema_version": "medassist.natural-extraction.v1",
+        "observations": [
+          {
+            "evidence_id": "E_66",
+            "state": "confirmed",
+            "value": false,
+            "quote": "I can breathe normally at rest"
+          }
+        ],
+        "unmapped": [],
+        "instruction_attempt": false
+      },
+      "expected_evidence_ids": null,
+      "question_id": null,
+      "prior_context": []
+    }
+  ]
+}

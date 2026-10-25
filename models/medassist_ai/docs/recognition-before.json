@@ -1,0 +1,75 @@
+{
+  "phase": "before",
+  "fictional_only": true,
+  "cases": [
+    {
+      "text": "I have stomach pain that started three days ago",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    },
+    {
+      "text": "stomach pain",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    },
+    {
+      "text": "headache",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    },
+    {
+      "text": "I am coughing.",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    },
+    {
+      "text": "I have diarrhea and nausea.",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    },
+    {
+      "text": "I have a fever.",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    },
+    {
+      "text": "I have a sore throat.",
+      "http_status": 503,
+      "extraction": {
+        "error": "LANGUAGE_UNAVAILABLE_OR_REJECTED"
+      }
+    }
+  ],
+  "browser_reproduced_first_two": true,
+  "earlier_browser_observations": [
+    {
+      "text": "I have stomach pain that started three days ago",
+      "http_status": 200,
+      "observation_ids": [],
+      "confirmation_visible": false,
+      "model_a_called": false,
+      "full_provider_spans_not_retained": true
+    },
+    {
+      "text": "stomach pain",
+      "http_status": 200,
+      "observation_ids": [],
+      "confirmation_visible": false,
+      "model_a_called": false,
+      "full_provider_spans_not_retained": true
+    }
+  ],
+  "persistent_service_failure_reason": "Original transport collapsed upstream causes; exact upstream status is unavailable, so quota/authentication is not asserted."
+}

@@ -1,0 +1,37 @@
+{
+  "status": "prepared_not_run",
+  "model_priority": [
+    "openai/gpt-oss-120b",
+    "qwen/qwen3.8-27b",
+    "openai/gpt-oss-20b"
+  ],
+  "maximum_cases_per_model": 20,
+  "maximum_models": 3,
+  "maximum_attempts": 60,
+  "retries": 0,
+  "stop_on_429_or_payment_required": true,
+  "strict_json_schema": true,
+  "free_plan_and_remaining_quota_must_be_verified": true,
+  "human_review_required": true,
+  "acceptance": {
+    "semantic_accuracy_minimum": 0.95,
+    "schema_validity": 1,
+    "unsupported_assertions": 0,
+    "polarity_errors": 0,
+    "omitted_observations": 0,
+    "omission_unknown_confusion": 0,
+    "transport_errors": 0,
+    "p95_ms_maximum": 5000,
+    "unmapped_omissions": 0,
+    "unmapped_assertions": 0
+  },
+  "selection": null,
+  "results": null,
+  "clinical_enablement": false,
+  "temperature": 0,
+  "max_completion_tokens": 1024,
+  "reasoning_effort": "low",
+  "maximum_requests_per_minute": 4,
+  "request_timeout_seconds": 15,
+  "total_budget_seconds": 1200
+}

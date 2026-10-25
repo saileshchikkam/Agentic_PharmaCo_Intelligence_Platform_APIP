@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "actual_preserved_model_a": true,
+  "canonical_function_parity": true,
+  "unknown_preserved": true,
+  "repeat_prevention": true,
+  "termination_export_items": 223,
+  "model_b": "disabled",
+  "safety": "unavailable",
+  "disease_execution": false,
+  "cloud_requests": 0,
+  "sealed_artifacts_matched": 17,
+  "seal_digest_matched": true,
+  "official_locked_test_and_ledger": "not accessed",
+  "browser_end_to_end_this_task": false,
+  "existing_guarded_python_endpoint_actual_model": true
+}

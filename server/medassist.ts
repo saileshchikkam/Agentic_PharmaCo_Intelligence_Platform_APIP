@@ -1,4 +1,5 @@
 import express, { type Express, type Request, type Response } from 'express';
+import { evaluateStatement } from '../src/features/medassist-safety/safety';
 
 export const fields = ['concern', 'duration', 'impact', 'changes'] as const;
 type Field = typeof fields[number];
@@ -51,6 +52,8 @@ export function createMedAssistHandler({
     if (!req.is('application/json')) return fail(415, 'JSON_REQUIRED');
     const intake = validateIntake(req.body);
     if (!intake) return fail(400, 'INVALID_INTAKE');
+    const safety = evaluateStatement(Object.values(intake.answers).filter((v): v is string => typeof v === 'string').join('. '));
+    if (safety.status === 'escalate') return res.status(409).json({ error: { code: 'SAFETY_ESCALATION' }, safety });
     if (active) return fail(429, 'MODEL_BUSY');
     requests = requests.filter((time) => now() - time < 60000);
     if (requests.length >= 6) { res.setHeader('Retry-After', '60'); return fail(429, 'RATE_LIMITED'); }

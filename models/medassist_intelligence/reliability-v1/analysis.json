@@ -1,0 +1,805 @@
+{
+  "groups": [
+    {
+      "schema_valid": 20,
+      "semantic_exact": 6,
+      "exact_match": 1,
+      "runtime_validated": 6,
+      "unsupported_assertions": 10,
+      "wrong_polarity_or_unknown": 6,
+      "model": "medgemma1.5:latest",
+      "variant": "baseline",
+      "attempts": 20,
+      "errors": 0,
+      "warm_n": 19,
+      "median_ms": 8712.83,
+      "p95_ms": 23075.35,
+      "cold_ms": [
+        17537.42
+      ],
+      "candidate_gate": false,
+      "native_schema_valid": 20,
+      "mapping_rejections": 0,
+      "remaining_failures": [
+        {
+          "case_id": "fictional-09",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-13",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-17",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-18",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-19",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-25",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-26",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-28",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-31",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-46",
+          "categories": [
+            "unsupported_model_assertion",
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-47",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-37",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-38",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-41",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        }
+      ]
+    },
+    {
+      "schema_valid": 0,
+      "semantic_exact": 0,
+      "exact_match": 0,
+      "runtime_validated": 0,
+      "unsupported_assertions": 38,
+      "wrong_polarity_or_unknown": 0,
+      "model": "medgemma1.5:latest",
+      "variant": "compact",
+      "attempts": 20,
+      "errors": 0,
+      "warm_n": 20,
+      "median_ms": 4500.75,
+      "p95_ms": 6509.09,
+      "cold_ms": [],
+      "candidate_gate": false,
+      "native_schema_valid": 20,
+      "mapping_rejections": 20,
+      "remaining_failures": [
+        {
+          "case_id": "fictional-01",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-02",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-03",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-06",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-07",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-09",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-10",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-13",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-17",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-18",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-19",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-25",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-26",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-28",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-31",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-46",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-47",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-37",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-38",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-41",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        }
+      ]
+    },
+    {
+      "schema_valid": 20,
+      "semantic_exact": 9,
+      "exact_match": 1,
+      "runtime_validated": 10,
+      "unsupported_assertions": 11,
+      "wrong_polarity_or_unknown": 5,
+      "model": "qwen3:4b",
+      "variant": "baseline",
+      "attempts": 20,
+      "errors": 0,
+      "warm_n": 19,
+      "median_ms": 7744.7,
+      "p95_ms": 21663.65,
+      "cold_ms": [
+        17044.69
+      ],
+      "candidate_gate": false,
+      "native_schema_valid": 20,
+      "mapping_rejections": 0,
+      "remaining_failures": [
+        {
+          "case_id": "fictional-09",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-13",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-25",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-26",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-28",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-31",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-46",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-47",
+          "categories": [
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-37",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-38",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-41",
+          "categories": [
+            "unsupported_model_assertion"
+          ]
+        }
+      ]
+    },
+    {
+      "schema_valid": 2,
+      "semantic_exact": 2,
+      "exact_match": 0,
+      "runtime_validated": 2,
+      "unsupported_assertions": 36,
+      "wrong_polarity_or_unknown": 0,
+      "model": "qwen3:4b",
+      "variant": "compact",
+      "attempts": 20,
+      "errors": 0,
+      "warm_n": 20,
+      "median_ms": 2089.82,
+      "p95_ms": 2425.89,
+      "cold_ms": [],
+      "candidate_gate": false,
+      "native_schema_valid": 20,
+      "mapping_rejections": 18,
+      "remaining_failures": [
+        {
+          "case_id": "fictional-01",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-02",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-03",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-06",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-07",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-09",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-10",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-17",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-18",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-19",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-25",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-28",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-31",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-46",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-47",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-37",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-38",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-41",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        }
+      ]
+    },
+    {
+      "schema_valid": 20,
+      "semantic_exact": 2,
+      "exact_match": 2,
+      "runtime_validated": 16,
+      "unsupported_assertions": 1,
+      "wrong_polarity_or_unknown": 1,
+      "model": "qwen3.5:2b",
+      "variant": "baseline",
+      "attempts": 20,
+      "errors": 0,
+      "warm_n": 19,
+      "median_ms": 3364.56,
+      "p95_ms": 7820.55,
+      "cold_ms": [
+        13771.18
+      ],
+      "candidate_gate": false,
+      "native_schema_valid": 20,
+      "mapping_rejections": 0,
+      "remaining_failures": [
+        {
+          "case_id": "fictional-01",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-02",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-03",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-06",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-07",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-09",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-10",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-13",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-17",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-18",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-19",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-25",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-26",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-28",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-31",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-46",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-47",
+          "categories": [
+            "unsupported_model_assertion",
+            "wrong_model_polarity_or_unknown"
+          ]
+        },
+        {
+          "case_id": "fictional-41",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        }
+      ]
+    },
+    {
+      "schema_valid": 3,
+      "semantic_exact": 1,
+      "exact_match": 1,
+      "runtime_validated": 3,
+      "unsupported_assertions": 23,
+      "wrong_polarity_or_unknown": 0,
+      "model": "qwen3.5:2b",
+      "variant": "compact",
+      "attempts": 20,
+      "errors": 0,
+      "warm_n": 20,
+      "median_ms": 2004.61,
+      "p95_ms": 2251.25,
+      "cold_ms": [],
+      "candidate_gate": false,
+      "native_schema_valid": 20,
+      "mapping_rejections": 17,
+      "remaining_failures": [
+        {
+          "case_id": "fictional-01",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-02",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-03",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-06",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-07",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-09",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-10",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-13",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-17",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-18",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-19",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-25",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-26",
+          "categories": [
+            "deterministic_mapping_rejected"
+          ]
+        },
+        {
+          "case_id": "fictional-28",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-31",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-46",
+          "categories": [
+            "wrong_status_issues_or_missing_expected_items"
+          ]
+        },
+        {
+          "case_id": "fictional-47",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-37",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        },
+        {
+          "case_id": "fictional-38",
+          "categories": [
+            "deterministic_mapping_rejected",
+            "unsupported_model_assertion"
+          ]
+        }
+      ]
+    }
+  ],
+  "selection": {
+    "schema_version": "medassist.local-provider-selection.v1",
+    "comparison_sha256": "5717cc4f4f70428a242353814606218dbb1b5898fa1549de80d7c82759a19a3e",
+    "selected": null,
+    "reason": "no_candidate_met_fixed_correctness_safety_latency_gate",
+    "clinical_or_full_L2_promotion": false
+  },
+  "limitations": [
+    "Same 20 reused development cases and one repetition; not independent held-out or clinical evaluation.",
+    "Two prospective variants, no retries; compact includes deterministic mapping, not a standalone-model accuracy claim.",
+    "Unsupported and polarity counts include rejected native proposals; zero accepted facts is not high extraction accuracy.",
+    "Native compact-schema validity and mapped evidence-contract validity are separately reported.",
+    "Warm timing excludes requests reporting >=1000ms model loading; failures remain in accuracy denominators.",
+    "The historical run used a 60s timeout; this identical-case comparison uses 30s and explicitly disables thinking.",
+    "Installed quantization differs; ordinary laptop load and a concurrent 37s build were not controlled. Timing is observational.",
+    "20-case subset does not exercise numeric E_56, Telugu, broader clinical vocabulary or independent wording review.",
+    "All subset targets are representable via evidence or explicit clarification; duration still has no frozen evidence field.",
+    "Tag/digest identifies the installed artifact, not verified upstream licence/provenance or clinical fitness."
+  ]
+}

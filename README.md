@@ -2,7 +2,7 @@
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
 
-**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts, and a guided MedAssist symptom conversation. MedAssist includes optional local AI quote selection and a location-only Google Maps search handoff; clinical urgency assessment and tailored precautions remain disabled. Fictional ADR drafts now save to each local account with revision checks; local email/password signup, cookie sessions and durable SQLite health profiles are connected for development. Google/cloud connection and clinical case workflows remain pending. The developer component library is preserved behind an explicit unrestricted preview route. This is a design/engineering starting point, not a clinically validated or production-ready application. Product implementation is tracked in [the milestone roadmap](docs/roadmap.md).
+**Current status:** the running app offers welcome, patient-home, sign-in, fictional ADR drafts and a development-only MedAssist conversation using sealed Model A for adaptive questions. Constrained deterministic English understanding and optional backend-only Groq extraction propose evidence for explicit confirmation. UNKNOWN, negatives, unmentioned evidence and source context stay distinct; up to eight topical follow-ups produce a versioned fictional export. Independent provisional safety rules and consent-based external Maps search are implemented, but known heart-attack/stroke declaration misses remain unresolved. Model B, diagnosis and personalized clinical precautions stay disabled. Fictional ADR drafts save to local accounts with revision checks; local signup, cookie sessions and SQLite profiles work in development. Cloud/clinical workflows remain pending. This is not clinically validated or production-ready. See the [checkpoint and limitations](models/medassist_ai/docs/checkpoint-2026-10-25.md) and [roadmap](docs/roadmap.md).
 
 ## The product
 
@@ -17,6 +17,8 @@ ADR reporting must work directly, without requiring MedAssist first. Important d
 ## Start here
 
 - [MedAssist Symptom Assessment v2](models/medassist_v2/README.md): Task 4B official training/validation completed with a verified pre-test seal. All 132,448 synthetic validation interviews were evaluated; selected ranker recall@20 is 77.1866%. This is evidence collection, not clinical accuracy. Locked testing and clinical integration remain unexecuted; five questions remain quarantined and fresh-checkout checksum portability remains unresolved.
+- [Model A research adapter](models/medassist_v2/research_adapter/README.md): opt-in local FastAPI reuses the preserved ranker through the fictional lab and DEV-only conversation. Frozen scoring/encoding and the A-to-B contract are unchanged; this is not a clinical route.
+- [Fictional Model A question lab](src/features/model-a-research/README.md): Day 2 adds a development-only loopback workflow with typed answer controls, explicit UNKNOWN/conflict/stop states and unchanged versioned evidence export. Model B stays disabled; the screen is excluded from the production client and has no patient-navigation link.
 
 - [MedAssist Phase 4A error audit and validation plan](models/medassist/reports/2026-10-19-phase4a/README.md): preserved benchmark, cached error patterns, dataset feasibility and independent-study gates. Offline research only.
 
@@ -72,3 +74,5 @@ Use fictional cases during development. No official reporting integration, publi
 The team is Sailesh, Jayanth, Mitravind, and Mahesh P; see the [product overview](docs/product.md).
 
 See [LICENSE](LICENSE) for the repository licence. Third-party components, datasets, templates, and terminology retain their own terms.
+
+MedAssist engineering: [modular research composition](models/medassist_ai/README.md) preserves sealed Model A, confirmed evidence and separate language/safety/navigation boundaries. The narrow Groq benchmark does not qualify the broader experimental conversation. Jayanth disease execution and live urgency remain disabled. Provisional safety is incomplete and unreviewed; Maps hands off only consented location, with no verified facility suitability or availability. [Latest understanding evidence](models/medassist_ai/docs/symptom-understanding.md) distinguishes development checks from clinical evaluation.

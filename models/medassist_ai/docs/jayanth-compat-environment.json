@@ -1,0 +1,18 @@
+{
+  "python": "3.12.2",
+  "platform": "Windows amd64",
+  "isolated_venv": true,
+  "user_site_enabled": false,
+  "versions": {
+    "scikit-learn": "1.9.0",
+    "joblib": "1.5.3",
+    "numpy": "2.5.1",
+    "pandas": "3.0.5",
+    "scipy": "1.18.0"
+  },
+  "resolved_wheel_packages": 10,
+  "hash_locked": true,
+  "pip_check": "passed",
+  "original_build_environment_attested": false,
+  "joblib_loaded": false
+}

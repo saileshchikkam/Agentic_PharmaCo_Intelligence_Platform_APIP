@@ -1,0 +1,7 @@
+{
+  "schema_version": "medassist.local-provider-selection.v1",
+  "comparison_sha256": "5717cc4f4f70428a242353814606218dbb1b5898fa1549de80d7c82759a19a3e",
+  "selected": null,
+  "reason": "no_candidate_met_fixed_correctness_safety_latency_gate",
+  "clinical_or_full_L2_promotion": false
+}

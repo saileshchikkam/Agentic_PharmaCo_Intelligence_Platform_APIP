@@ -1,0 +1,138 @@
+{
+  "task": "P0 Groq reliability, duplicate messages and conversation recovery",
+  "local_date": "2026-10-25",
+  "status": "CONDITIONAL_GO_PACED_FICTIONAL_TESTING",
+  "files_modified": [
+    "docs/history/2026-10-25.md",
+    "models/medassist_ai/docs/integration_status.md",
+    "scripts/groq-extraction.test.ts",
+    "scripts/medassist-natural.browser.mjs",
+    "scripts/medassist-natural.test.ts",
+    "scripts/medassist-recognition.browser.mjs",
+    "scripts/medassist-recognition.test.ts",
+    "server/groq-extraction.ts",
+    "server/medassist-ai.ts",
+    "server/model-a-demo.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist-conversation/README.md",
+    "src/features/medassist-conversation/natural.ts",
+    "CHANGELOG.md"
+  ],
+  "files_created": [
+    "models/medassist_ai/docs/p0-reliability-followup.json",
+    "models/medassist_ai/docs/p0-reliability-live.json",
+    "models/medassist_ai/docs/p0-reliability-verification.json",
+    "models/medassist_ai/docs/p0-reliability.md",
+    "models/medassist_ai/docs/p0-validation-diagnostic.json",
+    "scripts/medassist-reliability-followup.mjs",
+    "scripts/medassist-reliability-live.mjs",
+    "scripts/medassist-reliability.browser.mjs",
+    "scripts/medassist-reliability.test.ts",
+    "server/medassist-idempotency.ts",
+    "src/features/medassist-conversation/reliability.ts"
+  ],
+  "checks": {
+    "typescript_http": {
+      "passed": 69,
+      "failed": 0,
+      "skipped": 0,
+      "cloud_calls": 0
+    },
+    "python_synthetic": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend_typecheck": "passed",
+    "affected_backend_strict_typecheck": "passed",
+    "build": "passed_existing_large_client_bundle_warning",
+    "browser": {
+      "recovery_widths": [
+        390,
+        820,
+        1440
+      ],
+      "natural_eight_turn_widths": [
+        320,
+        390,
+        820,
+        1440
+      ],
+      "safety_navigation_widths": [
+        390,
+        820,
+        1440
+      ],
+      "recognition_control_regression": "passed",
+      "page_errors": 0,
+      "fixtures_not_model_performance": true
+    },
+    "sealed_artifacts": 17,
+    "seal_and_source_attestations": "passed_before_and_after",
+    "frozen_implementation_protocol_and_pinned_environment": "passed",
+    "locked_test_or_ledger_opened": false,
+    "source_patient_archives_opened": false,
+    "working_tree_unrelated_hash_changes": 0,
+    "index_empty": true,
+    "scope_audit": {
+      "files": 25,
+      "created": 11,
+      "modified": 14,
+      "deleted": 0,
+      "unrelated_hash_changes": 0,
+      "private_key_absent_from_task_files": true,
+      "new_public_docs_no_machine_paths": true,
+      "utf8_text_valid": true,
+      "links_checked": true,
+      "diff_check": true
+    }
+  },
+  "live": {
+    "receipts": [
+      "p0-reliability-live.json",
+      "p0-validation-diagnostic.json",
+      "p0-reliability-followup.json"
+    ],
+    "actual_upstream_calls": 6,
+    "http_200": 4,
+    "http_429": 2,
+    "accepted_live_extractions": 2,
+    "rejected_live_extractions": 2,
+    "recorded_provider_replays": 1,
+    "actual_model_a_paths": [
+      "live cough/fever",
+      "recorded stomach/nausea with final normalization",
+      "live headache/no fever"
+    ],
+    "renewed_single_cough": "TPM rate-limited; no renewed live success claimed",
+    "provider_model_unchanged": "qwen/qwen3.8-27b",
+    "provider_limit_kind_confirmed": "TPM",
+    "observed_retry_after_seconds": [
+      39,
+      15
+    ]
+  },
+  "preservation": {
+    "prior_receipts_unchanged": true,
+    "frozen_assets_unchanged": true,
+    "ui_layout_unchanged": true,
+    "model_b_disabled": true,
+    "jayanth_and_model_b_research_unchanged": true,
+    "no_new_dependencies": true,
+    "no_training": true,
+    "no_stage_commit_push": true
+  },
+  "initial_failures": [
+    "Restricted-sandbox loopback access failed; the same checks passed with scoped local-test permissions.",
+    "Old generic MODEL_BUSY/category assertions were updated to assert the required explicit categories.",
+    "A nonsealed source encoding mismatch was repaired and affected tests/type/build checks rerun."
+  ],
+  "limitations": [
+    "Broader language profile is experimental, not accuracy/clinical qualification.",
+    "Organization TPM throttling blocks sustained free-tier availability.",
+    "Replay is memory-only, one process, ten minutes, up to 128 entries.",
+    "Refresh clears page-memory state without silent persistence or replay.",
+    "Trusted-pickle and existing CRLF-local/LF-Git protocol portability caveats remain.",
+    "Original historical upstream failures cannot be retrospectively attributed."
+  ]
+}

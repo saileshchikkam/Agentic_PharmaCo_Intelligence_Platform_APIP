@@ -1,0 +1,91 @@
+{
+  "task": "extraction reliability and latency improvement",
+  "date": "2026-10-21",
+  "decision": "No provider qualified; live language proposals rejected quickly; explicit structured clarification retained",
+  "modified_existing_task_files": [
+    ".env.example",
+    "server/medgemma.ts",
+    "server/model-a-demo.ts",
+    "src/features/medassist-intelligence/medgemma.ts",
+    "scripts/medgemma.test.ts",
+    "scripts/model-a-demo.test.ts",
+    "models/medassist_intelligence/README.md",
+    "src/features/medassist-conversation/README.md",
+    "docs/architecture/MEDASSIST_MASTER_BLUEPRINT.md",
+    "docs/layers/medassist.md",
+    "docs/history/2026-10-21.md",
+    "CHANGELOG.md"
+  ],
+  "created_task_files": [
+    "server/local-extraction-selection.ts",
+    "src/features/medassist-intelligence/compact-extraction.ts",
+    "scripts/compact-extraction.test.ts",
+    "scripts/compare-local-extraction.ts",
+    "scripts/analyze-extraction-comparison.py",
+    "scripts/smoke-extraction-model-a.py",
+    "scripts/qualified-extraction.browser.mjs",
+    "models/medassist_intelligence/reliability-v1/analysis.json",
+    "models/medassist_intelligence/reliability-v1/baseline-analysis.json",
+    "models/medassist_intelligence/reliability-v1/comparison.json",
+    "models/medassist_intelligence/reliability-v1/final-route-smoke.json",
+    "models/medassist_intelligence/reliability-v1/integration-smoke.json",
+    "models/medassist_intelligence/reliability-v1/preservation-verification.json",
+    "models/medassist_intelligence/reliability-v1/preservation.json",
+    "models/medassist_intelligence/reliability-v1/protocol.json",
+    "models/medassist_intelligence/reliability-v1/README.md",
+    "models/medassist_intelligence/reliability-v1/responses.json",
+    "models/medassist_intelligence/reliability-v1/selection.json",
+    "models/medassist_intelligence/reliability-v1/verification.json"
+  ],
+  "inventory_count": 31,
+  "comparison": {
+    "actual_requests": 120,
+    "models": 3,
+    "fixed_variants": 2,
+    "same_cases": 20,
+    "request_errors": 0,
+    "selected_provider": null,
+    "retries": 0,
+    "downloads": 0,
+    "cloud_calls": 0
+  },
+  "checks": {
+    "node_passed": 28,
+    "python_passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "frontend_types": "passed",
+    "backend_and_comparison_types": "passed",
+    "build": "passed; existing >500kB client chunk warning",
+    "relative_links": "passed",
+    "protected_files": 22,
+    "protected_changes": [],
+    "sealed_artifacts": 17,
+    "seal_digest": "matched",
+    "ui_component_and_styles": "byte-identical",
+    "official_test_and_ledger": "not accessed"
+  },
+  "smokes": {
+    "initial_actual_llm_diagnostic": "integration-smoke.json",
+    "final_policy_and_actual_model_a_browser": "final-route-smoke.json",
+    "qualified_provider_pipeline": false,
+    "reason": "None qualified; actual Model A tested separately with explicit structured confirmation, UNKNOWN, distinct questions, stop and 223-item handoff."
+  },
+  "preservation": {
+    "dirty_work": "preserved",
+    "git_publication": "no staging, commit, merge or push",
+    "training": "none",
+    "model_b": "disabled",
+    "listeners": "loopback only 3000/8766/11434",
+    "existing_preview": "refreshed only; private configuration/temporary data retained",
+    "model_residency": "comparison and diagnostic models unloaded"
+  },
+  "remaining_blockers": [
+    "All six model/prompt combinations failed gate; no NLU quality gain claimed",
+    "Faster compact variants confuse unmentioned slots and global issues",
+    "Reused development set is not independent evaluation or clinical review",
+    "Hardware quantization/load and one concurrent build limit timing interpretation",
+    "Installed model upstream provenance/licence not independently established",
+    "Known CRLF-local/LF-Git frozen-protocol and trusted-pickle/environment caveats unchanged"
+  ]
+}

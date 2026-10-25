@@ -1,0 +1,8 @@
+{
+  "authorization": "user explicitly requested continuation of interrupted work",
+  "prior_attempts": 14,
+  "prior_failed_case_retries": 0,
+  "maximum_additional_attempts": 46,
+  "active_budget_seconds_remaining_conservative": 780,
+  "unchanged_prompt_schema_suite": true
+}

@@ -4,6 +4,7 @@ import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { registerMedAssistRoutes } from './server/medassist';
 import { registerLocalAccount } from './server/local-account';
+import { registerModelADemo } from './server/model-a-demo';
 
 import { readRuntimeConfig, type RuntimeConfig } from './server/runtime';
 import { legacyAccess } from './server/legacy-access';
@@ -118,6 +119,7 @@ const DRUG_SAFETY_DB: Record<string, {
 export function createApiApp(config: RuntimeConfig, options: {
   accountFile?: string;
   medassist?: Parameters<typeof registerMedAssistRoutes>[1];
+  modelADemo?: Parameters<typeof registerModelADemo>[2];
   geminiFactory?: typeof getGeminiClient;
 } = {}) {
   const app = express();
@@ -127,6 +129,7 @@ export function createApiApp(config: RuntimeConfig, options: {
   const account = config.mode === 'development' ? registerLocalAccount(app, { file: options.accountFile }) : null;
   if (config.mode === 'production') app.use('/api/account', (_req, res) => { res.status(404).json({ error: 'LOCAL_ACCOUNTS_DISABLED' }); });
   registerMedAssistRoutes(app, options.medassist);
+  registerModelADemo(app, config, options.modelADemo);
   // Guard the whole legacy namespace before body parsing, provider creation or agent logic.
   const parseLegacy = express.json({ limit: '24kb' });
   app.use('/api/agents', legacyAccess(config), (req, res, next) => {

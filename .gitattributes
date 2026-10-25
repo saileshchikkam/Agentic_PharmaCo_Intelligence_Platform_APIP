@@ -13,3 +13,8 @@ models/medassist_v2/**/*.py text eol=lf
 models/medassist_v2/**/*.json text eol=lf
 models/medassist_v2/**/*.md text eol=lf
 models/medassist_v2/requirements.txt text eol=lf
+# Preserve the current bytes of new hash-bound research sources and receipts.
+# This does not change the frozen Model A protocol or resolve its existing caveat.
+models/medassist_ai/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+models/medassist_intelligence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+models/medassist_v2/research_adapter/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

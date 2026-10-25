@@ -1,0 +1,52 @@
+{
+  "mocked_model_a": true,
+  "actual_nlp_code": true,
+  "cloud_calls": 0,
+  "rows": [
+    {
+      "width": 390,
+      "reported_cases": 12,
+      "models_offline_deterministic_intake": true,
+      "anatomy_mismatch_clarified": true,
+      "clarifications_bounded_at_two": true,
+      "no_clarification_model_turns": true,
+      "exact_side_preserved": true,
+      "no_invented_score": true,
+      "routine_turns": 8,
+      "export_items": 223,
+      "context_trace_preserved": true,
+      "emergency_independent": true,
+      "page_errors": 0
+    },
+    {
+      "width": 820,
+      "reported_cases": 12,
+      "models_offline_deterministic_intake": true,
+      "anatomy_mismatch_clarified": true,
+      "clarifications_bounded_at_two": true,
+      "no_clarification_model_turns": true,
+      "exact_side_preserved": true,
+      "no_invented_score": true,
+      "routine_turns": 8,
+      "export_items": 223,
+      "context_trace_preserved": true,
+      "emergency_independent": true,
+      "page_errors": 0
+    },
+    {
+      "width": 1440,
+      "reported_cases": 12,
+      "models_offline_deterministic_intake": true,
+      "anatomy_mismatch_clarified": true,
+      "clarifications_bounded_at_two": true,
+      "no_clarification_model_turns": true,
+      "exact_side_preserved": true,
+      "no_invented_score": true,
+      "routine_turns": 8,
+      "export_items": 223,
+      "context_trace_preserved": true,
+      "emergency_independent": true,
+      "page_errors": 0
+    }
+  ]
+}

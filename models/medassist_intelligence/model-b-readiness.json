@@ -1,0 +1,55 @@
+{
+  "schema_version": "medassist.model-b-readiness.v1",
+  "date": "2026-10-21",
+  "decision": "NO_GO",
+  "training_enabled": false,
+  "runtime_enabled": false,
+  "four_level_labels_available": false,
+  "unable_to_assess_independent": true,
+  "intended_population": "future all-age conversational use; local intended-population clinical validation absent",
+  "existing_sources": [
+    {
+      "dataset": "NHAMCS ED 2022",
+      "availability": "existing acquisition receipt and historical research reports; no raw records opened in this task",
+      "historical_visits": 16025,
+      "historical_labelled_immedr": 10207,
+      "target": "five-level recorded US ED nursing triage; prior binary research target also exists",
+      "rights": "prior bounded statistical/public-use review; not operational clinical permission",
+      "four_level_home_urgency_mapping": "not defensible or authorized"
+    },
+    {
+      "dataset": "DDXPlus English v2",
+      "availability": "preserved external source; only evidence metadata used here",
+      "target": "synthetic encoded evidence recovery, not clinical urgency",
+      "four_level_home_urgency_mapping": "absent"
+    }
+  ],
+  "historical_negative_evidence": {
+    "nhamcs_primary_high_misses": "86/411",
+    "nhamcs_primary_immediate_misses": "7/26",
+    "secondary_exact_immediate_recall": "0 across all secondary variants on ten Immediate cases",
+    "source": "models/medassist/reports/2026-10-19-phase3/README.md",
+    "recomputed_today": false
+  },
+  "hard_blockers": [
+    "No independently adjudicated four-level conversation-time urgency rubric/labels",
+    "No task-matched permissioned intended-population cohort",
+    "No established clinical reviewer/adjudication and rare/high-acuity/all-age support",
+    "No patient/family/source-group split identifiers and pre-assessment timing contract for the proposed cohort",
+    "No prospective calibration/abstention/high-acuity sensitivity and false-reassurance acceptance criteria",
+    "No independent external evaluation population"
+  ],
+  "future_baseline_requirements": {
+    "only_after_data_gate": [
+      "record licence/consent/ethics and versioned intended use",
+      "freeze compatible pre-assessment features and leakage exclusions",
+      "patient/family/institution/source grouping; immutable train/development/untouched-test assignment",
+      "train-only preprocessing; development-only model/calibration/abstention selection",
+      "predeclare per-level and high-acuity sensitivity with support/uncertainty, calibration and coverage",
+      "error analysis including missed high-acuity cases and abstention counted separately",
+      "external intended-population and clinician review before claims"
+    ],
+    "no_training_commands_generated": true
+  },
+  "locked_test": "Model A locked test untouched; earlier NHAMCS test is a different already-opened historical research test; no retuning"
+}

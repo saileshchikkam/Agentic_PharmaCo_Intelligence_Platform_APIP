@@ -1,0 +1,13 @@
+{
+  "sealed_model_a_artifacts_matched": 17,
+  "seal_digest_matched": true,
+  "frozen_files_checked": 13,
+  "frozen_changes": [],
+  "existing_application_and_component_files_checked": 106,
+  "existing_component_changes": [],
+  "jayanth_archived_files_match": true,
+  "model_b_active_provider": "unchanged_disabled",
+  "official_locked_test_and_ledger": "not accessed",
+  "models_trained": 0,
+  "cloud_requests": 0
+}

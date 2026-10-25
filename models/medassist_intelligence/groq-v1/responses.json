@@ -1,0 +1,554 @@
+{
+  "fictional_only": true,
+  "rows": [
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-01",
+      "elapsed_ms": 1194.41,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "present",
+            "quote": "My fictional example includes coughing."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 577,
+        "completion_tokens": 128,
+        "total_tokens": 705
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "999",
+        "x-ratelimit-remaining-tokens": "6730",
+        "x-ratelimit-reset-requests": "1m26.4s",
+        "x-ratelimit-reset-tokens": "9.525s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-02",
+      "elapsed_ms": 1063.74,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_91",
+            "state": "present",
+            "quote": "fever is reported."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 581,
+        "completion_tokens": 121,
+        "total_tokens": 702
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "998",
+        "x-ratelimit-remaining-tokens": "6770",
+        "x-ratelimit-reset-requests": "2m52.8s",
+        "x-ratelimit-reset-tokens": "9.225s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-03",
+      "elapsed_ms": 1402.61,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_97",
+            "state": "present",
+            "quote": "their throat is sore."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 580,
+        "completion_tokens": 124,
+        "total_tokens": 704
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "997",
+        "x-ratelimit-remaining-tokens": "7292",
+        "x-ratelimit-reset-requests": "4m19.2s",
+        "x-ratelimit-reset-tokens": "5.31s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-04",
+      "elapsed_ms": 1300.61,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "present",
+            "quote": "coughing"
+          },
+          {
+            "evidence_id": "E_97",
+            "state": "present",
+            "quote": "a sore throat"
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 582,
+        "completion_tokens": 165,
+        "total_tokens": 747
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "996",
+        "x-ratelimit-remaining-tokens": "6710",
+        "x-ratelimit-reset-requests": "5m45.6s",
+        "x-ratelimit-reset-tokens": "9.675s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-05",
+      "elapsed_ms": 1823.94,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_91",
+            "state": "present",
+            "quote": "fever"
+          },
+          {
+            "evidence_id": "E_201",
+            "state": "present",
+            "quote": "cough"
+          },
+          {
+            "evidence_id": "E_97",
+            "state": "present",
+            "quote": "sore throat"
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 584,
+        "completion_tokens": 222,
+        "total_tokens": 806
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "995",
+        "x-ratelimit-remaining-tokens": "7251",
+        "x-ratelimit-reset-requests": "7m12s",
+        "x-ratelimit-reset-tokens": "5.617s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-06",
+      "elapsed_ms": 1251.29,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "absent",
+            "quote": "The fictional person explicitly denies coughing."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 578,
+        "completion_tokens": 137,
+        "total_tokens": 715
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "994",
+        "x-ratelimit-remaining-tokens": "7200",
+        "x-ratelimit-reset-requests": "8m38.4s",
+        "x-ratelimit-reset-tokens": "6s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-07",
+      "elapsed_ms": 1313.26,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_91",
+            "state": "absent",
+            "quote": "fever is absent."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 580,
+        "completion_tokens": 130,
+        "total_tokens": 710
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "993",
+        "x-ratelimit-remaining-tokens": "7299",
+        "x-ratelimit-reset-requests": "10m4.8s",
+        "x-ratelimit-reset-tokens": "5.257s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-08",
+      "elapsed_ms": 2644.81,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "present",
+            "quote": "does have a cough"
+          },
+          {
+            "evidence_id": "E_97",
+            "state": "absent",
+            "quote": "no sore throat"
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 583,
+        "completion_tokens": 211,
+        "total_tokens": 794
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "992",
+        "x-ratelimit-remaining-tokens": "7287",
+        "x-ratelimit-reset-requests": "11m31.2s",
+        "x-ratelimit-reset-tokens": "5.347s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": false,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-09",
+      "elapsed_ms": 1416.09,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_91",
+            "state": "unknown",
+            "quote": "I cannot tell whether there is fever."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 584,
+        "completion_tokens": 151,
+        "total_tokens": 735
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "991",
+        "x-ratelimit-remaining-tokens": "7288",
+        "x-ratelimit-reset-requests": "12m57.599s",
+        "x-ratelimit-reset-tokens": "5.34s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-10",
+      "elapsed_ms": 1746.68,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "unknown",
+            "quote": "The made-up person is unsure whether they are coughing."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 582,
+        "completion_tokens": 173,
+        "total_tokens": 755
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "990",
+        "x-ratelimit-remaining-tokens": "7207",
+        "x-ratelimit-reset-requests": "14m24s",
+        "x-ratelimit-reset-tokens": "5.947s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-11",
+      "elapsed_ms": 1264.93,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_91",
+            "state": "present",
+            "quote": "fever"
+          },
+          {
+            "evidence_id": "E_97",
+            "state": "unknown",
+            "quote": "cannot tell whether their throat is sore"
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 585,
+        "completion_tokens": 249,
+        "total_tokens": 834
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "989",
+        "x-ratelimit-remaining-tokens": "7193",
+        "x-ratelimit-reset-requests": "15m50.4s",
+        "x-ratelimit-reset-tokens": "6.052s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-12",
+      "elapsed_ms": 1003.04,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_201",
+            "state": "contradictory",
+            "quote": "The invented case says cough is present and cough is absent."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 583,
+        "completion_tokens": 166,
+        "total_tokens": 749
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "988",
+        "x-ratelimit-remaining-tokens": "7168",
+        "x-ratelimit-reset-requests": "17m16.8s",
+        "x-ratelimit-reset-tokens": "6.239s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-13",
+      "elapsed_ms": 1190.39,
+      "output": {
+        "schema_version": "medassist.sparse-extraction.v1",
+        "instruction_attempt": false,
+        "observations": [
+          {
+            "evidence_id": "E_91",
+            "state": "contradictory",
+            "quote": "there is fever and there is no fever."
+          }
+        ],
+        "unmapped": []
+      },
+      "error": null,
+      "usage": {
+        "prompt_tokens": 586,
+        "completion_tokens": 167,
+        "total_tokens": 753
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "987",
+        "x-ratelimit-remaining-tokens": "7203",
+        "x-ratelimit-reset-requests": "18m43.2s",
+        "x-ratelimit-reset-tokens": "5.977s"
+      },
+      "schema_and_span_valid": true,
+      "semantic_exact": true,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 0,
+      "unmapped_assertions": 0
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "case_id": "groq-fresh-14",
+      "elapsed_ms": 1477.07,
+      "output": null,
+      "error": "REQUEST_OR_OUTPUT_REJECTED",
+      "usage": {},
+      "quota_headers": {},
+      "schema_and_span_valid": false,
+      "semantic_exact": false,
+      "unsupported_assertions": 0,
+      "polarity_errors": 0,
+      "omitted_observations": 0,
+      "omission_unknown_confusion": 0,
+      "unmapped_omissions": 1,
+      "unmapped_assertions": 0
+    }
+  ]
+}

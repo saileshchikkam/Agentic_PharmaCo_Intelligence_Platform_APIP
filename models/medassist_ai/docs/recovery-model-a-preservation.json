@@ -1,0 +1,9 @@
+{
+  "sealed_artifacts_matched": 17,
+  "expected_artifacts": 17,
+  "seal_digest_matched": true,
+  "frozen_code_protocol_and_evidence_files_checked": 13,
+  "frozen_changes": [],
+  "official_test_and_ledger": "not accessed",
+  "joblib_deserialization": false
+}

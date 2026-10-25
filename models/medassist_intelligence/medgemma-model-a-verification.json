@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "actual_model_a": true,
+  "selected_question": true,
+  "unknown_preserved": true,
+  "repeat_prevented": true,
+  "contract": "model-a-to-b.evidence.v1",
+  "items": 223,
+  "sealed_artifacts": 17,
+  "frozen_code_protocol_environment": "unchanged",
+  "official_test_ledger": "not_accessed"
+}

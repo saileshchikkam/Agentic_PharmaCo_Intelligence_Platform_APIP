@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "actual_selected_model": true,
+  "followups": 20,
+  "distinct_questions": 20,
+  "dependent_questions_seen": 0,
+  "unknown_preserved": true,
+  "parent_true_false_unknown_gates": "passed",
+  "duplicate_rejected": true,
+  "export_contract": "model-a-to-b.evidence.v1",
+  "export_items": 223,
+  "budget_stop": true,
+  "sealed_artifacts_verified_before_and_after": 17,
+  "frozen_protocol_implementation_environment": "passed",
+  "seconds": 25.263,
+  "official_test_and_ledger": "not_accessed",
+  "existing_loopback_proxy_smoke": {
+    "vocabulary_http": 200,
+    "interview_unknown_end_http": 200,
+    "contract": "model-a-to-b.evidence.v1",
+    "items": 223,
+    "new_servers_started": false
+  }
+}
