@@ -3,6 +3,7 @@ import unittest
 
 from models.medassist_v2 import questioning_protocol as ref
 from models.medassist_v2.loader import normalise_catalogue
+from models.medassist_v2.research_adapter.protocol_integrity import protocol as portable_protocol
 from models.medassist_v2.research_adapter.demo import DemoResult, demo_fixtures, interview
 from models.medassist_v2.research_adapter.handoff import EvidenceHandoff
 from models.medassist_v2.research_adapter.schemas import NextRequest
@@ -14,7 +15,7 @@ from models.medassist_v2.training.fictional import FictionalDataset, NonLearning
 class DemoTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.p=ref.load_protocol();data=FictionalDataset(cls.p)
+        cls.p=portable_protocol();data=FictionalDataset(cls.p)
         definitions={eid:d for eid,d in normalise_catalogue(data.source)['evidences'].items() if eid.startswith('E_')}
         cls.service=ModelA(cls.p,definitions,NonLearningEstimator(cls.p,1e-5))
 

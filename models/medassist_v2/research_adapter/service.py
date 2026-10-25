@@ -15,7 +15,7 @@ from ..loader import DatasetLoader, normalise_catalogue
 from ..storage import external_path
 from ..training.data import environment, file_hash, implementation_hashes
 from ..training.flow import Policy
-from ..training.runner import protocol
+from .protocol_integrity import protocol, historical_digest
 from ..validation import InvalidRecord, read_json, require, validate_value
 from .schemas import Evidence, NextRequest, NextResponse, Question, QuestioningState
 
@@ -61,7 +61,7 @@ def load_preserved(run_root, metadata_root):
         seal = json.loads(seal_bytes)
         require(read_json(root / 'pre-test-seal-hash.json')['sha256'] == receipt['seal_sha256'], 'seal_receipt')
         require(seal['run_root'] == str(root) and seal['mode'] == 'official', 'seal_root_mode')
-        require(seal['protocol_sha256'] == file_hash(ref.PROTOCOL)
+        require(seal['protocol_sha256'] == historical_digest()
                 and seal['implementation'] == implementation_hashes(), 'frozen_code_changed')
         require(seal['source_hashes'] == receipt['source_hashes']
                 and seal['artifacts'] == receipt['artifact_hashes']

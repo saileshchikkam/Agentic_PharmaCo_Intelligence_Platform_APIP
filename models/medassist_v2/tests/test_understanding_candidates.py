@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import unittest
 from models.medassist_v2 import questioning_protocol as ref
+from models.medassist_v2.research_adapter.protocol_integrity import protocol as portable_protocol
 from models.medassist_v2.research_adapter.service import ModelA
 from models.medassist_v2.research_adapter.natural import candidates, interview, NaturalRequest, Turn
 from models.medassist_v2.research_adapter.schemas import Answer, NextRequest
@@ -12,7 +13,7 @@ from models.medassist_v2.training.fictional import NonLearningEstimator
 class UnderstandingCandidates(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.p=ref.load_protocol()
+        cls.p=portable_protocol()
         metadata=json.loads(Path('models/medassist_ai/docs/symptom-schema-metadata.json').read_text())
         definitions={d['evidence_id']:{k:d[k] for k in ('kind','data_type','question_en','possible_values')} for d in metadata['items']}
         cls.service=ModelA(cls.p,definitions,NonLearningEstimator(cls.p,1e-5))

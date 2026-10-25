@@ -1,5 +1,6 @@
 from models.medassist_v2.tests.test_research_adapter import payload, answer
 from models.medassist_v2 import questioning_protocol as ref
+from models.medassist_v2.research_adapter.protocol_integrity import protocol as portable_protocol
 from models.medassist_v2.training.fictional import FictionalDataset, NonLearningEstimator
 from models.medassist_v2.loader import normalise_catalogue
 from models.medassist_v2.research_adapter.service import ModelA
@@ -8,7 +9,7 @@ from models.medassist_v2.research_adapter.demo import interview
 
 
 def service():
-    protocol = ref.load_protocol()
+    protocol = portable_protocol()
     definitions = {key: value for key, value in normalise_catalogue(FictionalDataset(protocol).source)['evidences'].items()
                    if key.startswith('E_')}
     # Complete authored software catalogue; no official dataset records read.

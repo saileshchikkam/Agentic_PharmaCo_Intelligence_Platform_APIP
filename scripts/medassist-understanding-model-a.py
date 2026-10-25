@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from models.medassist_v2.research_adapter.service import load_preserved,protocol
 from models.medassist_v2.research_adapter.natural import NaturalRequest,Turn,interview
 from models.medassist_v2.research_adapter.schemas import Answer
-from models.medassist_v2.training.campaign import verify_seal
+from models.medassist_v2.research_adapter.protocol_integrity import verify_existing_seal as verify_seal
 
 output=Path('models/medassist_ai/docs/symptom-understanding-model-a.json')
 assert not output.exists()

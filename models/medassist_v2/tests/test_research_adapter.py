@@ -13,6 +13,7 @@ from pydantic import ValidationError
 
 from models.medassist_v2 import questioning_protocol as ref
 from models.medassist_v2.loader import normalise_catalogue
+from models.medassist_v2.research_adapter.protocol_integrity import protocol as portable_protocol
 from models.medassist_v2.research_adapter.app import create_app, from_environment
 from models.medassist_v2.research_adapter.schemas import NextRequest, NextResponse
 from models.medassist_v2.research_adapter.service import ArtifactUnavailable, ModelA, checked_bytes, load_preserved
@@ -45,7 +46,7 @@ def client(service=None, enabled=True, token=TOKEN):
 class AdapterTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.p = ref.load_protocol()
+        cls.p = portable_protocol()
         cls.fixture = FictionalDataset(cls.p)
         cls.service = ModelA(cls.p, normalise_catalogue(cls.fixture.source)['evidences'],
                              NonLearningEstimator(cls.p, 1e-5))

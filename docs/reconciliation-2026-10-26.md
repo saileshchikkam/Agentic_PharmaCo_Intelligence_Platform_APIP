@@ -38,3 +38,7 @@ Clinical blockers remain independent: literal provisional safety misses the docu
 ## Git completion boundary
 
 The repository completion helper explicitly refuses an in-progress merge. Complete this reviewed integration with a normal merge commit retaining both parents, dated documentation and the installed post-commit sync hook; do not bypass hooks or protections. Push only the integration branch and create a draft PR targeting main. The PR URL, merge-commit SHA and live remote state must be reported from actual results, not invented in this pre-commit record. Main stays unchanged while verification is blocked. Keep the original feature branch.
+
+## Subsequent portability repair checkpoint
+
+The [narrow read-only compatibility boundary](model-a-protocol-portability.md) preserves the failure report above and all frozen identities. Initial integrity tests pass; clean-checkout verification is pending at this commit. PR #1 stays draft until actual fresh checks and applicable review conditions pass. Historical outcomes above are not relabelled.

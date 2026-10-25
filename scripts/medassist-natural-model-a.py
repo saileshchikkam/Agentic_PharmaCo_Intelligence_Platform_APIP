@@ -8,7 +8,7 @@ from models.medassist_v2.research_adapter.service import load_preserved, protoco
 from models.medassist_v2.research_adapter.natural import NaturalRequest, Turn, interview, vocabulary
 from models.medassist_v2.research_adapter.schemas import Answer, NextRequest
 from models.medassist_v2.research_adapter.app import create_app
-from models.medassist_v2.training.campaign import verify_seal
+from models.medassist_v2.research_adapter.protocol_integrity import verify_existing_seal as verify_seal
 from fastapi.testclient import TestClient
 
 

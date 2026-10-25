@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from models.medassist_v2.research_adapter.service import load_preserved, protocol
 from models.medassist_v2.research_adapter.schemas import NextRequest, Answer
 from models.medassist_v2.research_adapter.demo import interview
-from models.medassist_v2.training.campaign import verify_seal
+from models.medassist_v2.research_adapter.protocol_integrity import verify_existing_seal as verify_seal
 from models.medassist_v2 import questioning_protocol as ref
 from models.medassist_ai.model_b.disabled_provider import DisabledModelB
 

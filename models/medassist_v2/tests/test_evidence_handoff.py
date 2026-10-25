@@ -8,6 +8,7 @@ from pydantic import ValidationError
 
 from models.medassist_v2 import questioning_protocol as ref
 from models.medassist_v2.loader import normalise_catalogue
+from models.medassist_v2.research_adapter.protocol_integrity import protocol as portable_protocol
 from models.medassist_v2.research_adapter.handoff import EvidenceHandoff, EvidenceItem, build_handoff
 from models.medassist_v2.research_adapter.schemas import Evidence, NextRequest
 from models.medassist_v2.research_adapter.service import ModelA
@@ -19,7 +20,7 @@ from models.medassist_v2.validation import InvalidRecord
 class HandoffTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.p = ref.load_protocol()
+        cls.p = portable_protocol()
         data = FictionalDataset(cls.p)
         definitions = {eid:d for eid,d in normalise_catalogue(data.source)['evidences'].items() if eid.startswith('E_')}
         cls.service = ModelA(cls.p, definitions, NonLearningEstimator(cls.p,1e-5))

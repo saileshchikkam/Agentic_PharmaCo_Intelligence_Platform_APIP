@@ -1,5 +1,10 @@
 # Changelog
 
+## Authenticated read-only Model A protocol compatibility — 2026-10-26
+
+- Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.
+- Add tampering tests and migrate read-only adapter/fixture/smoke entry points. Fresh-checkout verification remains a separate readiness gate. [Guarantees](docs/model-a-protocol-portability.md).
+
 ## Main reconciliation prepared; merge blocked — 2026-10-26
 
 - Resolved README and ignore-rule conflicts in an isolated integration branch; preserved contributor documentation and both commit histories.

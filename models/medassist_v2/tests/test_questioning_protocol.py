@@ -6,6 +6,7 @@ import tempfile
 import unittest
 
 from models.medassist_v2 import questioning_protocol as q
+from models.medassist_v2.research_adapter.protocol_integrity import protocol as portable_protocol
 from models.medassist_v2.loader import normalise_catalogue
 from models.medassist_v2.simulator import OfflineCase
 from models.medassist_v2.validation import InvalidRecord
@@ -13,7 +14,7 @@ from models.medassist_v2.validation import InvalidRecord
 
 class ProtocolTests(unittest.TestCase):
     def setUp(self):
-        self.p=q.load_protocol()
+        self.p=portable_protocol()
         self.source={}
         ids={'E_0','E_1','E_204',*q.EDGES,*q.EDGES.values(),*q.ORPHANS}
         for eid in ids:
