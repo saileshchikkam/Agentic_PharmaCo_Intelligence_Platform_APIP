@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "frozen_at_utc": "2026-10-26T05:19:26.389166+00:00",
+  "frozen_before_implementation_access": true,
+  "authored_before_old_or_development_text_access": true,
+  "gold_file": "models/medassist_ai/evaluation/emergency-recognition-phase2/heldout-gold.json",
+  "gold_sha256": "f380644da0d8b06924bbc55912afb253ff70cd520f12448c1b2d9bb8dbe7f81b",
+  "cases_sha256": "9e2951c872b567b0bd8580573b77133f8ef95bdd662a6567baec78af08d06d03",
+  "counts": {
+    "escalate": 70,
+    "not_assessed": 32,
+    "clarify": 18
+  },
+  "categories": {
+    "explicit_current": 20,
+    "symptom_warning": 30,
+    "third_party_current": 12,
+    "recent_or_suspected": 8,
+    "negated_present": 8,
+    "remote_history": 8,
+    "hypothetical_education": 8,
+    "explicit_correction": 8,
+    "ambiguous_high_risk": 18
+  },
+  "expected_status": "AI provisional only; not clinical ground truth",
+  "immutable_gold_policy": "No gold changes after freeze. Disclose harness gaps without rerun."
+}

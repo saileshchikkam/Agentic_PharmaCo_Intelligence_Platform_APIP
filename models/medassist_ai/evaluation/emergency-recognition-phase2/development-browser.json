@@ -1,0 +1,55 @@
+{
+  "schema_version": "medassist.emergency-phase2-development-browser.v1",
+  "mocked_transports": true,
+  "cloud_calls": 0,
+  "rows": [
+    {
+      "width": 390,
+      "original_misses_escalate": true,
+      "other_person_preserved": true,
+      "negated_remote_educational_not_escalated": true,
+      "clarification_blocks_models": true,
+      "explicit_uncertainty_escalates": true,
+      "non_current_not_clearance": true,
+      "offline_timeout_guidance": true,
+      "late_conflicting_response_ignored": true,
+      "correction_does_not_clear_latch": true,
+      "restart_explicit": true,
+      "keyboard": true,
+      "page_errors": 0,
+      "mocked_extraction_calls": 3
+    },
+    {
+      "width": 820,
+      "original_misses_escalate": true,
+      "other_person_preserved": true,
+      "negated_remote_educational_not_escalated": true,
+      "clarification_blocks_models": true,
+      "explicit_uncertainty_escalates": true,
+      "non_current_not_clearance": true,
+      "offline_timeout_guidance": true,
+      "late_conflicting_response_ignored": true,
+      "correction_does_not_clear_latch": true,
+      "restart_explicit": true,
+      "keyboard": true,
+      "page_errors": 0,
+      "mocked_extraction_calls": 3
+    },
+    {
+      "width": 1440,
+      "original_misses_escalate": true,
+      "other_person_preserved": true,
+      "negated_remote_educational_not_escalated": true,
+      "clarification_blocks_models": true,
+      "explicit_uncertainty_escalates": true,
+      "non_current_not_clearance": true,
+      "offline_timeout_guidance": true,
+      "late_conflicting_response_ignored": true,
+      "correction_does_not_clear_latch": true,
+      "restart_explicit": true,
+      "keyboard": true,
+      "page_errors": 0,
+      "mocked_extraction_calls": 3
+    }
+  ]
+}

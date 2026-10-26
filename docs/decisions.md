@@ -206,3 +206,8 @@ Preserve the reviewed current bytes under `models/medassist_ai/`, `models/medass
 ## DEC-035 — Independent emergency evaluation cannot be replaced by regression parity
 
 **Implemented and evaluated, 2026-10-26.** Keep emergency recognition independent of language providers and Model A, with no-match meaning not assessed and explicit ambiguity blocking ordinary inference when recognized. Established emergency state cannot be cleared by provider replies or corrections. Use separately authored, frozen fictional evaluation before clinical review; disclose failed gates without tuning against final cases. The first 100-case v2 evaluation fails and blocks advancement beyond the safety milestone and automatic merge. AI-authored expectations and public sources do not supply human clinical approval. [Evidence](../models/medassist_ai/docs/emergency-recognition.md).
+
+
+## DEC-036 — Preserve failed evaluation denominators and independent utterance scope
+
+**Implemented/evaluated 2026-10-26.** Prior/current free-text statements receive independent safety context checks; no educational/history scope or later denial can clear another recognized trigger. Fresh heldout failures, including omitted emergency categories and correction-rubric conflicts, remain in prospective denominators. Do not claim paired improvement across differently composed case sets or tune final sets repeatedly. The Phase 2 matcher fails independent gates despite passing regressions; PR remains draft and clinical Model B stays disabled. [Evidence](../models/medassist_ai/docs/emergency-phase2.md).

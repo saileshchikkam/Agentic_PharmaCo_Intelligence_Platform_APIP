@@ -1,0 +1,6 @@
+{
+  "started_at_utc": "2026-10-26T05:34:12.923Z",
+  "gold_sha256": "f380644da0d8b06924bbc55912afb253ff70cd520f12448c1b2d9bb8dbe7f81b",
+  "implementation_manifest_sha256": "f3e35461c9971e24db740319223142e91cbcf7103a75a66542c870ab4bba8d7a",
+  "policy": "One final evaluation per engine. No rerun, tuning, gold or result changes. Execution errors remain evidence."
+}

@@ -1,5 +1,7 @@
 # Modular MedAssist research composition
 
+**Emergency repair Phase 2, 2026-10-26: NO-GO.** The fresh 120-case evaluation has 24 emergency misses, seven false escalations and five ambiguous routine continuations (65.71% recall;86.79% precision on 102 binary cases). [Repair, exact evidence and review blockers](docs/emergency-phase2.md). PR #2 remains draft; Model B stays disabled. Earlier checkpoint entries retain their historical evidence.
+
 **Latest safety milestone, 2026-10-26: NO-GO.** The original heart-attack/stroke declarations now escalate, but the separately authored 100-case evaluation has 25 emergency misses, five false escalations and three ambiguous routine continuations. [Results, state boundaries and blockers](docs/emergency-recognition.md). Rules remain provisional and clinically unreviewed; keep Model B disabled and the change in draft review. Earlier dated statements below describe historical checkpoints.
 Implemented on 2026-10-23 within the existing APIP application. This package organizes existing intelligence boundaries; it is not a production deployment or clinical system. Importing it never loads weights, opens source datasets, calls a provider or starts a service.
 

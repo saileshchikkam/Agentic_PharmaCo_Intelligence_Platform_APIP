@@ -1,0 +1,101 @@
+{
+  "completed_at_utc": "2026-10-26T05:34:13.514Z",
+  "gold_sha256": "f380644da0d8b06924bbc55912afb253ff70cd520f12448c1b2d9bb8dbe7f81b",
+  "engines": {
+    "typescript": {
+      "case_count": 120,
+      "confusion_3x3": {
+        "escalate": {
+          "escalate": 46,
+          "clarify": 1,
+          "not_assessed": 23
+        },
+        "clarify": {
+          "escalate": 8,
+          "clarify": 5,
+          "not_assessed": 5
+        },
+        "not_assessed": {
+          "escalate": 7,
+          "clarify": 3,
+          "not_assessed": 22
+        }
+      },
+      "binary": {
+        "TP": 46,
+        "FP": 7,
+        "FN": 24,
+        "TN": 25,
+        "denominator": 102,
+        "emergency_support": 70,
+        "negative_support": 32,
+        "excluded_gold_clarify": 18,
+        "recall": 0.6571428571428571,
+        "precision": 0.8679245283018868,
+        "definition": "Gold clarify excluded. Predicted clarify on gold escalate is FN; predicted clarify on gold not_assessed is TN."
+      },
+      "execution_error_ids": [],
+      "gates": {
+        "zero_false_negatives": false,
+        "precision_at_least_point95": false,
+        "zero_ambiguous_routine_continuations": false,
+        "zero_third_party_self_safety_mentions": false,
+        "no_execution_errors": true
+      },
+      "ambiguous_actions": {
+        "escalate": 8,
+        "clarify": 5,
+        "not_assessed": 5
+      },
+      "annotation_coverage": 81
+    },
+    "python": {
+      "case_count": 120,
+      "confusion_3x3": {
+        "escalate": {
+          "escalate": 46,
+          "clarify": 1,
+          "not_assessed": 23
+        },
+        "clarify": {
+          "escalate": 8,
+          "clarify": 5,
+          "not_assessed": 5
+        },
+        "not_assessed": {
+          "escalate": 7,
+          "clarify": 3,
+          "not_assessed": 22
+        }
+      },
+      "binary": {
+        "TP": 46,
+        "FP": 7,
+        "FN": 24,
+        "TN": 25,
+        "denominator": 102,
+        "emergency_support": 70,
+        "negative_support": 32,
+        "excluded_gold_clarify": 18,
+        "recall": 0.6571428571428571,
+        "precision": 0.8679245283018868,
+        "definition": "Gold clarify excluded. Predicted clarify on gold escalate is FN; predicted clarify on gold not_assessed is TN."
+      },
+      "execution_error_ids": [],
+      "gates": {
+        "zero_false_negatives": false,
+        "precision_at_least_point95": false,
+        "zero_ambiguous_routine_continuations": false,
+        "zero_third_party_self_safety_mentions": false,
+        "no_execution_errors": true
+      },
+      "ambiguous_actions": {
+        "escalate": 8,
+        "clarify": 5,
+        "not_assessed": 5
+      },
+      "annotation_coverage": 81
+    }
+  },
+  "clinical_status": "AI-assisted fictional engineering evaluation; not clinical approval"
+}

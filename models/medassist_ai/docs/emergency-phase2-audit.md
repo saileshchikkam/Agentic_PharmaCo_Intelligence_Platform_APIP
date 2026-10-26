@@ -1,0 +1,9 @@
+# Emergency repair Phase 2 — pre-repair audit, 2026-10-26
+
+Continue PR #2 at 10a1ff0 on its existing branch. The original workspace, sixteen contributor files and prior evidence are preserved. The previous 100-case set is now exposed; it is not a development runner and will not be executed again.
+
+Confirmed mechanisms from the immutable failure report: narrow fixed-order patterns miss paraphrases/reversed anatomy and qualifiers; blanket prefix negation crosses assertion boundaries and cannot resolve references; history/current markers have incomplete relative-time coverage; subject matching misses possessives/body-part and named caregiver forms; clause-wide hypothetical/educational handling both leaks and suppresses actual statements; bare high-risk mentions have inconsistent clarification. The latch works for recognized triggers, so recognition and precedence must remain separately evaluated.
+
+Repair uses a new versioned catalogue, bounded mention-local context, compositional warning descriptions and explicit subject/timing/discourse handling. Uncertainty must not become a negative finding; actual credible warning reports escalate independently of models. Generic condition mentions, counterfactuals and remote history do not imply an active emergency. All definitions remain provisional, source-backed engineering proposals requiring qualified clinical review. No numeric clinical threshold, treatment or disease diagnosis is introduced.
+
+New primary-author development cases and a fresh independently authored heldout are separate. Freeze implementation after development checks and execute the new independent set once. Preserve failures and leave PR draft on failed gates. Sealed Model A, evidence contract, Model B, Groq configuration and navigation consent are outside repair scope.

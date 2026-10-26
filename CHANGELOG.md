@@ -1,5 +1,11 @@
 # Changelog
 
+## Emergency safety repair Phase 2 — independent gate still failed — 2026-10-26
+
+- Add provisional v3 warning grammar, mention-local context/affected-person handling and independent safety scope per submitted utterance; preserve UI, providers and sealed research.
+- New 104-case development suite and 127 TypeScript/HTTP plus 218 Python regressions pass, with types/build and three-width browser checks.
+- New independent 120-case evaluation:TP 46 FP 7 FN 24 TN 25, recall 65.71%, precision 86.79%; five ambiguous routine continuations. No material generalization improvement demonstrated. Preserve all failures; PR #2 remains draft, clinical review and Model B gate blocked. [Evidence](models/medassist_ai/docs/emergency-phase2.md).
+
 ## Provisional emergency recognition and failed independent gate — 2026-10-26
 
 - Add shared versioned assertion/subject/time rules and explicit clarification before models, with a persistent emergency latch and unchanged consent-based Maps handoff.

@@ -1,0 +1,123 @@
+{
+  "id": "P2B-08",
+  "name": "location-permission-granted",
+  "viewport": [
+    768,
+    1024
+  ],
+  "expected": [
+    "Optional location separate from emergency recognition",
+    "No symptom narrative in external request",
+    "Emergency persists",
+    "No real Maps, emergency service, or call interaction"
+  ],
+  "actions": [
+    {
+      "kind": "normal_composer_fill_then_Enter",
+      "text": "My friend collapsed and will not wake up."
+    }
+  ],
+  "network": [
+    {
+      "event": "nonlocal_attempt_aborted",
+      "url": "https://fonts.googleapis.com/css2"
+    },
+    {
+      "event": "nonlocal_attempt_aborted",
+      "url": "https://fonts.googleapis.com/css2"
+    },
+    {
+      "event": "request_attempt",
+      "method": "GET",
+      "url": "/api/account/session",
+      "body": null,
+      "at": 1792993119932
+    },
+    {
+      "event": "unexpected_local_api_aborted",
+      "url": "/api/account/session"
+    },
+    {
+      "event": "request_attempt",
+      "method": "GET",
+      "url": "/api/account/session",
+      "body": null,
+      "at": 1792993119934
+    },
+    {
+      "event": "unexpected_local_api_aborted",
+      "url": "/api/account/session"
+    },
+    {
+      "event": "request_failed",
+      "url": "/api/account/session",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "at": 1792993119954
+    },
+    {
+      "event": "request_failed",
+      "url": "/api/account/session",
+      "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "at": 1792993119954
+    },
+    {
+      "event": "request_attempt",
+      "method": "GET",
+      "url": "/api/research/model-a/language",
+      "body": null,
+      "at": 1792993120063
+    },
+    {
+      "event": "request_attempt",
+      "method": "GET",
+      "url": "/api/research/model-a/natural/vocabulary",
+      "body": null,
+      "at": 1792993120065
+    },
+    {
+      "event": "request_attempt",
+      "method": "GET",
+      "url": "/api/research/model-a/language",
+      "body": null,
+      "at": 1792993120067
+    },
+    {
+      "event": "request_attempt",
+      "method": "GET",
+      "url": "/api/research/model-a/natural/vocabulary",
+      "body": null,
+      "at": 1792993120068
+    },
+    {
+      "event": "request_failed",
+      "url": "/api/research/model-a/language",
+      "error": "net::ERR_ABORTED",
+      "at": 1792993120080
+    },
+    {
+      "event": "request_failed",
+      "url": "/api/research/model-a/natural/vocabulary",
+      "error": "net::ERR_ABORTED",
+      "at": 1792993120080
+    },
+    {
+      "event": "fixture_response_received",
+      "url": "/api/research/model-a/language",
+      "status": 200,
+      "at": 1792993120080
+    },
+    {
+      "event": "fixture_response_received",
+      "url": "/api/research/model-a/natural/vocabulary",
+      "status": 200,
+      "at": 1792993120080
+    }
+  ],
+  "page_errors": [],
+  "gaps": [
+    "Scenario failed during one execution; not retried."
+  ],
+  "checks": {},
+  "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+  "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My friend collapsed and will not wake up.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+}

@@ -6,7 +6,7 @@ import { readVocabulary } from '../src/features/medassist-conversation/language'
 import { createMedGemmaExtractor } from './medgemma';
 import { createGroqExtractor } from './groq-extraction';
 import { GroqProvider } from './medassist-ai';
-import { evaluateStatement } from '../src/features/medassist-safety/safety';
+import { evaluateStatement, evaluateStatements } from '../src/features/medassist-safety/safety';
 import { readNaturalRequest, readNaturalResult, readNaturalVocabulary, anchors, type NaturalVocabulary } from '../src/features/medassist-conversation/natural';
 import { registerSafetyNavigation } from './medassist-safety';
 import { naturalIdempotency } from './medassist-idempotency';
@@ -113,7 +113,7 @@ export function registerModelADemo(app: Express, config: RuntimeConfig, { enable
             res.status(422).json({ error: 'INVALID_EXTRACTION_INPUT' });
             return;
         }
-        const safety = evaluateStatement([...(v2 ? b.prior_context : []), b.text].join('. '));
+        const safety = evaluateStatements([...(v2 ? b.prior_context : []), b.text]);
         if (safety.suppress_ordinary_flow) {
             res.status(409).json({ error: safety.status === 'escalate' ? 'SAFETY_ESCALATION' : 'SAFETY_CLARIFICATION_REQUIRED', safety });
             return;

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-10-26T05:41:49.611610+00:00",
+  "scope": "Evaluator-owned public source and evidence artifacts only; private runtime paths supplied through environment variables, not published.",
+  "files_checked": 34,
+  "findings": [],
+  "passed": true,
+  "no_credentials_or_workstation_paths_in_public_runners": true,
+  "model_runtime_env": "MEDASSIST_TEST_PYTHON",
+  "playwright_runtime_env": "MEDASSIST_PLAYWRIGHT_MODULE",
+  "network_policy": "Temporary loopback Vite server only. Nonlocal browser requests aborted. No real inference, cloud success, calls, dispatch or Maps opening."
+}

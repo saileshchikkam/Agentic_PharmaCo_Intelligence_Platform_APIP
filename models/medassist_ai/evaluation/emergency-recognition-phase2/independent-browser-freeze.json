@@ -1,0 +1,7 @@
+{
+  "frozen_at_utc": "2026-10-26T05:20:19.398276+00:00",
+  "file": "models/medassist_ai/evaluation/emergency-recognition-phase2/independent-scenarios.json",
+  "sha256": "6ad7ef95b060390bff87daba491fca5fa8520a401b9e54769bf4c08d7631647d",
+  "scenario_count": 12,
+  "before_implementation_access": true
+}
