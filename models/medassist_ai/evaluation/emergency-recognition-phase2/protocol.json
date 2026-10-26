@@ -1,0 +1,33 @@
+{
+  "schema_version": "medassist.emergency-phase2-protocol.v1",
+  "date": "2026-10-26",
+  "base": "10a1ff073e0882702ae5db7488427ac315395b5b",
+  "specified_before_repair": true,
+  "scope": "provisional English fictional engineering; no clinical groundtruth",
+  "outcomes": [
+    "escalate",
+    "clarify",
+    "not_assessed"
+  ],
+  "binary": {
+    "include_gold": [
+      "escalate",
+      "not_assessed"
+    ],
+    "gold_clarify": "separate",
+    "predicted_clarify_on_gold_emergency": "FN",
+    "predicted_clarify_on_gold_negative": "TN and three-way error"
+  },
+  "gates": {
+    "emergency_FN": 0,
+    "precision_minimum": 0.95,
+    "ambiguity_routine_continuations": 0,
+    "third_party_self_annotations": 0,
+    "stale_emergency_clearances": 0
+  },
+  "fresh_heldout": "separate agent authors before implementation access; one run after implementation freeze; no tuning/rerun after unblinding",
+  "original_heldout": "do not rerun or edit; failures used only to identify mechanisms for new development cases",
+  "clinical_review": false,
+  "model_b_enabled": false,
+  "merge": "remain draft for failed gates or unresolved clinical review"
+}

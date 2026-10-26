@@ -1,0 +1,1473 @@
+{
+  "schema_version": 1,
+  "completed_at_utc": "2026-10-26T05:38:44.770Z",
+  "scenario_sha256": "6ad7ef95b060390bff87daba491fca5fa8520a401b9e54769bf4c08d7631647d",
+  "implementation_freeze_sha256": "f3e35461c9971e24db740319223142e91cbcf7103a75a66542c870ab4bba8d7a",
+  "clinical_status": "AI-assisted fictional engineering integration; not clinical validation",
+  "execution_policy": "Each frozen scenario executed once; no route code removed AbortSignal; no case retry. Emergency-on-input is distinguished from Enter submission.",
+  "actual_inference_count": 0,
+  "cloud_network_success": 0,
+  "external_calls_dispatch_maps_opened": 0,
+  "rows": [
+    {
+      "id": "P2B-01",
+      "name": "offline-current-emergency-desktop",
+      "viewport": [
+        1440,
+        960
+      ],
+      "expected": [
+        "Emergency guidance visible without provider success",
+        "No model inference required",
+        "Help remains visible"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My chest is crushed with pain into my jaw and cold sweat."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993111986
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993111987
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993112016
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993112016
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993112178
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993112180
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993112181
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993112182
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993112183
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993112183
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993112187
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993112188
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My chest is crushed with pain into my jaw and cold sweat.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-02",
+      "name": "timeout-stroke-mobile",
+      "viewport": [
+        390,
+        844
+      ],
+      "expected": [
+        "Immediate safety interruption",
+        "Timeout cannot replace emergency with routine content"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My face suddenly drooped and my speech sounds garbled."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993113083
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993113084
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993113108
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993113109
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993113226
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993113228
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993113229
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993113230
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993113240
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993113240
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993113241
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993113241
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My face suddenly drooped and my speech sounds garbled.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-03",
+      "name": "pending-conflicting-reply",
+      "viewport": [
+        1440,
+        960
+      ],
+      "expected": [
+        "Second message accepted while provider pending",
+        "Emergency remains after delayed response",
+        "No routine proposal confirmation supersedes emergency"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My head has been aching since yesterday."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993114111
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993114112
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993114127
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993114129
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993114211
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993114212
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993114213
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993114213
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993114225
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993114225
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993114229
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993114229
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My head has been aching since yesterday.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-04",
+      "name": "repeat-and-unrelated-message",
+      "viewport": [
+        768,
+        1024
+      ],
+      "expected": [
+        "No silent clearance",
+        "Emergency help persists",
+        "Routine interview blocked while emergency remains"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "I am having anaphylaxis and my throat is closing."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993115373
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993115374
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993115400
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993115402
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993115490
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993115491
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993115492
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993115493
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993115501
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993115501
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993115504
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993115505
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"I am having anaphylaxis and my throat is closing.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-05",
+      "name": "correction-after-emergency",
+      "viewport": [
+        1440,
+        960
+      ],
+      "expected": [
+        "Prior emergency evidence is not silently discarded",
+        "Any changed safety state is explained and preserves prior statements",
+        "No claim that danger is clinically ruled out"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "I am having a stroke right now."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993116495
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993116496
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993116518
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993116522
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993116603
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993116604
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993116605
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993116605
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993116615
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993116615
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993116619
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993116619
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"I am having a stroke right now.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-06",
+      "name": "third-party-subject",
+      "viewport": [
+        390,
+        844
+      ],
+      "expected": [
+        "Emergency guidance for other person",
+        "No aunt symptoms represented as self-confirmed patient annotation or evidence"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My aunt is here, her face suddenly drooped and she cannot lift one arm."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993117605
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993117606
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993117625
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993117629
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993117713
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993117714
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993117715
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993117716
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993117726
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993117726
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993117729
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993117730
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My aunt is here, her face suddenly drooped and she cannot lift one arm.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-07",
+      "name": "location-permission-denied",
+      "viewport": [
+        390,
+        844
+      ],
+      "expected": [
+        "Permission refusal handled",
+        "Emergency guidance persists",
+        "No call, dispatch or Maps launch"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "I am gasping for breath and cannot finish a sentence."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993118785
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993118786
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993118800
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993118800
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993118908
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993118909
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993118911
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993118912
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993118915
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993118915
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993118918
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993118919
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"I am gasping for breath and cannot finish a sentence.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-08",
+      "name": "location-permission-granted",
+      "viewport": [
+        768,
+        1024
+      ],
+      "expected": [
+        "Optional location separate from emergency recognition",
+        "No symptom narrative in external request",
+        "Emergency persists",
+        "No real Maps, emergency service, or call interaction"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My friend collapsed and will not wake up."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993119932
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993119934
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993119954
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993119954
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993120063
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993120065
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993120067
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993120068
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993120080
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993120080
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993120080
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993120080
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My friend collapsed and will not wake up.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-09",
+      "name": "ambiguous-currentness",
+      "viewport": [
+        1440,
+        960
+      ],
+      "expected": [
+        "Safety clarification or conservative escalation",
+        "No routine continuation on unresolved emergency context"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "Stroke, I do not know if that is an old diagnosis or happening now."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993121028
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993121029
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993121052
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993121054
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993121175
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993121177
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993121178
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993121181
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993121184
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993121184
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993121191
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993121192
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"Stroke, I do not know if that is an old diagnosis or happening now.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-10",
+      "name": "remote-negative-control",
+      "viewport": [
+        390,
+        844
+      ],
+      "expected": [
+        "No assertion of a current emergency",
+        "History not silently represented as a new symptom",
+        "No clinical clearance claim"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My heart attack was in 1998. I am well now and only want to record that history."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993122206
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993122208
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993122234
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993122235
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993122321
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993122323
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993122324
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993122324
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993122331
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993122331
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993122334
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993122334
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My heart attack was in 1998. I am well now and only want to record that history.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-11",
+      "name": "provider-failed-third-party-explicit",
+      "viewport": [
+        1440,
+        960
+      ],
+      "expected": [
+        "Emergency interruption despite failed extraction provider",
+        "No self-confirmed husband findings"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "My husband says he is having a heart attack now."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993123380
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993123390
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993123431
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993123431
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993123529
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993123530
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993123537
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993123540
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993123544
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993123544
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993123545
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993123551
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"My husband says he is having a heart attack now.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    },
+    {
+      "id": "P2B-12",
+      "name": "recent-resolved-warning",
+      "viewport": [
+        768,
+        1024
+      ],
+      "expected": [
+        "Recent dangerous warning does not receive routine clearance",
+        "Emergency help shown without provider dependence"
+      ],
+      "actions": [
+        {
+          "kind": "normal_composer_fill_then_Enter",
+          "text": "Ten minutes ago my speech went slurred and one arm stopped working; it passed but I am worried."
+        }
+      ],
+      "network": [
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "nonlocal_attempt_aborted",
+          "url": "https://fonts.googleapis.com/css2"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993124485
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/account/session",
+          "body": null,
+          "at": 1792993124486
+        },
+        {
+          "event": "unexpected_local_api_aborted",
+          "url": "/api/account/session"
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993124512
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/account/session",
+          "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector",
+          "at": 1792993124517
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993124609
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993124610
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/language",
+          "body": null,
+          "at": 1792993124611
+        },
+        {
+          "event": "request_attempt",
+          "method": "GET",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "body": null,
+          "at": 1792993124612
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/language",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993124621
+        },
+        {
+          "event": "request_failed",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "error": "net::ERR_ABORTED",
+          "at": 1792993124621
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/language",
+          "status": 200,
+          "at": 1792993124625
+        },
+        {
+          "event": "fixture_response_received",
+          "url": "/api/research/model-a/natural/vocabulary",
+          "status": 200,
+          "at": 1792993124625
+        }
+      ],
+      "page_errors": [],
+      "gaps": [
+        "Scenario failed during one execution; not retried."
+      ],
+      "checks": {},
+      "patient_annotation_or_evidence_mutation": "unverified: no session evidence export available in initial emergency-only route",
+      "error": "Error: locator.fill: Error: Element is not an <input>, <textarea>, <select> or [contenteditable] and does not have a role allowing [aria-readonly]\nCall log:\n\u001b[2m  - waiting for locator('#fictional-description')\u001b[22m\n\u001b[2m    - locator resolved to <md-outlined-text-field value=\"\" rows=\"2\" inputmode=\"\" type=\"textarea\" maxlength=\"300\" autocomplete=\"\" id=\"fictional-description\" label=\"Fictional symptom description\" classname=\"w-full text-left font-sans \" placeholder=\"How is the fictional person feeling?\"></md-outlined-text-field>\u001b[22m\n\u001b[2m    - fill(\"Ten minutes ago my speech went slurred and one arm stopped working; it passed but I am worried.\")\u001b[22m\n\u001b[2m  - attempting fill action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and editable\u001b[22m\n"
+    }
+  ]
+}

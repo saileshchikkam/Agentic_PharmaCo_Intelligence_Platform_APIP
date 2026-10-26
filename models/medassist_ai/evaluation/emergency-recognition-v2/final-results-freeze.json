@@ -1,0 +1,15 @@
+{
+  "schema_version": "medassist.independent-results-freeze.v1",
+  "sha256": {
+    "evaluate-heldout-once.ts": "66e24560733cb6208da855807e9c7cf3069bf59f0889c113b860a8c57523d26c",
+    "evaluate-heldout-once.py": "01a01f7d3016555248bc3d2868a0e19a238875bb285753d1e3cdf274cebe8ab9",
+    "final-evaluation-attempt.json": "223c6ff026d3317af654a3c2b98d5046d3efc1dea9828abc7673aa2f7f05eb45",
+    "typescript-final-process.json": "ffc5f2d4d8c4c7043f421a6deb75ebd62fdd7e037356509f875820852472f84c",
+    "heldout-typescript-results.json": "ee2e9a795225f41423ccbb97ff4ec4ad695ca37b8ac52b27876a691cd42f3571",
+    "heldout-python-results.json": "d10f85c53ccdf7a8d6910734d8df3a681a80085252888e98c44fa67a037f988d",
+    "heldout-final-results.json": "e694594ec4025372fc4b7d193f670cdc309ccc95ce9564078f4de448e1b46610"
+  },
+  "implementation_hashes_verified_before_and_after": true,
+  "gold_hashes_verified_before_and_after": true,
+  "no_repeat_evaluation": true
+}

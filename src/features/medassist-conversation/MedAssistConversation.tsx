@@ -7,7 +7,7 @@ import { understand, constrainContext, questionCompatibility, reportedDetails, t
 import { SubmissionLedger, friendlyError, readErrorCategory, retryAfterMs, transient, type ErrorCategory } from './reliability';
 import { ClarificationTracker, type FailureKind } from './clarification';
 import { parseQuickReply } from './replies';
-import { evaluateStatement, type SafetyDecision } from '../medassist-safety/safety';
+import { evaluateStatement, resolveSafetyClarification, type SafetyDecision } from '../medassist-safety/safety';
 import HospitalNavigation from '../medassist-safety/HospitalNavigation';
 import { welcome, readFictionalAge, readSourceSex, contextUnknown, requestsNavigation, assessmentStatus } from './presentation';
 import './conversation.css';
@@ -36,6 +36,8 @@ export default function MedAssistConversation() {
     } | null>(null);
     const [localLanguage, setLocalLanguage] = useState<ReturnType<typeof readLanguageStatus>>(null);
     const [emergency, setEmergency] = useState<SafetyDecision | null>(null), [navigationSession, setNavigationSession] = useState(0);
+    const [safetyClarification, setSafetyClarification] = useState<SafetyDecision | null>(null);
+    const pendingSafety = useRef<SafetyDecision | null>(null);
     const submissions = useRef(new SubmissionLedger()), confirmedCandidate = useRef<Proposal | null>(null);
     const [understandingRecords, setUnderstandingRecords] = useState<{request_id:string;text:string;question_id:string|null;annotations:Annotation[];details:ReturnType<typeof reportedDetails>;compatibility:string;confirmed:boolean;extraction_method?:string}[]>([]);
     const questionClarifications=useRef(new Map<string,number>()), candidateRequest=useRef<string|null>(null);
@@ -63,8 +65,8 @@ export default function MedAssistConversation() {
     }, [retryAvailability]);
     useEffect(() => { if (result || candidate)
         questionHeading.current?.focus({ preventScroll: true }); }, [result, candidate]);
-    useEffect(() => { if (emergency)
-        questionHeading.current?.focus(); }, [emergency]);
+    useEffect(() => { if (emergency || safetyClarification)
+        questionHeading.current?.focus(); }, [emergency, safetyClarification]);
     useEffect(() => {
         const marker=end.current, log=timeline.current;
         if(!marker||!log)return;
@@ -75,16 +77,38 @@ export default function MedAssistConversation() {
         if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
         return()=>resize.disconnect();
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
-    function restart() { setUnderstandingRecords([]); questionClarifications.current.clear(); candidateRequest.current=null; submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
-    function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
-        return false; if (safetyLatch.current)
-        return true; safetyLatch.current = true; generation.current++; abort.current?.abort(); inFlight.current = false; setEmergency(d); setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setSelected([]); setDescription(''); setLanguageRetry(null); setContextStep(null); setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]); return true; }
+    function restart() { pendingSafety.current = null; setSafetyClarification(null); setUnderstandingRecords([]); questionClarifications.current.clear(); candidateRequest.current=null; submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
+    function applySafety(d: SafetyDecision, text: string) {
+        if (safetyLatch.current) return true;
+        if (d.status === 'not_assessed') return false;
+        generation.current++; abort.current?.abort(); inFlight.current = false;
+        setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setLanguageRetry(null); setContextStep(null);
+        setNarratives(old => [...old, text]); setDescription('');
+        if (d.status === 'clarify') { pendingSafety.current = d; setSafetyClarification(d); }
+        else { safetyLatch.current = true; generation.current++; abort.current?.abort(); pendingSafety.current = null; setSafetyClarification(null); setEmergency(d); setSelected([]); }
+        setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]);
+        return true;
+    }
+    function escalate(text: string, includeClarification = false) {
+        const d = evaluateStatement(text);
+        if (d.status === 'clarify' && !includeClarification) return false;
+        return applySafety(d, text);
+    }
+    function clarifySafety(answer: 'current'|'non_current'|'unsure') {
+        const prior = pendingSafety.current; if (!prior || safetyLatch.current) return;
+        const resolved = resolveSafetyClarification(prior, answer);
+        pendingSafety.current = null; setSafetyClarification(null);
+        const label = answer === 'current' ? 'This is happening now' : answer === 'unsure' ? 'I am unsure whether this is happening now' : 'This is only past or hypothetical context';
+        if (resolved.status === 'escalate') applySafety(resolved, label);
+        else { setMessages(c => [...c, {role:'You',text:label}, {role:'MedAssist',text:'No safety conclusion was made and nothing was added as current evidence. Please describe the current fictional concern, or use Emergency help if you are unsure.'}]); setDescription(''); }
+    }
     async function describe(event?: React.FormEvent, retryText?: string) {
         event?.preventDefault();
         const text = (retryText ?? description).trim();
         followLatest.current = true;
-        if (escalate(text) || safetyLatch.current || inFlight.current || busy || pendingRetry || !text)
+        if (escalate(text, true) || safetyLatch.current || inFlight.current || busy || pendingRetry || !text)
             return;
+        if (pendingSafety.current) return;
         if (requestsNavigation(text)) {
             const key = 'navigation:' + text;
             if (localSubmissions.current.has(key)) return;
@@ -146,6 +170,10 @@ export default function MedAssistConversation() {
         try {
             const r = await fetch(`${api}/natural/extract`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Conversation-ID': submissions.current.conversationId, 'X-Request-ID': submission.id }, credentials: 'omit', cache: 'no-store', signal: c.signal, body: JSON.stringify({ schema_version: 'medassist.natural-extract-request.v2', fictional_only: true, text, prior_context:prior, question_id: result?.selection.question?.evidence_id ?? null }) });
             let raw;try{raw=await r.json();}catch{throw Object.assign(Error(),{kind:'invalid_output'});}
+            if (version !== generation.current || safetyLatch.current || pendingSafety.current) return;
+            if (!r.ok && (raw?.error === 'SAFETY_ESCALATION' || raw?.error === 'SAFETY_CLARIFICATION_REQUIRED')) {
+                if (applySafety(evaluateStatement([...prior,text].join('. ')), text)) return;
+            }
             if (!r.ok) {
                 const legacy: Record<string, ErrorCategory> = { LANGUAGE_MAPPING_FAILED: 'EVIDENCE_MAPPING_FAILURE', LANGUAGE_INVALID_OUTPUT: 'INVALID_STRUCTURED_OUTPUT', LANGUAGE_TIMEOUT: 'PROVIDER_TIMEOUT', LANGUAGE_QUOTA: 'RATE_LIMITED', LANGUAGE_BUSY: 'RATE_LIMITED' };
                 const category = readErrorCategory(raw?.error) ?? legacy[raw?.error] ?? 'PROVIDER_UNAVAILABLE';
@@ -205,7 +233,7 @@ export default function MedAssistConversation() {
         }
     }
     async function send(next: NaturalRequest, label: string) {
-        if (safetyLatch.current || inFlight.current)
+        if (safetyLatch.current || pendingSafety.current || inFlight.current)
             return;
         const key = 'interview:' + JSON.stringify(next), submission = submissions.current.begin(key);
         if (!submission) return;
@@ -254,7 +282,7 @@ export default function MedAssistConversation() {
         }
     }
     function confirmInitial() {
-        if (!candidate || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
+        if (!candidate || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current || pendingSafety.current)
             return;
         followLatest.current = true;
         confirmedCandidate.current = candidate;
@@ -303,7 +331,7 @@ export default function MedAssistConversation() {
         say('How old is this fictional person, in years? Please use fictional details only. I will not guess missing information.');
     }
     function collectContext(text: string) {
-        if (safetyLatch.current || busy || pendingRetry)
+        if (safetyLatch.current || pendingSafety.current || busy || pendingRetry)
             return;
         const key = 'context:' + contextStep + ':' + text;
         if (localSubmissions.current.has(key)) return;
@@ -387,27 +415,34 @@ export default function MedAssistConversation() {
           {messages.map((message, index) => <li key={session + ':' + index} className={'conversation-message conversation-' + (message.role === 'You' ? 'user' : 'assistant') + (index === 0 ? ' conversation-welcome' : '')}>
             <span className="conversation-speaker">{message.role === 'MedAssist' ? 'MedAssist AI' : 'You'}</span><p>{message.text}</p></li>)}
           <li className="conversation-turn">
+          {safetyClarification && !emergency && <section role="alert" aria-label="Safety clarification" className="conversation-question">
+            <h2 tabIndex={-1} ref={questionHeading}>Check safety context</h2><p>{safetyClarification.guidance}</p>
+            <div className="conversation-actions"><M3Button onClick={() => clarifySafety('current')}>Happening now</M3Button>
+              <M3Button onClick={() => clarifySafety('non_current')}>Only distant past or hypothetical</M3Button>
+              <M3Button onClick={() => clarifySafety('unsure')}>Not sure — show emergency help</M3Button></div>
+            <p>Ordinary questions are paused. No diagnosis or safety clearance has been made.</p>
+          </section>}
           {emergency && <section role="alert" aria-label="Emergency help" className="conversation-question conversation-emergency">
             <h2 tabIndex={-1} ref={questionHeading}>Emergency help</h2><p>{emergency.guidance}</p>
             <p><strong>For a real emergency only:</strong> <a href="tel:112">Call 112 in India</a>. Elsewhere use your local emergency number. Do not place test calls for fictional cases.</p>
             <p>Provisional statement guard · not clinically validated. Ordinary questions and self-care are paused. Urgency remains unassessed.</p>
           </section>}
           {error && <p role="alert" className="conversation-error">{error}</p>}
-          {!emergency && !vocabulary && <div className="conversation-question">
+          {!emergency && !safetyClarification && !vocabulary && <div className="conversation-question">
             <p>{error ? 'Local service unavailable.' : 'Checking local availability…'}</p>
             <M3Button variant="outlined" onClick={() => setRetryAvailability(v => v + 1)}>Retry availability</M3Button></div>}
-          {!emergency && vocabulary && candidate && !contextStep && !contextUnavailable && <div className="conversation-question">
+          {!emergency && !safetyClarification && vocabulary && candidate && !contextStep && !contextUnavailable && <div className="conversation-question">
             <h2 ref={questionHeading} tabIndex={-1}>Confirm what you meant</h2><ul>{candidate.observations.map(a => <li key={a.evidence_id}>{name(a.evidence_id)}: {a.state === 'unknown' ? 'not sure' : a.state === 'contradiction' ? 'conflicting' : Array.isArray(a.value) ? a.value.map(displayValue).join(', ') || 'explicitly none' : displayValue(a.value! as Scalar)}</li>)}</ul>{candidate.unmapped.length > 0 && <p>Kept in your own words, without a structured answer: {candidate.unmapped.map(i => i.quote).join('; ')}</p>}
             <p>Does this reflect what you meant? Nothing here is accepted until you confirm.</p>
             <div className="conversation-actions"><M3Button disabled={busy || !!pendingRetry} onClick={confirmInitial}>Confirm these details</M3Button>
               <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => { setCandidate(null); setMessages(current => [...current, { role: 'You', text: 'That mapping is not correct.' }, { role: 'MedAssist', text: 'Please correct the description in your own words. None of these proposed answers was recorded.' }]); }}>No / Not sure — correct this</M3Button></div>
           </div>}
-          {!emergency && contextStep === 'sex' && <div className="conversation-actions" aria-label="Fictional female or male answer">
+          {!emergency && !safetyClarification && contextStep === 'sex' && <div className="conversation-actions" aria-label="Fictional female or male answer">
             <M3Button disabled={busy || !!pendingRetry} onClick={() => collectContext('F')}>F</M3Button>
             <M3Button variant="outlined" disabled={busy || !!pendingRetry} onClick={() => collectContext('M')}>M</M3Button>
             <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => collectContext('Not sure')}>Not sure</M3Button>
           </div>}
-          {!emergency && result && !candidate && <section aria-labelledby="conversation-question-title" aria-busy={busy}>
+          {!emergency && !safetyClarification && result && !candidate && <section aria-labelledby="conversation-question-title" aria-busy={busy}>
             <h2 id="conversation-question-title" className="conversation-sr-only" tabIndex={-1} ref={questionHeading}>{finished ? 'Fictional interview finished' : 'Reply to the latest question'}</h2>
             {question && <><div className="conversation-actions">
               {question.data_type === 'B' && <><M3Button disabled={busy || !!pendingRetry} onClick={() => answer('confirmed', true, 'Yes')}>Yes</M3Button><M3Button variant="outlined" disabled={busy || !!pendingRetry} onClick={() => answer('confirmed', false, 'No')}>No</M3Button></>}
@@ -421,8 +456,8 @@ export default function MedAssistConversation() {
           </section>}
           {(showNavigation || emergency) && <HospitalNavigation key={navigationSession + ':' + !!emergency} emergency={!!emergency}/>}
           {!emergency && busy && <div role="status" className="conversation-typing"><span aria-hidden="true">•••</span> Working on your message…</div>}
-          {pendingRetry && !emergency && <M3Button variant="outlined" disabled={busy} onClick={() => void send(pendingRetry.next, pendingRetry.label)}>Retry last action</M3Button>}
-          {languageRetry && !emergency && <M3Button variant="outlined" disabled={busy} onClick={() => void describe(undefined, languageRetry)}>Retry description</M3Button>}
+          {pendingRetry && !emergency && !safetyClarification && <M3Button variant="outlined" disabled={busy} onClick={() => void send(pendingRetry.next, pendingRetry.label)}>Retry last action</M3Button>}
+          {languageRetry && !emergency && !safetyClarification && <M3Button variant="outlined" disabled={busy} onClick={() => void describe(undefined, languageRetry)}>Retry description</M3Button>}
           {finished && <p role="status">No diagnosis, urgency result or care advice was produced.</p>}
           </li>
         </ol>

@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "status": "Frozen independent AI-assisted fictional engineering scenarios, not clinical validation",
+  "authored_before_implementation_access": true,
+  "execution_policy": "One browser execution per scenario after explicit implementation freeze. Record harness gaps; no replay after failures. Use actual submitted UI input path and Enter. Abort nonlocal requests. Never initiate calls, dispatch or Maps.",
+  "network_reporting": "Record attempted requests, fixture responses, real local inference and successful network inference separately; fixtures do not prove inference.",
+  "scenarios": [
+    {
+      "id": "P2B-01",
+      "name": "offline-current-emergency-desktop",
+      "viewport": [
+        1440,
+        960
+      ],
+      "provider": "offline abort all provider requests",
+      "steps": [
+        "Start clean fictional conversation",
+        "Submit using Enter: My chest is crushed with pain into my jaw and cold sweat.",
+        "Inspect immediate emergency interruption and routine interview absence"
+      ],
+      "expected": [
+        "Emergency guidance visible without provider success",
+        "No model inference required",
+        "Help remains visible"
+      ]
+    },
+    {
+      "id": "P2B-02",
+      "name": "timeout-stroke-mobile",
+      "viewport": [
+        390,
+        844
+      ],
+      "provider": "local extraction fixture delayed beyond timeout; never contact cloud",
+      "steps": [
+        "Submit using Enter: My face suddenly drooped and my speech sounds garbled.",
+        "Observe immediate emergency UI before provider timeout",
+        "Observe after configured timeout"
+      ],
+      "expected": [
+        "Immediate safety interruption",
+        "Timeout cannot replace emergency with routine content"
+      ]
+    },
+    {
+      "id": "P2B-03",
+      "name": "pending-conflicting-reply",
+      "viewport": [
+        1440,
+        960
+      ],
+      "provider": "Valid local-only extraction request begins, held pending, later fulfilled with routine proposal",
+      "steps": [
+        "Submit using Enter: My head has been aching since yesterday.",
+        "Ensure actual extraction request is pending",
+        "While pending submit using Enter: I think I am having a heart attack right now.",
+        "Release previously pending routine proposal and inspect final UI"
+      ],
+      "expected": [
+        "Second message accepted while provider pending",
+        "Emergency remains after delayed response",
+        "No routine proposal confirmation supersedes emergency"
+      ],
+      "critical_harness_condition": "Must observe real request dispatch before second message; a plain route stub without pending request is insufficient."
+    },
+    {
+      "id": "P2B-04",
+      "name": "repeat-and-unrelated-message",
+      "viewport": [
+        768,
+        1024
+      ],
+      "provider": "offline",
+      "steps": [
+        "Submit using Enter: I am having anaphylaxis and my throat is closing.",
+        "Submit the identical message using Enter",
+        "Submit using Enter: Also my elbow aches."
+      ],
+      "expected": [
+        "No silent clearance",
+        "Emergency help persists",
+        "Routine interview blocked while emergency remains"
+      ]
+    },
+    {
+      "id": "P2B-05",
+      "name": "correction-after-emergency",
+      "viewport": [
+        1440,
+        960
+      ],
+      "provider": "offline",
+      "steps": [
+        "Submit using Enter: I am having a stroke right now.",
+        "Submit using Enter: Correction, I pasted that sentence; I have no symptoms and nobody is having a stroke."
+      ],
+      "expected": [
+        "Prior emergency evidence is not silently discarded",
+        "Any changed safety state is explained and preserves prior statements",
+        "No claim that danger is clinically ruled out"
+      ]
+    },
+    {
+      "id": "P2B-06",
+      "name": "third-party-subject",
+      "viewport": [
+        390,
+        844
+      ],
+      "provider": "offline",
+      "steps": [
+        "Start clean conversation",
+        "Submit using Enter: My aunt is here, her face suddenly drooped and she cannot lift one arm.",
+        "Inspect visible patient annotations and any evidence export actually exposed by UI"
+      ],
+      "expected": [
+        "Emergency guidance for other person",
+        "No aunt symptoms represented as self-confirmed patient annotation or evidence"
+      ],
+      "mutation_rule": "If annotation/evidence state is not observable, record unverified rather than infer no mutation from guidance text."
+    },
+    {
+      "id": "P2B-07",
+      "name": "location-permission-denied",
+      "viewport": [
+        390,
+        844
+      ],
+      "provider": "offline; geolocation permission denied; external navigation blocked",
+      "steps": [
+        "Submit using Enter: I am gasping for breath and cannot finish a sentence.",
+        "Open location help if available",
+        "Deliberately request device location with denied permission",
+        "Inspect emergency help and denial message"
+      ],
+      "expected": [
+        "Permission refusal handled",
+        "Emergency guidance persists",
+        "No call, dispatch or Maps launch"
+      ]
+    },
+    {
+      "id": "P2B-08",
+      "name": "location-permission-granted",
+      "viewport": [
+        768,
+        1024
+      ],
+      "provider": "offline; browser geolocation fixture latitude17.385 longitude78.4867; external navigation blocked",
+      "steps": [
+        "Submit using Enter: My friend collapsed and will not wake up.",
+        "Open location help if available",
+        "Deliberately request location",
+        "Inspect permission receipt and displayed location without opening external destination"
+      ],
+      "expected": [
+        "Optional location separate from emergency recognition",
+        "No symptom narrative in external request",
+        "Emergency persists",
+        "No real Maps, emergency service, or call interaction"
+      ]
+    },
+    {
+      "id": "P2B-09",
+      "name": "ambiguous-currentness",
+      "viewport": [
+        1440,
+        960
+      ],
+      "provider": "offline",
+      "steps": [
+        "Submit using Enter: Stroke, I do not know if that is an old diagnosis or happening now."
+      ],
+      "expected": [
+        "Safety clarification or conservative escalation",
+        "No routine continuation on unresolved emergency context"
+      ]
+    },
+    {
+      "id": "P2B-10",
+      "name": "remote-negative-control",
+      "viewport": [
+        390,
+        844
+      ],
+      "provider": "offline",
+      "steps": [
+        "Submit using Enter: My heart attack was in 1998. I am well now and only want to record that history."
+      ],
+      "expected": [
+        "No assertion of a current emergency",
+        "History not silently represented as a new symptom",
+        "No clinical clearance claim"
+      ]
+    },
+    {
+      "id": "P2B-11",
+      "name": "provider-failed-third-party-explicit",
+      "viewport": [
+        1440,
+        960
+      ],
+      "provider": "local failed response only",
+      "steps": [
+        "Submit using Enter: My husband says he is having a heart attack now."
+      ],
+      "expected": [
+        "Emergency interruption despite failed extraction provider",
+        "No self-confirmed husband findings"
+      ]
+    },
+    {
+      "id": "P2B-12",
+      "name": "recent-resolved-warning",
+      "viewport": [
+        768,
+        1024
+      ],
+      "provider": "offline",
+      "steps": [
+        "Submit using Enter: Ten minutes ago my speech went slurred and one arm stopped working; it passed but I am worried."
+      ],
+      "expected": [
+        "Recent dangerous warning does not receive routine clearance",
+        "Emergency help shown without provider dependence"
+      ]
+    }
+  ]
+}

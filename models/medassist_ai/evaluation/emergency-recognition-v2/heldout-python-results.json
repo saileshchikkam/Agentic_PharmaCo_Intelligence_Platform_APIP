@@ -1,0 +1,2697 @@
+{
+  "schema_version": "medassist.independent-python-final.v1",
+  "heldout_evaluations": 100,
+  "original_results": [
+    {
+      "text": "I am having a heart attack",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "text": "I am having a stroke",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "text": "I cannot breathe",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    }
+  ],
+  "results": [
+    {
+      "id": "er2-h-001",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-002",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-003",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-004",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-005",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-006",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-007",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "negated",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-008",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "unspecified",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-009",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-010",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-011",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-012",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-013",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-014",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-015",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-016",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "clarify",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+        "clarification_question": "Is this happening now to you or someone else, only in the past or hypothetically, or are you unsure?",
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-017",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "cardiac_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "cardiac_warning",
+            "category": "cardiac_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-018",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-019",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-020",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "cardiac_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "cardiac_warning",
+            "category": "cardiac_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          },
+          {
+            "rule_id": "unresolved_warning_context",
+            "category": "ambiguous_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-021",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "cardiac_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "cardiac_warning",
+            "category": "cardiac_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-022",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "cardiac_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "cardiac_warning",
+            "category": "cardiac_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          },
+          {
+            "rule_id": "unresolved_warning_context",
+            "category": "ambiguous_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-023",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-024",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "cardiac_warning",
+            "category": "cardiac_warning",
+            "subject": "self",
+            "assertion": "negated",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-025",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-026",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-027",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-028",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-029",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "stroke_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "stroke_warning",
+            "category": "stroke_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-030",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-031",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-032",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-033",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-034",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-035",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-036",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-037",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-038",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-039",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-040",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-041",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-042",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "other",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-043",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "other",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-044",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-045",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "other",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          },
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-046",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-047",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_bleeding_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-048",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-049",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_bleeding_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-050",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-051",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_bleeding_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-052",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-053",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_allergic_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_allergic_emergency",
+            "category": "allergic_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-054",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-055",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-056",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-057",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-058",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_allergic_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_allergic_emergency",
+            "category": "allergic_declaration",
+            "subject": "other",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-059",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-060",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-061",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-062",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "explicit_emergency_request"
+        ],
+        "mentions": [
+          {
+            "rule_id": "explicit_emergency_request",
+            "category": "emergency_request",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-063",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-064",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "explicit_emergency_request"
+        ],
+        "mentions": [
+          {
+            "rule_id": "explicit_emergency_request",
+            "category": "emergency_request",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-065",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-066",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-067",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "other",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-068",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "other",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-069",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_breathing_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-070",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-071",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-072",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_bleeding_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-073",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "clarify",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+        "clarification_question": "Is this happening now to you or someone else, only in the past or hypothetically, or are you unsure?",
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-074",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "clarify",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "suspected",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+        "clarification_question": "Is this happening now to you or someone else, only in the past or hypothetically, or are you unsure?",
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-075",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-076",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-077",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "severe_bleeding_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-078",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "clarify",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "cardiac_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "cardiac_warning",
+            "category": "cardiac_warning",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+        "clarification_question": "Is this happening now to you or someone else, only in the past or hypothetically, or are you unsure?",
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-079",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "clarify",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+        "clarification_question": "Is this happening now to you or someone else, only in the past or hypothetically, or are you unsure?",
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-080",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-081",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "other",
+            "assertion": "suspected",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-082",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-083",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "negated",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-084",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "negated",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-085",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "self",
+            "assertion": "negated",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-086",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-087",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "unspecified",
+            "assertion": "negated",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-088",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-089",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-090",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-091",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "remote",
+            "context": "remote_history"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-092",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "remote",
+            "context": "remote_history"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-093",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "reported_allergic_emergency",
+            "category": "allergic_declaration",
+            "subject": "other",
+            "assertion": "affirmed",
+            "temporality": "remote",
+            "context": "remote_history"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-094",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "severe_bleeding_warning",
+            "category": "severe_bleeding",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "remote",
+            "context": "remote_history"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-095",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-096",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "clarify",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_cardiac_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_cardiac_emergency",
+            "category": "cardiac_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+        "clarification_question": "Is this happening now to you or someone else, only in the past or hypothetically, or are you unsure?",
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-097",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "reported_stroke_emergency"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_stroke_emergency",
+            "category": "stroke_declaration",
+            "subject": "self",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-098",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "not_assessed",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [],
+        "mentions": [
+          {
+            "rule_id": "severe_breathing_warning",
+            "category": "severe_breathing",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "hypothetical"
+          }
+        ],
+        "suppress_ordinary_flow": false,
+        "suppress_self_care": false,
+        "guidance": null,
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-099",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "airway_swelling_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "reported_allergic_emergency",
+            "category": "allergic_declaration",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          },
+          {
+            "rule_id": "airway_swelling_warning",
+            "category": "airway_swelling",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "uncertain",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    },
+    {
+      "id": "er2-h-100",
+      "decision": {
+        "schema_version": "medassist.safety-decision.v2",
+        "status": "escalate",
+        "rule_set_version": "emergency-context.v2.0.0",
+        "review_status": "provisional_unreviewed",
+        "clinical_validation": false,
+        "matched_rule_ids": [
+          "unresponsive_warning"
+        ],
+        "mentions": [
+          {
+            "rule_id": "unresponsive_warning",
+            "category": "unresponsive",
+            "subject": "unspecified",
+            "assertion": "affirmed",
+            "temporality": "current_or_recent",
+            "context": "reported"
+          }
+        ],
+        "suppress_ordinary_flow": true,
+        "suppress_self_care": true,
+        "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+        "clarification_question": null,
+        "model_b_status": "unable_to_assess",
+        "negative_safety_conclusion": false
+      }
+    }
+  ]
+}

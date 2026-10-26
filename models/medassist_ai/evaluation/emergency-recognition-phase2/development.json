@@ -1,0 +1,735 @@
+{
+  "schema_version": "medassist.emergency-development.v2",
+  "created_before_repair": true,
+  "clinical_ground_truth": false,
+  "cases": [
+    {
+      "id": "p2-dev-001",
+      "category": "cardiac",
+      "text": "I reckon I am having a heartattack at this moment.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-002",
+      "category": "cardiac",
+      "text": "My aunt thinks this is a cardiac arrest right now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-003",
+      "category": "cardiac",
+      "text": "It feels as if a heavy weight is pressing on my chest.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-004",
+      "category": "cardiac",
+      "text": "My chest is being squeezed and I feel ill.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-005",
+      "category": "cardiac",
+      "text": "There is a crushing ache in my chest just now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-006",
+      "category": "cardiac",
+      "text": "Dad has pressure in the chest that spreads into his neck.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-007",
+      "category": "cardiac",
+      "text": "My chest hurts and the pain is going down my left arm.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-008",
+      "category": "cardiac",
+      "text": "I have chest pain together with cold sweating.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-009",
+      "category": "cardiac",
+      "text": "Could I be having a heart attack right now?",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-010",
+      "category": "cardiac",
+      "text": "I cannot rule out a heart attack happening to me now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-011",
+      "category": "stroke",
+      "text": "Her smile has suddenly become uneven.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-012",
+      "category": "stroke",
+      "text": "My brother's face is drooping to one side.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-013",
+      "category": "stroke",
+      "text": "Dad cannot raise his left arm all of a sudden.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-014",
+      "category": "stroke",
+      "text": "My right arm has become numb just now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-015",
+      "category": "stroke",
+      "text": "One side of my body suddenly feels weak.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-016",
+      "category": "stroke",
+      "text": "I started slurring my words a moment ago.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-017",
+      "category": "stroke",
+      "text": "His words are suddenly jumbled and he cannot speak clearly.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-018",
+      "category": "stroke",
+      "text": "I think I had a stroke earlier this afternoon although the signs faded.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-019",
+      "category": "stroke",
+      "text": "My face drooped this morning and has returned to normal.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-020",
+      "category": "stroke",
+      "text": "I have new trouble getting words out.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-021",
+      "category": "stroke",
+      "text": "She is having a storke beside me.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-022",
+      "category": "stroke",
+      "text": "I think I am having a stroke, even if it is not certain.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-023",
+      "category": "breathing",
+      "text": "My grandmother is fighting for air.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-024",
+      "category": "breathing",
+      "text": "I am barely able to breathe.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-025",
+      "category": "breathing",
+      "text": "My little boy is struggling very badly to breathe.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-026",
+      "category": "breathing",
+      "text": "She cannot get enough air right now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-027",
+      "category": "breathing",
+      "text": "He is gasping and unable to finish a sentence.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-028",
+      "category": "breathing",
+      "text": "Breathing is extremely difficult for me at present.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-029",
+      "category": "breathing",
+      "text": "My lips have turned blue and I am gasping.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-030",
+      "category": "breathing",
+      "text": "I am choking right now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-031",
+      "category": "breathing",
+      "text": "I cant brethe properly at all.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-032",
+      "category": "breathing",
+      "text": "Someone beside me cannot breathe.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-033",
+      "category": "unresponsive",
+      "text": "My friend has lost consciousness here.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-034",
+      "category": "unresponsive",
+      "text": "I cannot wake my grandfather.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-035",
+      "category": "unresponsive",
+      "text": "A woman beside me has passed out and will not respond.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-036",
+      "category": "unresponsive",
+      "text": "The infant is limp and not responding normally.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-037",
+      "category": "unresponsive",
+      "text": "My mother does not wake when I call her.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-038",
+      "category": "unresponsive",
+      "text": "He has collapsed and is not conscious.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-039",
+      "category": "unresponsive",
+      "text": "I found my partner unconscious on the floor.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-040",
+      "category": "unresponsive",
+      "text": "The child will not wake up.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-041",
+      "category": "bleeding",
+      "text": "My arm is bleeding very badly and it will not stop.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-042",
+      "category": "bleeding",
+      "text": "Blood is pouring out of the wound.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-043",
+      "category": "bleeding",
+      "text": "She is losing a lot of blood now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-044",
+      "category": "bleeding",
+      "text": "My leg has heavy bleeding.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-045",
+      "category": "bleeding",
+      "text": "Blood is spurting from his hand.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-046",
+      "category": "bleeding",
+      "text": "I cannot stop the bleeding from my cut.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-047",
+      "category": "bleeding",
+      "text": "He is bleeding profusely.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-048",
+      "category": "bleeding",
+      "text": "My father is bleeding heavily at this moment.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-049",
+      "category": "airway",
+      "text": "My tongue has suddenly swollen up.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-050",
+      "category": "airway",
+      "text": "His throat is closing and he can hardly swallow.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-051",
+      "category": "airway",
+      "text": "My lips have become swollen just now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-052",
+      "category": "airway",
+      "text": "She thinks she is having anaphylaxis now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-053",
+      "category": "airway",
+      "text": "The child's tongue is swelling rapidly.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-054",
+      "category": "airway",
+      "text": "I am having a severe allergic reaction.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-055",
+      "category": "request",
+      "text": "Please send an ambulance for my neighbour.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-056",
+      "category": "request",
+      "text": "Get an ambulance here immediately.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-057",
+      "category": "request",
+      "text": "I need medical help immediately.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-058",
+      "category": "request",
+      "text": "Please call 112 for this medical emergency.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-059",
+      "category": "request",
+      "text": "My child needs emergency assistance.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-060",
+      "category": "request",
+      "text": "This is a medical emergency happening to someone here.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-061",
+      "category": "correction_subject",
+      "text": "I had no heart attack last year, but today I think I am having one.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-062",
+      "category": "correction_subject",
+      "text": "I have no chest pain, but my daughter is gasping for air.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-063",
+      "category": "correction_subject",
+      "text": "She has no fever and her face is drooping now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-064",
+      "category": "correction_subject",
+      "text": "I can breathe normally; the person near me cannot breathe.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-065",
+      "category": "correction_subject",
+      "text": "The lecture is over. In reality my dad is having a stroke now.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-066",
+      "category": "correction_subject",
+      "text": "He had a stroke years ago. Now his left arm has suddenly gone weak.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-067",
+      "category": "correction_subject",
+      "text": "I was talking about a book, but actually my mother is unconscious.",
+      "expected_action": "escalate",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-068",
+      "category": "negative_context",
+      "text": "I am not having a heart attack and have no symptoms.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-069",
+      "category": "negative_context",
+      "text": "My child is not unconscious; she is playing.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-070",
+      "category": "negative_context",
+      "text": "There is no severe bleeding from my hand.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-071",
+      "category": "negative_context",
+      "text": "My chest does not feel tight.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-072",
+      "category": "negative_context",
+      "text": "He denies having chest pressure.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-073",
+      "category": "negative_context",
+      "text": "I do not have slurred speech.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-074",
+      "category": "negative_context",
+      "text": "My tongue is not swollen.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-075",
+      "category": "negative_context",
+      "text": "My lips have not become blue.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-076",
+      "category": "negative_context",
+      "text": "She is not choking.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-077",
+      "category": "negative_context",
+      "text": "The person is conscious and breathing normally.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-078",
+      "category": "remote_history",
+      "text": "My grandmother had a heart attack decades ago.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-079",
+      "category": "remote_history",
+      "text": "I had a stroke in 2004 and this is only my old history.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-080",
+      "category": "remote_history",
+      "text": "As a toddler I was unconscious after an accident.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-081",
+      "category": "remote_history",
+      "text": "My father had heavy bleeding many years ago.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-082",
+      "category": "remote_history",
+      "text": "My tongue swelled last year; it is an old event.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-083",
+      "category": "remote_history",
+      "text": "He has a history of stroke with no present concern.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-084",
+      "category": "remote_history",
+      "text": "I am reading about my mother's stroke from years ago.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-085",
+      "category": "hypothesis_education",
+      "text": "For homework, explain what happens in a cardiac arrest.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-086",
+      "category": "hypothesis_education",
+      "text": "If my father ever has a stroke, who should I contact?",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-087",
+      "category": "hypothesis_education",
+      "text": "Imagine a character whose throat is closing in a novel.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-088",
+      "category": "hypothesis_education",
+      "text": "I am writing a script: someone is unconscious on stage.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-089",
+      "category": "hypothesis_education",
+      "text": "What does crushing chest pain mean in a medical textbook?",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-090",
+      "category": "hypothesis_education",
+      "text": "Could a stroke cause slurred speech in general?",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-091",
+      "category": "hypothesis_education",
+      "text": "How would an ambulance request be handled in a training exercise?",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-092",
+      "category": "hypothesis_education",
+      "text": "That was a stroke of luck, not a medical problem.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-093",
+      "category": "hypothesis_education",
+      "text": "The painter is making a brush stroke.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-094",
+      "category": "hypothesis_education",
+      "text": "We discussed the sentence I cannot breathe in an English class.",
+      "expected_action": "not_assessed",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-095",
+      "category": "ambiguity",
+      "text": "Heart attack, perhaps. I have not said who or when.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-096",
+      "category": "ambiguity",
+      "text": "Unconscious, but I am unsure what context this belongs to.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-097",
+      "category": "ambiguity",
+      "text": "Someone mentioned severe bleeding, without any information about timing.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-098",
+      "category": "ambiguity",
+      "text": "I had a heart attack; I have not explained when it was.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-099",
+      "category": "ambiguity",
+      "text": "There is chest discomfort and I do not know how to describe it.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-100",
+      "category": "ambiguity",
+      "text": "I might not be having a stroke; I am not certain.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-101",
+      "category": "ambiguity",
+      "text": "I do not know whether that story about not being able to breathe is real.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-102",
+      "category": "ambiguity",
+      "text": "Slurred speech is written here but I cannot say whose or when.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-103",
+      "category": "ambiguity",
+      "text": "I fainted sometime, but I do not know when.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    },
+    {
+      "id": "p2-dev-104",
+      "category": "ambiguity",
+      "text": "There may be an emergency; I have not said whether it is hypothetical.",
+      "expected_action": "clarify",
+      "provenance": "primary-author newly written development fixture; provisional engineering expectation, not clinical adjudication"
+    }
+  ]
+}

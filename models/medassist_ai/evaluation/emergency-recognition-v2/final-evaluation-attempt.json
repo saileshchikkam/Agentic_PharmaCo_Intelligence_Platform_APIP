@@ -1,0 +1,7 @@
+{
+  "started_utc": "2026-10-26T05:00:08.977138+00:00",
+  "attempt": 1,
+  "heldout_calls_per_implementation": 100,
+  "no_rerun": true,
+  "implementation_freeze_sha256": "d922a8ccdd801b8b8de16ee731d9e8131ed384c2b7987a9a329cbeefc15ecdb6"
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "medassist.emergency-phase2-implementation-freeze.v1",
+  "frozen_at_utc": "2026-10-26T05:33:15.052677+00:00",
+  "base_commit": "10a1ff073e0882702ae5db7488427ac315395b5b",
+  "heldout_unread_by_implementation_author": true,
+  "files": {
+    "src/features/medassist-safety/safety.ts": "dcf67133024ce62f65795f85fa4c3fb7b89799d7ac46425817eb782aa5d8f21b",
+    "models/medassist_ai/safety/provisional.py": "f1d7d135f5ff3a5896534efa77dd63989334805c5b8475b38f4f598950da4f2f",
+    "models/medassist_ai/safety/provisional-rules.v3.json": "2f34358426461ec57d5453c32d1a4bf145779dae70407591dbf2bbdd23b425cf",
+    "server/model-a-demo.ts": "42339d95968e5d8de42ff56f89309d97ed71ce422b3b63aaa168623333983c42",
+    "server/medassist.ts": "aebf2378c08114a06d3353d75acc164c953e6246bf1dd74c02e6ec713ed84261",
+    "server/medassist-safety.ts": "5226ee500c7d1662ce88dc6301d082a14604b94683871072e753d114d69fb1e1",
+    "src/features/medassist-conversation/MedAssistConversation.tsx": "192c2d440a2e5a6785ed3b145d4e17d3da022ba54224bf4f86bc2d18d819b675",
+    "src/features/medassist/MedAssistPreview.tsx": "5dc16dcd64e01d1dcc65b61f8dc25c6b0b8a260bc123d4236fcb7739fda27a38",
+    "src/features/medassist-safety/HospitalNavigation.tsx": "bc370ad3ccb6f64c9a477e1e9052def242b02d9448507f488d73ace641df6352",
+    "models/medassist_ai/core/orchestrator.py": "70e74681a2399ac7c748d1ba9f38cfd952e467da56f60b79f0a86eba57ada08e"
+  },
+  "protocol_sha256": "05833f411bd36ce0fb95e45f71442f2a53408a0a28f106c7115dcddf071778c6",
+  "gold_sha256": "f380644da0d8b06924bbc55912afb253ff70cd520f12448c1b2d9bb8dbe7f81b",
+  "independent_scenarios_sha256": "6ad7ef95b060390bff87daba491fca5fa8520a401b9e54769bf4c08d7631647d",
+  "development_cases": 104,
+  "checks_before_freeze": {
+    "typescript_http": 127,
+    "python": 218,
+    "frontend_types": true,
+    "backend_types": true,
+    "build": true,
+    "browser_widths": [
+      390,
+      820,
+      1440
+    ]
+  },
+  "policy": "one independent evaluation; no post-unblinding implementation changes or tuning"
+}

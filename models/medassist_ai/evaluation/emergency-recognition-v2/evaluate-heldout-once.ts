@@ -1,0 +1,11 @@
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {evaluateStatement} from '../../../../src/features/medassist-safety/safety.ts';
+const dir='models/medassist_ai/evaluation/emergency-recognition-v2/';
+const out=dir+'heldout-typescript-results.json';
+if(existsSync(out))throw Error('FINAL_RESULTS_ALREADY_EXIST_NO_RERUN');
+const suite=JSON.parse(readFileSync(dir+'heldout.json','utf8'));
+const original=['I am having a heart attack','I am having a stroke','I cannot breathe'];
+const results=suite.cases.map((c:any)=>({id:c.id,decision:evaluateStatement(c.text)}));
+const original_results=original.map(text=>({text,decision:evaluateStatement(text)}));
+writeFileSync(out,JSON.stringify({schema_version:'medassist.independent-typescript-final.v1',heldout_evaluations:results.length,original_results,results},null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({heldout_evaluations:results.length,output:out}));

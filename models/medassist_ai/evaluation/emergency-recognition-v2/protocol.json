@@ -1,0 +1,43 @@
+{
+  "schema_version": "medassist.emergency-evaluation-protocol.v1",
+  "date": "2026-10-26",
+  "frozen_before_implementation": true,
+  "scope": "fictional English engineering safety interruption; not clinical validation",
+  "outcomes": [
+    "escalate",
+    "clarify",
+    "not_assessed"
+  ],
+  "primary_binary": {
+    "include_gold": [
+      "escalate",
+      "not_assessed"
+    ],
+    "positive_prediction": "escalate",
+    "clarify_on_gold_emergency": "false negative",
+    "gold_clarify": "excluded from primary binary denominator and reported separately"
+  },
+  "required_metrics": [
+    "three-way action confusion matrix",
+    "binary TP FP FN TN and explicit denominator",
+    "recall precision false negatives false positives",
+    "per-category counts and metrics",
+    "clarification correctness and unsafe routine continuations",
+    "subject/temporal/assertion annotations",
+    "TypeScript/Python parity",
+    "offline/delayed provider and stale-result integration"
+  ],
+  "predefined_engineering_gates": {
+    "original_three_emergency_examples_escalate": true,
+    "heldout_emergency_false_negatives": 0,
+    "binary_precision_minimum": 0.95,
+    "ambiguous_gold_routine_continuations": 0,
+    "stale_result_emergency_clearances": 0,
+    "third_party_does_not_become_self_evidence": true
+  },
+  "final_case_policy": "separately authored and withheld until implementation freeze where authorized; immutable suite hash; one final evaluation, no repeated tuning; any defect documented and future development uses separate cases",
+  "source_review": "public clinical guidance supports provisional category proposals only; no APIP clinician approval",
+  "clinical_use": false,
+  "model_b_activation": false,
+  "merge_policy": "no automatic merge with failed evaluation or unresolved clinical review/independent-authoring blockers"
+}

@@ -1,5 +1,8 @@
 # MedAssist master blueprint
 
+**Emergency repair Phase 2, 2026-10-26: NO-GO.** The fresh 120-case evaluation has 24 emergency misses, seven false escalations and five ambiguous routine continuations (65.71% recall;86.79% precision on 102 binary cases). [Repair, exact evidence and review blockers](../../models/medassist_ai/docs/emergency-phase2.md). PR #2 remains draft; Model B stays disabled. Earlier checkpoint entries retain their historical evidence.
+
+**Latest safety milestone, 2026-10-26: NO-GO.** The original heart-attack/stroke declarations now escalate, but the separately authored 100-case evaluation has 25 emergency misses, five false escalations and three ambiguous routine continuations. [Results, state boundaries and blockers](../../models/medassist_ai/docs/emergency-recognition.md). Rules remain provisional and clinically unreviewed; keep Model B disabled and the change in draft review. Earlier dated statements below describe historical checkpoints.
 Preserved 2026-10-21 for **APIP — Agentic Pharma Co-intelligence Platform**. This is the durable MedAssist product and architecture reference, not a clinical approval, implementation claim or permission to execute future tasks. ADR reporting remains APIP's core; MedAssist is optional and must never prevent direct reporting.
 
 **Current decision:** CONDITIONAL GO for the local fictional Model A research demo; NO-GO for clinical assessment, autonomous guidance or public clinical deployment. The live four-level Model B remains disabled and unvalidated; separate five-class NHAMCS ED research experiments do not qualify it. The official Model A locked test remains separately gated.

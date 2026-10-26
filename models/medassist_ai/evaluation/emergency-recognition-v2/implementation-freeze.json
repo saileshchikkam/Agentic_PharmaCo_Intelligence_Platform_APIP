@@ -1,0 +1,26 @@
+{
+  "schema_version": "medassist.emergency-implementation-freeze.v1",
+  "frozen_at_utc": "2026-10-26T04:58:13.080868+00:00",
+  "base_commit": "5085a26579bab3bbf994d8b5f62f363b6b310df4",
+  "heldout_unread_by_implementation_author": true,
+  "single_final_evaluation": true,
+  "files": {
+    "models/medassist_ai/safety/provisional.py": "259fd86bad1591457e2c99addae6e3876eb4d14e72d50ce7fece0ed7745b752b",
+    "models/medassist_ai/safety/provisional-rules.v2.json": "5eca69953445108f4a3b324b049976c02b9bb46bd8354c3f3c13fa28b846850e",
+    "models/medassist_ai/core/orchestrator.py": "70e74681a2399ac7c748d1ba9f38cfd952e467da56f60b79f0a86eba57ada08e",
+    "src/features/medassist-safety/safety.ts": "52775e2c42081c0012e870a141d985386db245fc3f53f147565215d4b607f0e1",
+    "src/features/medassist-conversation/MedAssistConversation.tsx": "192c2d440a2e5a6785ed3b145d4e17d3da022ba54224bf4f86bc2d18d819b675",
+    "src/features/medassist/MedAssistPreview.tsx": "5dc16dcd64e01d1dcc65b61f8dc25c6b0b8a260bc123d4236fcb7739fda27a38",
+    "server/model-a-demo.ts": "cc945005c649b6b8d063dac2c4126edf52cc1dca5d9e5156c2328b768308aca4",
+    "server/medassist.ts": "aebf2378c08114a06d3353d75acc164c953e6246bf1dd74c02e6ec713ed84261",
+    "server/medassist-safety.ts": "5226ee500c7d1662ce88dc6301d082a14604b94683871072e753d114d69fb1e1"
+  },
+  "evaluation_inputs": {
+    "heldout.json": "7749ec2da9791f446537a879c23f8490c5cda22e03c1512a75dcf35d90a4f8a6",
+    "integration-scenarios.json": "42394b9f3f93d13f889a66eea43eb3e35329ae337f79a8f5647b5eb4831e4115",
+    "heldout-freeze.json": "85f4e375e059262f9665fffbfe3c486b35aa595042f076a3374fbf7ccc0f3d2f"
+  },
+  "protocol_sha256": "01df714e67a9e626cb55c68b62e50625ab58dcc1ac6ffe2b72733d6fad829512",
+  "development_cases": 43,
+  "post_unblinding_changes": "no changes to frozen implementation; failures become documented blockers"
+}

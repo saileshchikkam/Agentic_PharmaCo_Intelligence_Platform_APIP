@@ -1,0 +1,13 @@
+{
+  "schema_version": "medassist.independent-runner-portability-attestation.v1",
+  "date": "2026-10-26",
+  "evaluated_runner_sha256": "523583ce6b45a956052a293a55fa8f1717abcc60afdd3d5280507b680d7fe061",
+  "public_runner_sha256": "46ce6c94a2d0de08090876dc691803266a0e03a465eb35d6ecea7750d5b4312b",
+  "changed_file": "independent-integration-once.mjs",
+  "change": "Replace workstation-specific local Playwright import with MEDASSIST_PLAYWRIGHT_MODULE or package import. No logic, scenarios, assertions, expected labels, implementation or raw results changed.",
+  "evaluated_runner_source_retained": false,
+  "evaluated_source_reconstruction": "Only the import location differed; private workstation path intentionally not published. Evaluated hash retained here.",
+  "post_change_evaluation_runs": 0,
+  "raw_integration_results_sha256": "2f94f42345caf245bebfe2e0bfa76d7b6cd6a9e759335e3d564fb8c63f87e911",
+  "heldout_results_sha256": "e694594ec4025372fc4b7d193f670cdc309ccc95ce9564078f4de448e1b46610"
+}

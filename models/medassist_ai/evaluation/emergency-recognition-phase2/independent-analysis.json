@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "primary_result": "NO-GO",
+  "label_status": "AI-assisted fictional engineering expectations, not clinical ground truth",
+  "raw_results_unchanged": true,
+  "matcher_runs_per_engine": 1,
+  "engine_status_parity": true,
+  "scope_expansion_note": "These independently authored serious-warning categories extend beyond the enumerated v3 catalogue. This is a scope-coverage distinction, not permission to remove cases or change primary metrics.",
+  "scope_expansion": {
+    "overdose_or_poisoning": {
+      "ids": [
+        "P2H-014",
+        "P2H-015",
+        "P2H-016",
+        "P2H-060",
+        "P2H-066"
+      ],
+      "count": 5,
+      "predictions": {
+        "P2H-014": "not_assessed",
+        "P2H-015": "not_assessed",
+        "P2H-016": "not_assessed",
+        "P2H-060": "not_assessed",
+        "P2H-066": "not_assessed"
+      }
+    },
+    "seizure": {
+      "ids": [
+        "P2H-018",
+        "P2H-057"
+      ],
+      "count": 2,
+      "predictions": {
+        "P2H-018": "not_assessed",
+        "P2H-057": "not_assessed"
+      }
+    },
+    "sudden_extremely_painful_headache": {
+      "ids": [
+        "P2H-033",
+        "P2H-034"
+      ],
+      "count": 2,
+      "predictions": {
+        "P2H-033": "not_assessed",
+        "P2H-034": "not_assessed"
+      }
+    }
+  },
+  "correction_scope_note": "The 8 explicit_correction gold cases are standalone utterances already containing a clarification/denial. Their 4 false escalations are distinct from correction after an established-session emergency latch. The separate browser session-correction scenario did not execute due harness error. No stale-clearance claim is made.",
+  "third_party_annotation_note": "One of 12 third-party gold cases has a self-subject safety mention. Isolated matcher annotations do not establish mutation of patient annotations or evidence. Independent browser state mutation is unverified.",
+  "browser": {
+    "scenarios_attempted_once": 12,
+    "scenarios_reaching_input": 0,
+    "scenarios_with_harness_errors": 12,
+    "scenario_failures_are_product_failures": false,
+    "error": "Locator.fill selected the Material Web custom-element host rather than native accessible textbox; every scenario stopped before message input. No rerun under fixed protocol.",
+    "submitted_precedence": "unverified",
+    "offline_or_timeout_provider_precedence": "unverified",
+    "pending_conflicting_reply": "unverified; no extraction request dispatched",
+    "repetition_and_correction": "unverified",
+    "location_denied_and_granted": "unverified",
+    "third_party_patient_annotation_or_evidence_mutation": "unverified",
+    "stale_clearance": "unverified",
+    "model_inference_attempts": 0,
+    "successful_model_inference": 0,
+    "cloud_network_success": 0,
+    "real_calls_dispatch_or_maps_opened": 0,
+    "local_fixture_requests": 72,
+    "local_fixture_responses": 24
+  },
+  "comparison_caution": "Original100 and fresh120 differ in case mix, scope and ambiguity. Raw recall or precision differences are not a controlled paired comparison and do not demonstrate material improvement."
+}

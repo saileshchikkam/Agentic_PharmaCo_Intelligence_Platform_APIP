@@ -1,0 +1,19 @@
+{
+  "schema_version": "medassist.independent-final-attestation.v1",
+  "completed_utc": "2026-10-26T05:06:52.539667+00:00",
+  "sha256": {
+    "independent-evaluation-report.md": "4f203179ccba7441047fefab0f8f795a88258043c47a2e618433c1470cb112c5",
+    "public-runner-sanitization.json": "f5f8e65c2bd2effdc26326f5e3698eb2ee195eac2ecd34bf31342b7ec081440b",
+    "independent-integration-once.mjs": "46ce6c94a2d0de08090876dc691803266a0e03a465eb35d6ecea7750d5b4312b",
+    "independent-integration-attempt.json": "78ed6b3805d2bb11c302ac32714c691c563a3979530b2e844edf343b89fb05ed",
+    "independent-integration-results.json": "2f94f42345caf245bebfe2e0bfa76d7b6cd6a9e759335e3d564fb8c63f87e911"
+  },
+  "heldout_results_sha256": "e694594ec4025372fc4b7d193f670cdc309ccc95ce9564078f4de448e1b46610",
+  "gold_and_implementation_unmodified_after_freeze": true,
+  "matcher_runs": 1,
+  "integration_runs": 1,
+  "portability_only_postrun_runner_edit": true,
+  "all_raw_results_preserved": true,
+  "clinical_validation": false,
+  "human_clinical_review": false
+}

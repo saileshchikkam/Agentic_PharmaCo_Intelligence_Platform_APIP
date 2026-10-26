@@ -1,5 +1,17 @@
 # Changelog
 
+## Emergency safety repair Phase 2 — independent gate still failed — 2026-10-26
+
+- Add provisional v3 warning grammar, mention-local context/affected-person handling and independent safety scope per submitted utterance; preserve UI, providers and sealed research.
+- New 104-case development suite and 127 TypeScript/HTTP plus 218 Python regressions pass, with types/build and three-width browser checks.
+- New independent 120-case evaluation:TP 46 FP 7 FN 24 TN 25, recall 65.71%, precision 86.79%; five ambiguous routine continuations. No material generalization improvement demonstrated. Preserve all failures; PR #2 remains draft, clinical review and Model B gate blocked. [Evidence](models/medassist_ai/docs/emergency-phase2.md).
+
+## Provisional emergency recognition and failed independent gate — 2026-10-26
+
+- Add shared versioned assertion/subject/time rules and explicit clarification before models, with a persistent emergency latch and unchanged consent-based Maps handoff.
+- Preserve a separately authored one-time 100-case evaluation: TP47/FP5/FN25/TN13, 65.28% recall and 90.38% precision on 90 binary cases; safety gate fails. No clinical approval or Model B activation.
+- Software regressions, responsive browser checks, actual Model A and seventeen-artifact preservation pass. Keep draft review, no automatic merge. [Full evidence and blockers](models/medassist_ai/docs/emergency-recognition.md).
+
 ## Authenticated read-only Model A protocol compatibility — 2026-10-26
 
 - Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.

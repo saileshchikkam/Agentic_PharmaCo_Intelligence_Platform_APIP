@@ -1,0 +1,6 @@
+{
+  "at_utc": "2026-10-26T05:38:24.502Z",
+  "scenario_sha256": "6ad7ef95b060390bff87daba491fca5fa8520a401b9e54769bf4c08d7631647d",
+  "implementation_freeze_sha256": "f3e35461c9971e24db740319223142e91cbcf7103a75a66542c870ab4bba8d7a",
+  "policy": "One execution per frozen scenario. No reruns or implementation changes. All providers are local browser transport fixtures; no real inference."
+}

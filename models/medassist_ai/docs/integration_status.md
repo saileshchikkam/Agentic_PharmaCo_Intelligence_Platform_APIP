@@ -1,5 +1,8 @@
 # Integration and contributor audit — 2026-10-23
 
+**Emergency repair Phase 2, 2026-10-26: NO-GO.** The fresh 120-case evaluation has 24 emergency misses, seven false escalations and five ambiguous routine continuations (65.71% recall;86.79% precision on 102 binary cases). [Repair, exact evidence and review blockers](emergency-phase2.md). PR #2 remains draft; Model B stays disabled. Earlier checkpoint entries retain their historical evidence.
+
+**Latest safety milestone, 2026-10-26: NO-GO.** The original heart-attack/stroke declarations now escalate, but the separately authored 100-case evaluation has 25 emergency misses, five false escalations and three ambiguous routine continuations. [Results, state boundaries and blockers](emergency-recognition.md). Rules remain provisional and clinically unreviewed; keep Model B disabled and the change in draft review. Earlier dated statements below describe historical checkpoints.
 ## Consolidated checkpoint — 2026-10-25
 
 [Current status and review boundaries](checkpoint-2026-10-25.md) supersede implementation-status wording in historical entries below. Model A is sealed and integrated in the fictional development conversation; Model B and disease inference remain disabled. Separate NHAMCS ED research results do not validate the live four-level interface. Groq remains backend-only with bounded failures/recovery; deterministic supported wording needs no provider call. Independent provisional safety and consented external Maps are implemented with the documented emergency misses and unverified facility limitations. Previous receipts retain their original dates, inventories and claims; this checkpoint does not retroactively rerun them.

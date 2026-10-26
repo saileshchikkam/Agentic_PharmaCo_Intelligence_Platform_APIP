@@ -1,0 +1,329 @@
+{
+  "schema_version": "medassist.safety-rules.v2",
+  "version": "emergency-context.v2.0.0",
+  "review_status": "provisional_unreviewed",
+  "clinically_validated": false,
+  "clinical_reviewer": null,
+  "scope": "Source-backed provisional English fictional emergency interruption, not diagnosis, triage, clearance or clinician approval.",
+  "guidance": "This may be an emergency. If this is happening to you or someone else, contact local emergency services now. Do not wait for this demo, more questions or Maps results. In India, call 112; elsewhere use your local emergency number.",
+  "clarification_guidance": "I cannot tell whether this describes an emergency happening now. Is this happening now to you or someone else, or is it only about the past or a hypothetical? If it may be happening now, contact local emergency services; do not wait for this demo. Recent or ongoing warning signs still need attention even if they stop; if unsure, choose emergency help.",
+  "sources": [
+    {
+      "id": "nhs-heart",
+      "url": "https://www.nhs.uk/conditions/heart-attack/",
+      "review_scope": "Published guidance; APIP rule implementation not clinically approved"
+    },
+    {
+      "id": "nhs-stroke",
+      "url": "https://www.nhs.uk/conditions/stroke/symptoms/",
+      "review_scope": "Published FAST/current or recent warning guidance; no APIP sign-off"
+    },
+    {
+      "id": "nhs-breathing",
+      "url": "https://www.nhs.uk/symptoms/shortness-of-breath/",
+      "review_scope": "Published severe breathing warning guidance"
+    },
+    {
+      "id": "rcuk-unresponsive",
+      "url": "https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/adult-basic-life-support-guidelines",
+      "review_scope": "Published 2025 guidance; call emergency help for an unresponsive person"
+    },
+    {
+      "id": "sja-bleeding",
+      "url": "https://www.sja.org.uk/first-aid-advice/severe-bleeding/",
+      "review_scope": "Published severe bleeding guidance; no treatment procedures implemented"
+    },
+    {
+      "id": "nhs-allergy",
+      "url": "https://www.nhs.uk/conditions/anaphylaxis/",
+      "review_scope": "Published suspected anaphylaxis/airway warning guidance"
+    },
+    {
+      "id": "india-erss",
+      "url": "https://www.mha.gov.in/en/commoncontent/emergency-response-support-system-erss",
+      "review_scope": "India emergency number only; no location inference"
+    }
+  ],
+  "normalizations": [
+    [
+      "can\u2019t",
+      "cannot"
+    ],
+    [
+      "can't",
+      "cannot"
+    ],
+    [
+      "cant",
+      "cannot"
+    ],
+    [
+      "can not",
+      "cannot"
+    ],
+    [
+      "won't",
+      "will not"
+    ],
+    [
+      "i'm",
+      "i am"
+    ],
+    [
+      "im",
+      "i am"
+    ],
+    [
+      "he's",
+      "he is"
+    ],
+    [
+      "she's",
+      "she is"
+    ],
+    [
+      "they're",
+      "they are"
+    ],
+    [
+      "isn't",
+      "is not"
+    ],
+    [
+      "aren't",
+      "are not"
+    ],
+    [
+      "don't",
+      "do not"
+    ],
+    [
+      "doesn't",
+      "does not"
+    ],
+    [
+      "didn't",
+      "did not"
+    ],
+    [
+      "heartattack",
+      "heart attack"
+    ],
+    [
+      "hart attack",
+      "heart attack"
+    ],
+    [
+      "heart attak",
+      "heart attack"
+    ],
+    [
+      "heart attck",
+      "heart attack"
+    ],
+    [
+      "storke",
+      "stroke"
+    ],
+    [
+      "strok",
+      "stroke"
+    ],
+    [
+      "breth",
+      "breath"
+    ],
+    [
+      "brethe",
+      "breathe"
+    ],
+    [
+      "bleading",
+      "bleeding"
+    ],
+    [
+      "unconcious",
+      "unconscious"
+    ],
+    [
+      "unconsious",
+      "unconscious"
+    ],
+    [
+      "anaphalaxis",
+      "anaphylaxis"
+    ],
+    [
+      "wont",
+      "will not"
+    ]
+  ],
+  "context": {
+    "split": "[.!?;\\n]+|\\b(?:but|however|except)\\b|(?:\\band\\s+|,\\s*)(?=(?:now\\s+)?(?:i|he|she|they|my (?:dad|father|mother|mom|mum|child|baby|friend|wife|husband|son|daughter|partner|brother|sister))\\b)",
+    "education": "\\b(?:what (?:is|are)|define|definition|meaning of|learning about|studying|read about|reading about|article about|movie|film|quote|fictional story|in a book|training example|general question|stroke of luck|brush stroke|paint stroke|golf stroke|swimming stroke)\\b|\\b(?:can|does) .{0,30} cause\\b",
+    "hypothetical": "\\b(?:hypothetical|hypothetically|suppose|imagine|in a story|what would|what should .{0,16} do if|if (?:i|we|you|he|she|they|someone|my [a-z]+) (?:ever|were to|was to|had|were|became|becomes))\\b|\\b(?:someday|in the future|risk of|worried about getting)\\b",
+    "remote": "\\b(?:years? ago|months? ago|last year|last month|as a child|in childhood|in the past|history of|back in (?:19|20)\\d{2}|in (?:19|20)\\d{2})\\b",
+    "recent": "\\b(?:just|now|currently|today|yesterday|earlier|minutes? ago|hours? ago|still|happening)\\b",
+    "past": "\\b(?:had|was|were|used to|resolved|stopped|went away|got better)\\b",
+    "current": "\\b(?:am|is|are|have|has|having|feel|feels|experiencing|suffering|cannot|need|needs|now|currently|today)\\b|\\b(?:suspect|suspecting|think|believe|might|may|could)\\b",
+    "uncertain": "\\b(?:not sure|unsure|do not know|cannot tell|may be|might|maybe|could|possibly|possible|suspect|think|worried|afraid)\\b",
+    "uncertainty_negation_exceptions": "\\b(?:not sure|do not know|do not think|not only|cannot tell)\\b",
+    "negation_prefix": "\\b(?:no|not|never|without|deny|denies|denying|do not|does not|did not|is not|are not|was not)\\b.{0,48}$",
+    "negation_suffix": "^\\s*(?:is |are |was |were )?(?:not present|not happening|never happened|ruled out|is false)\\b",
+    "other": "\\b(?:my (?:dad|father|mother|mom|mum|child|baby|friend|wife|husband|son|daughter|partner|brother|sister)|he|she|they|someone|somebody|the man|the woman)\\b",
+    "self": "\\b(?:i|my (?:chest|face|arm|body|lips|skin|throat|tongue|mouth|blood))\\b",
+    "recent_clause_exclusions": "\\bnot (?:now|currently|today)\\b"
+  },
+  "rules": [
+    {
+      "id": "explicit_emergency_request",
+      "category": "emergency_request",
+      "kind": "request",
+      "sources": [
+        "india-erss"
+      ],
+      "patterns": [
+        "\\b(?:need|needs) (?:urgent|emergency) help\\b",
+        "\\b(?:need|needs|call) (?:an )?ambulance\\b",
+        "\\b(?:this is|having) (?:a )?(?:medical )?emergency\\b",
+        "\\bcall emergency services\\b"
+      ]
+    },
+    {
+      "id": "reported_cardiac_emergency",
+      "category": "cardiac_declaration",
+      "kind": "declaration",
+      "sources": [
+        "nhs-heart"
+      ],
+      "patterns": [
+        "\\b(?:heart attack|cardiac arrest)\\b"
+      ]
+    },
+    {
+      "id": "cardiac_warning",
+      "category": "cardiac_warning",
+      "kind": "warning",
+      "sources": [
+        "nhs-heart"
+      ],
+      "patterns": [
+        "\\bchest.{0,28}(?:crushing|crushed|squeezing|squeezed|tight|heavy)\\b",
+        "\\b(?:crushing|squeezing|severe).{0,18}chest (?:pain|pressure)\\b",
+        "\\bchest (?:pain|pressure).{0,65}(?:arms?|jaw|neck|sweat|breath|lightheaded)\\b",
+        "\\b(?:sweating|sweaty|short of breath).{0,40}chest pain\\b"
+      ]
+    },
+    {
+      "id": "reported_stroke_emergency",
+      "category": "stroke_declaration",
+      "kind": "declaration",
+      "sources": [
+        "nhs-stroke"
+      ],
+      "patterns": [
+        "\\bstroke\\b"
+      ]
+    },
+    {
+      "id": "stroke_warning",
+      "category": "stroke_warning",
+      "kind": "warning",
+      "sources": [
+        "nhs-stroke"
+      ],
+      "patterns": [
+        "\\b(?:face|mouth).{0,25}droop(?:ing|s)?\\b",
+        "\\bdroop(?:ing|s)?.{0,25}(?:face|mouth)\\b",
+        "\\b(?:one side|left|right).{0,25}(?:face|arm|body).{0,25}(?:weak|numb)\\b",
+        "\\b(?:weakness|numbness|weak|numb).{0,28}(?:one side|left|right)\\b",
+        "\\b(?:sudden|suddenly|new|newly).{0,35}(?:slurred speech|slurring|trouble speaking|cannot speak|unable to speak)\\b"
+      ]
+    },
+    {
+      "id": "severe_breathing_warning",
+      "category": "severe_breathing",
+      "kind": "warning",
+      "sources": [
+        "nhs-breathing"
+      ],
+      "patterns": [
+        "\\b(?:cannot|unable to|not able to) (?:breathe|get (?:any )?air|catch (?:my|his|her|their) breath)\\b",
+        "\\b(?:severe|very|extreme).{0,20}(?:difficulty|trouble|struggling).{0,12}breath",
+        "\\bstruggling (?:hard )?to breathe\\b",
+        "\\b(?:gasping|choking|not breathing(?: normally)?)\\b",
+        "\\b(?:lips|skin).{0,16}(?:blue|grey|gray)\\b"
+      ]
+    },
+    {
+      "id": "unresponsive_warning",
+      "category": "unresponsive",
+      "kind": "warning",
+      "sources": [
+        "rcuk-unresponsive"
+      ],
+      "patterns": [
+        "\\b(?:unconscious|unresponsive|not responding|passed out|collapsed)\\b",
+        "\\b(?:cannot|unable to) (?:wake|rouse) (?:him|her|them|my [a-z]+)\\b",
+        "\\b(?:will not|does not) wake up\\b",
+        "\\b(?:not responsive|not conscious|lost consciousness|will not respond|does not respond)\\b"
+      ]
+    },
+    {
+      "id": "severe_bleeding_warning",
+      "category": "severe_bleeding",
+      "kind": "warning",
+      "sources": [
+        "sja-bleeding"
+      ],
+      "patterns": [
+        "\\b(?:severe|major|heavy|uncontrolled|profuse|massive).{0,14}bleed(?:ing)?\\b",
+        "\\bbleeding.{0,24}(?:will not stop|cannot stop|heavily|profusely|uncontrollably)\\b",
+        "\\bblood.{0,12}(?:spurting|gushing)\\b",
+        "\\b(?:spurting|gushing).{0,12}blood\\b"
+      ]
+    },
+    {
+      "id": "reported_allergic_emergency",
+      "category": "allergic_declaration",
+      "kind": "declaration",
+      "sources": [
+        "nhs-allergy"
+      ],
+      "patterns": [
+        "\\b(?:anaphylaxis|anaphylactic (?:reaction|shock)|severe allergic reaction)\\b"
+      ]
+    },
+    {
+      "id": "airway_swelling_warning",
+      "category": "airway_swelling",
+      "kind": "warning",
+      "sources": [
+        "nhs-allergy"
+      ],
+      "patterns": [
+        "\\b(?:throat|tongue|lips|mouth).{0,20}(?:swelling|swollen|swelled|closing|tight)\\b"
+      ]
+    },
+    {
+      "id": "unresolved_warning_context",
+      "category": "ambiguous_warning",
+      "kind": "clarification",
+      "sources": [
+        "nhs-heart",
+        "nhs-breathing",
+        "nhs-stroke"
+      ],
+      "patterns": [
+        "\\b(?:chest pain|short of breath|slurred speech|slurring|trouble speaking|fainted)\\b"
+      ]
+    }
+  ],
+  "limitations": [
+    "No clinician has approved this APIP matcher.",
+    "English bounded literal/context rules are incomplete and may miss unfamiliar wording or context.",
+    "No match is not medical clearance.",
+    "No symptoms become Model A evidence or Model B labels through safety recognition.",
+    "No treatment, medication, personalized precautions or hospital suitability is generated."
+  ]
+}

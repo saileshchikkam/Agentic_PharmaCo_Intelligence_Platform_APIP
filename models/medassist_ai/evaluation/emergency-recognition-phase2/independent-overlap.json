@@ -1,0 +1,23 @@
+{
+  "performed_after_implementation_and_gold_freeze": true,
+  "performed_after_final_matcher_run": true,
+  "method": "Exact UTF-8 text equality and NFKC casefold/punctuation-to-space/whitespace collapse equality. No prior-set execution or tuning.",
+  "datasets": {
+    "original100": {
+      "sha256": "7749ec2da9791f446537a879c23f8490c5cda22e03c1512a75dcf35d90a4f8a6",
+      "comparison_count": 100,
+      "heldout_count": 120,
+      "exact_overlap_count": 0,
+      "normalized_overlap_count": 0,
+      "pairs": []
+    },
+    "development": {
+      "sha256": "d4008c7adaef0e23374cd0789e793596ed368b4d269e93349db96d6bcaae2301",
+      "comparison_count": 104,
+      "heldout_count": 120,
+      "exact_overlap_count": 0,
+      "normalized_overlap_count": 0,
+      "pairs": []
+    }
+  }
+}

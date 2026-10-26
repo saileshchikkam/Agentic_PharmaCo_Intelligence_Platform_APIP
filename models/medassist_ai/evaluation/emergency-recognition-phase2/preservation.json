@@ -1,0 +1,30 @@
+{
+  "schema_version": "medassist.emergency-phase2-preservation.v1",
+  "sealed_artifact_count": 17,
+  "all_artifact_hashes_match": true,
+  "seal_and_hash_receipt_match": true,
+  "frozen_implementation_hashes_match": true,
+  "protocol_authenticated": true,
+  "environment_pin_matches": true,
+  "source_hash_attestations_match": true,
+  "source_archive_rehash_performed": false,
+  "official_locked_test_opened": false,
+  "ledger_opened": false,
+  "source_archives_opened": false,
+  "historical_evaluation_files_byte_exact": 23,
+  "original_sixteen_contributor_files_byte_exact": true,
+  "original_tracked_worktree_and_index_unchanged": true,
+  "protected_git_paths_unchanged": [
+    "models/medassist_v2",
+    "models/medassist_ai/model_b",
+    "models/medassist_ai/jayanth_model",
+    "models/medassist_intelligence",
+    "server/groq-extraction.ts",
+    "server/medassist-ai.ts",
+    "src/features/medassist-conversation/MedAssistConversation.tsx",
+    "src/features/medassist/MedAssistPreview.tsx",
+    "src/features/medassist-safety/HospitalNavigation.tsx"
+  ],
+  "patient_facing_model_b": "disabled unable_to_assess",
+  "training_or_cloud_inference": false
+}

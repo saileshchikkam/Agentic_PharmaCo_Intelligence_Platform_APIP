@@ -1,0 +1,264 @@
+{
+  "schema_version": "medassist.emergency-development.v1",
+  "clinical_ground_truth": false,
+  "cases": [
+    {
+      "id": "original-cardiac",
+      "text": "I am having a heart attack",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "original-stroke",
+      "text": "I am having a stroke",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "original-respiratory",
+      "text": "I cannot breathe",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "suspected-cardiac",
+      "text": "Right here, I suspect I am having a heart attack.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "other-stroke",
+      "text": "I think my father is having a stroke in front of me now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "warning-cardiac",
+      "text": "My chest feels squeezed and heavy at this moment.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "warning-radiation",
+      "text": "I have chest pain spreading into my jaw right now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "warning-stroke",
+      "text": "One side of my face is drooping right now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "warning-speech",
+      "text": "My speech is suddenly slurring in this conversation.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "recent-stroke",
+      "text": "My face was drooping just minutes ago and it has stopped.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "unresponsive",
+      "text": "My mother is unresponsive beside me right now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "bleeding",
+      "text": "A wound is bleeding heavily and will not stop right now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "allergy",
+      "text": "I believe I am having an anaphylactic reaction now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "swelling",
+      "text": "My tongue is swollen and my throat is closing now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "request",
+      "text": "Please call an ambulance for my friend here.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "typo",
+      "text": "im having a hart attack right now",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "curly-contraction",
+      "text": "I can\u2019t breathe right now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "typo-unconscious",
+      "text": "My brother is unconcious at this moment.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "neg-cardiac",
+      "text": "To be clear, I am not having a heart attack.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "neg-stroke",
+      "text": "I am not having a stroke and I deny any current stroke.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "neg-breathing",
+      "text": "I can breathe and I am not choking.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "neg-bleeding",
+      "text": "I do not have severe bleeding.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "neg-request",
+      "text": "I do not need an ambulance for this fictional example.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "remote-cardiac",
+      "text": "I had a heart attack years ago with no current concern.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "remote-stroke",
+      "text": "My dad had a stroke back in 2004, not a current event.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "remote-breathing",
+      "text": "I was unable to breathe as a child, not now.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "education",
+      "text": "For a general question, what is a heart attack?",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "hypothetical",
+      "text": "Suppose I had a stroke in a story I am writing.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "nonmedical",
+      "text": "That was a stroke of luck in my golf game.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "cough",
+      "text": "I have a mild fictional cough to describe.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "unknown",
+      "text": "I am not sure whether I have a fever.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "ambiguity",
+      "text": "heart attack",
+      "expected_action": "clarify",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "past-unspecified",
+      "text": "I had a stroke.",
+      "expected_action": "clarify",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "ambiguous-pain",
+      "text": "I have chest pain, but I cannot explain the context.",
+      "expected_action": "clarify",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "mixed-subject",
+      "text": "I do not have chest pain, but my child is unconscious now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "mixed-time",
+      "text": "I had a heart attack years ago, but I cannot breathe now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "independent-clause",
+      "text": "No fever, my child is unconscious right here.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "not-sure-negation",
+      "text": "I am not sure, but I may be having a heart attack now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "line-boundary",
+      "text": "I am not having a stroke.\nMy mother is unconscious now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "quoted-example",
+      "text": "The movie quote is I cannot breathe, not a real report.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "second-warning",
+      "text": "I can breathe normally, but I have severe bleeding now.",
+      "expected_action": "escalate",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "normal-breathing",
+      "text": "The fictional person can breathe normally and has a cough.",
+      "expected_action": "not_assessed",
+      "provenance": "primary implementation author; development fixture only"
+    },
+    {
+      "id": "uncertain-negative",
+      "text": "I might not be having a heart attack; I do not know.",
+      "expected_action": "clarify",
+      "provenance": "primary implementation author; development fixture only"
+    }
+  ]
+}

@@ -201,3 +201,13 @@ The requested severity categories reserve future colour semantics but remain neu
 ## DEC-034 — Preserve hash-bound research receipt bytes
 
 Preserve the reviewed current bytes under `models/medassist_ai/`, `models/medassist_intelligence/` and the unsealed `models/medassist_v2/research_adapter/` with scoped `-text` Git attributes. Qualification and provenance receipts hash exact bytes; implicit CRLF/LF conversion could invalidate them. Scoped whitespace attributes recognize CRLF line endings while retaining blank-at-eol, blank-at-eof and space-before-tab checks. This does not normalize or change the frozen Model A implementation/protocol, resolve its preexisting portability defect, or authorize model/data redistribution. Recovered Jayanth blobs already exist in remote-main history and are excluded from this feature checkpoint, with their disabled-execution boundary retained. See the [checkpoint record](../models/medassist_ai/docs/checkpoint-2026-10-25.md).
+
+
+## DEC-035 — Independent emergency evaluation cannot be replaced by regression parity
+
+**Implemented and evaluated, 2026-10-26.** Keep emergency recognition independent of language providers and Model A, with no-match meaning not assessed and explicit ambiguity blocking ordinary inference when recognized. Established emergency state cannot be cleared by provider replies or corrections. Use separately authored, frozen fictional evaluation before clinical review; disclose failed gates without tuning against final cases. The first 100-case v2 evaluation fails and blocks advancement beyond the safety milestone and automatic merge. AI-authored expectations and public sources do not supply human clinical approval. [Evidence](../models/medassist_ai/docs/emergency-recognition.md).
+
+
+## DEC-036 — Preserve failed evaluation denominators and independent utterance scope
+
+**Implemented/evaluated 2026-10-26.** Prior/current free-text statements receive independent safety context checks; no educational/history scope or later denial can clear another recognized trigger. Fresh heldout failures, including omitted emergency categories and correction-rubric conflicts, remain in prospective denominators. Do not claim paired improvement across differently composed case sets or tune final sets repeatedly. The Phase 2 matcher fails independent gates despite passing regressions; PR remains draft and clinical Model B stays disabled. [Evidence](../models/medassist_ai/docs/emergency-phase2.md).
