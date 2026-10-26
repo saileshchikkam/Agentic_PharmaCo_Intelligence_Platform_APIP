@@ -1,0 +1,759 @@
+{
+  "schema_version": "medassist.independent-integration-final.v1",
+  "attempt": 1,
+  "fictional_only": true,
+  "clinical_validation": false,
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "mocked_transports": true,
+  "cloud_inference_calls": 0,
+  "official_model_a_data_opened": false,
+  "external_maps_opened": false,
+  "scenario_source_sha256": "42394b9f3f93d13f889a66eea43eb3e35329ae337f79a8f5647b5eb4831e4115",
+  "implementation_hashes_verified_before_after": true,
+  "limitations": "One desktop viewport. Browser assertions prove only observed paths; private evidence mutation and unverified keys are not passed. Local synthetic vocabulary only. Primary-author three-width regression is separate evidence.",
+  "rows": [
+    {
+      "id": "er2-i-01",
+      "category": "provider_outage",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "routine_provider_required",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [
+        "diagnosis_visible: no validated semantic diagnosis-output classifier"
+      ],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-02",
+      "category": "provider_timeout",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "pending_provider_fixture_started",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "timeout_clears_emergency",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "provider_completion_released": true,
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 1,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-03",
+      "category": "delayed_routine_response",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "pending_provider_fixture_started",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "old_response_rendered",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "stale_emergency_clearances",
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "provider_completion_released": true,
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 1,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-04",
+      "category": "conflicting_provider_response",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "pending_provider_fixture_started",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "stale_emergency_clearances",
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "name": "provider_reassurance_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "provider_completion_released": true,
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 1,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-05",
+      "category": "repetition",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "emergency_latch_cleared",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "disabled_composer_blocked_followup": true,
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-06",
+      "category": "correction_after_escalation",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "emergency_latch_cleared",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "routine_provider_called_after_correction",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "explicit_fictional_restart_required",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "disabled_composer_blocked_followup": true,
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-07",
+      "category": "clarification_blocks_routine",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "safety_action",
+          "expected": "clarify",
+          "actual": "not_assessed",
+          "pass": false
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "routine_provider_called_before_resolution",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "initial_status": "not_assessed",
+        "final_status": "not_assessed",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [
+        "stale_emergency_clearances: initial expected safety state never reached"
+      ],
+      "errors": [
+        "No pending provider completion to release"
+      ],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-08",
+      "category": "third_party_evidence_separation",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "initial_status": "escalate",
+        "final_status": "escalate",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [
+        "third_party_inserted_as_self_evidence: no official Model A data/ledger opened or executed",
+        "subject: UI does not expose mention annotations; matcher result separately records subject coverage"
+      ],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-09",
+      "category": "navigation_consent_declined",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "given_emergency_latched",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "automatic_location_access",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "location_shared",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "navigation_clears_emergency",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "emergency_service_option_visible",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "initial_status": null,
+        "final_status": "escalate",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 1,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-10",
+      "category": "navigation_consent_given",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "given_emergency_latched",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "automatic_location_access",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "location_access_only_after_consent",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "location_only_shared",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "escalate",
+          "pass": true
+        },
+        {
+          "name": "navigation_clears_emergency",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "emergency_service_option_visible",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "facility_suitability_claimed",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "maps_link": "https://www.google.com/maps/search/?api=1&query=hospital+emergency+departments+near+13.000%2C80.000",
+        "initial_status": null,
+        "final_status": "escalate",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 1,
+        "navigation_requests": [
+          {
+            "schema_version": "medassist.navigation-request.v1",
+            "consent": {
+              "granted": true,
+              "purpose": "nearby_hospital_search",
+              "expires_at": 1792991056521
+            },
+            "location": {
+              "latitude": 13,
+              "longitude": 80
+            }
+          }
+        ],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-11",
+      "category": "explicit_fictional_restart",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "pending_provider_fixture_started",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "given_emergency_latched",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        },
+        {
+          "name": "old_response_rendered",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "stale_emergency_clearances",
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "status_after_explicit_restart": "not_assessed",
+        "provider_completion_released": true,
+        "initial_status": null,
+        "final_status": "not_assessed",
+        "extraction_calls": 1,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [
+        "old_emergency_evidence_carried_to_new_session: private evidence state not inspected"
+      ],
+      "errors": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "er2-i-12",
+      "category": "recent_stopped_stroke_signs",
+      "execution": "independent_browser_once",
+      "checks": [
+        {
+          "name": "safety_action",
+          "expected": "escalate",
+          "actual": "not_assessed",
+          "pass": false
+        },
+        {
+          "name": "routine_provider_required",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "routine_question_visible",
+          "expected": false,
+          "actual": false,
+          "pass": true
+        },
+        {
+          "name": "no_external_network_calls",
+          "expected": true,
+          "actual": false,
+          "pass": false
+        },
+        {
+          "name": "no_page_errors",
+          "expected": true,
+          "actual": true,
+          "pass": true
+        }
+      ],
+      "observations": {
+        "initial_status": "not_assessed",
+        "final_status": "not_assessed",
+        "extraction_calls": 0,
+        "extraction_calls_after_events": 0,
+        "interview_calls": 0,
+        "external_network_requests": 2,
+        "candidate_confirmation_visible": false,
+        "geolocation_calls": 0,
+        "navigation_requests": [],
+        "page_errors": []
+      },
+      "unverified_expected_keys": [],
+      "errors": [],
+      "outcome": "fail"
+    }
+  ]
+}

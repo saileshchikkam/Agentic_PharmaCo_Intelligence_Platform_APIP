@@ -23,7 +23,7 @@ class MedAssistOrchestrator:
     def propose(self, text):
         # The explicit emergency guard precedes even missing/failed language services.
         safety = ProvisionalSafety().check(text)
-        if safety['status'] == 'escalate':
+        if safety['suppress_ordinary_flow']:
             return {'accepted': False, 'safety': safety, 'model_b_status': 'unable_to_assess'}
         if self.conversation is None:
             raise ComponentUnavailable('EXISTING_CONVERSATION_BOUNDARY_REQUIRED')

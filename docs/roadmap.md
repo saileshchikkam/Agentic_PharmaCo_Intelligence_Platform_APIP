@@ -1,5 +1,6 @@
 # Milestone roadmap
 
+**Latest safety milestone, 2026-10-26: NO-GO.** The original heart-attack/stroke declarations now escalate, but the separately authored 100-case evaluation has 25 emergency misses, five false escalations and three ambiguous routine continuations. [Results, state boundaries and blockers](../models/medassist_ai/docs/emergency-recognition.md). Rules remain provisional and clinically unreviewed; keep Model B disabled and the change in draft review. Earlier dated statements below describe historical checkpoints.
 **Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
 
 This is the single work-planning entry point. It is organized by deliverables and acceptance evidence, not a fixed calendar or a completed-feature claim. Individual implementation tasks still require the current user's authorization. Read the [AI implementation guide](ai-implementation.md) for how local models, APIs, custom ML, RAG, and agents will be built and evaluated; it is not a second task queue.

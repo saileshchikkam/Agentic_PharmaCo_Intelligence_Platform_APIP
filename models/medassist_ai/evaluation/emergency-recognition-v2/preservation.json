@@ -1,0 +1,24 @@
+{
+  "schema_version": "medassist.emergency-preservation.v1",
+  "sealed_artifact_count": 17,
+  "artifact_hashes_match": true,
+  "seal_and_hash_receipt_match": true,
+  "frozen_implementation_hashes_match": true,
+  "protocol_authenticated": true,
+  "environment_pin_matches": true,
+  "protected_git_paths_unchanged": [
+    "models/medassist_v2",
+    "models/medassist_ai/model_b",
+    "models/medassist_ai/jayanth_model",
+    "models/medassist_intelligence",
+    "server/groq-extraction.ts",
+    "server/medassist-ai.ts"
+  ],
+  "original_sixteen_contributor_files_hash_match": true,
+  "original_index_and_tracked_worktree_unchanged": true,
+  "official_test_opened": false,
+  "ledger_opened": false,
+  "source_archives_opened": false,
+  "source_hash_receipts_match": true,
+  "source_archive_rehash_performed": false
+}

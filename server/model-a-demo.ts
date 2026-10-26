@@ -69,8 +69,8 @@ export function registerModelADemo(app: Express, config: RuntimeConfig, { enable
             return;
         }
         const safety = evaluateStatement(body.text);
-        if (safety.status === 'escalate') {
-            res.status(409).json({ error: 'SAFETY_ESCALATION', safety });
+        if (safety.suppress_ordinary_flow) {
+            res.status(409).json({ error: safety.status === 'escalate' ? 'SAFETY_ESCALATION' : 'SAFETY_CLARIFICATION_REQUIRED', safety });
             return;
         }
         if (!language) {
@@ -113,9 +113,9 @@ export function registerModelADemo(app: Express, config: RuntimeConfig, { enable
             res.status(422).json({ error: 'INVALID_EXTRACTION_INPUT' });
             return;
         }
-        const safety = evaluateStatement(b.text);
-        if (safety.status === 'escalate') {
-            res.status(409).json({ error: 'SAFETY_ESCALATION', safety });
+        const safety = evaluateStatement([...(v2 ? b.prior_context : []), b.text].join('. '));
+        if (safety.suppress_ordinary_flow) {
+            res.status(409).json({ error: safety.status === 'escalate' ? 'SAFETY_ESCALATION' : 'SAFETY_CLARIFICATION_REQUIRED', safety });
             return;
         }
         if (!naturalVocabulary) {

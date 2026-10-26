@@ -1,0 +1,15 @@
+{
+  "schema_version": "medassist.independent-emergency-freeze.v1",
+  "date": "2026-10-26",
+  "heldout_case_count": 100,
+  "integration_scenario_count": 12,
+  "implementation_not_read_or_imported": true,
+  "expected_labels_provisional": true,
+  "independence": "Separate AI author/custodian; no human clinical review.",
+  "sha256": {
+    "heldout.json": "7749ec2da9791f446537a879c23f8490c5cda22e03c1512a75dcf35d90a4f8a6",
+    "integration-scenarios.json": "42394b9f3f93d13f889a66eea43eb3e35329ae337f79a8f5647b5eb4831e4115"
+  },
+  "evaluation_attempts_permitted": 1,
+  "alter_gold_after_results": false
+}

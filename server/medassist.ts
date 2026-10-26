@@ -53,7 +53,7 @@ export function createMedAssistHandler({
     const intake = validateIntake(req.body);
     if (!intake) return fail(400, 'INVALID_INTAKE');
     const safety = evaluateStatement(Object.values(intake.answers).filter((v): v is string => typeof v === 'string').join('. '));
-    if (safety.status === 'escalate') return res.status(409).json({ error: { code: 'SAFETY_ESCALATION' }, safety });
+    if (safety.suppress_ordinary_flow) return res.status(409).json({ error: { code: safety.status === 'escalate' ? 'SAFETY_ESCALATION' : 'SAFETY_CLARIFICATION_REQUIRED' }, safety });
     if (active) return fail(429, 'MODEL_BUSY');
     requests = requests.filter((time) => now() - time < 60000);
     if (requests.length >= 6) { res.setHeader('Retry-After', '60'); return fail(429, 'RATE_LIMITED'); }

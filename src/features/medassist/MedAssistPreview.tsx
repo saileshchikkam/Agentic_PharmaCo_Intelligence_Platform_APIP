@@ -3,7 +3,7 @@ import { M3Button, M3Checkbox, M3TextField } from '../../components/material/cor
 import { emptyAnswers, hospitalSearchUrl, labels, prompts, readSuggestions, steps } from './flow';
 import type { Answers, Field, Language } from './flow';
 import { copy } from './copy';
-import { evaluateStatement, type SafetyDecision } from '../medassist-safety/safety';
+import { evaluateStatement, resolveSafetyClarification, type SafetyDecision } from '../medassist-safety/safety';
 import HospitalNavigation from '../medassist-safety/HospitalNavigation';
 import './medassist.css';
 
@@ -23,6 +23,8 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [emergency, setEmergency] = useState<SafetyDecision | null>(null);
+  const [safetyClarification, setSafetyClarification] = useState<SafetyDecision | null>(null);
+  const pendingSafety = useRef<SafetyDecision | null>(null);
   const safetyLatch = useRef(false);
   const [resetOpen, setResetOpen] = useState(false);
   const [resetVersion, setResetVersion] = useState(0);
@@ -63,18 +65,25 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
   }, [hasAnswers, t.leave]);
 
   const cancel = () => { generation.current++; request.current?.abort(); setBusy(false); };
-  const escalate = (text: string) => {
+  const escalate = (text: string, includeClarification = false) => {
     const decision = evaluateStatement(text);
+    if (decision.status === 'clarify' && includeClarification && !safetyLatch.current) { pendingSafety.current = decision; setSafetyClarification(decision); cancel(); setSuggestions(null); setDraft(''); return true; }
     if (decision.status !== 'escalate') return false;
     if (!safetyLatch.current) {
       safetyLatch.current = true; cancel(); geoGeneration.current++; setLocating(false);
-      setEmergency(decision); setSuggestions(null); setError(''); setDraft('');
+      pendingSafety.current = null; setSafetyClarification(null); setEmergency(decision); setSuggestions(null); setError(''); setDraft('');
     }
     return true;
   };
+  const clarifySafety = (answer: 'current'|'non_current'|'unsure') => {
+    const prior = pendingSafety.current; if (!prior || safetyLatch.current) return;
+    const resolved = resolveSafetyClarification(prior, answer); pendingSafety.current = null; setSafetyClarification(null);
+    if (resolved.status === 'escalate') { safetyLatch.current = true; cancel(); geoGeneration.current++; setLocating(false); setEmergency(resolved); setSuggestions(null); }
+    setDraft('');
+  };
   const clearAi = () => { cancel(); setSuggestions(null); setConfirmed(false); setError(''); setConsent(false); };
   const answer = (value: string | null) => {
-    if (escalate(value ?? '') || safetyLatch.current) return;
+    if (escalate(value ?? '', true) || safetyLatch.current || pendingSafety.current) return;
     clearAi(); setAnswers((current) => ({ ...current, [field]: value })); setDraft('');
     if (editing || index === steps.length - 1) { setReview(true); setEditing(false); }
     else setIndex(index + 1);
@@ -83,7 +92,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     clearAi(); setIndex(steps.indexOf(item)); setDraft(answers[item] ?? ''); setEditing(true); setReview(false);
   };
   const reset = () => {
-    safetyLatch.current = false; setEmergency(null);
+    safetyLatch.current = false; pendingSafety.current = null; setSafetyClarification(null); setEmergency(null);
     geoGeneration.current++; setLocation(''); setLocationStatus(''); setLocating(false);
     opening.current = true;
     clearAi(); setAnswers(emptyAnswers()); setIndex(0); setReview(false); setEditing(false); setDraft(''); setResetOpen(false);
@@ -98,7 +107,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     else { setIndex(index - 1); setDraft(answers[steps[index - 1]] ?? ''); }
   };
   const analyse = async () => {
-    if (escalate(Object.values(answers).filter(v => v !== null).join('. ')) || safetyLatch.current) return;
+    if (escalate(Object.values(answers).filter(v => v !== null).join('. '), true) || safetyLatch.current || pendingSafety.current) return;
     if (!consent || busy) return;
     const id = ++generation.current;
     const controller = new AbortController();
@@ -153,11 +162,15 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
     </header>
     <div className="medassist-preview-notice" role="note"><span className="material-symbols-outlined" aria-hidden="true">info</span><p>{t.notice}</p></div>
 
+    {safetyClarification && !emergency && <section role="alert" aria-label="Safety clarification"><h2>Check safety context</h2><p>{safetyClarification.guidance}</p>
+      <div className="medassist-actions"><M3Button onClick={() => clarifySafety('current')}>Happening now</M3Button>
+      <M3Button onClick={() => clarifySafety('non_current')}>Only distant past or hypothetical</M3Button>
+      <M3Button onClick={() => clarifySafety('unsure')}>Not sure — show emergency help</M3Button></div><p>No safety clearance or current evidence was recorded.</p></section>}
     {emergency && <section role="alert" aria-label="Emergency help"><h2>Emergency help</h2>
       <p>{emergency.guidance}</p><p>Provisional statement guard · not clinically validated. Ordinary questions and self-care are paused.</p>
       <p>For a real emergency only: <a href="tel:112">Call 112 in India</a>. Elsewhere use your local emergency number. Do not place test calls for fictional cases.</p>
       <HospitalNavigation emergency={true} /></section>}
-    {!emergency && !review && <>
+    {!emergency && !safetyClarification && !review && <>
       <div ref={log} className="medassist-conversation" role="log" aria-label="Symptom conversation">
         <p className="medassist-empty-hint">{t.welcome}</p>
         {steps.slice(0, index).map((item) => <React.Fragment key={item}>
@@ -177,7 +190,7 @@ export function MedAssistPreview({ onOpenAdr, onExit, renderNavigation }: {
       </form>
     </>}
 
-    {!emergency && review && <section className="medassist-review" aria-labelledby="medassist-review-title">
+    {!emergency && !safetyClarification && review && <section className="medassist-review" aria-labelledby="medassist-review-title">
       <h2 id="medassist-review-title" tabIndex={-1}>{t.review}</h2><p>{t.reviewIntro}</p>
       <dl className="medassist-summary">{steps.map((item) => <div key={item}>
         <dt>{labels[language][item]}</dt><dd>{answers[item] ?? t.unknownValue}</dd>

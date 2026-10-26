@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--import",
+    "tsx",
+    "evaluation/emergency-recognition-v2/evaluate-heldout-once.ts"
+  ],
+  "returncode": 0,
+  "stdout": "{\"heldout_evaluations\":100,\"output\":\"models/medassist_ai/evaluation/emergency-recognition-v2/heldout-typescript-results.json\"}\n",
+  "stderr": ""
+}

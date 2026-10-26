@@ -1,0 +1,297 @@
+{
+  "schema_version": "medassist.independent-emergency-integration.v1",
+  "fictional_only": true,
+  "annotation_status": "Independent AI-authored provisional engineering expectations; not clinical ground truth or human review.",
+  "execution_status": "frozen_specification_not_executed",
+  "freeze_policy": "Do not alter expected outcomes after implementation freeze/results.",
+  "source_basis": [
+    "protocol.json",
+    "../../docs/emergency-recognition-audit.md",
+    "https://www.nhs.uk/conditions/heart-attack/",
+    "https://www.nhs.uk/conditions/stroke/symptoms/",
+    "https://www.nhs.uk/symptoms/shortness-of-breath/",
+    "https://www.nhs.uk/conditions/anaphylaxis/",
+    "https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/adult-basic-life-support-guidelines",
+    "https://112.gov.in/"
+  ],
+  "notes": "Scenario actions describe required observable behavior rather than private implementation internals. Provider completions must be controlled locally; no cloud inference or clinical treatment content. Any unavailable harness path must be reported unverified, not passed.",
+  "scenarios": [
+    {
+      "id": "er2-i-01",
+      "category": "provider_outage",
+      "given": {
+        "provider": "unavailable",
+        "session": "routine",
+        "consent": "not_requested"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "I am having crushing chest pain right now and it goes to my jaw."
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "routine_provider_required": false,
+        "routine_question_visible": false,
+        "diagnosis_visible": false,
+        "automatic_location_access": false
+      }
+    },
+    {
+      "id": "er2-i-02",
+      "category": "provider_timeout",
+      "given": {
+        "provider": "pending_then_timeout",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "I may be having a stroke right now; one side of my face just drooped."
+        },
+        {
+          "type": "provider_timeout"
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "routine_question_visible": false,
+        "timeout_clears_emergency": false
+      }
+    },
+    {
+      "id": "er2-i-03",
+      "category": "delayed_routine_response",
+      "given": {
+        "provider": "pending_routine_request",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "I am gasping for breath and cannot get words out now."
+        },
+        {
+          "type": "resolve_old_provider",
+          "payload_kind": "routine_next_question"
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "old_response_rendered": false,
+        "routine_question_visible": false,
+        "stale_emergency_clearances": 0
+      }
+    },
+    {
+      "id": "er2-i-04",
+      "category": "conflicting_provider_response",
+      "given": {
+        "provider": "pending_routine_request",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "My tongue just swelled up and I am struggling to swallow."
+        },
+        {
+          "type": "resolve_old_provider",
+          "payload_kind": "no_emergency_reassurance_and_routine_question"
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "provider_reassurance_visible": false,
+        "routine_question_visible": false,
+        "stale_emergency_clearances": 0
+      }
+    },
+    {
+      "id": "er2-i-05",
+      "category": "repetition",
+      "given": {
+        "provider": "available",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "This is a medical emergency and I need an ambulance now."
+        },
+        {
+          "type": "user_message",
+          "text": "I still need emergency medical help right now."
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "routine_question_visible": false,
+        "emergency_latch_cleared": false
+      }
+    },
+    {
+      "id": "er2-i-06",
+      "category": "correction_after_escalation",
+      "given": {
+        "provider": "available",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "I think I am having a heart attack right now."
+        },
+        {
+          "type": "user_message",
+          "text": "Correction, I did not mean that; can we carry on?"
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "emergency_latch_cleared": false,
+        "routine_provider_called_after_correction": false,
+        "explicit_fictional_restart_required": true
+      }
+    },
+    {
+      "id": "er2-i-07",
+      "category": "clarification_blocks_routine",
+      "given": {
+        "provider": "available",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "Stroke? I have not explained whether this is now or old history."
+        },
+        {
+          "type": "resolve_old_provider",
+          "payload_kind": "routine_next_question"
+        }
+      ],
+      "expect": {
+        "safety_action": "clarify",
+        "routine_question_visible": false,
+        "routine_provider_called_before_resolution": false,
+        "stale_emergency_clearances": 0
+      }
+    },
+    {
+      "id": "er2-i-08",
+      "category": "third_party_evidence_separation",
+      "given": {
+        "provider": "available",
+        "session": "routine",
+        "self_symptoms": []
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "I am well, but my wife has suddenly become unresponsive beside me."
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "subject": "other",
+        "third_party_inserted_as_self_evidence": false,
+        "routine_question_visible": false
+      }
+    },
+    {
+      "id": "er2-i-09",
+      "category": "navigation_consent_declined",
+      "given": {
+        "provider": "unavailable",
+        "session": "emergency_latched",
+        "consent": "not_given"
+      },
+      "events": [
+        {
+          "type": "request_nearby_help"
+        },
+        {
+          "type": "decline_location_consent"
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "automatic_location_access": false,
+        "location_shared": false,
+        "navigation_clears_emergency": false,
+        "emergency_service_option_visible": true
+      }
+    },
+    {
+      "id": "er2-i-10",
+      "category": "navigation_consent_given",
+      "given": {
+        "provider": "unavailable",
+        "session": "emergency_latched",
+        "consent": "not_given"
+      },
+      "events": [
+        {
+          "type": "request_nearby_help"
+        },
+        {
+          "type": "grant_location_consent",
+          "location": "fictional_test_coordinates"
+        },
+        {
+          "type": "navigation_handoff"
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "location_access_only_after_consent": true,
+        "navigation_clears_emergency": false,
+        "facility_suitability_claimed": false,
+        "emergency_service_option_visible": true
+      }
+    },
+    {
+      "id": "er2-i-11",
+      "category": "explicit_fictional_restart",
+      "given": {
+        "provider": "pending_old_request",
+        "session": "emergency_latched"
+      },
+      "events": [
+        {
+          "type": "explicit_fictional_restart"
+        },
+        {
+          "type": "resolve_old_provider",
+          "payload_kind": "routine_next_question"
+        }
+      ],
+      "expect": {
+        "old_response_rendered": false,
+        "old_emergency_evidence_carried_to_new_session": false,
+        "stale_emergency_clearances": 0
+      }
+    },
+    {
+      "id": "er2-i-12",
+      "category": "recent_stopped_stroke_signs",
+      "given": {
+        "provider": "unavailable",
+        "session": "routine"
+      },
+      "events": [
+        {
+          "type": "user_message",
+          "text": "My speech suddenly became slurred an hour ago; it stopped just now."
+        }
+      ],
+      "expect": {
+        "safety_action": "escalate",
+        "routine_provider_required": false,
+        "routine_question_visible": false
+      }
+    }
+  ]
+}

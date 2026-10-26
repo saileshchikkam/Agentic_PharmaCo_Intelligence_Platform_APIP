@@ -85,9 +85,9 @@ test('safety remains available without a Model A enable flag or private token',a
 test('chat checks safety before availability or model work and invalidates pending results',()=>{
   const s=readFileSync('src/features/medassist-conversation/MedAssistConversation.tsx','utf8');
   const compact=s.replace(/\s+/g,'');
-  assert.ok(compact.indexOf('if(escalate(text)')>=0 && compact.indexOf('if(escalate(text)')<compact.indexOf('||busy||pendingRetry'));
+  assert.ok(compact.indexOf('if(escalate(text,true)')>=0 && compact.indexOf('if(escalate(text,true)')<compact.indexOf('||busy||pendingRetry'));
   assert.match(compact,/safetyLatch\.current=true;generation\.current\+\+;abort\.current\?\.abort\(\)/);
-  assert.match(compact,/if\(safetyLatch\.current\|\|inFlight\.current\)return/);
-  assert.match(s,/!emergency && result &&/);assert.match(s,/role="alert" aria-label="Emergency help"/);
+  assert.match(compact,/if\(safetyLatch\.current\|\|pendingSafety\.current\|\|inFlight\.current\)return/);
+  assert.match(s,/!emergency && !safetyClarification && result &&/);assert.match(s,/role="alert" aria-label="Emergency help"/);
   assert.doesNotMatch(s,/localStorage|sessionStorage|console\./);
 });

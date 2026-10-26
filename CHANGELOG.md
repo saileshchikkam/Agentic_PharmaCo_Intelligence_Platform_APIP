@@ -1,5 +1,11 @@
 # Changelog
 
+## Provisional emergency recognition and failed independent gate — 2026-10-26
+
+- Add shared versioned assertion/subject/time rules and explicit clarification before models, with a persistent emergency latch and unchanged consent-based Maps handoff.
+- Preserve a separately authored one-time 100-case evaluation: TP47/FP5/FN25/TN13, 65.28% recall and 90.38% precision on 90 binary cases; safety gate fails. No clinical approval or Model B activation.
+- Software regressions, responsive browser checks, actual Model A and seventeen-artifact preservation pass. Keep draft review, no automatic merge. [Full evidence and blockers](models/medassist_ai/docs/emergency-recognition.md).
+
 ## Authenticated read-only Model A protocol compatibility — 2026-10-26
 
 - Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.
