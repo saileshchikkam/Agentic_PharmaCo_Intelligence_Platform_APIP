@@ -1,5 +1,9 @@
 # Changelog
 
+## ADR-1B Phase 2 - 2026-11-04
+
+- Added the original PvPI form preview and saved intake progress. Shared Back now sits beneath the logo beside the content. [Verification](docs/adr/09-adr-1a-checkpoint.md#adr-1b-phase-2--original-form-preview-and-intake-progress).
+
 ## ADR-1B Phase 1 - 2026-11-04
 
 - Added a shared sticky header and research disclaimer, and improved responsive spacing and appearance controls.

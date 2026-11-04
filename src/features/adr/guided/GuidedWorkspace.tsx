@@ -1,10 +1,11 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {useAccount} from '../../account/AccountProvider';
 import {M3Button,M3TextField} from '../../../components/material/core';
-import {questions,stages,missing,nextQuestion,chronology,type Field,type GuidedCase} from './domain';
+import {addressedQuestions,questions,stages,missing,nextQuestion,chronology,type Field,type GuidedCase} from './domain';
 import {AdrWorkspace as LegacyWorkspace} from '../AdrWorkspace';
 import './guided.css';
 import {questionCopy} from './questionCopy';
+import {LiveFormPreview} from './LiveFormPreview';
 import {ReportExport} from './ReportExport';
 import {AdrLanding, type SavedReport} from './AdrLanding';
 type Props={renderNavigation:(back:()=>void,label:string)=>React.ReactNode;onExit:()=>void};
@@ -16,7 +17,7 @@ export function GuidedWorkspace(props:Props){const {user,ready}=useAccount();con
 }
 type View={case:GuidedCase};
 function Guide({owner,...props}:Props&{owner:string}){
- const [c,setCase]=useState<GuidedCase|null>(null),[list,setList]=useState<SavedReport[] | null>(null),[intro,setIntro]=useState(true),[key,setKey]=useState<string|null>(null),[value,setValue]=useState(''),[dirty,setDirty]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[preview,setPreview]=useState(false),[narrative,setNarrative]=useState('');
+ const [c,setCase]=useState<GuidedCase|null>(null),[list,setList]=useState<SavedReport[] | null>(null),[intro,setIntro]=useState(true),[key,setKey]=useState<string|null>(null),[value,setValue]=useState(''),[dirty,setDirty]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[narrative,setNarrative]=useState('');
  const editing=useRef(false);
  const alive=useRef(true),lock=useRef(false),heading=useRef<HTMLHeadingElement>(null);
  useEffect(()=>{alive.current=true;return()=>{alive.current=false;};},[]);
@@ -26,6 +27,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  useEffect(()=>{void loadDrafts();},[]);
  useEffect(()=>{const guard=(e:Event)=>{if(dirty&&!window.confirm('Leave this unsaved answer?'))e.preventDefault();};const unload=(e:BeforeUnloadEvent)=>{if(dirty){e.preventDefault();e.returnValue='';}};window.addEventListener('apip:before-navigate',guard);window.addEventListener('beforeunload',unload);return()=>{window.removeEventListener('apip:before-navigate',guard);window.removeEventListener('beforeunload',unload);};},[dirty]);
  const all=c?questions(c):[],field=all.find(f=>f.key===key),stage=field?.stage??5;
+ const answered=c?addressedQuestions(all,c.values):0;
  const choose=(next:string|null,current=c)=>{if(dirty&&!window.confirm('Discard this unsaved answer?'))return;setKey(next);setValue(next?current?.values[next]?.value??'':'');setDirty(false);};
  useEffect(()=>{heading.current?.focus();},[key,intro]);
  const apply=(data:View,advance=false,after?:string)=>{
@@ -46,11 +48,12 @@ function Guide({owner,...props}:Props&{owner:string}){
  const start=()=>run(async()=>{const data:View=await request('',{fictionalOnly:true});if(alive.current){apply(data,true);setIntro(false);}});
  const open=(id:string)=>run(async()=>{const data:View=await request('/'+id);if(alive.current){apply(data,true);setIntro(false);}});
  return <div className="adr-guide">
- {(!field || intro) && props.renderNavigation(props.onExit,'Back to dashboard')}
+ {props.renderNavigation(props.onExit,'Back to dashboard')}
  {intro?<AdrLanding drafts={list} busy={busy} loadFailed={!!error} start={start} resume={open} retry={loadDrafts}/>:c&&<>
  <nav className="adr-stages" aria-label="Reporting stages">{stages.map((name,i)=><button key={name} disabled={busy} aria-current={stage===i?'step':undefined} onClick={()=>{editing.current=false;choose(i===5?null:all.find(f=>f.stage===i&&!c.values[f.key])?.key??all.find(f=>f.stage===i)?.key??null);}}><span>{i+1}</span>{name}</button>)}</nav>
- <div className="adr-status"><span role="status">Saved revision {c.revision}{dirty?' · unsaved answer':''}</span>{!field&&<M3Button variant="text" onClick={()=>setPreview(v=>!v)}>{preview?'Hide':'Show'} live draft</M3Button>}</div>
- <div className={preview&&!field?'adr-columns':'adr-columns single'}><section className="adr-question" key={key??'review'} onKeyDown={event=>{
+ <div className="adr-status"><span role="status">Saved revision {c.revision}{dirty?' · unsaved answer':''}</span></div>
+ <div className="adr-intake-progress"><label>Intake progress: {answered} of {all.length} questions addressed <progress value={answered} max={all.length}/></label><p>Includes saved Unknown answers and optional questions. This measures intake only.</p></div>
+ <div className={field?'adr-columns adr-with-form':'adr-columns single'}><section className="adr-question" key={key??'review'} onKeyDown={event=>{
    if(!field || event.key!=='Enter' || event.nativeEvent.isComposing || event.repeat || event.altKey || event.shiftKey) return;
    const input=event.nativeEvent.composedPath()[0];
    const shortcut=event.ctrlKey||event.metaKey;
@@ -64,7 +67,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  {(!field||field.stage===3&&field.key.endsWith('.name'))&&<MedicationEntries c={c} busy={busy} add={kind=>run(async()=>{await command({type:'add_medication',kind},true);})}/>}
  {!field&&<details className="adr-description"><summary>Describe several details together (optional AI assistance)</summary><p>Suggestions need your confirmation. Manual answers always work.</p><M3TextField label="Describe your fictional experience" type="textarea" value={narrative} maxLength={4000} disabled={busy} onChange={e=>setNarrative(e.target.value)}/><M3Button disabled={busy||!narrative.trim()} onClick={()=>run(()=>command({type:'describe',text:narrative}))}>Find suggested details</M3Button><p role="status">{c.providerStatus==='manual_required'?'No model configured. Your description is saved; continue with the guided questions.':c.providerStatus==='unavailable_or_invalid'?'The model could not provide valid suggestions. Your description is saved.':c.providerStatus==='proposals_ready'?'Review each suggestion below.':''}</p></details>}
  <ConfirmationPanel c={c} busy={busy} decide={(proposalId,accept)=>run(()=>command({type:'proposal',proposalId,accept},true))}/>
- </section>{preview&&!field&&<aside className="adr-preview"><h2>Live draft details</h2><p>Confirmed answers only · provisional field list, not the official form.</p><DraftPreview c={c} edit={edit}/></aside>}</div>
+ </section>{field&&<LiveFormPreview c={c} owner={owner}/>}</div>
  </>}{busy&&<p role="status">Saving or checking your answer…</p>}{error&&<p className="adr-error" role="alert">{error}</p>}
  </div>;
 }

@@ -83,6 +83,7 @@ try{
   await page.getByRole('button',{name:'Continue',exact:true}).click();
   const initials=page.getByRole('textbox',{name:'Patient initials',exact:true});
   await initials.waitFor();
+  assert.equal(await page.getByRole('progressbar').getAttribute('value'),'1');
   assert(await page.locator('.adr-stages').evaluate(el=>el.scrollWidth<=el.clientWidth+1));
   await initials.press('Enter');
   await initials.fill('FX');
@@ -104,6 +105,23 @@ try{
   await reaction.press('Backspace');
   await reaction.press('Control+Enter');
   await page.getByRole('heading',{name:'When did the reaction begin?'}).waitFor();
+  assert.equal(await page.getByRole('progressbar').getAttribute('value'),'3');
+  if (width === 360 && hasTemplate) {
+   await page.route('**/adr-guided/*/pdf', route => route.fulfill({
+    status:200, headers:{'Content-Type':'application/pdf','X-APIP-Revision':'1'}, body:'stale',
+   }),{times:1});
+  }
+  if (width < 1000) await page.getByRole('button',{name:'Show form preview',exact:true}).click();
+  if (width === 360 && hasTemplate) {
+   await page.getByText('This draft changed in another tab.',{exact:false}).waitFor();
+   assert.equal(await page.getByRole('img',{name:'Live preview of the original PvPI form, page 1'}).count(),0);
+   await page.getByRole('button',{name:'Retry preview',exact:true}).click();
+  }
+  if (hasTemplate) await page.getByRole('img',{name:'Live preview of the original PvPI form, page 1'}).waitFor();
+  else await page.getByText('The original PvPI template is missing from this checkout.').waitFor();
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:join(dir,`live-form-${width}.png`),fullPage:true});
+  if (width < 1000) await page.getByRole('button',{name:'Hide form preview',exact:true}).click();
   await page.screenshot({path:join(dir,`question-${width}.png`)});
   await page.getByRole('button',{name:'2 Patient',exact:true}).click();
   const answers={'Gender':'Female','Reported seriousness (select all that apply)':'None reported','Reported outcome':'Recovered','Suspected medicine · Brand / generic name':'Fictional medicine','Reporter name':'Fictional Reporter'};

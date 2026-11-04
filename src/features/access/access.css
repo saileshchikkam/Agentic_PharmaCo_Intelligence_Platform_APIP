@@ -127,10 +127,15 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
 .access-brand svg { width: 36px; height: 36px; color: var(--md-sys-color-primary); }
 .access-brand-large { font-size: 1.5rem; }
 .access-brand-large svg { width: 40px; height: 40px; }
-.access-main { --access-content-inset: 16px; flex: 1; padding: var(--access-content-inset) var(--access-page-gutter) 32px; }
-.access-main:has(.access-page-navigation:first-child) { padding-block-start: 0; }
+.access-main { --access-content-inset: 16px; flex: 1; position: relative; padding: var(--access-content-inset) var(--access-page-gutter) 32px; }
+.access-main:has(.access-page-navigation) { padding-inline-start: calc(max(var(--access-page-gutter), env(safe-area-inset-left)) + 84px); }
 .access-page-shell { width: min(100%, var(--access-page-width)); margin-inline: auto; }
 .access-page-navigation { display: flex; inline-size: fit-content; }
+.access-main .access-page-navigation {
+  position: absolute;
+  inset-block-start: var(--access-content-inset);
+  inset-inline-start: max(var(--access-page-gutter), env(safe-area-inset-left));
+}
 .access-app .access-page-navigation md-text-button { --md-text-button-container-height: 44px; }
 .access-welcome { max-width: 860px; margin-inline: auto; text-align: center; padding-block: var(--access-content-inset) 24px; animation: access-enter 280ms cubic-bezier(.2,0,0,1) both; }
 .access-welcome-symbol { display: grid; place-items: center; width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 28px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
