@@ -1,5 +1,7 @@
 # Milestone roadmap
 
+**2026-11-04 ADR-1B Phase 1** establishes the shared UI and guided reporting landing page on an isolated branch. Later ADR phases require separate authorization. [Phase 1 scope and verification](adr/11-adr-1b-phase-1.md).
+
 **2026-11-03 ADR-1A:** guided fictional intake, owner-isolated save/resume, revision history, editable review and native official PvPI PDF generation/reveal are implemented. [Checkpoint and remaining gates](adr/09-adr-1a-checkpoint.md). English fictional export, overflow, ownership and responsive browser checks pass. Telugu/mixed-script export and multiple-seriousness resolution remain gaps; unconditional ADR-1B progression is NO-GO. No ADR-1B work was started. This narrower task does not implement the full ADR-0 agents/review/analytics roadmap.
 
 **Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**

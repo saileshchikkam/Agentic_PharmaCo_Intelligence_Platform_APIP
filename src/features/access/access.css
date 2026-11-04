@@ -28,7 +28,7 @@
 }
 
 /* Keep centered content in the same column when a route gains a scrollbar. */
-html { scrollbar-gutter: stable; }
+html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-height, 0px) + 12px); }
 
 .access-app {
   --access-font: 'Google Sans Flex', 'Roboto', system-ui, sans-serif;
@@ -57,15 +57,17 @@ html { scrollbar-gutter: stable; }
 }
 
 .access-header {
-  position: relative;
-  z-index: 2;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: 80px;
+  min-height: 80px;
   flex-shrink: 0;
-  padding: 16px var(--access-page-gutter);
+  padding: calc(16px + env(safe-area-inset-top)) max(var(--access-page-gutter), env(safe-area-inset-right)) 16px max(var(--access-page-gutter), env(safe-area-inset-left));
+  box-shadow: var(--md-sys-elevation-level1);
   background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent);
   backdrop-filter: blur(16px);
 }
@@ -80,12 +82,33 @@ html { scrollbar-gutter: stable; }
   padding-block: calc((var(--_container-height) - max(var(--_label-text-line-height), var(--_icon-size))) / 2);
   padding-inline-start: var(--_leading-space);
   padding-inline-end: var(--_trailing-space);
-  white-space: nowrap;
-  flex-shrink: 0;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
-.access-header-preferences { display: flex; align-items: center; gap: 16px; animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
+.access-header-preferences {
+  position: absolute;
+  inset-block-start: calc(100% + 8px);
+  inset-inline-end: max(12px, env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  max-height: max(0px, calc(100dvh - var(--apip-header-height, 80px) - 20px));
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--md-sys-shape-corner-large);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  box-shadow: var(--md-sys-elevation-level2);
+  animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both;
+}
 .access-appearance-label { font-size: .875rem; font-weight: 500; }
-.access-accent-options { display: flex; align-items: center; gap: 4px; }
+.access-accent-options { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-width: 0; }
 .access-header-preferences md-icon-button { flex-shrink: 0; }
 .access-accent-dot { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; }
 .access-accent-dot .material-symbols-outlined { font-size: 18px; }
@@ -194,6 +217,7 @@ html { scrollbar-gutter: stable; }
 .access-developer-preview { padding-top: 8px; border-top: 1px solid var(--md-sys-color-outline-variant); }
 .access-developer-preview p { margin: 0; font-size: 0.75rem; line-height: 1.125rem; color: var(--md-sys-color-on-surface-variant); }
 .access-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px clamp(24px, 4vw, 64px) 16px; font-size: 0.75rem; line-height: 1.125rem; color: var(--md-sys-color-on-surface-variant); }
+.access-footer p { margin: 0; max-width: 75ch; overflow-wrap: anywhere; }
 .access-footer a { display: inline-flex; align-items: center; min-height: 48px; }
 .access-app a:focus-visible { outline: 2px solid var(--md-sys-color-primary); outline-offset: 5px; border-radius: 4px; }
 .access-skip-link { position: fixed; z-index: 20; top: 8px; left: 8px; padding: 16px; background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border-radius: 12px; transform: translateY(-160%); }
@@ -212,7 +236,9 @@ html { scrollbar-gutter: stable; }
   .patient-task-card { padding: 24px; }
 }
 @media (max-width: 599px) {
-  .access-header { padding-block: 12px; height: 72px; gap: 8px; }
+  .access-header { padding-block: calc(8px + env(safe-area-inset-top)) 8px; min-height: 64px; gap: 4px; flex-wrap: wrap; }
+  .access-header-actions { flex-wrap: wrap; justify-content: flex-end; }
+  .access-header-navigation { flex-wrap: wrap; }
   .access-header-actions { gap: 4px; }
   .access-header-navigation { gap: 0; }
   .access-nav-link { padding-inline: 10px; }
@@ -221,11 +247,8 @@ html { scrollbar-gutter: stable; }
   .access-patients-link { display: none; }
   .access-help-label { display: none; }
   .access-app md-text-button.access-help-button { min-width: 48px; padding-inline: 12px; --md-text-button-with-icon-icon-size: 24px; }
-  .access-header-settings-open .access-home-link { display: none; }
-  .access-header-settings-open .access-header-actions { width: 100%; justify-content: space-between; }
   .access-header-preferences { gap: 0; }
   .access-accent-options { gap: 0; }
-  .access-header-settings-open .access-nav-link { padding-inline: 4px; }
   .access-appearance-label { display: none; }
   .access-main { padding-block: 16px 32px; }
   .access-page-navigation { margin-bottom: 24px; }
@@ -253,7 +276,7 @@ html { scrollbar-gutter: stable; }
 }
 @media (max-width: 359px) {
   .access-app { --access-page-gutter: 16px; }
-  .access-header:not(.access-header-settings-open) .access-brand > span { display: none; }
+  .access-header .access-brand > span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .access-app *, .access-app *::before, .access-app *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

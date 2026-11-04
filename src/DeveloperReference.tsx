@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './design-system/material-web-imports';
-import { PageNavigation, PreviewHeader } from './features/access/PreviewLayout';
+import { PageNavigation, PreviewFooter, PreviewHeader } from './features/access/PreviewLayout';
 import { MaterialNavTabs, NavTabId } from './components/material/MaterialNavTabs';
 import { CoreComponentsView } from './components/material/CoreComponentsView';
 import { DomainComponentsView } from './components/material/DomainComponentsView';
@@ -58,13 +58,7 @@ export function DeveloperReference({ appearance, setAppearance, preferencesSaved
         </div>
       </main>
 
-      {/* Minimal Footer */}
-      <footer className="access-footer">
-        <span>APIP — Agentic Pharma Co-intelligence Platform • Material 3 Design Demo</span>
-        <span className="text-[11px] text-[var(--md-sys-color-on-surface-variant)]/80">
-          Design demonstration only; no regulatory conformance verified.
-        </span>
-      </footer>
+      <PreviewFooter><span>Material 3 design reference</span></PreviewFooter>
     </div>
   );
 }

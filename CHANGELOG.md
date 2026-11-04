@@ -1,5 +1,10 @@
 # Changelog
 
+## ADR-1B Phase 1 - 2026-11-04
+
+- Added a shared sticky header and research disclaimer, and improved responsive spacing and appearance controls.
+- Added the ADR reporting introduction, a pausable process illustration and saved draft cards. [Scope and verification](docs/adr/11-adr-1b-phase-1.md).
+
 ## ADR-1A final corrections - 2026-11-04
 
 - Fitting PvPI exports now contain the original two pages. Referenced continuations carry only excess confirmed information.

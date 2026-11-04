@@ -7,7 +7,7 @@ import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
 import { Appearance } from '../../design-system/appearance';
 import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
-import { Brand, PageNavigation, PreviewHeader } from './PreviewLayout';
+import { Brand, PageNavigation, PreviewFooter, PreviewHeader } from './PreviewLayout';
 
 const AdrWorkspace = React.lazy(() => import('../adr/guided/GuidedWorkspace')
   .then((module) => ({ default: module.GuidedWorkspace })));
@@ -244,8 +244,8 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       </div>
     </main>
 
-    <footer className="access-footer"><span>APIP <span aria-hidden="true">·</span> Interface preview</span>
+    <PreviewFooter>
       <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>
-    </footer>
+    </PreviewFooter>
   </div>;
 }
