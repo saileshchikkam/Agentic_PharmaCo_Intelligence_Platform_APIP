@@ -28,3 +28,11 @@ Sailesh keeps ADR work on its feature branch, reviews the collision receipt priv
 Proposed main rules after explicit approval are pull requests, one independent approval, dismissal of stale approvals, passing stable CI checks, blocked force pushes and deletion, and no routine bypass. Review the CI pilot and administrator recovery policy together before enforcement.
 
 See the [branch audit](branch-audit-2026-11-04.md) for evidence, merge conflicts and retirement gates.
+
+## Verified branch setup — 2026-11-04
+
+The MedAssist branch feat/medassist-jayanth is published at 5085a26579bab3bbf994d8b5f62f363b6b310df4. Before transferring unpublished work, Jayanth records git status --short --branch, git branch -vv, git log --branches --not --remotes, git diff and git diff --cached. Verify a private backup of the original checkout, including Git metadata and relevant ignored files. Transfer only reviewed commits or patches into a fresh worktree tracking origin/feat/medassist-jayanth. Compare the result with the inventory and test before pushing. Branch publication does not synchronize Jayanth's computer.
+
+The separate apip-adr-integration worktree starts at 06f1258c. The merge simulation confirmed conflicts in .gitignore, CHANGELOG.md and docs/development.md. Combine Python and local-data exclusions with ADR PDF exclusions, retain both changelog histories, and preserve contributor backend restrictions and authenticated Model A portability instructions alongside ADR setup and PDF fixture instructions. Reconcile older portability blocker language with the later read-only repair. Validate authentication, SQLite owner isolation and PDF export before seeking merge approval.
+
+Use separate test databases. Coordinate design system, architecture and workflow changes alongside shared runtime and account changes. After separately approved integration of the collaboration documents, fetch main and coordinate ordinary updates to both feature branches.
