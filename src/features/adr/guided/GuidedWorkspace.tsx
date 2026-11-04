@@ -48,7 +48,6 @@ function Guide({owner,...props}:Props&{owner:string}){
  return <div className="adr-guide">
  {(!field || intro) && props.renderNavigation(props.onExit,'Back to dashboard')}
  {intro?<AdrLanding drafts={list} busy={busy} loadFailed={!!error} start={start} resume={open} retry={loadDrafts}/>:c&&<>
- <div className="adr-eyebrow">APIP · FICTIONAL REPORTING WORKSPACE</div>
  <nav className="adr-stages" aria-label="Reporting stages">{stages.map((name,i)=><button key={name} disabled={busy} aria-current={stage===i?'step':undefined} onClick={()=>{editing.current=false;choose(i===5?null:all.find(f=>f.stage===i&&!c.values[f.key])?.key??all.find(f=>f.stage===i)?.key??null);}}><span>{i+1}</span>{name}</button>)}</nav>
  <div className="adr-status"><span role="status">Saved revision {c.revision}{dirty?' · unsaved answer':''}</span>{!field&&<M3Button variant="text" onClick={()=>setPreview(v=>!v)}>{preview?'Hide':'Show'} live draft</M3Button>}</div>
  <div className={preview&&!field?'adr-columns':'adr-columns single'}><section className="adr-question" key={key??'review'} onKeyDown={event=>{

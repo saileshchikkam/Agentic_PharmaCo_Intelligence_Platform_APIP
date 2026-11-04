@@ -23,3 +23,11 @@ Fictional-case screenshots show the empty landing at all four widths, a saved dr
 ## Preview and limits
 
 Run the documented local development server and sign in at <http://localhost:3000/#/sign-in/patient>, then open **Start an ADR report** from the dashboard. A checkout needs the separately supplied [PvPI template](templates/README.md) and local Python PDF dependencies to export. The separate Model A research lab retains its own shell. The checked shared routes include the public site, account/dashboard, guided ADR, MedAssist and the developer reference. The browser's inline PDF support and the single seriousness category limit remain relevant to ADR-1A export. Phase 2 and specialist review require their own authorization.
+
+## Phase 1.1 viewport corrections
+
+- `src/features/access/PreviewLayout.tsx` renders the shared Back control only when there is a destination. Existing callbacks retain route history and leave guards.
+- `src/features/access/access.css` places the compact 44px control directly below the header and reduces the shared page, Home and dashboard insets. `AccessPreview.tsx` uses a local SVG for the Home symbol to avoid overflow when the icon font is unavailable.
+- `src/features/adr/guided/GuidedWorkspace.tsx` removes the redundant workspace heading. `guided.css` tightens the spacing around the stages, revision, question and answer.
+
+Chrome passed at 320, 360, 820 and 1440 CSS pixels. The localhost smoke covered Home, sign-in, dashboard, profile and MedAssist with keyboard Back, footer and layout bounds checks. The ADR browser regression covered settings, theme, reduced motion, save and resume, edit and two-page PvPI export. The 1440 by 720 capture showed the short date question and its actions above the fold. All 31 focused tests, both TypeScript checks and the production build passed. Vite retains its bundle-size warning. Phase 2 requires separate authorization.

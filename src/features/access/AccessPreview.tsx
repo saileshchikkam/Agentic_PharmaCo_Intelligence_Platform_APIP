@@ -1,3 +1,4 @@
+import { ShieldPlus } from 'lucide-react';
 import { AccountSignIn } from '../account/AccountSignIn';
 import { ProfilePage } from '../account/ProfilePage';
 import { SharedProfile } from '../account/SharedProfile';
@@ -160,7 +161,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
-        <div className="access-welcome-symbol" aria-hidden="true"><span className="material-symbols-outlined">health_and_safety</span></div>
+        <div className="access-welcome-symbol" aria-hidden="true"><ShieldPlus size={40} /></div>
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>

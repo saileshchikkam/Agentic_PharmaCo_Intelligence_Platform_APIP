@@ -93,9 +93,9 @@ export function PreviewFooter({ children }: { children?: React.ReactNode }) {
   </footer>;
 }
 
-/** A permanent 48px navigation slot keeps every screen's Back control aligned. */
 export function PageNavigation({ onBack, backLabel = 'Back' }: { onBack?: () => void; backLabel?: string }) {
+  if (!onBack) return null;
   return <nav className="access-page-navigation" aria-label="Page navigation">
-    {onBack && <M3Button variant="text" leadingIcon={<ArrowLeft size={18} />} ariaLabel={backLabel} onClick={onBack}>Back</M3Button>}
+    <M3Button variant="text" leadingIcon={<ArrowLeft size={18} />} ariaLabel={backLabel} onClick={onBack}>Back</M3Button>
   </nav>;
 }
