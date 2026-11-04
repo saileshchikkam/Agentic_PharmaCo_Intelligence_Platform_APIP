@@ -81,7 +81,7 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
           aria-controls={settingsOpen ? 'access-appearance-settings' : undefined} onClick={() => settingsOpen ? closeSettings() : setSettingsOpen(true)}>
           {settingsOpen ? <X size={22} aria-hidden="true" /> : <Settings size={22} aria-hidden="true" />}
         </md-icon-button>
-        {onHelp && <M3Button className="access-help-button" variant="text" leadingIcon={<CircleHelp size={20} />} ariaLabel="Help with patient home" onClick={onHelp}><span className="access-help-label">Help</span></M3Button>}
+        {onHelp && <span className="access-help-button"><M3Button variant="text" leadingIcon={<CircleHelp size={20} />} ariaLabel="Help with patient home" onClick={onHelp}><span className="access-help-label">Help</span></M3Button></span>}
       </div>
     </header>;
 }

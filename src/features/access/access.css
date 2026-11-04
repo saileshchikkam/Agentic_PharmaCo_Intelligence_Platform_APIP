@@ -64,7 +64,7 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 80px;
+  min-height: calc(64px + env(safe-area-inset-top));
   flex-shrink: 0;
   padding: calc(3.072px + env(safe-area-inset-top)) max(calc(var(--access-page-gutter) * 0.192), env(safe-area-inset-right)) 3.072px max(calc(var(--access-page-gutter) * 0.192), env(safe-area-inset-left));
   box-shadow: var(--md-sys-elevation-level1);
@@ -120,7 +120,7 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
 .access-preference-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .access-header-actions > md-filled-button { animation: access-header-enter 200ms cubic-bezier(.2,0,0,1) both; }
 @keyframes access-header-enter { from { opacity: 0; } to { opacity: 1; } }
-.access-home-link { display: inline-flex; align-items: center; min-height: 48px; text-decoration: none; }
+.access-home-link { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 48px; min-height: 48px; text-decoration: none; }
 .access-preview-badge { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding-inline: 14px; border-radius: 999px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); font-size: .875rem; font-weight: 500; }
 .access-preview-badge > span { color: var(--md-sys-color-tertiary); font-size: .7rem; }
 .access-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 1.5rem; line-height: 2rem; font-weight: 600; letter-spacing: -.5px; }
@@ -241,17 +241,18 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
   .patient-task-card { padding: 24px; }
 }
 @media (max-width: 599px) {
-  .access-header { padding-block: calc(1.536px + env(safe-area-inset-top)) 1.536px; min-height: 64px; gap: 4px; flex-wrap: wrap; }
+  .access-header { padding-block: calc(1.536px + env(safe-area-inset-top)) 1.536px; min-height: calc(54px + env(safe-area-inset-top)); gap: 4px; }
   .access-header-actions { flex-wrap: wrap; justify-content: flex-end; }
   .access-header-navigation { flex-wrap: wrap; }
   .access-header-actions { gap: 4px; }
   .access-header-navigation { gap: 0; }
-  .access-nav-link { padding-inline: 10px; }
+  .access-nav-link { padding-inline: 6px; min-inline-size: 44px; }
+  .access-header-navigation > md-icon-button { margin-inline-start: 4px; }
   .access-brand { gap: 6px; font-size: 1.25rem; }
   .access-brand svg { width: 28px; height: 28px; }
   .access-patients-link { display: none; }
   .access-help-label { display: none; }
-  .access-app md-text-button.access-help-button { min-width: 48px; padding-inline: 12px; --md-text-button-with-icon-icon-size: 24px; }
+  .access-app .access-help-button md-text-button { inline-size: 48px; padding-inline: 0; }
   .access-header-preferences { gap: 0; }
   .access-accent-options { gap: 0; }
   .access-appearance-label { display: none; }
