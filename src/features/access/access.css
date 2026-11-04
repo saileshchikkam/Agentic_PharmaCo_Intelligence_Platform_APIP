@@ -67,9 +67,11 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
   min-height: calc(64px + env(safe-area-inset-top));
   flex-shrink: 0;
   padding: calc(3.072px + env(safe-area-inset-top)) max(calc(var(--access-page-gutter) * 0.192), env(safe-area-inset-right)) 3.072px max(calc(var(--access-page-gutter) * 0.192), env(safe-area-inset-left));
-  box-shadow: var(--md-sys-elevation-level1);
-  background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent);
+  box-shadow: none;
+  border-bottom: 0;
+  background: color-mix(in srgb, var(--md-sys-color-surface) 70%, transparent);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .access-header-actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .access-header-navigation { display: flex; align-items: center; gap: 4px; }
