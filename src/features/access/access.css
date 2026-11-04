@@ -66,7 +66,7 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
   gap: 16px;
   min-height: 80px;
   flex-shrink: 0;
-  padding: calc(16px + env(safe-area-inset-top)) max(var(--access-page-gutter), env(safe-area-inset-right)) 16px max(var(--access-page-gutter), env(safe-area-inset-left));
+  padding: calc(4.8px + env(safe-area-inset-top)) max(calc(var(--access-page-gutter) * 0.3), env(safe-area-inset-right)) 4.8px max(calc(var(--access-page-gutter) * 0.3), env(safe-area-inset-left));
   box-shadow: var(--md-sys-elevation-level1);
   background: color-mix(in srgb, var(--md-sys-color-surface) 94%, transparent);
   backdrop-filter: blur(16px);
@@ -241,7 +241,7 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
   .patient-task-card { padding: 24px; }
 }
 @media (max-width: 599px) {
-  .access-header { padding-block: calc(8px + env(safe-area-inset-top)) 8px; min-height: 64px; gap: 4px; flex-wrap: wrap; }
+  .access-header { padding-block: calc(2.4px + env(safe-area-inset-top)) 2.4px; min-height: 64px; gap: 4px; flex-wrap: wrap; }
   .access-header-actions { flex-wrap: wrap; justify-content: flex-end; }
   .access-header-navigation { flex-wrap: wrap; }
   .access-header-actions { gap: 4px; }
