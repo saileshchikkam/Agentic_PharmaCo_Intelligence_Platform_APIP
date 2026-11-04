@@ -1,0 +1,45 @@
+import type { Field } from './domain';
+
+const copy: Record<string, [string, string]> = {
+  caseType: ['Is this a new report or an update?', 'Choose Follow-up if you are adding information to a report already made.'],
+  followUp: ['What is the previous report reference?', 'Enter the reference from your earlier report, if you have it.'],
+  initials: ['What are the patient’s initials?', 'Enter the first letters of the patient’s names. Do not enter their full name.'],
+  age: ['How old was the patient when the reaction began?', 'Enter their age in years at the time of the reaction.'],
+  dob: ['When was the patient born?', 'Enter their date of birth if you know it. The form uses age when both are available.'],
+  gender: ['What is the patient’s gender?', 'Choose the option that matches the information provided.'],
+  weight: ['How much did the patient weigh?', 'Enter the weight in kilograms at the time of the reaction, if known.'],
+  registration: ['Do you know the patient registration number?', 'This answer stays in the saved case. APIP leaves the official AMC/NCC field blank.'],
+  reaction: ['What happened after taking the medicine?', 'Describe what you noticed, such as itching, rash, swelling or another symptom. Use your own words.'],
+  reactionStart: ['When did the reaction begin?', 'Enter the date you first noticed the reaction.'],
+  reactionStop: ['When did the reaction stop?', 'Enter the date it ended. Choose Unknown if it is ongoing or you do not know.'],
+  management: ['What was done about the reaction?', 'Describe any care or treatment the patient received for the reaction.'],
+  seriousness: ['Did the reaction have any of these serious effects?', 'Select the effects you know about. The official form accepts one seriousness category for export.'],
+  outcome: ['How is the patient doing now?', 'Choose the option that best describes what happened after the reaction.'],
+  history: ['What medical history might be relevant?', 'Mention related conditions or allergies you know about.'],
+  investigations: ['Were any relevant tests done?', 'Enter test names, dates and results if you have them.'],
+  reporterName: ['Who is making this report?', 'Enter the name of the person reporting the reaction.'],
+  address: ['What is the reporter’s address?', 'Enter their mailing address if available.'],
+  pin: ['What is the reporter’s PIN code?', 'Enter the postal code for the reporter’s address.'],
+  email: ['What email can the reporter be reached at?', 'Enter a contact email if available.'],
+  phone: ['What phone number can the reporter be reached at?', 'Include the area or country code if applicable.'],
+  occupation: ['What does the reporter do?', 'Enter their occupation or role.'],
+  reportDate: ['When is this report being made?', 'Enter the date the reporter prepared the report.'],
+  signature: ['Will the reporter sign the printed form?', 'Choose a status for the saved case. APIP leaves the signature line blank.'],
+  additional: ['Is there anything else to add?', 'Include relevant facts you have not already entered.'],
+  name: ['What medicine did the patient take?', 'Enter the name on the medicine strip, bottle or prescription. Choose Unknown if you do not know it.'],
+  manufacturer: ['Who made this medicine?', 'Look for the manufacturer on the packaging.'],
+  batch: ['What is the batch or lot number?', 'Copy the batch or lot number from the medicine packaging.'],
+  expiry: ['When does this medicine expire?', 'Enter the expiry date printed on the package if the full date is known.'],
+  dose: ['How much of this medicine was taken each time?', 'Include the amount and unit, such as 5 mg or one tablet.'],
+  route: ['How was this medicine taken?', 'For example, by mouth, by injection or on the skin.'],
+  frequency: ['How often was this medicine taken?', 'For example, once a day or as needed.'],
+  start: ['When did the patient start this medicine?', 'Enter the first date the patient took it.'],
+  stop: ['When did the patient stop this medicine?', 'Enter the last date the patient took it, if known.'],
+  indication: ['Why was this medicine taken?', 'Describe the condition or symptom it was used for.'],
+  action: ['What changed with this medicine after the reaction?', 'For example, enter Drug withdrawn, Dose reduced, or Dose not changed. Describe anything else in your own words.'],
+  rechallenge: ['Did the reaction return after restarting this medicine?', 'Enter Yes, No, or Effect unknown if the medicine was restarted. You can also describe what happened.'],
+};
+
+export function questionCopy(field: Field) {
+  return copy[field.key.split('.').at(-1)!];
+}

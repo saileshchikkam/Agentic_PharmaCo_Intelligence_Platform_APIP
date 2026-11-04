@@ -9,8 +9,8 @@ import { Appearance } from '../../design-system/appearance';
 import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
 import { Brand, PageNavigation, PreviewHeader } from './PreviewLayout';
 
-const AdrWorkspace = React.lazy(() => import('../adr/AdrWorkspace')
-  .then((module) => ({ default: module.AdrWorkspace })));
+const AdrWorkspace = React.lazy(() => import('../adr/guided/GuidedWorkspace')
+  .then((module) => ({ default: module.GuidedWorkspace })));
 const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
   .then((module) => ({ default: module.MedAssistPreview })));
 const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../medassist-conversation/MedAssistConversation')) : null;
@@ -129,7 +129,7 @@ interface Props {
 
 export function AccessPreview({ route, appearance, setAppearance, preferencesSaved }: Props) {
   const account = useAccount();
-  const openTask = (task: PatientTask) => navigatePreview(account.user && account.profile ? `/preview/${task}` : `/sign-in/patient?continue=${task}`);
+  const openTask = (task: PatientTask) => navigatePreview(account.user ? `/preview/${task}` : `/sign-in/patient?continue=${task}`);
   const [homeMessage, setHomeMessage] = useState('');
   const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
@@ -141,6 +141,12 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : route.screen === 'medassist-conversation' ? 'medassist-conversation-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
+
+  const protectedRoute = isPatientHome || route.screen === 'medassist-preview';
+  useEffect(() => {
+    if (protectedRoute && account.ready && !account.user) navigatePreview('/sign-in/patient', { replace: true });
+  }, [protectedRoute, account.ready, account.user]);
+  if (protectedRoute && (!account.ready || !account.user)) return <p role="status">Checking your account…</p>;
 
   return <div className={`access-app ${route.screen === 'medassist-conversation' ? 'access-app-conversation' : ''}`}>
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
@@ -158,7 +164,8 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
-        <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview('/sign-in/patient')}>Sign in to APIP</M3Button>
+        <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview(account.user ? '/patient/home' : '/sign-in/patient')}>{account.user ? 'Open dashboard' : 'Log in'}</M3Button>
+        {!account.user && <p><a href="#/sign-in/patient?signup=1">Sign up</a></p>}
         <div className="access-welcome-links"><a href="#/patient/home" onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
         {import.meta.env.DEV && <p><a href="#/preview/medassist-conversation" onClick={event => followPreviewLink(event, '/preview/medassist-conversation')}>Try the fictional MedAssist conversation</a></p>}
       </section>}
@@ -166,7 +173,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
         <div className="patient-home-heading">
           <p className="access-eyebrow">Your health, your next step</p>
-          <h1 id="access-title" tabIndex={-1}>How can we help today?</h1>
+          <h1 id="access-title" tabIndex={-1}>Your APIP dashboard</h1>
           <p>Choose a place to start. You can report a medicine experience directly, whenever you need to.</p>
         </div>
         <div className="patient-task-grid">
@@ -189,7 +196,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <h2>Report a side effect</h2>
               <p>Tell us about a suspected unwanted effect after taking a medicine. You do not need to use MedAssist first.</p>
               <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
-              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> The intake preview uses fictional details, saves only in this browser, and sends nothing.</p>
+              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> Use fictional details. Your draft is saved to your local account, and exporting does not submit it.</p>
             </div>
             <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => openTask('adr-report')}>Start an ADR report</M3Button>
           </article>
@@ -218,7 +225,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           {route.role !== 'patient' && route.requestedTask && <p className="access-requested-task" role="status">
             Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
           </p>}
-          {route.role === 'patient' ? <AccountSignIn requestedTask={route.requestedTask} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
+          {route.role === 'patient' ? <AccountSignIn key={window.location.hash} creatingInitially={new URLSearchParams(window.location.hash.split('?')[1]).has('signup')} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
         </div>
       </section>}
 
@@ -227,7 +234,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
         <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p className="access-form-intro" role="status">Opening the fictional intake preview…</p></>}>
           <AdrWorkspace renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
-            onExit={() => goBackPreview(backFallback)} />
+            onExit={() => navigatePreview('/patient/home')} />
         </React.Suspense>
       </section>}
       {route.screen === 'medassist-preview' && <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p role="status">Opening the MedAssist preview…</p></>}>
