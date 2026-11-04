@@ -1,5 +1,7 @@
 # Architecture and implementation status
 
+**2026-11-03 ADR-1A update:** [guided intake checkpoint](adr/09-adr-1a-checkpoint.md) adds owner-isolated revisioned SQLite cases, a deterministic question planner, optional local-model proposals and a six-stage Material Web interface. Authenticated native PvPI PDF generation uses the supplied original AcroForm, explicit appearance streams and appended continuation pages; editable review/regeneration and an accessible reveal are checked for English fictional cases. Unsupported scripts and multiple seriousness selections fail explicitly. Earlier dated architecture observations below retain their historical scope.
+
 Last inspected: 2026-10-18. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview now uses owner-isolated SQLite drafts for local accounts, with a separate optional browser demo. Neither task preview is a protected clinical workflow. Local email/password authentication, cookie sessions and SQLite profiles now work in development. The optional Supabase client/RLS schema remain prepared; hosted setup is unverified.
 
 ## Current repository

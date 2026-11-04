@@ -1,6 +1,6 @@
 # ADR reporting
 
-**Status:** English-only fictional intake/review now supports local account-isolated SQLite drafts, unfinished saves, user confirmation, reopen/edit and confirmed deletion. Signed-out users can choose a separate shared browser demo. No official form, professional review or submission is implemented. See the [ADR storage guide](../../src/features/adr/README.md).
+**Status:** the primary guided fictional intake supports local account-isolated SQLite cases, confirmation, reopen/edit and revision history, plus native official PvPI PDF generation with continuation pages and an accessible reveal. English export is checked; unsupported scripts and multiple seriousness selections are explicit limits. Legacy drafts and the signed-out browser demo remain separate. Professional review and submission are not implemented. See the [ADR checkpoint](../adr/09-adr-1a-checkpoint.md) and [storage guide](../../src/features/adr/README.md).
 
 The [hospital requirements register](../hospital-requirements.md) maps the notes attributed to Mahesh P to actual modules, gaps, source uncertainties and phased integration. It is not an approved SOP or authorization to enable clinical workflows.
 

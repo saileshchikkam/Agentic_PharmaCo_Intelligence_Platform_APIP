@@ -5,17 +5,16 @@ import { useAccount } from './AccountProvider';
 import { navigatePreview } from '../access/navigation';
 import './account.css';
 
-export function AccountSignIn({ requestedTask }: { requestedTask?: string }) {
+export function AccountSignIn({ creatingInitially = false }: { creatingInitially?: boolean }) {
   const { user, ready, error } = useAccount();
-  const [creating, setCreating] = useState(false);
+  const [creating, setCreating] = useState(creatingInitially);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
   useEffect(() => {
-    if (requestedTask === 'medassist' || requestedTask === 'adr-report') sessionStorage.setItem('apip.account.continue', requestedTask);
-    if (user && ready) navigatePreview(`/account/profile${requestedTask ? `?continue=${requestedTask}` : ''}`);
-  }, [user?.id, ready, requestedTask]);
+    if (user && ready) navigatePreview('/patient/home', { replace: true });
+  }, [user?.id, ready]);
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!accountClient) return;
@@ -27,7 +26,7 @@ export function AccountSignIn({ requestedTask }: { requestedTask?: string }) {
       const verifyEmail = creating ? await accountClient.signUp(email.trim(), password)
         : (await accountClient.signIn(email.trim(), password), false);
       setPassword('');
-      setNotice(verifyEmail ? 'Check your email to confirm your account, then sign in to complete your profile.' : 'Signed in. Opening your profile…');
+      setNotice(verifyEmail ? 'Check your email to confirm your account, then sign in to complete your profile.' : 'Signed in. Opening your dashboard…');
     } catch { setPassword(''); setNotice('Unable to complete sign-in. Check your details or try again later. Local passwords must have 12–128 characters.'); }
     finally { setBusy(false); }
   };
@@ -41,7 +40,7 @@ export function AccountSignIn({ requestedTask }: { requestedTask?: string }) {
   };
   return <form className="access-form" onSubmit={submit} noValidate>
     <h2>{creating ? 'Create your account' : 'Welcome back'}</h2>
-    <p>One account for MedAssist and ADR reporting. Complete your health profile after verifying your sign-in.</p>
+    <p>One account for MedAssist and ADR reporting. Choose a service from your dashboard after signing in.</p>
     {!accountClient && <p className="account-notice" role="status">Account service not connected. You can explore the profile layout, but nothing can be saved or uploaded.</p>}
     {accountClient?.kind === 'local' ? <p className="account-notice">Local development account · saved on this computer. Use a fictional email and a separate test password. No email verification or recovery service is connected.</p> : <><M3Button variant="outlined" disabled={!accountClient || busy} onClick={() => void google()}>Continue with Google</M3Button><p className="account-divider">or use email</p></>}
     {error && <p role="alert">{error}</p>}

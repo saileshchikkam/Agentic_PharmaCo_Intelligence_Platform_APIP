@@ -1,5 +1,7 @@
 # Fictional ADR draft storage
 
+**2026-11-03:** the primary ADR preview route now opens the [guided intake](guided/README.md), with authenticated native official PDF export, continuation pages, editable review/regeneration and a reduced-motion-aware reveal. The legacy storage described below remains separate and preserved. See the checkpoint for supported characters and export limits.
+
 `AdrWorkspace.tsx` selects local account storage for an authenticated local user. It clears task state on account changes and waits for the owner list before opening the editor. Failed loads offer retry; no silent browser fallback occurs. Signed-out users can sign in or explicitly open the separate shared browser demo. The optional Supabase adapter has no ADR repository yet and reports this boundary.
 
 `accountDraft.ts` defines the strict English-only command and response contract. `ReportReactionView.tsx` supplies the shared Material Web intake, review, list and confirmation dialogs. It receives persistence callbacks in account mode and never reads browser drafts there.
