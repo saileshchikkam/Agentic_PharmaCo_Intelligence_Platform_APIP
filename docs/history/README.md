@@ -1,5 +1,9 @@
 # Development history
 
+- [2026-11-04](2026-11-04.md): ADR-1A PDF fidelity, guided UX and authenticated navigation corrections.
+
+- [2026-11-03](2026-11-03.md): ADR-0 architecture and partial ADR-1A guided-intake implementation; official PDF blocked.
+
 Use actual dated entries to preserve the project's journey without a fixed-duration label. This is the detailed record; [CHANGELOG.md](../../CHANGELOG.md) is the short summary and [the roadmap](../roadmap.md) tracks remaining work.
 
 ## Entries

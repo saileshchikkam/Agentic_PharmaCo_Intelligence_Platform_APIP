@@ -1,0 +1,2558 @@
+[
+  {
+    "name": "Check Box0",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      83.484,
+      692.993,
+      97.298,
+      706.805
+    ],
+    "label": "Gender Male",
+    "schemaPath": "gender",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box1",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      267.87,
+      734.428,
+      294.897,
+      748.24
+    ],
+    "label": "Follow-up case",
+    "schemaPath": "caseType",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Text Field0",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      97.899,
+      706.804,
+      162.764,
+      720.016
+    ],
+    "label": "Patient initials",
+    "schemaPath": "initials",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field1",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      252.254,
+      706.804,
+      317.72,
+      720.016
+    ],
+    "label": "Age or date of birth",
+    "schemaPath": "age + dob",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field2",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      412.015,
+      706.804,
+      571.776,
+      718.214
+    ],
+    "label": "AMC report number (reserved)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field3",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      478.082,
+      721.217,
+      571.776,
+      732.026
+    ],
+    "label": "Registration number (AMC/NCC reserved)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field4",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      416.22,
+      692.993,
+      571.776,
+      705.003
+    ],
+    "label": "Worldwide unique number (reserved)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field5",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.008,
+      658.763,
+      318.922,
+      670.173
+    ],
+    "label": "Reaction start date",
+    "schemaPath": "reactionStart",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field6",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.008,
+      646.753,
+      318.922,
+      658.163
+    ],
+    "label": "Reaction stop date",
+    "schemaPath": "reactionStop",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field7",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      320.123,
+      622.733,
+      572.978,
+      682.784
+    ],
+    "label": "Relevant investigations",
+    "schemaPath": "investigations",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field8",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      28.829,
+      467.8,
+      318.922,
+      635.343
+    ],
+    "label": "Reaction description and management",
+    "schemaPath": "reaction + management",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field9",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      320.123,
+      551.872,
+      572.978,
+      596.91
+    ],
+    "label": "Relevant history",
+    "schemaPath": "history",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field10",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      410.151,
+      120.121,
+      419.759
+    ],
+    "label": "Suspected medicine 1: name",
+    "schemaPath": "medications[kind=suspect][0].name",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field11",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      120.722,
+      410.151,
+      162.764,
+      419.759
+    ],
+    "label": "Suspected medicine 1: manufacturer",
+    "schemaPath": "medications[kind=suspect][0].manufacturer",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field12",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.965,
+      410.151,
+      204.806,
+      419.759
+    ],
+    "label": "Suspected medicine 1: batch",
+    "schemaPath": "medications[kind=suspect][0].batch",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field13",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.008,
+      410.151,
+      240.843,
+      419.759
+    ],
+    "label": "Suspected medicine 1: expiry",
+    "schemaPath": "medications[kind=suspect][0].expiry",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field14",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      242.044,
+      410.151,
+      276.279,
+      419.759
+    ],
+    "label": "Suspected medicine 1: dose",
+    "schemaPath": "medications[kind=suspect][0].dose",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field15",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      276.879,
+      410.151,
+      318.922,
+      419.759
+    ],
+    "label": "Suspected medicine 1: route",
+    "schemaPath": "medications[kind=suspect][0].route",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field16",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      320.123,
+      410.151,
+      368.772,
+      419.759
+    ],
+    "label": "Suspected medicine 1: frequency",
+    "schemaPath": "medications[kind=suspect][0].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field17",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.973,
+      410.151,
+      404.208,
+      419.759
+    ],
+    "label": "Suspected medicine 1: start",
+    "schemaPath": "medications[kind=suspect][0].start",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field18",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      404.808,
+      410.151,
+      446.851,
+      419.759
+    ],
+    "label": "Suspected medicine 1: stop",
+    "schemaPath": "medications[kind=suspect][0].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field19",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      448.052,
+      410.151,
+      502.707,
+      419.759
+    ],
+    "label": "Suspected medicine 1: indication",
+    "schemaPath": "medications[kind=suspect][0].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field20",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      503.908,
+      410.151,
+      572.978,
+      419.759
+    ],
+    "label": "Suspected medicine 1: causality",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field21",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      306.262,
+      105.707,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Drug withdrawn",
+    "schemaPath": "medications[kind=suspect][0].action == Drug withdrawn",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field22",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      106.908,
+      306.262,
+      162.764,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Dose increased",
+    "schemaPath": "medications[kind=suspect][0].action == Dose increased",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field23",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.965,
+      306.262,
+      204.806,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Dose reduced",
+    "schemaPath": "medications[kind=suspect][0].action == Dose reduced",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field24",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.008,
+      306.262,
+      255.257,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Dose not changed",
+    "schemaPath": "medications[kind=suspect][0].action == Dose not changed",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field25",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      255.858,
+      306.262,
+      318.922,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Not applicable",
+    "schemaPath": "medications[kind=suspect][0].action == Not applicable",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field26",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      320.123,
+      306.262,
+      368.171,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Unknown",
+    "schemaPath": "medications[kind=suspect][0].action == Unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field27",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.973,
+      306.262,
+      418.021,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Yes",
+    "schemaPath": "medications[kind=suspect][0].rechallenge == Yes",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field28",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      419.223,
+      306.262,
+      467.271,
+      317.071
+    ],
+    "label": "Suspected medicine 1: No",
+    "schemaPath": "medications[kind=suspect][0].rechallenge == No",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field29",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      467.872,
+      306.262,
+      517.121,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Effect unknown",
+    "schemaPath": "medications[kind=suspect][0].rechallenge == Effect unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field30",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      517.722,
+      306.262,
+      571.776,
+      317.071
+    ],
+    "label": "Suspected medicine 1: Reintroduced dose",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field31",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      57.058,
+      216.185,
+      126.728,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: name",
+    "schemaPath": "medications[kind=concomitant][0].name",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field32",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      127.929,
+      216.185,
+      177.179,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: dose",
+    "schemaPath": "medications[kind=concomitant][0].dose",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field33",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      177.779,
+      216.185,
+      225.828,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: route",
+    "schemaPath": "medications[kind=concomitant][0].route",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field34",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      227.029,
+      216.185,
+      290.092,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: frequency",
+    "schemaPath": "medications[kind=concomitant][0].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field35",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      291.294,
+      216.185,
+      360.964,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: start",
+    "schemaPath": "medications[kind=concomitant][0].start",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field36",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      362.165,
+      216.185,
+      431.835,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: stop",
+    "schemaPath": "medications[kind=concomitant][0].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field37",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      433.037,
+      216.185,
+      572.978,
+      226.994
+    ],
+    "label": "Concomitant medicine 1: indication",
+    "schemaPath": "medications[kind=concomitant][0].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field38",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      28.829,
+      100.886,
+      290.092,
+      180.755
+    ],
+    "label": "Additional information",
+    "schemaPath": "additional + continuation notice",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field39",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      376.58,
+      168.744,
+      574.78,
+      178.953
+    ],
+    "label": "Reporter name",
+    "schemaPath": "reporterName",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field40",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      291.294,
+      156.134,
+      572.978,
+      168.744
+    ],
+    "label": "Reporter address",
+    "schemaPath": "address",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field41",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      383.186,
+      144.123,
+      572.978,
+      154.933
+    ],
+    "label": "Reporter email",
+    "schemaPath": "email",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field42",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      311.114,
+      144.123,
+      359.162,
+      154.933
+    ],
+    "label": "Reporter PIN",
+    "schemaPath": "pin",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field43",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      344.147,
+      130.912,
+      572.978,
+      142.922
+    ],
+    "label": "Reporter contact",
+    "schemaPath": "phone",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field44",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      482.286,
+      117.701,
+      572.978,
+      129.711
+    ],
+    "label": "Reporter signature (reserved)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field45",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      342.946,
+      117.701,
+      439.043,
+      129.711
+    ],
+    "label": "Reporter occupation",
+    "schemaPath": "occupation",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field46",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      449.854,
+      100.886,
+      572.978,
+      112.296
+    ],
+    "label": "Report date",
+    "schemaPath": "reportDate",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field47",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      389.793,
+      88.876,
+      572.978,
+      100.286
+    ],
+    "label": "Receiving personnel (reserved)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Check Box2",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      451.055,
+      539.261,
+      463.067,
+      551.872
+    ],
+    "label": "Seriousness No",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box3",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      483.487,
+      539.261,
+      495.5,
+      551.872
+    ],
+    "label": "Seriousness Yes",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box4",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      318.922,
+      527.851,
+      330.934,
+      540.462
+    ],
+    "label": "Death",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box5",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      319.522,
+      516.442,
+      331.534,
+      529.052
+    ],
+    "label": "Life threatening",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box6",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      319.522,
+      502.63,
+      331.534,
+      515.241
+    ],
+    "label": "Hospitalization / prolonged hospitalization",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box7",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      445.049,
+      526.05,
+      457.061,
+      538.661
+    ],
+    "label": "Congenital anomaly",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box8",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      445.649,
+      515.841,
+      457.661,
+      528.452
+    ],
+    "label": "Disability",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box9",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      446.25,
+      502.63,
+      458.262,
+      515.241
+    ],
+    "label": "Other medically important condition",
+    "schemaPath": "seriousness",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box10",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      320.123,
+      479.81,
+      332.135,
+      492.421
+    ],
+    "label": "Recovered",
+    "schemaPath": "outcome",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box11",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      320.723,
+      465.999,
+      332.735,
+      478.609
+    ],
+    "label": "Fatal",
+    "schemaPath": "outcome",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box12",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      377.18,
+      479.21,
+      389.192,
+      491.821
+    ],
+    "label": "Recovering",
+    "schemaPath": "outcome",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box13",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      377.18,
+      465.999,
+      389.192,
+      478.609
+    ],
+    "label": "Recovered with sequelae",
+    "schemaPath": "outcome",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box14",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      481.085,
+      479.81,
+      493.097,
+      492.421
+    ],
+    "label": "Not recovered",
+    "schemaPath": "outcome",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box15",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      482.286,
+      467.8,
+      494.298,
+      480.411
+    ],
+    "label": "Outcome unknown",
+    "schemaPath": "outcome",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Text Field48",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      403.006,
+      526.05,
+      445.049,
+      538.06
+    ],
+    "label": "Date of death (not collected)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field49",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      398.741,
+      120.121,
+      408.349
+    ],
+    "label": "Suspected medicine 2: name",
+    "schemaPath": "medications[kind=suspect][1].name",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field50",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      386.731,
+      120.121,
+      396.339
+    ],
+    "label": "Suspected medicine 3: name",
+    "schemaPath": "medications[kind=suspect][2].name",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field51",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      374.721,
+      120.121,
+      384.329
+    ],
+    "label": "Suspected medicine 4: name",
+    "schemaPath": "medications[kind=suspect][3].name",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field52",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      120.722,
+      398.141,
+      162.764,
+      407.749
+    ],
+    "label": "Suspected medicine 2: manufacturer",
+    "schemaPath": "medications[kind=suspect][1].manufacturer",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field53",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      120.722,
+      386.731,
+      162.764,
+      396.339
+    ],
+    "label": "Suspected medicine 3: manufacturer",
+    "schemaPath": "medications[kind=suspect][2].manufacturer",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field54",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      120.722,
+      374.721,
+      162.764,
+      384.329
+    ],
+    "label": "Suspected medicine 4: manufacturer",
+    "schemaPath": "medications[kind=suspect][3].manufacturer",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field55",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.365,
+      397.54,
+      205.407,
+      407.148
+    ],
+    "label": "Suspected medicine 2: batch",
+    "schemaPath": "medications[kind=suspect][1].batch",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field56",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.965,
+      386.13,
+      206.008,
+      395.738
+    ],
+    "label": "Suspected medicine 3: batch",
+    "schemaPath": "medications[kind=suspect][2].batch",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field57",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.365,
+      374.12,
+      205.407,
+      383.728
+    ],
+    "label": "Suspected medicine 4: batch",
+    "schemaPath": "medications[kind=suspect][3].batch",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field58",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.608,
+      398.141,
+      241.443,
+      407.749
+    ],
+    "label": "Suspected medicine 2: expiry",
+    "schemaPath": "medications[kind=suspect][1].expiry",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field59",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.008,
+      385.53,
+      240.843,
+      396.339
+    ],
+    "label": "Suspected medicine 3: expiry",
+    "schemaPath": "medications[kind=suspect][2].expiry",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field60",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.008,
+      374.12,
+      240.843,
+      383.728
+    ],
+    "label": "Suspected medicine 4: expiry",
+    "schemaPath": "medications[kind=suspect][3].expiry",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field61",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      240.843,
+      398.141,
+      275.678,
+      407.749
+    ],
+    "label": "Suspected medicine 2: dose",
+    "schemaPath": "medications[kind=suspect][1].dose",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field62",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      240.843,
+      386.731,
+      275.678,
+      396.339
+    ],
+    "label": "Suspected medicine 3: dose",
+    "schemaPath": "medications[kind=suspect][2].dose",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field63",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      241.443,
+      374.12,
+      276.279,
+      383.728
+    ],
+    "label": "Suspected medicine 4: dose",
+    "schemaPath": "medications[kind=suspect][3].dose",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field64",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.372,
+      398.741,
+      404.208,
+      408.349
+    ],
+    "label": "Suspected medicine 2: start",
+    "schemaPath": "medications[kind=suspect][1].start",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field65",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.372,
+      386.13,
+      404.208,
+      395.738
+    ],
+    "label": "Suspected medicine 3: start",
+    "schemaPath": "medications[kind=suspect][2].start",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field66",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.372,
+      374.721,
+      404.208,
+      384.329
+    ],
+    "label": "Suspected medicine 4: start",
+    "schemaPath": "medications[kind=suspect][3].start",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field67",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      276.879,
+      398.741,
+      318.922,
+      408.349
+    ],
+    "label": "Suspected medicine 2: route",
+    "schemaPath": "medications[kind=suspect][1].route",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field68",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      276.879,
+      386.13,
+      318.922,
+      395.738
+    ],
+    "label": "Suspected medicine 3: route",
+    "schemaPath": "medications[kind=suspect][2].route",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field69",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      276.879,
+      374.721,
+      318.922,
+      384.329
+    ],
+    "label": "Suspected medicine 4: route",
+    "schemaPath": "medications[kind=suspect][3].route",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field70",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      320.123,
+      398.741,
+      368.772,
+      408.349
+    ],
+    "label": "Suspected medicine 2: frequency",
+    "schemaPath": "medications[kind=suspect][1].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field71",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      319.522,
+      386.13,
+      368.171,
+      395.738
+    ],
+    "label": "Suspected medicine 3: frequency",
+    "schemaPath": "medications[kind=suspect][2].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field72",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      318.922,
+      374.12,
+      367.571,
+      383.728
+    ],
+    "label": "Suspected medicine 4: frequency",
+    "schemaPath": "medications[kind=suspect][3].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field73",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      418.622,
+      295.453,
+      467.271,
+      305.061
+    ],
+    "label": "Suspected medicine 2: No",
+    "schemaPath": "medications[kind=suspect][1].rechallenge == No",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field74",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.372,
+      295.453,
+      418.021,
+      305.061
+    ],
+    "label": "Suspected medicine 2: Yes",
+    "schemaPath": "medications[kind=suspect][1].rechallenge == Yes",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field75",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      368.772,
+      283.442,
+      417.421,
+      293.051
+    ],
+    "label": "Suspected medicine 3: Yes",
+    "schemaPath": "medications[kind=suspect][2].rechallenge == Yes",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field76",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      369.973,
+      271.432,
+      418.622,
+      281.04
+    ],
+    "label": "Suspected medicine 4: Yes",
+    "schemaPath": "medications[kind=suspect][3].rechallenge == Yes",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field77",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      418.622,
+      284.043,
+      467.271,
+      293.651
+    ],
+    "label": "Suspected medicine 3: No",
+    "schemaPath": "medications[kind=suspect][2].rechallenge == No",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field78",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      418.021,
+      270.832,
+      466.67,
+      280.44
+    ],
+    "label": "Suspected medicine 4: No",
+    "schemaPath": "medications[kind=suspect][3].rechallenge == No",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field79",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      469.073,
+      294.852,
+      517.722,
+      304.46
+    ],
+    "label": "Suspected medicine 2: Effect unknown",
+    "schemaPath": "medications[kind=suspect][1].rechallenge == Effect unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field80",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      469.073,
+      283.442,
+      517.722,
+      293.051
+    ],
+    "label": "Suspected medicine 3: Effect unknown",
+    "schemaPath": "medications[kind=suspect][2].rechallenge == Effect unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field81",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      469.073,
+      271.432,
+      517.722,
+      281.04
+    ],
+    "label": "Suspected medicine 4: Effect unknown",
+    "schemaPath": "medications[kind=suspect][3].rechallenge == Effect unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field82",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      518.323,
+      294.852,
+      572.377,
+      304.46
+    ],
+    "label": "Suspected medicine 2: Reintroduced dose",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field83",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      518.323,
+      284.043,
+      572.377,
+      294.852
+    ],
+    "label": "Suspected medicine 3: Reintroduced dose",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field84",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      518.323,
+      272.033,
+      572.377,
+      282.842
+    ],
+    "label": "Suspected medicine 4: Reintroduced dose",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field85",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      448.652,
+      398.741,
+      502.707,
+      409.55
+    ],
+    "label": "Suspected medicine 2: indication",
+    "schemaPath": "medications[kind=suspect][1].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field86",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      448.652,
+      386.731,
+      502.707,
+      397.54
+    ],
+    "label": "Suspected medicine 3: indication",
+    "schemaPath": "medications[kind=suspect][2].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field87",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      448.052,
+      374.12,
+      502.106,
+      384.929
+    ],
+    "label": "Suspected medicine 4: indication",
+    "schemaPath": "medications[kind=suspect][3].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field88",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      405.409,
+      398.741,
+      447.451,
+      408.349
+    ],
+    "label": "Suspected medicine 2: stop",
+    "schemaPath": "medications[kind=suspect][1].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field89",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      404.208,
+      387.331,
+      446.25,
+      396.94
+    ],
+    "label": "Suspected medicine 3: stop",
+    "schemaPath": "medications[kind=suspect][2].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field90",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      404.208,
+      374.721,
+      446.25,
+      384.329
+    ],
+    "label": "Suspected medicine 4: stop",
+    "schemaPath": "medications[kind=suspect][3].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field91",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      504.509,
+      399.342,
+      573.578,
+      408.95
+    ],
+    "label": "Suspected medicine 2: causality",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field92",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      503.908,
+      387.331,
+      572.978,
+      396.94
+    ],
+    "label": "Suspected medicine 3: causality",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field93",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      503.307,
+      374.721,
+      572.377,
+      384.329
+    ],
+    "label": "Suspected medicine 4: causality",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field94",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      294.252,
+      105.707,
+      305.061
+    ],
+    "label": "Suspected medicine 2: Drug withdrawn",
+    "schemaPath": "medications[kind=suspect][1].action == Drug withdrawn",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field95",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      49.85,
+      282.241,
+      105.707,
+      293.051
+    ],
+    "label": "Suspected medicine 3: Drug withdrawn",
+    "schemaPath": "medications[kind=suspect][2].action == Drug withdrawn",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field96",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      50.451,
+      270.231,
+      106.307,
+      281.04
+    ],
+    "label": "Suspected medicine 4: Drug withdrawn",
+    "schemaPath": "medications[kind=suspect][3].action == Drug withdrawn",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field97",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      106.307,
+      295.453,
+      162.163,
+      306.262
+    ],
+    "label": "Suspected medicine 2: Dose increased",
+    "schemaPath": "medications[kind=suspect][1].action == Dose increased",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field98",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      107.508,
+      282.842,
+      163.365,
+      293.651
+    ],
+    "label": "Suspected medicine 3: Dose increased",
+    "schemaPath": "medications[kind=suspect][2].action == Dose increased",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field99",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      106.908,
+      270.231,
+      162.764,
+      281.04
+    ],
+    "label": "Suspected medicine 4: Dose increased",
+    "schemaPath": "medications[kind=suspect][3].action == Dose increased",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field100",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.965,
+      293.651,
+      204.206,
+      304.46
+    ],
+    "label": "Suspected medicine 2: Dose reduced",
+    "schemaPath": "medications[kind=suspect][1].action == Dose reduced",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field101",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      163.365,
+      282.842,
+      204.206,
+      293.651
+    ],
+    "label": "Suspected medicine 3: Dose reduced",
+    "schemaPath": "medications[kind=suspect][2].action == Dose reduced",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field102",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      164.566,
+      270.832,
+      205.407,
+      281.641
+    ],
+    "label": "Suspected medicine 4: Dose reduced",
+    "schemaPath": "medications[kind=suspect][3].action == Dose reduced",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field103",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      204.806,
+      294.252,
+      254.056,
+      305.061
+    ],
+    "label": "Suspected medicine 2: Dose not changed",
+    "schemaPath": "medications[kind=suspect][1].action == Dose not changed",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field104",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      206.608,
+      281.641,
+      255.858,
+      292.45
+    ],
+    "label": "Suspected medicine 3: Dose not changed",
+    "schemaPath": "medications[kind=suspect][2].action == Dose not changed",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field105",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      205.407,
+      271.432,
+      254.657,
+      282.241
+    ],
+    "label": "Suspected medicine 4: Dose not changed",
+    "schemaPath": "medications[kind=suspect][3].action == Dose not changed",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field106",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      256.459,
+      294.852,
+      319.522,
+      305.661
+    ],
+    "label": "Suspected medicine 2: Not applicable",
+    "schemaPath": "medications[kind=suspect][1].action == Not applicable",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field107",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      256.459,
+      282.842,
+      319.522,
+      293.651
+    ],
+    "label": "Suspected medicine 3: Not applicable",
+    "schemaPath": "medications[kind=suspect][2].action == Not applicable",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field108",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      255.858,
+      270.231,
+      318.922,
+      281.04
+    ],
+    "label": "Suspected medicine 4: Not applicable",
+    "schemaPath": "medications[kind=suspect][3].action == Not applicable",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field109",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      320.123,
+      294.252,
+      368.171,
+      305.061
+    ],
+    "label": "Suspected medicine 2: Unknown",
+    "schemaPath": "medications[kind=suspect][1].action == Unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field110",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      318.922,
+      282.241,
+      366.97,
+      293.051
+    ],
+    "label": "Suspected medicine 3: Unknown",
+    "schemaPath": "medications[kind=suspect][2].action == Unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field111",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      318.922,
+      270.231,
+      366.97,
+      281.04
+    ],
+    "label": "Suspected medicine 4: Unknown",
+    "schemaPath": "medications[kind=suspect][3].action == Unknown",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field112",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      57.658,
+      205.376,
+      127.328,
+      216.185
+    ],
+    "label": "Concomitant medicine 2: name",
+    "schemaPath": "medications[kind=concomitant][1].name",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field113",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      58.259,
+      193.365,
+      127.929,
+      204.175
+    ],
+    "label": "Concomitant medicine 3: name",
+    "schemaPath": "medications[kind=concomitant][2].name",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field114",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      128.53,
+      205.376,
+      177.779,
+      216.185
+    ],
+    "label": "Concomitant medicine 2: dose",
+    "schemaPath": "medications[kind=concomitant][1].dose",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field115",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      127.929,
+      193.365,
+      177.179,
+      204.175
+    ],
+    "label": "Concomitant medicine 3: dose",
+    "schemaPath": "medications[kind=concomitant][2].dose",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field116",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      178.38,
+      204.175,
+      227.629,
+      214.984
+    ],
+    "label": "Concomitant medicine 2: route",
+    "schemaPath": "medications[kind=concomitant][1].route",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field117",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      178.38,
+      192.164,
+      227.629,
+      202.974
+    ],
+    "label": "Concomitant medicine 3: route",
+    "schemaPath": "medications[kind=concomitant][2].route",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field118",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      228.23,
+      204.775,
+      291.294,
+      215.584
+    ],
+    "label": "Concomitant medicine 2: frequency",
+    "schemaPath": "medications[kind=concomitant][1].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field119",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      228.23,
+      193.365,
+      291.294,
+      204.175
+    ],
+    "label": "Concomitant medicine 3: frequency",
+    "schemaPath": "medications[kind=concomitant][2].frequency",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field120",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      291.894,
+      204.775,
+      361.565,
+      215.584
+    ],
+    "label": "Concomitant medicine 2: start",
+    "schemaPath": "medications[kind=concomitant][1].start",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field121",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      291.894,
+      192.765,
+      361.565,
+      203.574
+    ],
+    "label": "Concomitant medicine 3: start",
+    "schemaPath": "medications[kind=concomitant][2].start",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field122",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      362.165,
+      204.775,
+      431.835,
+      215.584
+    ],
+    "label": "Concomitant medicine 2: stop",
+    "schemaPath": "medications[kind=concomitant][1].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field123",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      362.165,
+      193.365,
+      431.835,
+      204.175
+    ],
+    "label": "Concomitant medicine 3: stop",
+    "schemaPath": "medications[kind=concomitant][2].stop",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field124",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      433.037,
+      203.574,
+      572.978,
+      214.383
+    ],
+    "label": "Concomitant medicine 2: indication",
+    "schemaPath": "medications[kind=concomitant][1].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field125",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      432.436,
+      193.365,
+      572.377,
+      204.175
+    ],
+    "label": "Concomitant medicine 3: indication",
+    "schemaPath": "medications[kind=concomitant][2].indication",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Text Field126",
+    "type": "/Tx",
+    "page": 1,
+    "bbox": [
+      228.831,
+      682.784,
+      317.72,
+      706.204
+    ],
+    "label": "Weight (kg)",
+    "schemaPath": "weight",
+    "disposition": "confirmed values only",
+    "multiline": true,
+    "flags": 4096,
+    "allowedValues": "text"
+  },
+  {
+    "name": "Check Box17",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      103.304,
+      692.392,
+      117.118,
+      706.805
+    ],
+    "label": "Gender Female",
+    "schemaPath": "gender",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Check Box18",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      138.139,
+      692.993,
+      151.953,
+      706.805
+    ],
+    "label": "Gender Other",
+    "schemaPath": "gender",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  },
+  {
+    "name": "Image Field0",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      213.165,
+      89.959,
+      364.502,
+      99.646
+    ],
+    "label": "Receiving signature image button (reserved)",
+    "schemaPath": null,
+    "disposition": "unfilled: reserved or not collected",
+    "multiline": false,
+    "flags": 65536,
+    "allowedValues": "pushbutton; retained but hidden in generated output"
+  },
+  {
+    "name": "Check Box16",
+    "type": "/Btn",
+    "page": 1,
+    "bbox": [
+      114.586,
+      734.139,
+      141.699,
+      748.015
+    ],
+    "label": "Initial case",
+    "schemaPath": "caseType",
+    "disposition": "confirmed values only",
+    "multiline": false,
+    "flags": 0,
+    "allowedValues": [
+      "/Off",
+      "/Yes"
+    ]
+  }
+]

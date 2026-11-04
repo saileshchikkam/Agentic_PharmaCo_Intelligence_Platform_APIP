@@ -1,5 +1,7 @@
 # Development setup and verification
 
+For current guided reporting setup, endpoints, local provider configuration and verification, see [ADR-1A](adr/09-adr-1a-checkpoint.md). Its focused suite is `node --import tsx --test scripts/adr-guided.test.ts`; browser checks use `scripts/adr-guided.browser.mjs` with an installed Playwright module and Chrome. No provider calls occur in those tests.
+
 ## Current MedAssist local preview — 2026-10-25
 
 Use the [private two-process Model A setup](../src/features/model-a-research/README.md#run-locally-in-the-preserved-environment) and the [conversation guide](../src/features/medassist-conversation/README.md). Express/Vite uses `127.0.0.1:3000`; the trusted FastAPI adapter uses `127.0.0.1:8766`. Both must run in the same local environment. A remote browser's localhost refers to that browser environment, not this laptop. Open `http://127.0.0.1:3000/#/preview/medassist-conversation`; the separate diagnostic lab is `#/research/model-a`. Neither development screen is a production clinical feature.
@@ -124,3 +126,9 @@ node node_modules/typescript/bin/tsc --noEmit --strict --skipLibCheck --esModule
 bun run lint
 bun run build
 ```
+
+## ADR-1A official PDF runtime
+
+The guided preview can generate the supplied original PvPI AcroForm from a saved fictional case. Install `server/adr/requirements-pdf.txt` in a local Python environment and, if necessary, set server-only `APIP_PDF_PYTHON` to its interpreter before starting development from the repository root. Without it, the backend uses `python` on PATH. No model or paid service is required. Browser variables must not contain interpreter paths or secrets.
+
+[Checkpoint setup and tests](adr/09-adr-1a-checkpoint.md#runtime-setup-and-reproducible-checks) cover supported characters, explicit export errors, complete PDF/browser checks and native form fidelity. Python verification additionally uses pypdfium2; browser tests use Playwright with installed Chrome. Production local-account routes remain disabled; the build is not a deployment or clinical-export enablement.

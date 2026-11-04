@@ -17,3 +17,8 @@ Thumbs.db
 venv/
 __pycache__/
 *.py[cod]
+
+# Reproducible fictional PDF verification artifacts, never application storage.
+/tmp/pdfs/
+/output/pdf/adr-fictional-*.pdf
+/docs/adr/templates/ADRRF_2.pdf
