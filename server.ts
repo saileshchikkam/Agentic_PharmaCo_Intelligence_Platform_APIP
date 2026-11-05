@@ -1,3 +1,4 @@
+import { createServer as createHttpServer } from 'node:http';
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
@@ -710,10 +711,11 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
 export async function startServer() {
   const config = readRuntimeConfig();
   const { app } = createApiApp(config);
+  const server = createHttpServer(app);
   // Vite Middleware / Static Serving
   if (config.mode === 'development') {
     const vite = await createViteServer({
-      server: { middlewareMode: true, host: config.host, hmr: { host: config.host }, allowedHosts: ['localhost'], cors: false },
+      server: { middlewareMode: true, host: config.host, hmr: { server }, allowedHosts: ['localhost'], cors: false },
       appType: "spa",
     });
     app.use(vite.middlewares);
@@ -725,7 +727,7 @@ export async function startServer() {
     });
   }
 
-  app.listen(config.port, config.host, () => {
+  server.listen(config.port, config.host, () => {
     console.log(`APIP ${config.mode} listening on ${config.host}:${config.port}; legacy agents ${config.legacyAgentsEnabled ? 'EXPERIMENTAL / non-clinical only' : 'disabled'}`);
   });
 }

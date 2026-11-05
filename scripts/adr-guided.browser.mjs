@@ -143,6 +143,11 @@ try{
    const fields=JSON.parse(execFileSync(process.env.APIP_PDF_PYTHON||'python',['-c',"import json,sys;from pypdf import PdfReader;r=PdfReader(sys.argv[1]);assert len(r.pages)==2;f=r.get_fields();print(json.dumps({k:str(v.get('/V','')) for k,v in f.items()}))",file],{encoding:'utf8',windowsHide:true}));
    assert.equal(fields['Text Field8'],expected);assert.equal(fields['Text Field10'],'Fictional medicine');assert.equal(fields['Check Box17'],'/Yes');assert.equal(fields['Check Box2'],'/Yes');assert.equal(fields['Check Box10'],'/Yes');assert.equal(fields['Text Field44'],'');assert.equal(fields['Text Field3'],'');
   };
+  if(hasTemplate && width===1440){
+   await page.route('**/adr-guided/*/pdf', route => route.fulfill({
+    status:429, json:{error:'PDF_BUSY'},
+   }), {times:1});
+  }
   if(hasTemplate){await generate('Fictional itching','initial');assert.equal(await page.getByRole('button',{name:'Skip animation',exact:true}).count(),0);assert.equal(await page.locator('.adr-report-frame').evaluate(e=>getComputedStyle(e).animationName),'none');}
   await page.locator('.adr-question summary').filter({hasText:'Reaction ·'}).click();
   await page.locator('.adr-question').getByRole('button',{name:'Edit What reaction or event was noticed?',exact:true}).click();await page.getByRole('textbox',{name:'What reaction or event was noticed?',exact:true}).fill('Corrected fictional itching');
