@@ -21,7 +21,7 @@ test('ADR API over the PostgreSQL wire: retries, ownership, races and outage', {
       $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
     grant usage on schema auth to authenticated;`);
   await db.query('insert into auth.users values ($1), ($2)', [alice,bob]);
-  for (const file of ['20261105071028_adr_postgres_foundation', '20261105074041_adr_command_receipts']) {
+  for (const file of ['20261105092036_adr_postgres_foundation', '20261105092042_adr_command_receipts']) {
     await db.exec(await readFile(new URL('../supabase/migrations/' + file + '.sql', import.meta.url), 'utf8'));
   }
   await db.exec('grant execute on all functions in schema apip_adr to adr_writer');

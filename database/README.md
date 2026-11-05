@@ -8,7 +8,7 @@
 
 The client implements configuration-gated email/password signup and sign-in, Google OAuth through Supabase, tab-scoped sessions, sign-out, and an editable account health profile. No configured service means no signup, profile upload, or save. On 2026-10-18 the user chose to keep database setup local after a zero-monthly-cost cloud quote. No project, paid resource, Google client, or hosted table was created. Live provider login and durable account persistence remain unverified.
 
-[account-schema.sql](account-schema.sql) is a fresh-project bootstrap, not an applied migration. Its ownership rules were executed and tested with local PGlite PostgreSQL using test equivalents of Supabase's `auth.uid()` and roles. This tests SQL enforcement, not a hosted authentication integration or production privacy certification.
+[account-schema.sql](account-schema.sql) is a historical copy of the profile bootstrap. The [versioned copy](../supabase/migrations/20261105092031_apip_profile_bootstrap.sql) matches the applied APIP development ledger. Run only the versioned copy on a fresh project. Its ownership rules were executed and tested with local PGlite PostgreSQL using test equivalents of Supabase's `auth.uid()` and roles. This tests SQL enforcement, not a hosted authentication integration or production privacy certification.
 
 ## Connect a development database
 
@@ -59,3 +59,5 @@ For the guided ADR migration, diagrams, RLS matrix and recovery instructions, se
 See [Cloud authentication and ADR access](cloud-authentication.md) for Google PKCE, server authorization and the hosted verification checklist.
 
 See [ADR cloud API and deployment readiness](adr-cloud-deployment.md) for Task 3 contracts, deployment topology, and operating limits.
+
+See the [APIP development hosted handoff](apip-development-handoff.md) for the reconciled ledger and credential provisioning steps.

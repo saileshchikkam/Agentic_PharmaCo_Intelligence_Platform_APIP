@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { PGlite } from '@electric-sql/pglite';
 
 const read = (path: string) => readFile(new URL(path, import.meta.url), 'utf8');
-const migration = '20261105071028_adr_postgres_foundation.sql';
+const migration = '20261105092036_adr_postgres_foundation.sql';
 
 test('ADR PostgreSQL migration, RLS, immutable history, retries and restore', async () => {
   const db = new PGlite();
@@ -50,7 +50,7 @@ test('ADR PostgreSQL migration, RLS, immutable history, retries and restore', as
       grant usage on schema auth to authenticated;
       create table migration_fixture(version text primary key);`);
     await db.query('insert into auth.users values ($1), ($2)', [alice, bob]);
-    await db.exec(await read('../database/account-schema.sql'));
+    await db.exec(await read('../supabase/migrations/20261105092031_apip_profile_bootstrap.sql'));
     await setActor('authenticated', alice);
     await db.query("insert into public.patient_profiles (user_id, display_name, birth_date, relationship, share_adr) values ($1,'Fictional','1990-01-01','self',true)", [alice]);
     await db.exec('reset role');

@@ -35,7 +35,7 @@ test('Postgres: owner CRUD, cross-account denial, anonymous denial, revisions an
       grant usage on schema auth to authenticated, anon;
       grant execute on function auth.uid() to authenticated, anon;
       insert into auth.users values ('00000000-0000-0000-0000-000000000001'), ('00000000-0000-0000-0000-000000000002');`);
-    await db.exec(await readFile(new URL('../database/account-schema.sql', import.meta.url), 'utf8'));
+    await db.exec(await readFile(new URL('../supabase/migrations/20261105092031_apip_profile_bootstrap.sql', import.meta.url), 'utf8'));
     const a = '00000000-0000-0000-0000-000000000001';
     const b = '00000000-0000-0000-0000-000000000002';
     const identity = async (id: string) => { await db.exec('reset role; set role authenticated'); await db.query("select set_config('request.jwt.claim.sub', $1, false)", [id]); };
