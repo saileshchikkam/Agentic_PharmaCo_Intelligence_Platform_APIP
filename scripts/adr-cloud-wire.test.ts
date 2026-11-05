@@ -15,16 +15,15 @@ import { registerVerifiedAdr } from '../server/cloud-account';
 test('ADR API over the PostgreSQL wire: retries, ownership, races and outage', { timeout: 60000 }, async () => {
   const db = new PGlite();
   const [alice, bob] = [randomUUID(), randomUUID()];
-  await db.exec(`create role anon; create role authenticated; create role adr_writer in role authenticated;
+  await db.exec(`create role anon; create role authenticated;
     create schema auth; create table auth.users(id uuid primary key);
     create function auth.uid() returns uuid language sql stable as
       $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
     grant usage on schema auth to authenticated;`);
   await db.query('insert into auth.users values ($1), ($2)', [alice,bob]);
-  for (const file of ['20261105092036_adr_postgres_foundation', '20261105092042_adr_command_receipts']) {
+  for (const file of ['20261105092036_adr_postgres_foundation', '20261105092042_adr_command_receipts', '20261105093956_apip_restricted_writer_role']) {
     await db.exec(await readFile(new URL('../supabase/migrations/' + file + '.sql', import.meta.url), 'utf8'));
   }
-  await db.exec('grant execute on all functions in schema apip_adr to adr_writer');
   const socket = new PGLiteSocketServer({ db, host: '127.0.0.1', port: 0, maxConnections: 4 });
   await socket.start();
   const sql = postgres('postgresql://postgres@' + socket.getServerConn() + '/postgres', {
@@ -33,7 +32,7 @@ test('ADR API over the PostgreSQL wire: retries, ownership, races and outage', {
   // The socket fixture connects as its bootstrap role. Apply the real restricted role per transaction.
   const restricted = {
     begin: (run: (tx: postgres.TransactionSql) => Promise<unknown>) => sql.begin(async tx => {
-      await tx`set local role adr_writer`;
+      await tx`set local role apip_adr_writer`;
       return run(tx);
     }),
   } as unknown as postgres.Sql;

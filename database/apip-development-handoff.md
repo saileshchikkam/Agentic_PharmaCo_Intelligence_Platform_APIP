@@ -4,19 +4,9 @@ The development ledger for project `kstxwoitiistmvivwixd` records profile bootst
 
 ## Restricted writer provisioning
 
-Connect as the authorized development database administrator using the dashboard's Connect details and verified TLS. Inspect whether the role exists before running this one-time grant script.
+Migration `20261105093956_apip_restricted_writer_role.sql` provisioned `apip_adr_writer` as NOLOGIN, with inherited authenticated privileges and only the three ADR function grants. The hosted catalog confirms the role has neither superuser nor BYPASSRLS and cannot directly mutate ADR tables.
 
-```sql
-begin;
-create role apip_adr_writer login inherit nosuperuser nocreatedb nocreaterole
-  noreplication nobypassrls in role authenticated;
-grant execute on function apip_adr.append_revision(uuid,integer,uuid,text,text,jsonb),
-  apip_adr.find_command_receipt(uuid,integer,uuid,text,text),
-  apip_adr.record_pdf_export(uuid,integer,uuid,text,text,integer) to apip_adr_writer;
-commit;
-```
-
-In psql, set the password using the interactive `\password apip_adr_writer` command. Store the secret in the approved local or server secret store. Use the Supavisor transaction endpoint shown for this project under **Connect** and the custom-role login `apip_adr_writer.kstxwoitiistmvivwixd`. Supply the resulting URI as server-only `APIP_ADR_DATABASE_URL`. Use certificate validation, including an approved CA if required by the endpoint. Keep the pool cap at 3 and named prepared statements disabled for the first rehearsal.
+Connect as the authorized development database administrator using verified TLS. Use psql's interactive `\password apip_adr_writer` command to set a strong password securely, then run `ALTER ROLE apip_adr_writer LOGIN;`. Do not record a password in a migration. Store the secret in the approved local or server secret store. Use the Supavisor transaction endpoint shown for this project under **Connect** and the custom-role login `apip_adr_writer.kstxwoitiistmvivwixd`. Supply the resulting URI as server-only `APIP_ADR_DATABASE_URL`. Use certificate validation, including an approved CA if required by the endpoint. Keep the pool cap at 3 and named prepared statements disabled for the first rehearsal.
 
 The role inherits the project's authenticated grants, including the existing owner-scoped profile privileges. It must have no direct ADR mutation privileges, ownership, administrative role memberships, or BYPASSRLS. Before sending fixture traffic, verify actual role and grants over the pooler. Verify a transaction-scoped subject clears on both commit and rollback and that the writer cannot directly mutate ADR tables.
 
