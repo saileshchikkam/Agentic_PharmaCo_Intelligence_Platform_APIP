@@ -7,6 +7,7 @@ const errors: Record<string, string> = {
   REVISION_CONFLICT: 'This draft changed in another tab. Reopen the saved draft to preview its latest revision.',
   PDF_SELECT_ONE_SERIOUSNESS: 'Choose one seriousness category to preview the official form.',
   PDF_UNSUPPORTED_SCRIPT: 'The form font cannot display some saved characters. Your answers are preserved.',
+  PDF_RUNTIME_DEPENDENCIES_MISSING: 'The configured Python environment is missing the pinned PDF packages. Install server/adr/requirements-pdf.txt and set APIP_PDF_PYTHON to that interpreter, then retry.',
   PDF_BUSY: 'The PDF service is busy. Try again.',
 };
 

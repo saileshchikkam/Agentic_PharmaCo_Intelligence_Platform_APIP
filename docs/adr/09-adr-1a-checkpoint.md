@@ -1,5 +1,15 @@
 # ADR-1A — guided intake and official PDF checkpoint
 
+## 2026-11-05 — Live preview PDF runtime recovery
+
+The live preview failure was traced to the server using its default `python` interpreter, which could not import `pypdf`; the subprocess exited with status 1 (`ModuleNotFoundError: No module named 'pypdf'`) and the endpoint returned HTTP 503 `PDF_GENERATION_FAILED`. No patient narrative or credentials were logged. The underlying issue was runtime configuration, not a missing or altered template: `docs/adr/templates/ADRRF_2.pdf` exists and remains SHA-256 `40af4962d6dd65ce538ff4791805b0632085159623c5a4beeb755442f6c0ed0b`. The configured interpreter with pinned `pypdf==6.10.0` and `reportlab==4.4.9` imported both dependencies and returned HTTP 200 `application/pdf`; PDF.js rendered page 1 of the original form for a saved fictional case.
+
+`server/adr/pdf.ts` now recognizes Python `ModuleNotFoundError` for either pinned PDF dependency and returns `PDF_RUNTIME_DEPENDENCIES_MISSING` instead of an opaque generic failure. The live preview and final export show an actionable setup message for that code. This does not silently install dependencies or select machine-specific interpreters: operators must configure `APIP_PDF_PYTHON` for an environment containing `server/adr/requirements-pdf.txt`.
+
+Verification: the actual browser preview displayed the original PvPI Version 1.4 page at 1440px and the mobile preview at 588px; the authenticated preview endpoint returned a PDF blob for saved revision 3. The full fictional browser regression passed at 320, 360, 820 and 1440px, including PDF generation, download and independent reopening/field assertions, edit/save/resume and login/logout. Focused runtime classification, ADR/account/security/navigation tests, frontend TypeScript, strict backend/shared TypeScript, Python PDF tests and production build passed after the diagnostic change. Existing bundle-size warning remains. No real patient data or model call was used.
+
+Files in this correction: `server/adr/pdf.ts`, `src/features/adr/guided/LiveFormPreview.tsx`, `src/features/adr/guided/ReportExport.tsx`, `scripts/adr-pdf-runtime.test.ts`, this checkpoint and `docs/history/2026-11-05.md`. The current local preview remains at `http://localhost:3000/#/preview/adr-report`; the development server process must retain a valid server-side `APIP_PDF_PYTHON` setting after restart. ADR-1B Phase 2 is still the active branch scope; no Phase 3, merge or deployment was started.
+
 2026-11-04 correction: [Final PDF, guided UX and navigation report](10-adr-1a-final-corrections.md) supersedes the continuation and navigation behavior described in the historical checkpoint below.
 
 2026-11-03. **A/B preserved; C implemented and verified for supported English fictional cases; D engineering checks pass within the limits below.** This checkpoint supersedes the earlier missing-template blocker, not the preserved intake/authentication architecture. No ADR-1B work, live inference, commits, pushes, merges or deployment occurred.
