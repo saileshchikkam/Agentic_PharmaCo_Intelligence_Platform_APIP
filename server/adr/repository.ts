@@ -9,7 +9,8 @@ export interface GuidedCaseRepository {
   list(owner: string): Awaitable<CaseSummary[]>;
   load(owner: string, id: string): Awaitable<GuidedCase | null>;
   history(owner: string, id: string): Awaitable<{ revision: number }[]>;
-  save(owner: string, candidate: GuidedCase, expected: number): Awaitable<GuidedCase>;
+  save(owner: string, candidate: GuidedCase, expected: number, command: { type: string }): Awaitable<GuidedCase>;
+  recordExport?(owner: string, id: string, revision: number, bytes: Buffer): Awaitable<void>;
 }
 
 export function sqliteGuidedRepository(db: DatabaseSync): GuidedCaseRepository {

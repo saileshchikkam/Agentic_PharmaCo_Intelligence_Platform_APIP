@@ -210,7 +210,10 @@ export function registerLocalAccount(app: Express, {
     if (!result.changes) return void fail(res, 409, 'DRAFT_CONFLICT');
     res.json({ success: true });
   });
-  router.use('/adr-guided', guidedRouter(sqliteGuidedRepository(db), readUser));
+  router.use('/adr-guided', (req,res,next) => {
+    if (req.get('authorization')) { res.status(401).json({ error: 'SIGN_IN_REQUIRED' }); return; }
+    next();
+  }, guidedRouter(sqliteGuidedRepository(db), readUser));
   router.use((_req, res) => { fail(res, 404, 'NOT_FOUND'); });
   router.use((error: { type?: string; status?: number }, _req: Request, res: Response, _next: NextFunction) => {
     fail(res, error.status === 413 ? 413 : error.type === 'entity.parse.failed' ? 400 : 500, 'REQUEST_FAILED');

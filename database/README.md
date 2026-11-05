@@ -55,3 +55,5 @@ The SQL test uses in-memory PGlite and fictional records, then closes the databa
 Implementation: [account UI/client](../src/features/account), [profile contract](../src/features/account/profile.ts), [SQL checks](../scripts/account-profile.test.ts). Sources: [React Auth](https://supabase.com/docs/guides/auth/quickstarts/react), [signup](https://supabase.com/docs/reference/javascript/auth-signup), [row-level security](https://supabase.com/docs/guides/database/postgres/row-level-security).
 
 For the guided ADR migration, diagrams, RLS matrix and recovery instructions, see the [ADR PostgreSQL foundation](adr-postgres-foundation.md).
+
+See [Cloud authentication and ADR access](cloud-authentication.md) for Google PKCE, server authorization and the hosted verification checklist.

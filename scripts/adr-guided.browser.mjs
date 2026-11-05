@@ -161,7 +161,7 @@ try{
   await page.getByRole('textbox',{name:'Email address'}).fill(`fictional-${width}@example.test`);
   await page.getByLabel('Password',{exact:true}).fill('fictional-password-123');
   await page.getByRole('button',{name:'Sign in',exact:true}).click();
-  await page.getByRole('heading',{name:'Your APIP dashboard'}).waitFor();
+  await page.getByRole('heading',{name:'Saved reports',exact:true}).waitFor();
   console.log(`PASS ${width}px: signup, dashboard, keyboard and Back, edit/reload, PDF ${hasTemplate?"verified":"skipped (template absent)"}, logout and login`);await context.close();
  }
  console.log('Screenshots: '+dir);

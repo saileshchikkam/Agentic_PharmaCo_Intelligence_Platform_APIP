@@ -1,3 +1,4 @@
+import { accountDestination } from './authCallback';
 import React, { useEffect, useState } from 'react';
 import { M3Button, M3TextField } from '../../components/material/core';
 import { accountClient } from './client';
@@ -5,7 +6,7 @@ import { useAccount } from './AccountProvider';
 import { navigatePreview } from '../access/navigation';
 import './account.css';
 
-export function AccountSignIn({ creatingInitially = false }: { creatingInitially?: boolean }) {
+export function AccountSignIn({ creatingInitially = false, requestedTask }: { creatingInitially?: boolean; requestedTask?: string }) {
   const { user, ready, error } = useAccount();
   const [creating, setCreating] = useState(creatingInitially);
   const [email, setEmail] = useState('');
@@ -13,8 +14,12 @@ export function AccountSignIn({ creatingInitially = false }: { creatingInitially
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
   useEffect(() => {
-    if (user && ready) navigatePreview('/patient/home', { replace: true });
-  }, [user?.id, ready]);
+    if (user && ready) {
+      const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
+      sessionStorage.removeItem('apip.account.continue');
+      navigatePreview(accountDestination(task), { replace: true });
+    }
+  }, [user?.id, ready, requestedTask]);
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!accountClient) return;
@@ -27,13 +32,15 @@ export function AccountSignIn({ creatingInitially = false }: { creatingInitially
         : (await accountClient.signIn(email.trim(), password), false);
       setPassword('');
       setNotice(verifyEmail ? 'Check your email to confirm your account, then sign in to complete your profile.' : 'Signed in. Opening your dashboard…');
-    } catch { setPassword(''); setNotice('Unable to complete sign-in. Check your details or try again later. Local passwords must have 12–128 characters.'); }
+    } catch { setPassword(''); setNotice('Unable to complete sign-in. Check your details or try again later. New passwords must have at least 12 characters.'); }
     finally { setBusy(false); }
   };
   const google = async () => {
     if (!accountClient) return;
     setBusy(true);
     try {
+      if (requestedTask) sessionStorage.setItem('apip.account.continue', requestedTask);
+      else sessionStorage.removeItem('apip.account.continue');
       await accountClient.google();
     } catch { setNotice('Google sign-in could not be opened. Please retry.'); }
     finally { setBusy(false); }
@@ -48,6 +55,7 @@ export function AccountSignIn({ creatingInitially = false }: { creatingInitially
     <M3TextField label="Password" type="password" autoComplete={creating ? 'new-password' : 'current-password'} value={password} required disabled={busy || !accountClient} onChange={e => setPassword(e.target.value)} supportingText={creating ? 'At least 12 characters.' : undefined} />
     <div className="account-actions"><M3Button type="submit" loading={busy} disabled={!accountClient}>{creating ? 'Create account' : 'Sign in'}</M3Button>
       <M3Button variant="text" disabled={busy} onClick={() => { setCreating(v => !v); setPassword(''); setNotice(''); }}>{creating ? 'Use an existing account' : 'Create account'}</M3Button></div>
+    {accountClient?.kind === 'supabase' && <p>Confirm your email after creating an account. For password recovery, contact your APIP account administrator.</p>}
     {notice && <p role="status">{notice}</p>}
     <a className="access-text-link" href="#/account/profile" onClick={e => { e.preventDefault(); navigatePreview('/account/profile'); }}>Explore the profile layout</a>
     <a className="access-text-link" href="#/patient/home" onClick={e => { e.preventDefault(); navigatePreview('/patient/home'); }}>Continue to fictional previews</a>

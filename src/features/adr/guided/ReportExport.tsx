@@ -1,3 +1,4 @@
+import { guidedAccountHeaders } from '../../account/client';
 import React,{useEffect,useRef,useState} from 'react';
 import {M3Button} from '../../../components/material/core';
 import type {GuidedCase} from './domain';
@@ -8,7 +9,7 @@ export function ReportExport({c,owner,edit}:{c:GuidedCase;owner:string;edit:()=>
  useEffect(()=>{setUrl('');setError('');setBusy(false);return()=>{active.current?.abort();if(objectUrl.current){URL.revokeObjectURL(objectUrl.current);objectUrl.current='';}};},[c.id,c.revision,owner]);
  const generate=async()=>{
   if(busy)return;const controller=new AbortController();active.current=controller;setBusy(true);setError('');
-  try{const response=await fetch(`/api/account/adr-guided/${c.id}/pdf`,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-APIP-Account':owner},body:JSON.stringify({expectedRevision:c.revision}),signal:controller.signal});
+  try{const response=await fetch(`/api/account/adr-guided/${c.id}/pdf`,{method:'POST',credentials:'same-origin',headers: await guidedAccountHeaders(owner),body:JSON.stringify({expectedRevision:c.revision}),signal:controller.signal});
    if(!response.ok){const data=await response.json();throw Error(({PDF_SELECT_ONE_SERIOUSNESS:'The official form requests one seriousness category. Please review your selected categories.',PDF_UNSUPPORTED_SCRIPT:'This PDF font does not support some characters in this case. Your saved text is preserved; export needs a supported-font implementation.',PDF_RUNTIME_DEPENDENCIES_MISSING:'The configured Python environment is missing the pinned PDF packages. Install server/adr/requirements-pdf.txt and set APIP_PDF_PYTHON to that interpreter, then retry.',REVISION_CONFLICT:'The case changed. Reopen its latest version and regenerate.'} as Record<string,string>)[data.error]||'The PDF could not be generated. Check the PDF runtime setup and retry.');}
    const blob=await response.blob();if(controller.signal.aborted)return;
    if(objectUrl.current)URL.revokeObjectURL(objectUrl.current);const next=URL.createObjectURL(blob);objectUrl.current=next;setUrl(next);setReveal(!reduced);

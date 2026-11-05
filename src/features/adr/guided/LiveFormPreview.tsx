@@ -1,3 +1,4 @@
+import { guidedAccountHeaders } from '../../account/client';
 import { useEffect, useRef, useState } from 'react';
 import { M3Button } from '../../../components/material/core';
 import type { GuidedCase } from './domain';
@@ -41,7 +42,7 @@ function RevisionPreview({ id, revision, owner, open }: { id: string; revision: 
         try {
           const response = await fetch(`/api/account/adr-guided/${id}/pdf`, {
             method: 'POST', credentials: 'same-origin', cache: 'no-store',
-            headers: { 'Content-Type': 'application/json', 'X-APIP-Account': owner },
+            headers: await guidedAccountHeaders(owner),
             body: JSON.stringify({ expectedRevision: revision }),
             signal: AbortSignal.any([controller.signal, AbortSignal.timeout(20000)]),
           });

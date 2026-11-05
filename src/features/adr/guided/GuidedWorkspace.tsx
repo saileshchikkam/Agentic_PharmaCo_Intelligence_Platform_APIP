@@ -1,3 +1,4 @@
+import { guidedAccountHeaders } from '../../account/client';
 import React,{useEffect,useRef,useState} from 'react';
 import {useAccount} from '../../account/AccountProvider';
 import {M3Button,M3TextField} from '../../../components/material/core';
@@ -21,7 +22,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  const editing=useRef(false);
  const alive=useRef(true),lock=useRef(false),heading=useRef<HTMLHeadingElement>(null);
  useEffect(()=>{alive.current=true;return()=>{alive.current=false;};},[]);
- const request=async(path:string,body?:unknown)=>{const response=await fetch('/api/account/adr-guided'+path,{method:body===undefined?'GET':'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-APIP-Account':owner},...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(25000)});const data=await response.json();if(!response.ok)throw Error(data.error==='REVISION_CONFLICT'?'This draft changed in another tab. Reopen the saved draft before editing; your current answer is still here.':data.error||'Request failed');return data;};
+ const request=async(path:string,body?:unknown)=>{const response=await fetch('/api/account/adr-guided'+path,{method:body===undefined?'GET':'POST',credentials:'same-origin',headers: await guidedAccountHeaders(owner),...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(25000)});const data=await response.json();if(!response.ok)throw Error(data.error==='REVISION_CONFLICT'?'This draft changed in another tab. Reopen the saved draft before editing; your current answer is still here.':data.error||'Request failed');return data;};
  const run=async(work:()=>Promise<void>)=>{if(lock.current)return;lock.current=true;setBusy(true);setError('');try{await work();}catch(e){if(alive.current)setError((e as Error).message);}finally{lock.current=false;if(alive.current)setBusy(false);}};
  const loadDrafts=()=>run(async()=>{const data=await request('');if(alive.current)setList(data.cases);});
  useEffect(()=>{void loadDrafts();},[]);
