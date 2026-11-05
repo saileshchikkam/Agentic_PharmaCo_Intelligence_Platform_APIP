@@ -18,6 +18,8 @@ The [hospital requirements register](hospital-requirements.md) records the notes
 
 The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) preserves the product vision, current research-demo evidence, safety gates and delivery plan; planned clinical capabilities remain explicitly blocked pending their prerequisites.
 
+The [MedAssist progress tracker](medassist-progress.md) records the seven-stage evidence snapshot, component availability and local completion checklist. The milestone roadmap remains the planning entry point.
+
 For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English-only RAG, and agent implementation without creating another task queue.
 
 The [model catalogue](../models/README.md) records actual local inventory and diagnostic runs separately from provider candidates. The [research register](research-and-validation.md#candidate-data-and-evidence-sources) records dataset suitability, rights gaps, and the preliminary MALADE reference; a shortlist is not acquired data or an implemented integration.
