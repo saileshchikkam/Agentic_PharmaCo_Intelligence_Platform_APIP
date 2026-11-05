@@ -8,8 +8,10 @@ export type CaseSummary = Pick<GuidedCase, 'id' | 'revision' | 'updatedAt'>;
 export interface GuidedCaseRepository {
   list(owner: string): Awaitable<CaseSummary[]>;
   load(owner: string, id: string): Awaitable<GuidedCase | null>;
-  history(owner: string, id: string): Awaitable<{ revision: number }[]>;
-  save(owner: string, candidate: GuidedCase, expected: number, command: { type: string }): Awaitable<GuidedCase>;
+  history(owner: string, id: string, limit?: number, before?: number): Awaitable<{ revision: number }[]>;
+  save(owner: string, candidate: GuidedCase, expected: number, command: { type: string }, key?: string): Awaitable<GuidedCase>;
+  replay?(owner: string, id: string, expected: number, command: { type: string }, key: string): Awaitable<GuidedCase | null>;
+  page?(owner: string, limit: number, after?: string): Awaitable<{ cases: CaseSummary[]; nextCursor: string | null }>;
   recordExport?(owner: string, id: string, revision: number, bytes: Buffer): Awaitable<void>;
 }
 

@@ -127,8 +127,9 @@ export function createApiApp(config: RuntimeConfig, options: {
   const PORT = config.port;
   const internalOrigin = `http://${config.host === '::1' ? '[::1]' : config.host === 'localhost' ? 'localhost' : '127.0.0.1'}:${PORT}`;
   const getClient = options.geminiFactory ?? getGeminiClient;
+  if (config.mode === 'production' && process.env.APIP_ACCOUNT_MODE === 'local') throw Error('Local accounts require development mode.');
   const cloud = configuredCloudAccount(app);
-  const account = !cloud && config.mode === 'development' ? registerLocalAccount(app, { file: options.accountFile }) : null;
+  const account = !cloud && config.mode === 'development' && process.env.APIP_ACCOUNT_MODE !== 'disabled' ? registerLocalAccount(app, { file: options.accountFile }) : null;
   if (!account) app.use('/api/account', (_req, res) => { res.status(404).json({ error: 'LOCAL_ACCOUNTS_DISABLED' }); });
   registerMedAssistRoutes(app, options.medassist);
   registerModelADemo(app, config, options.modelADemo);

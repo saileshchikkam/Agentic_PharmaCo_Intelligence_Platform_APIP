@@ -57,3 +57,5 @@ Implementation: [account UI/client](../src/features/account), [profile contract]
 For the guided ADR migration, diagrams, RLS matrix and recovery instructions, see the [ADR PostgreSQL foundation](adr-postgres-foundation.md).
 
 See [Cloud authentication and ADR access](cloud-authentication.md) for Google PKCE, server authorization and the hosted verification checklist.
+
+See [ADR cloud API and deployment readiness](adr-cloud-deployment.md) for Task 3 contracts, deployment topology, and operating limits.
