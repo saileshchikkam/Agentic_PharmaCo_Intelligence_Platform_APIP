@@ -9,6 +9,7 @@ import { emptyProfile, historyFields, validateProfile, type ProfileInput } from 
 import { isDraftId, validateDraftCommand } from '../src/features/adr/accountDraft';
 import type { AdrDraft } from '../src/features/adr/draftStorage';
 import { guidedRouter } from './adr/guided';
+import { sqliteGuidedRepository } from './adr/repository';
 
 const cookieName = 'apip.local.session';
 const lifetime = 8 * 60 * 60 * 1000;
@@ -209,7 +210,7 @@ export function registerLocalAccount(app: Express, {
     if (!result.changes) return void fail(res, 409, 'DRAFT_CONFLICT');
     res.json({ success: true });
   });
-  router.use('/adr-guided', guidedRouter(db, readUser));
+  router.use('/adr-guided', guidedRouter(sqliteGuidedRepository(db), readUser));
   router.use((_req, res) => { fail(res, 404, 'NOT_FOUND'); });
   router.use((error: { type?: string; status?: number }, _req: Request, res: Response, _next: NextFunction) => {
     fail(res, error.status === 413 ? 413 : error.type === 'entity.parse.failed' ? 400 : 500, 'REQUEST_FAILED');

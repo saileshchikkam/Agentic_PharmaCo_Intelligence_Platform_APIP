@@ -40,3 +40,7 @@ Allow download and deliberate recipient-specific sharing. Copy/share controls mu
 - Follow-ups retain original provenance and do not overwrite history.
 - File access, sharing, and professional-only fields obey permissions.
 - Pharmacy review confirms questions, mappings, and receiving process.
+
+## PostgreSQL foundation
+
+See the [database foundation](../../database/adr-postgres-foundation.md) for the additive schema, owner access rules, repository boundary and development setup.
