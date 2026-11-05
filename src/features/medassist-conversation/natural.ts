@@ -200,15 +200,15 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         return reject('UNMAPPED_SCHEMA_OR_SPAN');
     return raw;
 }
-export function finalSummary(result: DemoResult, vocabulary: NaturalVocabulary, unmapped: string[] = []) {
-    const items = result.handoff?.items ?? [];
+export function finalSummary(reason: string | null, evidence: { items: { evidence_id: string; status: string }[]; context: Context } | null, unmapped: string[] = []) {
+    const items = evidence?.items ?? [];
     const label = evidenceLabel;
-    const conflicted = result.selection.reason === 'unresolved_contradiction';
+    const conflicted = reason === 'unresolved_contradiction';
     const positive = items.filter(i => i.status === 'observed_positive').map(i => label(i.evidence_id));
     const negative = items.filter(i => i.status === 'observed_negative').map(i => label(i.evidence_id));
     const uncertain = items.filter(i => ['unknown', 'contradiction'].includes(i.status)).length;
-    return [result.selection.reason==='no_eligible_questions' ? `There are no further supported questions. You confirmed: ${positive.slice(0,5).join(', ')||'no present symptoms'}. I will not ask you to repeat them.` : conflicted ? 'Some details conflict. I have kept the original statements without choosing an interpretation.' : `You confirmed: ${positive.slice(0, 5).join(', ') || 'no supported present symptoms'}.`,
-        conflicted ? 'Please clarify the conflicting details before starting another interview.' : `Other details: age ${result.handoff?.context.age ?? 'not provided'}; ${negative.length ? 'you reported no ' + negative.slice(0, 3).join(', ') : 'no additional absent symptoms were confirmed'}.`,
+    return [reason==='no_eligible_questions' ? `There are no further supported questions. You confirmed: ${positive.slice(0,5).join(', ')||'no present symptoms'}. I will not ask you to repeat them.` : conflicted ? 'Some details conflict. I have kept the original statements without choosing an interpretation.' : `You confirmed: ${positive.slice(0, 5).join(', ') || 'no supported present symptoms'}.`,
+        conflicted ? 'Please clarify the conflicting details before starting another interview.' : `Other details: age ${evidence?.context.age ?? 'not provided'}; ${negative.length ? 'you reported no ' + negative.slice(0, 3).join(', ') : 'no additional absent symptoms were confirmed'}.`,
         `Still uncertain: ${conflicted ? 'unresolved conflicting information; ' : ''}${uncertain} unanswered or conflicting details${unmapped.length ? '; some wording, including ' + unmapped.slice(0, 2).join('; ') + ', could not be recorded as structured answers' : ''}. Anything not discussed remains unspecified.`,
         'I cannot assess urgency or suggest personalized precautions. This summary is not a diagnosis.',
         'For real symptoms, speak with a qualified healthcare professional; use Emergency help if emergency assistance is needed.'].join('\n');

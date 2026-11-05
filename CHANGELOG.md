@@ -1,5 +1,10 @@
 # Changelog
 
+## Local MedAssist scripted preview — 2026-11-05
+
+- Restore interactive fictional interviews in the development conversation, with an explicit switch to the separately gated Model A research mode.
+- Keep scripted exports distinct from live research evidence. Verified confirmation, negative and unknown answers, early stop, conflict handling, and the local preview restart. [Verification](docs/history/2026-11-05.md#medassist-phase-0-follow-up--scripted-preview-and-question-service)
+
 ## Authenticated read-only Model A protocol compatibility — 2026-10-26
 
 - Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.

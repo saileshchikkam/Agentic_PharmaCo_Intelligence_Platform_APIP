@@ -1,5 +1,11 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Local scripted preview — 2026-11-05
+
+Start APIP with Node 24 using `node scripts/start-server.mjs development` and open [the MedAssist preview](http://127.0.0.1:3000/#/preview/medassist-conversation). The default **SIMULATED** mode runs in page memory, using five authored symptom fields and a fixed follow-up order. Try “I have a cough, but no fever.” Confirm the proposal and provide fictional context to start questions. The JSON download uses `medassist.scripted-conversation-export.v1` with explicit simulation provenance. It cannot be read as a Model A handoff.
+
+**Switch to Model A research** starts a separate empty session and checks the existing guarded local proxy. If the proxy or adapter is unavailable, research mode stays offline until the user retries or explicitly changes modes. See the [private Model A setup](../model-a-research/README.md) for prerequisites. The simulated interview requires no adapter, provider, credentials or private data. The conversation route is development-only, the assessment stays unassessed in scripted mode, and the existing emergency help and location-consent controls remain available.
+
 ## Current checkpoint — 2026-10-25
 
 The [consolidated status](../../../models/medassist_ai/docs/checkpoint-2026-10-25.md) and [latest understanding report](../../../models/medassist_ai/docs/symptom-understanding.md) supersede historical snapshots below. Current behavior uses document scrolling, one composer, explicit confirmation, up to eight topical Model A questions, deterministic/context-validated English proposals and bounded clarification. Export is `medassist.conversation-export.v2` with the unchanged 223-item `model-a-to-b.evidence.v1` nested inside. Provider retries are bounded and successful request replay is in process memory only. No new clinical capability is established. Provisional safety still misses the documented heart-attack and stroke declarations; Model B, personalized precautions and facility verification remain unavailable.
