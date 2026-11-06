@@ -62,11 +62,12 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   for(const [index, clause] of clauses.entries()) {
     const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote));
     const previous = clauses[index - 1];
-    const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|no)|scratch that|i take that back)$/i.test(clause.quote);
-    const corrected = previous && /^actually$/i.test(previous.quote) && /^(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|no)$/i.test(clause.quote)
+    const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|i am not sure|no)|scratch that|i take that back)$/i.test(clause.quote);
+    const correctionMarker = previous && /^(?:actually|wait)$/i.test(previous.quote);
+    const corrected = correctionMarker && /^(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|i am not sure|i take that back|no)$/i.test(clause.quote)
       ? clauses[index - 2] : retractsPrevious ? previous : undefined;
     if (corrected?.context === 'current' && clause.context === 'current'
-      && /^[.!?,;\s]*(?:actually[,\s]+)?$/i.test(text.slice(corrected.end, clause.start))) {
+      && /^[.!?,;\s]*(?:(?:actually|wait)[,\s]+)?$/i.test(text.slice(corrected.end, clause.start))) {
       const preceding = languageConcepts.filter(c => allowed.has(c.evidence_id) && c.pattern.test(corrected.quote));
       const claim = preceding.length === 1 && evidence.get(preceding[0].evidence_id)?.at(-1);
       if (claim && claim.quote === corrected.quote && claim.value === true) {
@@ -77,7 +78,9 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
         continue;
       }
     }
-    if(/\b(?:not only|either|neither)\b/i.test(clause.quote)||/\bor\b/i.test(clause.quote)&&concepts.length>1){
+    const coordinatedDenial = /^(?:i (?:have|feel) )?no\b/i.test(clause.quote)
+      || /^neither\b.*\bnor\b/i.test(clause.quote);
+    if(/\b(?:not only|either)\b/i.test(clause.quote)||(!coordinatedDenial&&/\b(?:or|neither)\b/i.test(clause.quote)&&concepts.length>1)){
       for(const concept of concepts)annotations.push(annotate(text,clause.quote,'unsupported_or_ambiguous',concept.evidence_id,concept.concept_id,clause.start));
       output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;
     }
@@ -94,7 +97,8 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
         &&! /\bsignificant (?:shortness of breath|difficulty breathing)\b/i.test(text)){
         output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;
       }
-      const observation={evidence_id:concept.evidence_id,quote:clause.quote,state:clause.uncertain?'unknown' as const:'confirmed' as const,value:clause.uncertain?null:normalBreathing?false:!clause.negative};
+      const quote = text.slice(clause.negationStart ?? clause.start, clause.end);
+      const observation={evidence_id:concept.evidence_id,quote,state:clause.uncertain?'unknown' as const:'confirmed' as const,value:clause.uncertain?null:normalBreathing?false:!clause.negative};
       evidence.set(concept.evidence_id,[...(evidence.get(concept.evidence_id)??[]),observation]);
     }
     if(!concepts.length){

@@ -1,5 +1,9 @@
 # Changelog
 
+## MedAssist Stage 3 / L6 evidence integrity — 2026-11-06
+
+- Corrected scoped language interpretation and kept pending proposals through clarification, with explicit review of conflicting drafts. [Evaluation](docs/evaluation/medassist-l6-integrity-report.md)
+
 ## MedAssist Stage 3 / L4 scoped language remediation — 2026-11-06
 
 - Preserve negation, uncertainty, past and conditional scope, quotations and immediate retractions in scripted proposals. Add bounded English variants and clarification for partial evidence. [Known-case comparison](docs/evaluation/medassist-l4-english-report.md)

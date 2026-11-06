@@ -11,6 +11,7 @@ import { evaluateStatement, type SafetyDecision } from '../medassist-safety/safe
 import HospitalNavigation from '../medassist-safety/HospitalNavigation';
 import { welcome, readFictionalAge, readSourceSex, contextUnknown, requestsNavigation, assessmentStatus } from './presentation';
 import { runScriptedInterview, scriptedVocabulary } from './scripted';
+import { reviewProposal, type PendingProposal } from './pending-proposal';
 import './conversation.css';
 const api = '/api/research/model-a';
 type Message = {
@@ -32,7 +33,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const [contextStep, setContextStep] = useState<'age' | 'sex' | null>(null), [fictionalAge, setFictionalAge] = useState<number | null>(null);
     const [contextUnavailable, setContextUnavailable] = useState(false), [showNavigation, setShowNavigation] = useState(false), [session, setSession] = useState(0);
     const [assessmentOpen, setAssessmentOpen] = useState(() => window.matchMedia('(min-width:1000px)').matches);
-    const [languageRetry, setLanguageRetry] = useState<string | null>(null), [candidate, setCandidate] = useState<Proposal | null>(null);
+    const [languageRetry, setLanguageRetry] = useState<string | null>(null), [candidate, setCandidate] = useState<PendingProposal | null>(null);
+    const candidateObservations = candidate?.sources.flatMap(source => source.proposal.observations) ?? [];
+    const candidateUnmapped = candidate?.sources.flatMap(source => source.proposal.unmapped) ?? [];
     const [confirmedProposals, setConfirmedProposals] = useState<Proposal[]>([]);
     const [queued, setQueued] = useState<Answer[]>([]), [unmapped, setUnmapped] = useState<string[]>([]), [narratives, setNarratives] = useState<string[]>([]);
     const [messages, setMessages] = useState<Message[]>(greeting), [request, setRequest] = useState<NaturalRequest | null>(null), [result, setResult] = useState<DemoResult | ReturnType<typeof runScriptedInterview> | null>(null);
@@ -43,9 +46,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     } | null>(null);
     const [localLanguage, setLocalLanguage] = useState<ReturnType<typeof readLanguageStatus>>(null);
     const [emergency, setEmergency] = useState<SafetyDecision | null>(null), [navigationSession, setNavigationSession] = useState(0);
-    const submissions = useRef(new SubmissionLedger()), confirmedCandidate = useRef<Proposal | null>(null);
+    const submissions = useRef(new SubmissionLedger()), confirmedCandidate = useRef<PendingProposal | null>(null);
     const [understandingRecords, setUnderstandingRecords] = useState<{request_id:string;text:string;question_id:string|null;annotations:Annotation[];details:ReturnType<typeof reportedDetails>;compatibility:string;confirmed:boolean;extraction_method?:string}[]>([]);
-    const questionClarifications=useRef(new Map<string,number>()), candidateRequest=useRef<string|null>(null);
+    const questionClarifications=useRef(new Map<string,number>());
     const localSubmissions = useRef(new Set<string>());
     const retryAt = useRef(0), invalidAttempts = useRef(new Map<string, number>());
     const clarification = useRef(new ClarificationTracker());
@@ -95,7 +98,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
         return()=>resize.disconnect();
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
-    function restart() { setUnderstandingRecords([]); questionClarifications.current.clear(); candidateRequest.current=null; submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
+    function restart() { setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
     function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
         return false; if (safetyLatch.current)
         return true; safetyLatch.current = true; generation.current++; abort.current?.abort(); inFlight.current = false; setEmergency(d); setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setSelected([]); setDescription(''); setLanguageRetry(null); setContextStep(null); setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]); return true; }
@@ -103,7 +106,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         event?.preventDefault();
         const text = (retryText ?? description).trim();
         followLatest.current = true;
-        if (escalate(text) || safetyLatch.current || inFlight.current || busy || pendingRetry || !text)
+        if (escalate(text) || safetyLatch.current || inFlight.current || busy || pendingRetry || candidate?.alternative || !text)
             return;
         if (requestsNavigation(text)) {
             const key = 'navigation:' + text;
@@ -121,7 +124,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         if (result?.selection.status === 'abstained') { say('This interview has ended. You can restart for new details or ask to find care.'); setDescription(''); return; }
         if (!vocabulary || contextUnavailable)
             return;
-        if (request && result) {
+        if (request && result && !candidate) {
             const a = parseQuickReply(text, result.selection.question);
             if (a) {
                 answer(a.state, a.value, text);
@@ -140,7 +143,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             submissions.current.finish(key, false, submission.id); setLanguageRetry(null);
             if (repeated.message) { setError(''); say(repeated.message); } return;
         }
-        setDescription(''); setLanguageRetry(null); setCandidate(null);
+        setDescription(''); setLanguageRetry(null);
         if (submission.fresh) {
             setNarratives(c => [...c, text]); setMessages(c => [...c, { role: 'You', text }]);
         }
@@ -211,8 +214,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             if(!proposalAddsInformation(proposal,known)) {say(clarification.current.fail(text,phase,'duplicate'));return;}
             clarification.current.clear(text,phase);
             submissions.current.finish(key, true, submission.id);
-            candidateRequest.current=submission.id;
-            setCandidate(proposal);
+            setCandidate(current => reviewProposal(current, { requestId: submission.id, proposal }));
         }
         catch (error) {
             if (version === generation.current) {
@@ -296,14 +298,15 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         }
     }
     function confirmInitial() {
-        if (!candidate || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
+        if (!candidate || candidate.alternative || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
             return;
         followLatest.current = true;
         confirmedCandidate.current = candidate;
-        setUnderstandingRecords(old=>old.map(row=>row.request_id===candidateRequest.current?{...row,confirmed:true}:row));
-        setConfirmedProposals(old => [...old, candidate]);
+        const acceptedIds = new Set(candidate.sources.map(source => source.requestId));
+        setUnderstandingRecords(old => old.map(row => acceptedIds.has(row.request_id) ? { ...row, confirmed: true } : row));
+        setConfirmedProposals(old => [...old, ...candidate.sources.map(source => source.proposal)]);
         const all = [...queued], existing = request ? [request.initial, ...request.initial_disclosures, ...request.turns.flatMap(t => [t.answer, ...t.disclosures])] : [];
-        for (const a of candidate.observations.map(clean)) {
+        for (const a of candidateObservations.map(clean)) {
             const old = [...existing, ...all].find(x => x.evidence_id === a.evidence_id);
             if (old) {
                 if (old.state !== a.state || JSON.stringify(old.value) !== JSON.stringify(a.value)) {
@@ -460,11 +463,19 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             <p role={readinessError ? 'alert' : 'status'}>{readinessError || 'Checking local availability…'}</p>
             {readinessError && <M3Button variant="outlined" onClick={() => { setReadinessError(''); setRetryAvailability(v => v + 1); }}>Retry availability</M3Button>}</div>}
           {!emergency && vocabulary && candidate && !contextStep && !contextUnavailable && <div className="conversation-question">
-            <h2 ref={questionHeading} tabIndex={-1}>Confirm what you meant</h2><ul>{candidate.observations.map(a => <li key={a.evidence_id}>{name(a.evidence_id)}: {a.state === 'unknown' ? 'not sure' : a.state === 'contradiction' ? 'conflicting' : Array.isArray(a.value) ? a.value.map(displayValue).join(', ') || 'explicitly none' : displayValue(a.value! as Scalar)}</li>)}</ul>{candidate.unmapped.length > 0 && <p>Kept in your own words, without a structured answer: {candidate.unmapped.map(i => i.quote).join('; ')}</p>}
+            <h2 ref={questionHeading} tabIndex={-1}>Confirm what you meant</h2><ul>{candidateObservations.map(a => <li key={a.evidence_id}>{name(a.evidence_id)}: {a.state === 'unknown' ? 'not sure' : a.state === 'contradiction' ? 'conflicting' : Array.isArray(a.value) ? a.value.map(displayValue).join(', ') || 'explicitly none' : displayValue(a.value! as Scalar)}</li>)}</ul>{candidateUnmapped.length > 0 && <p>Kept in your own words, without a structured answer: {candidateUnmapped.map(i => i.quote).join('; ')}</p>}
             <p>Does this reflect what you meant? Nothing here is accepted until you confirm.</p>
-            {scripted && candidate.unmapped.some(item => item.kind === 'ambiguous') &&
+            {scripted && candidateUnmapped.some(item => item.kind === 'ambiguous') &&
               <p>Is any of the unmapped wording another symptom the fictional person has now? If so, describe that detail separately.</p>}
-            <div className="conversation-actions"><M3Button disabled={busy || !!pendingRetry} onClick={confirmInitial}>Confirm these details</M3Button>
+            {candidate.alternative && <div>
+              <p role="alert">The newer wording conflicts with a pending proposal. Choose which set to review before confirming.</p>
+              <p>Newer wording: {candidate.alternative.proposal.observations.map(item => item.quote).join('; ')}</p>
+              <div className="conversation-actions">
+                <M3Button onClick={() => setCandidate({ sources: candidate.sources })}>Review earlier proposals</M3Button>
+                <M3Button onClick={() => setCandidate({ sources: [candidate.alternative!] })}>Review newer proposal</M3Button>
+              </div>
+            </div>}
+            <div className="conversation-actions"><M3Button disabled={busy || !!pendingRetry || !!candidate.alternative} onClick={confirmInitial}>Confirm these details</M3Button>
               <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => { setCandidate(null); setMessages(current => [...current, { role: 'You', text: 'That mapping is not correct.' }, { role: 'MedAssist', text: 'Please correct the description in your own words. None of these proposed answers was recorded.' }]); }}>No / Not sure — correct this</M3Button></div>
           </div>}
           {!emergency && contextStep === 'sex' && <div className="conversation-actions" aria-label="Fictional female or male answer">
@@ -498,10 +509,8 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     } }} className="conversation-input" aria-label="Describe a fictional symptom">
           <M3TextField id="fictional-description" type="textarea" rows={2} label={contextStep === 'age' ? 'Fictional age in years' : contextStep === 'sex' ? 'Fictional female or male entry' : request ? 'Your answer' : 'Fictional symptom description'} placeholder={request ? 'Reply in your own words, or use an answer button' : contextStep ? 'Use explicit fictional context only' : 'How is the fictional person feeling?'} value={description} maxLength={300} disabled={!!emergency} onChange={event => { if (!escalate(event.target.value) && !safetyLatch.current) {
         setDescription(event.target.value);
-        if (!contextStep && !request)
-            setCandidate(null);
     } }}/>
-          <M3Button disabled={!!emergency || busy || !!pendingRetry || !description.trim()} onClick={() => void describe()}>{request ? 'Send answer' : 'Send description'}</M3Button>
+          <M3Button disabled={!!emergency || busy || !!pendingRetry || !!candidate?.alternative || !description.trim()} onClick={() => void describe()}>{request ? 'Send answer' : 'Send description'}</M3Button>
           <p className="conversation-composer-help">{scripted ? 'Simulated · No Model A inference. ' : localLanguage?.provider === 'groq-cloud' && !contextStep ? 'Uncovered fictional wording may be sent to Groq. ' : ''}Enter to send · Shift+Enter for a new line. No real patient data.</p>
         </form>
         <div className="conversation-session">

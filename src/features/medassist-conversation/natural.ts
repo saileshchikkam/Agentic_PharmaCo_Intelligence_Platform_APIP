@@ -178,15 +178,9 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         }
         const anchor = anchors[d.evidence_id];
         if (anchor) {
-            // Negation shared across a coordinated phrase must not become presence.
-            // Ambiguous scope fails closed rather than guessing the omitted subject.
-            if (item.state === 'confirmed' && item.value === true && text.split(/[.;!?]|\bbut\b/i).some(sentence => {
-                const parts = sentence.split(/\band\b/i);
-                return parts.some((part, index) => anchor.pattern.test(part) && index > 0
-                    && !/^\s*(?:i|he|she|they|it|my|the person)\b/i.test(part)
-                    && /\b(?:no|not|without|don't|do not)\b/i.test(parts.slice(0, index).join(' and ')));
-            })) return reject('SHARED_NEGATION');
             const clauses = reportClauses(text).filter(clause => clause.context === 'current' && anchor.pattern.test(clause.quote));
+            if (item.state === 'confirmed' && item.value === true && clauses.length && clauses.every(clause => clause.negative))
+                return reject('SOURCE_NEGATION');
             const uncertain = clauses.some(clause => clause.uncertain);
             if (item.state === 'confirmed' && uncertain)
                 return reject('SOURCE_UNCERTAINTY');
