@@ -1,15 +1,15 @@
 # MedAssist development progress
 
-| Field | 2026-11-06 L4 remediation |
+| Field | 2026-11-06 L5 evaluation |
 | --- | --- |
 | Current stage | Phase 0, local development and recovery |
-| Current subphase | Stage 3 / L4 polarity, context and English robustness |
-| Current task | Correct L3 language defects within the existing nine scripted fields |
+| Current subphase | Stage 3 / L5 fresh English and multi-turn evaluation |
+| Current task | Measure the unchanged scripted workflow against newly frozen fictional cases |
 | Overall MedAssist status | Scripted research demo verified. Genuine local Model A blocked. Clinical assessment disabled. |
-| Last verified completion | [L4 comparison](evaluation/medassist-l4-english-report.md), 34/34 known language cases and 1/4 warning-presentation cases. |
+| Last verified completion | [L5 report](evaluation/medassist-l5-english-report.md), 40/80 language, 14/15 browser journeys, and 1/4 separate warning probes. |
 | Current blockers | Cloud change bundle unavailable. Original sealed and metadata roots and the pinned research environment have not been verified. |
-| Next task | Fresh fictional scope and multi-turn evaluation. Warning-rule review, cloud recovery and private runtime remain separate. |
-| Starting commit for L4 | `60b2655f50c46a69424f9658ac9fb9988bb5c4f8` |
+| Next task | Fix clause scope and pending proposal retention, then assess bounded lexical additions. Warning-rule review, cloud recovery and private runtime remain separate. |
+| Starting commit for L5 | `cad354d70c108343b54bd6fa3d146614a572a04e` |
 | Latest verified preview | See the latest [dated verification](history/2026-11-06.md). |
 
 The [roadmap](roadmap.md), [blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) and [decision log](decisions.md) retain their existing scope. Stage numbers here group evidence for reporting. Task IDs come from the project record. Historical results refer to their recorded environments.
@@ -18,7 +18,7 @@ The [roadmap](roadmap.md), [blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.m
 | --- | --- | --- | --- | --- | --- |
 | 1. Research and datasets | NHAMCS Phase 1 profiling and subsequent research reports. DDXPlus protocol recorded. | Private raw files and split assignments unverified locally. | [NHAMCS evidence](../models/medassist/reports/2026-10-19-phase1/README.md), [DDXPlus work](../models/medassist_v2) | Adapter research branch, snapshot `161a14c` | Verify approved provenance, environment and asset availability without opening locked splits. |
 | 2. Model A adaptive ranking | Task 4B historically sealed. Task 5A implemented with 18 historical focused tests. | Research only. Local artifacts, pinned dependencies and genuine inference unverified in Phase 0. | DDXPlus, sealed ranker, authenticated protocol, [FastAPI adapter](../models/medassist_v2/research_adapter) | `codex/medassist-v2-task5a-adapter` at `161a14c`, portability reconciliation included in `5085a26` | In a separately authorized task, verify trusted private assets and adapter contract with fictional inputs. |
-| 3. Conversational NLP and evidence | L4 recovered the 18 known L3 language mismatches and added 25 contrast and validation tests. | Nine fields in the script. Broader robustness and external validation remain open. | [Conversation](../src/features/medassist-conversation), [L4 comparison](evaluation/medassist-l4-english-report.md) | `feat/medassist-jayanth` | Verify generalization and multi-turn evidence handling on a fresh fictional set. |
+| 3. Conversational NLP and evidence | L4 recovered 18 known L3 language mismatches. Fresh L5 measured 40/80 language and 14/15 browser matches. | Nine scripted fields. Scope errors and pending proposal loss are open. | [Conversation](../src/features/medassist-conversation), [L5 findings](evaluation/medassist-l5-english-report.md) | `feat/medassist-jayanth` | Fix semantic and state integrity with new contrast tests and preserve frozen comparisons. |
 | 4. Emergency safety and Model B | Provisional safety boundary and evaluation evidence exist. | Emergency branch failed qualification. Expanded rules remain isolated. Model B planned, untrained and disabled. | [Safety source](../src/features/medassist-safety), [qualification and restrictions](architecture/MEDASSIST_MASTER_BLUEPRINT.md) | `codex/medassist-emergency-recognition` at `db1274a` | Obtain a separate authorized safety review with independent acceptance criteria. Keep clinical guidance and Model B disabled. |
 | 5. Frontend and backend integration | React/Vite and Express verified on Windows. Scripted mode runs in the existing conversation. The private research proxy correctly reports its disabled state. | Genuine adapter readiness and provider qualification remain open. | [Development guide](development.md), [account/database setup](../database/README.md), [proxy](../server/model-a-demo.ts) | `feat/medassist-jayanth` | Verify authenticated research integration after the private runtime is established. |
 | 6. Academic demonstration and preview | Local scripted submission, confirmation, follow-up, summary and JSON export verified. Hot update and restart passed. | Original cloud interactive review bundle remains unavailable. | [Conversation guide](../src/features/medassist-conversation/README.md), [dated verification](history/2026-11-05.md) | `feat/medassist-jayanth` | Match the original patch to its baseline, classify differences and review the demo. |
