@@ -6,6 +6,8 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**MedAssist Stage 3 / L3, 2026-11-06:** [fixed fictional English evaluation](evaluation/medassist-l3-english-report.md) exposed current-positive errors, missed colloquial and spelling variants, and warning-presentation gaps. L4 prioritizes source scope and polarity, then normalization, synonyms and clarification. Warning-rule work remains separate.
+
 **MedAssist Stage 3 / L2, 2026-11-06:** [scripted English robustness evidence](history/2026-11-06.md) verifies the two reported examples, bounded clarification and evidence preservation in the local demo. The next language gate is an independently authored fictional evaluation. Phase 0 still tracks cloud recovery and genuine adapter prerequisites separately.
 
 **MedAssist L2 conversational refinement, 2026-10-25:** [current evidence and blockers](../models/medassist_ai/docs/natural-conversation.md) support a local fictional demo with full-page chat, confirmed broader sparse descriptions and eight topical routine questions. These engineering gates do not establish clinical completeness or improved model accuracy. Next work requires separate authorization: freeze/evaluate broader language coverage, review topic exclusions/question wording and improve earlier-conflict correction. Model B and clinical guidance remain disabled; ADR remains the core priority. Older implementation snapshots below are historical.
