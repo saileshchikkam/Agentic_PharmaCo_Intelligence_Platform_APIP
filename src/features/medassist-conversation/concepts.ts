@@ -32,7 +32,8 @@ const aliases: Record<string,string[]> = {
     "been coughing",
     "persistent cough",
     "couhg",
-    "coughng"
+    "coughng",
+    "cogh"
   ],
   "E_53": [
     "stomach pain",
@@ -44,6 +45,8 @@ const aliases: Record<string,string[]> = {
     "head hurts",
     "head hurting",
     "head has been hurting",
+    "head paining",
+    "head is paining",
     "stomach has hurt",
     "stomach hurts",
     "lower back pain",
@@ -64,7 +67,9 @@ const aliases: Record<string,string[]> = {
   "E_51": [
     "diarrhea",
     "diarrhoea",
-    "diarhea"
+    "diarhea",
+    "loose motion",
+    "loose motions"
   ],
   "E_91": [
     "fever",
@@ -72,10 +77,13 @@ const aliases: Record<string,string[]> = {
   ],
   "E_97": [
     "sore throat",
-    "throat feels sore"
+    "throat feels sore",
+    "sore thrt"
   ],
   "E_181": [
     "nasal congestion",
+    "nose water coming",
+    "watery runny nose",
     "stuffy nose",
     "clear runny nose"
   ],

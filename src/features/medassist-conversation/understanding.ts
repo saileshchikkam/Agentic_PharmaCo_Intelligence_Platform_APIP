@@ -9,7 +9,7 @@ export type Compatibility={status:'not_applicable'|'valid'|'ambiguous'|'unrelate
 export function reportedDetails(text:string){
   const patterns:Record<string,RegExp>={location:/\b(?:lower back|lumbar spine|head|stomach|abdomen|belly|breast|anus|(?:right|left) ankle)\b/gi,
     duration:/\b(?:for\s+(?:[a-z]+|[0-9]+)\s+(?:days?|weeks?|hours?|months?|years?))\b/gi,
-    onset:/\b(?:since yesterday(?: evening)?|since this morning|started this morning|since [a-z]+)\b/gi,
+    onset:/\b(?:(?:since|from|started)\s+(?:this\s+)?morning|since yesterday(?: evening)?|since [a-z]+)\b/gi,
     frequency:/\b(?:at night|persistent|repeated(?:ly)?|constant|always)\b/gi,
     severity_description:/\b(?:mild|moderate|severe|intense)\b/gi,progression:/\b(?:worse|better|resolved|stopped|gone|cleared up)\b/gi};
   return Object.entries(patterns).flatMap(([kind,pattern])=>[...text.matchAll(pattern)].map(m=>({kind,quote:m[0],start:m.index!,end:m.index!+m[0].length,origin:'unstructured_user_report' as const,structured_value_inferred:false as const})));
@@ -59,8 +59,22 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   if(/\b(ignore|disregard|override|system prompt|prescribe|diagnose|api key)\b/i.test(text))return{proposal:{...output,instruction_attempt:true},annotations,compatibility,complete:true};
   const clauses=reportClauses(text), allowed=new Set(vocabulary.items.map(d=>d.evidence_id));
   const evidence=new Map<string,Proposal['observations'][number][]>();
-  for(const clause of clauses) {
+  for(const [index, clause] of clauses.entries()) {
     const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote));
+    const previous = clauses[index - 1];
+    if (previous?.context === 'current' && clause.context === 'current'
+      && /^actually\s+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|no)$/i.test(clause.quote)
+      && /^[.!?,;\s]+$/.test(text.slice(previous.end, clause.start))) {
+      const preceding = languageConcepts.filter(c => allowed.has(c.evidence_id) && c.pattern.test(previous.quote));
+      const claim = preceding.length === 1 && evidence.get(preceding[0].evidence_id)?.at(-1);
+      if (claim && claim.quote === previous.quote && claim.value === true) {
+        const { evidence_id, concept_id } = preceding[0];
+        const quote = text.slice(previous.start, clause.end);
+        evidence.set(evidence_id, [{ evidence_id, state: 'contradiction', value: null, quote }]);
+        annotations.push(annotate(text, quote, 'explicit_correction', evidence_id, concept_id, previous.start));
+        continue;
+      }
+    }
     if(/\b(?:not only|either|neither)\b/i.test(clause.quote)||/\bor\b/i.test(clause.quote)&&concepts.length>1){
       for(const concept of concepts)annotations.push(annotate(text,clause.quote,'unsupported_or_ambiguous',concept.evidence_id,concept.concept_id,clause.start));
       output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;
@@ -69,6 +83,10 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
       annotations.push(annotate(text,clause.quote,clause.context,concept.evidence_id,concept.concept_id,clause.start));
       if(clause.correction)annotations.push(annotate(text,clause.quote,'explicit_correction',concept.evidence_id,concept.concept_id,clause.start));
       if(clause.context!=='current'){output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;}
+      if (concept.evidence_id === 'E_53' && clause.negative && /\bchest pain\b/i.test(clause.quote)) {
+        output.unmapped.push({ quote: clause.quote, kind: 'unsupported' });
+        continue;
+      }
       const normalBreathing=concept.evidence_id==='E_66'&&/\b(?:can breathe normally|breathing normally)\b/i.test(clause.quote);
       if(normalBreathing&&/\b(?:shortness of breath|difficulty breathing|breathless)\b/i.test(text)
         &&! /\bsignificant (?:shortness of breath|difficulty breathing)\b/i.test(text)){
@@ -80,7 +98,8 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
     if(!concepts.length){
       const context=clause.context==='current'?'unsupported_or_ambiguous':clause.context;
       annotations.push(annotate(text,clause.quote,context,null,null,clause.start));
-      output.unmapped.push({quote:clause.quote,kind:'ambiguous'});
+      const vomitingDenial = clause.negative && /\b(?:vomit(?:ing|ed)?|throw(?:ing)? up)\b/i.test(clause.quote);
+      output.unmapped.push({quote:clause.quote,kind:vomitingDenial?'unsupported':'ambiguous'});
     }
     // Keep the complete source clause as unstructured context, including anatomy/time,
     // rather than inventing encoded anatomy, dates, frequency or severity scores.

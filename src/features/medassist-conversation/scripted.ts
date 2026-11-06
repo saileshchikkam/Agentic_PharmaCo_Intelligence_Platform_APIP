@@ -8,6 +8,10 @@ const questions = [
   ['E_97', 'Does the fictional person have a sore throat?'],
   ['E_181', 'Does the fictional person have a stuffy nose or clear runny nose?'],
   ['E_94', 'Does the fictional person have chills?'],
+  ['E_53', 'Does the fictional person have pain?'],
+  ['E_148', 'Does the fictional person feel nauseated?'],
+  ['E_51', 'Does the fictional person have diarrhea?'],
+  ['E_76', 'Does the fictional person feel slightly dizzy or lightheaded?'],
 ] as const;
 const items: Definition[] = questions.map(([evidence_id, question_en]) => ({
   evidence_id, question_en, kind: 'symptom', data_type: 'B', possible_values: [true, false], initial_allowed: true,

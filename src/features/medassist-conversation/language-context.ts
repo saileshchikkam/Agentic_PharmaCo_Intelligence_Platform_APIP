@@ -6,7 +6,8 @@ export function reportClauses(text:string) {
     let subject:'target'|'other'='target', sharedNegative=false;
     const full=sentence[0].toLowerCase().replaceAll('’',"'");
     const resolved=/\b(resolved|recovered|cleared up|no longer|it stopped|it is gone|it has stopped|gone now)\b/.test(full);
-    for(const part of sentence[0].matchAll(/(?:(?!\b(?:and|but)\b)[^,])+/gi)) {
+    for(const part of sentence[0].matchAll(/\b(?:and|but)\b|,|((?:(?!\b(?:and|but)\b)[^,])+)/gi)) {
+      if (!part[1]) continue;
       const quote=part[0].trim(); if(!quote)continue;
       const start=sentence.index!+part.index!+part[0].indexOf(quote), normalized=quote.toLowerCase().replaceAll('’',"'");
       const words=tokenize(normalized).map(t=>t.text);

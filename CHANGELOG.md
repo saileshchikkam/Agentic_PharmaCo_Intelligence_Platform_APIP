@@ -1,5 +1,9 @@
 # Changelog
 
+## MedAssist scripted English robustness — 2026-11-06
+
+- Added bounded colloquial, short-form and spelling support within the existing ontology. Preserved literal onset and symptom denials, and improved contrast-clause and explicit correction handling. [Development verification](docs/history/2026-11-06.md)
+
 ## Local MedAssist scripted preview — 2026-11-05
 
 - Restore interactive fictional interviews in the development conversation, with an explicit switch to the separately gated Model A research mode.

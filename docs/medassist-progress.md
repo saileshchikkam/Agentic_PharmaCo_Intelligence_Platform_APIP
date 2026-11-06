@@ -1,16 +1,16 @@
 # MedAssist development progress
 
-| Field | 2026-11-05 follow-up |
+| Field | 2026-11-06 language robustness |
 | --- | --- |
 | Current stage | Phase 0, local development and recovery |
-| Current subphase | Task 0 follow-up, question-service diagnosis and interactive preview |
-| Current task | Verify the Windows scripted demo and assess genuine Model A prerequisites separately |
+| Current subphase | Stage 3 L2 conversational NLP and evidence handling |
+| Current task | Improve source-bound English proposals in the scripted Windows preview |
 | Overall MedAssist status | Scripted research demo verified. Genuine local Model A blocked. Clinical assessment disabled. |
-| Last verified completion | Scripted interview, export, browser hot update and controlled server restart. See dated evidence below. |
+| Last verified completion | T01–T35 development cases, browser confirmation and export, and local build. See dated evidence below. |
 | Current blockers | Cloud change bundle unavailable. Original sealed and metadata roots and the pinned research environment have not been verified. |
-| Next task | Reconcile the original cloud change bundle read-only and prepare a separately scoped private-runtime inventory. |
-| Starting commit for the follow-up | `038be83067560a38d31ec4414f08cea550b2806b` |
-| Latest verified preview | See the latest [dated verification](history/2026-11-05.md). |
+| Next task | Define an independent fictional language evaluation before further parser tuning. Cloud reconciliation and the private runtime inventory remain separate. |
+| Starting commit for the language task | `7b68c4aaba58378f78e676ee8207568c0087692f` |
+| Latest verified preview | See the latest [dated verification](history/2026-11-06.md). |
 
 The [roadmap](roadmap.md), [blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) and [decision log](decisions.md) retain their existing scope. Stage numbers here group evidence for reporting. Task IDs come from the project record. Historical results refer to their recorded environments.
 
@@ -18,7 +18,7 @@ The [roadmap](roadmap.md), [blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.m
 | --- | --- | --- | --- | --- | --- |
 | 1. Research and datasets | NHAMCS Phase 1 profiling and subsequent research reports. DDXPlus protocol recorded. | Private raw files and split assignments unverified locally. | [NHAMCS evidence](../models/medassist/reports/2026-10-19-phase1/README.md), [DDXPlus work](../models/medassist_v2) | Adapter research branch, snapshot `161a14c` | Verify approved provenance, environment and asset availability without opening locked splits. |
 | 2. Model A adaptive ranking | Task 4B historically sealed. Task 5A implemented with 18 historical focused tests. | Research only. Local artifacts, pinned dependencies and genuine inference unverified in Phase 0. | DDXPlus, sealed ranker, authenticated protocol, [FastAPI adapter](../models/medassist_v2/research_adapter) | `codex/medassist-v2-task5a-adapter` at `161a14c`, portability reconciliation included in `5085a26` | In a separately authorized task, verify trusted private assets and adapter contract with fictional inputs. |
-| 3. Conversational NLP and evidence | L2 and P0 evidence document confirmation, UNKNOWN, conflict and replay. Scripted confirmation, negative, unknown and conflict handling verified locally. | The scripted vocabulary covers five authored symptom fields. Optional provider quality and quota limitations remain. | [Conversation](../src/features/medassist-conversation), [P0 evidence](../models/medassist_ai/docs/p0-reliability.md), Model A proxy and optional Groq | `feat/medassist-jayanth` | Reconcile cloud review changes and verify broader provider behavior separately. |
+| 3. Conversational NLP and evidence | L2 and P0 evidence document confirmation, UNKNOWN, conflict and replay. T01–T35 and both reported examples passed the scoped checks. | Nine existing symptom fields are enabled in the script. Coverage is bounded and independent evaluation remains pending. | [Conversation](../src/features/medassist-conversation), [development cases](../scripts/medassist-language-variation.test.ts), Model A proxy and optional Groq | `feat/medassist-jayanth` | Freeze an independent fictional evaluation before tuning further. |
 | 4. Emergency safety and Model B | Provisional safety boundary and evaluation evidence exist. | Emergency branch failed qualification. Expanded rules remain isolated. Model B planned, untrained and disabled. | [Safety source](../src/features/medassist-safety), [qualification and restrictions](architecture/MEDASSIST_MASTER_BLUEPRINT.md) | `codex/medassist-emergency-recognition` at `db1274a` | Obtain a separate authorized safety review with independent acceptance criteria. Keep clinical guidance and Model B disabled. |
 | 5. Frontend and backend integration | React/Vite and Express verified on Windows. Scripted mode runs in the existing conversation. The private research proxy correctly reports its disabled state. | Genuine adapter readiness and provider qualification remain open. | [Development guide](development.md), [account/database setup](../database/README.md), [proxy](../server/model-a-demo.ts) | `feat/medassist-jayanth` | Verify authenticated research integration after the private runtime is established. |
 | 6. Academic demonstration and preview | Local scripted submission, confirmation, follow-up, summary and JSON export verified. Hot update and restart passed. | Original cloud interactive review bundle remains unavailable. | [Conversation guide](../src/features/medassist-conversation/README.md), [dated verification](history/2026-11-05.md) | `feat/medassist-jayanth` | Match the original patch to its baseline, classify differences and review the demo. |

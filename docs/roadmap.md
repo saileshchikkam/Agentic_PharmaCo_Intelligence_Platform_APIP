@@ -6,6 +6,8 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**MedAssist Stage 3 / L2, 2026-11-06:** [scripted English robustness evidence](history/2026-11-06.md) verifies the two reported examples, bounded clarification and evidence preservation in the local demo. The next language gate is an independently authored fictional evaluation. Phase 0 still tracks cloud recovery and genuine adapter prerequisites separately.
+
 **MedAssist L2 conversational refinement, 2026-10-25:** [current evidence and blockers](../models/medassist_ai/docs/natural-conversation.md) support a local fictional demo with full-page chat, confirmed broader sparse descriptions and eight topical routine questions. These engineering gates do not establish clinical completeness or improved model accuracy. Next work requires separate authorization: freeze/evaluate broader language coverage, review topic exclusions/question wording and improve earlier-conflict correction. Model B and clinical guidance remain disabled; ADR remains the core priority. Older implementation snapshots below are historical.
 
 **MedAssist Day 2 implemented 2026-10-21 (user target October 22):** [fictional question lab and run guide](../src/features/model-a-research/README.md) connect the existing actual Model A through a guarded local development proxy, with typed answers, UNKNOWN/conflict/stop/reset and unchanged Day 1 evidence export. [Actual checks/inventory](../models/medassist_v2/research_adapter/day2-verification.json). Model B stays unavailable; no production/patient workflow or frozen study behavior changed. Commit/merge/push remain blocked pending review; Day 3 now focuses on browser/control/accessibility robustness, not rebuilding the completed basic loop.

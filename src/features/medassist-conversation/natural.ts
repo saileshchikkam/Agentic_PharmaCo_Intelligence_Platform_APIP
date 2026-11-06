@@ -165,6 +165,8 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         if (!isPending && (!anchors[d.evidence_id] || !anchors[d.evidence_id].pattern.test(item.quote)))
             return reject('UNSUPPORTED_ANCHOR');
         if (item.state === 'confirmed' && d.data_type === 'B') {
+            if (d.evidence_id === 'E_53' && item.value === false && /\bchest pain\b/i.test(item.quote))
+                return reject('SITE_SPECIFIC_PAIN_DENIAL');
             const uncertain = /\b(?:not sure|unsure|maybe|perhaps|might|unknown|don't know|think i|not certain)\b/i.test(item.quote);
             // Broad negation/contradiction checks fail closed; explicit confirmation still required.
             const negative = /\b(?:no|not|without|deny|denies|absent|don't|do not|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t)\b/i.test(item.quote)

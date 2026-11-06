@@ -197,7 +197,13 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                     :contexts.has('hypothetical')?'I kept this as a hypothetical statement, without recording it as a current symptom.'
                     :contexts.has('suspected_condition')?'I kept your concern in your own words. This does not confirm a diagnosis. Please describe the symptoms themselves.'
                     :pendingQuestion?analysis.compatibility.message:null;
-                const fallback=clarification.current.fail(text,phase,'unsupported');say(specific??fallback);
+                const fallback=clarification.current.fail(text,phase,'unsupported');
+                const scriptedClarification = scripted && !pendingQuestion
+                    ? /\bbody (?:is )?hot\b/i.test(text) ? 'I kept the warmth description. Does the fictional person feel feverish, or are they describing warmth without feeling ill?'
+                    : /\bgiddy\b/i.test(text) ? 'I kept “giddy” as reported. Do you mean slightly dizzy or lightheaded, or something else?'
+                    : /\b(?:breathless|shortness of breath|difficulty breathing)\b/i.test(text) ? 'I kept the breathing description. This scripted interview cannot categorize it. Emergency help is available independently.'
+                    : null : null;
+                say(specific??scriptedClarification??fallback);
                 return;
             }
             const known=[...queued,...(request?[request.initial,...request.initial_disclosures,...request.turns.flatMap(t=>[t.answer,...t.disclosures])]:[])];
@@ -426,7 +432,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
       <M3Button variant="outlined" onClick={() => escalate('I need emergency help')}>Emergency help</M3Button>
     </header>
     <aside className="conversation-notice" aria-label="Fictional demo limitations">
-      {scripted && <p><strong>Fictional scripted research demo — Model A inference is not running.</strong> Try a cough, fever, sore throat, stuffy nose, or chills.</p>}
+      {scripted && <p><strong>Fictional scripted research demo — Model A inference is not running.</strong> Try describing a fictional cough, headache, or nausea.</p>}
       <div className="conversation-actions">
         <M3Button variant="text" onClick={switchMode}>{scripted ? 'Switch to Model A research' : 'Switch to scripted demo'}</M3Button>
         <span>Switching modes starts a new session.</span>

@@ -1,5 +1,9 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Scripted English evidence handling — 2026-11-06
+
+The browser script covers nine existing symptom fields. “My head is paining badly from morning” proposes general pain and retains “from morning” as a literal onset detail. “Feeling like vomiting but not vomiting” proposes nausea and retains the denial as narrative. Generic vomiting has no matching field. A denial of chest pain also remains scoped to the original wording. Bare “giddy” and “body hot” prompt clarification before any evidence is proposed. Questions remain fixed and evidence needs explicit confirmation. See the [T01–T35 development cases](../../../scripts/medassist-language-variation.test.ts) and [verification record](../../../docs/history/2026-11-06.md).
+
 ## Local scripted preview — 2026-11-05
 
 Start APIP with Node 24 using `node scripts/start-server.mjs development` and open [the MedAssist preview](http://127.0.0.1:3000/#/preview/medassist-conversation). The default **SIMULATED** mode runs in page memory, using five authored symptom fields and a fixed follow-up order. Try “I have a cough, but no fever.” Confirm the proposal and provide fictional context to start questions. The JSON download uses `medassist.scripted-conversation-export.v1` with explicit simulation provenance. It cannot be read as a Model A handoff.
