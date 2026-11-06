@@ -62,16 +62,18 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   for(const [index, clause] of clauses.entries()) {
     const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote));
     const previous = clauses[index - 1];
-    if (previous?.context === 'current' && clause.context === 'current'
-      && /^actually\s+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|no)$/i.test(clause.quote)
-      && /^[.!?,;\s]+$/.test(text.slice(previous.end, clause.start))) {
-      const preceding = languageConcepts.filter(c => allowed.has(c.evidence_id) && c.pattern.test(previous.quote));
+    const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|no)|scratch that|i take that back)$/i.test(clause.quote);
+    const corrected = previous && /^actually$/i.test(previous.quote) && /^(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|no)$/i.test(clause.quote)
+      ? clauses[index - 2] : retractsPrevious ? previous : undefined;
+    if (corrected?.context === 'current' && clause.context === 'current'
+      && /^[.!?,;\s]*(?:actually[,\s]+)?$/i.test(text.slice(corrected.end, clause.start))) {
+      const preceding = languageConcepts.filter(c => allowed.has(c.evidence_id) && c.pattern.test(corrected.quote));
       const claim = preceding.length === 1 && evidence.get(preceding[0].evidence_id)?.at(-1);
-      if (claim && claim.quote === previous.quote && claim.value === true) {
+      if (claim && claim.quote === corrected.quote && claim.value === true) {
         const { evidence_id, concept_id } = preceding[0];
-        const quote = text.slice(previous.start, clause.end);
+        const quote = text.slice(corrected.start, clause.end);
         evidence.set(evidence_id, [{ evidence_id, state: 'contradiction', value: null, quote }]);
-        annotations.push(annotate(text, quote, 'explicit_correction', evidence_id, concept_id, previous.start));
+        annotations.push(annotate(text, quote, 'explicit_correction', evidence_id, concept_id, corrected.start));
         continue;
       }
     }

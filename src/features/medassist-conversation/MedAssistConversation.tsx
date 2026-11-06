@@ -195,6 +195,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                 const specific=contexts.has('historical_or_resolved')?'I kept this as historical or resolved information, without marking a current symptom. Please describe what is happening now.'
                     :contexts.has('other_person')?'I kept this as information about another person. I will not add it to the fictional person’s evidence. Please clarify who the interview is about.'
                     :contexts.has('hypothetical')?'I kept this as a hypothetical statement, without recording it as a current symptom.'
+                    :scripted && contexts.has('non_asserted')?'I kept your wording without assuming a current symptom. What is the fictional person experiencing now?'
                     :contexts.has('suspected_condition')?'I kept your concern in your own words. This does not confirm a diagnosis. Please describe the symptoms themselves.'
                     :pendingQuestion?analysis.compatibility.message:null;
                 const fallback=clarification.current.fail(text,phase,'unsupported');
@@ -461,6 +462,8 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           {!emergency && vocabulary && candidate && !contextStep && !contextUnavailable && <div className="conversation-question">
             <h2 ref={questionHeading} tabIndex={-1}>Confirm what you meant</h2><ul>{candidate.observations.map(a => <li key={a.evidence_id}>{name(a.evidence_id)}: {a.state === 'unknown' ? 'not sure' : a.state === 'contradiction' ? 'conflicting' : Array.isArray(a.value) ? a.value.map(displayValue).join(', ') || 'explicitly none' : displayValue(a.value! as Scalar)}</li>)}</ul>{candidate.unmapped.length > 0 && <p>Kept in your own words, without a structured answer: {candidate.unmapped.map(i => i.quote).join('; ')}</p>}
             <p>Does this reflect what you meant? Nothing here is accepted until you confirm.</p>
+            {scripted && candidate.unmapped.some(item => item.kind === 'ambiguous') &&
+              <p>Is any of the unmapped wording another symptom the fictional person has now? If so, describe that detail separately.</p>}
             <div className="conversation-actions"><M3Button disabled={busy || !!pendingRetry} onClick={confirmInitial}>Confirm these details</M3Button>
               <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => { setCandidate(null); setMessages(current => [...current, { role: 'You', text: 'That mapping is not correct.' }, { role: 'MedAssist', text: 'Please correct the description in your own words. None of these proposed answers was recorded.' }]); }}>No / Not sure — correct this</M3Button></div>
           </div>}

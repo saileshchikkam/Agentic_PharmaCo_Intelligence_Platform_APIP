@@ -1,4 +1,5 @@
 import { anchors, labelIsSupported } from './concepts';
+import { correctionCue, negationCue, reportClauses, uncertaintyCue } from './language-context';
 /** Conversational transport and proposals, separate from the frozen research API. */
 import { readDemoResult, readRequest, type Answer, type Context, type DemoResult, type Question } from '../model-a-research/contracts';
 export type Definition = {
@@ -143,7 +144,7 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
             || !['confirmed', 'unknown', 'contradiction'].includes(item.state))
             return reject('OBSERVATION_SCHEMA_OR_SPAN');
         seen.add(d.evidence_id);
-        if (item.state === 'confirmed' && /\b(?:not sure|unsure|unknown|maybe|might|perhaps|don't know|do not know|think i|not certain)\b/i.test(item.quote))
+        if (item.state === 'confirmed' && uncertaintyCue.test(item.quote))
             return reject('UNCERTAIN_CONFIRMED');
         if (item.state !== 'confirmed') {
             if (item.value !== null)
@@ -167,9 +168,9 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         if (item.state === 'confirmed' && d.data_type === 'B') {
             if (d.evidence_id === 'E_53' && item.value === false && /\bchest pain\b/i.test(item.quote))
                 return reject('SITE_SPECIFIC_PAIN_DENIAL');
-            const uncertain = /\b(?:not sure|unsure|maybe|perhaps|might|unknown|don't know|think i|not certain)\b/i.test(item.quote);
+            const uncertain = uncertaintyCue.test(item.quote);
             // Broad negation/contradiction checks fail closed; explicit confirmation still required.
-            const negative = /\b(?:no|not|without|deny|denies|absent|don't|do not|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t)\b/i.test(item.quote)
+            const negative = negationCue.test(item.quote)
                 || d.evidence_id==='E_66'&&/\b(?:can breathe normally|breathing normally)\b/i.test(item.quote);
             if (uncertain || item.value === true && negative
                 || item.value === false && !negative && !/^\s*no[.!]?\s*$/i.test(item.quote))
@@ -185,17 +186,16 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
                     && !/^\s*(?:i|he|she|they|it|my|the person)\b/i.test(part)
                     && /\b(?:no|not|without|don't|do not)\b/i.test(parts.slice(0, index).join(' and ')));
             })) return reject('SHARED_NEGATION');
-            const clauses = text.split(/[.,;!?]|\bbut\b|\band\b/i).filter(s => anchor.pattern.test(s));
-            const uncertain = clauses.some(s => /\b(?:not sure|unsure|unknown|maybe|might|perhaps|don't know|think i|not certain)\b/i.test(s));
-            const negative = (s: string) => /\b(?:no|not|without|denies|deny|absent|don't|do not|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t)\b/i.test(s);
+            const clauses = reportClauses(text).filter(clause => clause.context === 'current' && anchor.pattern.test(clause.quote));
+            const uncertain = clauses.some(clause => clause.uncertain);
             if (item.state === 'confirmed' && uncertain)
                 return reject('SOURCE_UNCERTAINTY');
-            if (clauses.some(negative) && clauses.some(s => !negative(s)) && item.state !== 'contradiction')
+            if (clauses.some(clause => clause.negative) && clauses.some(clause => !clause.negative) && item.state !== 'contradiction')
                 return reject('SOURCE_CONFLICT');
         }
-        if (item.state === 'unknown' && !/\b(?:not sure|unsure|unknown|don't know|do not know|maybe|might|perhaps|think i|not certain)\b/i.test(item.quote))
+        if (item.state === 'unknown' && !uncertaintyCue.test(item.quote))
             return reject('UNKNOWN_SUPPORT');
-        if (item.state === 'contradiction' && !/\b(?:but|actually|contradict(?:ory|ion)?|conflict(?:ing)?|yes and no)\b/i.test(item.quote))
+        if (item.state === 'contradiction' && !correctionCue.test(item.quote) && !/\b(?:but|contradict(?:ory|ion)?|conflict(?:ing)?|yes and no)\b/i.test(item.quote))
             return reject('CONTRADICTION_SUPPORT');
     }
     if (!raw.unmapped.every((i: any) => exactKeys(i, 'kind,quote') && typeof i.quote === 'string' && !!i.quote.trim() && text.includes(i.quote) && ['duration', 'unsupported', 'ambiguous'].includes(i.kind)))

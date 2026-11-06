@@ -1,5 +1,9 @@
 # Changelog
 
+## MedAssist Stage 3 / L4 scoped language remediation — 2026-11-06
+
+- Preserve negation, uncertainty, past and conditional scope, quotations and immediate retractions in scripted proposals. Add bounded English variants and clarification for partial evidence. [Known-case comparison](docs/evaluation/medassist-l4-english-report.md)
+
 ## MedAssist scripted English robustness — 2026-11-06
 
 - Added bounded colloquial, short-form and spelling support within the existing ontology. Preserved literal onset and symptom denials, and improved contrast-clause and explicit correction handling. [Development verification](docs/history/2026-11-06.md)

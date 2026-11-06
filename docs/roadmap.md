@@ -6,6 +6,8 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**MedAssist Stage 3 / L4, 2026-11-06:** [known-case remediation](evaluation/medassist-l4-english-report.md) recovered all 18 L3 language mismatches. Fresh fictional scope and multi-turn evaluation is the next language gate. Warning-presentation review remains separate.
+
 **MedAssist Stage 3 / L3, 2026-11-06:** [fixed fictional English evaluation](evaluation/medassist-l3-english-report.md) exposed current-positive errors, missed colloquial and spelling variants, and warning-presentation gaps. L4 prioritizes source scope and polarity, then normalization, synonyms and clarification. Warning-rule work remains separate.
 
 **MedAssist Stage 3 / L2, 2026-11-06:** [scripted English robustness evidence](history/2026-11-06.md) verifies the two reported examples, bounded clarification and evidence preservation in the local demo. The next language gate is an independently authored fictional evaluation. Phase 0 still tracks cloud recovery and genuine adapter prerequisites separately.
