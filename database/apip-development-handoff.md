@@ -19,3 +19,7 @@ Use two approved synthetic users. Configure email confirmation delivery to contr
 In Google Auth Platform, configure Branding, set Audience to testing and add the synthetic testers, then create a Web application OAuth client. Register `https://kstxwoitiistmvivwixd.supabase.co/auth/v1/callback` as the authorized redirect URI. In Supabase **Authentication → Sign In / Providers → Google**, enable Google and set the client ID and secret. In **Authentication → URL Configuration**, add the exact app callback, for example `http://localhost:3000/?apip_auth=1` or the approved HTTPS equivalent. Open the return in the initiating tab so its PKCE verifier is available. Keep secrets out of the repository, browser configuration, and chat.
 
 Run the private container rehearsal on a Docker-capable host with the verified original template mounted read-only. The local SQLite preview and SQL fixture results do not establish hosted writer connectivity, hosted Auth or container readiness.
+
+## Hosted rehearsal evidence
+
+See [2026-11-07 verification](hosted-verification-2026-11-07.md) for real sign-in, two-user isolation, revisions and original PDF results, with the remaining recovery gates. The writer is now LOGIN in the authorized development project. Its password was supplied interactively outside migrations.
