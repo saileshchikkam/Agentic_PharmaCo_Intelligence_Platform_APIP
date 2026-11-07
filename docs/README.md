@@ -1,5 +1,7 @@
 # APIP documentation
 
+The [canonical ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns proposed case management, specialist review, analytics and governed evidence stages. Implementation requires separate authorization.
+
 Current ADR implementation and verification: [ADR-1A guided intake](adr/09-adr-1a-checkpoint.md); [architecture and phase navigation](adr/README.md).
 
 The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS.md) contains mandatory contributor/agent instructions.
