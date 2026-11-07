@@ -3,6 +3,7 @@ import { execFileSync } from 'node:child_process';
 import net from 'node:net';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
+import { buildSync } from 'esbuild';
 import postgres from 'postgres';
 import { PGlite } from '@electric-sql/pglite';
 import { PGLiteSocketServer } from '@electric-sql/pglite-socket';
@@ -53,6 +54,28 @@ async function verifyDisconnectRecovery() {
 if (process.env.APIP_DISCONNECT_TEST_CHILD === '1') {
   await verifyDisconnectRecovery();
 } else {
+  test('the production CommonJS bundle can construct the ESM PostgreSQL driver', () => {
+    const bundle = buildSync({
+      stdin: {
+        contents: `import express from 'express';
+          import { configuredCloudAccount } from './server/cloud-account';
+          const account = configuredCloudAccount(express(), {
+            APIP_ACCOUNT_MODE: 'cloud',
+            APIP_SUPABASE_URL: 'https://auth.example.test',
+            APIP_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_fixture',
+            APIP_ADR_DATABASE_URL: 'postgresql://fixture@127.0.0.1:1/fixture',
+          });
+          if (!account) throw Error('Cloud runtime was not constructed');
+          account.close().catch(() => { process.exitCode = 1; });`,
+        resolveDir: process.cwd(),
+      },
+      bundle: true, platform: 'node', format: 'cjs', packages: 'external', write: false,
+    });
+    execFileSync(process.execPath, ['--input-type=commonjs'], {
+      cwd: process.cwd(), input: bundle.outputFiles[0].text, timeout: 10000,
+      stdio: ['pipe', 'pipe', 'pipe'], windowsHide: true,
+    });
+  });
   test('a connection lost during a transaction rejects safely and reconnects without retained identity', {
     timeout: 30000,
   }, () => {

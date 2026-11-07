@@ -79,7 +79,10 @@ export function configuredCloudAccount(app: Express, env = process.env) {
   if (!['postgres:', 'postgresql:'].includes(dbUrl.protocol) || !dbUrl.hostname) throw Error('Invalid ADR database URL.');
   const poolSize = env.APIP_ADR_POOL_SIZE ?? '3';
   if (!/^[1-8]$/.test(poolSize)) throw Error('Invalid ADR pool size.');
-  const sql = postgres(db, { max: Number(poolSize), prepare: false, connect_timeout: 5, idle_timeout: 20,
+  // The CommonJS bundle receives the ESM driver's namespace through require().
+  const createPostgres = typeof postgres === 'function'
+    ? postgres : (postgres as unknown as { default: typeof postgres }).default;
+  const sql = createPostgres(db, { max: Number(poolSize), prepare: false, connect_timeout: 5, idle_timeout: 20,
     ssl: { rejectUnauthorized: true } });
   registerVerifiedAdr(app, postgresGuidedRepository(sql), async token => {
     const { data, error } = await sdk.auth.getUser(token);
