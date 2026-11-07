@@ -22,4 +22,4 @@ Approved specialists with no assignment receive no patient case, revision, narra
 
 The initial partial implementation described in the interrupted session is now superseded by the [actual delivery report](3b-implementation-and-verification.md). It preserves the approved policy above and records completed UI/API/PostgreSQL/fixture/security/browser work, exact applied migration checksum and version, launcher correction, test results, file walkthrough and remaining live gates.
 
-Administrator bootstrap remains unauthorized. Hosted application readiness passes; the optional hosted applicant browser worker did not complete. Fixture approvals do not activate live privileges. Phase 3C is unstarted.
+Administrator bootstrap remains unauthorized. Hosted application readiness and the applicant browser workflow now pass after the [focused approved repair](3b-hosted-specialist-repair.md). Fixture approvals do not activate live privileges. Phase 3C is unstarted.

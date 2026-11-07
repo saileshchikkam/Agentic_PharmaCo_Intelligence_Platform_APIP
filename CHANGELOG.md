@@ -421,3 +421,7 @@ Reproduced declared dependencies in an isolated hash-locked environment, added l
 ### Model B gated readiness foundation — 2026-10-24
 
 Added provisional urgency schema, provenance-gated ingestion, group-safe splits, offline trainer/evaluator and research-only registration. Synthetic checks do not train or clinically validate Model B; the active provider remains disabled. [Implementation and gates](models/medassist_ai/model_b/README.md).
+
+## Hosted specialist verified-subject repair - 2026-11-08
+
+- Repaired the private identity function and RLS subject lookup for managed PostgreSQL without granting broader Auth-schema or patient access. Real hosted capabilities, saved profile/submission and session restoration pass; administrator bootstrap remains blocked. [Evidence](docs/adr/phase3/3b-hosted-specialist-repair.md).

@@ -28,3 +28,4 @@ app/ml/*.joblib -text
 requirements.txt -text
 # Preserve exact bytes of the separately approved, hosted Phase 3B migration.
 supabase/migrations/20261107195900_specialist_identity_foundation.sql -text
+supabase/migrations/20261107210206_specialist_verified_subject_boundary.sql -text

@@ -29,6 +29,7 @@ test('Phase 3B restricted PostgreSQL: migration, owner/admin gates, audit, retri
  await db.exec('rollback');
  assert.equal((await db.query<{schema:string|null}>("select to_regnamespace('apip_identity')::text schema")).rows[0].schema,null);
  await db.exec(identityMigration);
+ await db.exec(await readFile(new URL('../supabase/migrations/20261107210206_specialist_verified_subject_boundary.sql',import.meta.url),'utf8'));
  await db.exec('reset role');
  const migrationMembership=(await db.query<{set_option:boolean;inherit_option:boolean}>(`select set_option,inherit_option from pg_auth_members
    where member=(select oid from pg_roles where rolname='fixture_migrator') and roleid=(select oid from pg_roles where rolname='apip_identity_executor')`)).rows[0];

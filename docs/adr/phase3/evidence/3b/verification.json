@@ -63,8 +63,9 @@
       "capabilities": 401,
       "administration": 401
     },
-    "hostedApplicantBrowser": "BLOCKED worker timed out; user-reported sign-in is not automated evidence",
+    "hostedApplicantBrowser": "PASS after separately approved 20261107210206 repair: capabilities 200, profile save, submitted version 3, reload and session restoration",
     "hostedAdminWorkflow": "BLOCKED exact UUID/bootstrap not authorized",
-    "googleOAuth": "PENDING outside scope"
+    "googleOAuth": "PENDING outside scope",
+    "initialHostedApplicantBrowser": "BLOCKED worker timed out; user-reported sign-in is not automated evidence"
   }
 }

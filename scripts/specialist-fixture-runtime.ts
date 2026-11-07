@@ -20,7 +20,7 @@ export async function startSpecialistFixture(port=0){
  create table auth.users(id uuid primary key,email_confirmed_at timestamptz default now(),is_anonymous boolean default false);
  create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;
  grant usage on schema auth to authenticated;`);
- for(const name of ['20261105092036_adr_postgres_foundation','20261105092042_adr_command_receipts','20261105093956_apip_restricted_writer_role','20261107152504_adr_historical_pdf_receipts','20261107195900_specialist_identity_foundation'])
+ for(const name of ['20261105092036_adr_postgres_foundation','20261105092042_adr_command_receipts','20261105093956_apip_restricted_writer_role','20261107152504_adr_historical_pdf_receipts','20261107195900_specialist_identity_foundation','20261107210206_specialist_verified_subject_boundary'])
   await db.exec(await readFile(new URL('../supabase/migrations/'+name+'.sql',import.meta.url),'utf8'));
  const wire=new PGLiteSocketServer({db,host:'127.0.0.1',port:0,maxConnections:4});await wire.start();
  const sql=postgres('postgresql://postgres@'+wire.getServerConn()+'/postgres',{max:3,prepare:false,onnotice:()=>{}});

@@ -16,3 +16,5 @@ The [master blueprint](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) is the
 Three interrupted-session files were moved and reconciled into the supporting requirements/contracts/prompts. No useful material was discarded. Their 3A–3D restrictions remain applicable to those stages; the master separately defines governed 3E/3F and Phase 4.
 
 [Backend evidence](../../../database/hosted-verification-2026-11-07.md) describes actual baseline checks. Every new acceptance test here is proposed and unrun. No new runtime preview was verified for Phase 0.
+
+[Focused hosted specialist repair](3b-hosted-specialist-repair.md) closes the applicant API/browser gate with separately approved additive SQL and actual before/after evidence. Administrator bootstrap is still unauthorized.
