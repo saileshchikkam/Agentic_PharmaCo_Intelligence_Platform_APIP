@@ -1,5 +1,7 @@
 # Architecture and implementation status
 
+**2026-11-07 Phase 3A:** [owner case management, exact history/PDF contracts and evidence](adr/phase3/3a-implementation-and-verification.md) reuse the existing repositories, guided editor and original form. Summaries derive from current snapshots; one approved development migration adds a restricted historical-export receipt function. Lifecycle writes and specialist access remain disabled pending policy approval.
+
 **2026-11-07 planning update.** The [ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) is the canonical future ADR architecture and stage plan. Its schemas, APIs, specialist privileges, analytics and AI workflows are proposals. Actual backend checks remain in the [hosted evidence](../database/hosted-verification-2026-11-07.md).
 
 **2026-11-03 ADR-1A update:** [guided intake checkpoint](adr/09-adr-1a-checkpoint.md) adds owner-isolated revisioned SQLite cases, a deterministic question planner, optional local-model proposals and a six-stage Material Web interface. Authenticated native PvPI PDF generation uses the supplied original AcroForm, explicit appearance streams and appended continuation pages; editable review/regeneration and an accessible reveal are checked for English fictional cases. Unsupported scripts and multiple seriousness selections fail explicitly. Earlier dated architecture observations below retain their historical scope.

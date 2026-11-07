@@ -127,10 +127,17 @@ causality scoring, recommendations, hospital integrations or public deployment.
 
 ## Phase 3B
 
+Current handoff: [implemented 3A subset and actual hosted evidence](3a-implementation-and-verification.md). The prompt below requires a new explicit implementation task and the listed policy approvals. It does not authorize activation now.
+
 ```text
 APIP ADR-1B Phase 3B — Approved Specialist Identity and Access Foundations
 
-Implement only the separately authorized Phase 3B stage. Read the Phase 3 plan,
+Implement only the separately authorized Phase 3B stage. Start from the reviewed
+codex/adr-phase3a-patient-case-management delivery commit, verifying remote SHA
+and lineage from blueprint 7c2db5ec8e09c4461f10205ed3166a34affc3f76. Preserve any
+unpublished work; use a dedicated codex/adr-phase3b-specialist-identity branch.
+Read docs/adr/phase3/3a-implementation-and-verification.md, including its working
+private hosted/SQLite previews and unapplied policy decisions. Read the Phase 3 plan,
 contracts, current AGENTS/product/architecture/layer guides and verified 3A
 checkpoint. Verify the starting branch/commit and preserve all existing work.
 Keep PR 6 draft and unmerged.
@@ -141,6 +148,13 @@ self-approval/conflict rules, immediate revocation behavior and administrator
 scope. Do not create an initial administrator or real specialist grant without
 the approved provisioning procedure. Missing policy input is a blocker for that
 privilege, not permission to infer a role.
+
+Ask only for the missing concrete decisions: named bootstrap/approval authority
+and independent approver count; accepted professions/jurisdictions and human
+evidence checks/recheck/appeal policy; conflicts/dual-role restrictions; online
+revocation and in-flight ordering; administrator scope without patient access.
+Do not infer that approved 3A reads/exports approved P01/P08/P09/P17 lifecycle writes.
+Keep unapproved privilege mutations disabled while completing independent work.
 
 Reuse Supabase Auth and the existing account/session adapter. Workspace selection,
 confirmed email, display name and user_metadata confer no professional privilege.
@@ -171,6 +185,15 @@ authorization expiry, direct Data API/SQL writes, nested application IDs,
 audit rollback and existing patient regressions. Synthetic approval fixtures
 must be labeled and must not claim real professional verification.
 
+Use additive CLI-generated migrations and disposable fresh/populated-schema
+fixtures first. Do not modify or replay the five applied development migrations.
+Request approval for exact SQL and development target before any hosted DDL.
+Preserve the restricted writer, strict verified TLS, transaction-local actor,
+immutable patient revisions, 147-widget original form and current-vs-historical
+PDF semantics. Test hostile owner/application IDs, self-approval, untrusted role
+metadata, anonymous/direct browser execution, current-token revocation and
+required audit failure with no partial approval. No specialist may read a case.
+
 Run affected frontend/backend TypeScript, builds and regressions. Test actual
 Chrome at 320/360/820/1440px, keyboard, reduced motion and both themes. Demonstrate
 pending → authorized approval → specialist capability → revocation in separate
@@ -182,6 +205,12 @@ privilege/RLS evidence and remaining blockers. Document history and respect
 the implementation task's commit/push authorization. Stop before 3C. Do not
 merge, deploy, add case access, Google changes, RAG, clinical agents or MedAssist
 research changes.
+
+Provide an exact branch/commit/PR state, working local URLs with backend modes,
+per-gate PASS/FAIL/BLOCKED (fixture versus real hosted), remaining decisions,
+educational walkthrough and a copy-ready 3C prompt. Commit/push only validated
+stage files under the repository workflow and this new task's authorization.
+Keep PR 6 and the separate 3A PR unmerged. Do not begin 3C automatically.
 ```
 
 ## Phase 3C

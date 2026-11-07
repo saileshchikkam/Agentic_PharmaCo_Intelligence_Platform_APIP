@@ -9,7 +9,7 @@ import {questionCopy} from './questionCopy';
 import {LiveFormPreview} from './LiveFormPreview';
 import {ReportExport} from './ReportExport';
 import {AdrLanding, type SavedReport} from './AdrLanding';
-type Props={renderNavigation:(back:()=>void,label:string)=>React.ReactNode;onExit:()=>void};
+type Props={renderNavigation:(back:()=>void,label:string)=>React.ReactNode;onExit:()=>void;initialCaseId?:string};
 export function GuidedWorkspace(props:Props){const {user,ready}=useAccount();const [legacy,setLegacy]=useState(false);
  if(legacy)return <><M3Button variant="text" onClick={()=>setLegacy(false)}>Return to guided reporting</M3Button><LegacyWorkspace {...props}/></>;
  if(!ready)return <p role="status">Checking your account…</p>;
@@ -54,7 +54,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  };
  const run=async(work:()=>Promise<void>)=>{if(lock.current)return;lock.current=true;setBusy(true);setError('');try{await work();}catch(e){if(alive.current)setError((e as Error).message);}finally{lock.current=false;if(alive.current)setBusy(false);}};
  const loadDrafts=()=>run(async()=>{const data=await request('');if(alive.current)setList(data.cases);});
- useEffect(()=>{void loadDrafts();},[]);
+ useEffect(()=>{if(props.initialCaseId)void open(props.initialCaseId);else void loadDrafts();},[]);
  useEffect(()=>{const guard=(e:Event)=>{if(dirty&&!window.confirm('Leave this unsaved answer?'))e.preventDefault();};const unload=(e:BeforeUnloadEvent)=>{if(dirty){e.preventDefault();e.returnValue='';}};window.addEventListener('apip:before-navigate',guard);window.addEventListener('beforeunload',unload);return()=>{window.removeEventListener('apip:before-navigate',guard);window.removeEventListener('beforeunload',unload);};},[dirty]);
  const all=c?questions(c):[],field=all.find(f=>f.key===key),stage=field?.stage??5;
  const answered=c?addressedQuestions(all,c.values):0;
@@ -78,7 +78,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  const start=()=>run(async()=>{const data:View=await request('',{fictionalOnly:true});if(alive.current){apply(data,true);setIntro(false);}});
  const open=(id:string)=>run(async()=>{const data:View=await request('/'+id);if(alive.current){apply(data,true);setIntro(false);}});
  return <div className="adr-guide">
- {props.renderNavigation(props.onExit,'Back to dashboard')}
+ {props.renderNavigation(props.onExit,props.initialCaseId?'Back to report':'Back to dashboard')}
  {intro?<AdrLanding drafts={list} busy={busy} loadFailed={!!error} start={start} resume={open} retry={loadDrafts}/>:c&&<>
  <nav className="adr-stages" aria-label="Reporting stages">{stages.map((name,i)=><button key={name} disabled={busy} aria-current={stage===i?'step':undefined} onClick={()=>{editing.current=false;choose(i===5?null:all.find(f=>f.stage===i&&!c.values[f.key])?.key??all.find(f=>f.stage===i)?.key??null);}}><span>{i+1}</span>{name}</button>)}</nav>
  <div className="adr-status"><span role="status">Saved revision {c.revision}{dirty?' · unsaved answer':''}</span></div>
@@ -106,7 +106,7 @@ export function AdaptiveInput({field,value,onChange,disabled}:{field:Field;value
  if(field.type==='date')return <div className="adr-date"><input type="date" aria-label={field.label} value={value} disabled={disabled} onChange={e=>onChange(e.target.value)}/></div>;
  return <M3TextField label={field.label} type={field.type==='long'?'textarea':field.type==='number'?'number':'text'} value={value} onChange={e=>onChange(e.target.value)} disabled={disabled} maxLength={field.type==='long'?4000:200}/>;
 }
-export function DraftPreview({c,edit}:{c:GuidedCase;edit:(key:string)=>void}) {
+export function DraftPreview({c,edit,readOnly=false}:{c:GuidedCase;edit:(key:string)=>void;readOnly?:boolean}) {
  const groups = [
   ['Patient', (f:Field)=>f.stage<=1],
   ['Reaction', (f:Field)=>f.stage===2],
@@ -118,7 +118,7 @@ export function DraftPreview({c,edit}:{c:GuidedCase;edit:(key:string)=>void}) {
   const fields=questions(c).filter(include);
   const provided=fields.filter(f=>c.values[f.key]?.state==='provided');
   return <details key={title}><summary>{title} · {provided.length} answered</summary><dl>{fields.map(f=>
-   <div key={f.key}><dt>{f.label}</dt><dd>{c.values[f.key]?.value??(c.values[f.key]?'Unknown / not available':'Unanswered')} <button onClick={()=>edit(f.key)} aria-label={`Edit ${f.label}`}>Edit</button></dd></div>
+   <div key={f.key}><dt>{f.label}</dt><dd>{c.values[f.key]?.value??(c.values[f.key]?'Unknown / not available':'Unanswered')} {!readOnly&&<button onClick={()=>edit(f.key)} aria-label={`Edit ${f.label}`}>Edit</button>}</dd></div>
   )}</dl></details>;
  })}</>;
 }

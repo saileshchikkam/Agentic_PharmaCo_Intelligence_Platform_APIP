@@ -1,6 +1,6 @@
 # APIP ADR Phase 3–4 master blueprint
 
-**Canonical planning source — 2026-11-07. Implementation unstarted.**
+**Canonical planning source — 2026-11-07.** The [authorized 3A owner dashboard/history/PDF subset](../adr/phase3/3a-implementation-and-verification.md) is implemented and separately verified. Lifecycle writes and later stages below remain proposed.
 
 APIP means Agentic Pharma Co-intelligence Platform. The public-facing vision is a future product direction. Current engineering scope remains private, fictional and nonclinical.
 

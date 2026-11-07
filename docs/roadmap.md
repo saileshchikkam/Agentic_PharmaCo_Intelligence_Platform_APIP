@@ -1,5 +1,7 @@
 # Milestone roadmap
 
+**2026-11-07 Phase 3A:** the authorized owner-dashboard/history/exact-PDF subset passes fixture and real hosted checks. [Actual delivery and gates](adr/phase3/3a-implementation-and-verification.md). P01/P08/P09/P17 lifecycle actions remain disabled. Phase 3B requires separate authorization and P02/P03/P11/P12/P13; no specialist feature has started.
+
 **2026-11-07 hosted backend verification:** real owner isolation, revisions, comprehensive native PDF checks, client interruption/reconnect, application restart, revocation and natural expiry checks passed. The expiry-only worker returned API 401 and provider 403 after natural expiration. GO for the private backend verification milestone; Google OAuth remains separately pending and Phase 3 scope/implementation requires its own brief. [Evidence](../database/hosted-verification-2026-11-07.md).
 
 **2026-11-04 ADR-1B Phase 2** adds the original-form preview and saved intake progress on the isolated feature branch. [Scope and verification](adr/09-adr-1a-checkpoint.md#adr-1b-phase-2--original-form-preview-and-intake-progress). Phase 3 requires separate authorization.

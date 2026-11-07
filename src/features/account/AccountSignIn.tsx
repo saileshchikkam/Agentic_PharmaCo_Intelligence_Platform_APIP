@@ -17,7 +17,10 @@ export function AccountSignIn({ creatingInitially = false, requestedTask }: { cr
     if (user && ready) {
       const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.continue');
-      navigatePreview(accountDestination(task), { replace: true });
+      const destination=sessionStorage.getItem('apip.account.return');
+      sessionStorage.removeItem('apip.account.return');
+      navigatePreview(destination&&/^(?:\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(destination)
+        ?destination:accountDestination(task), { replace: true });
     }
   }, [user?.id, ready, requestedTask]);
   const submit = async (event: React.FormEvent) => {

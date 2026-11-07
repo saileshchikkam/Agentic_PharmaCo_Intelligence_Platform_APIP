@@ -1,5 +1,9 @@
 # ADR-1A — guided intake and official PDF checkpoint
 
+## 2026-11-07 — Phase 3A patient case management
+
+The [3A report](phase3/3a-implementation-and-verification.md) records owner list/filter/detail, current guided deep links, immutable historical views and explicit historical native PDF export. The existing latest-PDF stale protection, template hash, mapping, instruction page, overflow behavior and editable regeneration remain intact. Real two-account hosted checks and four-width Chrome/independent PDF checks passed; readiness/archive/deletion writes remain disabled. See the report for exact migration version reconciliation, tests, code inventory, preview modes, screenshots and remaining gates. No specialist, AI or public deployment was enabled.
+
 ## 2026-11-05 — Live preview PDF runtime recovery
 
 The live preview failure was traced to the server using its default `python` interpreter, which could not import `pypdf`; the subprocess exited with status 1 (`ModuleNotFoundError: No module named 'pypdf'`) and the endpoint returned HTTP 503 `PDF_GENERATION_FAILED`. No patient narrative or credentials were logged. The underlying issue was runtime configuration, not a missing or altered template: `docs/adr/templates/ADRRF_2.pdf` exists and remains SHA-256 `40af4962d6dd65ce538ff4791805b0632085159623c5a4beeb755442f6c0ed0b`. The configured interpreter with pinned `pypdf==6.10.0` and `reportlab==4.4.9` imported both dependencies and returned HTTP 200 `application/pdf`; PDF.js rendered page 1 of the original form for a saved fictional case.

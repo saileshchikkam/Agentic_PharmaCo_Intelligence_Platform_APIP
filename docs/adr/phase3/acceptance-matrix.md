@@ -1,6 +1,6 @@
 # ADR stage acceptance matrix
 
-All criteria are proposed and unrun. [Master](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns scope. [Contracts](roles-consent-and-revisions.md) owns the data/API details.
+The [3A evidence](3a-implementation-and-verification.md) records executed owner-management/history/PDF checks and policy blockers. Other criteria remain proposed and unrun. [Master](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns scope. [Contracts](roles-consent-and-revisions.md) owns the proposed data/API details; the 3A evidence documents the actual narrower contracts.
 
 ## Common gate
 

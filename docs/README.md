@@ -4,6 +4,8 @@ The [canonical ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_
 
 Current ADR implementation and verification: [ADR-1A guided intake](adr/09-adr-1a-checkpoint.md); [architecture and phase navigation](adr/README.md).
 
+[Phase 3A patient case management](adr/phase3/3a-implementation-and-verification.md) records actual owner dashboard/history/export behavior, hosted checks, remaining policy gates and a code walkthrough.
+
 The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS.md) contains mandatory contributor/agent instructions.
 
 The [hospital requirements register](hospital-requirements.md) records the notes attributed to Mahesh P, requirement statuses, affected modules, unresolved source documents and phased integration. Source notes are not an approved hospital SOP.

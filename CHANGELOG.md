@@ -1,5 +1,9 @@
 # Changelog
 
+## Patient ADR case management - 2026-11-07
+
+- Added owner-filtered case lists, connected guided editing, immutable saved-revision views and exact historical original-form PDF export. Real hosted two-account checks and responsive fictional browser/PDF regressions pass. Lifecycle writes remain policy-gated. [Delivery and walkthrough](docs/adr/phase3/3a-implementation-and-verification.md).
+
 ## PostgreSQL disconnect recovery - 2026-11-07
 
 - Updated the pinned PostgreSQL driver to prevent an uncaught rollback crash after connection loss, with a disposable connection-loss regression. See [verification evidence](database/hosted-verification-2026-11-07.md).

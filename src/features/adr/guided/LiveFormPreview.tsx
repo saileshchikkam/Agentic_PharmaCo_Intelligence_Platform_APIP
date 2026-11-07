@@ -12,7 +12,7 @@ const errors: Record<string, string> = {
   PDF_BUSY: 'The PDF service is busy. Try again.',
 };
 
-export function LiveFormPreview({ c, owner }: { c: GuidedCase; owner: string }) {
+export function LiveFormPreview({ c, owner, historical = false }: { c: GuidedCase; owner: string; historical?: boolean }) {
   const [open, setOpen] = useState(false);
   return <aside className="adr-live-form" aria-label="Original PvPI form preview">
     <h2>Original PvPI form</h2>
@@ -21,12 +21,12 @@ export function LiveFormPreview({ c, owner }: { c: GuidedCase; owner: string }) 
       <M3Button variant="outlined" onClick={() => setOpen(!open)}>{open ? 'Hide form preview' : 'Show form preview'}</M3Button>
     </div>
     <div className={open ? 'adr-live-body open' : 'adr-live-body'}>
-      <RevisionPreview key={JSON.stringify([owner, c.id, c.revision])} id={c.id} revision={c.revision} owner={owner} open={open} />
+      <RevisionPreview key={JSON.stringify([owner, c.id, c.revision, historical])} id={c.id} revision={c.revision} owner={owner} open={open} historical={historical} />
     </div>
   </aside>;
 }
 
-function RevisionPreview({ id, revision, owner, open }: { id: string; revision: number; owner: string; open: boolean }) {
+function RevisionPreview({ id, revision, owner, open, historical }: { id: string; revision: number; owner: string; open: boolean; historical: boolean }) {
   const [result, setResult] = useState<{ url: string } | { error: string } | null>(null);
   const [retry, setRetry] = useState(0);
   useEffect(() => {
@@ -40,10 +40,10 @@ function RevisionPreview({ id, revision, owner, open }: { id: string; revision: 
       let url = '';
       const timer = window.setTimeout(async () => {
         try {
-          const response = await fetch(`/api/account/adr-guided/${id}/pdf`, {
+          const response = await fetch(historical ? `/api/account/adr-cases/${id}/revisions/${revision}/pdf` : `/api/account/adr-guided/${id}/pdf`, {
             method: 'POST', credentials: 'same-origin', cache: 'no-store',
             headers: await guidedAccountHeaders(owner),
-            body: JSON.stringify({ expectedRevision: revision }),
+            body: JSON.stringify(historical ? {} : { expectedRevision: revision }),
             signal: AbortSignal.any([controller.signal, AbortSignal.timeout(20000)]),
           });
           if (!response.ok) {
@@ -68,11 +68,12 @@ function RevisionPreview({ id, revision, owner, open }: { id: string; revision: 
     sync();
     wide.addEventListener('change', sync);
     return () => { wide.removeEventListener('change', sync); dispose(); };
-  }, [id, revision, owner, open, retry]);
+  }, [id, revision, owner, open, retry, historical]);
 
   if (!result) return <p role="status">Preparing the saved form preview…</p>;
   if ('error' in result) return <><p role="status">{result.error}</p><M3Button variant="text" onClick={() => setRetry(retry + 1)}>Retry preview</M3Button></>;
   return <>
+    <a className="adr-download" href={result.url} download={`APIP-PvPI-${id}-r${revision}.pdf`}>Download PDF · revision {revision}</a>
     <a href={result.url} target="_blank" rel="noopener">Open form preview in a separate viewer</a>
     <FormPage url={result.url} />
   </>;
