@@ -1,0 +1,34 @@
+.specialist-workspace { max-width:1160px; margin:auto; padding:16px 0 40px; overflow-wrap:anywhere; }
+.specialist-workspace h1 { font-size:clamp(2rem,4vw,3rem); line-height:1.2; }
+.specialist-workspace h2 { font-size:1.4rem; margin:16px 0; }
+.specialist-workspace p { line-height:1.65; }
+.specialist-nav, .specialist-actions { display:flex; flex-wrap:wrap; gap:12px; margin:20px 0; }
+.specialist-status, .specialist-notice, .specialist-profile, .specialist-list>li {
+ border:1px solid var(--md-sys-color-outline-variant); border-radius:24px; padding:24px; margin:20px 0;
+ background:var(--md-sys-color-surface-container-low);
+}
+.specialist-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.specialist-fields>* { min-width:0; }
+.specialist-fields md-outlined-select { width:100%; min-width:0; }
+.specialist-profile md-outlined-text-field, .specialist-dialog md-outlined-text-field { width:100%; min-width:0; box-sizing:border-box; }
+.specialist-list { list-style:none; padding:0; }
+/* Material Web inherits these host dimensions into its native top-layer dialog. */
+.specialist-dialog {
+ --md-dialog-container-color:var(--md-sys-color-surface-container-high);
+ --md-dialog-container-shape:28px;
+ margin:auto; inset:0; position:fixed; width:min(560px,calc(100vw - 32px)); min-width:0;
+ max-width:calc(100vw - 32px); max-height:calc(100dvh - 48px);
+}
+.specialist-dialog [slot="headline"] { padding:24px 24px 0; }
+.specialist-dialog [slot="content"] { padding:16px 24px; min-width:0; overflow-wrap:anywhere; }
+.specialist-dialog [slot="actions"] { padding:8px 24px 24px; margin:0; }
+.specialist-dialog md-outlined-text-field { margin-block:12px; }
+.specialist-workspace :focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:3px; }
+.access-main:has(.specialist-workspace) { padding-inline-start:max(var(--access-page-gutter),env(safe-area-inset-left)); }
+.access-main:has(.specialist-workspace)>.access-page-shell>.access-page-navigation { position:static; }
+@media(max-width:700px) {
+ .specialist-fields { grid-template-columns:minmax(0,1fr); }
+ .specialist-status, .specialist-profile, .specialist-notice { padding:16px; }
+ .specialist-actions>* { max-width:100%; }
+}
+@media(prefers-reduced-motion:reduce) { .specialist-workspace * { animation:none!important; transition:none!important; } }

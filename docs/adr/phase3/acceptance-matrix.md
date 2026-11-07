@@ -1,5 +1,7 @@
 # ADR stage acceptance matrix
 
+**2026-11-08 implementation update:** [Phase 3B delivery and remaining live gates](3b-implementation-and-verification.md) records the actual identity/application/admin contracts, approved 30-day fictional policy, applied migration and fixture evidence. Administrator bootstrap and privileged hosted browser verification remain blocked. Earlier proposal text below does not override the implemented contracts or authorize Phase 3C. [Gated Phase 3C prompt](3c-next-implementation-prompt.md).
+
 The [3A evidence](3a-implementation-and-verification.md) records executed owner-management/history/PDF checks and policy blockers. Other criteria remain proposed and unrun. [Master](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns scope. [Contracts](roles-consent-and-revisions.md) owns the proposed data/API details; the 3A evidence documents the actual narrower contracts.
 
 ## Common gate

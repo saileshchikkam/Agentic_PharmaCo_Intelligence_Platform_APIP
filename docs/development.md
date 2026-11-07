@@ -136,3 +136,7 @@ Fresh-checkout Model A/Python execution remains blocked by the original CRLF-loc
 ## Read-only Model A portability repair — 2026-10-26
 
 Use the [authenticated adapter boundary](model-a-protocol-portability.md), accepting only canonical LF or historical CRLF without changing frozen files/hashes/artifacts. No generic hashing monkeypatch or normalization setup step is needed. Keep original private roots, pinned environment and trusted-pickle provenance. Frozen training/locked-test commands remain strict and are not authorized by this change. Full clean-checkout verification must pass before PR #1 is marked ready.
+
+## Phase 3B identity development
+
+See [delivery and test boundaries](adr/phase3/3b-implementation-and-verification.md), the [identity API guide](../server/specialist/README.md), [controlled bootstrap runbook](../database/operations/README.md) and [reusable hosted launch instructions](../scripts/README.md#private-hosted-preview-preflight). Ordinary SQLite patient mode intentionally does not grant specialist functionality. Use explicitly labeled disposable fixtures for administrator tests until exact live bootstrap approval exists.

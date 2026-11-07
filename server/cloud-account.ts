@@ -7,14 +7,17 @@ import { guidedRouter } from './adr/guided';
 import { casesRouter } from './adr/cases';
 import type { GuidedCaseRepository } from './adr/repository';
 import { postgresGuidedRepository } from './adr/postgresRepository';
+import {specialistRouter} from './specialist/router';
+import {postgresSpecialistRepository} from './specialist/postgresRepository';
+import type {SpecialistRepository} from './specialist/repository';
 
 type Principal = { id: string };
 type Verify = (token: string) => Promise<Principal | null>;
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 
-export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false) {
+export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null) {
   const router = express.Router();
-  router.use((req,_res,next)=> /^\/adr-(guided|cases)(\/|$)/.test(req.path)?next():next('router'));
+  router.use((req,_res,next)=> /^\/(?:account\/adr-(guided|cases)(\/|$)|account\/capabilities$|specialist\/applications(?:\/|$)|admin\/specialist-applications(?:\/|$))/.test(req.path)?next():next('router'));
   const principals = new WeakMap<Request, Principal>();
   async function authenticate(req: Request) {
     const match = /^Bearer ([A-Za-z0-9._-]{1,8192})$/i.exec(req.get('authorization') ?? '');
@@ -48,15 +51,16 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     }).catch(() => { res.status(503).json({ error: 'AUTH_UNAVAILABLE' }); });
   });
   router.use(express.json({ limit: '24kb' }));
-  router.use('/adr-guided', guidedRouter(repository, req => principals.get(req), provider,
+  router.use('/account/adr-guided', guidedRouter(repository, req => principals.get(req), provider,
     async (req, owner) => (await authenticate(req))?.id === owner));
-  router.use('/adr-cases', casesRouter(repository, req => principals.get(req),
+  router.use('/account/adr-cases', casesRouter(repository, req => principals.get(req),
     async (req, owner) => (await authenticate(req))?.id === owner));
+  router.use(specialistRouter(identityRepository,req=>principals.get(req)));
   router.use((error: { status?: number }, _req: Request, res: express.Response, _next: express.NextFunction) => {
     const status = error.status === 413 ? 413 : error.status === 400 ? 400 : 503;
     res.status(status).json({ error: status === 503 ? 'ADR_UNAVAILABLE' : 'INVALID_REQUEST' });
   });
-  app.use('/api/account', router);
+  app.use('/api', router);
 }
 
 export function configuredCloudAccount(app: Express, env = process.env) {
@@ -95,7 +99,7 @@ export function configuredCloudAccount(app: Express, env = process.env) {
       throw Error('AUTH_UNAVAILABLE');
     }
     return data.user && !data.user.is_anonymous ? { id: data.user.id } : null;
-  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1');
+  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql));
   let readiness: { expires: number; check: Promise<{ database: boolean; pdf: boolean; auth: boolean }> } | undefined;
   app.get('/api/ready', async (_req, res) => {
     if (!readiness || readiness.expires < Date.now()) {

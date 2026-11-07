@@ -99,6 +99,7 @@ export function registerLocalAccount(app: Express, {
     attempts.push(now()); next();
   };
   router.get('/session', (req, res) => res.json({ user: readUser(req) ?? null, backend: 'local' }));
+  router.get('/capabilities',(_req,res)=>{res.status(503).json({error:'SPECIALIST_SETUP_REQUIRED'});});
   for (const action of ['signup', 'signin'] as const) router.post(`/${action}`, rateLimit, async (req, res, next) => {
     const { email, password } = req.body ?? {};
     if (Object.keys(req.body ?? {}).sort().join(',') !== 'email,password' || typeof email !== 'string'
@@ -224,5 +225,5 @@ export function registerLocalAccount(app: Express, {
     fail(res, error.status === 413 ? 413 : error.type === 'entity.parse.failed' ? 400 : 500, 'REQUEST_FAILED');
   });
   app.use('/api/account', router);
-  return { close: () => db.close(), db };
+  return { close: () => db.close(), db, readUser };
 }

@@ -12,6 +12,7 @@ import { Brand, PageNavigation, PreviewFooter, PreviewHeader } from './PreviewLa
 
 const AdrWorkspace = React.lazy(() => import('../adr/guided/GuidedWorkspace')
   .then((module) => ({ default: module.GuidedWorkspace })));
+const SpecialistWorkspace = React.lazy(()=>import('../specialist/SpecialistWorkspace').then(module=>({default:module.SpecialistWorkspace})));
 const CaseWorkspace = React.lazy(() => import('../adr/cases/CaseWorkspace').then(module=>({default:module.CaseWorkspace})));
 const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
   .then((module) => ({ default: module.MedAssistPreview })));
@@ -19,7 +20,7 @@ const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = {screen:'specialist';admin?:boolean;id?:string} | { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -32,6 +33,9 @@ export function readPreviewRoute(): PreviewRoute {
   const [path, query] = window.location.hash.slice(1).split('?');
   if (path === '/account/profile') return { screen: 'profile' };
   if (path === '/developer-reference') return { screen: 'developer-reference' };
+  if(path==='/specialist')return {screen:'specialist'};
+  const identityAdmin=/^\/admin\/specialist-applications(?:\/([0-9a-f-]{36}))?$/.exec(path);
+  if(identityAdmin)return {screen:'specialist',admin:true,id:identityAdmin[1]};
   if (path === '/patient/home') return { screen: 'patient-home' };
   const cases=/^\/patient\/adr\/cases(?:\/([0-9a-f-]{36})(?:\/(history)|\/revisions\/([1-9][0-9]{0,2}))?)?$/i.exec(path);
   if(cases)return {screen:'adr-cases',id:cases[1],history:!!cases[2],revision:cases[3]?Number(cases[3]):undefined};
@@ -237,11 +241,12 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           {route.role !== 'patient' && route.requestedTask && <p className="access-requested-task" role="status">
             Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
           </p>}
-          {route.role === 'patient' ? <AccountSignIn requestedTask={route.requestedTask} key={window.location.hash} creatingInitially={new URLSearchParams(window.location.hash.split('?')[1]).has('signup')} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
+          {route.role !== 'developer' ? <AccountSignIn workspace={route.role==='specialist'?'specialist':undefined} requestedTask={route.requestedTask} key={window.location.hash} creatingInitially={new URLSearchParams(window.location.hash.split('?')[1]).has('signup')} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
         </div>
       </section>}
 
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
+      {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace admin={route.admin} id={route.id}/></React.Suspense>}
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-cases' && account.user && <React.Suspense fallback={<p role="status">Opening your reports…</p>}>
         <CaseWorkspace key={account.user.id} owner={account.user.id} id={route.id} revision={route.revision} history={route.history}/>

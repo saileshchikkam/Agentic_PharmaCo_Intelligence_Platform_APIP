@@ -1,5 +1,7 @@
 # Architecture and implementation status
 
+**2026-11-08 Phase 3B:** [specialist identity, private administration, database authorization and evidence](adr/phase3/3b-implementation-and-verification.md) are implemented for the fictional prototype. The additive development migration is applied; exact administrator bootstrap and live privileged workflow verification remain blocked. Patient ownership policies, PDF mapping and MedAssist are unchanged.
+
 **2026-11-07 Phase 3A:** [owner case management, exact history/PDF contracts and evidence](adr/phase3/3a-implementation-and-verification.md) reuse the existing repositories, guided editor and original form. Summaries derive from current snapshots; one approved development migration adds a restricted historical-export receipt function. Lifecycle writes and specialist access remain disabled pending policy approval.
 
 **2026-11-07 planning update.** The [ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) is the canonical future ADR architecture and stage plan. Its schemas, APIs, specialist privileges, analytics and AI workflows are proposals. Actual backend checks remain in the [hosted evidence](../database/hosted-verification-2026-11-07.md).

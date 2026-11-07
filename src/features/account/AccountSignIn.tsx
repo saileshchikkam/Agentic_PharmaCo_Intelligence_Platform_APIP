@@ -6,7 +6,7 @@ import { useAccount } from './AccountProvider';
 import { navigatePreview } from '../access/navigation';
 import './account.css';
 
-export function AccountSignIn({ creatingInitially = false, requestedTask }: { creatingInitially?: boolean; requestedTask?: string }) {
+export function AccountSignIn({ creatingInitially = false, requestedTask, workspace }: { creatingInitially?: boolean; requestedTask?: string; workspace?:'specialist' }) {
   const { user, ready, error } = useAccount();
   const [creating, setCreating] = useState(creatingInitially);
   const [email, setEmail] = useState('');
@@ -19,8 +19,8 @@ export function AccountSignIn({ creatingInitially = false, requestedTask }: { cr
       sessionStorage.removeItem('apip.account.continue');
       const destination=sessionStorage.getItem('apip.account.return');
       sessionStorage.removeItem('apip.account.return');
-      navigatePreview(destination&&/^(?:\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(destination)
-        ?destination:accountDestination(task), { replace: true });
+      navigatePreview(destination&&/^(?:\/specialist|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(destination)
+        ?destination:workspace==='specialist'?'/specialist':accountDestination(task), { replace: true });
     }
   }, [user?.id, ready, requestedTask]);
   const submit = async (event: React.FormEvent) => {

@@ -1,5 +1,7 @@
 # APIP documentation
 
+[Phase 3B specialist identity](adr/phase3/3b-implementation-and-verification.md) documents implementation, exact hosted migration, fixture/browser evidence and separately blocked administrator bootstrap.
+
 The [canonical ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns proposed case management, specialist review, analytics and governed evidence stages. Implementation requires separate authorization.
 
 Current ADR implementation and verification: [ADR-1A guided intake](adr/09-adr-1a-checkpoint.md); [architecture and phase navigation](adr/README.md).

@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-08",
+  "scope": "private fictional prototype",
+  "migration": {
+    "version": "20261107195900",
+    "sha256": "009985b59439514430ccdcd280b11faf27b2d5bc84496380c56a6551f4d871ec",
+    "hosted": "PASS approved exact SQL and security metadata",
+    "bootstrap": "BLOCKED not authorized or executed"
+  },
+  "tests": {
+    "affectedNodeRegressions": {
+      "pass": 36,
+      "fail": 0,
+      "mode": "disposable PostgreSQL / mocked Auth / isolated SQLite as identified by each test"
+    },
+    "nativePdfPython": {
+      "pass": 4,
+      "fail": 0
+    },
+    "typescript": "PASS frontend, config and strict server",
+    "productionBuild": "PASS",
+    "specialistChrome": [
+      {
+        "width": 320,
+        "result": "PASS",
+        "backend": "disposable PostgreSQL, existing local test authentication"
+      },
+      {
+        "width": 360,
+        "result": "PASS",
+        "backend": "disposable PostgreSQL, existing local test authentication"
+      },
+      {
+        "width": 820,
+        "result": "PASS",
+        "backend": "disposable PostgreSQL, existing local test authentication"
+      },
+      {
+        "width": 1440,
+        "result": "PASS",
+        "backend": "disposable PostgreSQL, existing local test authentication"
+      }
+    ],
+    "patientChrome": {
+      "widths": [
+        320,
+        360,
+        820,
+        1440
+      ],
+      "result": "PASS isolated SQLite, real local test Auth and original native PDF"
+    },
+    "hostedReady": {
+      "status": 200,
+      "ready": true,
+      "checks": {
+        "database": true,
+        "pdf": true,
+        "auth": true
+      }
+    },
+    "hostedAnonymous": {
+      "capabilities": 401,
+      "administration": 401
+    },
+    "hostedApplicantBrowser": "BLOCKED worker timed out; user-reported sign-in is not automated evidence",
+    "hostedAdminWorkflow": "BLOCKED exact UUID/bootstrap not authorized",
+    "googleOAuth": "PENDING outside scope"
+  }
+}

@@ -1,5 +1,9 @@
 # Changelog
 
+## Specialist identity and controlled administration - 2026-11-08
+
+- Added fictional specialist applications, status/profile, private administrator decisions and database-backed per-request capabilities with 30-day expiry, atomic audit and immediate future-request revocation. No patient-sharing privileges. Applied the separately approved development migration; live administrator bootstrap remains blocked. Added strict-TLS preview preflight and responsive Chrome evidence. [Delivery](docs/adr/phase3/3b-implementation-and-verification.md).
+
 ## Patient ADR case management - 2026-11-07
 
 - Added owner-filtered case lists, connected guided editing, immutable saved-revision views and exact historical original-form PDF export. Real hosted two-account checks and responsive fictional browser/PDF regressions pass. Lifecycle writes remain policy-gated. [Delivery and walkthrough](docs/adr/phase3/3a-implementation-and-verification.md).

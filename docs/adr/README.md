@@ -1,5 +1,7 @@
 # ADR-0 — Architecture and delivery blueprint
 
+**2026-11-08 Phase 3B:** [actual specialist identity delivery, screenshots and live gates](phase3/3b-implementation-and-verification.md). No patient-to-specialist sharing or clinical access is enabled.
+
 **2026-11-07 implementation update:** [Phase 3A owner management/history/PDF](phase3/3a-implementation-and-verification.md) is implemented and verified separately from the historical ADR-0/1A notes below. Lifecycle and professional privileges remain policy-gated.
 
 **Current planning source.** The [ADR Phase 3–4 master blueprint](../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) and [package index](phase3/README.md) reconcile the interrupted Phase 3 drafts. New stage scope is proposed and unimplemented; the older ADR-0 plan below remains historical.
