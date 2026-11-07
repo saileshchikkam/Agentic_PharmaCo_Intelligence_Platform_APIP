@@ -35,3 +35,4 @@ Thumbs.db
 /tmp/pdfs/
 /output/pdf/adr-fictional-*.pdf
 /docs/adr/templates/ADRRF_2.pdf
+/supabase/.temp/

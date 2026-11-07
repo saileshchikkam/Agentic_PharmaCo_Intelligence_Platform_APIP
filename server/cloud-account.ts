@@ -4,6 +4,7 @@ import postgres from 'postgres';
 import { configuredProvider, type IntakeProvider } from './adr/provider';
 import { probePdf } from './adr/pdf';
 import { guidedRouter } from './adr/guided';
+import { casesRouter } from './adr/cases';
 import type { GuidedCaseRepository } from './adr/repository';
 import { postgresGuidedRepository } from './adr/postgresRepository';
 
@@ -13,6 +14,7 @@ const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 
 export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false) {
   const router = express.Router();
+  router.use((req,_res,next)=> /^\/adr-(guided|cases)(\/|$)/.test(req.path)?next():next('router'));
   const principals = new WeakMap<Request, Principal>();
   async function authenticate(req: Request) {
     const match = /^Bearer ([A-Za-z0-9._-]{1,8192})$/i.exec(req.get('authorization') ?? '');
@@ -46,13 +48,15 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     }).catch(() => { res.status(503).json({ error: 'AUTH_UNAVAILABLE' }); });
   });
   router.use(express.json({ limit: '24kb' }));
-  router.use(guidedRouter(repository, req => principals.get(req), provider,
+  router.use('/adr-guided', guidedRouter(repository, req => principals.get(req), provider,
+    async (req, owner) => (await authenticate(req))?.id === owner));
+  router.use('/adr-cases', casesRouter(repository, req => principals.get(req),
     async (req, owner) => (await authenticate(req))?.id === owner));
   router.use((error: { status?: number }, _req: Request, res: express.Response, _next: express.NextFunction) => {
     const status = error.status === 413 ? 413 : error.status === 400 ? 400 : 503;
     res.status(status).json({ error: status === 503 ? 'ADR_UNAVAILABLE' : 'INVALID_REQUEST' });
   });
-  app.use('/api/account/adr-guided', router);
+  app.use('/api/account', router);
 }
 
 export function configuredCloudAccount(app: Express, env = process.env) {

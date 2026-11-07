@@ -1,6 +1,6 @@
 # ADR Phase 3–4 planning package
 
-**Proposed; implementation unstarted.** The [master blueprint](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) is the canonical stage/boundary source.
+The [master blueprint](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) is the canonical stage/boundary source. The independently authorized Phase 3A owner dashboard/history/PDF subset is implemented; policy-dependent lifecycle writes and later stages remain proposed. [Actual 3A implementation, tests, migration and walkthrough](3a-implementation-and-verification.md).
 
 - [Patient journey](patient-journey.md)
 - [Specialist journey](specialist-journey.md)

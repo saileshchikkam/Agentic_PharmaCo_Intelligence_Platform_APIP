@@ -9,6 +9,7 @@ import { emptyProfile, historyFields, validateProfile, type ProfileInput } from 
 import { isDraftId, validateDraftCommand } from '../src/features/adr/accountDraft';
 import type { AdrDraft } from '../src/features/adr/draftStorage';
 import { guidedRouter } from './adr/guided';
+import { casesRouter } from './adr/cases';
 import { sqliteGuidedRepository } from './adr/repository';
 
 const cookieName = 'apip.local.session';
@@ -214,6 +215,10 @@ export function registerLocalAccount(app: Express, {
     if (req.get('authorization')) { res.status(401).json({ error: 'SIGN_IN_REQUIRED' }); return; }
     next();
   }, guidedRouter(sqliteGuidedRepository(db), readUser));
+  router.use('/adr-cases', (req,res,next) => {
+    if(req.get('authorization')){res.status(401).json({error:'SIGN_IN_REQUIRED'});return;}
+    next();
+  }, casesRouter(sqliteGuidedRepository(db),readUser));
   router.use((_req, res) => { fail(res, 404, 'NOT_FOUND'); });
   router.use((error: { type?: string; status?: number }, _req: Request, res: Response, _next: NextFunction) => {
     fail(res, error.status === 413 ? 413 : error.type === 'entity.parse.failed' ? 400 : 500, 'REQUEST_FAILED');

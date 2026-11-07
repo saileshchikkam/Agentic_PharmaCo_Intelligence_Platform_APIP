@@ -12,7 +12,20 @@ export function App() {
   const [route, setRoute] = useState(readPreviewRoute);
 
   useEffect(() => {
-    const onHashChange = () => setRoute(readPreviewRoute());
+    let previous={url:window.location.href,state:window.history.state};
+    let restoring=false;
+    const onHashChange = (event:HashChangeEvent) => {
+      if(restoring){restoring=false;return;}
+      // Programmatic navigation already asks before leaving. Native browser Back/Forward does not.
+      if(event.isTrusted&&!window.dispatchEvent(new Event('apip:before-navigate',{cancelable:true}))){
+        const delta=(previous.state?.apipDepth??0)-(window.history.state?.apipDepth??0);
+        if(delta){restoring=true;window.history.go(delta);}
+        else window.history.replaceState(previous.state,'',previous.url);
+        return;
+      }
+      previous={url:window.location.href,state:window.history.state};
+      setRoute(readPreviewRoute());
+    };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
@@ -21,7 +34,7 @@ export function App() {
     document.title = import.meta.env.DEV && window.location.hash === '#/research/model-a' ? 'Fictional MedAssist question lab — APIP' : route.screen === 'developer-reference'
       ? 'APIP — Developer design reference'
       : route.screen === 'profile' ? 'Your profile — APIP' : route.screen === 'sign-in' ? 'Sign in — APIP'
-      : route.screen === 'adr-preview' ? 'Fictional ADR intake preview — APIP'
+      : route.screen === 'adr-cases' ? 'My ADR Reports — APIP' : route.screen === 'adr-preview' ? 'Fictional ADR intake preview — APIP'
           : route.screen === 'medassist-conversation' ? 'Fictional MedAssist conversation — APIP'
           : route.screen === 'medassist-preview' ? 'MedAssist design preview — APIP'
             : route.screen === 'patient-home' ? 'Patient home preview — APIP' : 'APIP — Agentic Pharma Co-intelligence Platform';

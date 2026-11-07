@@ -18,7 +18,9 @@ const hasTemplate=existsSync('docs/adr/templates/ADRRF_2.pdf');
 let browser;
 try{
  browser=await chromium.launch({channel:'chrome',headless:true});
- for(const width of [320,360,820,1440]){
+ const widths=(process.env.ADR_BROWSER_WIDTHS??'320,360,820,1440').split(',').map(Number);
+ assert(widths.length&&widths.every(width=>[320,360,820,1440].includes(width)),'Choose only the supported browser test widths');
+ for(const width of widths){
   const context=await browser.newContext({viewport:{width,height:720},reducedMotion:'reduce'});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await context.route(/^https?:\/\//,route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
   await page.goto(origin+'/#/',{waitUntil:'commit'});

@@ -10,12 +10,13 @@ const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 const errors: Record<string, number> = {
   SIGN_IN_REQUIRED: 401, ACCOUNT_CHANGED: 409, NOT_FOUND: 404, FICTIONAL_ONLY: 400,
   INVALID_COMMAND: 400, INVALID_PAGE: 400, IDEMPOTENCY_KEY_REQUIRED: 400,
+  INVALID_FILTER: 400, INVALID_CURSOR: 400, POLICY_NOT_APPROVED: 403,
   REVISION_CONFLICT: 409, IDEMPOTENCY_CONFLICT: 409, CASE_LIMIT: 409, HISTORY_LIMIT: 409,
   PDF_BUSY: 429, EXTRACTION_BUSY: 429, PDF_SELECT_ONE_SERIOUSNESS: 422, PDF_UNSUPPORTED_SCRIPT: 422,
 };
 const pdfErrors = new Set(['PDF_TEMPLATE_MISSING', 'TEMPLATE_CHANGED', 'PDF_RUNTIME_UNAVAILABLE',
   'PDF_RUNTIME_DEPENDENCIES_MISSING', 'PDF_GENERATION_FAILED', 'PDF_TIMEOUT', 'PDF_TOO_LARGE']);
-const endpoint = (fn: (...args: Parameters<RequestHandler>) => Promise<void>): RequestHandler =>
+export const endpoint = (fn: (...args: Parameters<RequestHandler>) => Promise<void>): RequestHandler =>
   (req, res, next) => { void fn(req, res, next).catch(error => {
     const code = error instanceof Error ? error.message : '';
     if (Object.hasOwn(errors, code)) res.status(errors[code]).json({ error: code });

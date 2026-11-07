@@ -1,5 +1,9 @@
 # Decisions
 
+## 2026-11-07 — Owner management without unapproved lifecycle writes
+
+The authorized Phase 3A subset derives owner summaries directly from current immutable snapshots rather than introducing a backfilled search/management subsystem. Existing bounds make this reviewable without projection drift; larger limits require separate performance evidence. Readiness/archive/deletion policies remain unapproved, so their commands are denied rather than inferred from checklist completeness. Historical exports use a separate owner-checked receipt function and preserve the current-PDF latest-revision check. [Actual contracts and tests](adr/phase3/3a-implementation-and-verification.md).
+
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
 ## DEC-001 — Mission and name
