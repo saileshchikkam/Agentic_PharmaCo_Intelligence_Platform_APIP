@@ -1,0 +1,11 @@
+{
+  "version": "medassist-l7-english-v1",
+  "baseline": "60c53c3ae7590205f7e9d4aab948f1d0a8a67efe",
+  "canonicalization": "UTF-8 LF, no BOM",
+  "sha256": "d107ff88fb601c1ac5581db8817a9fdc489b012387172c7e81e842f6606dc3b8",
+  "singleTurns": 110,
+  "multiTurns": 20,
+  "frozenBeforeMeasurement": true,
+  "frozenAt": "2026-11-07T06:40:20.635Z",
+  "authoring": "AI-authored after contract and prior-report review, separately from prior corpora. Same assistant authors and executes. No external annotator, representative sampling or blinding. No L7 parser execution before freeze."
+}

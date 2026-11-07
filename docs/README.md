@@ -20,6 +20,8 @@ The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) pre
 
 The [MedAssist progress tracker](medassist-progress.md) records the seven-stage evidence snapshot, component availability and local completion checklist. The milestone roadmap remains the planning entry point.
 
+The [L7 fictional English evaluation](evaluation/medassist-l7-english-report.md) links its frozen corpus/checksum, complete case matrix, original measured results, browser evidence, scoring limitations and next remediation priorities. It evaluates the unchanged nine-field script, not genuine Model A or clinical accuracy.
+
 For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English-only RAG, and agent implementation without creating another task queue.
 
 The [model catalogue](../models/README.md) records actual local inventory and diagnostic runs separately from provider candidates. The [research register](research-and-validation.md#candidate-data-and-evidence-sources) records dataset suitability, rights gaps, and the preliminary MALADE reference; a shortlist is not acquired data or an implemented integration.

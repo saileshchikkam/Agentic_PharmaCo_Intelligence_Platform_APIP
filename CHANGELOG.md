@@ -1,5 +1,9 @@
 # Changelog
 
+## MedAssist Stage 3 / L7 evaluation — 2026-11-07
+
+- Independently authored/froze 110 fictional English descriptions and 20 journeys before measurement; scored 61/110 full matches and 19/20 journeys without implementation tuning. Recorded incorrect context/polarity proposals, stale pending evidence, rubric limitations and separate safety gaps. [Complete report](docs/evaluation/medassist-l7-english-report.md)
+
 ## MedAssist post-L6 English coverage — 2026-11-07
 
 - Added bounded spelling and conversational phrases, scoped continuity, and useful vague/pain clarification while preserving unconfirmed evidence. Passed 290 focused tests and 15/15 browser journeys; known L5 comparison is 79/80. [Results and remaining limits](docs/evaluation/medassist-post-l6-coverage-report.md)

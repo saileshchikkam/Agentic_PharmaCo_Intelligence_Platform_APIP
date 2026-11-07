@@ -1,0 +1,1585 @@
+[
+  {
+    "id": "L7-M01",
+    "name": "clarification addition",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true,
+      "noPrematureSummary": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_201",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "225b7e46-8bca-4c68-9b06-40cf980f4a0c",
+        "text": "My wrist is clicking.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "My wrist is clicking",
+            "start": 0,
+            "end": 20,
+            "context": "unsupported_or_ambiguous",
+            "evidence_id": null,
+            "concept": null,
+            "normalized": null,
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "029ebe98-5327-4b23-92a7-e045769ee90b",
+        "text": "A cough is bothering me during this shift.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "A cough is bothering me during this shift",
+            "start": 0,
+            "end": 41,
+            "context": "current",
+            "evidence_id": "E_201",
+            "concept": "concept.E_201",
+            "normalized": "cough",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "My wrist is clicking.",
+      "A cough is bothering me during this shift.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M02",
+    "name": "compatible pending addition",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_148",
+          "status": "observed_positive",
+          "value": true
+        },
+        {
+          "evidence_id": "E_94",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "65d5b7eb-03ad-4b9b-8840-dd464818e7a1",
+        "text": "There is nausea during this ride.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "There is nausea during this ride",
+            "start": 0,
+            "end": 32,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "652d5ab0-2953-4e45-9212-da4ea72c17ee",
+        "text": "Chills have started now as well.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "Chills have started now as well",
+            "start": 0,
+            "end": 31,
+            "context": "current",
+            "evidence_id": "E_94",
+            "concept": "concept.E_94",
+            "normalized": "chills",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "There is nausea during this ride.",
+      "Chills have started now as well.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_148",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [
+        {
+          "evidence_id": "E_94",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M03",
+    "name": "unsupported preserves pending",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_201",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "6d3ba9f9-5e28-4295-832f-1b6e9e0b8ead",
+        "text": "A cough started during rehearsal.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "A cough started during rehearsal",
+            "start": 0,
+            "end": 32,
+            "context": "current",
+            "evidence_id": "E_201",
+            "concept": "concept.E_201",
+            "normalized": "cough",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "cb8f4cba-caa9-45c7-94d7-e8eba19de824",
+        "text": "The fictional elbow clicks too.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "The fictional elbow clicks too",
+            "start": 0,
+            "end": 30,
+            "context": "unsupported_or_ambiguous",
+            "evidence_id": null,
+            "concept": null,
+            "normalized": null,
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "A cough started during rehearsal.",
+      "The fictional elbow clicks too.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M04",
+    "name": "pending opposite review newer",
+    "pass": false,
+    "checks": {
+      "blockedUntilChoice": true,
+      "newerNegativeDraft": false,
+      "negativeOnlyNoInterview": true
+    }
+  },
+  {
+    "id": "L7-M05",
+    "name": "pending opposite review earlier",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_148",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "377a01c8-d751-469b-abd7-91f04843fabb",
+        "text": "I have nausea during this ride.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have nausea during this ride",
+            "start": 0,
+            "end": 30,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "a3d6a98d-5937-4c8a-9e24-7c948439d0b6",
+        "text": "No nausea during this ride.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "No nausea during this ride",
+            "start": 0,
+            "end": 26,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have nausea during this ride.",
+      "No nausea during this ride.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_148",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M06",
+    "name": "rejected draft replacement",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_97",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "efcee46e-942b-4839-9c89-82ce84f57129",
+        "text": "My nose is stuffy during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "My nose is stuffy during class",
+            "start": 0,
+            "end": 30,
+            "context": "current",
+            "evidence_id": "E_181",
+            "concept": "concept.E_181",
+            "normalized": "nasal congestion or clear runny nose",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "a6e10236-45e7-4d60-8f62-130f4f8f9707",
+        "text": "My throat feels sore during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "My throat feels sore during class",
+            "start": 0,
+            "end": 33,
+            "context": "current",
+            "evidence_id": "E_97",
+            "concept": "concept.E_97",
+            "normalized": "sore throat",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "My nose is stuffy during class.",
+      "My throat feels sore during class.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_97",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M07",
+    "name": "UNKNOWN before positive",
+    "pass": true,
+    "checks": {
+      "unknownPositiveConflict": true,
+      "noInterview": true
+    }
+  },
+  {
+    "id": "L7-M08",
+    "name": "negative confirmation",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_97",
+          "status": "observed_positive",
+          "value": true
+        },
+        {
+          "evidence_id": "E_94",
+          "status": "observed_negative",
+          "value": false
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "1ae10474-24a8-42ef-ab4e-0fae52dbe457",
+        "text": "I have a sore throat but no chills during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have a sore throat",
+            "start": 0,
+            "end": 20,
+            "context": "current",
+            "evidence_id": "E_97",
+            "concept": "concept.E_97",
+            "normalized": "sore throat",
+            "method": "deterministic.v1"
+          },
+          {
+            "quote": "no chills during class",
+            "start": 25,
+            "end": 47,
+            "context": "current",
+            "evidence_id": "E_94",
+            "concept": "concept.E_94",
+            "normalized": "chills",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have a sore throat but no chills during class.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_97",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [
+        {
+          "evidence_id": "E_94",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M09",
+    "name": "follow-up UNKNOWN",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_148",
+          "status": "observed_positive",
+          "value": true
+        },
+        {
+          "evidence_id": "E_201",
+          "status": "unknown",
+          "value": null
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "fbf0a8db-ca27-4d36-b221-de044c2ad156",
+        "text": "I feel nauseated during this ride.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I feel nauseated during this ride",
+            "start": 0,
+            "end": 33,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I feel nauseated during this ride.",
+      "F",
+      "Not sure",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_148",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [
+        {
+          "answer": {
+            "evidence_id": "E_201",
+            "state": "unknown",
+            "value": null
+          },
+          "disclosures": []
+        }
+      ],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M10",
+    "name": "accepted contradiction",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true,
+      "conflictBlocked": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_51",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "blocked_unresolved_conflict",
+    "records": [
+      {
+        "request_id": "b2198375-e83f-4666-9941-4e126ad7a7b8",
+        "text": "I have diarrhea during this shift.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have diarrhea during this shift",
+            "start": 0,
+            "end": 33,
+            "context": "current",
+            "evidence_id": "E_51",
+            "concept": "concept.E_51",
+            "normalized": "diarrhea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "f07d330a-1039-492c-9f4c-1d9b697921c7",
+        "text": "Actually I do not have diarrhea now.",
+        "question_id": "E_201",
+        "annotations": [
+          {
+            "quote": "Actually I do not have diarrhea now",
+            "start": 0,
+            "end": 35,
+            "context": "current",
+            "evidence_id": "E_51",
+            "concept": "concept.E_51",
+            "normalized": "diarrhea",
+            "method": "deterministic.v1"
+          },
+          {
+            "quote": "Actually I do not have diarrhea now",
+            "start": 0,
+            "end": 35,
+            "context": "explicit_correction",
+            "evidence_id": "E_51",
+            "concept": "concept.E_51",
+            "normalized": "diarrhea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "unrelated",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have diarrhea during this shift.",
+      "F",
+      "Actually I do not have diarrhea now.",
+      "Leave conflicting information unresolved"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_51",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "unresolved_contradiction"
+    }
+  },
+  {
+    "id": "L7-M11",
+    "name": "third party follow-up",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_97",
+          "status": "observed_positive",
+          "value": true
+        },
+        {
+          "evidence_id": "E_201",
+          "status": "observed_negative",
+          "value": false
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "0c3c70fb-a8e7-4e9b-ae33-62abd7639a3f",
+        "text": "I have a sore throat during rehearsal.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have a sore throat during rehearsal",
+            "start": 0,
+            "end": 37,
+            "context": "current",
+            "evidence_id": "E_97",
+            "concept": "concept.E_97",
+            "normalized": "sore throat",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "0a93c099-cb0e-402a-917a-2f8c3dc06b2c",
+        "text": "My brother has chills during rehearsal.",
+        "question_id": "E_201",
+        "annotations": [
+          {
+            "quote": "My brother has chills during rehearsal",
+            "start": 0,
+            "end": 38,
+            "context": "other_person",
+            "evidence_id": "E_94",
+            "concept": "concept.E_94",
+            "normalized": "chills",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "unrelated",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have a sore throat during rehearsal.",
+      "F",
+      "My brother has chills during rehearsal.",
+      "No",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_97",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [
+        {
+          "answer": {
+            "evidence_id": "E_201",
+            "state": "confirmed",
+            "value": false
+          },
+          "disclosures": []
+        }
+      ],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M12",
+    "name": "history then current",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_181",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "d1bb7dca-35e0-4fa2-b376-6a62d9ddb05a",
+        "text": "I used to have nausea in childhood.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I used to have nausea in childhood",
+            "start": 0,
+            "end": 34,
+            "context": "historical_or_resolved",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "76060d13-3203-4393-a151-b7915cc7e390",
+        "text": "Now my nose is blocked during this shift.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "Now my nose is blocked during this shift",
+            "start": 0,
+            "end": 40,
+            "context": "current",
+            "evidence_id": "E_181",
+            "concept": "concept.E_181",
+            "normalized": "nasal congestion or clear runny nose",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I used to have nausea in childhood.",
+      "Now my nose is blocked during this shift.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_181",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M13",
+    "name": "pending temporal retraction",
+    "pass": false,
+    "checks": {
+      "expectedExport": false,
+      "provenance": true,
+      "resolvedPendingBlocked": false
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_201",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "1d55bf10-1272-4c5b-ad40-0d8c340a9ea1",
+        "text": "I have a cough during this shift.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have a cough during this shift",
+            "start": 0,
+            "end": 32,
+            "context": "current",
+            "evidence_id": "E_201",
+            "concept": "concept.E_201",
+            "normalized": "cough",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "69dd55c2-0512-45aa-a4ef-3228d175b2d5",
+        "text": "That cough has stopped now.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "That cough has stopped now",
+            "start": 0,
+            "end": 26,
+            "context": "current",
+            "evidence_id": "E_201",
+            "concept": "concept.E_201",
+            "normalized": "cough",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [
+          {
+            "kind": "progression",
+            "quote": "stopped",
+            "start": 15,
+            "end": 22,
+            "origin": "unstructured_user_report",
+            "structured_value_inferred": false
+          }
+        ],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have a cough during this shift.",
+      "That cough has stopped now.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M14",
+    "name": "multiple initial symptoms",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_201",
+          "status": "observed_positive",
+          "value": true
+        },
+        {
+          "evidence_id": "E_94",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "c8f88161-ca9d-40f1-9021-07cf010d1f06",
+        "text": "A cough and chills started during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "A cough",
+            "start": 0,
+            "end": 7,
+            "context": "current",
+            "evidence_id": "E_201",
+            "concept": "concept.E_201",
+            "normalized": "cough",
+            "method": "deterministic.v1"
+          },
+          {
+            "quote": "chills started during class",
+            "start": 12,
+            "end": 39,
+            "context": "current",
+            "evidence_id": "E_94",
+            "concept": "concept.E_94",
+            "normalized": "chills",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "A cough and chills started during class.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [
+        {
+          "evidence_id": "E_94",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M15",
+    "name": "off-question addition",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_181",
+          "status": "observed_positive",
+          "value": true
+        },
+        {
+          "evidence_id": "E_201",
+          "status": "observed_negative",
+          "value": false
+        },
+        {
+          "evidence_id": "E_148",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "e45f403b-81cc-4b26-aff7-6ba7c19e139d",
+        "text": "My nose is blocked during rehearsal.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "My nose is blocked during rehearsal",
+            "start": 0,
+            "end": 35,
+            "context": "current",
+            "evidence_id": "E_181",
+            "concept": "concept.E_181",
+            "normalized": "nasal congestion or clear runny nose",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "dd87de91-cbe4-43c1-9656-c7ec1184d74d",
+        "text": "I feel nauseated during rehearsal as well.",
+        "question_id": "E_201",
+        "annotations": [
+          {
+            "quote": "I feel nauseated during rehearsal as well",
+            "start": 0,
+            "end": 41,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "unrelated",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "My nose is blocked during rehearsal.",
+      "F",
+      "I feel nauseated during rehearsal as well.",
+      "No",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_181",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [
+        {
+          "answer": {
+            "evidence_id": "E_201",
+            "state": "confirmed",
+            "value": false
+          },
+          "disclosures": [
+            {
+              "evidence_id": "E_148",
+              "state": "confirmed",
+              "value": true
+            }
+          ]
+        }
+      ],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M16",
+    "name": "pending uncertain collision",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_97",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "c9545a57-e434-4dbf-94ac-71b3bc865d39",
+        "text": "I have a sore throat during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have a sore throat during class",
+            "start": 0,
+            "end": 33,
+            "context": "current",
+            "evidence_id": "E_97",
+            "concept": "concept.E_97",
+            "normalized": "sore throat",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "400a6f41-4377-43ce-958e-abe7b8a454c4",
+        "text": "Maybe I have a sore throat during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "Maybe I have a sore throat during class",
+            "start": 0,
+            "end": 39,
+            "context": "current",
+            "evidence_id": "E_97",
+            "concept": "concept.E_97",
+            "normalized": "sore throat",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have a sore throat during class.",
+      "Maybe I have a sore throat during class.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_97",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M17",
+    "name": "early stop missing fields",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_94",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "38c6b75f-68af-42b9-8af1-9fbd0df0d8bc",
+        "text": "I have chills during rehearsal.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have chills during rehearsal",
+            "start": 0,
+            "end": 30,
+            "context": "current",
+            "evidence_id": "E_94",
+            "concept": "concept.E_94",
+            "normalized": "chills",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I have chills during rehearsal.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_94",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M18",
+    "name": "duplicate pending wording",
+    "pass": true,
+    "checks": {
+      "expectedExport": true,
+      "provenance": true
+    },
+    "evidence": {
+      "schema_version": "medassist.scripted-evidence.v1",
+      "mode": "scripted_fictional",
+      "model_a_inference": false,
+      "model_b_status": "not_enabled",
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "missing_item_semantics": "unspecified_never_negative",
+      "items": [
+        {
+          "evidence_id": "E_148",
+          "status": "observed_positive",
+          "value": true
+        }
+      ]
+    },
+    "usage": "fictional_only_no_clinical_assessment",
+    "records": [
+      {
+        "request_id": "22712dc9-59c6-4832-ab49-59dc3652e393",
+        "text": "I feel nauseated during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I feel nauseated during class",
+            "start": 0,
+            "end": 29,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": true,
+        "extraction_method": "scripted_deterministic.v1"
+      },
+      {
+        "request_id": "5be508dc-b6cc-4da9-99ad-e7514612c21d",
+        "text": "I have nausea during class.",
+        "question_id": null,
+        "annotations": [
+          {
+            "quote": "I have nausea during class",
+            "start": 0,
+            "end": 26,
+            "context": "current",
+            "evidence_id": "E_148",
+            "concept": "concept.E_148",
+            "normalized": "nausea",
+            "method": "deterministic.v1"
+          }
+        ],
+        "details": [],
+        "compatibility": "not_applicable",
+        "confirmed": false,
+        "extraction_method": "scripted_deterministic.v1"
+      }
+    ],
+    "narratives": [
+      "I feel nauseated during class.",
+      "I have nausea during class.",
+      "F",
+      "End this fictional interview"
+    ],
+    "conversation": {
+      "schema_version": "medassist.natural-request.v1",
+      "fictional_only": true,
+      "context": {
+        "age": 29,
+        "source_sex": "F"
+      },
+      "initial": {
+        "evidence_id": "E_148",
+        "state": "confirmed",
+        "value": true
+      },
+      "initial_disclosures": [],
+      "turns": [],
+      "stop": "user_stopped"
+    }
+  },
+  {
+    "id": "L7-M19",
+    "name": "uncertain context refuses progression",
+    "pass": true,
+    "checks": {
+      "missingAgeRefusal": true,
+      "noExport": true
+    }
+  },
+  {
+    "id": "L7-M20",
+    "name": "restart isolates accepted state",
+    "pass": true,
+    "checks": {
+      "restartEmpty": true
+    }
+  }
+]

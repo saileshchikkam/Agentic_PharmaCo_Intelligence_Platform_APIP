@@ -4,7 +4,7 @@ Use actual dated entries to preserve the project's journey without a fixed-durat
 
 ## Entries
 
-- [2026-11-07](2026-11-07.md): post-L6 bounded English coverage, conservative clarification and full fictional browser replay.
+- [2026-11-07](2026-11-07.md): post-L6 bounded coverage and L7 fresh frozen evaluation, including semantic failures, browser evidence and unchanged implementation.
 
 - [2026-10-18](2026-10-18.md): English-only account/profile foundation, local PostgreSQL ownership tests, connected SQLite authentication/storage, and deferred cloud provisioning.
 
