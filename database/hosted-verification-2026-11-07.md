@@ -1,5 +1,7 @@
 # Hosted verification evidence — 2026-11-07
 
+**Current gate decision — GO for the private hosted backend verification milestone.** Natural expiry, revocation, restart persistence and bounded client recovery have now passed. Google OAuth remains a separate pending gate. Historical attempts and their limitations remain below.
+
 The private Supabase development rehearsal uses the existing Express API and restricted writer through the transaction pooler, with certificate and hostname verification. The local launcher supplies the independently downloaded Supabase Root 2021 CA through NODE_EXTRA_CA_CERTS. No credentials are recorded here.
 
 ## Executed hosted checks
@@ -71,3 +73,21 @@ Real refresh returned 200. Awaited provider logout returned 204, browser local s
 The natural-expiry worker held the second real token in memory, blocked browser refresh and waited 3675 seconds including its allowance. Its protected request returned 503 rather than the expected 401. No successful access occurred, but the stored result contains only the status and cannot distinguish Auth transport/provider errors from storage errors. Subsequent readiness was healthy. The worker discarded its token on failure, preventing a bounded retry with that same token. The evidence therefore does not close the natural-expiration classification gate. A prepared expiry-only worker now checks the actual JWT exp claim, retains the token across bounded retries and records only sanitized API/provider status and error codes. It requires a new private synthetic sign-in and natural lifetime wait.
 
 Current decision remains NO-GO for the backend milestone pending that final expiry check. Restart, client interruption/reconnect, revision preservation, awaited logout, revoked refresh denial and captured-token rejection are PASS. Google OAuth is separately pending. Phase 3 planning has not started because the required backend gate remains open. No managed service interruption was performed.
+
+
+## Final natural-expiry gate closure — 2026-11-07
+
+The existing expiry-only worker completed without a restart or a third expiry test. It confirmed the real JWT exp matched the session expiry and received HTTP 200 from the protected API before expiry. Browser refresh was then blocked only in that test context. The captured token stayed in memory during the 3689-second wait, including a 90-second allowance; no JWT lifetime or clock settings were changed.
+
+On its first post-expiry diagnostic attempt, the protected ADR API returned HTTP 401 with SIGN_IN_REQUIRED and the provider user endpoint returned HTTP 403. No bounded retry was needed. No tokens or credentials are included in the saved diagnostics or this report. This closes the natural-expiration and unavailable-refresh denial gate. The earlier HTTP 503 attempt remains documented and unattributed; it denied access but did not establish expiry classification.
+
+Final required gate assessment:
+
+- PASS real refresh, natural expiration and protected API denial with refresh blocked in the browser.
+- PASS completed logout, browser session cleanup, rejected revoked refresh credentials and rejected captured unexpired access token after sign-out. Existing per-request remote getUser validation remains the sensitive ADR authentication boundary. Supabase's general JWT lifetime behavior is distinct from this observed API denial; see [sign-out semantics](https://supabase.com/docs/guides/auth/signout).
+- PASS verified hosted process restart, readiness, restored sessions, unchanged current case/revision lists and independently reopened PDF from a pre-restart revision.
+- PASS bounded interruption of the test client's own connection, reconnect, empty subject, retained snapshot, committed duplicate replay and owner isolation. No managed PostgreSQL outage was induced or verified.
+- PASS prior transaction/RLS/ownership and comprehensive native PvPI evidence, retained without unnecessary repeat runs.
+- PENDING Google OAuth, reported separately while its provider is disabled.
+
+GO applies to this private fictional-data backend verification milestone. Phase 3 implementation, specialist access, backend automation, RAG, clinical agents, merging and public deployment were not started. The repository does not contain an approved ADR-1B Phase 3 feature brief; a feature-level implementation plan requires that brief.
