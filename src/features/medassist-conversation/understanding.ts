@@ -104,8 +104,9 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
     if(!concepts.length){
       const context=clause.context==='current'?'unsupported_or_ambiguous':clause.context;
       annotations.push(annotate(text,clause.quote,context,null,null,clause.start));
-      const vomitingDenial = clause.negative && /\b(?:vomit(?:ing|ed)?|throw(?:ing)? up)\b/i.test(clause.quote);
-      output.unmapped.push({quote:clause.quote,kind:vomitingDenial?'unsupported':'ambiguous'});
+      const unsupportedDenial = clause.negative && /\b(?:vomit(?:ing|ed)?|throw(?:ing)? up)\b/i.test(clause.quote)
+        || /^not my (?:throat|nose|head|stomach|back)$/i.test(clause.quote);
+      output.unmapped.push({quote:clause.quote,kind:unsupportedDenial?'unsupported':'ambiguous'});
     }
     // Keep the complete source clause as unstructured context, including anatomy/time,
     // rather than inventing encoded anatomy, dates, frequency or severity scores.

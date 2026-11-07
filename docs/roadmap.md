@@ -6,6 +6,8 @@ This is the single work-planning entry point. It is organized by deliverables an
 
 ## Current position
 
+**MedAssist Stage 3 — post-L6 coverage, 2026-11-07:** [bounded vocabulary and clarification remediation](evaluation/medassist-post-l6-coverage-report.md) recovered 20 further known L5 cases (79/80), preserved L3 34/34 and zero measured wrong states/unexpected IDs, and passed 290 focused tests and all 15 browser journeys. No new historical task ID was assigned. Next separately authorized language task: fresh independently frozen L7 evaluation without implementation tuning. Pain exceptions, broader temporal/lexical coverage and warning-presentation review remain open; no clinical readiness is implied.
+
 **MedAssist Stage 3 / L6, 2026-11-06:** [semantic and pending-proposal integrity](evaluation/medassist-l6-integrity-report.md) recovered 19 known L5 cases, eliminated the measured wrong states and unexpected IDs, and restored M05. Bounded lexical coverage and fresh evaluation remain open.
 
 **MedAssist Stage 3 / L5, 2026-11-06:** [fresh fictional English and multi-turn evaluation](evaluation/medassist-l5-english-report.md) measured 40/80 language matches and 14/15 browser journeys. Next priorities are clause scope and retaining unconfirmed proposals through clarification. Warning-presentation findings remain a separate review.

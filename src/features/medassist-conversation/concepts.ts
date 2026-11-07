@@ -8,7 +8,7 @@ const baseAnchors: Record<string, {
     // General pain is already a trained root symptom. Anatomy stays in the
     // narrative unless an exact, metadata-labelled location is explicitly chosen.
     E_53: { label: 'pain', pattern: /\bpain\b|\bhead\s*ache\b|\bstomach\s*ache\b|\b(?:head|stomach)\b[^.!?;]{0,24}\bhurt(?:ing|s)?\b/i },
-    E_201: { label: 'cough', pattern: /\bcough(?:ing)?\b/i }, E_91: { label: 'fever', pattern: /\bfever(?:ish)?\b/i }, E_97: { label: 'sore throat', pattern: /\bsore throat\b|\bthroat (?:is |feels? )?sore\b/i },
+    E_201: { label: 'cough', pattern: /\bcough(?:ing)?\b|^\s*cgh(?:\s+(?:since|for|today)\b|[.!]?\s*$)|\b(?:have|having|no|maybe|perhaps) cgh\b/i }, E_91: { label: 'fever', pattern: /\bfever(?:ish)?\b/i }, E_97: { label: 'sore throat', pattern: /\bsore throat\b|\bthroat (?:is |feels? )?sore\b/i },
     E_51: { label: 'diarrhea', pattern: /\bdiarrh(?:ea|oea)\b/i }, E_148: { label: 'nausea', pattern: /\bnause(?:a|ous|ated)\b|\bfeel(?:ing)? sick to (?:my|the) stomach\b|\bfeel(?:ing)? like (?:vomiting|throwing up)\b/i },
     E_211: { label: 'repeated vomiting', pattern: /\b(?:repeated(?:ly)?|keep|kept) (?:vomit(?:ing)?|throwing up)\b|\bvomit(?:ing)? repeatedly\b/i },
     E_129: { label: 'rash or skin lesions', pattern: /\brash\b|\bskin lesions?\b/i }, E_151: { label: 'swelling', pattern: /\bswell(?:ing|ed)?\b|\bswollen\b/i },
@@ -34,7 +34,8 @@ const aliases: Record<string,string[]> = {
     "couhg",
     "coughng",
     "cogh",
-    "coffing"
+    "coffing",
+    "couffing"
   ],
   "E_53": [
     "stomach pain",
@@ -48,7 +49,12 @@ const aliases: Record<string,string[]> = {
     "head has been hurting",
     "head paining",
     "head is paining",
+    "hed is paining",
+    "head has been aching",
+    "aching head",
     "throat is paining",
+    "throat paining",
+    "body is aching",
     "stomach has hurt",
     "stomach hurts",
     "lower back pain",
@@ -61,6 +67,8 @@ const aliases: Record<string,string[]> = {
     "nausea",
     "nauseous",
     "nauseated",
+    "nausous",
+    "feel a bit pukey",
     "feeling sick to my stomach",
     "feel like puking",
     "feeling like puking",
@@ -76,15 +84,19 @@ const aliases: Record<string,string[]> = {
     "loose motions",
     "motions are loose",
     "the runs",
-    "diarhoea"
+    "diarhoea",
+    "diarrea"
   ],
   "E_91": [
     "fever",
-    "feverish"
+    "feverish",
+    "fevr"
   ],
   "E_97": [
     "sore throat",
     "throat feels sore",
+    "throat has been sore",
+    "throat feels soor",
     "sore thrt",
     "sore throaat"
   ],
@@ -92,6 +104,10 @@ const aliases: Record<string,string[]> = {
     "nasal congestion",
     "nose is blocked",
     "nose is stuffy",
+    "nose is stufy",
+    "nose feels congested",
+    "nose fully blocked",
+    "nose blocked",
     "blocked nose",
     "nose water coming",
     "watery runny nose",
@@ -103,7 +119,9 @@ const aliases: Record<string,string[]> = {
     "yellow nasal discharge"
   ],
   "E_94": [
-    "chills"
+    "chills",
+    "chillls",
+    "feel shivery"
   ],
   "E_129": [
     "rash",
@@ -142,6 +160,7 @@ const aliases: Record<string,string[]> = {
     "breathing normally"
   ]
 };
+aliases.E_76 = ['feel light headed', 'feeling light headed', 'little dizzy'];
 baseAnchors.E_66 = { label: 'significant shortness of breath or difficulty breathing', pattern: /\b(?:significant (?:shortness of breath|difficulty breathing)|can breathe normally|breathing normally)\b/i };
 export const tokenize = (text:string) => [...text.matchAll(/[a-z]+(?:['’][a-z]+)?|[0-9]+(?:\.[0-9]+)?/gi)].map(m=>({text:m[0].toLowerCase().replaceAll('’',"'"),start:m.index!,end:m.index!+m[0].length}));
 export function labelIsSupported(quote:string,label:string) {

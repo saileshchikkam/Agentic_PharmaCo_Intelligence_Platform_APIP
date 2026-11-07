@@ -1,5 +1,13 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Post-L6 scripted English coverage — 2026-11-07
+
+The default fictional scripted preview still accepts only nine fields and requires explicit confirmation. Allowlisted spellings and complete colloquial/word-order phrases are matched against original source text; no unrestricted fuzzy substitution runs. Appended denials keep separate scope. Explicit same-sentence continuity can reactivate one unambiguous historical referent; resolution, uncertainty and multiple referents stay conservative.
+
+Vague descriptions ask for one concrete detail. Spinning sensations ask what the person means. General pain without anatomy asks where and what it feels like; the proposal remains pending. Unmapped follow-ups retain earlier proposals through the existing L6 review flow. Anatomy-only “not my throat” wording is narrative, not an inferred sore-throat denial.
+
+See the [post-L6 report](../../../docs/evaluation/medassist-post-l6-coverage-report.md) for the full 21-row analysis, 290 focused tests, 79/80 known L5 comparison and 15/15 browser replay. Pain exceptions, “from yesterday” ambiguity, broader English and warning findings remain unresolved. Genuine Model A did not run; Model B remains disabled. Historical sections below describe their recorded research modes.
+
 ## Scripted English evidence handling — 2026-11-06
 
 The browser script covers nine existing symptom fields. “My head is paining badly from morning” proposes general pain and retains “from morning” as a literal onset detail. “Feeling like vomiting but not vomiting” proposes nausea and retains the denial as narrative. Generic vomiting has no matching field. A denial of chest pain also remains scoped to the original wording. Bare “giddy” and “body hot” prompt clarification before any evidence is proposed. Questions remain fixed and evidence needs explicit confirmation. See the [T01–T35 development cases](../../../scripts/medassist-language-variation.test.ts) and [verification record](../../../docs/history/2026-11-06.md).

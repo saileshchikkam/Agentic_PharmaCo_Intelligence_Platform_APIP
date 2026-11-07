@@ -1,5 +1,9 @@
 # Changelog
 
+## MedAssist post-L6 English coverage — 2026-11-07
+
+- Added bounded spelling and conversational phrases, scoped continuity, and useful vague/pain clarification while preserving unconfirmed evidence. Passed 290 focused tests and 15/15 browser journeys; known L5 comparison is 79/80. [Results and remaining limits](docs/evaluation/medassist-post-l6-coverage-report.md)
+
 ## MedAssist Stage 3 / L6 evidence integrity — 2026-11-06
 
 - Corrected scoped language interpretation and kept pending proposals through clarification, with explicit review of conflicting drafts. [Evaluation](docs/evaluation/medassist-l6-integrity-report.md)

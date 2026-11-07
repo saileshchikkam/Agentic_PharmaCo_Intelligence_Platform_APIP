@@ -9,7 +9,7 @@ import { ClarificationTracker, type FailureKind } from './clarification';
 import { parseQuickReply } from './replies';
 import { evaluateStatement, type SafetyDecision } from '../medassist-safety/safety';
 import HospitalNavigation from '../medassist-safety/HospitalNavigation';
-import { welcome, readFictionalAge, readSourceSex, contextUnknown, requestsNavigation, assessmentStatus } from './presentation';
+import { welcome, readFictionalAge, readSourceSex, contextUnknown, requestsNavigation, assessmentStatus, clarifyWording, clarifyPain } from './presentation';
 import { runScriptedInterview, scriptedVocabulary } from './scripted';
 import { reviewProposal, type PendingProposal } from './pending-proposal';
 import './conversation.css';
@@ -202,11 +202,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                     :contexts.has('suspected_condition')?'I kept your concern in your own words. This does not confirm a diagnosis. Please describe the symptoms themselves.'
                     :pendingQuestion?analysis.compatibility.message:null;
                 const fallback=clarification.current.fail(text,phase,'unsupported');
-                const scriptedClarification = scripted && !pendingQuestion
-                    ? /\bbody (?:is )?hot\b/i.test(text) ? 'I kept the warmth description. Does the fictional person feel feverish, or are they describing warmth without feeling ill?'
-                    : /\bgiddy\b/i.test(text) ? 'I kept “giddy” as reported. Do you mean slightly dizzy or lightheaded, or something else?'
-                    : /\b(?:breathless|shortness of breath|difficulty breathing)\b/i.test(text) ? 'I kept the breathing description. This scripted interview cannot categorize it. Emergency help is available independently.'
-                    : null : null;
+                const scriptedClarification = scripted && !pendingQuestion ? clarifyWording(text) : null;
                 say(specific??scriptedClarification??fallback);
                 return;
             }
@@ -465,6 +461,8 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           {!emergency && vocabulary && candidate && !contextStep && !contextUnavailable && <div className="conversation-question">
             <h2 ref={questionHeading} tabIndex={-1}>Confirm what you meant</h2><ul>{candidateObservations.map(a => <li key={a.evidence_id}>{name(a.evidence_id)}: {a.state === 'unknown' ? 'not sure' : a.state === 'contradiction' ? 'conflicting' : Array.isArray(a.value) ? a.value.map(displayValue).join(', ') || 'explicitly none' : displayValue(a.value! as Scalar)}</li>)}</ul>{candidateUnmapped.length > 0 && <p>Kept in your own words, without a structured answer: {candidateUnmapped.map(i => i.quote).join('; ')}</p>}
             <p>Does this reflect what you meant? Nothing here is accepted until you confirm.</p>
+            {scripted && candidateObservations.some(item => item.evidence_id === 'E_53' && item.state === 'confirmed' && item.value === true) &&
+              <p>{clarifyPain(candidateObservations.find(item => item.evidence_id === 'E_53')!.quote)}</p>}
             {scripted && candidateUnmapped.some(item => item.kind === 'ambiguous') &&
               <p>Is any of the unmapped wording another symptom the fictional person has now? If so, describe that detail separately.</p>}
             {candidate.alternative && <div>

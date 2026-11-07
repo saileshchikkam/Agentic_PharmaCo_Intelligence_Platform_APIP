@@ -1,3 +1,5 @@
+import { languageConcepts } from './concepts';
+
 export type ReportContext = 'current' | 'historical_or_resolved' | 'other_person' | 'hypothetical' | 'suspected_condition' | 'non_asserted';
 export const uncertaintyCue = /\b(?:not sure|unsure|unknown|maybe|might|may have|perhaps|possible|possibly|could be|don['’]t know|do not know|think i|not certain|wonder (?:if|whether)|hard to tell|can(?:not|['’]t) tell)\b/i;
 export const negationCue = /\b(?:no|not|neither|without|deny|denies|absent|free of|don['’]t|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t)\b/i;
@@ -7,6 +9,20 @@ const pastCue = /\b(?:used to|last (?:year|week|night)|as a child|in childhood|i
 const pastDate = /\b(?:yesterday|on (?:monday|tuesday|wednesday|thursday|friday|saturday|sunday))\b/i;
 const continuing = /\b(?:since|still|throughout|now|(?:have|has) had)\b/i;
 
+function initialClauses(sentence: string) {
+  const parts = [...sentence.matchAll(/\b(?:and|but|plus)\b|,|((?:(?!\b(?:and|but|plus)\b)[^,])+)/gi)]
+    .filter(part => part[1])
+    .map(part => ({ text: part[0], index: part.index! }));
+  return parts.flatMap(part => {
+    const denial = /\bno\s+(?:cough|fever|chills|nausea|pain|sore throat)\b/i.exec(part.text);
+    const prefix = denial ? part.text.slice(0, denial.index) : '';
+    if (!denial || !prefix.trim() || negationCue.test(prefix) || uncertaintyCue.test(prefix) ||
+        !languageConcepts.some(concept => concept.pattern.test(prefix))) return [part];
+    return [{ text: prefix, index: part.index },
+      { text: part.text.slice(denial.index), index: part.index + denial.index }];
+  });
+}
+
 export function reportClauses(text:string) {
   const result:{quote:string;start:number;end:number;context:ReportContext;correction:boolean;uncertain:boolean;negative:boolean;negationStart:number|null}[]=[];
   const quotations = [...text.matchAll(/"[^"\r\n]*"|“[^”\r\n]*”|‘[^’\r\n]*’|(?<!\w)'(?:[^'\r\n]|(?<=\w)'(?=\w))*'(?!\w)/g)];
@@ -14,12 +30,22 @@ export function reportClauses(text:string) {
     let subject:'target'|'other'='target', negationStart:number|null=null;
     let hypothetical = false, sharedUncertainty = false, reportedSpeech = false;
     const firstClause = result.length;
-    for(const part of sentence[0].matchAll(/\b(?:and|but|plus)\b|,|((?:(?!\b(?:and|but|plus)\b)[^,])+)/gi)) {
-      if (!part[1]) continue;
-      const quote=part[0].trim(); if(!quote)continue;
-      const start=sentence.index!+part.index!+part[0].indexOf(quote), normalized=quote.toLowerCase().replaceAll('’',"'");
+    for(const part of initialClauses(sentence[0])) {
+      const quote=part.text.trim(); if(!quote)continue;
+      const start=sentence.index!+part.index+part.text.indexOf(quote), normalized=quote.toLowerCase().replaceAll('’',"'");
       const end = start + quote.length;
       const quoted = quotations.some(match => start < match.index! + match[0].length && end > match.index!);
+      const previous = result.at(-1);
+      if (!quoted && previous?.context === 'historical_or_resolved' && !previous.negative && !previous.uncertain &&
+          !resolvedCue.test(previous.quote) && !negationCue.test(previous.quote) && !uncertaintyCue.test(previous.quote) &&
+          /^\s*and\s*$/i.test(text.slice(previous.end, start)) &&
+          /^(?:i )?still have (?:it|them) now$/i.test(normalized) &&
+          languageConcepts.filter(concept => concept.pattern.test(text.slice(sentence.index!, previous.end))).length === 1) {
+        previous.context = 'current';
+        previous.end = end;
+        previous.quote = text.slice(previous.start, end);
+        continue;
+      }
       if(/\bmy (?:brother|sister|mother|father|friend|son|daughter|child|wife|husband|partner)\b|\b(?:he|she|they)\b/.test(normalized))subject='other';
       if(/^(?:actually\s+)?i\b|\bthe fictional (?:person|patient)\b/.test(normalized))subject='target';
       if(/\bmy (?:head|stomach|back|lower back|belly|throat|nose|eyes|feet)\b/.test(normalized))subject='target';
@@ -41,7 +67,9 @@ export function reportClauses(text:string) {
       const future = /\b(?:tomorrow|next (?:day|week|month)|(?:might|may|will) (?:become|develop|get))\b/.test(normalized)
         && !/\b(?:until|since|already|now)\b/.test(normalized);
       const resolved = resolvedCue.test(normalized);
-      const historical=resolved || pastCue.test(normalized) && !continuing.test(normalized)
+      const inheritedHistory = boundary === 'and' && previous?.context === 'historical_or_resolved'
+        && !freshSubject && !continuing.test(normalized);
+      const historical=resolved || inheritedHistory || pastCue.test(normalized) && !continuing.test(normalized)
         || pastDate.test(normalized) && !continuing.test(normalized) && !/\b(?:haven't|have not|didn't|did not)\b/.test(normalized)
         || /\b(?:coughed|was coughing)\b/.test(normalized)&&! /\b(?:today|since|for|still|now)\b/.test(normalized)
         || /\bhad\b/.test(normalized)&&!continuing.test(normalized) && !/\b(?:for|today|haven't|have not|hasn't|has not|didn't|did not)\b/.test(normalized);
