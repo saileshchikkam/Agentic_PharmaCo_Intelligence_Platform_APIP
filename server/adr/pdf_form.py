@@ -195,7 +195,8 @@ def generate(case):
 
 if __name__=='__main__':
     try:
-        if '--inventory' in sys.argv:sys.stdout.buffer.write(json.dumps(inventory(),indent=2).encode())
+        if '--check' in sys.argv: original()
+        elif '--inventory' in sys.argv:sys.stdout.buffer.write(json.dumps(inventory(),indent=2).encode())
         else:sys.stdout.buffer.write(generate(json.load(sys.stdin)))
     except Exception as e:
         code=str(e) if str(e) in ['PDF_UNSUPPORTED_SCRIPT','PDF_SELECT_ONE_SERIOUSNESS','TEMPLATE_CHANGED','FICTIONAL_ONLY'] else 'PDF_GENERATION_FAILED'

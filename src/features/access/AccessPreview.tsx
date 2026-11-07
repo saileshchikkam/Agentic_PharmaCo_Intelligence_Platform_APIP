@@ -1,3 +1,4 @@
+import { ShieldPlus } from 'lucide-react';
 import { AccountSignIn } from '../account/AccountSignIn';
 import { ProfilePage } from '../account/ProfilePage';
 import { SharedProfile } from '../account/SharedProfile';
@@ -7,7 +8,7 @@ import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
 import { Appearance } from '../../design-system/appearance';
 import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
-import { Brand, PageNavigation, PreviewHeader } from './PreviewLayout';
+import { Brand, PageNavigation, PreviewFooter, PreviewHeader } from './PreviewLayout';
 
 const AdrWorkspace = React.lazy(() => import('../adr/guided/GuidedWorkspace')
   .then((module) => ({ default: module.GuidedWorkspace })));
@@ -160,7 +161,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
       {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
-        <div className="access-welcome-symbol" aria-hidden="true"><span className="material-symbols-outlined">health_and_safety</span></div>
+        <div className="access-welcome-symbol" aria-hidden="true"><ShieldPlus size={40} /></div>
         <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
@@ -196,7 +197,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <h2>Report a side effect</h2>
               <p>Tell us about a suspected unwanted effect after taking a medicine. You do not need to use MedAssist first.</p>
               <ul><li>Answer short, guided questions in your own words</li><li>Leave details unknown when you are unsure</li><li>Review the information before any next step</li></ul>
-              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> Use fictional details. Your draft is saved to your local account, and exporting does not submit it.</p>
+              <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">shield</span> Use fictional details. Your draft is saved to your account. Exporting does not submit it.</p>
             </div>
             <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => openTask('adr-report')}>Start an ADR report</M3Button>
           </article>
@@ -225,7 +226,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           {route.role !== 'patient' && route.requestedTask && <p className="access-requested-task" role="status">
             Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
           </p>}
-          {route.role === 'patient' ? <AccountSignIn key={window.location.hash} creatingInitially={new URLSearchParams(window.location.hash.split('?')[1]).has('signup')} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
+          {route.role === 'patient' ? <AccountSignIn requestedTask={route.requestedTask} key={window.location.hash} creatingInitially={new URLSearchParams(window.location.hash.split('?')[1]).has('signup')} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
         </div>
       </section>}
 
@@ -238,14 +239,14 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </React.Suspense>
       </section>}
       {route.screen === 'medassist-preview' && <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p role="status">Opening the MedAssist preview…</p></>}>
-        <SharedProfile layer="medassist" /><MedAssistPreview onOpenAdr={() => navigatePreview('/preview/adr-report')} onExit={() => goBackPreview(backFallback)}
+        <SharedProfile layer="medassist" /><MedAssistPreview key={account.user?.id} onOpenAdr={() => navigatePreview('/preview/adr-report')} onExit={() => goBackPreview(backFallback)}
           renderNavigation={(onBack, label) => <PageNavigation onBack={onBack} backLabel={label} />} />
       </React.Suspense>}
       </div>
     </main>
 
-    <footer className="access-footer"><span>APIP <span aria-hidden="true">·</span> Interface preview</span>
+    <PreviewFooter>
       <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>
-    </footer>
+    </PreviewFooter>
   </div>;
 }

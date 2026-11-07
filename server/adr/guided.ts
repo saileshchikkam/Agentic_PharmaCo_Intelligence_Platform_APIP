@@ -1,69 +1,120 @@
-import { Router, type Request } from 'express';
-import type { DatabaseSync } from 'node:sqlite';
+import { Router, type Request, type RequestHandler } from 'express';
 import { randomUUID } from 'node:crypto';
-import { questions, validateValue, missing, nextQuestion, chronology, type GuidedCase } from '../../src/features/adr/guided/domain';
-import { configuredProvider, checkedProposals, type IntakeProvider } from './provider';
-import {generateOfficialPdf} from './pdf';
-const exact=(v:any,keys:string[])=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).sort().join()===keys.sort().join();
-export function guidedRouter(db:DatabaseSync,readUser:(req:Request)=>{id:string}|null|undefined,provider:IntakeProvider|undefined=configuredProvider()) {
- db.exec(`CREATE TABLE IF NOT EXISTS adr_guided_cases(id TEXT PRIMARY KEY,owner_id TEXT NOT NULL REFERENCES local_users(id),revision INTEGER NOT NULL,payload TEXT NOT NULL CHECK(json_valid(payload)));
- CREATE INDEX IF NOT EXISTS adr_guided_owner ON adr_guided_cases(owner_id);
- CREATE TABLE IF NOT EXISTS adr_guided_versions(case_id TEXT NOT NULL REFERENCES adr_guided_cases(id),revision INTEGER NOT NULL,payload TEXT NOT NULL CHECK(json_valid(payload)),PRIMARY KEY(case_id,revision));`);
- const router=Router();
- let extracting=false;
- let exporting=false;
- router.use((req,res,next)=>{const user=readUser(req);if(!user)return void res.status(401).json({error:'SIGN_IN_REQUIRED'});if(req.get('X-APIP-Account')!==user.id)return void res.status(409).json({error:'ACCOUNT_CHANGED'});next();});
- const load=(id:string,owner:string)=>{const row=db.prepare('SELECT payload FROM adr_guided_cases WHERE id=? AND owner_id=?').get(id,owner);return row?JSON.parse(String(row.payload)) as GuidedCase:null;};
- const view=(c:GuidedCase)=>({case:c,missing:missing(c),nextQuestion:nextQuestion(c),warnings:chronology(c),officialTemplateAvailable:true});
- const write=(c:GuidedCase,owner:string,expected:number)=>{
-  c.revision=expected+1;c.updatedAt=new Date().toISOString();const payload=JSON.stringify(c);
-  db.exec('BEGIN IMMEDIATE');try{
-   if(expected===0)db.prepare('INSERT INTO adr_guided_cases VALUES (?,?,?,?)').run(c.id,owner,c.revision,payload);
-   else if(!db.prepare('UPDATE adr_guided_cases SET revision=?,payload=? WHERE id=? AND owner_id=? AND revision=?').run(c.revision,payload,c.id,owner,expected).changes)throw Error('REVISION_CONFLICT');
-   db.prepare('INSERT INTO adr_guided_versions VALUES (?,?,?)').run(c.id,c.revision,payload);db.exec('COMMIT');
-  }catch(e){db.exec('ROLLBACK');throw e;}
- };
- router.get('/',(req,res)=>{const rows=db.prepare('SELECT payload FROM adr_guided_cases WHERE owner_id=? ORDER BY rowid DESC LIMIT 100').all(readUser(req)!.id);res.json({cases:rows.map(r=>{const c=JSON.parse(String(r.payload));return {id:c.id,revision:c.revision,updatedAt:c.updatedAt};})});});
- router.post('/',(req,res,next)=>{try{
-  if(!exact(req.body,['fictionalOnly'])||req.body.fictionalOnly!==true)return void res.status(400).json({error:'FICTIONAL_ONLY'});
-  const owner=readUser(req)!.id;if(Number(db.prepare('SELECT count(*) n FROM adr_guided_cases WHERE owner_id=?').get(owner)?.n)>=100)return void res.status(409).json({error:'CASE_LIMIT'});
-  const c:GuidedCase={schemaVersion:1,id:randomUUID(),revision:0,fictionalOnly:true,updatedAt:'',values:{},medications:[{id:randomUUID(),kind:'suspect'}],statements:[],proposals:[],providerStatus:'manual'};write(c,owner,0);res.status(201).json(view(c));
- }catch(e){next(e);}});
- router.get('/:id',(req,res)=>{const c=load(req.params.id,readUser(req)!.id);if(!c)return void res.status(404).json({error:'NOT_FOUND'});res.json(view(c));});
- router.get('/:id/history',(req,res)=>{if(!load(req.params.id,readUser(req)!.id))return void res.status(404).json({error:'NOT_FOUND'});res.json({versions:db.prepare('SELECT revision FROM adr_guided_versions WHERE case_id=? ORDER BY revision DESC LIMIT 100').all(req.params.id)});});
- router.post('/:id/pdf',async(req,res)=>{
-  const owner=readUser(req)!.id,c=load(req.params.id,owner);
-  if(!c)return void res.status(404).json({error:'NOT_FOUND'});
-  if(!exact(req.body,['expectedRevision'])||req.body.expectedRevision!==c.revision)return void res.status(409).json({error:'REVISION_CONFLICT'});
-  if(exporting)return void res.status(429).json({error:'PDF_BUSY'});
-  exporting=true;
-  try{const bytes=await generateOfficialPdf(c);
-   if(readUser(req)?.id!==owner)return void res.status(401).json({error:'SIGN_IN_REQUIRED'});
-   if(load(c.id,owner)?.revision!==c.revision)return void res.status(409).json({error:'REVISION_CONFLICT'});
-   res.setHeader('Content-Type','application/pdf');res.setHeader('Content-Disposition',`attachment; filename="APIP-PvPI-${c.id}-r${c.revision}.pdf"`);res.setHeader('X-APIP-Revision',String(c.revision));res.send(bytes);
-  }catch(e){const code=(e as Error).message;res.status(['PDF_UNSUPPORTED_SCRIPT','PDF_SELECT_ONE_SERIOUSNESS'].includes(code)?422:503).json({error:code});}finally{exporting=false;}
- });
- router.post('/:id/command',async(req,res,next)=>{try{
-  const owner=readUser(req)!.id,c=load(req.params.id,owner);if(!c)return void res.status(404).json({error:'NOT_FOUND'});
-  const b=req.body;if(!exact(b,['expectedRevision','command'])||!Number.isSafeInteger(b.expectedRevision)||b.expectedRevision!==c.revision)return void res.status(409).json({error:'REVISION_CONFLICT'});
-  if(c.revision>=500)return void res.status(409).json({error:'HISTORY_LIMIT'});
-  const cmd=b.command;let valid=false;
-  if(exact(cmd,['type','key','value'])&&cmd.type==='confirm'){
-   const f=questions(c).find(f=>f.key===cmd.key);if(f&&validateValue(f,cmd.value)){
-    const id=randomUUID(),at=new Date().toISOString();c.statements.push({id,text:cmd.value??'Unknown / not available',at});c.values[f.key]={state:cmd.value===null?'unknown':'provided',value:cmd.value,confirmedAt:at,source:'manual',statementId:id};c.proposals=[];valid=true;
-   }
-  }else if(exact(cmd,['type','kind'])&&cmd.type==='add_medication'&&['suspect','concomitant'].includes(cmd.kind)&&c.medications.length<20){c.medications.push({id:randomUUID(),kind:cmd.kind});c.proposals=[];valid=true;
-  }else if(exact(cmd,['type','text'])&&cmd.type==='describe'&&typeof cmd.text==='string'&&cmd.text.trim()&&cmd.text.length<=4000){
-   if(extracting)return void res.status(429).json({error:'EXTRACTION_BUSY'});
-   c.statements.push({id:randomUUID(),text:cmd.text,at:new Date().toISOString()});c.proposals=[];c.providerStatus='manual_required';
-   if(provider){extracting=true;try{c.proposals=checkedProposals(await provider(cmd.text,c),cmd.text,c).map(p=>({...p,id:randomUUID()}));c.providerStatus='proposals_ready';}catch{c.providerStatus='unavailable_or_invalid';}finally{extracting=false;}}
-   // Session may expire/change while inference is pending; never publish for a stale principal.
-   if(readUser(req)?.id!==owner)return void res.status(401).json({error:'SIGN_IN_REQUIRED'});valid=true;
-  }else if(exact(cmd,['type','proposalId','accept'])&&cmd.type==='proposal'&&typeof cmd.accept==='boolean'){
-   const p=c.proposals.find(p=>p.id===cmd.proposalId);if(p){if(cmd.accept){c.values[p.key]={state:'provided',value:p.value,confirmedAt:new Date().toISOString(),source:'proposal',statementId:c.statements[c.statements.length-1].id};}c.proposals=c.proposals.filter(x=>x.id!==p.id);valid=true;}
+import { missing, nextQuestion, chronology, type GuidedCase } from '../../src/features/adr/guided/domain';
+import type { GuidedCaseRepository } from './repository';
+import { applyCaseCommand, exact } from './caseService';
+import { configuredProvider, type IntakeProvider } from './provider';
+import { createPdfService } from './pdf';
+
+const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
+const errors: Record<string, number> = {
+  SIGN_IN_REQUIRED: 401, ACCOUNT_CHANGED: 409, NOT_FOUND: 404, FICTIONAL_ONLY: 400,
+  INVALID_COMMAND: 400, INVALID_PAGE: 400, IDEMPOTENCY_KEY_REQUIRED: 400,
+  REVISION_CONFLICT: 409, IDEMPOTENCY_CONFLICT: 409, CASE_LIMIT: 409, HISTORY_LIMIT: 409,
+  PDF_BUSY: 429, EXTRACTION_BUSY: 429, PDF_SELECT_ONE_SERIOUSNESS: 422, PDF_UNSUPPORTED_SCRIPT: 422,
+};
+const pdfErrors = new Set(['PDF_TEMPLATE_MISSING', 'TEMPLATE_CHANGED', 'PDF_RUNTIME_UNAVAILABLE',
+  'PDF_RUNTIME_DEPENDENCIES_MISSING', 'PDF_GENERATION_FAILED', 'PDF_TIMEOUT', 'PDF_TOO_LARGE']);
+const endpoint = (fn: (...args: Parameters<RequestHandler>) => Promise<void>): RequestHandler =>
+  (req, res, next) => { void fn(req, res, next).catch(error => {
+    const code = error instanceof Error ? error.message : '';
+    if (Object.hasOwn(errors, code)) res.status(errors[code]).json({ error: code });
+    else if (pdfErrors.has(code)) res.status(503).json({ error: code });
+    else next(error);
+  }); };
+
+export function guidedRouter(repository: GuidedCaseRepository, readUser: (req: Request) => { id: string } | null | undefined,
+  provider: IntakeProvider | null | undefined = configuredProvider(),
+  revalidate = (req: Request, owner: string): boolean | Promise<boolean> => readUser(req)?.id === owner) {
+  const router = Router();
+  const pdf = createPdfService();
+  let extracting = false;
+
+  router.use((req, res, next) => {
+    const user = readUser(req);
+    if (!user) { res.status(401).json({ error: 'SIGN_IN_REQUIRED' }); return; }
+    if (req.get('X-APIP-Account') !== user.id) { res.status(409).json({ error: 'ACCOUNT_CHANGED' }); return; }
+    next();
+  });
+  const owner = (req: Request) => readUser(req)!.id;
+  const view = (c: GuidedCase) => ({ case: c, missing: missing(c), nextQuestion: nextQuestion(c),
+    warnings: chronology(c), officialTemplateAvailable: pdf.available() });
+  async function load(user: string, id: string) {
+    const c = await repository.load(user, id);
+    if (!c) throw Error('NOT_FOUND');
+    return c;
   }
-  if(!valid)return void res.status(400).json({error:'INVALID_COMMAND'});
-  write(c,owner,b.expectedRevision);res.json(view(c));
- }catch(e){if((e as Error).message==='REVISION_CONFLICT')res.status(409).json({error:'REVISION_CONFLICT'});else next(e);}});
- return router;
+  function key(req: Request) {
+    if (!repository.replay) return undefined;
+    const value = req.get('Idempotency-Key');
+    if (!value || !uuid.test(value)) throw Error('IDEMPOTENCY_KEY_REQUIRED');
+    return value.toLowerCase();
+  }
+  router.get('/', endpoint(async (req, res) => {
+    if (repository.page && (req.query.limit !== undefined || req.query.after !== undefined)) {
+      const limit = req.query.limit ?? '25';
+      const after = req.query.after;
+      if (typeof limit !== 'string' || !/^[1-9][0-9]?$/.test(limit) || Number(limit) > 50
+        || (after !== undefined && (typeof after !== 'string' || !uuid.test(after)))) throw Error('INVALID_PAGE');
+      res.json(await repository.page(owner(req), Number(limit), after));
+      return;
+    }
+    res.json({ cases: await repository.list(owner(req)) });
+  }));
+  router.post('/', endpoint(async (req, res) => {
+    if (!exact(req.body, ['fictionalOnly']) || req.body.fictionalOnly !== true) throw Error('FICTIONAL_ONLY');
+    const user = owner(req), mutation = key(req);
+    const c: GuidedCase = { schemaVersion: 1, id: mutation ?? randomUUID(), revision: 0, fictionalOnly: true,
+      updatedAt: '', values: {}, medications: [{ id: randomUUID(), kind: 'suspect' }], statements: [], proposals: [], providerStatus: 'manual' };
+    res.status(201).json(view(await repository.save(user, c, 0, { type: 'create' }, mutation)));
+  }));
+  router.get('/:id', endpoint(async (req, res) => { res.json(view(await load(owner(req), req.params.id))); }));
+  router.get('/:id/history', endpoint(async (req, res) => {
+    const user = owner(req);
+    await load(user, req.params.id);
+    if (repository.page && (req.query.limit !== undefined || req.query.before !== undefined)) {
+      const limit = req.query.limit ?? '25', before = req.query.before ?? '501';
+      if (typeof limit !== 'string' || !/^[1-9][0-9]?$/.test(limit) || Number(limit) > 50
+        || typeof before !== 'string' || !/^[1-9][0-9]{0,2}$/.test(before) || Number(before) > 501) throw Error('INVALID_PAGE');
+      const rows = await repository.history(user, req.params.id, Number(limit) + 1, Number(before));
+      const versions = rows.slice(0, Number(limit));
+      res.json({ versions, nextBefore: rows.length > Number(limit) ? versions[versions.length - 1].revision : null });
+      return;
+    }
+    res.json({ versions: await repository.history(user, req.params.id) });
+  }));
+  router.post('/:id/pdf', endpoint(async (req, res) => {
+    const user = owner(req), c = await load(user, req.params.id);
+    if (!exact(req.body, ['expectedRevision']) || req.body.expectedRevision !== c.revision) throw Error('REVISION_CONFLICT');
+    const bytes = await pdf.generate(c);
+    if (!await revalidate(req, user)) throw Error('SIGN_IN_REQUIRED');
+    if ((await repository.load(user, c.id))?.revision !== c.revision) throw Error('REVISION_CONFLICT');
+    await repository.recordExport?.(user, c.id, c.revision, bytes);
+    res.set('Content-Type', 'application/pdf');
+    res.set('Content-Disposition', 'attachment; filename="APIP-PvPI-' + c.id + '-r' + c.revision + '.pdf"');
+    res.set('X-APIP-Revision', String(c.revision));
+    res.send(bytes);
+  }));
+  router.post('/:id/command', endpoint(async (req, res) => {
+    const user = owner(req), id = req.params.id, c = await load(user, id);
+    const b = req.body;
+    if (!exact(b, ['expectedRevision', 'command']) || !Number.isSafeInteger(b.expectedRevision)) throw Error('REVISION_CONFLICT');
+    const cmd = b.command, mutation = key(req);
+    if (!cmd || typeof cmd.type !== 'string') throw Error('INVALID_COMMAND');
+    const prior = mutation && await repository.replay?.(user, id, b.expectedRevision, cmd, mutation);
+    if (prior) { res.json(view(prior)); return; }
+    if (b.expectedRevision !== c.revision) throw Error('REVISION_CONFLICT');
+    if (c.revision >= 500) throw Error('HISTORY_LIMIT');
+
+    if (cmd.type === 'describe' && provider) {
+      if (extracting) throw Error('EXTRACTION_BUSY');
+      extracting = true;
+      try { await applyCaseCommand(c, cmd, provider); } finally { extracting = false; }
+    } else {
+      await applyCaseCommand(c, cmd, null);
+    }
+    if (cmd.type === 'describe' && !await revalidate(req, user)) throw Error('SIGN_IN_REQUIRED');
+    res.json(view(await repository.save(user, c, b.expectedRevision, cmd, mutation)));
+  }));
+  return router;
 }

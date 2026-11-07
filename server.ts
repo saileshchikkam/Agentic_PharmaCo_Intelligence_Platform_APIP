@@ -1,8 +1,10 @@
+import { createServer as createHttpServer } from 'node:http';
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import { registerMedAssistRoutes } from './server/medassist';
+import { configuredCloudAccount } from './server/cloud-account';
 import { registerLocalAccount } from './server/local-account';
 import { registerModelADemo } from './server/model-a-demo';
 
@@ -126,8 +128,10 @@ export function createApiApp(config: RuntimeConfig, options: {
   const PORT = config.port;
   const internalOrigin = `http://${config.host === '::1' ? '[::1]' : config.host === 'localhost' ? 'localhost' : '127.0.0.1'}:${PORT}`;
   const getClient = options.geminiFactory ?? getGeminiClient;
-  const account = config.mode === 'development' ? registerLocalAccount(app, { file: options.accountFile }) : null;
-  if (config.mode === 'production') app.use('/api/account', (_req, res) => { res.status(404).json({ error: 'LOCAL_ACCOUNTS_DISABLED' }); });
+  if (config.mode === 'production' && process.env.APIP_ACCOUNT_MODE === 'local') throw Error('Local accounts require development mode.');
+  const cloud = configuredCloudAccount(app);
+  const account = !cloud && config.mode === 'development' && process.env.APIP_ACCOUNT_MODE !== 'disabled' ? registerLocalAccount(app, { file: options.accountFile }) : null;
+  if (!account) app.use('/api/account', (_req, res) => { res.status(404).json({ error: 'LOCAL_ACCOUNTS_DISABLED' }); });
   registerMedAssistRoutes(app, options.medassist);
   registerModelADemo(app, config, options.modelADemo);
   // Guard the whole legacy namespace before body parsing, provider creation or agent logic.
@@ -701,16 +705,17 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
     }
   });
 
-  return { app, close: () => account?.close() };
+  return { app, close: () => cloud ? cloud.close() : account?.close() };
 }
 
 export async function startServer() {
   const config = readRuntimeConfig();
   const { app } = createApiApp(config);
+  const server = createHttpServer(app);
   // Vite Middleware / Static Serving
   if (config.mode === 'development') {
     const vite = await createViteServer({
-      server: { middlewareMode: true, host: config.host, hmr: { host: config.host }, allowedHosts: ['localhost'], cors: false },
+      server: { middlewareMode: true, host: config.host, hmr: { server }, allowedHosts: ['localhost'], cors: false },
       appType: "spa",
     });
     app.use(vite.middlewares);
@@ -722,7 +727,7 @@ export async function startServer() {
     });
   }
 
-  app.listen(config.port, config.host, () => {
+  server.listen(config.port, config.host, () => {
     console.log(`APIP ${config.mode} listening on ${config.host}:${config.port}; legacy agents ${config.legacyAgentsEnabled ? 'EXPERIMENTAL / non-clinical only' : 'disabled'}`);
   });
 }

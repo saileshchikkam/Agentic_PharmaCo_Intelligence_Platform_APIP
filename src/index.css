@@ -253,6 +253,16 @@ md-list-item {
   font-family: 'Roboto', sans-serif;
 }
 
+.apip-button-icon { display: inline-flex; inline-size: 1em; overflow: hidden; }
+.apip-button-icon svg { max-inline-size: 100%; }
+
+.apip-text-field {
+  display: block;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+}
+
 /* Accessibility: Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

@@ -1,5 +1,18 @@
 # Changelog
 
+## PostgreSQL disconnect recovery - 2026-11-07
+
+- Updated the pinned PostgreSQL driver to prevent an uncaught rollback crash after connection loss, with a disposable connection-loss regression. See [verification evidence](database/hosted-verification-2026-11-07.md).
+
+## ADR-1B Phase 2 - 2026-11-04
+
+- Added the original PvPI form preview and saved intake progress. Shared Back now sits beneath the logo beside the content. [Verification](docs/adr/09-adr-1a-checkpoint.md#adr-1b-phase-2--original-form-preview-and-intake-progress).
+
+## ADR-1B Phase 1 - 2026-11-04
+
+- Added a shared sticky header and research disclaimer, and improved responsive spacing and appearance controls.
+- Added the ADR reporting introduction, a pausable process illustration and saved draft cards. [Scope and verification](docs/adr/11-adr-1b-phase-1.md).
+
 ## ADR-1A final corrections - 2026-11-04
 
 - Fitting PvPI exports now contain the original two pages. Referenced continuations carry only excess confirmed information.

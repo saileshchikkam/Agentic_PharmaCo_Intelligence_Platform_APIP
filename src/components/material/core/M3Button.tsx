@@ -7,7 +7,7 @@ export interface M3ButtonProps {
   variant?: M3ButtonVariant;
   label?: string;
   children?: React.ReactNode;
-  leadingIcon?: string;
+  leadingIcon?: React.ReactNode;
   trailingIcon?: string;
   disabled?: boolean;
   loading?: boolean;
@@ -44,13 +44,13 @@ export const M3Button: React.FC<M3ButtonProps> = ({
   const content = children || label;
   const isDisabled = disabled || loading;
 
-  const renderIcon = (iconName: string) => (
+  const renderIcon = (icon: React.ReactNode) => (
     <span
       slot="icon"
-      className="material-symbols-outlined text-[18px] leading-none"
+      className={typeof icon === 'string' ? 'material-symbols-outlined apip-button-icon text-[18px] leading-none' : 'apip-button-icon'}
       aria-hidden="true"
     >
-      {iconName}
+      {icon}
     </span>
   );
 

@@ -106,7 +106,7 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
     maxlength: maxLength,
     onBlur,
     onFocus,
-    className: `w-full text-left font-sans ${className}`,
+    className: `apip-text-field w-full text-left font-sans ${className}`,
   };
 
   const renderLeadingIcon = () =>
