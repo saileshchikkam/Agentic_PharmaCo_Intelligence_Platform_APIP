@@ -1,5 +1,7 @@
 # Milestone roadmap
 
+**2026-11-07 hosted backend verification:** real owner isolation, revisions, comprehensive native PDF checks, client interruption/reconnect, application restart and revocation checks passed. Natural token expiry returned an inconclusive HTTP 503 and remains the final required gate. Backend progression remains NO-GO. [Evidence](../database/hosted-verification-2026-11-07.md).
+
 **2026-11-04 ADR-1B Phase 2** adds the original-form preview and saved intake progress on the isolated feature branch. [Scope and verification](adr/09-adr-1a-checkpoint.md#adr-1b-phase-2--original-form-preview-and-intake-progress). Phase 3 requires separate authorization.
 
 **2026-11-04 ADR-1B Phase 1** establishes the shared UI and guided reporting landing page on an isolated branch. Later ADR phases require separate authorization. [Phase 1 scope and verification](adr/11-adr-1b-phase-1.md).
