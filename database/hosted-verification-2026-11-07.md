@@ -43,3 +43,13 @@ A real refresh-token request returned HTTP 200. At that point the original acces
 ### Remaining reliability gates
 
 Client close/reconnect passed. No managed database interruption was performed. Application process restart with the existing private runtime credentials and restore was not exercised. Real token expiry, captured-token revocation and unavailable-refresh tests still require a live synthetic session held through its configured expiry. Google OAuth remains separately pending. The Backend Automation milestone remains NO-GO pending these evidence gaps. No RLS, Auth settings, database schema, clinical behavior or application functionality was modified.
+
+## Interrupted transaction crash repair — 2026-11-07
+
+The initial custom-socket interruption helper and the subsequent transparent local proxy both exposed an uncaught Postgres.js 3.4.9 exception in nextWrite: socket was null when rollback attempted a write after connection loss. This was not a credential failure. A disposable PGlite TCP/proxy reproduction crashed with 3.4.9 and passed with the official 4.1.0 release. Upstream reports the same transaction-close failure in issue 1248.
+
+Pinned postgres to 4.1.0 in package.json and bun.lock. Added scripts/adr-connection-loss.test.ts, which uses a child process to make an uncaught driver crash fail the test and verifies reconnection with cleared transaction context. No dependency source patches or security bypasses were added. The v4 parameter inference change was reviewed; the ADR repository uses strings and explicit casts. CommonJS startup is checked on Node 24; upstream requires Node 20.19 or 22.12 and later for require interoperability.
+
+Passed five focused tests including connection loss, PostgreSQL wire behavior with native PDF reopening, migrations/RLS and Auth gates. Frontend and server TypeScript and production build passed. The first compatibility run omitted the existing PDF interpreter environment and failed its PDF assertion; the configured rerun passed. Vite retains its existing bundle-size warning. Local launch helpers were adjusted for the official driver's default module export. Hosted interruption/restart and natural expiry results are still pending; the existing servers remained available during the local repair.
+
+References: [upstream disconnect issue](https://github.com/porsager/postgres/issues/1248), [v4 migration notes](https://github.com/porsager/postgres/releases/tag/v4.0.0), [4.1.0 release](https://github.com/porsager/postgres/releases/tag/v4.1.0).
