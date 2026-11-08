@@ -6,13 +6,19 @@ import test from 'node:test';
 import express from 'express';
 import { registerVerifiedAdr, configuredCloudAccount } from '../server/cloud-account';
 import { sqliteGuidedRepository } from '../server/adr/repository';
-import { readAuthCallback, allowedAuthOrigin, accountDestination } from '../src/features/account/authCallback';
+import { readAuthCallback, allowedAuthOrigin, accountDestination, safeAccountReturn } from '../src/features/account/authCallback';
 
 test('callback handles query codes, cancellation, and allowlisted destinations', () => {
   assert.deepEqual(readAuthCallback(new URL('https://dev.example/?apip_auth=1&code=abc')), { code: 'abc' });
   assert.deepEqual(readAuthCallback(new URL('https://dev.example/?apip_auth=1&code=abc#error=access_denied')), { code: null });
   assert.equal(readAuthCallback(new URL('https://dev.example/?code=abc')), null);
+  assert.deepEqual(readAuthCallback(new URL('http://127.0.0.1:3602/?apip_auth=1&type=recovery&code=fixture')), {code:'fixture',type:'recovery'});
+  assert.deepEqual(readAuthCallback(new URL('http://127.0.0.1:3602/?apip_auth=1&type=recovery&error=access_denied')), {code:null,type:'recovery'});
   assert.equal(accountDestination('https://evil.example'), '/patient/home');
+  assert.equal(safeAccountReturn('https://evil.example'), '/patient/home');
+  assert.equal(safeAccountReturn('//evil.example'), '/patient/home');
+  assert.equal(safeAccountReturn('/#/specialist/reviews'), '/specialist/reviews');
+  assert.equal(safeAccountReturn('/patient/adr/cases'), '/patient/adr/cases');
   assert.equal(accountDestination('adr-report'), '/preview/adr-report');
   assert.equal(allowedAuthOrigin('https://dev.example', 'https://dev.example'), true);
   assert.equal(allowedAuthOrigin('https://other.example', 'https://dev.example'), false);

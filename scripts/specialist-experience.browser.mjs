@@ -5,7 +5,7 @@ import {startSpecialistFixture} from './specialist-fixture-runtime.ts';
 const {chromium}=await import(process.env.ADR_PLAYWRIGHT_MODULE||'playwright');
 const runtime=await startSpecialistFixture(),dir=resolve('../phase3c-a-evidence');await mkdir(dir,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true}),results=[];
-async function signIn(p,email,create=false){await p.goto(runtime.origin+'/#/sign-in/specialist');if(create)await p.getByRole('button',{name:'Create account',exact:true}).click();await p.getByRole('textbox',{name:'Email address',exact:true}).fill(email);await p.getByRole('textbox',{name:'Password',exact:true}).fill('Fictional-fixture-only-123');await p.getByRole('button',{name:create?'Create account':'Sign in',exact:true}).click();}
+async function signIn(p,email,create=false){await p.goto(runtime.origin+'/#/sign-in/specialist');if(create)await p.getByRole('button',{name:'Create account',exact:true}).click();await p.getByRole('textbox',{name:/^Email(?: address)?$/,exact:true}).fill(email);await p.getByRole('textbox',{name:'Password',exact:true}).fill('Fictional-fixture-only-123');await p.getByRole('button',{name:create?'Create account':'Sign in',exact:true}).click();}
 try{
  for(const width of (process.env.APIP_SPECIALIST_WIDTHS?process.env.APIP_SPECIALIST_WIDTHS.split(',').map(Number):[320,360,820,1440])){
   const context=await browser.newContext({viewport:{width,height:1000},reducedMotion:'reduce'}),p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));

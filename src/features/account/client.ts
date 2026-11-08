@@ -1,4 +1,4 @@
-import { allowedAuthOrigin, readAuthCallback } from './authCallback';
+import { allowedAuthOrigin, readAuthCallback, accountDestination, safeAccountReturn } from './authCallback';
 import { createClient } from '@supabase/supabase-js';
 import type { PatientProfile, ProfileInput } from './profile';
 import { readAccountDraft, type AccountDraftRepository } from '../adr/accountDraft';
@@ -41,7 +41,7 @@ function localClient(): AccountClient {
   const refresh = async () => {
     const current = epoch;
     try {
-      const result = await request('user');
+      const result = await request('session');
       if (current === epoch) emit(result.user);
     } catch { if (current === epoch) emit(null); }
   };
@@ -75,8 +75,8 @@ function localClient(): AccountClient {
     async signUp(email, password) { epoch++; const result = await request('signup', { email, password }); changed(result.user); return false; },
     async signIn(email, password) { epoch++; const result = await request('signin', { email, password }); changed(result.user); },
     async google() { throw new Error('Google sign-in needs a configured provider.'); },
-    async resetPassword(_email) { /* local development only */ },
-    async updatePassword(_password) { /* local development only */ },
+    async resetPassword(_email) { throw Error('LOCAL_RECOVERY_UNAVAILABLE'); },
+    async updatePassword(_password) { throw Error('LOCAL_RECOVERY_UNAVAILABLE'); },
     async signOut() { await request('signout', {}); changed(null); },
     async readProfile(userId) { return (await request('profile', undefined, userId)).profile; },
     async saveProfile(userId, profile, revision) { return (await request('profile', { profile, expectedRevision: revision }, userId)).profile; },
@@ -108,13 +108,10 @@ function configuredClient(): AccountClient | null {
       if (callback.type === 'recovery') {
         history.replaceState(history.state, '', '/#/reset-password');
       } else {
-        const storedDest = sessionStorage.getItem('apip.account.return') || '/sign-in/patient';
-        const cleanDest = storedDest.startsWith('/#')
-          ? storedDest
-          : storedDest.startsWith('#')
-          ? '/' + storedDest
-          : '/#' + (storedDest.startsWith('/') ? storedDest : '/' + storedDest);
-        history.replaceState(history.state, '', cleanDest);
+        const destination = safeAccountReturn(sessionStorage.getItem('apip.account.return'), '/sign-in/patient');
+        // Let the authenticated sign-in screen consume the saved destination.
+        // Cancellation/expired-code messages must remain visible before any redirect.
+        history.replaceState(history.state, '', '/#/sign-in/' + (destination.startsWith('/specialist') ? 'specialist' : 'patient'));
       }
       if (!callback.code) return 'Sign-in was cancelled or the link expired. Please try again.';
       try {
@@ -168,11 +165,10 @@ function configuredClient(): AccountClient | null {
         if (error) throw error;
       },
       async google(workspace?: 'specialist') {
-        if (workspace === 'specialist') {
-          sessionStorage.setItem('apip.account.return', '/specialist');
-        } else {
-          sessionStorage.setItem('apip.account.return', '/patient/home');
-        }
+        const task = sessionStorage.getItem(continuationKey);
+        const fallback = workspace === 'specialist' ? '/specialist' : accountDestination(task);
+        const previous = sessionStorage.getItem('apip.account.return');
+        sessionStorage.setItem('apip.account.return', safeAccountReturn(previous === '/patient/home' ? null : previous, fallback));
         const { error } = await sdk.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: redirectTo() } });
         if (error) throw error;
       },

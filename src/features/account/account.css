@@ -21,10 +21,10 @@
 
 .auth-card-shell {
   inline-size: 100%;
-  max-inline-size: 440px;
+  max-inline-size: 552px;
   margin-inline: auto;
-  margin-block: 24px 48px;
-  padding: 36px 32px;
+  margin-block: 12px 32px;
+  padding: 32px 40px;
   border-radius: 28px;
   background: var(--md-sys-color-surface-container-lowest, #ffffff);
   border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
@@ -87,6 +87,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-block-size: 48px;
   padding: 8px 12px;
   border: none;
   background: transparent;
@@ -128,8 +129,8 @@
 }
 
 .auth-notice-banner.success {
-  background: #ecfdf5;
-  color: #065f46;
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
 }
 
 .auth-notice-banner.info {
@@ -138,33 +139,11 @@
 }
 
 /* Google OAuth Button */
-.auth-google-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: 100%;
-  padding: 11px 16px;
-  border-radius: 12px;
-  border: 1px solid var(--md-sys-color-outline-variant, #cbd5e1);
-  background: var(--md-sys-color-surface, #ffffff);
-  color: var(--md-sys-color-on-surface, #1e293b);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
-}
-
-.auth-google-btn:hover:not(:disabled) {
-  background: var(--md-sys-color-surface-container, #f8fafc);
-  border-color: var(--md-sys-color-outline, #94a3b8);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.auth-google-btn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
+/* Official Material Web outlined button owns border, focus and state layers. */
+.auth-google-btn { inline-size:100%; --md-outlined-button-container-height:48px; --md-outlined-button-label-text-size: .9375rem; }
+.auth-role-tab { gap:6px; }
+.auth-role-tab svg, .auth-specialist-note svg, .auth-notice-banner svg { flex-shrink:0; }
+.auth-card-brand-symbol { color:var(--md-sys-color-primary); }
 
 /* Divider */
 .auth-divider {
@@ -206,11 +185,13 @@
 
 .auth-password-toggle {
   position: absolute;
-  inset-inline-end: 12px;
-  inset-block-start: 16px;
+  inset-inline-end: 6px;
+  inset-block-start: 6px;
   background: none;
   border: none;
-  padding: 4px;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: 8px;
   cursor: pointer;
   color: var(--md-sys-color-on-surface-variant, #64748b);
   display: flex;
@@ -240,7 +221,8 @@
 .auth-link-btn {
   background: none;
   border: none;
-  padding: 0;
+  min-block-size: 44px;
+  padding: 8px 4px;
   font-size: 0.875rem;
   color: var(--md-sys-color-on-surface-variant, #64748b);
   cursor: pointer;
@@ -289,7 +271,7 @@
   text-align: center;
   margin-block-start: 24px;
   padding-block-start: 16px;
-  border-block-start: 1px solid var(--md-sys-color-outline-variant, #f1f5f9);
+  border-block-start: 0;
   font-size: 0.875rem;
   color: var(--md-sys-color-on-surface-variant, #64748b);
 }
@@ -310,3 +292,17 @@
     font-size: 1.5rem;
   }
 }
+
+/* Auth-specific composition; semantic segmented controls follow M3 state roles. */
+.access-main-sign-in .access-page-navigation { max-inline-size:552px; margin-inline:auto; }
+.auth-card-shell :focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 3px; }
+.auth-field-wrapper:has(.auth-password-toggle) md-outlined-text-field { --md-outlined-text-field-trailing-space: 54px; }
+.auth-role-tab:disabled { opacity:.6; cursor:default; }
+@media (prefers-reduced-motion: reduce) { .auth-card-shell { animation:none; } .auth-role-tab, .auth-google-btn { transition:none; } }
+
+/* Do not inherit the legacy page-wide Back rail on authentication screens. */
+.access-main-sign-in:has(.access-page-navigation) { padding-inline-start: var(--access-page-gutter); }
+.access-main-sign-in .access-page-navigation { position:static; inline-size:min(100%,552px); margin-inline:auto; }
+.access-sign-in-centered-section { inline-size:100%; min-inline-size:0; }
+.auth-card-shell > * { min-inline-size:0; }
+.auth-role-tab { min-inline-size:0; }

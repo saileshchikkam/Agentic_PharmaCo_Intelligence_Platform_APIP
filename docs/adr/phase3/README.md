@@ -22,3 +22,5 @@ Three interrupted-session files were moved and reconciled into the supporting re
 [Backend evidence](../../../database/hosted-verification-2026-11-07.md) describes actual baseline checks. Every new acceptance test here is proposed and unrun. No new runtime preview was verified for Phase 0.
 
 [Focused hosted specialist repair](3b-hosted-specialist-repair.md) closes the applicant API/browser gate with separately approved additive SQL and actual before/after evidence. Administrator bootstrap is still unauthorized.
+
+**2026-11-09:** [Authentication and real hosted closure evidence](auth-and-hosted-closure.md) distinguishes validated UI/disposable results from outstanding administrator, real sharing, Google and recovery gates.

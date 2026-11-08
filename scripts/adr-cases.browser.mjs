@@ -34,7 +34,7 @@ try{
     page.on('pageerror',e=>errors.push(e.message));
     await page.goto(origin+'/#/');
     await page.getByRole('link',{name:'Sign up',exact:true}).click();
-    await page.getByRole('textbox',{name:'Email address'}).fill(`phase3a-${width}-${Date.now()}@example.test`);
+    await page.getByRole('textbox',{name:/^Email(?: address)?$/}).fill(`phase3a-${width}-${Date.now()}@example.test`);
     await page.getByLabel('Password',{exact:true}).fill('fictional-browser-only-123');
     await page.getByRole('button',{name:'Create account',exact:true}).click();
     await page.getByRole('heading',{name:'Your APIP dashboard'}).waitFor();
@@ -130,7 +130,7 @@ try{
     await page.goto(`${origin}/#/patient/adr/cases/${seeded.id}/revisions/${seeded.historical}`);
     await page.getByRole('heading',{name:'Sign in',exact:true}).waitFor();
     await page.getByRole('button',{name:'Create account',exact:true}).click();
-    await page.getByRole('textbox',{name:'Email address'}).fill(`phase3a-other-${width}-${Date.now()}@example.test`);
+    await page.getByRole('textbox',{name:/^Email(?: address)?$/}).fill(`phase3a-other-${width}-${Date.now()}@example.test`);
     await page.getByLabel('Password',{exact:true}).fill('fictional-other-only-123');
     await page.getByRole('button',{name:'Create account',exact:true}).click();
     await page.getByText('This report is unavailable in your account.',{exact:true}).waitFor();

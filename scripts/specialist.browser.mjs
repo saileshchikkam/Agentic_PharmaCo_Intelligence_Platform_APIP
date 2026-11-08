@@ -10,7 +10,7 @@ const results=[];
 async function signup(page,email){
  await page.goto(runtime.origin+'/#/sign-in/specialist');
  await page.getByRole('button',{name:'Create account',exact:true}).click();
- await page.getByRole('textbox',{name:'Email address',exact:true}).fill(email);
+ await page.getByRole('textbox',{name:/^Email(?: address)?$/,exact:true}).fill(email);
  await page.getByRole('textbox',{name:'Password',exact:true}).fill('Fictional-fixture-only-123');
  await page.getByRole('button',{name:'Create account',exact:true}).click();
  await page.getByRole('heading',{name:'Your specialist workspace',exact:true}).waitFor();
@@ -87,7 +87,7 @@ try{
   await decision('reject');await rejected.reload();await rejected.getByRole('heading',{name:'REJECTED',exact:true}).waitFor();
   await rejected.screenshot({path:resolve(evidence,`rejected-${width}.png`)});
   await p.getByRole('button',{name:'Sign out',exact:true}).click();await p.getByRole('heading',{name:'Sign in',exact:true}).waitFor();
-  await p.getByRole('textbox',{name:'Email address',exact:true}).fill(rejectedEmail);await p.getByRole('textbox',{name:'Password',exact:true}).fill('Fictional-fixture-only-123');
+  await p.getByRole('textbox',{name:/^Email(?: address)?$/,exact:true}).fill(rejectedEmail);await p.getByRole('textbox',{name:'Password',exact:true}).fill('Fictional-fixture-only-123');
   await p.getByRole('button',{name:'Sign in',exact:true}).click();
   await p.locator('.specialist-notice').getByText('Your account is not authorized for identity administration.',{exact:true}).waitFor();
   await p.getByRole('button',{name:'Overview & profile',exact:true}).click();

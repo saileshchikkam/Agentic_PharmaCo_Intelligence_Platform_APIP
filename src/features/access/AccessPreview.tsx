@@ -65,7 +65,7 @@ export function readPreviewRoute(): PreviewRoute {
   if (import.meta.env.DEV && path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
   const signup=path.startsWith('/sign-up/');
   const role = path.replace(signup?'/sign-up/':'/sign-in/', '');
-  if (roles.includes(role as AccessRole) && (path.startsWith('/sign-in/')||signup&&role!=='developer')) {
+  if (roles.includes(role as AccessRole) && (role!=='developer'||import.meta.env.DEV) && (path.startsWith('/sign-in/')||signup&&role!=='developer')) {
     const requestedTask = new URLSearchParams(query).get('continue');
     return {
       screen: 'sign-in', role: role as AccessRole, creating:signup||new URLSearchParams(query).has('signup'),
@@ -285,7 +285,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     </main>
 
     <PreviewFooter>
-      <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>
+      {import.meta.env.DEV && <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>}
     </PreviewFooter>
   </div>;
 }

@@ -47,7 +47,7 @@ export async function startSpecialistFixture(port=0,sharing=false){
  app.use('/api/account/identity-fixture',identityRoutes);
  if(sharing){
   const cases=postgresGuidedRepository(restricted);
-  const guard=express.Router();guard.use(async(req,res,next)=>{if(!trustedLocalRequest(req,actualPort,req.method!=='GET')){res.status(403).json({error:'LOCAL_ONLY'});return;}const user=local.readUser(req);if(!user){res.status(401).json({error:'SIGN_IN_REQUIRED'});return;}await controlQuery('insert into auth.users(id) values($1) on conflict do nothing',[user.id]);next();},express.json({limit:'24kb'}));
+  const guard=express.Router();guard.use(async(req,res,next)=>{if(!trustedLocalRequest(req,actualPort,req.method!=='GET')){res.status(403).json({error:'LOCAL_ONLY'});return;}const user=local.readUser(req);if(!user){res.status(401).json({error:'SIGN_IN_REQUIRED'});return;}await controlQuery('insert into auth.users(id) values($1) on conflict do nothing',[user.id]);if(!req.destroyed&&!req.aborted)next();},express.json({limit:'24kb'}));
   app.use('/api/account/sharing-fixture',guard,sharingRouter(postgresSharingRepository(restricted),cases,req=>local.readUser(req)??undefined,async(req,owner)=>local.readUser(req)?.id===owner));
   app.use('/api/account/adr-guided',guard,guidedRouter(cases,req=>local.readUser(req),null,async(req,owner)=>local.readUser(req)?.id===owner));
   app.use('/api/account/adr-cases',guard,casesRouter(cases,req=>local.readUser(req),async(req,owner)=>local.readUser(req)?.id===owner));

@@ -80,11 +80,11 @@ try {
   await google.click();
   await page.getByText('Sign-in was cancelled or the link expired.', { exact: false }).waitFor();
   assert.equal(new URL(page.url()).search, '');
-  await page.getByRole('button', { name: 'Create account', exact: true }).click();
-  await page.getByRole('textbox', { name: 'Email address' }).fill('fictional@example.test');
+  await page.getByRole('button', { name: 'Create an account', exact: true }).click();
+  await page.getByRole('textbox', { name: /^Email(?: address)?$/ }).fill('fictional@example.test');
   await page.getByRole('textbox', { name: 'Password' }).fill('fictional-password-123');
   await page.getByRole('button', { name: 'Create account', exact: true }).click();
-  await page.getByText('Check your email to confirm your account', { exact: false }).waitFor();
+  await page.getByRole('heading', { name: 'Check your email', exact: true }).waitFor();
   cancel = false;
   await page.goto(signIn);
   await google.click();
@@ -98,7 +98,7 @@ try {
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await other.getByRole('link', { name: 'Sign in to start' }).waitFor();
   await page.goto(signIn);
-  await page.getByRole('textbox', { name: 'Email address' }).fill('fictional@example.test');
+  await page.getByRole('textbox', { name: /^Email(?: address)?$/ }).fill('fictional@example.test');
   await page.getByRole('textbox', { name: 'Password' }).fill('fictional-password-123');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();
   await other.getByRole('heading', { name: 'Saved reports', exact: true }).waitFor();

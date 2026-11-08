@@ -1,5 +1,9 @@
 # Changelog
 
+## Authentication layout and session corrections - 2026-11-09
+
+- Improved responsive Material 3 authentication, accessible controls and route/history behavior; repaired local session restoration and simulated OAuth continuation/cancellation. Real Google, recovery and hosted-sharing acceptance remain gated. [Evidence](docs/adr/phase3/auth-and-hosted-closure.md).
+
 ## Specialist identity and controlled administration - 2026-11-08
 
 - Added fictional specialist applications, status/profile, private administrator decisions and database-backed per-request capabilities with 30-day expiry, atomic audit and immediate future-request revocation. No patient-sharing privileges. Applied the separately approved development migration; live administrator bootstrap remains blocked. Added strict-TLS preview preflight and responsive Chrome evidence. [Delivery](docs/adr/phase3/3b-implementation-and-verification.md).

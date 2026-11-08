@@ -30,7 +30,7 @@ try{
    console.error('Home did not load:', page.url(), errors, (await page.locator('body').innerText({timeout:3000}).catch(()=>'' )).slice(0,700));
    throw error;
   }
-  await page.getByRole('textbox',{name:'Email address'}).fill(`fictional-${width}@example.test`);
+  await page.getByRole('textbox',{name:/^Email(?: address)?$/}).fill(`fictional-${width}@example.test`);
   await page.getByLabel('Password',{exact:true}).fill('fictional-password-123');
   await page.getByRole('button',{name:'Create account',exact:true}).click();
   await page.getByRole('heading',{name:'Your APIP dashboard'}).waitFor();
@@ -165,7 +165,7 @@ try{
   await page.getByRole('button',{name:'Sign out',exact:true}).click();
   await page.getByRole('link',{name:'Sign in to start',exact:true}).waitFor();
   await page.getByRole('link',{name:'Sign in to start',exact:true}).click();
-  await page.getByRole('textbox',{name:'Email address'}).fill(`fictional-${width}@example.test`);
+  await page.getByRole('textbox',{name:/^Email(?: address)?$/}).fill(`fictional-${width}@example.test`);
   await page.getByLabel('Password',{exact:true}).fill('fictional-password-123');
   await page.getByRole('button',{name:'Sign in',exact:true}).click();
   await page.getByRole('heading',{name:'Saved reports',exact:true}).waitFor();

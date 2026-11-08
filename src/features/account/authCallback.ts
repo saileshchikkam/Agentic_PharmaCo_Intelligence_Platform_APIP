@@ -22,3 +22,9 @@ export function allowedAuthOrigin(origin: string, configured: unknown) {
   return url.protocol === 'https:' && typeof configured === 'string'
     && configured.split(',').some(entry => entry.trim() === origin);
 }
+
+/** Only known APIP destinations; never trust a storage value as an external redirect. */
+export function safeAccountReturn(value: string | null, fallback = '/patient/home') {
+  const path = value?.replace(/^(\/#|#)/, '') ?? '';
+  return /^(?:\/patient\/home|\/sign-in\/(?:patient|specialist)|\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/(?:adr-report|medassist)(?:\?case=[0-9a-f-]{36})?)$/i.test(path) ? path : fallback;
+}
