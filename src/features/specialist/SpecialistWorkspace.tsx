@@ -26,7 +26,7 @@ async function request(owner:string,path:string,signal:AbortSignal,body?:unknown
 }
 export function SpecialistWorkspace({admin=false,id,view='entry'}:{admin?:boolean;id?:string;view?:SpecialistView}){
  const {user,ready}=useAccount();
- useEffect(()=>{if(ready&&!user){sessionStorage.setItem('apip.account.return',admin?'/admin/specialist-applications':view==='entry'?'/specialist':'/specialist/'+view);navigatePreview('/sign-in/specialist',{replace:true});}},[ready,user?.id,admin]);
+ useEffect(()=>{if(ready&&!user){sessionStorage.setItem('apip.account.return',admin?(id?'/admin/specialist-applications/'+id:'/admin/specialist-applications'):view==='entry'?'/specialist':'/specialist/'+view);navigatePreview('/sign-in/specialist',{replace:true});}},[ready,user?.id,admin,id]);
  if(!ready||!user)return <p role="status">Checking your account…</p>;
  return <IdentityWorkspace key={`${user.id}/${admin}/${id??''}/${view}`} owner={user.id} email={user.email??''} admin={admin} id={id} view={view}/>;
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## Phase 3C-B hosted verification and administrator capability decision - 2026-11-09
+
+- Completed audited administrator capability decisions for the owner-approved synthetic applicant (`Fictional APIP Sharing Reviewer`), recording `begin_verification` and `approve` with a bounded 30-day validity window under confirmed identity administrator. The previously revoked specialist remains strictly revoked.
+- Verified all ten hosted Phase 3C-B workflow gates against the development Supabase project: patient consent, specialist assignment, directory opt-in, Pending Review Reports, original PvPI PDF preview generation with `pypdf` field assertions, cross-patient and unauthorized denial, newer-revision privacy, and consent withdrawal.
+- Preserved target application deep links during authentication redirects in `SpecialistWorkspace.tsx`.
+
 ## Authentication layout and session corrections - 2026-11-09
 
 - Improved responsive Material 3 authentication, accessible controls and route/history behavior; repaired local session restoration and simulated OAuth continuation/cancellation. Real Google, recovery and hosted-sharing acceptance remain gated. [Evidence](docs/adr/phase3/auth-and-hosted-closure.md).
