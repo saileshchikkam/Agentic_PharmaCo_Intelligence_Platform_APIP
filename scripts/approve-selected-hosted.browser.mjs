@@ -1,19 +1,37 @@
 // Owner-approved synthetic capability only. No passwords/tokens are written to disk.
+
 import {readFile,writeFile} from 'node:fs/promises';import {createHash,randomUUID} from 'node:crypto';import assert from 'node:assert/strict';
+
 const {chromium}=await import(process.env.ADR_PLAYWRIGHT_MODULE||'playwright');
+
 const admin=JSON.parse((await readFile(process.env.APIP_APPROVED_ADMIN_FILE,'utf8')).replace(/^\uFEFF/,''));
+
 const review=await readFile(process.env.APIP_APPROVED_CANDIDATE_REVIEW,'utf8');
+
 const subject=review.match(/Exact confirmed Auth subject: ([0-9a-f-]{36})/i)?.[1],id=review.match(/Application: ([0-9a-f-]{36})/i)?.[1];
+
 assert(subject&&id);assert.equal(createHash('sha256').update(subject).digest('hex'),process.env.APIP_OWNER_APPROVED_SPECIALIST);assert.notEqual(subject,admin.subject);
+
 const origin=process.env.APIP_TEST_ORIGIN||'http://127.0.0.1:3602';const browser=await chromium.launch({channel:'chrome',headless:false});const context=await browser.newContext();const page=await context.newPage();let headers;
+
 page.on('request',r=>{const h=r.headers();if(new URL(r.url()).pathname.startsWith('/api/')&&h.authorization&&h['x-apip-account'])headers={Authorization:h.authorization,'X-APIP-Account':h['x-apip-account']};});
-await page.goto(origin+'/#/admin/specialist-applications/'+id);await page.evaluate(()=>document.title='APIP — AUTHORIZED ADMIN DECISION — EXISTING ADMIN ONLY');console.log('Private administrator sign-in required. Existing patient/applicant sessions are untouched.');
+
+await page.goto(origin+'/#/admin/specialist-applications/'+id);await page.evaluate(()=>document.title='APIP â€” AUTHORIZED ADMIN DECISION â€” EXISTING ADMIN ONLY');console.log('Private administrator sign-in required. Existing patient/applicant sessions are untouched.');
+
 async function call(path,body){assert(headers);const r=await fetch(origin+path,{method:body===undefined?'GET':'POST',headers:{...headers,'Content-Type':'application/json','Idempotency-Key':randomUUID()},body:body===undefined?undefined:JSON.stringify(body)});return{status:r.status,data:await r.json()};}
+
 try{
+
  await page.getByRole('heading',{name:'Independent identity review',exact:true}).waitFor({timeout:1200000});assert.equal(headers?.['X-APIP-Account'],admin.subject);const caps=await call('/api/account/capabilities');assert.equal(caps.status,200);assert.equal(caps.data.identityAdministration,true);assert.equal(caps.data.patientCaseAccess,false);
+
  let r=await call('/api/admin/specialist-applications/'+id);assert.equal(r.status,200);let a=r.data.application;assert.equal(a.owner,subject);assert.equal(a.profile.fullName,'Fictional APIP Sharing Reviewer');assert.equal(a.profile.category,'Pharmacovigilance Associate');assert(['SUBMITTED','PENDING_VERIFICATION','APPROVED'].includes(a.state));
+
  for(const action of a.state==='SUBMITTED'?['begin_verification','approve']:a.state==='PENDING_VERIFICATION'?['approve']:[]){r=await call('/api/admin/specialist-applications/'+id+'/decisions',{expectedVersion:a.version,command:{action,reason:'Owner explicitly approved this exact confirmed synthetic applicant for 30-day Phase 3C-B verification on 2026-11-09',evidenceReference:'owner-approved-fictional-qualification-and-organization',policyVersion:'private-fictional-3b-v1'}});assert.equal(r.status,200);a=r.data.application;}
+
  assert.equal(a.state,'APPROVED');assert(a.validUntil&&Date.parse(a.validUntil)>Date.now()&&Date.parse(a.validUntil)<Date.now()+31*86400000);await page.reload();await page.getByRole('heading',{name:'Independent identity review',exact:true}).waitFor();
+
  await writeFile(process.env.APIP_ADMIN_RESULT,JSON.stringify({result:'PASS',state:a.state,expiresWithin31Days:true,verifiedExistingAdministrator:true,patientAccessGranted:false,decisionsAudited:a.decisions.some(d=>d.action==='approve')},null,2));console.log('PASS exact approved synthetic subject, audited administrator decision and bounded 30-day capability. No patient access granted.');
-}catch(e){await writeFile(process.env.APIP_ADMIN_RESULT,JSON.stringify({result:'BLOCKED',type:e.name,code:/^[A-Z0-9_]+$/.test(e.message)?e.message:'ADMIN_CHECK_FAILED'}));console.log('Administrator check stopped: '+e.name);}
+
+}catch(e){await writeFile(process.env.APIP_ADMIN_RESULT,JSON.stringify({result:'BLOCKED',type:e.name,code:page.isClosed()?'BROWSER_SESSION_CLOSED':/^[A-Z0-9_]+$/.test(e.message)?e.message:'ADMIN_CHECK_FAILED'}));console.log('Administrator check stopped: '+e.name);}
+
 await new Promise(()=>{});
