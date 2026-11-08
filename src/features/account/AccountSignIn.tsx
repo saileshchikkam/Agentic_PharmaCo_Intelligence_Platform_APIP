@@ -37,7 +37,14 @@ export function AccountSignIn({
   const isSpecialist = workspace === 'specialist';
 
   useEffect(() => {
-    if (accountClient?.kind !== 'supabase') return;
+    if (!accountClient) {
+      setNotice({
+        type: 'info',
+        message: 'Authentication service is not configured. Please supply Supabase environment keys.',
+      });
+      return;
+    }
+    if (accountClient.kind !== 'supabase') return;
     const controller = new AbortController();
     const url = String(import.meta.env.VITE_SUPABASE_URL || '');
     const key = String(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '');
