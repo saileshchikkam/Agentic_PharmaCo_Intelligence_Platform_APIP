@@ -79,7 +79,7 @@ function RevisionPreview({ id, revision, owner, open, historical }: { id: string
   </>;
 }
 
-function FormPage({ url }: { url: string }) {
+export function FormPage({ url }: { url: string }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const [state, setState] = useState<'loading' | 'ready' | 'failed'>('loading');
   useEffect(() => {
@@ -93,7 +93,9 @@ function FormPage({ url }: { url: string }) {
           import('pdfjs-dist/build/pdf.worker.min.mjs?url'),
         ]);
         if (disposed || !canvas.current) return;
-        pdf.GlobalWorkerOptions.workerSrc = worker.default;
+                console.log('WORKER RAW:', worker);
+        const workerUrl = typeof worker === 'string' ? worker : (typeof worker?.default === 'string' ? worker.default : (typeof worker?.default?.default === 'string' ? worker.default.default : ''));
+        pdf.GlobalWorkerOptions.workerSrc = workerUrl || new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
         const loading = pdf.getDocument({ url, isEvalSupported: false });
         destroy = () => { void loading.destroy().catch(() => {}); };
         const page = await (await loading.promise).getPage(1);
@@ -106,7 +108,8 @@ function FormPage({ url }: { url: string }) {
         cancel = () => render.cancel();
         await render.promise;
         if (!disposed) setState('ready');
-      } catch {
+      } catch (e) {
+        console.error('PDF DRAW FAILED:', e);
         if (!disposed) setState('failed');
       }
     }
@@ -116,6 +119,6 @@ function FormPage({ url }: { url: string }) {
   return <>
     {state === 'loading' && <p role="status">Rendering the first page…</p>}
     {state === 'failed' && <p role="status">The page could not be rendered here. Open the full form in a separate viewer.</p>}
-    <canvas ref={canvas} hidden={state !== 'ready'} role="img" aria-label="Live preview of the original PvPI form, page 1" />
+    <canvas style={{width:"100%",maxWidth:"100%",height:"auto"}} ref={canvas} hidden={state !== 'ready'} role="img" aria-label="Live preview of the original PvPI form, page 1" />
   </>;
 }

@@ -1,3 +1,4 @@
+import {PatientSharing} from '../../specialist/SharingWorkspace';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { M3Button, M3Select, M3TextField } from '../../../components/material/core';
 import { guidedAccountHeaders } from '../../account/client';
@@ -103,7 +104,7 @@ function CaseDetail({owner,id,revision,history}:{owner:string;id:string;revision
   const c=data.case;
   return <section className="adr-cases"><p className="adr-eyebrow">PRIVATE · {revision?'READ-ONLY SAVED VERSION':'DRAFT'}</p>
     <h1 tabIndex={-1}>Report {id.slice(0,8)}{history?' · revision history':''}</h1>
-    <p>Saved revision {c.revision} · {date(data.savedAt??c.updatedAt)}</p>
+    <PatientSharing key={owner+id+c.revision} owner={owner} caseId={id} revision={c.revision}/><p>Saved revision {c.revision} · {date(data.savedAt??c.updatedAt)}</p>
     {data.summary&&<p>Created {date(data.summary.createdAt)} · {data.summary.medicines.join(' · ')||'Medicine not confirmed'}</p>}
     <p>{revision?'This is an immutable saved version. Editing opens the latest report; it cannot overwrite this version.':'Patient draft. Specialist review and sharing are not enabled.'}</p>
     <div className="adr-actions"><M3Button onClick={()=>navigatePreview(`/preview/adr-report?case=${id}`)}>Edit latest report</M3Button>
