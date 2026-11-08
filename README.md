@@ -1,5 +1,7 @@
 # APIP - Agentic Pharma Intelligence Platform
 
+[![How it works](https://www.gitskins.com/api/badge/diagram?repo=saileshchikkam/Agentic_PharmaCo_Intelligence_Platform_APIP)](https://www.gitskins.com/saileshchikkam/Agentic_PharmaCo_Intelligence_Platform_APIP)
+
 Current ADR work: [guided reporting checkpoint](docs/adr/09-adr-1a-checkpoint.md) implements fictional owner-isolated intake, editing and native official PvPI PDF export with continuation pages and an accessible reveal. Supported English cases pass export checks; unsupported scripts and multiple seriousness selections remain explicit export limits.
 
 APIP aims to make suspected adverse drug reaction (ADR) reporting simple for patients and useful for the professionals who review it. It connects medical assistance, guided reporting, and evidence-based professional review in one platform.
