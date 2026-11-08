@@ -2,8 +2,11 @@ import { languageConcepts } from './concepts';
 import { hasPainException } from './pain-scope';
 
 export type ReportContext = 'current' | 'historical_or_resolved' | 'other_person' | 'hypothetical' | 'suspected_condition' | 'non_asserted';
-export const uncertaintyCue = /\b(?:not sure|unsure|uncertain|unknown|maybe|might|may (?:have|be)|perhaps|possible|possibly|could be|don['’]t know|do not know|think i|i think|not certain|wonder (?:if|whether)|doubting whether|hard to tell|can(?:not|['’]t) (?:tell|decide)|my guess)\b/i;
-export const negationCue = /\b(?:no|not|neither|without|deny|denies|absent|free of|don['’]t|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t|isn['’]t|aren['’]t|wasn['’]t|weren['’]t)\b/i;
+// People routinely omit apostrophes in phone typing ("dont", "havent").
+// Treat that narrow orthographic normalization as the same polarity marker while
+// preserving the original source text, offsets and evidence confirmation step.
+export const uncertaintyCue = /\b(?:not sure|unsure|uncertain|unknown|maybe|might|may (?:have|be)|perhaps|possible|possibly|could be|don['’]?t know|do not know|think i|i think|not certain|wonder (?:if|whether)|doubting whether|hard to tell|can(?:not|['’]?t) (?:tell|decide)|my guess)\b/i;
+export const negationCue = /\b(?:no|not|neither|without|deny|denies|absent|free of|don['’]?t|haven['’]?t|hasn['’]?t|didn['’]?t|doesn['’]?t|isn['’]?t|aren['’]?t|wasn['’]?t|weren['’]?t)\b/i;
 export const correctionCue = /\b(?:actually|correction|i meant|instead|scratch that|take that back)\b/i;
 export const negatedResolution = (text:string) => /\b(?:hasn't|has not|haven't|have not|isn't|is not|aren't|are not)\s+(?:yet\s+)?(?:stopped|resolved|gone|cleared up|over)\b/i.test(text.replaceAll('’',"'"));
 const resolvedCue = /\b(?:resolved|recovered|cleared up|no longer|stopped|gone now|(?:is|has) gone|went away|(?:is|are) over|not now)\b/i;

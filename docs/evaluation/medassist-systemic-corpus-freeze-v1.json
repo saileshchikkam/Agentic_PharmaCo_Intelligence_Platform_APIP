@@ -1,0 +1,15 @@
+{
+  "schema_version": "medassist.systemic-language-corpus-freeze.v1",
+  "fictional_only": true,
+  "frozen_before_measurement": true,
+  "development_corpus": "medassist-systemic-development-v1.json",
+  "withheld_evaluation_corpus": "medassist-systemic-withheld-v1.json",
+  "development_case_count": 50,
+  "withheld_case_count": 50,
+  "families": ["head_nervous_balance", "eyes_ears", "nose_mouth_throat", "respiratory", "chest_cardiovascular", "digestive", "urinary_reproductive", "muscles_joints_limbs", "skin_allergic", "general_mental_behavioral"],
+  "expectation_contract": "Existing IDs may be proposed only where explicitly expected. All other comprehensible descriptions require clarification and remain source-preserved, unconfirmed open descriptions. No row is a clinical label, diagnosis, severity conclusion, or safety rule.",
+  "sha256": {
+    "development": "76da0cdcfec7be4b0a0cc46ce8d463838aeed20abfbe74de3af4466a8b1e4401",
+    "withheld": "b1dafee4525c1a578b38b53ffd42c206c5ac85c1d1ca12146831f99ea79101ec"
+  }
+}

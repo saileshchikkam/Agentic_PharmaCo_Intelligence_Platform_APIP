@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-08
+
+### MedAssist — accelerated systemic language audit
+
+- Reproduced the local scripted browser pipeline, repaired shared apostrophe-free negation handling, and added nine-field/multi-symptom/context pipeline tests.
+- Froze balanced fictional development and withheld ten-family language corpora before measurement; retained the 2 development and 7 withheld mismatches as Prompt 2 work.
+- Added an unintegrated, source-grounded open-symptom intake contract and architecture design. No Model A inference, Model B, emergency behavior, legacy ontology, clinical capability or provider integration changed.
+
 ## MedAssist Prompt 1 final scoped Stage 3 remediation — 2026-11-08
 
 - Interpret clear general-pain exceptions, reduce needless discourse/anatomy clarification, retain explicit speaker switches and ask for HA expansion without choosing its meaning.

@@ -1,5 +1,11 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Accelerated systemic language audit — 2026-11-08
+
+The default browser route is the local **SIMULATED** scripted path: it calls `understand` in the page and has no Model A/provider dependency. The separately visible research-mode switch is correctly unavailable without its private adapter/operator opt-in. A shared context normalization now recognizes ordinary omitted-apostrophe negatives such as `dont` and `havent`; it still preserves the literal source, requires confirmation and never broadens the nine-field ontology.
+
+[The audit](../../../docs/evaluation/medassist-accelerated-language-audit-report.md) records nine-field browser/unit evidence and two frozen fictional 50-case corpora (development 48/50, withheld 43/50). It documents retained resolution, site-scope, context and grammar failures rather than treating them as coverage. [Open-ended symptom intake](../../../docs/architecture/medassist-open-ended-symptom-intake.md) and `open-symptom.ts` are Prompt-2 design contracts only: no persistence, export, Model A input, provider or clinical capability changed.
+
 ## Prompt 1 final scoped remediation — 2026-11-08
 
 `pain-scope.ts` supplies a bounded source-literal exception grammar shared by interpretation and validation. Clear no-pain-except wording can propose existing general pain; uncertain/unsupported exceptions abstain. Explicit now-I/only-I switches preserve speaker distinctions. A bounded discourse tail after a supported current claim remains narrative without another symptom question. Already supplied tummy/headache anatomy is recognized, vague walking/description prompts improve, and HA asks for expansion without assuming a head meaning.

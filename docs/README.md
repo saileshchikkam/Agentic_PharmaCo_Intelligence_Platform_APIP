@@ -22,6 +22,8 @@ The [MedAssist progress tracker](medassist-progress.md) records the seven-stage 
 
 The [Prompt 1 final scoped Stage 3 report](evaluation/medassist-final-scope-report.md) owns pain-exception/clarification/referent changes, UNKNOWN reconciliation limits, prospective expectations, known comparisons, browser exports and readiness for Prompt 2's fresh evaluation.
 
+The [accelerated systemic language audit](evaluation/medassist-accelerated-language-audit-report.md) owns the live pipeline trace, nine-field smoke evidence, frozen ten-family fictional corpora, retained failure matrix and the bounded Prompt 2 architecture. The companion [open-ended symptom intake design](architecture/medassist-open-ended-symptom-intake.md) is not yet a product/data-model integration.
+
 The [post-L7 wording remediation](evaluation/medassist-wording-remediation-report.md) classifies all 37 starting findings, documents bounded coverage/clarification, all 23 remaining known mismatches, prospective contrasts and actual browser/download evidence.
 
 The [post-L7 context/state report](evaluation/medassist-post-l7-remediation-report.md) documents M13's repair, current-versus-historical/pending export semantics, actual browser downloads and remaining known language mismatches.

@@ -2,6 +2,10 @@
 
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
+## Engineering record — hybrid open-ended symptom intake boundary, 2026-11-08
+
+For the accelerated language program, retain deterministic context/polarity/source validation and explicit confirmation as the authority. A future contextual model may only propose source-grounded open symptom mentions; it may not directly create accepted legacy evidence, select Model A questions, infer diagnosis/urgency or replace a user statement. The existing nine-field research contract and frozen protocol remain unchanged. Pretrained-model selection is deferred until a fixed fictional evaluation demonstrates a material, safety-preserving improvement on the actual local runtime. [Audit and rationale](evaluation/medassist-accelerated-language-audit-report.md).
+
 ## Engineering record — clear exception scope and accepted-history limits, 2026-11-08
 
 Prompt 1 authorizes a bounded linguistic exception grammar shared by parser/validator, literal discourse retention without extra symptom questions, explicit speaker switches and neutral abbreviation clarification. General pain stays one existing field. Accepted UNKNOWN or other accepted answers remain immutable in the append-only interview; a later user-confirmed difference blocks use, with explicit clarified restart. An in-session accepted-value revision needs separately designed versioned reconciliation/replay and is not added here. Frozen evaluations retain their labels; one old development blanket-abstention expectation is explicitly revised for the authorized clear exception behavior. [Evidence and limits](evaluation/medassist-final-scope-report.md).
