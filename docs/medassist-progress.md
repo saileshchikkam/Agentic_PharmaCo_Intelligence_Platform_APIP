@@ -4,7 +4,7 @@
 | --- | --- |
 | Current stage | Stage 3 — Conversational NLP and Evidence |
 | Current subphase | Open-ended symptom capture, bounded context validation and conversation/export integration |
-| Current task | Prompt 2 of 4: implementation complete pending final regression/sync verification. |
+| Current task | Prompt 2 of 4: complete and synchronized. A fresh contextual/open-ended evaluation is the next separately authorized gate. |
 | Overall MedAssist status | Scripted research demo is operational for nine confirmed evidence fields plus separately retained page-memory unsupported descriptions. Genuine local Model A remains blocked; clinical assessment disabled. |
 | Last verified completion | [Open-mention integration](evaluation/medassist-open-mention-integration-report.md): five prospective capture/export checks pass and the local browser/download check keeps an unsupported ear complaint out of evidence and Model A. |
 | Current blockers | No durable open-mention persistence or mapping/reconciliation UI; contextual extraction evaluation, local model/runtime availability and original sealed Model A environment remain unverified. |
