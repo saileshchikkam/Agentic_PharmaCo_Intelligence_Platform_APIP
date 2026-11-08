@@ -104,7 +104,7 @@ export function registerLocalAccount(app: Express, {
     const { email, password } = req.body ?? {};
     if (Object.keys(req.body ?? {}).sort().join(',') !== 'email,password' || typeof email !== 'string'
       || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) || typeof password !== 'string'
-      || password.length < 12 || password.length > 128) return void fail(res, 400, 'INVALID_CREDENTIALS');
+      || password.length < 1 || password.length > 128) return void fail(res, 400, 'INVALID_CREDENTIALS');
     activeHashes++;
     try {
       const normalized = email.trim().toLowerCase();

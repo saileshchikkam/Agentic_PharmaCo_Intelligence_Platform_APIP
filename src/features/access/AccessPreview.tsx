@@ -20,7 +20,7 @@ const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = {screen:'specialist';admin?:boolean;id?:string;view?:'entry'|'profile'|'home'|'reviews'} | { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = {screen:'specialist';admin?:boolean;id?:string;view?:'entry'|'profile'|'home'|'reviews'} | { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask; creating?:boolean } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -47,11 +47,12 @@ export function readPreviewRoute(): PreviewRoute {
   }
   if (path === '/preview/medassist') return { screen: 'medassist-preview' };
   if (import.meta.env.DEV && path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
-  const role = path.replace('/sign-in/', '');
-  if (roles.includes(role as AccessRole) && path.startsWith('/sign-in/')) {
+  const signup=path.startsWith('/sign-up/');
+  const role = path.replace(signup?'/sign-up/':'/sign-in/', '');
+  if (roles.includes(role as AccessRole) && (path.startsWith('/sign-in/')||signup&&role!=='developer')) {
     const requestedTask = new URLSearchParams(query).get('continue');
     return {
-      screen: 'sign-in', role: role as AccessRole,
+      screen: 'sign-in', role: role as AccessRole, creating:signup||new URLSearchParams(query).has('signup'),
       ...(requestedTask === 'medassist' || requestedTask === 'adr-report' ? { requestedTask } : {}),
     };
   }
@@ -182,7 +183,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
         <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
         <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview(account.user ? '/patient/home' : '/sign-in/patient')}>{account.user ? 'Open dashboard' : 'Log in'}</M3Button>
-        {!account.user && <p><a href="#/sign-in/patient?signup=1">Sign up</a></p>}
+        {!account.user && <p><a href="#/sign-up/patient">Sign up</a></p>}
         <div className="access-welcome-links"><a href="#/patient/home" onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
         {import.meta.env.DEV && <p><a href="#/preview/medassist-conversation" onClick={event => followPreviewLink(event, '/preview/medassist-conversation')}>Try the fictional MedAssist conversation</a></p>}
       </section>}
@@ -233,7 +234,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {route.screen === 'sign-in' && <section className="access-sign-in-surface" aria-labelledby="access-title">
         <div className="access-sign-in-lead">
           <Brand large />
-          <h1 id="access-title" tabIndex={-1}>Sign in</h1>
+          <h1 id="access-title" tabIndex={-1}>{route.screen==='sign-in'&&route.creating?'Create account':'Sign in'}</h1>
           <p className="access-lead-subtitle">{roleCopy[route.role].title}</p>
           <div className="access-workspace-label"><span className="material-symbols-outlined" aria-hidden="true">{roleCopy[route.role].icon}</span><span>{roleCopy[route.role].label} workspace</span></div>
           <p className="access-lead-description">{roleCopy[route.role].description}</p>
@@ -243,7 +244,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
           {route.role !== 'patient' && route.requestedTask && <p className="access-requested-task" role="status">
             Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
           </p>}
-          {route.role !== 'developer' ? <AccountSignIn workspace={route.role==='specialist'?'specialist':undefined} requestedTask={route.requestedTask} key={window.location.hash} creatingInitially={new URLSearchParams(window.location.hash.split('?')[1]).has('signup')} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
+          {route.role !== 'developer' ? <AccountSignIn workspace={route.role==='specialist'?'specialist':undefined} requestedTask={route.requestedTask} key={window.location.hash} creatingInitially={route.creating} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
         </div>
       </section>}
 
