@@ -187,3 +187,15 @@ test('installation preserves existing custom hooks instead of hiding them', () =
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /existing pre-commit/);
 });
+
+test('staged embedded database credential triggers security violation and aborts commit', () => {
+  const { repo } = fixture();
+  install(repo);
+  change(repo);
+  const leakFile = path.join(repo, 'leak.ts');
+  const fakeUri = ['postgres', 'ql://user:pass123', '@example.com:5432/db'].join('');
+  writeFileSync(leakFile, `const uri = '${fakeUri}';\n`);
+  const result = cli(repo, 'complete', '--message', 'test leak guard', '--', journal, 'leak.ts');
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Security violation: staged changes contain an embedded database credential/);
+});

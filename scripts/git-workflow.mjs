@@ -120,6 +120,11 @@ function complete() {
     throw new Error('Include an updated dated history entry with the completed work. Selected files remain staged for review.');
   }
   git(['diff', '--cached', '--check']);
+  const addedLines = git(['diff', '--cached']).split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
+  if (/postgres(?:ql)?:\/\/[^:\s'"]+:[^@\s'"]+@/i.test(addedLines) || /sb_secret_[a-z0-9_-]+/i.test(addedLines)) {
+    git(['reset']);
+    throw new Error('Security violation: staged changes contain an embedded database credential or connection string with password. Commit aborted.');
+  }
   for (const file of staged.filter(file => file.startsWith('.githooks/') && !file.endsWith('.md'))) {
     if (existsSync(file)) git(['update-index', '--chmod=+x', '--', file]);
   }

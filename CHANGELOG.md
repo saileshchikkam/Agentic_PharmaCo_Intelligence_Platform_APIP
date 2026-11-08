@@ -1,5 +1,13 @@
 # Changelog
 
+## Priority 0 credential remediation and hosted browser sharing diagnostics - 2026-11-09
+
+- Remediated database credentials leak by replacing hardcoded connection strings with fail-closed user environment variable APIP_ADR_DATABASE_URL in verify-hosted-phase3cb-workflow.ts.
+- Rotated apip_adr_writer password on hosted Supabase PostgreSQL, verifying old password rejection (28P01) and pooler port 6543 connectivity.
+- Implemented automated pre-commit secret leak guard in git-workflow.mjs, verified by comprehensive test suite (11/11 pass).
+- Verified all ten automated Phase 3C-B workflow gates against hosted Supabase: capability verification, revoked exclusion, directory opt-in, case creation, consented sharing, inbox retrieval, original PvPI PDF preview, negative denials, newer-revision privacy, and consent withdrawal.
+- Diagnosed two-account browser runner (auth-sharing-hosted.browser.mjs): isolated contexts timed out awaiting active sessions as invalid credentials returned HTTP 400 invalid_credentials from Supabase Auth; interactive browser acceptance remains gated pending credential verification.
+
 ## Phase 3C-B hosted verification and administrator capability decision - 2026-11-09
 
 - Completed audited administrator capability decisions for the owner-approved synthetic applicant (`Fictional APIP Sharing Reviewer`), recording `begin_verification` and `approve` with a bounded 30-day validity window under confirmed identity administrator. The previously revoked specialist remains strictly revoked.

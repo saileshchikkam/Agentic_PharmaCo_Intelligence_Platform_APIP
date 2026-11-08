@@ -11,7 +11,10 @@ import { postgresSharingRepository } from '../server/sharing/repository';
 import { prepareDisclosure } from '../server/sharing/disclosure';
 import { createPdfService } from '../server/adr/pdf';
 
-const dbUrl = 'postgresql://apip_adr_writer.kstxwoitiistmvivwixd:Sailesh@2072@aws-0-ap-south-1.pooler.supabase.com:6543/postgres';
+const dbUrl = process.env.APIP_ADR_DATABASE_URL;
+if (!dbUrl) {
+  throw new Error('APIP_ADR_DATABASE_URL environment variable is required. Connection strings must not be hardcoded.');
+}
 const sql = postgres(dbUrl, { max: 2, ssl: { rejectUnauthorized: true } });
 
 const adminSub = '409aea75-8325-4c94-b0d7-58ff5aa75317';
