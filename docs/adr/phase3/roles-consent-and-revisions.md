@@ -1,5 +1,7 @@
 # ADR-1B Phase 3 proposed data, API and authorization contracts
 
+**2026-11-08 Stage 3C-A:** [redesigned profile/dashboard and real hosted revoked-state verification](3c-a-implementation-and-verification.md) pass. The separately approved 3B administrator gate is closed. Sharing/assignment/review remain unimplemented and require their own policies. [Next 3C-B prompt](3c-b-next-prompt.md). Older checkpoint statements below retain historical scope.
+
 **2026-11-08 implementation update:** [Phase 3B delivery and remaining live gates](3b-implementation-and-verification.md) records the actual identity/application/admin contracts, approved 30-day fictional policy, applied migration and fixture evidence. Administrator bootstrap and privileged hosted browser verification remain blocked. Earlier proposal text below does not override the implemented contracts or authorize Phase 3C. [Gated Phase 3C prompt](3c-next-implementation-prompt.md).
 
 Reconciled supporting source from the interrupted planning session. The [master blueprint](../../architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns the expanded stage boundaries.

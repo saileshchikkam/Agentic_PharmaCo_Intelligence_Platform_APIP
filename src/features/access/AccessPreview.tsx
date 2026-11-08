@@ -20,7 +20,7 @@ const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = {screen:'specialist';admin?:boolean;id?:string} | { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
+export type PreviewRoute = {screen:'specialist';admin?:boolean;id?:string;view?:'entry'|'profile'|'home'|'reviews'} | { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask } | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -33,7 +33,9 @@ export function readPreviewRoute(): PreviewRoute {
   const [path, query] = window.location.hash.slice(1).split('?');
   if (path === '/account/profile') return { screen: 'profile' };
   if (path === '/developer-reference') return { screen: 'developer-reference' };
-  if(path==='/specialist')return {screen:'specialist'};
+  if(path==='/specialist')return {screen:'specialist',view:'entry'};
+  const specialistView=/^\/specialist\/(profile|home|reviews)$/.exec(path);
+  if(specialistView)return {screen:'specialist',view:specialistView[1] as 'profile'|'home'|'reviews'};
   const identityAdmin=/^\/admin\/specialist-applications(?:\/([0-9a-f-]{36}))?$/.exec(path);
   if(identityAdmin)return {screen:'specialist',admin:true,id:identityAdmin[1]};
   if (path === '/patient/home') return { screen: 'patient-home' };
@@ -246,7 +248,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       </section>}
 
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
-      {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace admin={route.admin} id={route.id}/></React.Suspense>}
+      {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-cases' && account.user && <React.Suspense fallback={<p role="status">Opening your reports…</p>}>
         <CaseWorkspace key={account.user.id} owner={account.user.id} id={route.id} revision={route.revision} history={route.history}/>

@@ -1,3 +1,4 @@
+import {SpecialistExperience,type SpecialistView} from './SpecialistExperience';
 import {useEffect,useRef,useState} from 'react';
 import type {MdDialog} from '@material/web/dialog/dialog';
 import {M3Button,M3Checkbox,M3Select,M3TextField} from '../../components/material/core';
@@ -22,13 +23,13 @@ async function request(owner:string,path:string,signal:AbortSignal,body?:unknown
   headers:{...await guidedAccountHeaders(owner),...(key?{'Idempotency-Key':key}:{})},body:body===undefined?undefined:JSON.stringify(body),signal});
  const data=await response.json();if(!response.ok)throw Error(friendly[data.error]??'Unable to complete this action. Please retry.');return data;
 }
-export function SpecialistWorkspace({admin=false,id}:{admin?:boolean;id?:string}){
+export function SpecialistWorkspace({admin=false,id,view='entry'}:{admin?:boolean;id?:string;view?:SpecialistView}){
  const {user,ready}=useAccount();
- useEffect(()=>{if(ready&&!user){sessionStorage.setItem('apip.account.return',admin?'/admin/specialist-applications':'/specialist');navigatePreview('/sign-in/specialist',{replace:true});}},[ready,user?.id,admin]);
+ useEffect(()=>{if(ready&&!user){sessionStorage.setItem('apip.account.return',admin?'/admin/specialist-applications':view==='entry'?'/specialist':'/specialist/'+view);navigatePreview('/sign-in/specialist',{replace:true});}},[ready,user?.id,admin]);
  if(!ready||!user)return <p role="status">Checking your account…</p>;
- return <IdentityWorkspace key={`${user.id}/${admin}/${id??''}`} owner={user.id} email={user.email??''} admin={admin} id={id}/>;
+ return <IdentityWorkspace key={`${user.id}/${admin}/${id??''}/${view}`} owner={user.id} email={user.email??''} admin={admin} id={id} view={view}/>;
 }
-function IdentityWorkspace({owner,email,admin,id}:{owner:string;email:string;admin:boolean;id?:string}){
+function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:string;admin:boolean;id?:string;view:SpecialistView}){
  const [caps,setCaps]=useState<Caps|null>(null),[application,setApplication]=useState<Application|null>(null),[list,setList]=useState<Application[]>([]);
  const [profile,setProfile]=useState(empty),[error,setError]=useState(''),[busy,setBusy]=useState(false),[loaded,setLoaded]=useState(false),[filter,setFilter]=useState('SUBMITTED');
  const [reason,setReason]=useState(''),[evidence,setEvidence]=useState(''),[action,setAction]=useState(''),[affirm,setAffirm]=useState(false),[dirty,setDirty]=useState(false);
@@ -54,6 +55,7 @@ function IdentityWorkspace({owner,email,admin,id}:{owner:string;email:string;adm
   }catch(e){if(alive.current&&sequence===generation.current){setCaps(null);setList([]);setApplication(null);setError((e as Error).message);setLoaded(true);}}
  }
  useEffect(()=>{void refresh();},[owner,admin,id,filter]);
+ useEffect(()=>{if(admin||!loaded||error||!caps)return;const draft=!application||application.state==='DRAFT';if(view==='entry'||draft&&(view==='home'||view==='reviews'))navigatePreview(draft?'/specialist/profile':'/specialist/home',{replace:true});},[admin,loaded,error,caps,application?.state,view]);
  useEffect(()=>{
   const changed=()=>{if(!document.hidden&&!lock.current&&!dirty)void refresh();};
   const timer=setInterval(changed,15000);window.addEventListener('focus',changed);document.addEventListener('visibilitychange',changed);
@@ -72,7 +74,7 @@ function IdentityWorkspace({owner,email,admin,id}:{owner:string;email:string;adm
    const result=await request(owner,path,AbortSignal.timeout(15000),body,pending.current.key);
    if(!alive.current)return;
    pending.current=undefined;setApplication(result.application);setProfile(result.application.profile);setDirty(false);dialog.current?.close();
-   const c=await request(owner,'/account/capabilities',AbortSignal.timeout(12000));if(alive.current)setCaps(c);
+   const c=await request(owner,'/account/capabilities',AbortSignal.timeout(12000));if(alive.current){setCaps(c);if(!admin&&result.application.state!=='DRAFT'&&(body as {command?:{type?:string}}).command?.type==='submit')navigatePreview('/specialist/home');}
   }catch(e){if(alive.current)setError((e as Error).message);}finally{lock.current=false;if(alive.current)setBusy(false);}
  }
  const approve=()=>{
@@ -80,6 +82,7 @@ function IdentityWorkspace({owner,email,admin,id}:{owner:string;email:string;adm
   void mutate(`/admin/specialist-applications/${application.id}/decisions`,{expectedVersion:application.version,
    command:{action,reason,evidenceReference:evidence,policyVersion:'private-fictional-3b-v1'}});
  };
+ if(!admin)return <SpecialistExperience view={view} application={application} profile={profile} caps={caps} loaded={loaded} error={error} busy={busy} dirty={dirty} onRetry={()=>void refresh()} onChange={(key,value)=>{setProfile(old=>({...old,[key]:value}));setDirty(true);}} onSave={()=>{void mutate(application?`/specialist/applications/${application.id}/commands`:'/specialist/applications',application?{expectedVersion:application.version,command:{type:'save_draft',profile}}:{profile});}} onSubmit={()=>{if(application)void mutate(`/specialist/applications/${application.id}/commands`,{expectedVersion:application.version,command:{type:'submit'}});}}/>;
  return <section className="specialist-workspace" aria-labelledby="specialist-title">
   {import.meta.env.VITE_APIP_IDENTITY_FIXTURE==='1'&&<p className="specialist-notice" role="note">Disposable PostgreSQL fixture · local synthetic authentication. This is not hosted Supabase verification or a real professional approval.</p>}
   <p className="access-eyebrow">APIP · PRIVATE FICTIONAL PROTOTYPE</p><h1 id="specialist-title" tabIndex={-1}>{admin?'Identity administration':'Your specialist workspace'}</h1>

@@ -260,3 +260,7 @@ The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md)
 ## P0 read-only protocol portability verified — 2026-10-26
 
 [Authenticated LF/CRLF compatibility](model-a-protocol-portability.md) passes clean-checkout Python, actual-model/HTTP/seal, TypeScript and build verification. The previous reconciliation portability blocker is resolved for read-only inference without changing frozen study evidence or locked-test behavior. PR readiness/main merge still require actual GitHub state confirmation. Legacy study commands remain strict; clinical and data-governance gates are unchanged.
+
+## Phase 3C-A delivery — 2026-11-08
+
+[Specialist UI redesign](adr/phase3/3c-a-implementation-and-verification.md) passes fixture and real hosted read-only checks. This is a substage within canonical Phase 3C; 3C-B sharing, 3C-C review and 3C-D clarification remain separate policy gates, not the canonical later Phase 3D integration milestone. [Next gated prompt](adr/phase3/3c-b-next-prompt.md).

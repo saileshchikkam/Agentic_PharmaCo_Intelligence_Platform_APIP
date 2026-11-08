@@ -15,7 +15,7 @@ const app=express();
 const server=await new Promise(resolve=>{const s=app.listen(serve?3200:0,'127.0.0.1',()=>resolve(s));});
 const port=server.address().port,origin=`http://127.0.0.1:${port}`;
 const account=registerLocalAccount(app,{file:join(dir,'phase3a-fictional.sqlite'),originPort:port});
-const vite=await createServer({server:{middlewareMode:true,hmr:{server},watch:null},define:{
+const vite=await createServer({server:{middlewareMode:true,hmr:{server},watch:{ignored:['**/docs/**','**/scripts/**','**/database/**','**/supabase/**','**/CHANGELOG.md']}},define:{
   'import.meta.env.VITE_SUPABASE_URL':JSON.stringify(''),'import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY':JSON.stringify('')}});
 app.use(vite.middlewares);
 if(serve){

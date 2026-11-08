@@ -1,5 +1,7 @@
 # ADR Phase 3–4 planning package
 
+**2026-11-08 Stage 3C-A:** [redesigned profile/dashboard and real hosted revoked-state verification](3c-a-implementation-and-verification.md) pass. The separately approved 3B administrator gate is closed. Sharing/assignment/review remain unimplemented and require their own policies. [Next 3C-B prompt](3c-b-next-prompt.md). Older checkpoint statements below retain historical scope.
+
 **Latest gate closure, 2026-11-08:** [separately approved administrator bootstrap and actual two-account hosted approval/revocation/patient-denial checks PASS](3b-hosted-administrator-gate.md). Earlier blocked statements below describe prior checkpoints and are superseded by that report. No Phase 3C authorization follows.
 
 **2026-11-08 implementation update:** [Phase 3B delivery and remaining live gates](3b-implementation-and-verification.md) records the actual identity/application/admin contracts, approved 30-day fictional policy, applied migration and fixture evidence. Administrator bootstrap and privileged hosted browser verification remain blocked. Earlier proposal text below does not override the implemented contracts or authorize Phase 3C. [Gated Phase 3C prompt](3c-next-implementation-prompt.md).

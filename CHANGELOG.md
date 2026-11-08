@@ -429,3 +429,7 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 ## Phase 3B hosted administrator verification - 2026-11-08
 
 - Completed separately approved one-time identity-administrator bootstrap and real hosted two-account approval/revocation plus foreign patient/PDF denial. No clinical permissions or sharing enabled. [Evidence](docs/adr/phase3/3b-hosted-administrator-gate.md).
+
+## Specialist experience redesign (3C-A) - 2026-11-08
+
+- Added a cohesive specialist profile, compact verification status and three-card home connected to existing MedAssist/owned ADR tools. Real hosted revoked-state screenshots and four-width regressions pass. Review inbox remains explicitly restricted/unconnected; no sharing, database or privilege changes. [Delivery](docs/adr/phase3/3c-a-implementation-and-verification.md).

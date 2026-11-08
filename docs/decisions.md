@@ -215,3 +215,7 @@ Export loads an authenticated owner-scoped persisted revision and rechecks sessi
 ## DEC-036 — Separate specialist identity from patient access
 
 **Private fictional Phase 3B, 2026-11-08.** Reuse Supabase Auth with authoritative private PostgreSQL identity capabilities, not registration choice or editable metadata. An independently authorized identity administrator may review four approved fictional categories, with no self-approval, 30-day validity, explicit renewal and database authorization on every privileged request. Atomic immutable decisions/audit accompany changes. Identity approval and administrator scope grant no patient-case, revision or PDF rights. Exact administrator subject/bootstrap requires separate private approval; it remains unexecuted. Hosted migration approval does not authorize bootstrap or Phase 3C. [Evidence and contracts](adr/phase3/3b-implementation-and-verification.md).
+
+## DEC-037 — Separate dashboard access from professional review authority
+
+A submitted specialist applicant may use the home page and existing own-patient tools. Only current server capabilities determine professional identity status; navigation and completed profiles grant no case rights. The three-card review inbox remains unconnected until consent/assignment policies and backend grants are separately approved. Do not display invented report counts. [3C-A evidence](adr/phase3/3c-a-implementation-and-verification.md).

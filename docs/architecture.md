@@ -126,3 +126,7 @@ The component reference is now a separate hash view alongside the rough welcome/
 ## Contributor backend integration boundary — 2026-10-26
 
 The preserved standalone `app/` FastAPI/PostgreSQL backend and its archived disease model coexist in Git with APIP React/Express and the separate sealed Model A research adapter. They are distinct entry points and dependency environments. No APIP route is redirected to the contributor predictor, precautions or seeded hospitals; its import-time model loading/database creation is not activated. [Contributor context](contributors/jayanth-medassist-backend.md) and [main reconciliation evidence](reconciliation-2026-10-26.md) record provenance, unchanged files and the failing fresh-checkout protocol gate. Both histories are preserved in the integration branch; main merge remains blocked pending verification.
+
+## Specialist presentation routes — 2026-11-08
+
+[3C-A](adr/phase3/3c-a-implementation-and-verification.md) separates the professional profile, three-card home and restricted/unconnected inbox while retaining the existing server capability and application API boundaries. No consent, sharing, assignment or specialist clinical schema was added.

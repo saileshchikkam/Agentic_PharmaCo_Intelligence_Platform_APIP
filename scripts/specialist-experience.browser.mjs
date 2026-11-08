@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {startSpecialistFixture} from './specialist-fixture-runtime.ts';
+const {chromium}=await import(process.env.ADR_PLAYWRIGHT_MODULE||'playwright');
+const runtime=await startSpecialistFixture(),dir=resolve('../phase3c-a-evidence');await mkdir(dir,{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:true}),results=[];
+async function signIn(p,email,create=false){await p.goto(runtime.origin+'/#/sign-in/specialist');if(create)await p.getByRole('button',{name:'Create account',exact:true}).click();await p.getByRole('textbox',{name:'Email address',exact:true}).fill(email);await p.getByRole('textbox',{name:'Password',exact:true}).fill('Fictional-fixture-only-123');await p.getByRole('button',{name:create?'Create account':'Sign in',exact:true}).click();}
+try{
+ for(const width of (process.env.APIP_SPECIALIST_WIDTHS?process.env.APIP_SPECIALIST_WIDTHS.split(',').map(Number):[320,360,820,1440])){
+  const context=await browser.newContext({viewport:{width,height:1000},reducedMotion:'reduce'}),p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+  const email=`specialist-design-${width}@example.test`;await signIn(p,email,true);await p.getByRole('heading',{name:'Your professional profile',exact:true}).waitFor();
+  await p.getByRole('textbox',{name:'Full name',exact:true}).fill('Fictional Safety Reviewer');await p.getByRole('textbox',{name:'Qualification',exact:true}).fill('Academic pharmacy qualification');await p.getByRole('textbox',{name:'Organization or institution',exact:true}).fill('Fictional Safety Institute');
+  let guardSeen=false;p.once('dialog',async d=>{guardSeen=true;await d.dismiss();});await p.getByRole('link',{name:'Home',exact:true}).click();assert(guardSeen);assert(p.url().endsWith('/specialist/profile'));assert.equal(await p.getByRole('textbox',{name:'Full name',exact:true}).inputValue(),'Fictional Safety Reviewer');
+  await p.getByText('Additional professional details',{exact:false}).click();await p.getByRole('textbox',{name:'Registration jurisdiction',exact:true}).fill('Test jurisdiction');
+  await p.getByRole('button',{name:'Save profile',exact:true}).focus();await p.keyboard.press('Enter');await p.getByText('Profile saved',{exact:true}).waitFor();
+  await p.evaluate(()=>scrollTo(0,0));assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.screenshot({path:resolve(dir,`profile-${width}.png`)});
+  await p.reload();await p.getByRole('heading',{name:'Your professional profile',exact:true}).waitFor();await p.getByText('Additional professional details',{exact:false}).click();assert.equal(await p.getByRole('textbox',{name:'Registration jurisdiction',exact:true}).inputValue(),'Test jurisdiction');
+  await p.getByRole('button',{name:'Submit profile',exact:true}).focus();await p.keyboard.press('Enter');await p.getByRole('heading',{name:'Your next step in medicine safety',exact:true}).waitFor();assert(p.url().endsWith('/specialist/home'));await p.getByText('Awaiting verification',{exact:true}).waitFor();assert.equal(await p.locator('.specialist-service').count(),3);assert(await p.getByRole('button',{name:'Review access restricted',exact:true}).isDisabled());
+  if(width===1440){const cards=await p.locator('.specialist-service').all();const boxes=await Promise.all(cards.map(c=>c.boundingBox()));assert(boxes.every(b=>Math.abs(b.y-boxes[0].y)<2));}
+  await p.screenshot({path:resolve(dir,`dashboard-${width}.png`)});
+  await p.goto(runtime.origin+'/#/specialist/reviews');await p.getByRole('heading',{name:'Review access restricted',exact:true}).waitFor();
+  await p.getByRole('button',{name:'Return to workspace',exact:true}).click();await p.getByRole('button',{name:'Open MedAssist',exact:false}).click();await p.waitForURL(/#\/preview\/medassist$/);await p.goBack();await p.getByRole('heading',{name:'Your next step in medicine safety',exact:true}).waitFor();
+  await p.getByRole('button',{name:'Open my reports',exact:false}).click();await p.waitForURL(/#\/patient\/adr\/cases$/);await p.goBack();await p.getByRole('heading',{name:'Your next step in medicine safety',exact:true}).waitFor();
+  const subject=await p.evaluate(async()=>(await(await fetch('/api/account/session')).json()).user.id);
+  await runtime.db.query("update apip_identity.applications set state='APPROVED',valid_until=now()+interval '30 days' where owner_id=$1",[subject]);await p.reload();await p.getByText('Review access approved',{exact:true}).waitFor();await p.getByRole('button',{name:'Open review inbox',exact:true}).click();await p.getByRole('heading',{name:'Your review inbox is not connected yet',exact:true}).waitFor();
+  for(const [state,label] of [['PENDING_VERIFICATION','Verification in progress'],['REJECTED','Application not approved'],['SUSPENDED','Review access suspended']]){await runtime.db.query('update apip_identity.applications set state=$1 where owner_id=$2',[state,subject]);await p.goto(runtime.origin+'/#/specialist/home');await p.reload();await p.getByText(label,{exact:true}).waitFor();assert(await p.getByRole('button',{name:'Review access restricted',exact:true}).isDisabled());}
+  await runtime.db.query("update apip_identity.applications set state='APPROVED',valid_until=now()-interval '1 second' where owner_id=$1",[subject]);await p.reload();await p.getByText('Verification expired',{exact:true}).waitFor();
+  await runtime.db.query("update apip_identity.applications set state='REVOKED' where owner_id=$1",[subject]);await p.goto(runtime.origin+'/#/specialist/reviews');await p.getByRole('heading',{name:'Review access restricted',exact:true}).waitFor();await p.getByRole('button',{name:'Return to workspace',exact:true}).click();await p.getByText('Review access revoked',{exact:true}).waitFor();
+  await p.getByRole('button',{name:'Appearance settings',exact:true}).click();await p.getByRole('button',{name:'Dark mode',exact:true}).click();await p.keyboard.press('Escape');await p.screenshot({path:resolve(dir,`dark-${width}.png`)});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await p.getByRole('button',{name:'Sign out',exact:true}).click();await p.getByRole('heading',{name:'Sign in',exact:true}).waitFor();await signIn(p,email);await p.getByRole('heading',{name:'Your next step in medicine safety',exact:true}).waitFor();await p.reload();await p.getByText('Review access revoked',{exact:true}).waitFor();
+  await p.getByRole('button',{name:'Sign out',exact:true}).click();await p.getByRole('heading',{name:'Sign in',exact:true}).waitFor();await signIn(p,`other-design-${width}@example.test`,true);await p.getByRole('heading',{name:'Your professional profile',exact:true}).waitFor();assert.equal(await p.getByRole('textbox',{name:'Full name',exact:true}).inputValue(),'');
+  assert.deepEqual(errors,[]);results.push({width,result:'PASS',mode:'disposable PostgreSQL / existing local test Auth'});console.log('PASS '+width+'px profile save/submit, three cards, routing, authorization states, reload/account switch, themes and keyboard');await context.close();
+ }
+ await writeFile(resolve(dir,'results.json'),JSON.stringify(results,null,2));
+}finally{await browser.close();await runtime.close();}

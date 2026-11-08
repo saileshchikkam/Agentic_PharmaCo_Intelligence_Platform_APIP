@@ -19,7 +19,7 @@ export function AccountSignIn({ creatingInitially = false, requestedTask, worksp
       sessionStorage.removeItem('apip.account.continue');
       const destination=sessionStorage.getItem('apip.account.return');
       sessionStorage.removeItem('apip.account.return');
-      navigatePreview(destination&&/^(?:\/specialist|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(destination)
+      navigatePreview(destination&&/^(?:\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(destination)
         ?destination:workspace==='specialist'?'/specialist':accountDestination(task), { replace: true });
     }
   }, [user?.id, ready, requestedTask]);

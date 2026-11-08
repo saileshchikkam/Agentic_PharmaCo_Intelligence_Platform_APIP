@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-08",
+  "hosted": {
+    "result": "PASS",
+    "mode": "real hosted Supabase Auth and PostgreSQL",
+    "capabilities": 200,
+    "primaryCards": 3,
+    "widths": [
+      320,
+      360,
+      820,
+      1440
+    ],
+    "status": "Review access revoked",
+    "sessionRestoration": "PASS",
+    "mutations": "none"
+  },
+  "fixtureWidths": [
+    320,
+    360,
+    820,
+    1440
+  ],
+  "fixtureResult": "PASS",
+  "unsavedGuardAndPendingState320": "PASS",
+  "patientCaseBrowserWidths": [
+    320,
+    360,
+    820,
+    1440
+  ],
+  "patientRegression": "PASS",
+  "focusedNodeTests": 11,
+  "frontendTypescript": "PASS",
+  "serverTypescript": "PASS",
+  "productionBuild": "PASS",
+  "databaseChanges": "none",
+  "policyGated": [
+    "consent",
+    "assignment",
+    "sharing",
+    "professional notes",
+    "specialist exports"
+  ]
+}
