@@ -2,6 +2,10 @@
 
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
+## Engineering record — bounded fictional wording, 2026-11-08
+
+Match additional allowlisted words and complete supported phrases directly against original source text rather than rewriting it or selecting nearest ontology IDs. All additions pass the same semantic/context/confirmation and evidence-state contracts. Ambiguous abbreviations, pain exceptions and unsupported fatigue/sleep/colored-discharge wording retain clarification/abstention; scoring-only retention findings remain separate. Repeated L3/L5/L7 scores are known-case development comparisons. A genuinely new fixed evaluation is recommended before further implementation; no provider, ontology or safety expansion is authorized by a coverage score. [Evidence](evaluation/medassist-wording-remediation-report.md).
+
 ## Engineering record — fictional context changes, 2026-11-08
 
 Implemented within the authorized post-L7 task: preserve source statements and accepted history separately from effective current evidence. A relevant newer resolution/retraction holds pending fields without inventing absence; accepted-context changes block use until clarified in a restarted session. Reconciliation of a pending field requires a fresh explicit confirmation or answer. Export consumers must honor blocked usage and field-level confirmation metadata. This is a simulated engineering contract, not a new clinical decision or research-protocol change. [Evidence and limits](evaluation/medassist-post-l7-remediation-report.md).

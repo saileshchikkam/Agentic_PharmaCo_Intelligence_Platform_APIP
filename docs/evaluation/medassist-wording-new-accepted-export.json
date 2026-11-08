@@ -1,0 +1,261 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "2aee04fd-43e9-47f7-b2c0-c7e72746b518",
+      "text": "I have a coff and chils but no fevar.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have a coff",
+          "start": 0,
+          "end": 13,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "chils",
+          "start": 18,
+          "end": 23,
+          "context": "current",
+          "evidence_id": "E_94",
+          "concept": "concept.E_94",
+          "normalized": "chills",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "no fevar",
+          "start": 28,
+          "end": 36,
+          "context": "current",
+          "evidence_id": "E_91",
+          "concept": "concept.E_91",
+          "normalized": "fever",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_201",
+        "E_94",
+        "E_91"
+      ]
+    },
+    {
+      "request_id": "50c37cb1-aa09-423f-9d69-d3b4296d490f",
+      "text": "Loose motion going on.",
+      "question_id": "E_97",
+      "annotations": [
+        {
+          "quote": "Loose motion going on",
+          "start": 0,
+          "end": 21,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "unrelated",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "186b190a-5f19-4013-9bfc-b5d6e357c3c5",
+      "text": "My coff has stopped now.",
+      "question_id": "E_97",
+      "annotations": [
+        {
+          "quote": "My coff has stopped now",
+          "start": 0,
+          "end": 23,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 12,
+          "end": 19,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "unrelated",
+      "confirmed": false
+    }
+  ],
+  "question_clarifications": [
+    {
+      "question_id": "E_97",
+      "attempts": 1
+    }
+  ],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_94",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_201",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_94",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": {
+    "sources": [
+      {
+        "requestId": "50c37cb1-aa09-423f-9d69-d3b4296d490f",
+        "proposal": {
+          "schema_version": "medassist.natural-extraction.v1",
+          "observations": [
+            {
+              "evidence_id": "E_51",
+              "quote": "Loose motion going on",
+              "state": "confirmed",
+              "value": true
+            }
+          ],
+          "unmapped": [],
+          "instruction_attempt": false
+        }
+      }
+    ]
+  },
+  "context_updates": [
+    {
+      "request_id": "186b190a-5f19-4013-9bfc-b5d6e357c3c5",
+      "text": "My coff has stopped now.",
+      "quote": "My coff has stopped now",
+      "evidence_id": "E_201",
+      "kind": "reported_resolution",
+      "status": "unresolved",
+      "accepted_affected": true,
+      "held_sources": []
+    }
+  ],
+  "excluded_from_current": [
+    "E_201"
+  ],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_201",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [
+      {
+        "evidence_id": "E_94",
+        "state": "confirmed",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "state": "confirmed",
+        "value": false
+      }
+    ],
+    "turns": [],
+    "stop": "unresolved_contradiction"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "blocked_context_update",
+  "narratives": [
+    "I have a coff and chils but no fevar.",
+    "F",
+    "Loose motion going on.",
+    "My coff has stopped now."
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "I have a coff",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_94",
+          "quote": "chils",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_91",
+          "quote": "no fevar",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": true,
+  "routine_questions_answered": 0
+}

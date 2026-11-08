@@ -16,6 +16,14 @@ export function readSourceSex(text: string): Context['source_sex'] | null {
 export const contextUnknown = (text: string) => ['unknown', 'not sure', "i don't know", 'unsupported', 'other', 'prefer not to say'].includes(text.trim().toLowerCase());
 export const requestsNavigation = (text: string) => /^(?:please\s+)?(?:find (?:care|hospitals?|healthcare)|show (?:nearby )?hospitals?|help me find care)[.!]?$/i.test(text.trim());
 export function clarifyWording(text: string): string | null {
+  if (/\b(?:stomach|tummy|belly)\b.*\b(?:weird|strange|funny|gas)\b/i.test(text))
+    return 'What does the stomach sensation feel like, and is it happening now? I will keep your wording without assuming pain or nausea.';
+  if (/\b(?:something.*head|head.*(?:heavy|strange|weird)|\bHA\b)/i.test(text))
+    return 'What do you mean by that head description? Describe the sensation and whether it is happening now; I will not assume pain or dizziness.';
+  if (/\b(?:tired|sleep|washed out|off.colour)\b/i.test(text))
+    return 'What else is the fictional person experiencing now? I kept the tiredness or sleep description, but this limited interview cannot record it as a supported symptom.';
+  if (/\b(?:body (?:is )?not okay|feeling funny|feel(?:ing)? strange|body is not okay)\b/i.test(text))
+    return 'What feels different, where do you notice it, and is it happening now? Describe one detail; I will not guess a symptom.';
   if (/\b(?:giddy|head spinning|room is spinning|woozy)\b/i.test(text))
     return 'What does the sensation feel like: slightly dizzy or lightheaded, spinning, or something else? I will not choose a meaning for you.';
   if (/\bbody (?:is )?hot\b/i.test(text))

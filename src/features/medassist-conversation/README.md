@@ -1,5 +1,11 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Post-L7 wording and clarification — 2026-11-08
+
+Bounded whole-token spellings and grammar in `concepts.ts` now recognize additional fictional descriptions while matching the original text directly. No replacement narrative, unrestricted fuzzy matching, new ontology ID or provider runs. Shared context gates preserve polarity, uncertainty, history, attribution, quotes, retractions and resolution. Explicit “just [symptom]” can establish an independent mixed clause; software/transport runs do not establish diarrhea. Vague stomach/head/body descriptions clarify; tiredness/sleep remain outside the script. Higher-priority context notices still apply.
+
+The existing post-L7 evidence-state and confirmation/export contracts below are unchanged. [Full wording report](../../../docs/evaluation/medassist-wording-remediation-report.md): 629 tests, all 20 known L7 browser journeys, 20 actual downloads; known L7 87/110 with 23 full-case failures retained. These are development comparisons, not independent accuracy. Next evaluation must use genuinely new fixed cases without parser tuning. The preview remains SIMULATED; Model B and clinical guidance stay disabled.
+
 ## Post-L7 context and evidence integrity — 2026-11-08
 
 The nine-field simulated preview now records source-bound context changes before duplicate/empty-proposal handling. Resolution does not infer absence. Implicated pending fields are held out while unrelated proposals remain confirmable. Fresh explicit confirmation or a routine explicit answer can reconcile pending holds; old held sources and stale UI callbacks cannot. Accepted evidence is retained and a newer unresolved accepted-context change blocks progression until restart.

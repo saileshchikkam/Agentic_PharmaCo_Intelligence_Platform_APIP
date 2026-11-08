@@ -4,7 +4,7 @@ Use actual dated entries to preserve the project's journey without a fixed-durat
 
 ## Entries
 
-- [2026-11-08](2026-11-08.md): post-L7 context and stale-evidence repair, real browser/export acceptance checks and known-set comparisons.
+- [2026-11-08](2026-11-08.md): post-L7 context/stale-evidence repair, followed by bounded wording/clarification remediation, 20 known browser journeys and downloaded exports.
 
 - [2026-11-07](2026-11-07.md): post-L6 bounded coverage and L7 fresh frozen evaluation, including semantic failures, browser evidence and unchanged implementation.
 

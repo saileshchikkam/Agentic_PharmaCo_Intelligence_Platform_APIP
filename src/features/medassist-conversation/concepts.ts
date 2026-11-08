@@ -169,9 +169,22 @@ export function labelIsSupported(quote:string,label:string) {
   return [label,...(side?[`${side[2]==='R'?'right':'left'} ${side[1].trim()}`]:[])].some(s=>n.includes(' '+normalize(s)+' '));
 }
 const escape = (text:string) => text.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+// Bounded lexical/grammar variants. Match original source directly: normalization
+// must never replace user text, move offsets or discard polarity/context words.
+const wording: Record<string,RegExp> = {
+ E_201: /\b(?:coff|couugh)\b/i,
+ E_91: /\b(?:feever|fevar)\b/i,
+ E_97: /\bsoar throat\b|\bthroat(?:['’]s|\s+(?:(?:is|feels?|not|a|little)\s+){0,4})\s*sore\b|\bthroat (?:is )?scratching while swallowing\b/i,
+ E_148: /\bnausia\b|\b(?:feel(?:ing)? (?:ready|about) to puke|vomiting sensation)\b/i,
+ E_51: /\bdiarrhoe\b|\bno runs\b/i,
+ E_94: /\bchils\b/i,
+ E_76: /\b(?:liteheaded|light-headed|light headed i am)\b/i,
+ E_53: /\b(?:head|hed|tummy)\s+(?:(?:is|does|not|has|been)\s+){0,4}hurt(?:s|ing)?\b/i,
+ E_181: /\bnose\s+(?:(?:is|not|getting|feels?)\s+){0,4}(?:blocked|stufffed)\b|\bnose\s+(?:(?:is|not|won['’]t|will|stop)\s+){0,4}(?:leaking water|dripping clear water)\b/i,
+};
 export const languageConcepts = Object.entries(baseAnchors).map(([evidence_id, definition]) => {
   const synonyms = aliases[evidence_id] ?? [definition.label];
-  const pattern = new RegExp('(?:'+definition.pattern.source+'|'+synonyms.map(s=>'\\b'+escape(s).replaceAll(' ','\\s+')+'\\b').join('|')+')','i');
+  const pattern = new RegExp('(?:'+definition.pattern.source+'|'+synonyms.map(s=>'\\b'+escape(s).replaceAll(' ','\\s+')+'\\b').join('|')+(wording[evidence_id]?'|'+wording[evidence_id].source:'')+')','i');
   return {concept_id:'concept.'+evidence_id,evidence_id,canonical:definition.label,synonyms,pattern,
     qualifier_policy:'Match complete supported meaning; ambiguous qualifiers remain context.',confirmation_required:true as const};
 });

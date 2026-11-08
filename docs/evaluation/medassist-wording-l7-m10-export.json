@@ -1,0 +1,166 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "4bb560c2-4285-4608-8759-aabc41c5dc42",
+      "text": "I have diarrhea during this shift.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have diarrhea during this shift",
+          "start": 0,
+          "end": 33,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    },
+    {
+      "request_id": "aeee874d-dc87-443b-a3e9-3da2b41cccb4",
+      "text": "Actually I do not have diarrhea now.",
+      "question_id": "E_201",
+      "annotations": [
+        {
+          "quote": "Actually I do not have diarrhea now",
+          "start": 0,
+          "end": 35,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "Actually I do not have diarrhea now",
+          "start": 0,
+          "end": 35,
+          "context": "explicit_correction",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "unrelated",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    }
+  ],
+  "question_clarifications": [
+    {
+      "question_id": "E_201",
+      "attempts": 1
+    }
+  ],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_51",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [],
+    "stop": "unresolved_contradiction"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "blocked_unresolved_conflict",
+  "narratives": [
+    "I have diarrhea during this shift.",
+    "F",
+    "Actually I do not have diarrhea now.",
+    "Leave conflicting information unresolved"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "I have diarrhea during this shift",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    },
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "Actually I do not have diarrhea now",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": true,
+  "routine_questions_answered": 0
+}

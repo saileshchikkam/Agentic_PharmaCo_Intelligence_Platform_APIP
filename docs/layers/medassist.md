@@ -1,5 +1,7 @@
 # MedAssist AI
 
+**2026-11-08 bounded wording remediation:** the [current fictional coverage report](../evaluation/medassist-wording-remediation-report.md) records allowlisted English variants, clarification and unchanged current/history/pending evidence contracts. 629 checks, 20/20 known browser journeys and 20 actual downloads passed. Known L7 is 87/110; broader English and clinical qualification remain open.
+
 **2026-11-06 scripted preview:** [English language and evidence handling](../../src/features/medassist-conversation/README.md#scripted-english-evidence-handling--2026-11-06) covers colloquial proposals and bounded clarification in the existing development conversation. Independent language evaluation remains open.
 
 **Current consolidated scope, 2026-10-25:** [checkpoint and verification](../../models/medassist_ai/docs/checkpoint-2026-10-25.md). The DEV-only conversation integrates sealed Model A, 30 constrained language concepts, confirmation, UNKNOWN/context preservation, eight topical questions and versioned export. Optional Groq extraction remains experimental beyond its narrow historical qualification. Independent safety is provisional with known heart-attack/stroke declaration misses; Maps is consent-based external search with no facility verification. Live four-level Model B and personalized clinical precautions remain disabled. Earlier entries below retain their dated evidence and coverage counts.

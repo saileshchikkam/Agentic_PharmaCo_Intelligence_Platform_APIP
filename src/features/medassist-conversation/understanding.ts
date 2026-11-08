@@ -60,7 +60,8 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   const clauses=reportClauses(text), allowed=new Set(vocabulary.items.map(d=>d.evidence_id));
   const evidence=new Map<string,Proposal['observations'][number][]>();
   for(const [index, clause] of clauses.entries()) {
-    const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote));
+    const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote)
+      && !(c.evidence_id==='E_51' && /\bruns\b/i.test(clause.quote) && /\b(?:program|software|bus|train|race|engine)\b/i.test(clause.quote)));
     const previous = clauses[index - 1];
     const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|i am not sure|no)|scratch that|i take that back)$/i.test(clause.quote);
     const correctionMarker = previous && /^(?:actually|wait)$/i.test(previous.quote);

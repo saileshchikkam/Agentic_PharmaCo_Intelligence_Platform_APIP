@@ -1,0 +1,298 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "335c1d5a-5549-4d2f-a667-c130bd16ade8",
+      "text": "I have a coff and loose motions.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have a coff",
+          "start": 0,
+          "end": 13,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "loose motions",
+          "start": 18,
+          "end": 31,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    },
+    {
+      "request_id": "72a5492e-c833-4adc-9a28-feeb29d489ae",
+      "text": "That coff has stopped now.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "That coff has stopped now",
+          "start": 0,
+          "end": 25,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 14,
+          "end": 21,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false
+    },
+    {
+      "request_id": "437d899c-cea2-4991-a3d1-cc84b5ab9d82",
+      "text": "My stomach feels weird.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My stomach feels weird",
+          "start": 0,
+          "end": 22,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "location",
+          "quote": "stomach",
+          "start": 3,
+          "end": 10,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "c81ec344-920e-4b76-b94c-a789daec8916",
+      "text": "My left elbow hurts.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My left elbow hurts",
+          "start": 0,
+          "end": 19,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [
+    {
+      "request_id": "72a5492e-c833-4adc-9a28-feeb29d489ae",
+      "text": "That coff has stopped now.",
+      "quote": "That coff has stopped now",
+      "evidence_id": "E_201",
+      "kind": "reported_resolution",
+      "status": "reconciled_by_confirmation",
+      "accepted_affected": false,
+      "held_sources": [
+        {
+          "requestId": "335c1d5a-5549-4d2f-a667-c130bd16ade8",
+          "proposal": {
+            "schema_version": "medassist.natural-extraction.v1",
+            "observations": [
+              {
+                "evidence_id": "E_201",
+                "quote": "I have a coff",
+                "state": "confirmed",
+                "value": true
+              },
+              {
+                "evidence_id": "E_51",
+                "quote": "loose motions",
+                "state": "confirmed",
+                "value": true
+              }
+            ],
+            "unmapped": [],
+            "instruction_attempt": false
+          }
+        }
+      ],
+      "reconciled_by": [
+        "confirmed-turn:0"
+      ]
+    }
+  ],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_51",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_201",
+          "state": "unknown",
+          "value": null
+        },
+        "disclosures": []
+      },
+      {
+        "answer": {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [
+    {
+      "concept": "initial:feels stomach weird",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    },
+    {
+      "concept": "initial:elbow hurts left",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    }
+  ],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "I have a coff and loose motions.",
+    "That coff has stopped now.",
+    "My stomach feels weird.",
+    "My left elbow hurts.",
+    "F",
+    "Not sure",
+    "No",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "loose motions",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "My stomach feels weird",
+    "My left elbow hurts"
+  ],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 2
+}

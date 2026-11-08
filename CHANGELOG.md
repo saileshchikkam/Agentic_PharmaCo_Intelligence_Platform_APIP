@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist post-L7 bounded English coverage — 2026-11-08
+
+- Recognize additional allowlisted spelling, grammar and colloquial symptom descriptions, clarify vague wording and exclude a software-runs collision without expanding the nine-field script.
+- Preserve stale-evidence protection and explicit confirmation; 629 checks, all 20 known L7 browser journeys and 20 actual JSON downloads verified. Known L7 improves 73→87/110, with 23 failures still reported. [Full results](docs/evaluation/medassist-wording-remediation-report.md)
+
 ## MedAssist post-L7 context and evidence integrity — 2026-11-08
 
 - Hold resolved/retracted proposals out of current evidence, preserve unrelated drafts and accepted history, and require explicit pending reconciliation. Block accepted context changes without silently replacing accepted values.

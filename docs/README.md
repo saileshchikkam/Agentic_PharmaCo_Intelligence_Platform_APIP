@@ -20,6 +20,8 @@ The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) pre
 
 The [MedAssist progress tracker](medassist-progress.md) records the seven-stage evidence snapshot, component availability and local completion checklist. The milestone roadmap remains the planning entry point.
 
+The [post-L7 wording remediation](evaluation/medassist-wording-remediation-report.md) classifies all 37 starting findings, documents bounded coverage/clarification, all 23 remaining known mismatches, prospective contrasts and actual browser/download evidence.
+
 The [post-L7 context/state report](evaluation/medassist-post-l7-remediation-report.md) documents M13's repair, current-versus-historical/pending export semantics, actual browser downloads and remaining known language mismatches.
 
 The [L7 fictional English evaluation](evaluation/medassist-l7-english-report.md) links its frozen corpus/checksum, complete case matrix, original measured results, browser evidence, scoring limitations and next remediation priorities. It evaluates the unchanged nine-field script, not genuine Model A or clinical accuracy.

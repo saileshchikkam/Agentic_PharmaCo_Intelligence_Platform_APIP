@@ -50,7 +50,7 @@ export function reportClauses(text:string) {
       }
       if(/\bmy (?:(?:fictional|older|younger|elder|little|best|work)\s+){0,2}(?:brother|sister|mother|father|friend|son|daughter|child|wife|husband|partner|aunt|uncle|colleague|coworker|neighbour|neighbor)\b|\b(?:he|she|they)\b/.test(normalized))subject='other';
       if(/^(?:actually\s+)?i\b|\bthe fictional (?:person|patient)\b/.test(normalized))subject='target';
-      if(/\bmy (?:head|stomach|back|lower back|belly|throat|nose|eyes|feet)\b/.test(normalized))subject='target';
+      if(/\bmy (?:head|hed|tummy|stomach|back|lower back|belly|throat|nose|eyes|feet)\b/.test(normalized))subject='target';
       const reported = /\b(?:someone|a friend|my \w+|he|she|they) (?:told me|texted me|said|wrote)\b/i.test(quote);
       const boundary=sentence[0].slice(0,part.index).match(/(\b(?:and|but|plus)\b|,)\s*$/i)?.[1]?.toLowerCase();
       const freshSubject = /^(?:(?:right )?now\s+)?(?:i|my (?:head|stomach|back|throat|nose)|the fictional (?:person|patient))\b/i.test(normalized);
@@ -59,7 +59,8 @@ export function reportClauses(text:string) {
           match.index! >= result[firstClause].start))) reportedSpeech = false;
       reportedSpeech ||= reported;
       if (reportedSpeech) subject = 'other';
-      const independentAssertion = /\b(?:persists?|continues?|is present|is still|are still|started|began)\b/i.test(normalized);
+      const independentAssertion = /\b(?:persists?|continues?|is present|is still|are still|started|began)\b/i.test(normalized)
+        || /^just (?:a |the )?/i.test(normalized) && languageConcepts.some(c=>c.pattern.test(normalized));
       const ambiguousList: boolean = boundary === ',' && (negationStart !== null || sharedUncertainty)
         && !freshSubject && !independentAssertion && !negationCue.test(normalized) && !uncertaintyCue.test(normalized)
         && !/^(?:definitely|certainly)\b/i.test(normalized);
