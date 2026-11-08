@@ -4,13 +4,15 @@ import type { PatientProfile, ProfileInput } from './profile';
 import { readAccountDraft, type AccountDraftRepository } from '../adr/accountDraft';
 
 export type AccountUser = { id: string; email?: string };
-interface AccountClient {
+export interface AccountClient {
   kind: 'local' | 'supabase';
   drafts?: AccountDraftRepository;
   subscribe: (listener: (user: AccountUser | null, error?: string) => void) => () => void;
   signUp: (email: string, password: string) => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<void>;
-  google: () => Promise<void>;
+  google: (workspace?: 'specialist') => Promise<void>;
+  resetPassword?: (email: string) => Promise<void>;
+  updatePassword?: (password: string) => Promise<void>;
   accessToken?: (owner: string) => Promise<string>;
   signOut: () => Promise<void>;
   readProfile: (userId: string) => Promise<PatientProfile | null>;
@@ -38,11 +40,13 @@ function localClient(): AccountClient {
   };
   const refresh = async () => {
     const current = epoch;
-    try { const result = await request('session'); if (current === epoch) emit(result.user); }
-    catch { if (current === epoch) emit(null, 'Local account service unavailable. Check the development server.'); }
+    try {
+      const result = await request('user');
+      if (current === epoch) emit(result.user);
+    } catch { if (current === epoch) emit(null); }
   };
-  const changed = (user: AccountUser | null) => { epoch++; emit(user); channel?.postMessage('changed'); };
-  if (channel) channel.onmessage = () => { epoch++; emit(null); void refresh(); };
+  if (channel) channel.onmessage = () => { epoch++; void refresh(); };
+  const changed = (user: AccountUser | null) => { emit(user); channel?.postMessage({ type: 'changed' }); };
   return {
     kind: 'local',
     drafts: {
@@ -71,6 +75,8 @@ function localClient(): AccountClient {
     async signUp(email, password) { epoch++; const result = await request('signup', { email, password }); changed(result.user); return false; },
     async signIn(email, password) { epoch++; const result = await request('signin', { email, password }); changed(result.user); },
     async google() { throw new Error('Google sign-in needs a configured provider.'); },
+    async resetPassword(_email) { /* local development only */ },
+    async updatePassword(_password) { /* local development only */ },
     async signOut() { await request('signout', {}); changed(null); },
     async readProfile(userId) { return (await request('profile', undefined, userId)).profile; },
     async saveProfile(userId, profile, revision) { return (await request('profile', { profile, expectedRevision: revision }, userId)).profile; },
@@ -99,7 +105,12 @@ function configuredClient(): AccountClient | null {
     const callback = readAuthCallback(new URL(location.href));
     const callbackReady = (async () => {
       if (!callback) return;
-      history.replaceState(history.state, '', '/#/sign-in/patient');
+      if (callback.type === 'recovery') {
+        history.replaceState(history.state, '', '/#/reset-password');
+      } else {
+        const dest = sessionStorage.getItem('apip.account.return') || '/#/sign-in/patient';
+        history.replaceState(history.state, '', dest);
+      }
       if (!callback.code) return 'Sign-in was cancelled or the link expired. Please try again.';
       try {
         const { error } = await sdk.auth.exchangeCodeForSession(callback.code);
@@ -151,8 +162,23 @@ function configuredClient(): AccountClient | null {
         const { error } = await sdk.auth.signInWithPassword({ email, password });
         if (error) throw error;
       },
-      async google() {
+      async google(workspace?: 'specialist') {
+        if (workspace === 'specialist') {
+          sessionStorage.setItem('apip.account.return', '/specialist');
+        } else {
+          sessionStorage.setItem('apip.account.return', '/patient/home');
+        }
         const { error } = await sdk.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: redirectTo() } });
+        if (error) throw error;
+      },
+      async resetPassword(email) {
+        const { error } = await sdk.auth.resetPasswordForEmail(email, {
+          redirectTo: location.origin + '/?apip_auth=1&type=recovery',
+        });
+        if (error) throw error;
+      },
+      async updatePassword(password) {
+        const { error } = await sdk.auth.updateUser({ password });
         if (error) throw error;
       },
       async signOut() {

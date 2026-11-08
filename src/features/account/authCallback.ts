@@ -12,7 +12,8 @@ export function readAuthCallback(url: URL) {
   const fragment = new URLSearchParams(url.hash.slice(1));
   const error = url.searchParams.get('error') ?? fragment.get('error');
   const code = url.searchParams.get('code');
-  return { code: error ? null : code };
+  const type = url.searchParams.get('type') ?? fragment.get('type');
+  return { code: error ? null : code, ...(type ? { type } : {}) };
 }
 
 export function allowedAuthOrigin(origin: string, configured: unknown) {

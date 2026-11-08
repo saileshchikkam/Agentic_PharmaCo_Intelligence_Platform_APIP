@@ -20,7 +20,17 @@ const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../
 
 export type AccessRole = 'patient' | 'specialist' | 'developer';
 export type PatientTask = 'medassist' | 'adr-report';
-export type PreviewRoute = {screen:'specialist';admin?:boolean;id?:string;view?:'entry'|'profile'|'home'|'reviews'} | { screen: 'home' } | { screen: 'profile' } | { screen: 'patient-home' } | { screen: 'adr-cases';id?:string;revision?:number;history?:boolean } | { screen: 'adr-preview';caseId?:string } | { screen: 'medassist-preview' } | { screen: 'medassist-conversation' } | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask; creating?:boolean } | { screen: 'developer-reference' };
+export type PreviewRoute =
+  | { screen: 'specialist'; admin?: boolean; id?: string; view?: 'entry' | 'profile' | 'home' | 'reviews' }
+  | { screen: 'home' }
+  | { screen: 'profile' }
+  | { screen: 'patient-home' }
+  | { screen: 'adr-cases'; id?: string; revision?: number; history?: boolean }
+  | { screen: 'adr-preview'; caseId?: string }
+  | { screen: 'medassist-preview' }
+  | { screen: 'medassist-conversation' }
+  | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask; creating?: boolean; forgotPassword?: boolean; resetPassword?: boolean }
+  | { screen: 'developer-reference' };
 
 const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
 const roleCopy = {
@@ -46,6 +56,12 @@ export function readPreviewRoute(): PreviewRoute {
     return { screen: 'adr-preview',...(/^[0-9a-f-]{36}$/i.test(id??'')?{caseId:id!}:{}) };
   }
   if (path === '/preview/medassist') return { screen: 'medassist-preview' };
+  if (path === '/reset-password') return { screen: 'sign-in', role: 'patient', resetPassword: true };
+  if (path.startsWith('/forgot-password')) {
+    const rolePart = path.replace(/^\/forgot-password\/?/, '');
+    const validRole = roles.includes(rolePart as AccessRole) ? (rolePart as AccessRole) : 'patient';
+    return { screen: 'sign-in', role: validRole, forgotPassword: true };
+  }
   if (import.meta.env.DEV && path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
   const signup=path.startsWith('/sign-up/');
   const role = path.replace(signup?'/sign-up/':'/sign-in/', '');
@@ -231,21 +247,22 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </dialog>
       </section>}
 
-      {route.screen === 'sign-in' && <section className="access-sign-in-surface" aria-labelledby="access-title">
-        <div className="access-sign-in-lead">
-          <Brand large />
-          <h1 id="access-title" tabIndex={-1}>{route.screen==='sign-in'&&route.creating?'Create account':'Sign in'}</h1>
-          <p className="access-lead-subtitle">{roleCopy[route.role].title}</p>
-          <div className="access-workspace-label"><span className="material-symbols-outlined" aria-hidden="true">{roleCopy[route.role].icon}</span><span>{roleCopy[route.role].label} workspace</span></div>
-          <p className="access-lead-description">{roleCopy[route.role].description}</p>
-        </div>
-        <div className="access-sign-in-fields">
-          <RoleTabs role={route.role} onChange={(role) => navigatePreview(`/sign-in/${role}`)} />
-          {route.role !== 'patient' && route.requestedTask && <p className="access-requested-task" role="status">
-            Your choice is carried into this preview. Sign-in is not connected yet, so no account can be verified or task opened.
-          </p>}
-          {route.role !== 'developer' ? <AccountSignIn workspace={route.role==='specialist'?'specialist':undefined} requestedTask={route.requestedTask} key={window.location.hash} creatingInitially={route.creating} /> : <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />}
-        </div>
+      {route.screen === 'sign-in' && <section className="access-sign-in-centered-section" aria-labelledby="access-title">
+        {route.role !== 'developer' ? (
+          <AccountSignIn
+            workspace={route.role === 'specialist' ? 'specialist' : undefined}
+            requestedTask={route.requestedTask}
+            key={window.location.hash}
+            creatingInitially={route.creating}
+            forgotPassword={route.forgotPassword}
+            resetPasswordMode={route.resetPassword}
+          />
+        ) : (
+          <div className="access-sign-in-surface">
+            <RoleTabs role={route.role} onChange={(role) => navigatePreview(`/sign-in/${role}`)} />
+            <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />
+          </div>
+        )}
       </section>}
 
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
