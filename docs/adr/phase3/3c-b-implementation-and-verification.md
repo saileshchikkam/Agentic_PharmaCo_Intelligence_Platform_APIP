@@ -25,7 +25,8 @@ Phase 3C-B establishes the first secure, permissioned link between patient-repor
 ### Backend Core
 - `supabase/migrations/20261108123217_adr_consented_sharing.sql`
   *SHA-256:* `e6b5247b5e8519b5344429fa50695fc419cc137a1c7c3e0af9088089489cbb63`
-  Creates `apip_sharing.opt_ins`, `apip_sharing.assignments`, `apip_sharing.audit_events`, `apip_sharing.command_receipts`, atomic functions, and strict RLS.
+  Creates four tables in the private `apip_sharing` schema: **`directory`**, **`requests`**, **`audit`**, and **`receipts`**; atomic dispatcher functions; and strict RLS policies.
+  *Correction: earlier drafts of this document incorrectly listed table names as `opt_ins`, `assignments`, `audit_events`, `command_receipts`. The SQL file and `3c-b-migration-review.md` are authoritative.*
 - `server/sharing/disclosure.ts` — Prepares disclosure payload, excludes AI proposals, computes cryptographic digest.
 - `server/sharing/policy.ts` — Validates readiness, prevents self-review, enforces exact-revision authorization.
 - `server/sharing/repository.ts` — Transaction-safe PostgreSQL repository executing under restricted writer role (`apip_adr_writer`).
@@ -59,11 +60,22 @@ All 5 automated test suites pass without error:
 ```
 
 ### End-to-End Chrome Browser Verification
-Automated multi-device test (`scripts/sharing.browser.mjs`) ran in Chrome across all required breakpoints:
-- **320px (Mobile Portrait):** PASS (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
-- **360px (Standard Mobile):** PASS (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
-- **820px (Tablet):** PASS (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
-- **1440px (Desktop):** PASS (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
+
+> **Evidence classification: Disposable local fixture — not proof of real hosted Supabase sharing.**
+>
+> The test uses `startSpecialistFixture` with an in-memory PGlite PostgreSQL instance and synthetic local
+> authentication. It does **not** connect to the hosted `kstxwoitiistmvivwixd` development project.
+> Real hosted end-to-end verification requires separate interactive credential entry via
+> `scripts/start-hosted-preview.ps1` and is tracked under "Hosted Gates Still Required" in
+> `3c-b-migration-review.md`.
+
+Automated multi-device fixture test (`scripts/sharing.browser.mjs`) ran in Chrome using a **disposable
+local PGlite PostgreSQL fixture** across all required breakpoints:
+
+- **320px (Mobile Portrait):** PASS — disposable fixture (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
+- **360px (Standard Mobile):** PASS — disposable fixture (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
+- **820px (Tablet):** PASS — disposable fixture (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
+- **1440px (Desktop):** PASS — disposable fixture (Consent dialog, assignment, PvPI PDF canvas preview, withdrawal 404 denial)
 - **Visual Artifacts:** Generated in `C:\Users\ASUS\Documents\phase3c-b-evidence/`:
   - `consent-{320,360,820,1440}.png`
   - `inbox-{320,360,820,1440}.png`
