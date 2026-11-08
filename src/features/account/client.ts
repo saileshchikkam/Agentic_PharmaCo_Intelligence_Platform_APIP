@@ -108,8 +108,13 @@ function configuredClient(): AccountClient | null {
       if (callback.type === 'recovery') {
         history.replaceState(history.state, '', '/#/reset-password');
       } else {
-        const dest = sessionStorage.getItem('apip.account.return') || '/#/sign-in/patient';
-        history.replaceState(history.state, '', dest);
+        const storedDest = sessionStorage.getItem('apip.account.return') || '/sign-in/patient';
+        const cleanDest = storedDest.startsWith('/#')
+          ? storedDest
+          : storedDest.startsWith('#')
+          ? '/' + storedDest
+          : '/#' + (storedDest.startsWith('/') ? storedDest : '/' + storedDest);
+        history.replaceState(history.state, '', cleanDest);
       }
       if (!callback.code) return 'Sign-in was cancelled or the link expired. Please try again.';
       try {

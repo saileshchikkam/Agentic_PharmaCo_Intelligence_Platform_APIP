@@ -61,14 +61,15 @@ export function AccountSignIn({
       const destination = sessionStorage.getItem('apip.account.return');
       sessionStorage.removeItem('apip.account.return');
 
+      const rawDest = destination ? destination.replace(/^(\/#|#)/, '') : '';
       const validCustomDest =
-        destination &&
+        rawDest &&
         /^(?:\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(
-          destination
+          rawDest
         );
 
       const target = validCustomDest
-        ? destination!
+        ? rawDest
         : isSpecialist
         ? '/specialist'
         : accountDestination(task);
@@ -78,6 +79,24 @@ export function AccountSignIn({
   }, [user?.id, ready, requestedTask, isSpecialist, mode]);
 
   const validate = () => {
+    // BUG A FIX: Reset password mode validates new password and confirm password only (no email required)
+    if (mode === 'reset') {
+      if (!password) {
+        setNotice({ type: 'error', message: 'Please enter your new password.' });
+        return false;
+      }
+      if (password.length < 8) {
+        setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+        return false;
+      }
+      if (password !== confirmPassword) {
+        setNotice({ type: 'error', message: 'Passwords do not match.' });
+        return false;
+      }
+      return true;
+    }
+
+    // Email-based modes (signin, signup, forgot)
     const cleanEmail = email.trim();
     if (!cleanEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
       setNotice({ type: 'error', message: 'Please enter a valid email address.' });
@@ -85,16 +104,13 @@ export function AccountSignIn({
     }
     if (mode === 'forgot') return true;
 
+    // Password check for signin and signup
     if (!password) {
       setNotice({ type: 'error', message: 'Please enter your password.' });
       return false;
     }
-    if ((mode === 'signup' || mode === 'reset') && password.length < 8) {
+    if (mode === 'signup' && password.length < 8) {
       setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
-      return false;
-    }
-    if (mode === 'reset' && password !== confirmPassword) {
-      setNotice({ type: 'error', message: 'Passwords do not match.' });
       return false;
     }
     return true;
@@ -117,13 +133,25 @@ export function AccountSignIn({
         if (verifyNeeded) {
           setVerifyEmailSent(true);
         } else {
-          setNotice({ type: 'success', message: 'Account created! Redirecting to your workspace…' });
+          setNotice({ type: 'success', message: 'Account created! Redirecting to your dashboard…' });
+          const target = isSpecialist ? '/specialist/profile' : accountDestination(requestedTask);
+          navigatePreview(target, { replace: true });
         }
       } else if (mode === 'signin') {
         await accountClient.signIn(email.trim(), password);
         setPassword('');
         setNotice({ type: 'success', message: 'Signed in. Opening your dashboard…' });
       } else if (mode === 'forgot') {
+        // BUG C FIX: Accurate status when in local development mode
+        if (accountClient.kind === 'local') {
+          setNotice({
+            type: 'info',
+            message:
+              'Password reset via email requires cloud mode with Supabase Auth. In local development, accounts are stored in the local database.',
+          });
+          setBusy(false);
+          return;
+        }
         if (accountClient.resetPassword) {
           await accountClient.resetPassword(email.trim());
         }
