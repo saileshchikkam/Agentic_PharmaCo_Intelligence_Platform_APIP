@@ -1,6 +1,6 @@
 # Phase 3C — Copy-ready gated implementation prompt
 
-This is a handoff, not an instruction to start Phase 3C. Phase 3B live administrator bootstrap and privileged hosted verification remain blocked. Read the [actual delivery](3b-implementation-and-verification.md) before using this prompt. Resolve the applicable consent, recipient, retention and review policies explicitly.
+This is a handoff, not an instruction to start Phase 3C. Phase 3B live administrator bootstrap and hosted approval/revocation checks now pass; see [gate closure](3b-hosted-administrator-gate.md). Read the [actual delivery](3b-implementation-and-verification.md) before using this prompt. Resolve the applicable consent, recipient, retention and review policies explicitly.
 
 ```text
 Implement APIP ADR-1B Phase 3C only after I separately authorize the stage and

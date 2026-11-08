@@ -1,5 +1,7 @@
 # Phase 3B private prototype policy and implementation checkpoint
 
+**Latest gate closure, 2026-11-08:** [separately approved administrator bootstrap and actual two-account hosted approval/revocation/patient-denial checks PASS](3b-hosted-administrator-gate.md). Earlier blocked statements below describe prior checkpoints and are superseded by that report. No Phase 3C authorization follows.
+
 2026-11-08. **In progress, not a completed delivery.** Starting clean baseline is Phase 3A `86920c097c0b02dfb63270713922039161f58cd6`; isolated branch is `codex/adr-phase3b-specialist-identity`. PRs 6 and 7 must remain draft and unmerged.
 
 ## Explicit policy approval

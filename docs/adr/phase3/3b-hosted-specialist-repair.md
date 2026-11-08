@@ -1,5 +1,7 @@
 # Phase 3B — Focused hosted specialist repair
 
+**Latest gate closure, 2026-11-08:** [separately approved administrator bootstrap and actual two-account hosted approval/revocation/patient-denial checks PASS](3b-hosted-administrator-gate.md). Earlier blocked statements below describe prior checkpoints and are superseded by that report. No Phase 3C authorization follows.
+
 Date: 2026-11-08. Starting commit `3dce84c7182e22f938f6dacabfef84867e071eb6`, branch `codex/adr-phase3b-specialist-identity`. This closes the hosted applicant API/UI failure, not the administrator bootstrap gate. No Phase 3C work, application restart, patient PDF change or public deployment occurred.
 
 ## Failure and root cause

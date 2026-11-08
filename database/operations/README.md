@@ -10,7 +10,7 @@ An approved database operator supplies the four psql variables privately: `appro
 
 After separately approved execution, verify only the selected subject has the intended active capability and its provisioning event. Verify ordinary/applicant sessions remain denied. Do not expose patient tables to the administrator or create specialist privileges as part of bootstrap. Revoking an administrator capability requires a separately authorized operator action with an auditable event; no public self-service bootstrap or general role editor is provided.
 
-Current live bootstrap status: **NOT AUTHORIZED / NOT EXECUTED**. Disposable tests exercise this exact procedure without granting a live identity.
+Current live bootstrap status: **Separately approved and executed once on 2026-11-08**. [Actual hosted gate evidence](../../docs/adr/phase3/3b-hosted-administrator-gate.md). Do not replay the bootstrap or infer authorization for another subject.
 
 ## Migration recovery
 

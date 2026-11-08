@@ -1,5 +1,7 @@
 # Phase 3B — Specialist identity implementation and verification
 
+**Latest gate closure, 2026-11-08:** [separately approved administrator bootstrap and actual two-account hosted approval/revocation/patient-denial checks PASS](3b-hosted-administrator-gate.md). Earlier blocked statements below describe prior checkpoints and are superseded by that report. No Phase 3C authorization follows.
+
 Work date: 2026-11-08. Private fictional academic prototype only. Starting branch `codex/adr-phase3a-patient-case-management`, SHA `86920c097c0b02dfb63270713922039161f58cd6`; implementation branch `codex/adr-phase3b-specialist-identity`. Phase 3C has not started. PRs 6 and 7 remain open drafts and unmerged.
 
 ## Delivery and gates

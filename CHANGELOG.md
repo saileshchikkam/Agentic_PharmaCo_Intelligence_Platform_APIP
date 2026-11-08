@@ -425,3 +425,7 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 ## Hosted specialist verified-subject repair - 2026-11-08
 
 - Repaired the private identity function and RLS subject lookup for managed PostgreSQL without granting broader Auth-schema or patient access. Real hosted capabilities, saved profile/submission and session restoration pass; administrator bootstrap remains blocked. [Evidence](docs/adr/phase3/3b-hosted-specialist-repair.md).
+
+## Phase 3B hosted administrator verification - 2026-11-08
+
+- Completed separately approved one-time identity-administrator bootstrap and real hosted two-account approval/revocation plus foreign patient/PDF denial. No clinical permissions or sharing enabled. [Evidence](docs/adr/phase3/3b-hosted-administrator-gate.md).

@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "realHosted": true,
+  "separateConfirmedAccounts": true,
+  "adminBootstrapSubjectMatched": true,
+  "approval": "PASS actual UI and capability true",
+  "revocation": "PASS same bearer, subsequent capability false",
+  "revokedAdministratorRequest": 403,
+  "adminOtherPatientRead": 404,
+  "adminOtherPatientPdf": 404,
+  "adminProfessionalPatientAccess": false,
+  "scope": "identity only; no specialist clinical endpoint exists in Phase 3B"
+}
