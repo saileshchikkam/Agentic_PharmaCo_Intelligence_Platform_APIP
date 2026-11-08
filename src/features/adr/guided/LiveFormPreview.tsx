@@ -93,8 +93,8 @@ export function FormPage({ url }: { url: string }) {
           import('pdfjs-dist/build/pdf.worker.min.mjs?url'),
         ]);
         if (disposed || !canvas.current) return;
-                console.log('WORKER RAW:', worker);
-        const workerUrl = typeof worker === 'string' ? worker : (typeof worker?.default === 'string' ? worker.default : (typeof worker?.default?.default === 'string' ? worker.default.default : ''));
+
+        const workerRaw = worker as unknown as { default?: string | { default?: string } }; const workerUrl = typeof worker === 'string' ? worker : (typeof workerRaw?.default === 'string' ? workerRaw.default : (typeof workerRaw?.default === 'object' && typeof workerRaw.default?.default === 'string' ? workerRaw.default.default : ''));
         pdf.GlobalWorkerOptions.workerSrc = workerUrl || new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
         const loading = pdf.getDocument({ url, isEvalSupported: false });
         destroy = () => { void loading.destroy().catch(() => {}); };
