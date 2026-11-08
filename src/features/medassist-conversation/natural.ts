@@ -1,5 +1,5 @@
 import { anchors, labelIsSupported } from './concepts';
-import { correctionCue, negationCue, reportClauses, uncertaintyCue } from './language-context';
+import { correctionCue, negationCue, negatedResolution, reportClauses, uncertaintyCue } from './language-context';
 /** Conversational transport and proposals, separate from the frozen research API. */
 import { readDemoResult, readRequest, type Answer, type Context, type DemoResult, type Question } from '../model-a-research/contracts';
 export type Definition = {
@@ -170,7 +170,7 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
                 return reject('SITE_SPECIFIC_PAIN_DENIAL');
             const uncertain = uncertaintyCue.test(item.quote);
             // Broad negation/contradiction checks fail closed; explicit confirmation still required.
-            const negative = negationCue.test(item.quote)
+            const negative = negationCue.test(item.quote) && !negatedResolution(item.quote)
                 || d.evidence_id==='E_66'&&/\b(?:can breathe normally|breathing normally)\b/i.test(item.quote);
             if (uncertain || item.value === true && negative
                 || item.value === false && !negative && !/^\s*no[.!]?\s*$/i.test(item.quote))
@@ -196,13 +196,13 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         return reject('UNMAPPED_SCHEMA_OR_SPAN');
     return raw;
 }
-export function finalSummary(reason: string | null, evidence: { items: { evidence_id: string; status: string }[]; context: Context } | null, unmapped: string[] = []) {
+export function finalSummary(reason: string | null, evidence: { items: { evidence_id: string; status: string }[]; context: Context } | null, unmapped: string[] = [], heldContext = 0) {
     const items = evidence?.items ?? [];
     const label = evidenceLabel;
     const conflicted = reason === 'unresolved_contradiction';
     const positive = items.filter(i => i.status === 'observed_positive').map(i => label(i.evidence_id));
     const negative = items.filter(i => i.status === 'observed_negative').map(i => label(i.evidence_id));
-    const uncertain = items.filter(i => ['unknown', 'contradiction'].includes(i.status)).length;
+    const uncertain = items.filter(i => ['unknown', 'contradiction'].includes(i.status)).length + heldContext;
     return [reason==='no_eligible_questions' ? `There are no further supported questions. You confirmed: ${positive.slice(0,5).join(', ')||'no present symptoms'}. I will not ask you to repeat them.` : conflicted ? 'Some details conflict. I have kept the original statements without choosing an interpretation.' : `You confirmed: ${positive.slice(0, 5).join(', ') || 'no supported present symptoms'}.`,
         conflicted ? 'Please clarify the conflicting details before starting another interview.' : `Other details: age ${evidence?.context.age ?? 'not provided'}; ${negative.length ? 'you reported no ' + negative.slice(0, 3).join(', ') : 'no additional absent symptoms were confirmed'}.`,
         `Still uncertain: ${conflicted ? 'unresolved conflicting information; ' : ''}${uncertain} unanswered or conflicting details${unmapped.length ? '; some wording, including ' + unmapped.slice(0, 2).join('; ') + ', could not be recorded as structured answers' : ''}. Anything not discussed remains unspecified.`,

@@ -1,0 +1,229 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "b1e126ff-df53-4c73-b21a-3db63cebd41e",
+      "text": "I have a cough and diarrhea.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have a cough",
+          "start": 0,
+          "end": 14,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "diarrhea",
+          "start": 19,
+          "end": 27,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    },
+    {
+      "request_id": "c89037e8-71eb-4fde-9772-cbd2174e01ae",
+      "text": "That cough has stopped now.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "That cough has stopped now",
+          "start": 0,
+          "end": 26,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 15,
+          "end": 22,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [
+    {
+      "request_id": "c89037e8-71eb-4fde-9772-cbd2174e01ae",
+      "text": "That cough has stopped now.",
+      "quote": "That cough has stopped now",
+      "evidence_id": "E_201",
+      "kind": "reported_resolution",
+      "status": "reconciled_by_confirmation",
+      "accepted_affected": false,
+      "held_sources": [
+        {
+          "requestId": "b1e126ff-df53-4c73-b21a-3db63cebd41e",
+          "proposal": {
+            "schema_version": "medassist.natural-extraction.v1",
+            "observations": [
+              {
+                "evidence_id": "E_201",
+                "quote": "I have a cough",
+                "state": "confirmed",
+                "value": true
+              },
+              {
+                "evidence_id": "E_51",
+                "quote": "diarrhea",
+                "state": "confirmed",
+                "value": true
+              }
+            ],
+            "unmapped": [],
+            "instruction_attempt": false
+          }
+        }
+      ],
+      "reconciled_by": [
+        "confirmed-turn:0"
+      ]
+    }
+  ],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_51",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_201",
+          "state": "unknown",
+          "value": null
+        },
+        "disclosures": []
+      },
+      {
+        "answer": {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "I have a cough and diarrhea.",
+    "That cough has stopped now.",
+    "F",
+    "Not sure",
+    "No",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "diarrhea",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 2
+}

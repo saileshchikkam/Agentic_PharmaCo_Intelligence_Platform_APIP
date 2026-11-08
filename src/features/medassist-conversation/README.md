@@ -1,5 +1,13 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Post-L7 context and evidence integrity — 2026-11-08
+
+The nine-field simulated preview now records source-bound context changes before duplicate/empty-proposal handling. Resolution does not infer absence. Implicated pending fields are held out while unrelated proposals remain confirmable. Fresh explicit confirmation or a routine explicit answer can reconcile pending holds; old held sources and stale UI callbacks cannot. Accepted evidence is retained and a newer unresolved accepted-context change blocks progression until restart.
+
+The scripted export adds `medassist.evidence-state.v1` metadata: effective evidence, accepted history snapshot, confirmed queued disclosures, pending proposals, context updates and excluded IDs. Per-source `confirmed_evidence_ids` identifies which fields were accepted in a mixed statement. The legacy confirmed Boolean does not accept every annotation. Consumers must honor `blocked_context_update` and the existing `blocked_unresolved_conflict`, and must not merge narrative/history/pending data into current evidence. Existing wrapper/ontology contracts remain unchanged.
+
+[Full verification](../../../docs/evaluation/medassist-post-l7-remediation-report.md): 348 checks, actual M13/M05 browser replay and five downloaded exports. Known L7 is 73/110 with 37 remaining mismatches; this is development evidence, not fresh independent accuracy. Model B and clinical guidance stay disabled; emergency rules are unchanged.
+
 ## Post-L6 scripted English coverage — 2026-11-07
 
 The default fictional scripted preview still accepts only nine fields and requires explicit confirmation. Allowlisted spellings and complete colloquial/word-order phrases are matched against original source text; no unrestricted fuzzy substitution runs. Appended denials keep separate scope. Explicit same-sentence continuity can reactivate one unambiguous historical referent; resolution, uncertainty and multiple referents stay conservative.

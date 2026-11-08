@@ -78,7 +78,7 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
         continue;
       }
     }
-    const coordinatedDenial = /^(?:i (?:have|feel) )?no\b/i.test(clause.quote)
+    const coordinatedDenial = /^(?:i (?:have|feel) )?no\b/i.test(clause.quote) || /^i deny\b/i.test(clause.quote)
       || /^neither\b.*\bnor\b/i.test(clause.quote);
     if(/\b(?:not only|either)\b/i.test(clause.quote)||(!coordinatedDenial&&/\b(?:or|neither)\b/i.test(clause.quote)&&concepts.length>1)){
       for(const concept of concepts)annotations.push(annotate(text,clause.quote,'unsupported_or_ambiguous',concept.evidence_id,concept.concept_id,clause.start));

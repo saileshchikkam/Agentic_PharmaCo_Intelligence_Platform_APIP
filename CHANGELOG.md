@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist post-L7 context and evidence integrity — 2026-11-08
+
+- Hold resolved/retracted proposals out of current evidence, preserve unrelated drafts and accepted history, and require explicit pending reconciliation. Block accepted context changes without silently replacing accepted values.
+- Correct bounded negation, uncertainty, attribution and temporal scope. Verified M13, M05, five downloaded exports and 348 checks. [Results and remaining limitations](docs/evaluation/medassist-post-l7-remediation-report.md)
+
 ## MedAssist Stage 3 / L7 evaluation — 2026-11-07
 
 - Independently authored/froze 110 fictional English descriptions and 20 journeys before measurement; scored 61/110 full matches and 19/20 journeys without implementation tuning. Recorded incorrect context/polarity proposals, stale pending evidence, rubric limitations and separate safety gaps. [Complete report](docs/evaluation/medassist-l7-english-report.md)

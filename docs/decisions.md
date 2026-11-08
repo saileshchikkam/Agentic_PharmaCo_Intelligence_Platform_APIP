@@ -2,6 +2,10 @@
 
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
+## Engineering record — fictional context changes, 2026-11-08
+
+Implemented within the authorized post-L7 task: preserve source statements and accepted history separately from effective current evidence. A relevant newer resolution/retraction holds pending fields without inventing absence; accepted-context changes block use until clarified in a restarted session. Reconciliation of a pending field requires a fresh explicit confirmation or answer. Export consumers must honor blocked usage and field-level confirmation metadata. This is a simulated engineering contract, not a new clinical decision or research-protocol change. [Evidence and limits](evaluation/medassist-post-l7-remediation-report.md).
+
 ## DEC-001 — Mission and name
 
 **Confirmed 2026-10-16; origin described as September 2024.** APIP means Agentic Pharma Co-intelligence Platform. Easy suspected-ADR reporting is the core; technology serves the workflow. This supersedes older APP/Pharma Intelligence naming. Original mission notes lacked reliable dates; none are invented.

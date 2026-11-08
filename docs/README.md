@@ -20,6 +20,8 @@ The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) pre
 
 The [MedAssist progress tracker](medassist-progress.md) records the seven-stage evidence snapshot, component availability and local completion checklist. The milestone roadmap remains the planning entry point.
 
+The [post-L7 context/state report](evaluation/medassist-post-l7-remediation-report.md) documents M13's repair, current-versus-historical/pending export semantics, actual browser downloads and remaining known language mismatches.
+
 The [L7 fictional English evaluation](evaluation/medassist-l7-english-report.md) links its frozen corpus/checksum, complete case matrix, original measured results, browser evidence, scoring limitations and next remediation priorities. It evaluates the unchanged nine-field script, not genuine Model A or clinical accuracy.
 
 For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English-only RAG, and agent implementation without creating another task queue.

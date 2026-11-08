@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-08",
+  "cases": [
+    {
+      "id": "M13",
+      "before": "Resolved cough remained confirmable (native Comet reproduction).",
+      "after": "Cough held out; unrelated fields remain confirmable."
+    },
+    {
+      "id": "M05",
+      "result": "Diarrhea survived unsupported elbow clarification; actual export checked."
+    },
+    {
+      "id": "accepted_resolution",
+      "result": "Current cough excluded; accepted history unchanged; pending nausea preserved; confirmation disabled; export blocked_context_update."
+    },
+    {
+      "id": "explicit_reconciliation",
+      "result": "Explicit UNKNOWN reintroduced cough as UNKNOWN; fever No preserved; mixed original source confirmed_evidence_ids contained only diarrhea."
+    },
+    {
+      "id": "held_summary",
+      "result": "Unresolved context update counted in final summary; current export chills only."
+    },
+    {
+      "id": "ordinary_conflict",
+      "result": "Prior accepted throat positive retained with blocked_unresolved_conflict."
+    },
+    {
+      "id": "manual_help",
+      "result": "Opened and paused composer; no call or Maps request."
+    }
+  ],
+  "layouts": [
+    {
+      "width": 390,
+      "scrollWidth": 375
+    },
+    {
+      "width": 820,
+      "scrollWidth": 805
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1425
+    }
+  ],
+  "logs": [
+    {
+      "level": "warn",
+      "message": "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.",
+      "timestamp": "2026-11-08T04:55:21.623Z",
+      "url": "http://127.0.0.1:3000/node_modules/.vite/deps/chunk-SNKPEVA4.js?v=c0455855"
+    }
+  ],
+  "fullTwentyJourneyReplay": false
+}

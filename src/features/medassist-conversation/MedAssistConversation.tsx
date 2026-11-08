@@ -12,6 +12,7 @@ import HospitalNavigation from '../medassist-safety/HospitalNavigation';
 import { welcome, readFictionalAge, readSourceSex, contextUnknown, requestsNavigation, assessmentStatus, clarifyWording, clarifyPain } from './presentation';
 import { runScriptedInterview, scriptedVocabulary } from './scripted';
 import { reviewProposal, type PendingProposal } from './pending-proposal';
+import { contextUpdates, holdPending, currentEvidence, reconcilePendingUpdates, acceptedUpdateBlocked, canConfirmPending, updateNotice, type ContextUpdate } from './evidence-state';
 import './conversation.css';
 const api = '/api/research/model-a';
 type Message = {
@@ -37,6 +38,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const candidateObservations = candidate?.sources.flatMap(source => source.proposal.observations) ?? [];
     const candidateUnmapped = candidate?.sources.flatMap(source => source.proposal.unmapped) ?? [];
     const [confirmedProposals, setConfirmedProposals] = useState<Proposal[]>([]);
+    const [contextChanges, setContextChanges] = useState<ContextUpdate[]>([]);
+    const changesRef = useRef<ContextUpdate[]>([]);
+    function keepChanges(next:ContextUpdate[]) { changesRef.current=next;setContextChanges(next); }
+    const acceptedAnswers = () => [...queued,...(request?[request.initial,...request.initial_disclosures,...request.turns.flatMap(t=>[t.answer,...t.disclosures])]:[])];
     const [queued, setQueued] = useState<Answer[]>([]), [unmapped, setUnmapped] = useState<string[]>([]), [narratives, setNarratives] = useState<string[]>([]);
     const [messages, setMessages] = useState<Message[]>(greeting), [request, setRequest] = useState<NaturalRequest | null>(null), [result, setResult] = useState<DemoResult | ReturnType<typeof runScriptedInterview> | null>(null);
     const [count, setCount] = useState(0), [selected, setSelected] = useState<number[]>([]), [busy, setBusy] = useState(false), [error, setError] = useState('');
@@ -47,7 +52,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const [localLanguage, setLocalLanguage] = useState<ReturnType<typeof readLanguageStatus>>(null);
     const [emergency, setEmergency] = useState<SafetyDecision | null>(null), [navigationSession, setNavigationSession] = useState(0);
     const submissions = useRef(new SubmissionLedger()), confirmedCandidate = useRef<PendingProposal | null>(null);
-    const [understandingRecords, setUnderstandingRecords] = useState<{request_id:string;text:string;question_id:string|null;annotations:Annotation[];details:ReturnType<typeof reportedDetails>;compatibility:string;confirmed:boolean;extraction_method?:string}[]>([]);
+    const [understandingRecords, setUnderstandingRecords] = useState<{request_id:string;text:string;question_id:string|null;annotations:Annotation[];details:ReturnType<typeof reportedDetails>;compatibility:string;confirmed:boolean;confirmed_evidence_ids?:string[];extraction_method?:string}[]>([]);
     const questionClarifications=useRef(new Map<string,number>());
     const localSubmissions = useRef(new Set<string>());
     const retryAt = useRef(0), invalidAttempts = useRef(new Map<string, number>());
@@ -98,7 +103,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
         return()=>resize.disconnect();
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
-    function restart() { setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
+    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
     function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
         return false; if (safetyLatch.current)
         return true; safetyLatch.current = true; generation.current++; abort.current?.abort(); inFlight.current = false; setEmergency(d); setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setSelected([]); setDescription(''); setLanguageRetry(null); setContextStep(null); setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]); return true; }
@@ -117,11 +122,13 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             setDescription('');
             return;
         }
-        if (contextStep) {
+        if (scripted && acceptedUpdateBlocked(changesRef.current)) { say(updateNotice(changesRef.current)!);setDescription('');return; }
+        const hasContextChange = scripted && vocabulary && contextUpdates(text,'probe',vocabulary,candidate,acceptedAnswers()).length > 0;
+        if (contextStep && !hasContextChange) {
             collectContext(text);
             return;
         }
-        if (result?.selection.status === 'abstained') { say('This interview has ended. You can restart for new details or ask to find care.'); setDescription(''); return; }
+        if (result?.selection.status === 'abstained' && !hasContextChange) { say('This interview has ended. You can restart for new details or ask to find care.'); setDescription(''); return; }
         if (!vocabulary || contextUnavailable)
             return;
         if (request && result && !candidate) {
@@ -150,6 +157,26 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         const prior=narratives.slice(-12), pendingQuestion=result?.selection.question??null;
         const analysis=understand(text,vocabulary,pendingQuestion,prior);
         if(submission.fresh)setUnderstandingRecords(old=>[...old,{request_id:submission.id,text,question_id:pendingQuestion?.evidence_id??null,annotations:analysis.annotations,details:reportedDetails(text),compatibility:analysis.compatibility.status,confirmed:false}]);
+        if (scripted) {
+            const changes=contextUpdates(text,submission.id,vocabulary,candidate,acceptedAnswers());
+            if(changes.length){
+                const next=[...changesRef.current,...changes];
+                keepChanges(next);
+                setCandidate(current=>holdPending(current,changes));
+                setContextStep(null);
+                say(updateNotice(next)!);
+                if(acceptedUpdateBlocked(next)){
+                    if(request)setRequest({...request,stop:'unresolved_contradiction'});
+                    setResult(previous=>previous&&'scriptedEvidence' in previous?{...previous,selection:{...previous.selection,status:'abstained',question:null,reason:'unresolved_contradiction'}}:previous);
+                    submissions.current.finish(key,true,submission.id);
+                    return;
+                }
+                if(!analysis.proposal.observations.length){
+                    submissions.current.finish(key,true,submission.id);
+                    return;
+                }
+            }
+        }
         if(pendingQuestion&&['ambiguous','unrelated'].includes(analysis.compatibility.status)){
             const attempts=questionClarifications.current.get(pendingQuestion.evidence_id)??0;
             if(attempts>=2){submissions.current.finish(key,true,submission.id);setError('I cannot validate another free-text reply for this question. Please use a shown choice or Not sure; no extra question was consumed.');return;}
@@ -210,7 +237,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             if(!proposalAddsInformation(proposal,known)) {say(clarification.current.fail(text,phase,'duplicate'));return;}
             clarification.current.clear(text,phase);
             submissions.current.finish(key, true, submission.id);
-            setCandidate(current => reviewProposal(current, { requestId: submission.id, proposal }));
+            setCandidate(current => reviewProposal(holdPending(current,changesRef.current.filter(c=>c.request_id===submission.id)), { requestId: submission.id, proposal }));
         }
         catch (error) {
             if (version === generation.current) {
@@ -275,7 +302,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             setDescription('');
             const { question, reason } = update.selection;
             const evidence = 'scriptedEvidence' in update ? update.scriptedEvidence : update.handoff;
-            setMessages(old => [...old, { role: 'You', text: label }, { role: 'MedAssist', text: question ? questionText(question) : finalSummary(reason, evidence, unmapped) }]);
+            setMessages(old => [...old, { role: 'You', text: label }, { role: 'MedAssist', text: question ? questionText(question) : finalSummary(reason, evidence && scripted ? currentEvidence(evidence,changesRef.current) : evidence, unmapped, scripted ? new Set(changesRef.current.filter(c=>c.status==='unresolved').map(c=>c.evidence_id)).size : 0) }]);
         }
         catch (error) {
             if (version === generation.current) {
@@ -294,12 +321,15 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         }
     }
     function confirmInitial() {
-        if (!candidate || candidate.alternative || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
+        if (!canConfirmPending(candidate,changesRef.current) || !candidate || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
             return;
         followLatest.current = true;
         confirmedCandidate.current = candidate;
+        keepChanges(reconcilePendingUpdates(changesRef.current,candidate.sources));
         const acceptedIds = new Set(candidate.sources.map(source => source.requestId));
-        setUnderstandingRecords(old => old.map(row => acceptedIds.has(row.request_id) ? { ...row, confirmed: true } : row));
+        setUnderstandingRecords(old => old.map(row => acceptedIds.has(row.request_id) ? { ...row, confirmed: true,
+            confirmed_evidence_ids:[...new Set([...(row.confirmed_evidence_ids??[]),...candidate.sources.filter(s=>s.requestId===row.request_id).flatMap(s=>s.proposal.observations.map(o=>o.evidence_id))])],
+        } : row));
         setConfirmedProposals(old => [...old, ...candidate.sources.map(source => source.proposal)]);
         const all = [...queued], existing = request ? [request.initial, ...request.initial_disclosures, ...request.turns.flatMap(t => [t.answer, ...t.disclosures])] : [];
         for (const a of candidateObservations.map(clean)) {
@@ -381,7 +411,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     function begin(context: Context, label: string) { const initial = queued.find(a => a.state === 'confirmed' && a.value === true && vocabulary?.items.find(d => d.evidence_id === a.evidence_id)?.initial_allowed); if (initial)
         void send({ schema_version: 'medassist.natural-request.v1', fictional_only: true, context, initial, initial_disclosures: queued.filter(a => a.evidence_id !== initial.evidence_id), turns: [], stop: null }, label); }
     function answer(state: Answer['state'], value: Answer['value'], label: string) {
-        const q=result?.selection.question;if(!request||!q||inFlight.current)return;
+        const q=result?.selection.question;if(!request||!q||inFlight.current||acceptedUpdateBlocked(changesRef.current))return;
         if(state==='confirmed'&&vocabulary){
             const compatibility=questionCompatibility(label,q,vocabulary,narratives.slice(-12),value);
             if(compatibility.status!=='valid'){
@@ -394,6 +424,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             }
         }
         followLatest.current=true;
+        if(scripted&&state!=='contradiction')keepChanges(reconcilePendingUpdates(changesRef.current,[{
+            requestId:'confirmed-turn:'+request.turns.length,
+            proposal:{schema_version:'medassist.natural-extraction.v1',observations:[{evidence_id:q.evidence_id,state,value,quote:label}],unmapped:[],instruction_attempt:false},
+        }]));
         void send({...request,turns:[...request.turns,{answer:{evidence_id:q.evidence_id,state,value},disclosures:state==='contradiction'?[]:queued.filter(a=>a.evidence_id!==q.evidence_id)}]},label);
     }
     function stopInterview() { if (!request)
@@ -405,7 +439,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     } void send(next, 'End this fictional interview'); }
     const optionLabel=(value:Scalar)=>vocabulary?.items.find(d=>d.evidence_id===result?.selection.question?.evidence_id)?.value_labels?.[String(value)]??displayValue(value);
     const question = result?.selection.question, finished = result?.selection.status === 'abstained';
-    const evidence = result && ('scriptedEvidence' in result ? result.scriptedEvidence : result.handoff);
+    const acceptedEvidence = result && ('scriptedEvidence' in result ? result.scriptedEvidence : result.handoff);
+    const evidence = acceptedEvidence && scripted ? currentEvidence(acceptedEvidence,contextChanges) : acceptedEvidence;
+    const contextNotice = scripted ? updateNotice(contextChanges) : null;
     const status = scripted ? 'Not assessed' : assessmentStatus({ started: !!request || !!contextStep, finished: !!finished, unavailable: contextUnavailable });
     const exportEvidence = () => {
         if (!evidence) return;
@@ -413,8 +449,15 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             schema_version: scripted ? 'medassist.scripted-conversation-export.v1' : 'medassist.conversation-export.v2',
             understanding_version:'medassist.understanding.v1', understanding_records:understandingRecords,
             question_clarifications:[...questionClarifications.current].map(([question_id,attempts])=>({question_id,attempts})),
-            evidence, conversation: request, unresolved_concepts:clarification.current.snapshot(),
-            evidence_usage: result?.selection.reason === 'unresolved_contradiction' ? 'blocked_unresolved_conflict' : 'fictional_only_no_clinical_assessment',
+            evidence, ...(scripted?{
+                evidence_state_version:'medassist.evidence-state.v1',
+                accepted_evidence_history:acceptedEvidence,
+                confirmed_queued_disclosures:queued,
+                pending_proposals:candidate,
+                context_updates:contextChanges,
+                excluded_from_current:[...new Set(contextChanges.filter(c=>c.status==='unresolved').map(c=>c.evidence_id))],
+            }:{}), conversation: request, unresolved_concepts:clarification.current.snapshot(),
+            evidence_usage: acceptedUpdateBlocked(contextChanges) ? 'blocked_context_update' : result?.selection.reason === 'unresolved_contradiction' ? 'blocked_unresolved_conflict' : 'fictional_only_no_clinical_assessment',
             narratives, user_confirmed_proposals: confirmedProposals, unmapped,
             unresolved_conflict: result?.selection.reason === 'unresolved_contradiction', routine_questions_answered: count,
         }, null, 2)], { type: 'application/json' }));
@@ -455,6 +498,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             <p>Provisional statement guard · not clinically validated. Ordinary questions and self-care are paused. Urgency remains unassessed.</p>
           </section>}
           {error && <p role="alert" className="conversation-error">{error}</p>}
+          {contextNotice && <p role="status" className="conversation-question">{contextNotice}</p>}
           {!emergency && !vocabulary && <div className="conversation-question">
             <p role={readinessError ? 'alert' : 'status'}>{readinessError || 'Checking local availability…'}</p>
             {readinessError && <M3Button variant="outlined" onClick={() => { setReadinessError(''); setRetryAvailability(v => v + 1); }}>Retry availability</M3Button>}</div>}
@@ -473,7 +517,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                 <M3Button onClick={() => setCandidate({ sources: [candidate.alternative!] })}>Review newer proposal</M3Button>
               </div>
             </div>}
-            <div className="conversation-actions"><M3Button disabled={busy || !!pendingRetry || !!candidate.alternative} onClick={confirmInitial}>Confirm these details</M3Button>
+            <div className="conversation-actions"><M3Button disabled={busy || !!pendingRetry || !canConfirmPending(candidate,contextChanges)} onClick={confirmInitial}>Confirm these details</M3Button>
               <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => { setCandidate(null); setMessages(current => [...current, { role: 'You', text: 'That mapping is not correct.' }, { role: 'MedAssist', text: 'Please correct the description in your own words. None of these proposed answers was recorded.' }]); }}>No / Not sure — correct this</M3Button></div>
           </div>}
           {!emergency && contextStep === 'sex' && <div className="conversation-actions" aria-label="Fictional female or male answer">
@@ -513,6 +557,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         </form>
         <div className="conversation-session">
           {evidence && <details className="conversation-summary"><summary>Session summary</summary>
+            {contextNotice && <p>{contextNotice}</p>}
             <p>{count} follow-up questions. Yes: {evidence.items.filter(i => i.status === 'observed_positive').length}; No: {evidence.items.filter(i => i.status === 'observed_negative').length}; Not sure: {evidence.items.filter(i => i.status === 'unknown').length}. Missing stays unspecified.</p>
             <M3Button variant="text" onClick={exportEvidence}>Download session</M3Button>
             {!emergency && question && <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => answer('contradiction', null, 'My answer is conflicting; leave it unresolved')}>Report conflicting information and stop</M3Button>}
