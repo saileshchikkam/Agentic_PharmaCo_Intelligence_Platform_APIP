@@ -1,10 +1,16 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Prompt 2 open-ended symptom capture — 2026-11-08
+
+The simulated page now retains source-bound unsupported spans as **Additional descriptions** in page memory. They retain exact wording/offsets and bounded context labels, but remain `mapping: null`, `confirmation: not_applicable` and ineligible for Model A. They neither become a ninth-plus evidence field nor change the existing confirmation, UNKNOWN, M05 or M13 state contracts. The scripted download adds a separate `medassist.open-symptom-export.v1` section; it is not a Model A handoff.
+
+The deterministic layer accepts only source spans that the existing scripted interpreter already classified as unmapped. It has no persistence, mapping/reconciliation UI, provider, independent model extractor, diagnosis, severity or safety behavior. [Implementation report and browser/download evidence](../../../docs/evaluation/medassist-open-mention-integration-report.md) records five prospective checks and the fictional mixed cough/ear-ringing workflow. A new frozen contextual/open-ended evaluation is required before considering broader extraction work.
+
 ## Accelerated systemic language audit — 2026-11-08
 
 The default browser route is the local **SIMULATED** scripted path: it calls `understand` in the page and has no Model A/provider dependency. The separately visible research-mode switch is correctly unavailable without its private adapter/operator opt-in. A shared context normalization now recognizes ordinary omitted-apostrophe negatives such as `dont` and `havent`; it still preserves the literal source, requires confirmation and never broadens the nine-field ontology.
 
-[The audit](../../../docs/evaluation/medassist-accelerated-language-audit-report.md) records nine-field browser/unit evidence and two frozen fictional 50-case corpora (development 48/50, withheld 43/50). It documents retained resolution, site-scope, context and grammar failures rather than treating them as coverage. [Open-ended symptom intake](../../../docs/architecture/medassist-open-ended-symptom-intake.md) and `open-symptom.ts` are Prompt-2 design contracts only: no persistence, export, Model A input, provider or clinical capability changed.
+[The audit](../../../docs/evaluation/medassist-accelerated-language-audit-report.md) records nine-field browser/unit evidence and two frozen fictional 50-case corpora (development 48/50, withheld 43/50). It documents retained resolution, site-scope, context and grammar failures rather than treating them as coverage. [Open-ended symptom intake](../../../docs/architecture/medassist-open-ended-symptom-intake.md) now records the bounded Prompt-2 page-memory implementation; no Model A input, provider or clinical capability changed.
 
 ## Prompt 1 final scoped remediation — 2026-11-08
 

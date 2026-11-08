@@ -2,6 +2,11 @@
 
 ## 2026-11-08
 
+### MedAssist — Prompt 2 open-ended symptom capture
+
+- Retain unsupported scripted-language source spans as visible, source-grounded page-memory descriptions; keep them separate from confirmed nine-field evidence and Model A eligibility.
+- Add explicit session-export provenance for those records and verify the live mixed cough/ear-ringing workflow and JSON download. [Implementation limits and evidence](docs/evaluation/medassist-open-mention-integration-report.md)
+
 ### MedAssist — accelerated systemic language audit
 
 - Reproduced the local scripted browser pipeline, repaired shared apostrophe-free negation handling, and added nine-field/multi-symptom/context pipeline tests.

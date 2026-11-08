@@ -1,6 +1,6 @@
 # Open-ended symptom intake boundary
 
-Status: implementation design for Prompt 2; no provider, model, persistence, legacy ontology or Model A handoff has changed.
+Status: Prompt 2 bounded page-memory implementation. No provider, model, persistence, legacy ontology or Model A handoff changed.
 
 ## Why this boundary exists
 
@@ -10,7 +10,7 @@ An unfamiliar but intelligible complaint must remain visible as source-bound, un
 
 ## Proposed record
 
-`src/features/medassist-conversation/open-symptom.ts` defines the unintegrated `medassist.open-symptom-mention.v1` shape. Each mention has:
+`src/features/medassist-conversation/open-symptom.ts` defines and now creates the source-bound `medassist.open-symptom-mention.v1` shape from existing unsupported source spans. Each mention has:
 
 - original source text plus exact character offsets;
 - neutral description, optional stated location and optional literal time text;
@@ -20,7 +20,7 @@ An unfamiliar but intelligible complaint must remain visible as source-bound, un
 - an optional, separately validated legacy mapping; and
 - clarification and confirmation state.
 
-The record is append-only source evidence. A later correction or resolution adds a source-bound update; it does not overwrite a confirmed legacy evidence value. Existing M05/M13 rules remain the authority for the nine-field session.
+The record is append-only page-memory source evidence. A later correction or resolution adds a source-bound record; it does not overwrite a confirmed legacy evidence value. Existing M05/M13 rules remain the authority for the nine-field session.
 
 ## Ten intake families
 
@@ -39,9 +39,9 @@ Family assignment is an intake-navigation hint only. It does not establish clini
 
 ## Prompt 2 extractor boundary
 
-The extractor may propose zero or more `OpenSymptomMention` candidates, each grounded to a contiguous source span. A deterministic validator must reject out-of-range offsets, altered wording, unsupported legacy IDs, impossible state/value pairs, a non-current/other-person mapping, unsupported certainty, or a proposal without a source span. The application displays every candidate for explicit user confirmation.
+The current deterministic capture creates zero or more `OpenSymptomMention` records only from the already unsupported source spans produced by the scripted interpreter. Each is grounded to a contiguous source span. The schema validator rejects out-of-range offsets, altered wording, unsupported legacy IDs, impossible state/value pairs, unsupported certainty, or a record without a source span. The application displays these records under **Additional descriptions** with their retention/context status.
 
-Only after confirmation may a separately validated mapping create one of the nine current legacy evidence answers. A mention with `mapping: null` remains in the visible open-description list and export. Model output must not select Model A questions, write accepted evidence, infer anatomy/time/diagnosis, weaken emergency safeguards, or erase a previous source statement.
+The current records have `mapping: null`, `confirmation: not_applicable`, and `eligible_for_model_a: false`; retaining literal unsupported wording is not confirmation of an interpretation. Only a future separately validated and explicitly confirmed mapping may create one of the nine current legacy evidence answers. A `mapping: null` record remains in the visible list and in the `medassist.open-symptom-export.v1` section of the session download. Model output must not select Model A questions, write accepted evidence, infer anatomy/time/diagnosis, weaken emergency safeguards, or erase a previous source statement.
 
 ## Privacy and failure behavior
 

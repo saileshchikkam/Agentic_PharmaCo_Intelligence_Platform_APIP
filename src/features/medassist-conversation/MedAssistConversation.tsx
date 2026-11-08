@@ -13,6 +13,7 @@ import { welcome, readFictionalAge, readSourceSex, contextUnknown, requestsNavig
 import { runScriptedInterview, scriptedVocabulary } from './scripted';
 import { reviewProposal, type PendingProposal } from './pending-proposal';
 import { contextUpdates, holdPending, currentEvidence, reconcilePendingUpdates, acceptedUpdateBlocked, canConfirmPending, updateNotice, type ContextUpdate } from './evidence-state';
+import { captureOpenMentions, openMentionExport, reconcileOpenMentions, type OpenMentionRecord } from './open-symptom';
 import './conversation.css';
 const api = '/api/research/model-a';
 type Message = {
@@ -22,6 +23,13 @@ type Message = {
 const greeting: Message[] = [{ role: 'MedAssist', text: welcome }];
 const displayValue = (v: Scalar) => typeof v === 'boolean' ? v ? 'Yes' : 'No' : String(v);
 const clean = (a: Answer): Answer => ({ evidence_id: a.evidence_id, state: a.state, value: a.value });
+const openMentionStatusText: Record<OpenMentionRecord['status'], string> = {
+    retained: 'Kept as an additional description',
+    needs_clarification: 'Needs clarification before it can be interpreted',
+    historical_or_resolved: 'Historical or resolved description',
+    other_person: 'Description about another person',
+    hypothetical: 'Hypothetical or non-current description',
+};
 export default function MedAssistConversation() {
     const [scripted, setScripted] = useState(true);
     return <Conversation key={String(scripted)} scripted={scripted} switchMode={() => setScripted(value => !value)}/>;
@@ -43,6 +51,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     function keepChanges(next:ContextUpdate[]) { changesRef.current=next;setContextChanges(next); }
     const acceptedAnswers = () => [...queued,...(request?[request.initial,...request.initial_disclosures,...request.turns.flatMap(t=>[t.answer,...t.disclosures])]:[])];
     const [queued, setQueued] = useState<Answer[]>([]), [unmapped, setUnmapped] = useState<string[]>([]), [narratives, setNarratives] = useState<string[]>([]);
+    const [openMentions, setOpenMentions] = useState<OpenMentionRecord[]>([]);
     const [messages, setMessages] = useState<Message[]>(greeting), [request, setRequest] = useState<NaturalRequest | null>(null), [result, setResult] = useState<DemoResult | ReturnType<typeof runScriptedInterview> | null>(null);
     const [count, setCount] = useState(0), [selected, setSelected] = useState<number[]>([]), [busy, setBusy] = useState(false), [error, setError] = useState('');
     const [pendingRetry, setPendingRetry] = useState<{
@@ -103,7 +112,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
         return()=>resize.disconnect();
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
-    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
+    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setOpenMentions([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
     function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
         return false; if (safetyLatch.current)
         return true; safetyLatch.current = true; generation.current++; abort.current?.abort(); inFlight.current = false; setEmergency(d); setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setSelected([]); setDescription(''); setLanguageRetry(null); setContextStep(null); setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]); return true; }
@@ -156,7 +165,11 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         }
         const prior=narratives.slice(-12), pendingQuestion=result?.selection.question??null;
         const analysis=understand(text,vocabulary,pendingQuestion,prior);
-        if(submission.fresh)setUnderstandingRecords(old=>[...old,{request_id:submission.id,text,question_id:pendingQuestion?.evidence_id??null,annotations:analysis.annotations,details:reportedDetails(text),compatibility:analysis.compatibility.status,confirmed:false}]);
+        if(submission.fresh) {
+            setUnderstandingRecords(old=>[...old,{request_id:submission.id,text,question_id:pendingQuestion?.evidence_id??null,annotations:analysis.annotations,details:reportedDetails(text),compatibility:analysis.compatibility.status,confirmed:false}]);
+            const captured = captureOpenMentions({ text, requestId: submission.id, turn: narratives.length + 1, unmapped: analysis.proposal.unmapped });
+            if (captured.length) setOpenMentions(existing => reconcileOpenMentions(existing, captured));
+        }
         if (scripted) {
             const changes=contextUpdates(text,submission.id,vocabulary,candidate,acceptedAnswers());
             if(changes.length){
@@ -459,6 +472,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             }:{}), conversation: request, unresolved_concepts:clarification.current.snapshot(),
             evidence_usage: acceptedUpdateBlocked(contextChanges) ? 'blocked_context_update' : result?.selection.reason === 'unresolved_contradiction' ? 'blocked_unresolved_conflict' : 'fictional_only_no_clinical_assessment',
             narratives, user_confirmed_proposals: confirmedProposals, unmapped,
+            open_symptom_mentions: openMentionExport(openMentions),
             unresolved_conflict: result?.selection.reason === 'unresolved_contradiction', routine_questions_answered: count,
         }, null, 2)], { type: 'application/json' }));
         const link = document.createElement('a');
@@ -499,6 +513,11 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           </section>}
           {error && <p role="alert" className="conversation-error">{error}</p>}
           {contextNotice && <p role="status" className="conversation-question">{contextNotice}</p>}
+          {!emergency && openMentions.length > 0 && <section className="conversation-question conversation-open-mentions" aria-labelledby="open-mentions-title">
+            <h2 id="open-mentions-title">Additional descriptions</h2>
+            <p>These are retained in this fictional session in the words provided. They are not structured research evidence and cannot enter Model A by themselves.</p>
+            <ul>{openMentions.map(record => <li key={record.id}><strong>{openMentionStatusText[record.status]}:</strong> {record.mention.description}</li>)}</ul>
+          </section>}
           {!emergency && !vocabulary && <div className="conversation-question">
             <p role={readinessError ? 'alert' : 'status'}>{readinessError || 'Checking local availability…'}</p>
             {readinessError && <M3Button variant="outlined" onClick={() => { setReadinessError(''); setRetryAvailability(v => v + 1); }}>Retry availability</M3Button>}</div>}
