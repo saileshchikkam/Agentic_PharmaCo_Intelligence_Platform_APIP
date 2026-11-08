@@ -1,15 +1,15 @@
 # MedAssist development progress
 
-| Field | 2026-11-08 post-L7 wording remediation |
+| Field | 2026-11-08 Prompt 1 of 5 |
 | --- | --- |
-| Current stage | Phase 0, local development and recovery |
-| Current subphase | Stage 3 post-L7 real-world English coverage and clarification |
-| Current task | Bounded wording implemented; state safeguards and all 20 known L7 browser journeys verified |
+| Current stage | Stage 3 — Conversational NLP and Evidence |
+| Current subphase | Final scoped language, clarification and evidence continuity |
+| Current task | Prompt 1 of 5: COMPLETE; READY FOR EVALUATION. Stage 3 qualification awaits Prompt 2. |
 | Overall MedAssist status | Scripted research demo verified. Genuine local Model A blocked. Clinical assessment disabled. |
-| Last verified completion | [Wording report](evaluation/medassist-wording-remediation-report.md): 629 checks passed; 20/20 known L7 browser journeys and 20 actual downloads checked. Known L3/L5/L7 results: 34/34, 79/80 and 87/110; zero new full-case regressions. |
+| Last verified completion | [Final scoped report](evaluation/medassist-final-scope-report.md): 718 checks, 20/20 known L7 browser journeys and 20 actual downloads. Known L3/L5/L7: 34/34, 80/80, 97/110; zero new full-case regressions or incorrect state emissions. |
 | Current blockers | Cloud change bundle unavailable. Original sealed and metadata roots and the pinned research environment have not been verified. |
-| Next task | Separately authorize a genuinely new frozen fictional language/clarification and multi-turn evaluation, without implementation tuning. Rubric, safety, ontology/provider and runtime work remain separate. |
-| Starting commit for this task | `aaaa1538c25d65a48600c23ef774b58b11673a79` |
+| Next task | Prompt 2 of 5, fresh fictional language/clarification/multi-turn evaluation and explicit Stage 3 closure decision. Not started. Model A verification/inference/integration remain later separately authorized prompts. |
+| Starting commit for this task | `0d78aa79508660d0ae16692da6ebf77580f55b36` |
 | Latest verified preview | See the latest [dated verification](history/2026-11-08.md). |
 
 The [roadmap](roadmap.md), [blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) and [decision log](decisions.md) retain their existing scope. Stage numbers here group evidence for reporting. Task IDs come from the project record. Historical results refer to their recorded environments.
@@ -18,7 +18,7 @@ The [roadmap](roadmap.md), [blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.m
 | --- | --- | --- | --- | --- | --- |
 | 1. Research and datasets | NHAMCS Phase 1 profiling and subsequent research reports. DDXPlus protocol recorded. | Private raw files and split assignments unverified locally. | [NHAMCS evidence](../models/medassist/reports/2026-10-19-phase1/README.md), [DDXPlus work](../models/medassist_v2) | Adapter research branch, snapshot `161a14c` | Verify approved provenance, environment and asset availability without opening locked splits. |
 | 2. Model A adaptive ranking | Task 4B historically sealed. Task 5A implemented with 18 historical focused tests. | Research only. Local artifacts, pinned dependencies and genuine inference unverified in Phase 0. | DDXPlus, sealed ranker, authenticated protocol, [FastAPI adapter](../models/medassist_v2/research_adapter) | `codex/medassist-v2-task5a-adapter` at `161a14c`, portability reconciliation included in `5085a26` | In a separately authorized task, verify trusted private assets and adapter contract with fictional inputs. |
-| 3. Conversational NLP and evidence | M13 state repair preserved; bounded wording/clarification implemented; 629 checks, 20/20 known browser journeys and 20 actual exports verified. | Known L7 87/110; no wrong states/unexpected IDs measured. Two missing concepts, 12 clarification differences, nine retention-only scorer limitations; accepted-history restart remains. | [Conversation](../src/features/medassist-conversation), [wording report](evaluation/medassist-wording-remediation-report.md) | `feat/medassist-jayanth` | Independently freeze new fictional evaluation before measurement; no tuning or generalized accuracy claim. |
+| 3. Conversational NLP and evidence | Prompt 1 final scoped implementation complete; 718 checks, 20/20 known browser journeys and 20 actual exports. | Known L7 97/110; no wrong states/unexpected IDs. One ambiguous HA miss, three clarification differences, nine retention-only scorer limitations; accepted-history/UNKNOWN replacement still needs restart. | [Conversation](../src/features/medassist-conversation), [final scoped report](evaluation/medassist-final-scope-report.md) | `feat/medassist-jayanth` | READY FOR EVALUATION; Prompt 2 must independently freeze new fictional material and decide closure without tuning. |
 | 4. Emergency safety and Model B | Provisional safety boundary and evaluation evidence exist. | Emergency branch failed qualification. Expanded rules remain isolated. Model B planned, untrained and disabled. | [Safety source](../src/features/medassist-safety), [qualification and restrictions](architecture/MEDASSIST_MASTER_BLUEPRINT.md) | `codex/medassist-emergency-recognition` at `db1274a` | Obtain a separate authorized safety review with independent acceptance criteria. Keep clinical guidance and Model B disabled. |
 | 5. Frontend and backend integration | React/Vite and Express verified on Windows. Scripted mode runs in the existing conversation. The private research proxy correctly reports its disabled state. | Genuine adapter readiness and provider qualification remain open. | [Development guide](development.md), [account/database setup](../database/README.md), [proxy](../server/model-a-demo.ts) | `feat/medassist-jayanth` | Verify authenticated research integration after the private runtime is established. |
 | 6. Academic demonstration and preview | Local scripted submission, confirmation, follow-up, summary and JSON export verified. Hot update and restart passed. | Original cloud interactive review bundle remains unavailable. | [Conversation guide](../src/features/medassist-conversation/README.md), [dated verification](history/2026-11-05.md) | `feat/medassist-jayanth` | Match the original patch to its baseline, classify differences and review the demo. |

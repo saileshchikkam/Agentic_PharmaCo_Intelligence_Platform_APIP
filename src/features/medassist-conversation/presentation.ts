@@ -16,19 +16,21 @@ export function readSourceSex(text: string): Context['source_sex'] | null {
 export const contextUnknown = (text: string) => ['unknown', 'not sure', "i don't know", 'unsupported', 'other', 'prefer not to say'].includes(text.trim().toLowerCase());
 export const requestsNavigation = (text: string) => /^(?:please\s+)?(?:find (?:care|hospitals?|healthcare)|show (?:nearby )?hospitals?|help me find care)[.!]?$/i.test(text.trim());
 export function clarifyWording(text: string): string | null {
+  if (/\bHA\b/i.test(text))
+    return 'What does “HA” mean here? Please spell out the symptom or describe the sensation; I will not choose an abbreviation meaning.';
   if (/\b(?:stomach|tummy|belly)\b.*\b(?:weird|strange|funny|gas)\b/i.test(text))
     return 'What does the stomach sensation feel like, and is it happening now? I will keep your wording without assuming pain or nausea.';
   if (/\b(?:something.*head|head.*(?:heavy|strange|weird)|\bHA\b)/i.test(text))
     return 'What do you mean by that head description? Describe the sensation and whether it is happening now; I will not assume pain or dizziness.';
   if (/\b(?:tired|sleep|washed out|off.colour)\b/i.test(text))
     return 'What else is the fictional person experiencing now? I kept the tiredness or sleep description, but this limited interview cannot record it as a supported symptom.';
-  if (/\b(?:body (?:is )?not okay|feeling funny|feel(?:ing)? strange|body is not okay)\b/i.test(text))
+  if (/\b(?:body (?:is )?not okay|feel(?:ing)? funny|feel(?:ing)? strange|body is not okay)\b/i.test(text))
     return 'What feels different, where do you notice it, and is it happening now? Describe one detail; I will not guess a symptom.';
   if (/\b(?:giddy|head spinning|room is spinning|woozy)\b/i.test(text))
     return 'What does the sensation feel like: slightly dizzy or lightheaded, spinning, or something else? I will not choose a meaning for you.';
   if (/\bbody (?:is )?hot\b/i.test(text))
     return 'Does the fictional person feel feverish, or are they describing warmth without feeling ill?';
-  if (/\b(?:tired tired|not (?:feeling )?right|body no good|not able to explain)\b/i.test(text))
+  if (/\b(?:tired tired|not (?:feeling )?right|body no good|not able to (?:explain|describe))\b/i.test(text))
     return 'What is the fictional person experiencing, and where do they notice it? Describe one detail in your own words.';
   if (/\b(?:breathless|shortness of breath|difficulty breathing)\b/i.test(text))
     return 'I kept the breathing description. This scripted interview cannot categorize it. Emergency help is available independently.';
@@ -36,7 +38,7 @@ export function clarifyWording(text: string): string | null {
 }
 
 export function clarifyPain(quote: string): string | null {
-  if (/\b(?:head|hed|throat|body|stomach|abdomen|belly|back|shoulder|arm|elbow|leg|knee|foot|feet|chest)\b/i.test(quote)) return null;
+  if (/\b(?:head|headache|headach|hed|tummy|throat|body|stomach|abdomen|belly|back|shoulder|arm|elbow|leg|knee|foot|feet|chest)\b/i.test(quote)) return null;
   return 'Where does the fictional person notice the pain, and what does it feel like? Your general pain proposal stays pending until you confirm.';
 }
 export function assessmentStatus({ started, finished, unavailable }: { started: boolean; finished: boolean; unavailable: boolean }) {

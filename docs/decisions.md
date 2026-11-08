@@ -2,6 +2,10 @@
 
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
+## Engineering record — clear exception scope and accepted-history limits, 2026-11-08
+
+Prompt 1 authorizes a bounded linguistic exception grammar shared by parser/validator, literal discourse retention without extra symptom questions, explicit speaker switches and neutral abbreviation clarification. General pain stays one existing field. Accepted UNKNOWN or other accepted answers remain immutable in the append-only interview; a later user-confirmed difference blocks use, with explicit clarified restart. An in-session accepted-value revision needs separately designed versioned reconciliation/replay and is not added here. Frozen evaluations retain their labels; one old development blanket-abstention expectation is explicitly revised for the authorized clear exception behavior. [Evidence and limits](evaluation/medassist-final-scope-report.md).
+
 ## Engineering record — bounded fictional wording, 2026-11-08
 
 Match additional allowlisted words and complete supported phrases directly against original source text rather than rewriting it or selecting nearest ontology IDs. All additions pass the same semantic/context/confirmation and evidence-state contracts. Ambiguous abbreviations, pain exceptions and unsupported fatigue/sleep/colored-discharge wording retain clarification/abstention; scoring-only retention findings remain separate. Repeated L3/L5/L7 scores are known-case development comparisons. A genuinely new fixed evaluation is recommended before further implementation; no provider, ontology or safety expansion is authorized by a coverage score. [Evidence](evaluation/medassist-wording-remediation-report.md).

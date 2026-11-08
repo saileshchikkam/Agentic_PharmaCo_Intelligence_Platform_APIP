@@ -1,0 +1,317 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "9fa8f94b-fa98-4840-890f-a9b5b0129be7",
+      "text": "No pain apart from an aching head and loose motions.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "No pain apart from an aching head",
+          "start": 0,
+          "end": 33,
+          "context": "current",
+          "evidence_id": "E_53",
+          "concept": "concept.E_53",
+          "normalized": "pain",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "loose motions",
+          "start": 38,
+          "end": 51,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "location",
+          "quote": "head",
+          "start": 29,
+          "end": 33,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    },
+    {
+      "request_id": "7c8192c4-157e-4c7d-a19e-d358cba09ba2",
+      "text": "That pain has stopped now.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "That pain has stopped now",
+          "start": 0,
+          "end": 25,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_53",
+          "concept": "concept.E_53",
+          "normalized": "pain",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 14,
+          "end": 21,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false
+    },
+    {
+      "request_id": "f09733bb-48bd-450b-9f6f-a5255bdd11fe",
+      "text": "My head feels strange.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My head feels strange",
+          "start": 0,
+          "end": 21,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "location",
+          "quote": "head",
+          "start": 3,
+          "end": 7,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "205f6ce7-3407-4456-b0e0-7cf5bc0b3182",
+      "text": "My left elbow hurts.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My left elbow hurts",
+          "start": 0,
+          "end": 19,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [
+    {
+      "request_id": "7c8192c4-157e-4c7d-a19e-d358cba09ba2",
+      "text": "That pain has stopped now.",
+      "quote": "That pain has stopped now",
+      "evidence_id": "E_53",
+      "kind": "reported_resolution",
+      "status": "unresolved",
+      "accepted_affected": false,
+      "held_sources": [
+        {
+          "requestId": "9fa8f94b-fa98-4840-890f-a9b5b0129be7",
+          "proposal": {
+            "schema_version": "medassist.natural-extraction.v1",
+            "observations": [
+              {
+                "evidence_id": "E_53",
+                "quote": "No pain apart from an aching head",
+                "state": "confirmed",
+                "value": true
+              },
+              {
+                "evidence_id": "E_51",
+                "quote": "loose motions",
+                "state": "confirmed",
+                "value": true
+              }
+            ],
+            "unmapped": [
+              {
+                "quote": "No pain apart from an aching head",
+                "kind": "unsupported"
+              }
+            ],
+            "instruction_attempt": false
+          }
+        }
+      ]
+    }
+  ],
+  "excluded_from_current": [
+    "E_53"
+  ],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_51",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_201",
+          "state": "unknown",
+          "value": null
+        },
+        "disclosures": []
+      },
+      {
+        "answer": {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [
+    {
+      "concept": "initial:feels head strange",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    },
+    {
+      "concept": "initial:elbow hurts left",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    }
+  ],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "No pain apart from an aching head and loose motions.",
+    "That pain has stopped now.",
+    "My head feels strange.",
+    "My left elbow hurts.",
+    "F",
+    "Not sure",
+    "No",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "loose motions",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "No pain apart from an aching head",
+          "kind": "unsupported"
+        }
+      ],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "No pain apart from an aching head",
+    "My head feels strange",
+    "My left elbow hurts"
+  ],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 2
+}

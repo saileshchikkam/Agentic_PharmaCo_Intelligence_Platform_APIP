@@ -179,7 +179,7 @@ const wording: Record<string,RegExp> = {
  E_51: /\bdiarrhoe\b|\bno runs\b/i,
  E_94: /\bchils\b/i,
  E_76: /\b(?:liteheaded|light-headed|light headed i am)\b/i,
- E_53: /\b(?:head|hed|tummy)\s+(?:(?:is|does|not|has|been)\s+){0,4}hurt(?:s|ing)?\b/i,
+ E_53: /\b(?:head|hed|tummy)\s+(?:(?:is|does|not|has|been)\s+){0,4}hurt(?:s|ing)?\b|\bhead aches\b|\baching back\b|\bpainful (?:head|back|knee|shoulder|arm|leg|foot|stomach|belly|tummy)\b|\bonly my (?:knee|shoulder|arm|leg|foot) hurts\b/i,
  E_181: /\bnose\s+(?:(?:is|not|getting|feels?)\s+){0,4}(?:blocked|stufffed)\b|\bnose\s+(?:(?:is|not|won['’]t|will|stop)\s+){0,4}(?:leaking water|dripping clear water)\b/i,
 };
 export const languageConcepts = Object.entries(baseAnchors).map(([evidence_id, definition]) => {

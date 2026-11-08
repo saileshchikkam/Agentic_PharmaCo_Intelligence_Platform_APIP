@@ -1,4 +1,5 @@
 import { languageConcepts } from './concepts';
+import { hasPainException } from './pain-scope';
 
 export type ReportContext = 'current' | 'historical_or_resolved' | 'other_person' | 'hypothetical' | 'suspected_condition' | 'non_asserted';
 export const uncertaintyCue = /\b(?:not sure|unsure|uncertain|unknown|maybe|might|may (?:have|be)|perhaps|possible|possibly|could be|don['’]t know|do not know|think i|i think|not certain|wonder (?:if|whether)|doubting whether|hard to tell|can(?:not|['’]t) (?:tell|decide)|my guess)\b/i;
@@ -49,11 +50,11 @@ export function reportClauses(text:string) {
         continue;
       }
       if(/\bmy (?:(?:fictional|older|younger|elder|little|best|work)\s+){0,2}(?:brother|sister|mother|father|friend|son|daughter|child|wife|husband|partner|aunt|uncle|colleague|coworker|neighbour|neighbor)\b|\b(?:he|she|they)\b/.test(normalized))subject='other';
-      if(/^(?:actually\s+)?i\b|\bthe fictional (?:person|patient)\b/.test(normalized))subject='target';
+      if(/^(?:actually\s+)?(?:(?:right )?now\s+|only\s+)?i\b|\bthe fictional (?:person|patient)\b/.test(normalized))subject='target';
       if(/\bmy (?:head|hed|tummy|stomach|back|lower back|belly|throat|nose|eyes|feet)\b/.test(normalized))subject='target';
       const reported = /\b(?:someone|a friend|my \w+|he|she|they) (?:told me|texted me|said|wrote)\b/i.test(quote);
       const boundary=sentence[0].slice(0,part.index).match(/(\b(?:and|but|plus)\b|,)\s*$/i)?.[1]?.toLowerCase();
-      const freshSubject = /^(?:(?:right )?now\s+)?(?:i|my (?:head|stomach|back|throat|nose)|the fictional (?:person|patient))\b/i.test(normalized);
+      const freshSubject = /^(?:(?:right )?now\s+|only\s+)?(?:i|my (?:head|stomach|back|throat|nose)|the fictional (?:person|patient))\b/i.test(normalized);
       if (boundary === 'but' || (boundary === 'and' && freshSubject && !quoted &&
         result.length > firstClause && quotations.some(match => match.index! + match[0].length <= start &&
           match.index! >= result[firstClause].start))) reportedSpeech = false;
@@ -80,7 +81,8 @@ export function reportClauses(text:string) {
       const uncertain=uncertaintyCue.test(normalized);
       const inheritedUncertainty: boolean = sharedUncertainty && boundary === 'and' && !uncertain
         && !/^(?:i|my|the fictional person|definitely|certainly)\b/.test(normalized);
-      const context:ReportContext=quoted || inheritedUncertainty || ambiguousList || /\b(?:read about|article|website|definition|the word|tell me about|what is|can you explain|not free of|not without|wouldn't say|apart from|except for|rather than)\b/.test(normalized)?'non_asserted'
+      const context:ReportContext=quoted || inheritedUncertainty || ambiguousList || /\b(?:read about|article|website|definition|the word|tell me about|what is|can you explain|not free of|not without|wouldn't say|rather than)\b/.test(normalized)
+        || /\b(?:apart from|except|other than)\b/.test(normalized)&&!hasPainException(normalized)?'non_asserted'
         :hypothetical || future?'hypothetical'
         : /\b(?:cancer|tumou?r|pneumonia|heart attack)\b/.test(normalized)?'suspected_condition'
         : subject==='other'?'other_person':historical?'historical_or_resolved':'current';
@@ -94,7 +96,7 @@ export function reportClauses(text:string) {
         const corrected = previous && /^sorry$/i.test(previous.quote) ? result.at(-2) : previous;
         if (corrected?.context === 'current') corrected.context = 'other_person';
       }
-      if (negationCue.test(normalized) && !negatedResolution(normalized)) negationStart = start;
+      if (negationCue.test(normalized) && !negatedResolution(normalized) && !hasPainException(normalized)) negationStart = start;
       if (context !== 'current' || uncertain) negationStart = null;
       const negative = negationStart !== null;
       sharedUncertainty = context === 'current' && uncertain || inheritedUncertainty;

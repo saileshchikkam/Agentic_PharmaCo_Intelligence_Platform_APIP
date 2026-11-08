@@ -29,7 +29,9 @@ const cases: [string, string[]][] = [
   ['I feel feverish. Wait, I take that back.', ['91!']],
   ['My throat is sore. Sorry, that was my sister.', []],
   ['I would not say I am not feverish.', []],
-  ['No pain apart from an aching back.', []],
+  // Prompt 1 authorizes clear exception scope; the old blanket abstention is
+  // replaced by this prospective-tested general-pain expectation. Frozen evals stay intact.
+  ['No pain apart from an aching back.', ['53+']],
   ['I feel nauseated plus an odd taste.', ['148+']],
   ['I am still answering the previous question, and my elbow hurts.', []],
 ];

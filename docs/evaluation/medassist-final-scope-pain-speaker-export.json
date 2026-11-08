@@ -1,0 +1,197 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "4a384403-b002-4040-a036-3196b47840ae",
+      "text": "No pain apart from an aching head. My daughter has fever, but I have a cough.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "No pain apart from an aching head",
+          "start": 0,
+          "end": 33,
+          "context": "current",
+          "evidence_id": "E_53",
+          "concept": "concept.E_53",
+          "normalized": "pain",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "My daughter has fever",
+          "start": 35,
+          "end": 56,
+          "context": "other_person",
+          "evidence_id": "E_91",
+          "concept": "concept.E_91",
+          "normalized": "fever",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "I have a cough",
+          "start": 62,
+          "end": 76,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "location",
+          "quote": "head",
+          "start": 29,
+          "end": 33,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_53",
+        "E_201"
+      ]
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_53",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_53",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_53",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [
+      {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": true
+      }
+    ],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_91",
+          "state": "confirmed",
+          "value": false
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "No pain apart from an aching head. My daughter has fever, but I have a cough.",
+    "F",
+    "No",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "quote": "No pain apart from an aching head",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_201",
+          "quote": "I have a cough",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "No pain apart from an aching head",
+          "kind": "unsupported"
+        },
+        {
+          "quote": "My daughter has fever",
+          "kind": "ambiguous"
+        }
+      ],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "No pain apart from an aching head",
+    "My daughter has fever"
+  ],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 1
+}

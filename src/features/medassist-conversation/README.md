@@ -1,5 +1,11 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Prompt 1 final scoped remediation — 2026-11-08
+
+`pain-scope.ts` supplies a bounded source-literal exception grammar shared by interpretation and validation. Clear no-pain-except wording can propose existing general pain; uncertain/unsupported exceptions abstain. Explicit now-I/only-I switches preserve speaker distinctions. A bounded discourse tail after a supported current claim remains narrative without another symptom question. Already supplied tummy/headache anatomy is recognized, vague walking/description prompts improve, and HA asks for expansion without assuming a head meaning.
+
+Accepted evidence, UNKNOWN and context-update contracts below remain unchanged: a later different accepted value blocks use and requires clarified restart; pending holds can be explicitly reconciled. No accepted-history editor, new field, provider or clinical functionality is added. [Full report](../../../docs/evaluation/medassist-final-scope-report.md): 718 tests, 20/20 known browser journeys and 20 actual downloads; known L3/L5/L7 34/34, 80/80, 97/110. READY FOR EVALUATION under Prompt 2, which has not started. Thirteen L7 mismatches and all safety/runtime qualification limits remain disclosed.
+
 ## Post-L7 wording and clarification — 2026-11-08
 
 Bounded whole-token spellings and grammar in `concepts.ts` now recognize additional fictional descriptions while matching the original text directly. No replacement narrative, unrestricted fuzzy matching, new ontology ID or provider runs. Shared context gates preserve polarity, uncertainty, history, attribution, quotes, retractions and resolution. Explicit “just [symptom]” can establish an independent mixed clause; software/transport runs do not establish diarrhea. Vague stomach/head/body descriptions clarify; tiredness/sleep remain outside the script. Higher-priority context notices still apply.

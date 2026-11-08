@@ -1,0 +1,144 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "29bd8e91-d6b4-4b88-ac61-42f545e1d376",
+      "text": "My wrist is clicking.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My wrist is clicking",
+          "start": 0,
+          "end": 20,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "d1e83e6d-f91e-4b2c-94e8-d1be1832d40f",
+      "text": "A cough is bothering me during this shift.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "A cough is bothering me during this shift",
+          "start": 0,
+          "end": 41,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_201"
+      ]
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_201",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_201",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_201",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [
+    {
+      "concept": "initial:clicking wrist",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    }
+  ],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "My wrist is clicking.",
+    "A cough is bothering me during this shift.",
+    "F",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "A cough is bothering me during this shift",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "My wrist is clicking"
+  ],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 0
+}

@@ -103,11 +103,16 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
       evidence.set(concept.evidence_id,[...(evidence.get(concept.evidence_id)??[]),observation]);
     }
     if(!concepts.length){
-      const context=clause.context==='current'?'unsupported_or_ambiguous':clause.context;
+      // Literal discourse tails supply no extra symptom. Keep them as narrative,
+      // and only recognize them after a supported current claim in this sentence.
+      const discourse=clause.context==='current'&&previous?.context==='current'&&evidence.size>0
+        && !/[.!?;]/.test(text.slice(previous.end,clause.start))
+        && /^(?:(?:all|both) (?:now|today)|(?:definitely|certainly) happening(?: now)?|again(?: (?:today|now))?(?: only)?|remains? present(?: right)? now|including me|yaar|though nothing has come up|nothing hurts)$/i.test(clause.quote);
+      const context=clause.context==='current'?(discourse?'current':'unsupported_or_ambiguous'):clause.context;
       annotations.push(annotate(text,clause.quote,context,null,null,clause.start));
       const unsupportedDenial = clause.negative && /\b(?:vomit(?:ing|ed)?|throw(?:ing)? up)\b/i.test(clause.quote)
         || /^not my (?:throat|nose|head|stomach|back)$/i.test(clause.quote);
-      output.unmapped.push({quote:clause.quote,kind:unsupportedDenial?'unsupported':'ambiguous'});
+      output.unmapped.push({quote:clause.quote,kind:unsupportedDenial||discourse?'unsupported':'ambiguous'});
     }
     // Keep the complete source clause as unstructured context, including anatomy/time,
     // rather than inventing encoded anatomy, dates, frequency or severity scores.

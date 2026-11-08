@@ -1,0 +1,20 @@
+{
+ "purpose":"Prospective residual-clause contrasts before clarification changes; discourse is retained, never converted into another observation",
+ "cases":[
+  {"text":"I have chills, both now.","clarify":false},
+  {"text":"Cough and nausea, all today.","clarify":false},
+  {"text":"I have a cough, definitely happening now.","clarify":false},
+  {"text":"I have chills and remains present now.","clarify":false},
+  {"text":"Nose blocked, yaar.","clarify":false},
+  {"text":"We both have nausea, including me.","clarify":false},
+  {"text":"Cough coming again and again now.","clarify":false},
+  {"text":"I feel ready to puke, though nothing has come up.","clarify":false},
+  {"text":"I have a headache but no chills or cough.","clarify":false},
+  {"text":"I have a cough and an odd elbow sensation.","clarify":true},
+  {"text":"I have a cough, something else is happening.","clarify":true},
+  {"text":"Maybe chills, someone else is ill.","clarify":true},
+  {"text":"All now.","clarify":true},
+  {"text":"My brother has a cough, including me perhaps.","clarify":true},
+  {"text":"Maybe either cough or chills.","clarify":true}
+ ]
+}

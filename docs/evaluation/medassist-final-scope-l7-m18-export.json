@@ -1,0 +1,135 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "c96ee10f-aa53-4277-b080-bde5d8298e12",
+      "text": "I feel nauseated during class.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I feel nauseated during class",
+          "start": 0,
+          "end": 29,
+          "context": "current",
+          "evidence_id": "E_148",
+          "concept": "concept.E_148",
+          "normalized": "nausea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_148"
+      ]
+    },
+    {
+      "request_id": "f6fbedff-b569-4b96-a023-129d19182dd2",
+      "text": "I have nausea during class.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have nausea during class",
+          "start": 0,
+          "end": 26,
+          "context": "current",
+          "evidence_id": "E_148",
+          "concept": "concept.E_148",
+          "normalized": "nausea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_148",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_148",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_148",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "I feel nauseated during class.",
+    "I have nausea during class.",
+    "F",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "quote": "I feel nauseated during class",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 0
+}

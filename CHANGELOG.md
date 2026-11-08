@@ -1,5 +1,10 @@
 # Changelog
 
+## MedAssist Prompt 1 final scoped Stage 3 remediation — 2026-11-08
+
+- Interpret clear general-pain exceptions, reduce needless discourse/anatomy clarification, retain explicit speaker switches and ask for HA expansion without choosing its meaning.
+- Preserve accepted-history/UNKNOWN and stale-evidence safeguards; 718 tests, all 20 known L7 browser journeys and 20 actual downloads verified. Known L3/L5/L7: 34/34, 80/80, 97/110. [Full scope, remaining failures and evaluation readiness](docs/evaluation/medassist-final-scope-report.md)
+
 ## MedAssist post-L7 bounded English coverage — 2026-11-08
 
 - Recognize additional allowlisted spelling, grammar and colloquial symptom descriptions, clarify vague wording and exclude a software-runs collision without expanding the nine-field script.

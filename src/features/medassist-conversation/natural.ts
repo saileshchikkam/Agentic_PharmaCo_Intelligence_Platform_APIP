@@ -1,5 +1,6 @@
 import { anchors, labelIsSupported } from './concepts';
 import { correctionCue, negationCue, negatedResolution, reportClauses, uncertaintyCue } from './language-context';
+import { hasPainException } from './pain-scope';
 /** Conversational transport and proposals, separate from the frozen research API. */
 import { readDemoResult, readRequest, type Answer, type Context, type DemoResult, type Question } from '../model-a-research/contracts';
 export type Definition = {
@@ -170,7 +171,7 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
                 return reject('SITE_SPECIFIC_PAIN_DENIAL');
             const uncertain = uncertaintyCue.test(item.quote);
             // Broad negation/contradiction checks fail closed; explicit confirmation still required.
-            const negative = negationCue.test(item.quote) && !negatedResolution(item.quote)
+            const negative = negationCue.test(item.quote) && !negatedResolution(item.quote) && !(d.evidence_id==='E_53'&&hasPainException(item.quote))
                 || d.evidence_id==='E_66'&&/\b(?:can breathe normally|breathing normally)\b/i.test(item.quote);
             if (uncertain || item.value === true && negative
                 || item.value === false && !negative && !/^\s*no[.!]?\s*$/i.test(item.quote))

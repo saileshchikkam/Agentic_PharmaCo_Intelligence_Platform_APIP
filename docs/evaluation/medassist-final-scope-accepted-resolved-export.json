@@ -1,0 +1,245 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "5b4fdf26-7db9-4e7e-a516-d411b8963e09",
+      "text": "No pain apart from an aching head and I have chills.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "No pain apart from an aching head",
+          "start": 0,
+          "end": 33,
+          "context": "current",
+          "evidence_id": "E_53",
+          "concept": "concept.E_53",
+          "normalized": "pain",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "I have chills",
+          "start": 38,
+          "end": 51,
+          "context": "current",
+          "evidence_id": "E_94",
+          "concept": "concept.E_94",
+          "normalized": "chills",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "location",
+          "quote": "head",
+          "start": 29,
+          "end": 33,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_53",
+        "E_94"
+      ]
+    },
+    {
+      "request_id": "a713b0e9-6085-4d57-abc3-d46de0fcd450",
+      "text": "I feel nauseated.",
+      "question_id": "E_201",
+      "annotations": [
+        {
+          "quote": "I feel nauseated",
+          "start": 0,
+          "end": 16,
+          "context": "current",
+          "evidence_id": "E_148",
+          "concept": "concept.E_148",
+          "normalized": "nausea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "unrelated",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "72a69af5-25c0-4262-b97d-67e91a63296a",
+      "text": "The pain has stopped now.",
+      "question_id": "E_201",
+      "annotations": [
+        {
+          "quote": "The pain has stopped now",
+          "start": 0,
+          "end": 24,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_53",
+          "concept": "concept.E_53",
+          "normalized": "pain",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 13,
+          "end": 20,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "unrelated",
+      "confirmed": false
+    }
+  ],
+  "question_clarifications": [
+    {
+      "question_id": "E_201",
+      "attempts": 1
+    }
+  ],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_94",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_53",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_94",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": {
+    "sources": [
+      {
+        "requestId": "a713b0e9-6085-4d57-abc3-d46de0fcd450",
+        "proposal": {
+          "schema_version": "medassist.natural-extraction.v1",
+          "observations": [
+            {
+              "evidence_id": "E_148",
+              "quote": "I feel nauseated",
+              "state": "confirmed",
+              "value": true
+            }
+          ],
+          "unmapped": [],
+          "instruction_attempt": false
+        }
+      }
+    ]
+  },
+  "context_updates": [
+    {
+      "request_id": "72a69af5-25c0-4262-b97d-67e91a63296a",
+      "text": "The pain has stopped now.",
+      "quote": "The pain has stopped now",
+      "evidence_id": "E_53",
+      "kind": "reported_resolution",
+      "status": "unresolved",
+      "accepted_affected": true,
+      "held_sources": []
+    }
+  ],
+  "excluded_from_current": [
+    "E_53"
+  ],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_53",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [
+      {
+        "evidence_id": "E_94",
+        "state": "confirmed",
+        "value": true
+      }
+    ],
+    "turns": [],
+    "stop": "unresolved_contradiction"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "blocked_context_update",
+  "narratives": [
+    "No pain apart from an aching head and I have chills.",
+    "F",
+    "I feel nauseated.",
+    "The pain has stopped now."
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_53",
+          "quote": "No pain apart from an aching head",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_94",
+          "quote": "I have chills",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "No pain apart from an aching head",
+          "kind": "unsupported"
+        }
+      ],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "No pain apart from an aching head"
+  ],
+  "unresolved_conflict": true,
+  "routine_questions_answered": 0
+}

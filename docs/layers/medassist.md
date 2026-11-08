@@ -1,5 +1,7 @@
 # MedAssist AI
 
+**2026-11-08 Prompt 1:** [final scoped language/continuity verification](../evaluation/medassist-final-scope-report.md) records 718 checks, 20 known browser journeys and 20 downloaded exports. Clear general-pain exceptions and clarification improve; accepted UNKNOWN/history stay immutable and conflicting changes require restart. Stage 3 is ready for a separately authorized fresh evaluation, not independently qualified.
+
 **2026-11-08 bounded wording remediation:** the [current fictional coverage report](../evaluation/medassist-wording-remediation-report.md) records allowlisted English variants, clarification and unchanged current/history/pending evidence contracts. 629 checks, 20/20 known browser journeys and 20 actual downloads passed. Known L7 is 87/110; broader English and clinical qualification remain open.
 
 **2026-11-06 scripted preview:** [English language and evidence handling](../../src/features/medassist-conversation/README.md#scripted-english-evidence-handling--2026-11-06) covers colloquial proposals and bounded clarification in the existing development conversation. Independent language evaluation remains open.

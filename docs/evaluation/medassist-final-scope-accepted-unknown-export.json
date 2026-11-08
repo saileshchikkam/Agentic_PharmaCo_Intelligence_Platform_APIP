@@ -1,0 +1,189 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "960d7c06-1531-488f-a281-2f4e7e59298e",
+      "text": "I have nausea and maybe a cough.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have nausea",
+          "start": 0,
+          "end": 13,
+          "context": "current",
+          "evidence_id": "E_148",
+          "concept": "concept.E_148",
+          "normalized": "nausea",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "maybe a cough",
+          "start": 18,
+          "end": 31,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_148",
+        "E_201"
+      ]
+    },
+    {
+      "request_id": "b9802df8-f033-4dd5-935b-76849425ff23",
+      "text": "Now I have a cough.",
+      "question_id": "E_91",
+      "annotations": [
+        {
+          "quote": "Now I have a cough",
+          "start": 0,
+          "end": 18,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "unrelated",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_201"
+      ]
+    }
+  ],
+  "question_clarifications": [
+    {
+      "question_id": "E_91",
+      "attempts": 1
+    }
+  ],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_148",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_148",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_148",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [
+      {
+        "evidence_id": "E_201",
+        "state": "unknown",
+        "value": null
+      }
+    ],
+    "turns": [],
+    "stop": "unresolved_contradiction"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "blocked_unresolved_conflict",
+  "narratives": [
+    "I have nausea and maybe a cough.",
+    "F",
+    "Now I have a cough.",
+    "Leave conflicting information unresolved"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_148",
+          "quote": "I have nausea",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_201",
+          "quote": "maybe a cough",
+          "state": "unknown",
+          "value": null
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    },
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "Now I have a cough",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": true,
+  "routine_questions_answered": 0
+}
