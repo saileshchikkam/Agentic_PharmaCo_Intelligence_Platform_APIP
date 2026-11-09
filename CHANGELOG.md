@@ -1,5 +1,12 @@
 # Changelog
 
+## Material Design 3 public homepage - 2026-11-09
+
+- Reworked the homepage body and footer with a fictional reporting walkthrough, prototype and planned capability labels, patient and specialist journeys, and consent and withdrawal information.
+- Reused APIP's Material Web components and appearance system. The shared header and other routes retain their existing layout and behavior.
+
+
+
 ## Priority 0 credential remediation and hosted browser sharing diagnostics - 2026-11-09
 
 - Remediated database credentials leak by replacing hardcoded connection strings with fail-closed user environment variable APIP_ADR_DATABASE_URL in verify-hosted-phase3cb-workflow.ts.

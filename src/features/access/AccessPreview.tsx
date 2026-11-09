@@ -1,4 +1,4 @@
-import { ShieldPlus } from 'lucide-react';
+import { LandingBody, LandingFooter } from './LandingV2';
 import { AccountSignIn } from '../account/AccountSignIn';
 import { ProfilePage } from '../account/ProfilePage';
 import { SharedProfile } from '../account/SharedProfile';
@@ -193,16 +193,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''} ${isSignIn ? 'access-main-sign-in' : ''}`}>
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
-      {route.screen === 'home' && <section className="access-welcome" aria-labelledby="access-title">
-        <div className="access-welcome-symbol" aria-hidden="true"><ShieldPlus size={40} /></div>
-        <p className="access-eyebrow">Agentic Pharma Co-intelligence Platform</p>
-        <h1 id="access-title" tabIndex={-1}>Your experience.<br /><span>Better understood.</span></h1>
-        <p className="access-welcome-copy">A simpler space for health questions, medicine experiences,<br className="access-desktop-break" /> and the people who review them.</p>
-        <M3Button variant="filled" trailingIcon="arrow_forward" onClick={() => navigatePreview(account.user ? '/patient/home' : '/sign-in/patient')}>{account.user ? 'Open dashboard' : 'Log in'}</M3Button>
-        {!account.user && <p><a href="#/sign-up/patient">Sign up</a></p>}
-        <div className="access-welcome-links"><a href="#/patient/home" onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a><span aria-hidden="true">·</span><a href="#/sign-in/specialist" onClick={(event) => followPreviewLink(event, '/sign-in/specialist')}>For specialists</a></div>
-        {import.meta.env.DEV && <p><a href="#/preview/medassist-conversation" onClick={event => followPreviewLink(event, '/preview/medassist-conversation')}>Try the fictional MedAssist conversation</a></p>}
-      </section>}
+      {route.screen === 'home' && <LandingBody signedIn={Boolean(account.user)} />}
 
       {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
         <div className="patient-home-heading">
@@ -284,8 +275,8 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       </div>
     </main>
 
-    <PreviewFooter>
+    {route.screen === 'home' ? <LandingFooter signedIn={Boolean(account.user)} /> : <PreviewFooter>
       {import.meta.env.DEV && <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>}
-    </PreviewFooter>
+    </PreviewFooter>}
   </div>;
 }
