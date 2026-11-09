@@ -153,3 +153,36 @@ Before submitting or handing off work, both Codex and Antigravity must execute a
 
 4. **Update Documentation in the Same Commit**:
    Update `docs/history/YYYY-MM-DD.md`, `CHANGELOG.md`, and this handoff document with exact SHAs, test results, and next actions.
+
+---
+
+## 8. Specialist Profile Configuration & `SPECIALIST_SETUP_REQUIRED` Resolution
+
+The `SPECIALIST_SETUP_REQUIRED` error (HTTP 503) occurs when the application queries `/api/account/capabilities` under the local SQLite backend:
+- **Local Development Mode**: `server/local-account.ts` provides offline SQLite storage for patient accounts and drafts. It intentionally does not implement PostgreSQL specialist identity tables (`apip_identity` schema) and returns `503 { error: 'SPECIALIST_SETUP_REQUIRED' }`.
+- **Cloud Hosted Mode**: When `APIP_ACCOUNT_MODE='cloud'` and `APIP_ADR_DATABASE_URL` are configured, `server/cloud-account.ts` activates `postgresSpecialistRepository`. This queries the hosted Supabase PostgreSQL database where the `apip_identity` schema is installed and operational.
+- **Verification**: Querying specialist identity for approved subject `da312f4f-cbcf-400b-8a81-b0e13f7efc42` against hosted Supabase returns `applicationState: 'APPROVED'`, `authorizationVersion: '4'`, and `specialistWorkspace: true` with zero blockers.
+
+---
+
+## 9. Local vs Supabase-Hosted Authentication Architecture
+
+| Dimension | Local Account Architecture | Supabase Cloud Architecture |
+| :--- | :--- | :--- |
+| **Storage Engine** | SQLite WAL file (`accounts.sqlite`) | Hosted PostgreSQL pooler (AWS ap-south-1) |
+| **Authentication Service** | In-process PBKDF2/scrypt cookies (`apip.local.session`) | Supabase GoTrue PKCE (`localStorage: apip.cloud.auth`) |
+| **Supported Workspaces** | Patient drafts, guided reporting | Patient cases, Specialist identity, Consented sharing |
+| **Production Enforcement** | Strictly rejected in production (`NODE_ENV === 'production'`) | Standard production & hosted staging configuration |
+| **Browser Acceptance Status** | Fully operational for local development | Automated database gates **10/10 PASS**; browser sign-in **BLOCKED** on manual credential alignment (GoTrue `400 invalid_credentials`). |
+
+---
+
+## 10. Integration Promotion Assessment for PR #16
+
+- **Status**: **READY FOR OWNER-REVIEWED PROMOTION TO `main`**.
+- **Mergeability**: Clean, conflict-free mergeable PR targeting `origin/main`.
+- **Core Stability**: All 39 cumulative feature commits preserved in unbroken linear history.
+- **Visual Stability**: Material Design 3 Web UI, protected header, and responsive viewports (320px–1920px) verified in real Chrome.
+- **Security Stability**: Hardcoded credentials removed, password rotated, leak guard active (11/11 tests pass).
+- **MedAssist Safety**: All MedAssist branches and worktrees 100% untouched.
+- **Action**: Do not auto-merge; await explicit owner sign-off.
