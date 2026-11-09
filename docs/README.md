@@ -23,6 +23,7 @@ The [hospital requirements register](hospital-requirements.md) records the notes
 7. [Research and validation](research-and-validation.md): evidence, data rights, and evaluation.
 8. [History](history/README.md) and [changelog](../CHANGELOG.md): actual work and notable changes.
 9. [Automatic commit and sync](../scripts/README.md): checkout setup, task completion, checks, and failure recovery.
+10. [Codex & Antigravity handoff](collaboration/codex-antigravity-handoff.md): canonical collaboration baseline, environment variables, verification protocol, and operating rules.
 
 The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) preserves the product vision, current research-demo evidence, safety gates and delivery plan; planned clinical capabilities remain explicitly blocked pending their prerequisites.
 

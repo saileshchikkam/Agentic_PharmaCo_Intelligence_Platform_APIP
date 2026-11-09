@@ -1,5 +1,14 @@
 # Changelog
 
+## Master repository audit, safe branch consolidation, and shared development workflow - 2026-11-09
+
+- Audited 21 remote branches and 16 PRs; proved that PRs #6 through #14 are linear ancestors strictly preserved inside `codex/apip-landing-v2` (`faf5c8a`, PR #16).
+- Merged `origin/main` commit `b66ea03` ("Add diagram badge to README") cleanly into `codex/apip-landing-v2` with zero conflicts. Retargeted PR #16 to `main` as the consolidated integration PR.
+- Safely deleted 4 obsolete remote branches (`codex/apip-signal`, `feat/adr-1a-guided-reporting`, `feat/adr-1b-ui-foundation`, `codex/adr-phase3-master-blueprint`) after confirming zero unique unmerged work and resolved PR status.
+- Strictly preserved all MedAssist branches (`feat/medassist-jayanth`, `codex/medassist-v2-task5a-adapter`, `codex/medassist-emergency-recognition`) and all active worktrees.
+- Authored canonical collaboration handoff in `docs/collaboration/codex-antigravity-handoff.md` establishing permanent operating rules for OpenAI Codex and Google Antigravity.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), leak guard (11/11 pass), hosted database/PDF gates (10/10 pass), and full responsive M3 Web layout verification (12/12 combinations pass with byte-for-byte identical header).
+
 ## Material Design 3 public homepage - 2026-11-09
 
 - Reworked the homepage body and footer with a fictional reporting walkthrough, prototype and planned capability labels, patient and specialist journeys, and consent and withdrawal information.

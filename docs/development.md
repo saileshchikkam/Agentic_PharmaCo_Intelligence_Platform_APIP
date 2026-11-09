@@ -74,6 +74,8 @@ See the [documentation guide](README.md) for the ongoing maintenance workflow.
 
 The [repository workflow](../scripts/README.md) uses Node.js and Git without installing application dependencies. It is enabled locally in the current checkout; new clones need the documented installer. Codex commits its completed task files and documentation under the user's standing authorization, and the post-commit event pushes them to the matching origin branch.
 
+For shared development between OpenAI Codex and Google Antigravity, follow the [canonical collaboration handoff](collaboration/codex-antigravity-handoff.md) which defines the active integration baseline, environment variables, verification protocol, and operating rules.
+
 Check behavior before committing; the helper does not run or certify all application tests. It preserves unrelated work, refuses an existing staged index, requires a changed dated history entry, and reports pending sync on a failed push. It never force-pushes or rewrites history. Approval controls still apply; a permission/network/conflict failure must be reported rather than bypassed.
 
 ## Developer reference and appearance
