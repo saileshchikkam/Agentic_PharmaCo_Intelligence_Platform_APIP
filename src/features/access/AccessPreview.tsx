@@ -1,14 +1,13 @@
 import { LandingBody, LandingFooter } from './LandingV2';
-import { AccountSignIn } from '../account/AccountSignIn';
+import { APIPAuthDialog } from '../account/APIPAuthDialog';
 import { ProfilePage } from '../account/ProfilePage';
 import { SharedProfile } from '../account/SharedProfile';
 import { useAccount } from '../account/AccountProvider';
 import React, { useEffect, useRef, useState } from 'react';
-import type { MdTabs } from '@material/web/tabs/tabs';
-import { M3Button, M3Checkbox, M3TextField } from '../../components/material/core';
+import { M3Button } from '../../components/material/core';
 import { Appearance } from '../../design-system/appearance';
-import { followPreviewLink, goBackPreview, navigatePreview } from './navigation';
-import { Brand, PageNavigation, PreviewFooter, PreviewHeader } from './PreviewLayout';
+import { goBackPreview, navigatePreview } from './navigation';
+import { PageNavigation, PreviewFooter, PreviewHeader } from './PreviewLayout';
 
 const AdrWorkspace = React.lazy(() => import('../adr/guided/GuidedWorkspace')
   .then((module) => ({ default: module.GuidedWorkspace })));
@@ -18,7 +17,7 @@ const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview'
   .then((module) => ({ default: module.MedAssistPreview })));
 const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../medassist-conversation/MedAssistConversation')) : null;
 
-export type AccessRole = 'patient' | 'specialist' | 'developer';
+export type AccessRole = 'patient' | 'specialist';
 export type PatientTask = 'medassist' | 'adr-report';
 export type PreviewRoute =
   | { screen: 'specialist'; admin?: boolean; id?: string; view?: 'entry' | 'profile' | 'home' | 'reviews' }
@@ -32,28 +31,23 @@ export type PreviewRoute =
   | { screen: 'sign-in'; role: AccessRole; requestedTask?: PatientTask; creating?: boolean; forgotPassword?: boolean; resetPassword?: boolean }
   | { screen: 'developer-reference' };
 
-const roles: AccessRole[] = ['patient', 'specialist', 'developer'];
-const roleCopy = {
-  patient: { label: 'Patient', icon: 'person', title: 'Your experience matters.', description: 'A space for your health questions and medicine experiences.', account: 'your personal APIP space' },
-  specialist: { label: 'Specialist', icon: 'clinical_notes', title: 'A shared view of medicine safety.', description: 'For pharmacovigilance specialists reviewing reported medicine experiences.', account: 'the specialist workspace' },
-  developer: { label: 'Developer', icon: 'code', title: 'Thoughtfully built. Together.', description: 'The design reference for building a clear, consistent APIP experience.', account: 'the developer reference' },
-};
+const roles: AccessRole[] = ['patient', 'specialist'];
 
 export function readPreviewRoute(): PreviewRoute {
   const [path, query] = window.location.hash.slice(1).split('?');
   if (path === '/account/profile') return { screen: 'profile' };
   if (path === '/developer-reference') return { screen: 'developer-reference' };
-  if(path==='/specialist')return {screen:'specialist',view:'entry'};
-  const specialistView=/^\/specialist\/(profile|home|reviews)$/.exec(path);
-  if(specialistView)return {screen:'specialist',view:specialistView[1] as 'profile'|'home'|'reviews'};
-  const identityAdmin=/^\/admin\/specialist-applications(?:\/([0-9a-f-]{36}))?$/.exec(path);
-  if(identityAdmin)return {screen:'specialist',admin:true,id:identityAdmin[1]};
+  if (path === '/specialist') return { screen: 'specialist', view: 'entry' };
+  const specialistView = /^\/specialist\/(profile|home|reviews)$/.exec(path);
+  if (specialistView) return { screen: 'specialist', view: specialistView[1] as 'profile'|'home'|'reviews' };
+  const identityAdmin = /^\/admin\/specialist-applications(?:\/([0-9a-f-]{36}))?$/.exec(path);
+  if (identityAdmin) return { screen: 'specialist', admin: true, id: identityAdmin[1] };
   if (path === '/patient/home') return { screen: 'patient-home' };
-  const cases=/^\/patient\/adr\/cases(?:\/([0-9a-f-]{36})(?:\/(history)|\/revisions\/([1-9][0-9]{0,2}))?)?$/i.exec(path);
-  if(cases)return {screen:'adr-cases',id:cases[1],history:!!cases[2],revision:cases[3]?Number(cases[3]):undefined};
+  const cases = /^\/patient\/adr\/cases(?:\/([0-9a-f-]{36})(?:\/(history)|\/revisions\/([1-9][0-9]{0,2}))?)?$/i.exec(path);
+  if (cases) return { screen: 'adr-cases', id: cases[1], history: !!cases[2], revision: cases[3] ? Number(cases[3]) : undefined };
   if (path === '/preview/adr-report') {
-    const id=new URLSearchParams(query).get('case');
-    return { screen: 'adr-preview',...(/^[0-9a-f-]{36}$/i.test(id??'')?{caseId:id!}:{}) };
+    const id = new URLSearchParams(query).get('case');
+    return { screen: 'adr-preview', ...(/^[0-9a-f-]{36}$/i.test(id ?? '') ? { caseId: id! } : {}) };
   }
   if (path === '/preview/medassist') return { screen: 'medassist-preview' };
   if (path === '/reset-password') return { screen: 'sign-in', role: 'patient', resetPassword: true };
@@ -63,91 +57,16 @@ export function readPreviewRoute(): PreviewRoute {
     return { screen: 'sign-in', role: validRole, forgotPassword: true };
   }
   if (import.meta.env.DEV && path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
-  const signup=path.startsWith('/sign-up/');
-  const role = path.replace(signup?'/sign-up/':'/sign-in/', '');
-  if (roles.includes(role as AccessRole) && (role!=='developer'||import.meta.env.DEV) && (path.startsWith('/sign-in/')||signup&&role!=='developer')) {
+  const signup = path.startsWith('/sign-up/');
+  const role = path.replace(signup ? '/sign-up/' : '/sign-in/', '');
+  if (roles.includes(role as AccessRole) && (path.startsWith('/sign-in/') || signup)) {
     const requestedTask = new URLSearchParams(query).get('continue');
     return {
-      screen: 'sign-in', role: role as AccessRole, creating:signup||new URLSearchParams(query).has('signup'),
-      ...(requestedTask === 'medassist' || requestedTask === 'adr-report' ? { requestedTask } : {}),
+      screen: 'sign-in', role: role as AccessRole, creating: signup || new URLSearchParams(query).has('signup'),
+      ...(requestedTask === 'medassist' || requestedTask === 'adr-report' ? { requestedTask: requestedTask as PatientTask } : {}),
     };
   }
   return { screen: 'home' };
-}
-
-function RoleTabs({ role, onChange }: { role: AccessRole; onChange: (role: AccessRole) => void }) {
-  const ref = useRef<MdTabs>(null);
-  useEffect(() => {
-    const tabs = ref.current;
-    if (!tabs) return;
-    let disposed = false;
-    void tabs.updateComplete.then(() => { if (!disposed) tabs.activeTabIndex = roles.indexOf(role); });
-    const handleChange = () => { const next = roles[tabs.activeTabIndex]; if (next) onChange(next); };
-    tabs.addEventListener('change', handleChange);
-    return () => { disposed = true; tabs.removeEventListener('change', handleChange); };
-  }, [role, onChange]);
-  return <md-tabs ref={ref} aria-label="Sign-in workspace" className="access-role-tabs">
-    {roles.map((item) => <md-primary-tab key={item} active={item === role || undefined}>
-      {roleCopy[item].label}
-    </md-primary-tab>)}
-  </md-tabs>;
-}
-
-function SignInForm({ role, requestedTask }: { role: AccessRole; requestedTask?: PatientTask }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({ email: false, password: false });
-  const [notice, setNotice] = useState('');
-
-  const submit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const nextErrors = { email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()), password: !password.trim() };
-    setErrors(nextErrors);
-    if (nextErrors.email || nextErrors.password) {
-      document.getElementById(nextErrors.email ? 'access-email' : 'access-password')?.focus();
-      return;
-    }
-    setPassword('');
-    setShowPassword(false);
-    setNotice('This is a design preview. Sign-in will be connected later. Nothing was sent and no account was accessed.');
-  };
-
-  return <form onSubmit={submit} autoComplete="off" noValidate className="access-form" aria-label={`${roleCopy[role].label} sign-in`}>
-    <p className="access-form-intro">{requestedTask
-      ? `Sign in to continue to ${requestedTask === 'medassist' ? 'MedAssist AI' : 'ADR reporting'}.`
-      : `Continue to ${roleCopy[role].account}.`}</p>
-    <M3TextField id="access-email" label="Email address" type="email" autoComplete="off" value={email}
-      required onChange={(event) => { setEmail(event.target.value); setErrors((old) => ({ ...old, email: false })); setNotice(''); }}
-      error={errors.email} errorText="Enter an email address, such as name@example.com." />
-    <M3TextField id="access-password" label="Password" type={showPassword ? 'text' : 'password'} autoComplete="off" value={password}
-      required onChange={(event) => { setPassword(event.target.value); setErrors((old) => ({ ...old, password: false })); setNotice(''); }}
-      error={errors.password} errorText="Enter a sample password for this preview." />
-    <M3Checkbox id="access-show-password" checked={showPassword} onChange={setShowPassword} label="Show password" />
-    <div className="access-preview-note"><span className="material-symbols-outlined" aria-hidden="true">info</span>
-      <p>Design preview. Use sample details only.<br />Authentication will be added later.</p>
-    </div>
-    <div className="access-form-actions">
-      <M3Button type="submit" variant="filled">Sign in</M3Button>
-    </div>
-    {notice && <p role="status" className="access-notice">{notice}</p>}
-    {role === 'patient' && <div className="access-developer-preview">
-      <a href="#/patient/home" className="access-text-link" onClick={(event) => followPreviewLink(event, '/patient/home')}>Preview the patient home <span aria-hidden="true">↗</span></a>
-      <p>Open the interface preview directly; no account or sign-in is created.</p>
-    </div>}
-    {role === 'patient' && requestedTask === 'adr-report' && <div className="access-developer-preview">
-      <a href="#/preview/adr-report" className="access-text-link" onClick={(event) => followPreviewLink(event, '/preview/adr-report')}>Preview the fictional ADR intake <span aria-hidden="true">↗</span></a>
-      <p>Design review only. Use fictional details; this preview stores a draft in this browser and sends nothing.</p>
-    </div>}
-    {role === 'patient' && requestedTask === 'medassist' && <div className="access-developer-preview">
-      <a href="#/preview/medassist" className="access-text-link" onClick={(event) => followPreviewLink(event, '/preview/medassist')}>Preview the MedAssist conversation <span aria-hidden="true">↗</span></a>
-      <p>Fictional symptom conversation with optional local AI phrase selection. Clinical urgency assessment is not enabled.</p>
-    </div>}
-    {role === 'developer' && <div className="access-developer-preview">
-      <a href="#/developer-reference" className="access-text-link" onClick={(event) => followPreviewLink(event, '/developer-reference')}>Open developer reference preview <span aria-hidden="true">↗</span></a>
-      <p>Intended for Sailesh. This local preview has no access restriction yet.</p>
-    </div>}
-  </form>;
 }
 
 interface Props {
@@ -164,22 +83,28 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
   const isPatientHome = route.screen === 'patient-home';
-  const backFallback = route.screen === 'adr-cases' ? route.revision||route.history ? `/patient/adr/cases/${route.id}` : route.id?'/patient/adr/cases':'/patient/home' : route.screen === 'sign-in'
+  const backFallback = route.screen === 'adr-cases'
+    ? route.revision || route.history ? `/patient/adr/cases/${route.id}` : route.id ? '/patient/adr/cases' : '/patient/home'
+    : route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
     : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? '/patient/home' : '/';
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
     document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : route.screen === 'medassist-conversation' ? 'medassist-conversation-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
 
   const protectedRoute = isPatientHome || route.screen === 'medassist-preview' || route.screen === 'adr-cases'
-    || route.screen==='adr-preview'&&!!route.caseId;
+    || (route.screen === 'adr-preview' && !!route.caseId);
   useEffect(() => {
     if (protectedRoute && account.ready && !account.user) {
-      if(route.screen==='adr-cases'||route.screen==='adr-preview')sessionStorage.setItem('apip.account.return',window.location.hash.slice(1));
+      if (route.screen === 'adr-cases' || route.screen === 'adr-preview') {
+        sessionStorage.setItem('apip.account.return', window.location.hash.slice(1));
+      }
       navigatePreview('/sign-in/patient', { replace: true });
     }
   }, [protectedRoute, account.ready, account.user]);
+
   if (protectedRoute && (!account.ready || !account.user)) return <p role="status">Checking your account…</p>;
 
   return <div className={`access-app ${route.screen === 'medassist-conversation' ? 'access-app-conversation' : ''}`}>
@@ -190,10 +115,10 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <PreviewHeader screen={route.screen} appearance={appearance} setAppearance={setAppearance}
       preferencesSaved={preferencesSaved} onHelp={isPatientHome ? () => helpDialog.current?.showModal() : undefined} />
 
-    <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''} ${isSignIn ? 'access-main-sign-in' : ''}`}>
+    <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''}`}>
       <div className="access-page-shell">
-      {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' ? undefined : () => goBackPreview(backFallback)} />}
-      {route.screen === 'home' && <LandingBody signedIn={Boolean(account.user)} />}
+      {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' || isSignIn ? undefined : () => goBackPreview(backFallback)} />}
+      {(route.screen === 'home' || isSignIn) && <LandingBody signedIn={Boolean(account.user)} />}
 
       {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
         <div className="patient-home-heading">
@@ -238,23 +163,24 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
         </dialog>
       </section>}
 
-      {route.screen === 'sign-in' && <section className="access-sign-in-centered-section" aria-labelledby="access-title">
-        {route.role !== 'developer' ? (
-          <AccountSignIn
-            workspace={route.role === 'specialist' ? 'specialist' : undefined}
-            requestedTask={route.requestedTask}
-            key={window.location.hash}
-            creatingInitially={route.creating}
-            forgotPassword={route.forgotPassword}
-            resetPasswordMode={route.resetPassword}
-          />
-        ) : (
-          <div className="access-sign-in-surface">
-            <RoleTabs role={route.role} onChange={(role) => navigatePreview(`/sign-in/${role}`)} />
-            <SignInForm key={`${route.role}-${route.requestedTask ?? ''}`} role={route.role} requestedTask={route.requestedTask} />
-          </div>
-        )}
-      </section>}
+      {/* Material Design 3 Web Horizontal Authentication Dialog */}
+      <APIPAuthDialog
+        open={isSignIn}
+        onClose={() => goBackPreview(backFallback)}
+        initialRole={route.screen === 'sign-in' ? route.role : 'patient'}
+        initialMode={
+          route.screen === 'sign-in'
+            ? route.resetPassword
+              ? 'reset'
+              : route.forgotPassword
+              ? 'forgot'
+              : route.creating
+              ? 'signup'
+              : 'signin'
+            : 'signin'
+        }
+        requestedTask={route.screen === 'sign-in' ? route.requestedTask : undefined}
+      />
 
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
       {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
@@ -275,8 +201,6 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       </div>
     </main>
 
-    {route.screen === 'home' ? <LandingFooter signedIn={Boolean(account.user)} /> : <PreviewFooter>
-      {import.meta.env.DEV && <a href="#/sign-in/developer" onClick={(event) => followPreviewLink(event, '/sign-in/developer')}>Developer sign-in</a>}
-    </PreviewFooter>}
+    {route.screen === 'home' || isSignIn ? <LandingFooter signedIn={Boolean(account.user)} /> : <PreviewFooter />}
   </div>;
 }

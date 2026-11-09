@@ -1,5 +1,17 @@
 # Changelog
 
+## Material Design 3 Web horizontal authentication dialog and private developer access - 2026-11-09
+
+- Replaced standalone patient, specialist, and mock developer login pages with a wide, landscape-oriented Material Design 3 Web modal dialog (`APIPAuthDialog`) using official `@material/web` `<md-dialog>`.
+- Two-column horizontal desktop composition (840px x 560px): left column provides product context (APIP brand, welcoming headline, 1-sentence workspace description, Material Symbol, research prototype label); right column provides authentication form (role switcher, text fields, password visibility, Google sign-in check, forgot-password, account creation, and validation notices).
+- Fully responsive across 320px, 360px, 768px, 1024px, 1440px viewports with zero horizontal overflow in light and dark themes.
+- Preserved complete route compatibility: direct URL navigation, refresh, back/forward, and task continuation across `/#/sign-in/patient`, `/#/sign-in/specialist`, `/#/sign-up/patient`, `/#/sign-up/specialist`, `/#/forgot-password/patient`, `/#/forgot-password/specialist`, and `/#/reset-password`.
+- Removed all public developer entry points: removed "Developer" from public role selector, removed visible "Developer sign-in" footer links, and removed mock developer login forms.
+- Added discreet owner developer entrance: 5-click gesture on footer brand element within 3 seconds, plus `Ctrl+Shift+D` keyboard shortcut.
+- Implemented real developer authorization for `DeveloperReference`: permits access in local development; production builds verify identity administration capability (`/api/account/capabilities`) and fail closed with "Access Denied" and redirect to home if unauthorized. Preserved `CoreComponentsView`, `DomainComponentsView`, `DesignFoundationView`, and `MaterialNavTabs`.
+- Preserved existing APIP header layout, structure, dimensions, and styling 100% unchanged across all viewports.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), navigation unit tests (6/6 pass), and Chrome browser acceptance (12/12 pass).
+
 ## Master repository audit, safe branch consolidation, and shared development workflow - 2026-11-09
 
 - Audited 21 remote branches and 16 PRs; proved that PRs #6 through #14 are linear ancestors strictly preserved inside `codex/apip-landing-v2` (`faf5c8a`, PR #16).

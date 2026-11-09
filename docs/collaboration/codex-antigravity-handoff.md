@@ -186,3 +186,34 @@ The `SPECIALIST_SETUP_REQUIRED` error (HTTP 503) occurs when the application que
 - **Security Stability**: Hardcoded credentials removed, password rotated, leak guard active (11/11 tests pass).
 - **MedAssist Safety**: All MedAssist branches and worktrees 100% untouched.
 - **Action**: Do not auto-merge; await explicit owner sign-off.
+
+---
+
+## 11. Material Design 3 Web Authentication Dialog & Private Developer Access
+
+### Authentication Dialog Architecture (`APIPAuthDialog`)
+- **Official Component**: Implemented using `@material/web` `<md-dialog>` with controlled React state, focus trapping, Escape dismissal, scrim dismissal, and accessible aria attributes.
+- **Landscape Horizontal Layout**: Desktop viewports (>=768px) render a wide two-column grid (840px x 560px, width > height):
+  - **Left Column (~38%)**: APIP Brand identity, contextual headline ("Welcome to APIP" / "Specialist Portal"), workspace description, Material Symbol icon (`person` / `clinical_notes`), and subtle "Research Prototype" badge.
+  - **Right Column (~62%)**: Patient vs Specialist segmented role tabs (Developer removed), mode title and subtitle, credentials inputs with password visibility toggle, confirm password in reset mode, forgot-password link, specialist signup note, Google OAuth button (with accurate availability messaging), and primary submit button.
+- **Responsive Layout**: Adapts gracefully to single-column layout on mobile viewports (<768px) with compact padding, vertical scrolling, and zero horizontal overflow across 320px, 360px, 768px, 1024px, 1440px viewports in both light and dark themes.
+- **Route Compatibility**: Preserves all established authentication hash routes (`/#/sign-in/patient`, `/#/sign-in/specialist`, `/#/sign-up/patient`, `/#/sign-up/specialist`, `/#/forgot-password/patient`, `/#/forgot-password/specialist`, `/#/reset-password`). When visited directly, the dialog mounts above the underlying base page (`LandingBody`) with the requested role and mode. Dismissing the dialog restores browser focus and returns safely to base without reloads or infinite navigation loops.
+
+### Public Developer UI Removal
+- Removed "Developer" from the public Patient/Specialist selector tabs.
+- Removed visible "Developer sign-in" links from `LandingFooter` and `PreviewFooter`.
+- Removed mock developer email/password login forms and sample credential notices.
+
+### Private Owner Developer Access & Authorization
+- **Discreet Discovery**: Implemented `useDiscreetDeveloperAccess` (`src/features/access/discreetDeveloperAccess.ts`):
+  1. **Multi-activation gesture**: Clicking the footer Brand element 5 times within 3 seconds navigates to `/#/developer-reference`.
+  2. **Keyboard shortcut**: `Ctrl+Shift+D` (or `Cmd+Shift+D`) navigates to `/#/developer-reference` when focus is not inside an editable input element.
+- **Real Authorization & Fail-Closed Security**: `DeveloperReference.tsx` enforces strict authorization boundaries:
+  - **Local Development**: When `import.meta.env.DEV === true`, local development access to the component reference is permitted.
+  - **Production Builds**: Queries `/api/account/capabilities` for the authenticated actor. If unauthenticated or lacking `identityAdministration: true`, access fails closed immediately: displays "Access Denied", shields all private components, and redirects to home.
+- **Preserved Developer Workspace**: Completely preserved `CoreComponentsView`, `DomainComponentsView`, `DesignFoundationView`, and `MaterialNavTabs`. Updated the workspace Back action to return safely to `/` (not the deleted mock developer login).
+
+### Test Evidence
+- Automated Chrome acceptance suite (`scripts/verify-auth-dialog.browser.mjs`): 12/12 checks passed.
+- Visual captures recorded in `preview-captures/auth-dialog/` across 320px, 360px, 768px, 1024px, and 1440px in light and dark themes.
+- APIP header visual integrity verified 100% identical and unchanged across all viewports.

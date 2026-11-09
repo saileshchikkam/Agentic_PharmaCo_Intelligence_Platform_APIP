@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { M3Button } from '../../components/material/core';
 import type { Appearance } from '../../design-system/appearance';
 import { followPreviewLink } from './navigation';
+import { useDiscreetDeveloperAccess } from './discreetDeveloperAccess';
 import './access.css';
 
 export function Brand({ large = false }: { large?: boolean }) {
@@ -87,6 +88,7 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
 }
 
 export function PreviewFooter({ children }: { children?: React.ReactNode }) {
+  useDiscreetDeveloperAccess();
   return <footer className="access-footer">
     <p>APIP is an AI-assisted research platform and is not a substitute for professional medical advice, diagnosis, or treatment. Reports are not automatically submitted to PvPI.</p>
     {children}

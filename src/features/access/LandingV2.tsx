@@ -3,6 +3,7 @@ import type { MdTabs } from '@material/web/tabs/tabs';
 import { M3Button } from '../../components/material/core';
 import { followPreviewLink } from './navigation';
 import { Brand } from './PreviewLayout';
+import { useDiscreetDeveloperAccess } from './discreetDeveloperAccess';
 import './landing-v2.css';
 
 const stages = [
@@ -146,11 +147,36 @@ export function LandingBody({ signedIn }: { signedIn: boolean }) {
 
 export function LandingFooter({ signedIn }: { signedIn: boolean }) {
   const { patient, specialist } = paths(signedIn);
+  const { handleBrandClick } = useDiscreetDeveloperAccess();
+
   return <footer className="landing-footer">
     <div className="landing-footer-content">
-      <div><a href="#/" onClick={event => jump(event, 'access-title')} aria-label="APIP, back to top"><Brand /></a><p className="m3-body-medium">Agentic Pharma Co-Intelligence Platform</p><p className="m3-body-small">Research prototype</p></div>
-      <nav aria-label="Workspaces"><p className="m3-title-medium">Workspaces</p><Entry path={patient}>Patient workspace</Entry><Entry path={specialist}>Specialist portal</Entry>{!signedIn && <Entry path="/sign-up/patient">Create patient account</Entry>}{import.meta.env.DEV && <Entry path="/sign-in/developer">Developer sign-in</Entry>}</nav>
-      <nav aria-label="About APIP"><p className="m3-title-medium">About APIP</p><a href="#landing-demo-title" onClick={event => jump(event, 'landing-demo-title')}>Report walkthrough</a><a href="#landing-platform" onClick={event => jump(event, 'landing-platform')}>Platform capabilities</a><a href="#landing-privacy" onClick={event => jump(event, 'landing-privacy')}>Privacy and trust</a></nav>
+      <div>
+        <a
+          href="#/"
+          onClick={(event) => {
+            handleBrandClick(event);
+            jump(event, 'access-title');
+          }}
+          aria-label="APIP, back to top"
+        >
+          <Brand />
+        </a>
+        <p className="m3-body-medium">Agentic Pharma Co-Intelligence Platform</p>
+        <p className="m3-body-small">Research prototype</p>
+      </div>
+      <nav aria-label="Workspaces">
+        <p className="m3-title-medium">Workspaces</p>
+        <Entry path={patient}>Patient workspace</Entry>
+        <Entry path={specialist}>Specialist portal</Entry>
+        {!signedIn && <Entry path="/sign-up/patient">Create patient account</Entry>}
+      </nav>
+      <nav aria-label="About APIP">
+        <p className="m3-title-medium">About APIP</p>
+        <a href="#landing-demo-title" onClick={event => jump(event, 'landing-demo-title')}>Report walkthrough</a>
+        <a href="#landing-platform" onClick={event => jump(event, 'landing-platform')}>Platform capabilities</a>
+        <a href="#landing-privacy" onClick={event => jump(event, 'landing-privacy')}>Privacy and trust</a>
+      </nav>
       <p className="landing-footer-note m3-body-small">APIP is an AI-assisted research platform and is not a substitute for professional medical advice, diagnosis, or treatment. Reports are not automatically submitted to PvPI.</p>
     </div>
   </footer>;
