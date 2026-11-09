@@ -229,3 +229,16 @@ The `SPECIALIST_SETUP_REQUIRED` error (HTTP 503) occurs when the application que
   - Attached explicit `onClick={(e) => void submit(e)}` on submit button and enabled `class` attribute reflection in `M3Button.tsx`.
   - Handled Continue with Google truthfully when OAuth is unconfigured on hosted Supabase.
 - **Verification Evidence**: Automated Chrome suite `scripts/verify-auth-dialog-v2.browser.mjs` passed 12/12 checks. All visual artifacts saved in `preview-captures/auth-dialog/`.
+
+### Protected Route Navigation & Event Forwarding Repair Update (2026-11-09)
+- **Eliminated Blank "Checking your account..." Screen**:
+  - Removed top-level unstyled return in `src/features/access/AccessPreview.tsx` that previously replaced the application shell and styling with raw `<p>` text on unauthenticated navigation.
+  - Protected routes now gracefully maintain the application shell (`access-app`, `PreviewHeader`, `LandingBody`, `LandingFooter`) and open `APIPAuthDialog` (`open={isSignIn || (protectedRoute && !account.user)}`).
+  - Updated "For patients" header link in `PreviewLayout.tsx` to route directly to `#/sign-in/patient` when unauthenticated, avoiding unneeded protected route transitions.
+  - Wrapped `SpecialistWorkspace` loading fallback in a styled Material 3 container.
+- **Enhanced Keyboard Handling**:
+  - Supported `event.code === 'KeyD'` in `discreetDeveloperAccess.ts` and added shadow DOM inspection via `event.composedPath()` to prevent intercepting keystrokes while users type in text fields.
+  - Added `'change'` event listener and `onKeyDown` prop forwarding in `M3TextField.tsx` for autofill and keyboard submission compatibility.
+- **Port Consolidation**: Terminated orphaned dev process on port 3000; consolidated active verification on preview port 3602 (proxied to backend 3601).
+- **Comprehensive Visual Review**: Verified and captured 22 responsive screenshots across Desktop, Tablet, and Mobile in Light and Dark modes. All screenshots preserved in `final-review/` artifact directory.
+- **Verification Gates**: TypeScript (`npm run lint`), production build (`npm run build`), navigation unit tests (6/6 pass), and leak guard tests (11/11 pass) all confirmed clean PASS.

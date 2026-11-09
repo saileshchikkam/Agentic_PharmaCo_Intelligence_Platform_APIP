@@ -28,15 +28,21 @@ export function useDiscreetDeveloperAccess() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.ctrlKey || event.metaKey) && event.shiftKey && (event.key === 'D' || event.key === 'd')) {
-        const target = event.target as HTMLElement | null;
-        if (
-          target &&
-          (target.tagName === 'INPUT' ||
-            target.tagName === 'TEXTAREA' ||
-            target.tagName === 'SELECT' ||
-            target.isContentEditable)
-        ) {
+      const isDKey = event.key === 'D' || event.key === 'd' || event.code === 'KeyD';
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && isDKey) {
+        const path = typeof event.composedPath === 'function' ? event.composedPath() : [event.target];
+        const isEditing = path.some((el) => {
+          if (!(el instanceof HTMLElement)) return false;
+          const tag = el.tagName;
+          return (
+            tag === 'INPUT' ||
+            tag === 'TEXTAREA' ||
+            tag === 'SELECT' ||
+            el.isContentEditable ||
+            tag.includes('TEXT-FIELD')
+          );
+        });
+        if (isEditing) {
           return;
         }
         event.preventDefault();

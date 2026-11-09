@@ -105,8 +105,6 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     }
   }, [protectedRoute, account.ready, account.user]);
 
-  if (protectedRoute && (!account.ready || !account.user)) return <p role="status">Checking your account…</p>;
-
   return <div className={`access-app ${route.screen === 'medassist-conversation' ? 'access-app-conversation' : ''}`}>
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
       event.preventDefault();
@@ -118,9 +116,15 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''}`}>
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' || isSignIn ? undefined : () => goBackPreview(backFallback)} />}
-      {(route.screen === 'home' || isSignIn) && <LandingBody signedIn={Boolean(account.user)} />}
+      {(route.screen === 'home' || isSignIn || (protectedRoute && !account.user)) && <LandingBody signedIn={Boolean(account.user)} />}
 
-      {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
+      {protectedRoute && !account.ready && (
+        <div className="access-loading-shell" role="status" aria-live="polite">
+          <p className="m3-body-medium">Checking your account…</p>
+        </div>
+      )}
+
+      {isPatientHome && account.user && <section className="patient-home" aria-labelledby="access-title">
         <div className="patient-home-heading">
           <p className="access-eyebrow">Your health, your next step</p>
           <h1 id="access-title" tabIndex={-1}>Your APIP dashboard</h1>
@@ -165,7 +169,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
 
       {/* Material Design 3 Web Horizontal Authentication Dialog */}
       <APIPAuthDialog
-        open={isSignIn}
+        open={isSignIn || (protectedRoute && !account.user)}
         onClose={() => goBackPreview(backFallback)}
         initialRole={route.screen === 'sign-in' ? route.role : 'patient'}
         initialMode={

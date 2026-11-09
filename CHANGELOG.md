@@ -1,5 +1,19 @@
 # Changelog
 
+## Protected route navigation repair, keyboard event forwarding, port consolidation, and full website review - 2026-11-09
+
+- Repaired unauthenticated navigation and eliminated the "Checking your account..." blank white screen defect:
+  - Removed top-level unstyled return in `AccessPreview.tsx` that previously replaced the application shell and styling with raw text on unauthenticated protected route access.
+  - Protected routes now gracefully maintain the application shell (`PreviewHeader`, `LandingBody`, `LandingFooter`) and open `APIPAuthDialog` with `open={isSignIn || (protectedRoute && !account.user)}`.
+  - Updated "For patients" header link to route directly to `#/sign-in/patient` when unauthenticated, avoiding unneeded protected route transitions.
+  - Wrapped `SpecialistWorkspace` loading fallback in a styled Material 3 container.
+- Repaired keyboard event handling and form responsiveness:
+  - Enhanced `discreetDeveloperAccess.ts` to support `event.code === 'KeyD'` across all keyboard layouts, and added shadow DOM inspection via `event.composedPath()` to prevent intercepting keystrokes during text field editing.
+  - Added `'change'` event listener and `onKeyDown` prop forwarding to `M3TextField.tsx` for autofill and keyboard submission compatibility.
+- Cleared unused ports: killed orphaned dev process on port 3000; consolidated active verification on preview port 3602 and backend on 3601.
+- Executed comprehensive multi-viewport visual review and captured 22 responsive screenshots across Desktop, Tablet, and Mobile in Light and Dark modes.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), navigation unit tests (6/6 pass), and leak guard tests (11/11 pass).
+
 ## Material Design 3 Web authentication dialog centering, soft blur, animations, and button repair - 2026-11-09
 
 - Repaired visual centering of the horizontal authentication dialog: resolved left-alignment bug by enforcing outer margin: auto !important; position: fixed !important; inset: 0 !important; and background scroll/gutter lock (overflow: hidden; scrollbar-gutter: auto;), achieving exact 0px horizontal and vertical offsets across 1024px, 1440px, 1536px, and 1920px viewports.
