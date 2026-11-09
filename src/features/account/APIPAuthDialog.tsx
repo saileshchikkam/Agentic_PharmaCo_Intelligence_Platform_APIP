@@ -59,6 +59,91 @@ export function APIPAuthDialog({
     }
   }, [open, initialRole, initialMode]);
 
+  // Dialog animations and shadow scrim styling
+  useEffect(() => {
+    const dialog = dialogRef.current as (MdDialog & {
+      getOpenAnimation?: () => unknown;
+      getCloseAnimation?: () => unknown;
+    }) | null;
+    if (!dialog) return;
+
+    const isReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isReduced) {
+      dialog.getOpenAnimation = () => ({
+        dialog: [[[{ opacity: 0 }, { opacity: 1 }], { duration: 0 }]],
+        scrim: [[[{ opacity: 0 }, { opacity: 0.32 }], { duration: 0 }]],
+      });
+      dialog.getCloseAnimation = () => ({
+        dialog: [[[{ opacity: 1 }, { opacity: 0 }], { duration: 0 }]],
+        scrim: [[[{ opacity: 0.32 }, { opacity: 0 }], { duration: 0 }]],
+      });
+    } else {
+      dialog.getOpenAnimation = () => ({
+        dialog: [
+          [
+            [
+              { opacity: 0, transform: 'scale(0.97) translateY(10px)' },
+              { opacity: 1, transform: 'scale(1) translateY(0)' },
+            ],
+            { duration: 280, easing: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)' },
+          ],
+        ],
+        scrim: [
+          [
+            [
+              { opacity: 0, backdropFilter: 'blur(0px)' },
+              { opacity: 0.32, backdropFilter: 'blur(6px)' },
+            ],
+            { duration: 280, easing: 'linear' },
+          ],
+        ],
+      });
+
+      dialog.getCloseAnimation = () => ({
+        dialog: [
+          [
+            [
+              { opacity: 1, transform: 'scale(1) translateY(0)' },
+              { opacity: 0, transform: 'scale(0.97) translateY(8px)' },
+            ],
+            { duration: 200, easing: 'cubic-bezier(0.3, 0, 0.8, 0.15)' },
+          ],
+        ],
+        scrim: [
+          [
+            [
+              { opacity: 0.32, backdropFilter: 'blur(6px)' },
+              { opacity: 0, backdropFilter: 'blur(0px)' },
+            ],
+            { duration: 200, easing: 'linear' },
+          ],
+        ],
+      });
+    }
+
+    if (dialog.shadowRoot) {
+      const styleId = 'apip-auth-dialog-scrim-blur';
+      if (!dialog.shadowRoot.getElementById(styleId)) {
+        const style = document.createElement('style');
+        style.id = styleId;
+        style.textContent = `
+          .scrim {
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            pointer-events: auto;
+          }
+          dialog {
+            margin: auto !important;
+            position: fixed !important;
+            inset: 0 !important;
+          }
+        `;
+        dialog.shadowRoot.appendChild(style);
+      }
+    }
+  }, []);
+
   // Dialog imperative show/close syncing
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -155,6 +240,22 @@ export function APIPAuthDialog({
       navigatePreview(target, { replace: true });
     }
   }, [user?.id, ready, requestedTask, isSpecialist, mode, onClose]);
+
+  const handleCloseRequest = () => {
+    const dialog = dialogRef.current;
+    if (dialog && dialog.open) {
+      void dialog.close();
+    } else {
+      onClose();
+    }
+  };
+
+  const handleFormKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.defaultPrevented) {
+      e.preventDefault();
+      void submit(e);
+    }
+  };
 
   const switchRole = (nextRole: AuthRole) => {
     setRole(nextRole);
@@ -286,7 +387,7 @@ export function APIPAuthDialog({
     setBusy(true);
     setNotice(null);
     try {
-      if (googleEnabled === false) {
+      if (googleEnabled !== true) {
         setNotice({
           type: 'info',
           message: 'Google Sign-in is not yet enabled on the hosted project. Please use email and password to sign in.',
@@ -415,7 +516,7 @@ export function APIPAuthDialog({
                       role="tab"
                       aria-selected={!isSpecialist}
                       aria-label="Patient workspace"
-                      disabled={busy}
+                      disabled={busy || undefined}
                       className={`apip-auth-role-tab ${!isSpecialist ? 'active' : ''}`}
                       onClick={() => switchRole('patient')}
                     >
@@ -429,7 +530,7 @@ export function APIPAuthDialog({
                       role="tab"
                       aria-selected={isSpecialist}
                       aria-label="Specialist workspace"
-                      disabled={busy}
+                      disabled={busy || undefined}
                       className={`apip-auth-role-tab ${isSpecialist ? 'active' : ''}`}
                       onClick={() => switchRole('specialist')}
                     >
@@ -445,8 +546,8 @@ export function APIPAuthDialog({
                   class="apip-auth-close-button"
                   className="apip-auth-close-button"
                   aria-label="Close authentication dialog"
-                  disabled={busy}
-                  onClick={onClose}
+                  disabled={busy || undefined}
+                  onClick={handleCloseRequest}
                 >
                   <md-icon>
                     <span className="material-symbols-outlined">close</span>
@@ -505,7 +606,7 @@ export function APIPAuthDialog({
               )}
 
               {/* Main Credentials Form */}
-              <form onSubmit={submit} noValidate className="apip-auth-form">
+              <form onSubmit={submit} onKeyDown={handleFormKeyDown} noValidate className="apip-auth-form">
                 {mode !== 'reset' && (
                   <div className="apip-auth-field-wrapper">
                     <M3TextField
@@ -597,7 +698,13 @@ export function APIPAuthDialog({
 
                 {/* Primary Submit Button */}
                 <div className="apip-auth-submit-row">
-                  <M3Button type="submit" variant="filled" disabled={busy || !accountClient}>
+                  <M3Button
+                    type="submit"
+                    variant="filled"
+                    disabled={busy || !accountClient}
+                    onClick={(e) => void submit(e)}
+                    className="apip-auth-submit-btn"
+                  >
                     {busy
                       ? 'Please wait…'
                       : mode === 'signup'

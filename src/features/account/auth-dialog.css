@@ -6,10 +6,21 @@
 md-dialog.apip-auth-dialog {
   --md-dialog-container-color: var(--md-sys-color-surface-container-high);
   --md-dialog-container-shape: 28px;
+  margin: auto !important;
+  position: fixed !important;
+  inset: 0 !important;
   width: min(840px, calc(100vw - 32px));
   max-width: min(860px, calc(100vw - 32px));
   max-height: min(720px, calc(100vh - 32px));
   border-radius: 28px;
+  box-sizing: border-box;
+}
+
+/* Background lock: softly blur and freeze background while dialog is active */
+html:has(md-dialog.apip-auth-dialog[open]),
+body:has(md-dialog.apip-auth-dialog[open]) {
+  overflow: hidden !important;
+  scrollbar-gutter: auto !important;
 }
 
 md-dialog.apip-auth-dialog [slot="content"] {
@@ -384,6 +395,9 @@ md-dialog.apip-auth-dialog [slot="content"] {
     max-width: min(480px, calc(100vw - 24px));
     max-height: calc(100vh - 24px);
     border-radius: 20px;
+    margin: auto !important;
+    position: fixed !important;
+    inset: 0 !important;
   }
 
   .apip-auth-grid {

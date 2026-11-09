@@ -1,5 +1,17 @@
 # Changelog
 
+## Material Design 3 Web authentication dialog centering, soft blur, animations, and button repair - 2026-11-09
+
+- Repaired visual centering of the horizontal authentication dialog: resolved left-alignment bug by enforcing outer margin: auto !important; position: fixed !important; inset: 0 !important; and background scroll/gutter lock (overflow: hidden; scrollbar-gutter: auto;), achieving exact 0px horizontal and vertical offsets across 1024px, 1440px, 1536px, and 1920px viewports.
+- Applied polished soft background blur: injected backdrop-filter: blur(6px) onto the shadow DOM scrim, leaving modal dialog content completely crisp while softly blurring the background landing page and header.
+- Implemented natural Material Design 3 opening and closing animations (280ms entry with 0.97->1.0 scale and 10px->0px vertical translation; 200ms graceful exit with 1.0->0.97 scale and 0px->8px vertical translation) with full prefers-reduced-motion support.
+- Repaired authentication controls:
+  - Fixed Close X button by eliminating disabled="false" attribute on <md-icon-button> that caused pointer-events suppression.
+  - Enabled Enter-key submission from password/email text fields by capturing composed keydown events on the form.
+  - Ensured primary Sign in button triggers submission directly on click.
+  - Added truthful unavailable-state feedback for Continue with Google when unconfigured on the hosted project.
+- Verified test suite: clean TypeScript (npm run lint), production build (npm run build), leak guard (11/11 pass), navigation unit tests (6/6 pass), and automated Chrome browser acceptance (12/12 test suites pass).
+
 ## Material Design 3 Web horizontal authentication dialog and private developer access - 2026-11-09
 
 - Replaced standalone patient, specialist, and mock developer login pages with a wide, landscape-oriented Material Design 3 Web modal dialog (`APIPAuthDialog`) using official `@material/web` `<md-dialog>`.

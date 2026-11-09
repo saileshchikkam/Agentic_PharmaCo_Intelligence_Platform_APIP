@@ -72,6 +72,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
     'aria-label': ariaLabel,
     'trailing-icon': trailingIcon ? true : undefined,
     className: `transition-all select-none ${className}`,
+    class: `transition-all select-none ${className}`,
   };
 
   switch (variant) {

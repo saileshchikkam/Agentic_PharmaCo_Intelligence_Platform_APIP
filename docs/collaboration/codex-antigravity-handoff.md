@@ -217,3 +217,15 @@ The `SPECIALIST_SETUP_REQUIRED` error (HTTP 503) occurs when the application que
 - Automated Chrome acceptance suite (`scripts/verify-auth-dialog.browser.mjs`): 12/12 checks passed.
 - Visual captures recorded in `preview-captures/auth-dialog/` across 320px, 360px, 768px, 1024px, and 1440px in light and dark themes.
 - APIP header visual integrity verified 100% identical and unchanged across all viewports.
+
+### Visual & Event Repair Update (2026-11-09)
+- **Dialog Centering**: Repaired left-alignment root cause (omitted outer `margin: auto` overrode shadow `:host` margin default; `scrollbar-gutter: stable` introduced 7.5px scrollbar bias). Applied `margin: auto !important; position: fixed !important; inset: 0 !important;` and locked background scrolling (`html:has(md-dialog.apip-auth-dialog[open]) { overflow: hidden !important; scrollbar-gutter: auto !important; }`). Verified `diffX = 0px` and `diffY = 0px` across 1024px, 1440px, 1536px, and 1920px desktop viewports.
+- **Soft Background Blur**: Injected `backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);` into `<md-dialog>` shadow DOM `.scrim`. Modal text remains 100% sharp; background landing page and header receive soft blur and translucent scrim.
+- **Smooth Animations**: Configured `getOpenAnimation` (280ms, 0.97->1.0 scale, 10px->0px translateY) and `getCloseAnimation` (200ms, 1.0->0.97 scale, 0px->8px translateY) using Material 3 deceleration and acceleration curves. Tested exit duration in browser (364ms total transition). Supported `prefers-reduced-motion`.
+- **Button & Form Event Fixes**:
+  - Eliminated `disabled="false"` on `<md-icon-button class="apip-auth-close-button">` (changed to `disabled={busy || undefined}`), restoring pointer events.
+  - Added `handleCloseRequest` to run `dialog.close()` before unmounting so exit animations complete cleanly.
+  - Added `onKeyDown` form listener to capture composed Enter keydown events bubbling from shadow DOM inputs.
+  - Attached explicit `onClick={(e) => void submit(e)}` on submit button and enabled `class` attribute reflection in `M3Button.tsx`.
+  - Handled Continue with Google truthfully when OAuth is unconfigured on hosted Supabase.
+- **Verification Evidence**: Automated Chrome suite `scripts/verify-auth-dialog-v2.browser.mjs` passed 12/12 checks. All visual artifacts saved in `preview-captures/auth-dialog/`.
