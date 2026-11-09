@@ -1,5 +1,10 @@
 # Changelog
 
+## APIP SIGNAL public landing page - 2026-11-09
+
+- Added a responsive Material 3 landing page with a four-stage SVG report story, audience-specific entry points, privacy disclosures and light/dark palettes. [Design and checks](src/features/access/README.md#apip-signal-landing-page--2026-11-09).
+
+
 ## Priority 0 credential remediation and hosted browser sharing diagnostics - 2026-11-09
 
 - Remediated database credentials leak by replacing hardcoded connection strings with fail-closed user environment variable APIP_ADR_DATABASE_URL in verify-hosted-phase3cb-workflow.ts.

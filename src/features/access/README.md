@@ -1,5 +1,19 @@
 # Access and navigation
 
+## APIP SIGNAL landing page — 2026-11-09
+
+The public home route uses an editorial Roboto and Georgia pairing, a scoped Material tonal palette, and a custom SVG report journey. The stage buttons change a fictional statement into structured fields, a consent choice, and a read-only review sample. The pulse runs once per stage selection. Reduced motion keeps the illustration and all content visible without animation. The two audience controls use semantic pressed buttons and a shared-axis panel transition. The footer action uses Material Web through the shared button wrapper. Native details and links retain keyboard behavior.
+
+- [SignalLanding.tsx](SignalLanding.tsx) owns the illustrations, story, audience switch, module status and privacy disclosures.
+- [signal.css](signal.css) owns light and dark surface roles, responsive composition and motion. Theme changes use the existing appearance state and persistence.
+- [AccessPreview.tsx](AccessPreview.tsx) selects the new component only for the public home route. Patient, specialist, fictional ADR and MedAssist actions reuse the existing hash routes.
+- [Chrome verification](../../../scripts/signal-landing.browser.mjs) captures both themes at 320, 360, 768, 1024, 1440 and 1920 px. It checks keyboard interactions, focus return, disclosure, routes, reduced motion, overflow and core text contrast. Run it against a local preview with an installed Playwright and Chrome runtime. Set APIP_SIGNAL_EVIDENCE to select the output directory.
+
+All twelve browser combinations passed. The tested core color pairs measured at least 6.86:1 in light and 8.75:1 in dark. The local account session endpoint and the rendered patient, specialist and fictional ADR destinations also responded as expected. TypeScript and the production build passed. Vite still reports the shared application entry size warning. Hosted sharing acceptance remains blocked and is separate from these landing checks.
+
+Historical notes follow.
+
+
 **Update 2026-10-17:** patient signup/sign-in now uses the configuration-gated [account foundation](../../../database/README.md), with Google/email paths and the `#/account/profile` route. Local SQLite signup/session/profile storage are now connected; hosted setup is still pending. Specialist/developer screens remain design previews and do not grant roles. The original design/reference notes below describe the preceding UI state, not the newer patient implementation.
 
 This is the selected rough UI task, ahead of authentication. It provides a simple APIP welcome page and one shared sign-in composition with three workspace views. It does not access an account, submit credentials, create a session, or establish permissions.
