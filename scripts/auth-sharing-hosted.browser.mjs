@@ -134,7 +134,7 @@ try {
        try {
          const data = await res.json();
          if (status >= 400) {
-           log(`[AUTH RESPONSE] Context ${i} (${labels[i]}): HTTP ${status} error_code="${data.error_code || data.error || 'unknown'}" msg="${data.msg || data.error_description || 'unknown'}"`);
+           log(`[AUTH RESPONSE] Context ${i} (${labels[i]}): HTTP ${status} code="${data.code || data.error_code || data.error || 'unknown'}" msg="${data.message || data.msg || data.error_description || 'unknown'}"`);
          } else if (status === 200) {
            log(`[AUTH RESPONSE] Context ${i} (${labels[i]}): HTTP 200 OK (session created)`);
          }
