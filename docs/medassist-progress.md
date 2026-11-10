@@ -1,14 +1,14 @@
 # MedAssist development progress
 
-| Field | 2026-11-10 Accelerated Model A program — Prompt 3 of 4 |
+| Field | 2026-11-10 Accelerated Model A program — Prompt 4 of 4 |
 | --- | --- |
 | Current stage | Stage 3 — Conversational NLP and Evidence |
-| Current subphase | Model A runtime verification, trusted artifact audit and research integration gating |
-| Current task | Prompt 3 of 4: completed audit. Genuine local Model A inference is BLOCKED due to absent physical sealed artifacts on local disk and pinned Python 3.12.2 / scikit-learn 1.9.1 environment mismatch. Stage 3 scripted conversation, open-mention capture and proxy gating are fully verified. |
+| Current subphase | Model A recovery resolution, research integration boundary, and final verification |
+| Current task | Prompt 4 of 4: completed. Genuine Model A execution and research integration remain BLOCKED due to unmounted external research volume (missing physical model binaries) and host Python runtime pin mismatch. Stage 3 scripted conversation, open-mention capture, M05/M13 safeguards, and research demo gating are verified end-to-end in browser. |
 | Overall MedAssist status | Scripted research demo is operational for nine confirmed evidence fields plus separately retained page-memory unsupported descriptions. Genuine local Model A remains blocked; clinical assessment disabled. |
-| Last verified completion | [Prompt 3 audit](history/2026-11-10.md): verified 17 sealed artifact hashes, protocol integrity, adapter fail-closed contract, and live browser preview. Confirmed exact runtime blockers. |
-| Current blockers | Physical sealed Model A artifacts and source metadata absent locally; Python 3.12.2 / scikit-learn 1.9.1 environment missing; no durable open-mention persistence or contextual semantic extractor. |
-| Next task | Do not start automatically. Prompt 4 must address Model A artifact provision / runtime environment prerequisites or define authenticated research integration. |
+| Last verified completion | [Prompt 4 verification](history/2026-11-10.md): systematic audit of physical volumes, runtime pins, adapter fail-closed state, automated test suites (117 Stage 3/proxy, 80 Python protocol), and live browser CDP verification across mixed symptoms, confirmation, M13 hold, and export. |
+| Current blockers | Physical sealed Model A artifacts and source metadata absent locally (requires mounting external research drive); Python 3.12.2 / scikit-learn 1.9.1 environment missing; contextual extraction evaluation remains separate. |
+| Next task | Do not start automatically. Await operator direction on providing external Model A research storage or defining Stage 4 research foundations. |
 | Starting commit for this task | `f8c350fc8ce2df0fde04bf79e1db749ee52fc55e` |
 | Latest verified preview | See the latest [dated verification](history/2026-11-08.md). |
 

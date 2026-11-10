@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-10
+
+### MedAssist — accelerated Model A Prompts 3 and 4 recovery audit and verification
+
+- Completed exhaustive audit of Model A Task 4B sealed artifacts, protocol manifests, host storage, and Python runtime dependencies.
+- Recorded exact blockers: physical model binaries (`model-1e-05.pkl`, `pre-test-seal.json`) are absent from local host storage (historically on external media), and host runtime (Python 3.14 / scikit-learn 1.7.2) does not match the pinned protocol environment (Python 3.12.2 / scikit-learn 1.9.1).
+- Preserved strict fail-closed boundary: no mock ranker or fabricated weights substituted; research proxy continues to return `RESEARCH_DEMO_DISABLED`.
+- Verified Stage 3 deterministic conversation, open-ended symptom mentions (`eligible_for_model_a: false`), M05/M13 safeguards, 117 Stage 3/proxy tests, 80 Python protocol tests, and live browser CDP verification across mixed symptoms, confirmation, and export.
+
 ## 2026-11-08
 
 ### MedAssist — Prompt 2 open-ended symptom capture
