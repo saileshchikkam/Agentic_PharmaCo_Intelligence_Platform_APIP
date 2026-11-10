@@ -16,17 +16,6 @@ const messages:Record<string,string>={NOT_FOUND:'This report is unavailable in y
   ACCOUNT_CHANGED:'Your account changed. Reopen My ADR Reports.',INVALID_CURSOR:'This results page has expired. Return to the first page.',
   INVALID_FILTER:'Check the filters and date range.',PDF_BUSY:'The form service is busy. Please retry.'};
 async function request(owner:string,path:string,signal:AbortSignal){
-  if(owner.startsWith('fictional-')){
-    if(path.startsWith('?')){
-      return {cases:[
-        {id:'f1c7104a-0001-4000-8000-000000000001',caseType:'Initial',medicines:['Amoxicillin 500mg capsules'],intakeComplete:true,revision:2,createdAt:new Date(Date.now()-86400000*2).toISOString(),updatedAt:new Date(Date.now()-3600000*3).toISOString()},
-        {id:'f1c7104a-0002-4000-8000-000000000002',caseType:'Follow-up',medicines:['Lisinopril 10mg'],intakeComplete:false,revision:1,createdAt:new Date(Date.now()-86400000*6).toISOString(),updatedAt:new Date(Date.now()-86400000).toISOString()}
-      ],nextCursor:null};
-    }
-    return {c:{schemaVersion:1,id:'f1c7104a-0001-4000-8000-000000000001',revision:2,fictionalOnly:true,updatedAt:new Date().toISOString(),
-      values:{caseType:{state:'provided',value:'Initial',confirmedAt:new Date().toISOString(),source:'manual',statementId:'s1'},initials:{state:'provided',value:'P.K.',confirmedAt:new Date().toISOString(),source:'manual',statementId:'s2'},reaction:{state:'provided',value:'Maculopapular rash on arms and chest',confirmedAt:new Date().toISOString(),source:'manual',statementId:'s5'},'med.m1.name':{state:'provided',value:'Amoxicillin 500mg capsules',confirmedAt:new Date().toISOString(),source:'manual',statementId:'s9'}},
-      medications:[{id:'m1',kind:'suspect'}],statements:[],proposals:[],providerStatus:'manual_required'},pdfBlob:null};
-  }
   const response=await fetch('/api/account/adr-cases'+path,{headers:await guidedAccountHeaders(owner),credentials:'same-origin',cache:'no-store',signal});
   const data=await response.json();
   if(!response.ok)throw Error(messages[data.error]??'Your reports could not be loaded. Please retry.');

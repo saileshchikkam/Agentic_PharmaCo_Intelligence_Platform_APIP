@@ -12,44 +12,11 @@ import {AdrLanding, type SavedReport} from './AdrLanding';
 type Props={renderNavigation:(back:()=>void,label:string)=>React.ReactNode;onExit:()=>void;initialCaseId?:string};
 export function GuidedWorkspace(props:Props){const {user,ready}=useAccount();const [legacy,setLegacy]=useState(false);
  if(legacy)return <><M3Button variant="text" onClick={()=>setLegacy(false)}>Return to guided reporting</M3Button><LegacyWorkspace {...props}/></>;
- if(!ready)return <div className="access-loading-shell" role="status"><p className="m3-body-medium">Loading guided reporting…</p></div>;
- const effectiveOwner = user?.id ?? 'fictional-patient-preview';
- return <Guide key={effectiveOwner} owner={effectiveOwner} {...props}/>;
+ if(!ready)return <p role="status">Checking your account…</p>;
+ if(!user)return <section className="adr-guide"><h1>Prepare a suspected ADR report</h1><p>Use a fictional case. Sign in to save and resume your guided report.</p><a href="#/sign-in/patient?continue=adr-report">Sign in to start</a><M3Button variant="text" onClick={()=>setLegacy(true)}>Open previous draft preview</M3Button></section>;
+ return <Guide key={user.id} owner={user.id} {...props}/>;
 }
 type View={case:GuidedCase};
-
-function createSampleGuidedCase(): GuidedCase {
-  const now = new Date().toISOString();
-  return {
-    schemaVersion: 1,
-    id: 'fictional-case-1',
-    revision: 2,
-    fictionalOnly: true,
-    updatedAt: now,
-    values: {
-      caseType: { state: 'provided', value: 'Initial', confirmedAt: now, source: 'manual', statementId: 's1' },
-      initials: { state: 'provided', value: 'P.K.', confirmedAt: now, source: 'manual', statementId: 's2' },
-      age: { state: 'provided', value: '42', confirmedAt: now, source: 'manual', statementId: 's3' },
-      gender: { state: 'provided', value: 'Male', confirmedAt: now, source: 'manual', statementId: 's4' },
-      reaction: { state: 'provided', value: 'Maculopapular rash on arms and chest with mild pruritus', confirmedAt: now, source: 'manual', statementId: 's5' },
-      reactionStart: { state: 'provided', value: '2026-11-02', confirmedAt: now, source: 'manual', statementId: 's6' },
-      seriousness: { state: 'provided', value: 'None reported', confirmedAt: now, source: 'manual', statementId: 's7' },
-      outcome: { state: 'provided', value: 'Recovering', confirmedAt: now, source: 'manual', statementId: 's8' },
-      'med.m1.name': { state: 'provided', value: 'Amoxicillin 500mg capsules', confirmedAt: now, source: 'manual', statementId: 's9' },
-      'med.m1.dose': { state: 'provided', value: '500mg', confirmedAt: now, source: 'manual', statementId: 's9' },
-      'med.m1.route': { state: 'provided', value: 'Oral', confirmedAt: now, source: 'manual', statementId: 's9' },
-      'med.m1.frequency': { state: 'provided', value: 'Three times daily', confirmedAt: now, source: 'manual', statementId: 's9' },
-      'med.m1.start': { state: 'provided', value: '2026-10-29', confirmedAt: now, source: 'manual', statementId: 's9' },
-    },
-    medications: [{ id: 'm1', kind: 'suspect' }],
-    statements: [{ id: 's1', text: 'Patient developed itchy maculopapular rash 4 days into amoxicillin therapy for respiratory infection.', at: now }],
-    proposals: [],
-    providerStatus: 'manual_required'
-  };
-}
-
-let localGuestCase: GuidedCase = createSampleGuidedCase();
-
 function Guide({owner,...props}:Props&{owner:string}){
  const [c,setCase]=useState<GuidedCase|null>(null),[list,setList]=useState<SavedReport[] | null>(null),[intro,setIntro]=useState(true),[key,setKey]=useState<string|null>(null),[value,setValue]=useState(''),[dirty,setDirty]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[narrative,setNarrative]=useState('');
  const editing=useRef(false);
@@ -57,25 +24,6 @@ function Guide({owner,...props}:Props&{owner:string}){
  useEffect(()=>{alive.current=true;return()=>{alive.current=false;};},[]);
  const pendingMutation = useRef<{ request: string; key: string }>();
  const request = async (path: string, body?: unknown) => {
-  if (owner.startsWith('fictional-')) {
-    if (path === '' && body === undefined) {
-      return { cases: [{ id: localGuestCase.id, revision: localGuestCase.revision, caseType: 'Initial', medicines: ['Amoxicillin 500mg capsules'], intakeComplete: true, createdAt: localGuestCase.updatedAt, updatedAt: localGuestCase.updatedAt }] };
-    }
-    if (path.includes('/command')) {
-      const cmd = body && (body as any).command;
-      if (cmd && cmd.type === 'confirm' && cmd.key) {
-        localGuestCase.revision += 1;
-        localGuestCase.updatedAt = new Date().toISOString();
-        if (cmd.value === null) {
-          localGuestCase.values[cmd.key] = { state: 'unknown', value: null, confirmedAt: new Date().toISOString(), source: 'manual', statementId: 'guest' };
-        } else {
-          localGuestCase.values[cmd.key] = { state: 'provided', value: String(cmd.value), confirmedAt: new Date().toISOString(), source: 'manual', statementId: 'guest' };
-        }
-      }
-      return { case: { ...localGuestCase } };
-    }
-    return { case: { ...localGuestCase } };
-  }
   const payload = body === undefined ? undefined : JSON.stringify(body);
   let mutation: string | undefined;
   if (accountClient?.kind === 'supabase' && payload !== undefined) {

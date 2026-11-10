@@ -26,7 +26,7 @@ export function APIPAuthDialog({
   initialMode = 'signin',
   requestedTask,
 }: APIPAuthDialogProps) {
-  const { user, ready, error: authError, setGuestRole, isGuest } = useAccount();
+  const { user, ready, error: authError } = useAccount();
   const [role, setRole] = useState<AuthRole>(initialRole);
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [email, setEmail] = useState('');
@@ -217,7 +217,7 @@ export function APIPAuthDialog({
 
   // Post-authentication redirect and session handling
   useEffect(() => {
-    if (open && user && !isGuest && ready && mode !== 'reset') {
+    if (user && ready && mode !== 'reset') {
       const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.continue');
       const destination = sessionStorage.getItem('apip.account.return');
@@ -756,35 +756,6 @@ export function APIPAuthDialog({
                     </button>
                   </p>
                 )}
-              </div>
-
-              {/* Reviewer & Guest Preview Section */}
-              <div className="apip-auth-demo-section">
-                <p className="apip-auth-demo-label">Reviewer &amp; Guest Preview</p>
-                <div className="apip-auth-demo-actions">
-                  <M3Button
-                    variant="tonal"
-                    leadingIcon="person"
-                    onClick={() => {
-                      setGuestRole('patient');
-                      handleCloseRequest();
-                      navigatePreview('/patient/home');
-                    }}
-                  >
-                    Explore as Patient
-                  </M3Button>
-                  <M3Button
-                    variant="tonal"
-                    leadingIcon="clinical_notes"
-                    onClick={() => {
-                      setGuestRole('specialist');
-                      handleCloseRequest();
-                      navigatePreview('/specialist');
-                    }}
-                  >
-                    Explore as Specialist
-                  </M3Button>
-                </div>
               </div>
             </>
           )}

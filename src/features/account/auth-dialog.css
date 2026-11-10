@@ -470,28 +470,3 @@ md-dialog.apip-auth-dialog [slot="content"] {
     transition: none;
   }
 }
-
-/* Guest / Reviewer Demo section */
-.apip-auth-demo-section {
-  margin-block-start: 16px;
-  padding-block-start: 14px;
-  border-block-start: 1px dashed var(--md-sys-color-outline-variant);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.apip-auth-demo-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--md-sys-color-on-surface-variant);
-  margin: 0;
-}
-
-.apip-auth-demo-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}

@@ -51,9 +51,9 @@ function jump(event: React.MouseEvent<HTMLAnchorElement>, id: string) {
 
 function paths(signedIn: boolean) {
   return {
-    patient: '/patient/home',
-    specialist: '/specialist',
-    medAssist: '/preview/medassist',
+    patient: signedIn ? '/patient/home' : '/sign-in/patient',
+    specialist: signedIn ? '/specialist' : '/sign-in/specialist',
+    medAssist: signedIn ? '/preview/medassist' : '/sign-in/patient?continue=medassist',
   };
 }
 

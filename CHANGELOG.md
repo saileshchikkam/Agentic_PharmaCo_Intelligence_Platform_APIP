@@ -1,5 +1,16 @@
 # Changelog
 
+## Removal of temporary guest demonstration mode & restoration of real Supabase authentication - 2026-11-10
+
+- Completely decommissioned temporary fictional guest authentication system:
+  - Purged `GUEST_PATIENT`, `GUEST_SPECIALIST`, `GUEST_PATIENT_PROFILE`, and `GUEST_SPECIALIST_PROFILE` constants and mock state from `AccountProvider.tsx`.
+  - Added session cleanup in `AccountProvider.tsx` to clear legacy `apip.guest.role` keys.
+  - Removed "Reviewer & Guest Preview" card and guest exploration buttons ("Explore as Patient", "Explore as Specialist") from `APIPAuthDialog.tsx` and removed corresponding CSS.
+  - Restored strict fail-closed route enforcement in `AccessPreview.tsx`; accessing protected routes (`#/patient/home`, `#/patient/adr/cases`, `#/preview/medassist`, `#/specialist`) unauthenticated now redirects directly to the appropriate sign-in dialog and preserves the return URL.
+  - Removed client-side mock handlers from `CaseWorkspace.tsx`, `GuidedWorkspace.tsx`, and `SharingWorkspace.tsx`; all ADR case creation, revision persistence, and specialist sharing strictly query authentic Supabase-connected endpoints.
+  - Restored fail-closed identity administration check in `DeveloperReference.tsx`.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build` in 20.35s), leak guard check passed, 10/10 hosted Phase 3C-B workflow gates passed against live Supabase database, and 12/12 authentication dialog browser suites passed.
+
 ## Complete website demonstration, subpage navigation repair, and guest fixture isolation - 2026-11-10
 
 - Resolved subpage navigation blocker and infinite redirect loop:
