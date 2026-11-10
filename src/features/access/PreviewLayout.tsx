@@ -56,9 +56,11 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
         <nav className="access-header-navigation" aria-label="Main navigation">
           <a className="access-nav-link" href="#/" aria-current={screen === 'home' ? 'page' : undefined}
             onClick={(event) => followPreviewLink(event, '/')}>Home</a>
-            <a className="access-nav-link access-patients-link" href={account.user ? "#/patient/home" : "#/sign-in/patient"} aria-current={screen === 'patient-home' ? 'page' : undefined}
-              onClick={(event) => followPreviewLink(event, account.user ? '/patient/home' : '/sign-in/patient')}>For patients</a>
-            {account.user ? <><a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a><md-icon-button aria-label="Sign out" onClick={() => { void account.signOut(); }}><LogOut size={22} aria-hidden="true" /></md-icon-button></> : <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
+            <a className="access-nav-link access-patients-link" href="#/patient/home" aria-current={screen === 'patient-home' ? 'page' : undefined}
+              onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a>
+            <a className="access-nav-link access-specialists-link" href="#/specialist" aria-current={screen === 'specialist' ? 'page' : undefined}
+              onClick={(event) => followPreviewLink(event, '/specialist')}>For specialists</a>
+            {account.user && !account.isGuest ? <><a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a><md-icon-button aria-label="Sign out" onClick={() => { void account.signOut(); }}><LogOut size={22} aria-hidden="true" /></md-icon-button></> : <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
               onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>}
         </nav>
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">

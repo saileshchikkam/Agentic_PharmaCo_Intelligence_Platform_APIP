@@ -1,5 +1,16 @@
 # Changelog
 
+## Complete website demonstration, subpage navigation repair, and guest fixture isolation - 2026-11-10
+
+- Resolved subpage navigation blocker and infinite redirect loop:
+  - Added dedicated client-side fictional guest entities (`GUEST_PATIENT`, `GUEST_SPECIALIST`) in `AccountProvider.tsx` enabling full visual and interactive exploration across all subpages (`#/patient/home`, `#/preview/adr-report`, `#/patient/adr/cases`, `#/preview/medassist`, `#/specialist`, `#/specialist/profile`, `#/developer-reference`).
+  - Corrected `APIPAuthDialog` post-authentication redirect guard (`open && user && !isGuest && ready && mode !== 'reset'`) and conditionally mounted it in `AccessPreview.tsx` only during active sign-in views (`isSignIn`), eliminating recursive navigation resets.
+  - Added in-memory mock handlers in `GuidedWorkspace.tsx` and `CaseWorkspace.tsx` for `fictional-` owners, allowing live 5-stage ADR report creation, revision updates, and draft case listing without remote API calls.
+  - Added guest exploration triggers ("Explore as Patient", "Explore as Specialist") to the Material 3 horizontal authentication dialog.
+  - Enabled developer design reference inspection in development and guest preview modes.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build` in 4.82s), leak guard checks pass, and end-to-end multi-viewport route verification (11/11 routes pass).
+
+
 ## Protected route navigation repair, keyboard event forwarding, port consolidation, and full website review - 2026-11-09
 
 - Repaired unauthenticated navigation and eliminated the "Checking your account..." blank white screen defect:
