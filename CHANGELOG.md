@@ -1,5 +1,17 @@
 # Changelog
 
+## ADR Phase 3C-C1: Shared Specialist Review Queue & Atomic Case Assignment Foundation - 2026-11-10
+
+- Implemented shared specialist ADR review queue and atomic case assignment foundation:
+  - Added patient-controlled explicit consent for the Approved Specialist Review Pool (`target: 'pool'`, policy `'phase3c-c1-v1'`) in `PatientSharing`, including disclosure of minimal queue metadata visibility, single-specialist claim rule, and withdrawal restrictions.
+  - Implemented `SharingPoolRepository` with SQLite persistence and PostgreSQL-level advisory transaction lock (`pg_advisory_xact_lock`) concurrency serialization in `server/sharing/pool.ts`.
+  - Added `GET /api/sharing/queue` endpoint delivering minimal safe display metadata (caseRef, reactionSnippet, suspectMedicineClass, createdAt) to approved, active specialists only; patient names and contact details strictly withheld.
+  - Added atomic `POST /api/sharing/queue/:id/claim` endpoint with conflict of interest rejection (`CONFLICT_OF_INTEREST`) prohibiting self-assignment, database assignment creation in `apip_sharing.requests`, and 409 `ACTIVE_ASSIGNMENT_CONFLICT` rejection on simultaneous claim races.
+  - Added `POST /api/sharing/queue/:id/release` allowing claimed specialists to return cases to `pending_claim` in the pool.
+  - Enhanced `SharingInbox` with Material Design 3 tabbed navigation between "Available Review Queue" and "My Assigned Reviews", 10-second polling synchronization, and manual refresh controls.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), all 6 unit and HTTP sharing suites passed, and all 13/13 gates passed in `scripts/verify-phase3cc1-shared-queue.ts` against live Supabase PostgreSQL (`kstxwoitiistmvivwixd`) and PDF engine.
+
+
 ## Removal of temporary guest demonstration mode & restoration of real Supabase authentication - 2026-11-10
 
 - Completely decommissioned temporary fictional guest authentication system:

@@ -1,5 +1,6 @@
 import {sharingRouter} from './sharing/router';
 import {postgresSharingRepository,type SharingRepository} from './sharing/repository';
+import {createSharingPoolRepository,type SharingPoolRepository} from './sharing/pool';
 import express, { type Request, type Express } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import postgres from 'postgres';
@@ -17,7 +18,7 @@ type Principal = { id: string };
 type Verify = (token: string) => Promise<Principal | null>;
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 
-export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null, sharingRepository:SharingRepository|null=null) {
+export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null, sharingRepository:SharingRepository|null=null, poolRepository:SharingPoolRepository|null=null) {
   const router = express.Router();
   router.use((req,_res,next)=> /^\/(?:account\/adr-(guided|cases)(\/|$)|sharing(?:\/|$)|account\/capabilities$|specialist\/applications(?:\/|$)|admin\/specialist-applications(?:\/|$))/.test(req.path)?next():next('router'));
   const principals = new WeakMap<Request, Principal>();
@@ -57,7 +58,7 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     async (req, owner) => (await authenticate(req))?.id === owner));
   router.use('/account/adr-cases', casesRouter(repository, req => principals.get(req),
     async (req, owner) => (await authenticate(req))?.id === owner));
-  router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner));
+  router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner,poolRepository));
   router.use(specialistRouter(identityRepository,req=>principals.get(req)));
   router.use((error: { status?: number }, _req: Request, res: express.Response, _next: express.NextFunction) => {
     const status = error.status === 413 ? 413 : error.status === 400 ? 400 : 503;
@@ -102,7 +103,7 @@ export function configuredCloudAccount(app: Express, env = process.env) {
       throw Error('AUTH_UNAVAILABLE');
     }
     return data.user && !data.user.is_anonymous ? { id: data.user.id } : null;
-  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null);
+  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_SHARING_ENABLED==='1'?createSharingPoolRepository(sql):null);
   let readiness: { expires: number; check: Promise<{ database: boolean; pdf: boolean; auth: boolean }> } | undefined;
   app.get('/api/ready', async (_req, res) => {
     if (!readiness || readiness.expires < Date.now()) {
