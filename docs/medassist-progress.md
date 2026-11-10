@@ -1,14 +1,14 @@
 # MedAssist development progress
 
-| Field | 2026-11-08 Accelerated Model A program — Prompt 2 of 4 |
+| Field | 2026-11-10 Accelerated Model A program — Prompt 3 of 4 |
 | --- | --- |
 | Current stage | Stage 3 — Conversational NLP and Evidence |
-| Current subphase | Open-ended symptom capture, bounded context validation and conversation/export integration |
-| Current task | Prompt 2 of 4: complete and synchronized. A fresh contextual/open-ended evaluation is the next separately authorized gate. |
+| Current subphase | Model A runtime verification, trusted artifact audit and research integration gating |
+| Current task | Prompt 3 of 4: completed audit. Genuine local Model A inference is BLOCKED due to absent physical sealed artifacts on local disk and pinned Python 3.12.2 / scikit-learn 1.9.1 environment mismatch. Stage 3 scripted conversation, open-mention capture and proxy gating are fully verified. |
 | Overall MedAssist status | Scripted research demo is operational for nine confirmed evidence fields plus separately retained page-memory unsupported descriptions. Genuine local Model A remains blocked; clinical assessment disabled. |
-| Last verified completion | [Open-mention integration](evaluation/medassist-open-mention-integration-report.md): five prospective capture/export checks pass and the local browser/download check keeps an unsupported ear complaint out of evidence and Model A. |
-| Current blockers | No durable open-mention persistence or mapping/reconciliation UI; contextual extraction evaluation, local model/runtime availability and original sealed Model A environment remain unverified. |
-| Next task | Do not start automatically. A separately authorized fresh evaluation must assess contextual/open-ended coverage before any independently evaluated candidate extractor. |
+| Last verified completion | [Prompt 3 audit](history/2026-11-10.md): verified 17 sealed artifact hashes, protocol integrity, adapter fail-closed contract, and live browser preview. Confirmed exact runtime blockers. |
+| Current blockers | Physical sealed Model A artifacts and source metadata absent locally; Python 3.12.2 / scikit-learn 1.9.1 environment missing; no durable open-mention persistence or contextual semantic extractor. |
+| Next task | Do not start automatically. Prompt 4 must address Model A artifact provision / runtime environment prerequisites or define authenticated research integration. |
 | Starting commit for this task | `f8c350fc8ce2df0fde04bf79e1db749ee52fc55e` |
 | Latest verified preview | See the latest [dated verification](history/2026-11-08.md). |
 
