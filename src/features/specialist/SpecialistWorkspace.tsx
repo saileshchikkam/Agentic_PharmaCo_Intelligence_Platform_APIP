@@ -120,7 +120,9 @@ function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:strin
      {['REVOKED','REJECTED'].includes(application.state)&&<p>Reinstatement and appeals are not enabled by the approved prototype policy.</p>}</section>}
     {application&&<section><h2>Authorization history</h2>{!application.decisions.length?<p>No administrator decisions have been recorded.</p>:<ol>{application.decisions.map(d=><li key={d.id}><strong>{d.action.replaceAll('_',' ')}</strong><p>{d.reason}</p><p>Synthetic evidence: {d.evidenceReference||'Not recorded'}</p><time>{new Date(d.at).toLocaleString()}</time></li>)}</ol>}</section>}
     {!admin&&<section><h2>Workspace modules</h2><p>{caps.specialistWorkspace?'Your specialist identity is currently authorized.':'Specialist functionality requires current, unexpired administrator authorization.'}</p>
-     <ul><li>My assigned reviews — unavailable until Phase 3C</li><li>Review queue — unavailable until Phase 3C</li><li>Safety analytics — planned Phase 3E</li><li>Evidence intelligence — planned Phase 3F</li></ul><p>No patient records are requested or displayed in this workspace.</p></section>}
+     <ul><li>Available review queue — {caps.specialistWorkspace?'enabled in Specialist Review Workspace':'requires active specialist authorization'}</li><li>My assigned reviews — {caps.specialistWorkspace?'enabled in Specialist Review Workspace':'requires active specialist authorization'}</li><li>Safety analytics — planned Phase 3E</li><li>Evidence intelligence — planned Phase 3F</li></ul>
+     {caps.specialistWorkspace&&<div className="specialist-actions"><M3Button variant="outlined" onClick={()=>navigatePreview('/specialist/reviews')}>Open review workspace</M3Button></div>}
+     <p>No patient records are requested or displayed in this identity profile view.</p></section>}
    </>}
   </>}
   <md-dialog class="specialist-dialog" ref={dialog} quick={matchMedia('(prefers-reduced-motion: reduce)').matches||undefined} aria-label={`Confirm ${action.replaceAll('_',' ')}`}>

@@ -39,6 +39,7 @@ export type PooledReviewItem = {
   createdAt: string;
   claimedBy: string | null;
   claimedAt: string | null;
+  activeAssignmentId?: string | null;
   safeMetadata: SafeQueueMetadata;
   snapshot: any;
   disclosure: any;
@@ -96,27 +97,86 @@ export function canClaimPooledReview(
   return { allowed: true };
 }
 
+const DIRECT_IDENTIFIER_KEYS = new Set([
+  'initials',
+  'dob',
+  'reporterName',
+  'address',
+  'pin',
+  'email',
+  'phone',
+  'occupation',
+]);
+const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+const URL_RE = /\bhttps?:\/\/\S+/gi;
+const PHONE_OR_ID_RE = /(?:\+?\d[\d\s\-().]{5,}\d)/g;
+
+function sanitizeQueueText(raw: unknown, personalValues: string[], maxLen: number, fallback: string): string {
+  if (typeof raw !== 'string') return fallback;
+  let text = raw.replace(/[\u0000-\u001F\u007F]+/g, ' ').trim();
+  if (!text) return fallback;
+  for (const secret of personalValues) {
+    if (secret.length >= 4) {
+      const escaped = secret.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      text = text.replace(new RegExp(escaped, 'gi'), '[redacted]');
+    }
+  }
+  text = text
+    .replace(EMAIL_RE, '[redacted email]')
+    .replace(URL_RE, '[redacted link]')
+    .replace(PHONE_OR_ID_RE, '[redacted number]')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!text) return fallback;
+  return text.length > maxLen ? `${text.slice(0, maxLen - 1).trimEnd()}…` : text;
+}
+
 export function extractSafeMetadata(snapshot: any, disclosure: any): SafeQueueMetadata {
-  const caseRef = typeof snapshot.id === 'string' ? snapshot.id.slice(0, 8) : 'Case';
+  const caseRef = typeof snapshot?.id === 'string' ? snapshot.id.slice(0, 8) : 'Case';
+  const personalValues: string[] = [];
+  if (Array.isArray(disclosure?.fields)) {
+    for (const f of disclosure.fields) {
+      if (DIRECT_IDENTIFIER_KEYS.has(f?.key) && f?.state === 'provided' && typeof f?.value === 'string') {
+        const trimmed = f.value.trim();
+        if (trimmed) personalValues.push(trimmed);
+      }
+    }
+  }
+  if (snapshot?.values && typeof snapshot.values === 'object') {
+    for (const key of DIRECT_IDENTIFIER_KEYS) {
+      const v = snapshot.values[key];
+      if (v?.state === 'provided' && typeof v?.value === 'string' && v.value.trim()) {
+        personalValues.push(v.value.trim());
+      }
+    }
+  }
+
   const rxField = disclosure?.fields?.find((f: any) => f.key === 'reaction');
-  const reactionSnippet = rxField && rxField.state === 'provided' && typeof rxField.value === 'string' && rxField.value.trim()
-    ? rxField.value.trim().slice(0, 120)
-    : 'Adverse event summary';
+  const reactionSnippet = sanitizeQueueText(
+    rxField?.state === 'provided' ? rxField.value : '',
+    personalValues,
+    120,
+    'Adverse event summary'
+  );
 
   const medNames: string[] = [];
-  if (snapshot.medications && Array.isArray(snapshot.medications)) {
+  if (snapshot?.medications && Array.isArray(snapshot.medications)) {
     for (const m of snapshot.medications) {
       if (m.kind === 'suspect') {
         const nameField = disclosure?.fields?.find((f: any) => f.key === `med.${m.id}.name`);
         if (nameField && nameField.state === 'provided' && typeof nameField.value === 'string' && nameField.value.trim()) {
-          medNames.push(nameField.value.trim());
+          const safeMed = sanitizeQueueText(nameField.value, personalValues, 80, '');
+          if (safeMed) medNames.push(safeMed);
         }
       }
     }
   }
-  const suspectMedicineClass = medNames.length > 0 ? medNames.join(', ') : 'Suspect medication';
+  const suspectMedicineClass = sanitizeQueueText(medNames.join(', '), personalValues, 120, 'Suspect medication');
   const serField = disclosure?.fields?.find((f: any) => f.key === 'seriousness');
-  const seriousness = serField && serField.state === 'provided' && serField.value ? serField.value : undefined;
+  const seriousness =
+    serField && serField.state === 'provided' && typeof serField.value === 'string'
+      ? sanitizeQueueText(serField.value, personalValues, 80, '') || undefined
+      : undefined;
 
   return { caseRef, reactionSnippet, suspectMedicineClass, seriousness };
 }

@@ -1,0 +1,57 @@
+name: APIP CI Verification
+
+on:
+  push:
+    branches:
+      - main
+      - codex/**
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Setup Python for ADR PDF runtime checks
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Node dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install --no-audit --no-fund
+          fi
+
+      - name: Install Python PDF dependencies
+        run: python -m pip install --no-cache-dir pypdf reportlab
+
+      - name: Secret hygiene check
+        run: npm run scan:secrets
+
+      - name: TypeScript typecheck
+        run: npm run lint
+
+      - name: Build frontend and server bundle
+        run: npm run build
+
+      - name: Run unit and PostgreSQL integration suites
+        run: npm test
+
+      - name: Run ADR PDF runtime suites
+        env:
+          APIP_PDF_PYTHON: python3
+        run: npm run test:pdf

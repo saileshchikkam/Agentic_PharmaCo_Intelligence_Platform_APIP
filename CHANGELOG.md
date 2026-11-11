@@ -1,5 +1,18 @@
 # Changelog
 
+## Platform Stabilization, Unified Portal, Secret Hygiene & ADR Phase 3C-C1 Security Remediation - 2026-11-11
+
+- **Authentication UX, Session Isolation & Navigation (`G01`–`G07`)**:
+  - Added `src/features/account/authError.ts` mapping Supabase Auth error codes and local errors cleanly instead of showing generic `"Request failed"` alerts; updated Google OAuth button state using live `/auth/v1/settings`; aligned signup/reset password minimum to 12 characters in `APIPAuthDialog.tsx` and `AccountSignIn.tsx`.
+  - Stabilized `M3TextField` input change listeners (`onChangeRef`), guarded post-auth redirect / modal close races and role-scoped `apip.account.return`, fixed `CaseWorkspace.tsx` `date()` handling on missing/invalid timestamps, keyed `SpecialistWorkspace` by authenticated user ID, added `Open review workspace` on `/specialist/profile`, normalized non-hash deep links synchronously inside `readPreviewRoute()`, and added `For specialists` plus safe `#/` sign-out transition in `PreviewLayout.tsx`.
+  - Rewrote `scripts/closure-preview.mjs` as the unified single-origin gateway (`http://127.0.0.1:3602` / `http://localhost:3602`) serving built `dist/` assets with SPA fallback and `/api/*` proxying to `127.0.0.1:3601`.
+- **ADR Phase 3C-C1 Security & Architecture Remediation (`G08`–`G12`)**:
+  - Authored `supabase/migrations/20261111000000_adr_pooled_sharing_queue.sql` and `postgresSharingPoolRepository(sql)` in `server/sharing/pool.ts` (activated when `APIP_POOL_POSTGRES=1`) to eliminate SQLite queue persistence and server-side patient impersonation on claim; hardened SQLite fallback (`pool_receipts`, per-key serialization, release by `poolRequestId` or `assignmentId`, fresh assignment IDs on reclaim).
+  - Hardened `extractSafeMetadata()` PII redaction (`server/sharing/policy.ts`), `/requests` deduplication and `Withdraw future access` rendering for `claimed` pool items (`server/sharing/router.ts`, `SharingWorkspace.tsx`), and connected `/inbox/:id/decline` back to `pool.release`.
+- **Secret Hygiene, CI & Risk Governance (`G13`–`G15`)**:
+  - Added `findSecretViolations()` in `scripts/git-workflow.mjs` and standalone `scripts/scan-secrets.mjs`; scrubbed a hardcoded local database password in `alembic.ini` line 89; added `scan:secrets`, `test`, and `test:pdf` npm scripts plus `.github/workflows/ci.yml`; documented Claude Audit Risk Register in `docs/history/2026-11-11.md`.
+- **Verified**: `npm run scan:secrets` (`0` findings across `883` files), `npm run lint`, `npm run build`, `npm test` (`62/62`), `npm run test:pdf` (`9/9`), hosted `verify-hosted-phase3cb-workflow.ts` (`10/10`) & `verify-phase3cc1-shared-queue.ts` (`13/13`), live multi-viewport E2E on `http://127.0.0.1:3602` (`8/8` viewports, `15/15` routes, `0` console/page/5xx errors), and mocked session-isolation E2E. Hosted SQL DDL application (`20261111000000`) and credential rotation remain pending explicit owner action.
+
 ## ADR Phase 3C-C1: Shared Specialist Review Queue & Atomic Case Assignment Foundation - 2026-11-10
 
 - Implemented shared specialist ADR review queue and atomic case assignment foundation:

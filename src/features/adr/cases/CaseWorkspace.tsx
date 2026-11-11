@@ -11,7 +11,7 @@ import '../guided/guided.css';
 import './cases.css';
 
 const listPath='/patient/adr/cases';
-const date=(value:string)=>new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
+const date=(value:string)=>{if(!value)return 'Not recorded';const parsed=new Date(value);return Number.isNaN(parsed.getTime())?'Not recorded':new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short'}).format(parsed);};
 const messages:Record<string,string>={NOT_FOUND:'This report is unavailable in your account.',SIGN_IN_REQUIRED:'Please sign in again to open your reports.',
   ACCOUNT_CHANGED:'Your account changed. Reopen My ADR Reports.',INVALID_CURSOR:'This results page has expired. Return to the first page.',
   INVALID_FILTER:'Check the filters and date range.',PDF_BUSY:'The form service is busy. Please retry.'};

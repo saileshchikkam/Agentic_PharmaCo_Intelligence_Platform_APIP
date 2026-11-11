@@ -112,19 +112,23 @@ export function sharingRouter(
     endpoint(async (req, res) => {
       const directReqs: any[] = (await op(req, 'patient_list')) ?? [];
       const poolReqs = pool ? await pool.listForPatient(actor(req)) : [];
-      const directIds = new Set(directReqs.map(r => r.id));
-      const formattedPoolReqs = poolReqs
-        .filter(p => !directIds.has(p.id))
-        .map(p => ({
-          id: p.id,
-          caseId: p.caseId,
-          revision: p.revision,
-          state: p.state,
-          version: p.version,
-          target: 'pool',
-          assignedAt: p.createdAt,
-        }));
-      res.json({ requests: [...directReqs, ...formattedPoolReqs] });
+      const poolIds = new Set(poolReqs.map(p => p.id));
+      const poolAssignments = new Set(
+        poolReqs.map(p => p.activeAssignmentId).filter((v): v is string => Boolean(v))
+      );
+      const filteredDirect = directReqs.filter(
+        r => !poolIds.has(r.id) && !poolAssignments.has(r.id)
+      );
+      const formattedPoolReqs = poolReqs.map(p => ({
+        id: p.id,
+        caseId: p.caseId,
+        revision: p.revision,
+        state: p.state === 'claimed' ? 'active' : p.state,
+        version: p.version,
+        target: 'pool',
+        assignedAt: p.claimedAt ?? p.createdAt,
+      }));
+      res.json({ requests: [...filteredDirect, ...formattedPoolReqs] });
     })
   );
 
@@ -214,18 +218,20 @@ export function sharingRouter(
       )
         throw Error('INVALID_REQUEST');
 
-      const poolItem = pool ? await pool.get(req.params.id) : null;
-      if (poolItem) {
+      const command = key(req);
+      const poolItem = pool ? await pool.get(req.params.id, actor(req)) : null;
+      if (poolItem && poolItem.patient === actor(req)) {
         const result = await pool.withdraw(
           actor(req),
-          req.params.id,
+          poolItem.id,
           req.body.expectedVersion,
-          key(req),
-          async (id, v) => {
+          command,
+          async (assignmentId, assignmentVersion) => {
             try {
-              return await op(req, 'withdraw', id, { expectedVersion: v }, key(req));
-            } catch {
-              /* ignore if not yet claimed in database */
+              return await op(req, 'withdraw', assignmentId, { expectedVersion: assignmentVersion }, command);
+            } catch (e) {
+              if ((e as Error).message === 'NOT_FOUND') return null;
+              throw e;
             }
           }
         );
@@ -233,7 +239,7 @@ export function sharingRouter(
         return;
       }
 
-      res.json({ request: await op(req, 'withdraw', req.params.id, req.body, key(req)) });
+      res.json({ request: await op(req, 'withdraw', req.params.id, req.body, command) });
     })
   );
 
@@ -243,7 +249,7 @@ export function sharingRouter(
     endpoint(async (req, res) => {
       // Caller must be currently approved specialist
       await op(req, 'count');
-      const queue = pool ? await pool.listQueue() : [];
+      const queue = pool ? await pool.listQueue(50, actor(req)) : [];
       res.json({ queue });
     })
   );
@@ -258,21 +264,26 @@ export function sharingRouter(
       const specialistId = actor(req);
       const command = key(req);
 
-      const result = await pool.claim(specialistId, req.params.id, command, async item => {
-        // Execute official creation in apip_sharing with patient as owner/subject
+      const result = await pool.claim(specialistId, req.params.id, command, async (item, assignmentId) => {
+        // Fallback path when PostgreSQL pooled migration is awaiting owner DDL approval:
+        // Re-verify canonical patient-owned snapshot and disclosure digest before assignment creation.
+        const canonical = await cases.snapshot(item.patient, item.caseId, item.revision);
+        if (!canonical) throw Error('NOT_FOUND');
+        const verifiedDisclosure = prepareDisclosure(canonical);
+        if (verifiedDisclosure.digest !== item.disclosureDigest) throw Error('DISCLOSURE_MISMATCH');
         return await sharing!.operation(
           item.patient,
           'create',
-          item.id,
+          assignmentId,
           {
             caseId: item.caseId,
             revision: item.revision,
             specialist: specialistId,
             consent: true,
             policyVersion: 'phase3c-b-v1',
-            snapshot: item.snapshot,
-            disclosure: item.disclosure,
-            digest: item.disclosureDigest,
+            snapshot: canonical,
+            disclosure: verifiedDisclosure,
+            digest: verifiedDisclosure.digest,
           },
           command
         );
@@ -301,8 +312,8 @@ export function sharingRouter(
         req.params.id,
         req.body.expectedVersion,
         command,
-        async (id, expectedVersion) => {
-          return await op(req, 'decline', id, { expectedVersion }, command);
+        async (assignmentId, assignmentVersion) => {
+          return await op(req, 'decline', assignmentId, { expectedVersion: assignmentVersion }, command);
         }
       );
 
@@ -320,7 +331,23 @@ export function sharingRouter(
         !Number.isSafeInteger(req.body.expectedVersion)
       )
         throw Error('INVALID_REQUEST');
-      res.json(await op(req, 'decline', req.params.id, req.body, key(req)));
+      const command = key(req);
+      const specialistId = actor(req);
+      const poolItem = pool ? await pool.get(req.params.id, specialistId) : null;
+      if (poolItem && poolItem.state === 'claimed' && poolItem.claimedBy === specialistId) {
+        const result = await pool.release(
+          specialistId,
+          req.params.id,
+          req.body.expectedVersion,
+          command,
+          async (assignmentId, assignmentVersion) => {
+            return await op(req, 'decline', assignmentId, { expectedVersion: assignmentVersion }, command);
+          }
+        );
+        res.json(result);
+        return;
+      }
+      res.json(await op(req, 'decline', req.params.id, req.body, command));
     })
   );
 

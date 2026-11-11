@@ -51,6 +51,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
       await accountClient.signOut();
       sessionStorage.removeItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.return');
+      sessionStorage.removeItem('apip.last.role');
       setUser(null); setProfile(null);
     } catch { setError('Sign-out failed. Please retry.'); }
   };

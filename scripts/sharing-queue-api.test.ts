@@ -34,7 +34,7 @@ test('shared queue HTTP endpoints enforce authentication, atomic claim, self-rev
     values: {
       caseType: val('Initial'),
       initials: val('FS'),
-      reaction: val('Fictional severe itching'),
+      reaction: val('Fictional severe itching (call +91 98765 43210 or patient@example.test)'),
       reporterName: val('Fictional Reporter'),
       'med.m.name': val('Fictional test medicine'),
     },
@@ -121,7 +121,7 @@ test('shared queue HTTP endpoints enforce authentication, atomic claim, self-rev
     const emptyQueue = await emptyQueueRes.json();
     assert.equal(emptyQueue.queue.length, 0);
 
-    // 4. Patient creates pool sharing request
+    // 4. Patient creates pool sharing request (including accidental PII inside clinical text)
     const d = prepareDisclosure(c);
     const poolBody = {
       caseId,
@@ -138,13 +138,15 @@ test('shared queue HTTP endpoints enforce authentication, atomic claim, self-rev
     const requestId = createdData.request.id;
     assert.equal(createdData.request.state, 'pending_claim');
 
-    // 5. Specialist A and Specialist B query queue; both see the entry
+    // 5. Specialist A and Specialist B query queue; both see redacted metadata only
     const qA = await (await call(specialistA, '/queue')).json();
     assert.equal(qA.queue.length, 1);
     assert.equal(qA.queue[0].id, requestId);
-    assert.equal(qA.queue[0].safeMetadata.reactionSnippet, 'Fictional severe itching');
-    // Ensure no patient personal information in queue response
+    assert(qA.queue[0].safeMetadata.reactionSnippet.startsWith('Fictional severe itching'));
+    // Ensure no patient personal information or inline email/phone in queue response
     assert(!JSON.stringify(qA).includes('Fictional Reporter'));
+    assert(!JSON.stringify(qA).includes('patient@example.test'));
+    assert(!JSON.stringify(qA).includes('98765 43210'));
 
     // 6. Conflict of interest: Patient attempts to claim own report
     const selfClaim = await call(patient, '/queue/' + requestId + '/claim', {});
@@ -152,30 +154,40 @@ test('shared queue HTTP endpoints enforce authentication, atomic claim, self-rev
     const selfClaimErr = await selfClaim.json();
     assert.equal(selfClaimErr.error, 'CONFLICT_OF_INTEREST');
 
-    // 7. Specialist A claims the case
-    const claimRes = await call(specialistA, '/queue/' + requestId + '/claim', {});
-    assert.equal(claimRes.status, 200);
+    // 7. Concurrent HTTP claims: exactly 1 succeeds (200) and 1 gets 409 ACTIVE_ASSIGNMENT_CONFLICT
+    const [raceResA, raceResB] = await Promise.all([
+      call(specialistA, '/queue/' + requestId + '/claim', {}),
+      call(specialistB, '/queue/' + requestId + '/claim', {}),
+    ]);
+    const statuses = [raceResA.status, raceResB.status].sort();
+    assert.deepEqual(statuses, [200, 409]);
+    const winner = raceResA.status === 200 ? specialistA : specialistB;
+    const loser = winner === specialistA ? specialistB : specialistA;
+    const winBody = await (raceResA.status === 200 ? raceResA : raceResB).json();
+    const assignmentId = winBody.request.id;
 
     // 8. Queue is now empty for Specialist B
-    const qB = await (await call(specialistB, '/queue')).json();
+    const qB = await (await call(loser, '/queue')).json();
     assert.equal(qB.queue.length, 0);
 
-    // 9. Specialist B attempting to claim receives 409 Conflict
-    const claimBRes = await call(specialistB, '/queue/' + requestId + '/claim', {});
+    // 9. Losing specialist attempting another claim receives 409 Conflict
+    const claimBRes = await call(loser, '/queue/' + requestId + '/claim', {});
     assert.equal(claimBRes.status, 409);
     const claimBErr = await claimBRes.json();
     assert.equal(claimBErr.error, 'ACTIVE_ASSIGNMENT_CONFLICT');
 
-    // 10. Specialist A releases case back to queue
-    const releaseRes = await call(specialistA, '/queue/' + requestId + '/release', { expectedVersion: 2 });
+    // 10. Winning specialist releases case back to queue using assignment ID & assignment version
+    const releaseRes = await call(winner, '/queue/' + assignmentId + '/release', { expectedVersion: 1 });
     assert.equal(releaseRes.status, 200);
 
-    // Case is back in queue for Specialist B
-    const qBAfterRelease = await (await call(specialistB, '/queue')).json();
+    // Case is back in queue and previously losing specialist claims it
+    const qBAfterRelease = await (await call(loser, '/queue')).json();
     assert.equal(qBAfterRelease.queue.length, 1);
+    const reClaimRes = await call(loser, '/queue/' + requestId + '/claim', {});
+    assert.equal(reClaimRes.status, 200);
 
-    // 11. Patient withdraws sharing request
-    const withdrawRes = await call(patient, '/requests/' + requestId + '/withdraw', { expectedVersion: 3 });
+    // 11. Patient withdraws sharing request while claimed -> version bumped to 4 (create 1 -> claim 2 -> release 3 -> reclaim 4)
+    const withdrawRes = await call(patient, '/requests/' + requestId + '/withdraw', { expectedVersion: 4 });
     assert.equal(withdrawRes.status, 200);
 
     // Queue is empty again

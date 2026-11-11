@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { MdDialog } from '@material/web/dialog/dialog';
 import { M3Button, M3TextField } from '../../components/material/core';
 import { accountClient } from './client';
+import { formatAuthError } from './authError';
 import { useAccount } from './AccountProvider';
 import { accountDestination } from './authCallback';
 import { navigatePreview } from '../access/navigation';
@@ -145,6 +146,8 @@ export function APIPAuthDialog({
   }, []);
 
   // Dialog imperative show/close syncing
+  const intendedOpenRef = useRef(open);
+  intendedOpenRef.current = open;
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -176,8 +179,12 @@ export function APIPAuthDialog({
     };
 
     const handleClosed = () => {
-      if (open) {
-        onClose();
+      if (intendedOpenRef.current) {
+        if (open) {
+          onClose();
+        } else {
+          void dialog.show();
+        }
       }
     };
 
@@ -217,7 +224,7 @@ export function APIPAuthDialog({
 
   // Post-authentication redirect and session handling
   useEffect(() => {
-    if (user && ready && mode !== 'reset') {
+    if (open && user && ready && mode !== 'reset') {
       const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.continue');
       const destination = sessionStorage.getItem('apip.account.return');
@@ -226,9 +233,10 @@ export function APIPAuthDialog({
       const rawDest = destination ? destination.replace(/^(\/#|#)/, '') : '';
       const validCustomDest =
         rawDest &&
-        /^(?:\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(
-          rawDest
-        );
+        (isSpecialist
+          ? /^(?:\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?)$/i
+          : /^(?:\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i
+        ).test(rawDest);
 
       const target = validCustomDest
         ? rawDest
@@ -236,10 +244,11 @@ export function APIPAuthDialog({
         ? '/specialist'
         : accountDestination(task);
 
-      onClose();
+      // Do NOT call onClose() here: onClose triggers history pop/fallback to landing page.
+      // Simply navigate to the target route; the dialog will unmount or close via route change.
       navigatePreview(target, { replace: true });
     }
-  }, [user?.id, ready, requestedTask, isSpecialist, mode, onClose]);
+  }, [open, user?.id, ready, requestedTask, isSpecialist, mode]);
 
   const handleCloseRequest = () => {
     const dialog = dialogRef.current;
@@ -280,8 +289,8 @@ export function APIPAuthDialog({
         setNotice({ type: 'error', message: 'Please enter your new password.' });
         return false;
       }
-      if (password.length < 8) {
-        setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+      if (password.length < 12) {
+        setNotice({ type: 'error', message: 'Password must be at least 12 characters long.' });
         return false;
       }
       if (password !== confirmPassword) {
@@ -302,8 +311,8 @@ export function APIPAuthDialog({
       setNotice({ type: 'error', message: 'Please enter your password.' });
       return false;
     }
-    if (mode === 'signup' && password.length < 8) {
-      setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+    if (mode === 'signup' && password.length < 12) {
+      setNotice({ type: 'error', message: 'Password must be at least 12 characters long.' });
       return false;
     }
     return true;
@@ -331,7 +340,6 @@ export function APIPAuthDialog({
         } else {
           setNotice({ type: 'success', message: 'Account created! Opening your dashboard…' });
           const target = isSpecialist ? '/specialist/profile' : accountDestination(requestedTask);
-          onClose();
           navigatePreview(target, { replace: true });
         }
       } else if (mode === 'signin') {
@@ -365,16 +373,7 @@ export function APIPAuthDialog({
       }
     } catch (err: unknown) {
       setPassword('');
-      const msg = err instanceof Error ? err.message : '';
-      if (/invalid.*credential/i.test(msg) || /invalid_grant/i.test(msg)) {
-        setNotice({ type: 'error', message: 'Incorrect email or password. Please try again.' });
-      } else if (/already.*registered/i.test(msg) || /user_already_exists/i.test(msg)) {
-        setNotice({ type: 'error', message: 'An account with this email already exists. Try signing in.' });
-      } else if (/rate.*limit/i.test(msg)) {
-        setNotice({ type: 'error', message: 'Too many attempts. Please wait a few moments and try again.' });
-      } else {
-        setNotice({ type: 'error', message: 'Unable to complete this request. Check your details or try again.' });
-      }
+      setNotice({ type: 'error', message: formatAuthError(err) });
     } finally {
       submitting.current = false;
       setBusy(false);
@@ -390,7 +389,7 @@ export function APIPAuthDialog({
       if (googleEnabled !== true) {
         setNotice({
           type: 'info',
-          message: 'Google Sign-in is not yet enabled on the hosted project. Please use email and password to sign in.',
+          message: 'Google Sign-in is not enabled on this project. Please sign in with email and password.',
         });
         submitting.current = false;
         setBusy(false);
@@ -562,10 +561,10 @@ export function APIPAuthDialog({
               </div>
 
               {/* Notice / Alert Banner */}
-              {(notice || authError) && (
+              {(notice || (authError && /session|expired|unauthorized/i.test(authError))) && (
                 <div
                   role={notice?.type === 'error' || authError ? 'alert' : 'status'}
-                  className={`apip-auth-notice ${notice?.type ?? (authError ? 'error' : 'info')}`}
+                  className={`apip-auth-notice ${notice?.type ?? 'error'}`}
                 >
                   <span className="material-symbols-outlined" aria-hidden="true">
                     {notice?.type === 'success'
@@ -592,12 +591,17 @@ export function APIPAuthDialog({
                       </svg>
                     }
                     className="apip-auth-google-btn"
-                    disabled={busy || !accountClient}
+                    disabled={busy || !accountClient || googleEnabled === false}
                     onClick={() => void handleGoogle()}
                     ariaLabel="Continue with Google"
                   >
                     Continue with Google
                   </M3Button>
+                  {googleEnabled === false && (
+                    <p className="apip-auth-prototype-note" style={{ textAlign: 'center', marginTop: '4px', marginBottom: '8px' }}>
+                      Google sign-in is not enabled on this environment. Please sign in with email and password.
+                    </p>
+                  )}
 
                   <div className="apip-auth-divider">
                     <span>or with email</span>
@@ -651,7 +655,7 @@ export function APIPAuthDialog({
                       </span>
                     </button>
                     {mode === 'signup' && (
-                      <span className="apip-auth-helper">Minimum 8 characters</span>
+                      <span className="apip-auth-helper">Minimum 12 characters</span>
                     )}
                   </div>
                 )}

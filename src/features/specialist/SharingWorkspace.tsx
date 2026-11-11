@@ -303,7 +303,7 @@ export function PatientSharing({
                   : `Direct Assignment (${r.state})`}
               </h3>
               <p role="status">{r.state}</p>
-              {(r.state === 'active' || r.state === 'pending_claim') && (
+              {(r.state === 'active' || r.state === 'pending_claim' || r.state === 'claimed') && (
                 <M3Button
                   variant="outlined"
                   disabled={busy}

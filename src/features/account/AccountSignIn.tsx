@@ -3,6 +3,7 @@ import { accountDestination } from './authCallback';
 import React, { useEffect, useRef, useState } from 'react';
 import { M3Button, M3TextField } from '../../components/material/core';
 import { accountClient } from './client';
+import { formatAuthError } from './authError';
 import { useAccount } from './AccountProvider';
 import { navigatePreview } from '../access/navigation';
 import './account.css';
@@ -99,8 +100,8 @@ export function AccountSignIn({
         setNotice({ type: 'error', message: 'Please enter your new password.' });
         return false;
       }
-      if (password.length < 8) {
-        setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+      if (password.length < 12) {
+        setNotice({ type: 'error', message: 'Password must be at least 12 characters long.' });
         return false;
       }
       if (password !== confirmPassword) {
@@ -123,8 +124,8 @@ export function AccountSignIn({
       setNotice({ type: 'error', message: 'Please enter your password.' });
       return false;
     }
-    if (mode === 'signup' && password.length < 8) {
-      setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+    if (mode === 'signup' && password.length < 12) {
+      setNotice({ type: 'error', message: 'Password must be at least 12 characters long.' });
       return false;
     }
     return true;
@@ -186,16 +187,7 @@ export function AccountSignIn({
       }
     } catch (err: unknown) {
       setPassword('');
-      const msg = err instanceof Error ? err.message : '';
-      if (/invalid.*credential/i.test(msg) || /invalid_grant/i.test(msg)) {
-        setNotice({ type: 'error', message: 'Incorrect email or password. Please try again.' });
-      } else if (/already.*registered/i.test(msg) || /user_already_exists/i.test(msg)) {
-        setNotice({ type: 'error', message: 'An account with this email already exists. Try signing in.' });
-      } else if (/rate.*limit/i.test(msg)) {
-        setNotice({ type: 'error', message: 'Too many attempts. Please wait a few moments and try again.' });
-      } else {
-        setNotice({ type: 'error', message: 'Unable to complete this request. Check your details or try again.' });
-      }
+      setNotice({ type: 'error', message: formatAuthError(err) });
     } finally {
       submitting.current = false;
       setBusy(false);
@@ -412,7 +404,7 @@ export function AccountSignIn({
               {showPassword ? <EyeOff size={20} aria-hidden="true" /> : <Eye size={20} aria-hidden="true" />}
             </button>
             {mode === 'signup' && (
-              <span className="auth-field-helper">Minimum 8 characters</span>
+              <span className="auth-field-helper">Minimum 12 characters</span>
             )}
           </div>
         )}
