@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { accountClient, type AccountUser } from './client';
+import { clearPendingAuthReturn } from './authCallback';
 import type { PatientProfile } from './profile';
 
 interface AccountState {
   user: AccountUser | null; profile: PatientProfile | null; ready: boolean; error: string;
   reload: () => void; signOut: () => Promise<void>;
+  invalidateSession: (owner?: string, message?: string) => Promise<void>;
 }
 const Context = createContext<AccountState | null>(null);
 function clearLegacyBrowserDrafts() {
@@ -63,12 +65,17 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
       sessionStorage.removeItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.return');
       sessionStorage.removeItem('apip.last.role');
+      clearPendingAuthReturn();
       clearLegacyBrowserDrafts();
       setUser(null); setProfile(null);
     } catch { setError('Sign-out failed. Please retry.'); }
   };
+  const invalidateSession = async (owner?: string, message?: string) => {
+    if (!accountClient?.invalidateSession) return;
+    await accountClient.invalidateSession(owner, message);
+  };
   return <Context.Provider value={{ user, profile: profile?.user_id === user?.id ? profile : null,
-    ready: ready && authReady, error: authError || error, reload: () => setGeneration(v => v + 1), signOut }}>{children}</Context.Provider>;
+    ready: ready && authReady, error: authError || error, reload: () => setGeneration(v => v + 1), signOut, invalidateSession }}>{children}</Context.Provider>;
 }
 export function useAccount() {
   const value = useContext(Context);

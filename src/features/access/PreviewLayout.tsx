@@ -3,7 +3,7 @@ import { useAccount } from '../account/AccountProvider';
 import React, { useEffect, useRef, useState } from 'react';
 import { M3Button } from '../../components/material/core';
 import type { Appearance } from '../../design-system/appearance';
-import { followPreviewLink } from './navigation';
+import { followPreviewLink, navigatePreview } from './navigation';
 import { useDiscreetDeveloperAccess } from './discreetDeveloperAccess';
 import './access.css';
 
@@ -64,12 +64,14 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
             <>
               <a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a>
               <md-icon-button aria-label="Sign out" title="Sign out" onClick={() => {
+                const leave = new CustomEvent('apip:before-navigate', { cancelable: true, detail: { to: '/' } });
+                if (!window.dispatchEvent(leave)) return;
                 try {
                   sessionStorage.removeItem('apip.account.continue');
                   sessionStorage.removeItem('apip.account.return');
                   sessionStorage.removeItem('apip.last.role');
                 } catch {}
-                window.location.hash = '#/';
+                navigatePreview('/', { replace: true });
                 void account.signOut();
               }}>
                 <LogOut size={22} aria-hidden="true" />

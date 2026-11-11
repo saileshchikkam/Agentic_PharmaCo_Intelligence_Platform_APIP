@@ -1,5 +1,18 @@
 # Changelog
 
+## P0-A Authentication Recovery & GitHub CI PDF Fix - 2026-11-11
+
+### Changed
+
+- Fixed cross-tab Supabase PKCE email confirmation and password recovery flows (`src/features/account/client.ts`, `src/features/account/authCallback.ts`, `src/features/account/APIPAuthDialog.tsx`): stored PKCE `-code-verifier` entries in `localStorage` as well as `sessionStorage` with cleanup on exchange/removal, added TTL-bounded non-PII cross-tab pending return restoration (`apip.account.pending_return`), preserved selected role across `/forgot-password/*` and `/#/reset-password`, added explicit expired/missing recovery link fallback actions instead of failing on submit, added resend-confirmation actions, and fixed Google OAuth gate handling (`googleEnabled === false` vs unprobed `null`).
+- Hardened authentication error mapping, session refresh stability, and expired-session reconciliation (`src/features/account/authError.ts`, `src/features/account/client.ts`, `src/features/account/AccountProvider.tsx`, `src/features/specialist/SpecialistWorkspace.tsx`, `src/features/specialist/SharingWorkspace.tsx`, `src/features/adr/guided/GuidedWorkspace.tsx`, `src/features/adr/cases/CaseWorkspace.tsx`): mapped `AuthSessionMissingError`, PKCE verifier, OTP expiry, same-password, and timeout errors; eliminated premature logout flashes during background token refresh on expiry timers; added proactive token refresh and `invalidateSession` recovery on HTTP `401 SIGN_IN_REQUIRED`; cleared stale inbox/queue state on `403 FORBIDDEN`.
+- Normalized trailing-slash preview routes, preserved return destinations for `/#/preview/medassist`, limited `apip.last.role = 'specialist'` sticky tracking to active specialist workspace views (`home`, `reviews`, `admin`), and honored navigation dirty guards during header sign-out (`src/features/access/AccessPreview.tsx`, `src/features/access/PreviewLayout.tsx`).
+- Fixed the GitHub CI `503 !== 404` failure in `scripts/sharing-api.test.ts` (`server/adr/pdf.ts`, `server/sharing/router.ts`, `scripts/sharing-api.test.ts`): exported injectable `PdfService` on `sharingRouter`, mapped PDF service/template unavailability errors explicitly to HTTP `503`, separated `404 NOT_FOUND` authorization/withdrawal enforcement from `503 PDF_TEMPLATE_MISSING` / `PDF_RUNTIME_DEPENDENCIES_MISSING`, and verified deterministic tests both with and without gitignored `ADRRF_2.pdf`.
+
+### Added
+
+- Expanded unit and callback coverage in [scripts/auth-error.test.ts](scripts/auth-error.test.ts) and added cross-tab email confirmation, cross-tab password reset, expired recovery UI, and `401` session reconciliation Playwright browser verification in [scripts/auth-recovery.browser.mjs](scripts/auth-recovery.browser.mjs).
+
 ## P0 Unified Auth, Fail-Closed Postgres Persistence & Multi-Actor Isolation - 2026-11-11
 
 ### Changed

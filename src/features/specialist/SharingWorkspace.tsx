@@ -2,6 +2,7 @@ import { FormPage } from '../adr/guided/LiveFormPreview';
 import { navigatePreview } from '../access/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { M3Button, M3Checkbox, M3Select, M3Radio } from '../../components/material/core';
+import { useAccount } from '../account/AccountProvider';
 import { guidedAccountHeaders } from '../account/client';
 
 export async function sharingRequest(
@@ -11,14 +12,28 @@ export async function sharingRequest(
   key?: string,
   signal?: AbortSignal
 ) {
+  let headers: Record<string, string>;
+  try {
+    headers = {
+      ...(await guidedAccountHeaders(owner)),
+      ...(key ? { 'Idempotency-Key': key } : {}),
+    };
+  } catch (e) {
+    const code = e instanceof Error && e.message ? e.message : 'SIGN_IN_REQUIRED';
+    throw Object.assign(
+      new Error(
+        code === 'SIGN_IN_REQUIRED'
+          ? 'Your session has ended. Please sign in again.'
+          : `Sharing request failed (${code}). Refresh and retry.`
+      ),
+      { code }
+    );
+  }
   const r = await fetch(
     (import.meta.env.VITE_APIP_SHARING_FIXTURE === '1' ? '/api/account/sharing-fixture' : '/api/sharing') + path,
     {
       method: body === undefined ? 'GET' : 'POST',
-      headers: {
-        ...(await guidedAccountHeaders(owner)),
-        ...(key ? { 'Idempotency-Key': key } : {}),
-      },
+      headers,
       body: body === undefined ? undefined : JSON.stringify(body),
       cache: 'no-store',
       signal,
@@ -26,23 +41,39 @@ export async function sharingRequest(
   );
   if (!r.ok) {
     const value = await r.json().catch(() => ({}));
-    const err = value.error;
-    throw Error(
-      err === 'SHARING_NOT_ENABLED'
-        ? 'Secure sharing is awaiting database activation. Your report remains private.'
-        : err === 'POOL_MIGRATION_REQUIRED' || err === 'POOL_SQLITE_FORBIDDEN_IN_CLOUD'
-        ? 'Shared specialist review queue requires a pending database migration. Direct specialist assignments remain active.'
-        : err === 'NOT_FOUND'
-        ? 'This assignment is unavailable or access has ended.'
-        : err === 'INTAKE_INCOMPLETE'
-        ? 'Complete the required reporting questions before sharing.'
-        : err === 'CONFLICT_OF_INTEREST'
-        ? 'Self-assignment is prohibited. You cannot claim your own reported case.'
-        : err === 'ACTIVE_ASSIGNMENT_CONFLICT'
-        ? 'This case was claimed by another reviewer or is no longer available in the queue.'
-        : err === 'FORBIDDEN'
-        ? 'Access restricted. Current active specialist authorization is required.'
-        : `Sharing request failed (${String(err ?? r.status)}). Refresh and retry.`
+    const rawErr = typeof value.error === 'string' ? value.error : undefined;
+    const code =
+      rawErr === 'SIGN_IN_REQUIRED' || r.status === 401
+        ? 'SIGN_IN_REQUIRED'
+        : rawErr === 'FORBIDDEN' || r.status === 403
+          ? 'FORBIDDEN'
+          : rawErr;
+    throw Object.assign(
+      new Error(
+        code === 'SIGN_IN_REQUIRED'
+          ? 'Your session has ended. Please sign in again.'
+          : rawErr === 'SHARING_NOT_ENABLED'
+          ? 'Secure sharing is awaiting database activation. Your report remains private.'
+          : rawErr === 'POOL_MIGRATION_REQUIRED' || rawErr === 'POOL_SQLITE_FORBIDDEN_IN_CLOUD'
+          ? 'Shared specialist review queue requires a pending database migration. Direct specialist assignments remain active.'
+          : rawErr === 'NOT_FOUND'
+          ? 'This assignment is unavailable or access has ended.'
+          : rawErr === 'INTAKE_INCOMPLETE'
+          ? 'Complete the required reporting questions before sharing.'
+          : rawErr === 'CONFLICT_OF_INTEREST'
+          ? 'Self-assignment is prohibited. You cannot claim your own reported case.'
+          : rawErr === 'ACTIVE_ASSIGNMENT_CONFLICT'
+          ? 'This case was claimed by another reviewer or is no longer available in the queue.'
+          : code === 'FORBIDDEN'
+          ? 'Access restricted. Current active specialist authorization is required.'
+          : rawErr === 'PDF_TEMPLATE_MISSING' ||
+              rawErr === 'TEMPLATE_CHANGED' ||
+              rawErr === 'PDF_RUNTIME_UNAVAILABLE' ||
+              rawErr === 'PDF_RUNTIME_DEPENDENCIES_MISSING'
+          ? 'Official ADR PDF preview is unavailable in this environment.'
+          : `Sharing request failed (${String(rawErr ?? r.status)}). Refresh and retry.`
+      ),
+      { code }
     );
   }
   return r;
@@ -57,6 +88,7 @@ export function PatientSharing({
   caseId: string;
   revision: number;
 }) {
+  const { invalidateSession } = useAccount();
   const [open, setOpen] = useState(false);
   const [sharingType, setSharingType] = useState<'pool' | 'direct'>('pool');
   const [directory, setDirectory] = useState<any[]>([]);
@@ -89,6 +121,7 @@ export function PatientSharing({
       setDisclosure(p.disclosure);
       setRequests((r.requests ?? []).filter((x: any) => x.caseId === caseId));
     } catch (e) {
+      if ((e as { code?: string }).code === 'SIGN_IN_REQUIRED') void invalidateSession(owner);
       setError((e as Error).message);
     } finally {
       setBusy(false);
@@ -109,6 +142,7 @@ export function PatientSharing({
       setConsent(false);
       await load();
     } catch (e) {
+      if ((e as { code?: string }).code === 'SIGN_IN_REQUIRED') void invalidateSession(owner);
       setError((e as Error).message);
     } finally {
       lock.current = false;
@@ -327,6 +361,7 @@ export function PatientSharing({
 }
 
 export function SharingInbox({ owner }: { owner: string }) {
+  const { invalidateSession } = useAccount();
   const [activeTab, setActiveTab] = useState<'queue' | 'assigned'>('queue');
   const [queue, setQueue] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
@@ -337,8 +372,27 @@ export function SharingInbox({ owner }: { owner: string }) {
   const [loading, setLoading] = useState(true);
   const [loadingQueue, setLoadingQueue] = useState(true);
   const [poolUnavailable, setPoolUnavailable] = useState(false);
+  const [accessDenied, setAccessDenied] = useState(false);
   const [busy, setBusy] = useState(false);
   const latest = useRef(0);
+
+  function handleInboxError(e: unknown) {
+    const code = (e as { code?: string }).code;
+    if (code === 'SIGN_IN_REQUIRED') {
+      setQueue([]);
+      setItems([]);
+      setSelected(null);
+      setPdf('');
+      void invalidateSession(owner);
+    } else if (code === 'FORBIDDEN') {
+      setAccessDenied(true);
+      setQueue([]);
+      setItems([]);
+      setSelected(null);
+      setPdf('');
+    }
+    setError((e as Error).message);
+  }
 
   async function loadAssigned(signal?: AbortSignal) {
     try {
@@ -346,7 +400,7 @@ export function SharingInbox({ owner }: { owner: string }) {
       const data = await res.json();
       setItems(data.requests ?? []);
     } catch (e) {
-      if (!signal?.aborted) setError((e as Error).message);
+      if (!signal?.aborted) handleInboxError(e);
     } finally {
       if (!signal?.aborted) setLoading(false);
     }
@@ -366,7 +420,7 @@ export function SharingInbox({ owner }: { owner: string }) {
         setQueue([]);
         setActiveTab(prev => (prev === 'queue' ? 'assigned' : prev));
       } else {
-        setError(msg);
+        handleInboxError(e);
       }
     } finally {
       if (!signal?.aborted) setLoadingQueue(false);
@@ -374,11 +428,16 @@ export function SharingInbox({ owner }: { owner: string }) {
   }
 
   useEffect(() => {
+    if (accessDenied) return;
     const controller = new AbortController();
     void sharingRequest(owner, '/directory/me', undefined, undefined, controller.signal)
       .then(r => r.json())
       .then(v => setOptIn(v.optedIn))
-      .catch(() => {});
+      .catch(e => {
+        if (!controller.signal.aborted && (e as { code?: string }).code === 'SIGN_IN_REQUIRED') {
+          void invalidateSession(owner);
+        }
+      });
 
     void loadAssigned(controller.signal);
     if (!poolUnavailable) void loadQueue(controller.signal);
@@ -393,7 +452,7 @@ export function SharingInbox({ owner }: { owner: string }) {
       controller.abort();
       clearInterval(timer);
     };
-  }, [owner, poolUnavailable]);
+  }, [owner, poolUnavailable, accessDenied]);
 
   useEffect(() => {
     return () => {
@@ -415,7 +474,7 @@ export function SharingInbox({ owner }: { owner: string }) {
     } catch (e) {
       setPdf('');
       setSelected(null);
-      setError((e as Error).message);
+      handleInboxError(e);
     }
   }
 
@@ -427,8 +486,10 @@ export function SharingInbox({ owner }: { owner: string }) {
       await Promise.all([loadQueue(), loadAssigned()]);
       setActiveTab('assigned');
     } catch (e) {
-      setError((e as Error).message);
-      void loadQueue();
+      handleInboxError(e);
+      if ((e as { code?: string }).code !== 'SIGN_IN_REQUIRED' && (e as { code?: string }).code !== 'FORBIDDEN') {
+        void loadQueue();
+      }
     } finally {
       setBusy(false);
     }
@@ -448,7 +509,7 @@ export function SharingInbox({ owner }: { owner: string }) {
       setPdf('');
       await Promise.all([loadQueue(), loadAssigned()]);
     } catch (e) {
-      setError((e as Error).message);
+      handleInboxError(e);
     } finally {
       setBusy(false);
     }
@@ -479,9 +540,7 @@ export function SharingInbox({ owner }: { owner: string }) {
         <M3Checkbox label="Include me in the specialist directory" checked={optIn} onChange={setOptIn} />
         <M3Button
           onClick={() =>
-            void sharingRequest(owner, '/directory', { optedIn: optIn }, crypto.randomUUID()).catch(e =>
-              setError(e.message)
-            )
+            void sharingRequest(owner, '/directory', { optedIn: optIn }, crypto.randomUUID()).catch(handleInboxError)
           }
         >
           Save directory preference

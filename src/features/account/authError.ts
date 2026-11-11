@@ -1,6 +1,12 @@
 /** Maps provider and local account authentication failures to safe, user-actionable error notices. */
 export function formatAuthError(err: unknown): string {
   const msg = err instanceof Error ? err.message : '';
+  const name =
+    err instanceof Error
+      ? err.name
+      : typeof (err as { name?: unknown })?.name === 'string'
+        ? (err as { name: string }).name
+        : '';
   const code = typeof (err as { code?: unknown })?.code === 'string' ? (err as { code: string }).code : '';
 
   if (
@@ -15,7 +21,12 @@ export function formatAuthError(err: unknown): string {
   if (/email.*not.*confirmed/i.test(msg) || /unconfirmed/i.test(msg) || code === 'email_not_confirmed') {
     return 'Please confirm your email address before signing in. Check your inbox for the confirmation link.';
   }
-  if (/already.*registered/i.test(msg) || /user_already_exists/i.test(msg) || code === 'user_already_exists' || msg === 'ACCOUNT_EXISTS') {
+  if (
+    /already.*registered/i.test(msg) ||
+    /user_already_exists/i.test(msg) ||
+    ['user_already_exists', 'email_exists'].includes(code) ||
+    msg === 'ACCOUNT_EXISTS'
+  ) {
     return 'An account with this email already exists. Try signing in.';
   }
   if (code === 'email_address_invalid' || /email address.*is invalid/i.test(msg)) {
@@ -23,6 +34,33 @@ export function formatAuthError(err: unknown): string {
   }
   if (code === 'weak_password' || /password should be/i.test(msg)) {
     return 'Please choose a stronger password (at least 12 characters with letters, numbers, or symbols).';
+  }
+  if (code === 'same_password' || /different from the old password/i.test(msg)) {
+    return 'Please choose a new password that is different from your current password.';
+  }
+  if (
+    name === 'AuthPKCECodeVerifierMissingError' ||
+    ['pkce_code_verifier_not_found', 'otp_expired', 'flow_state_expired', 'flow_state_not_found', 'bad_code_verifier'].includes(code) ||
+    /code verifier/i.test(msg)
+  ) {
+    return 'This verification link is invalid or expired. Please request a new link.';
+  }
+  if (
+    name === 'AuthSessionMissingError' ||
+    ['session_not_found', 'session_expired', 'refresh_token_not_found', 'SIGN_IN_REQUIRED'].includes(code) ||
+    msg === 'SIGN_IN_REQUIRED' ||
+    /session.*missing|session.*expired/i.test(msg)
+  ) {
+    return 'Your authentication or reset session is missing or expired. Please sign in or request a new link.';
+  }
+  if (['signup_disabled', 'email_provider_disabled'].includes(code)) {
+    return 'Email registration is currently unavailable on this authentication configuration.';
+  }
+  if (code === 'user_banned' || /user is banned/i.test(msg)) {
+    return 'This account is currently restricted and cannot sign in.';
+  }
+  if (msg === 'LOCAL_RECOVERY_UNAVAILABLE') {
+    return 'Password reset links require the hosted authentication service.';
   }
   if (
     /rate.*limit/i.test(msg) ||
@@ -33,7 +71,7 @@ export function formatAuthError(err: unknown): string {
   ) {
     return 'Too many attempts. Please wait a minute and try again.';
   }
-  if (/failed to fetch/i.test(msg) || /network/i.test(msg) || /fetch failed/i.test(msg)) {
+  if (/failed to fetch/i.test(msg) || /network/i.test(msg) || /fetch failed/i.test(msg) || /timed out|timeout|AbortError/i.test(msg)) {
     return 'Unable to reach the authentication service. Please check your network connection and try again.';
   }
   return 'Unable to complete this authentication request. Please check your details or try again.';

@@ -1,6 +1,7 @@
 import { accountClient, guidedAccountHeaders } from '../../account/client';
 import React,{useEffect,useRef,useState} from 'react';
 import {useAccount} from '../../account/AccountProvider';
+import {followPreviewLink} from '../../access/navigation';
 import {M3Button,M3TextField} from '../../../components/material/core';
 import {addressedQuestions,questions,stages,missing,nextQuestion,chronology,type Field,type GuidedCase} from './domain';
 import {AdrWorkspace as LegacyWorkspace} from '../AdrWorkspace';
@@ -14,11 +15,12 @@ type Props={renderNavigation:(back:()=>void,label:string)=>React.ReactNode;onExi
 export function GuidedWorkspace(props:Props){const {user,ready}=useAccount();const [legacy,setLegacy]=useState(false);
  if(legacy&&allowLocalBrowserDemo)return <><M3Button variant="text" onClick={()=>setLegacy(false)}>Return to guided reporting</M3Button><LegacyWorkspace {...props}/></>;
  if(!ready)return <p role="status">Checking your account…</p>;
- if(!user)return <section className="adr-guide"><h1>Prepare a suspected ADR report</h1><p>Use a fictional case. Sign in to save and resume your guided report.</p><a href="#/sign-in/patient?continue=adr-report">Sign in to start</a>{allowLocalBrowserDemo&&<M3Button variant="text" onClick={()=>setLegacy(true)}>Open previous draft preview</M3Button>}</section>;
+ if(!user)return <section className="adr-guide"><h1>Prepare a suspected ADR report</h1><p>Use a fictional case. Sign in to save and resume your guided report.</p><a href="#/sign-in/patient?continue=adr-report" onClick={e=>followPreviewLink(e,'/sign-in/patient?continue=adr-report')}>Sign in to start</a>{allowLocalBrowserDemo&&<M3Button variant="text" onClick={()=>setLegacy(true)}>Open previous draft preview</M3Button>}</section>;
  return <Guide key={user.id} owner={user.id} {...props}/>;
 }
 type View={case:GuidedCase};
 function Guide({owner,...props}:Props&{owner:string}){
+ const {invalidateSession}=useAccount();
  const [c,setCase]=useState<GuidedCase|null>(null),[list,setList]=useState<SavedReport[] | null>(null),[intro,setIntro]=useState(true),[key,setKey]=useState<string|null>(null),[value,setValue]=useState(''),[dirty,setDirty]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[narrative,setNarrative]=useState('');
  const editing=useRef(false);
  const alive=useRef(true),lock=useRef(false),heading=useRef<HTMLHeadingElement>(null);
@@ -34,23 +36,37 @@ function Guide({owner,...props}:Props&{owner:string}){
    }
    mutation = pendingMutation.current.key;
   }
-  const send = async () => fetch('/api/account/adr-guided' + path, {
-   method: payload === undefined ? 'GET' : 'POST',
-   credentials: 'same-origin',
-   headers: { ...await guidedAccountHeaders(owner), ...(mutation ? { 'Idempotency-Key': mutation } : {}) },
-   body: payload,
-   signal: AbortSignal.timeout(25000),
-  });
+  const send = async () => {
+   let headers: Record<string, string>;
+   try { headers = { ...await guidedAccountHeaders(owner), ...(mutation ? { 'Idempotency-Key': mutation } : {}) }; }
+   catch {
+    void invalidateSession(owner);
+    throw Error('Your session has ended. Please sign in again.');
+   }
+   return fetch('/api/account/adr-guided' + path, {
+    method: payload === undefined ? 'GET' : 'POST',
+    credentials: 'same-origin',
+    headers,
+    body: payload,
+    signal: AbortSignal.timeout(25000),
+   });
+  };
   let response: Response;
   try { response = await send(); } catch (error) {
-   if (!mutation || !alive.current) throw error;
+   if (!mutation || !alive.current || (error instanceof Error && /session has ended/i.test(error.message))) throw error;
    response = await send();
   }
   const data = await response.json();
   if (mutation && (response.ok || response.status < 500 && response.status !== 429)) pendingMutation.current = undefined;
-  if (!response.ok) throw Error(data.error === 'REVISION_CONFLICT'
-   ? 'This draft changed in another tab. Reopen the saved draft before editing; your current answer is still here.'
-   : data.error || 'Request failed');
+  if (!response.ok) {
+   if (response.status === 401 || data.error === 'SIGN_IN_REQUIRED') {
+    void invalidateSession(owner);
+    throw Error('Your session has ended. Please sign in again.');
+   }
+   throw Error(data.error === 'REVISION_CONFLICT'
+    ? 'This draft changed in another tab. Reopen the saved draft before editing; your current answer is still here.'
+    : data.error || 'Request failed');
+  }
   return data;
  };
  const run=async(work:()=>Promise<void>)=>{if(lock.current)return;lock.current=true;setBusy(true);setError('');try{await work();}catch(e){if(alive.current)setError((e as Error).message);}finally{lock.current=false;if(alive.current)setBusy(false);}};

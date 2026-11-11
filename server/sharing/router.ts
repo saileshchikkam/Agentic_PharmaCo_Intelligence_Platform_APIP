@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import type { GuidedCaseRepository } from '../adr/repository';
 import type { SharingRepository } from './repository';
 import { prepareDisclosure } from './disclosure';
-import { createPdfService } from '../adr/pdf';
+import { createPdfService, type PdfService } from '../adr/pdf';
 import type { SharingPoolRepository } from './pool';
 
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
@@ -26,6 +26,13 @@ const status: Record<string, number> = {
   RESERVED_FIELD_REQUIRES_CORRECTION: 422,
   POOL_MIGRATION_REQUIRED: 503,
   POOL_SQLITE_FORBIDDEN_IN_CLOUD: 503,
+  PDF_TEMPLATE_MISSING: 503,
+  TEMPLATE_CHANGED: 503,
+  PDF_RUNTIME_UNAVAILABLE: 503,
+  PDF_RUNTIME_DEPENDENCIES_MISSING: 503,
+  PDF_GENERATION_FAILED: 503,
+  PDF_TIMEOUT: 503,
+  PDF_TOO_LARGE: 503,
 };
 const exact = (v: any, keys: string[]) =>
   v &&
@@ -38,9 +45,10 @@ export function sharingRouter(
   cases: GuidedCaseRepository,
   principal: (r: Request) => { id: string } | undefined,
   revalidate: (r: Request, owner: string) => Promise<boolean>,
-  poolRepo?: SharingPoolRepository | null
+  poolRepo?: SharingPoolRepository | null,
+  pdfService?: PdfService
 ) {
-  const pdf = createPdfService();
+  const pdf = pdfService ?? createPdfService();
   const pool = poolRepo ?? null;
   const router = Router();
 

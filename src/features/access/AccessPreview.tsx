@@ -38,7 +38,8 @@ export function readPreviewRoute(): PreviewRoute {
     const target = `${window.location.pathname}${window.location.search}`;
     window.history.replaceState({ apipPreview: true, apipDepth: 0 }, '', `/#${target}`);
   }
-  const [path, query] = window.location.hash.slice(1).split('?');
+  const [rawPath, query] = window.location.hash.slice(1).split('?');
+  const path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
   if (path === '/account/profile') return { screen: 'profile' };
   if (path === '/developer-reference') return { screen: 'developer-reference' };
   if (path === '/specialist') return { screen: 'specialist', view: 'entry' };
@@ -96,12 +97,12 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? roleDefault : '/';
 
   useEffect(() => {
-    if (route.screen === 'specialist') {
+    if (route.screen === 'specialist' && (route.view === 'home' || route.view === 'reviews' || route.admin)) {
       try { sessionStorage.setItem('apip.last.role', 'specialist'); } catch {}
     } else if (route.screen === 'patient-home') {
       try { sessionStorage.setItem('apip.last.role', 'patient'); } catch {}
     }
-  }, [route.screen]);
+  }, [route.screen, route.screen === 'specialist' ? route.view : undefined, route.screen === 'specialist' ? route.admin : undefined]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -112,7 +113,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     || (route.screen === 'adr-preview' && !!route.caseId);
   useEffect(() => {
     if (protectedRoute && account.ready && !account.user) {
-      if (route.screen === 'adr-cases' || route.screen === 'adr-preview') {
+      if (route.screen === 'adr-cases' || route.screen === 'adr-preview' || route.screen === 'medassist-preview') {
         sessionStorage.setItem('apip.account.return', window.location.hash.slice(1));
       }
       navigatePreview('/sign-in/patient', { replace: true });

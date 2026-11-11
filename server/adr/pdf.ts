@@ -24,6 +24,8 @@ export function generateOfficialPdf(c:GuidedCase):Promise<Buffer>{
  });
 }
 
+export type PdfService = ReturnType<typeof createPdfService>;
+
 export function createPdfService() {
   let busy = false;
   return {
