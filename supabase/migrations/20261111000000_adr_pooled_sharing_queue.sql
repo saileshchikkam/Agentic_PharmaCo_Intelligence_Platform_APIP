@@ -188,6 +188,33 @@ $$;
 
 revoke all on function apip_sharing.insert_claimed_assignment(uuid, uuid, uuid, uuid)
   from public, anon, authenticated, apip_adr_writer;
+
+create function apip_sharing.prevent_pool_direct_overlap()
+returns trigger language plpgsql security definer set search_path = '' as $$
+begin
+  if new.state = 'active' then
+    perform pg_catalog.pg_advisory_xact_lock(
+      pg_catalog.hashtextextended('sharing-case:' || new.patient::text || new.case_id::text, 7344)
+    );
+    if apip_sharing.subject() = new.patient and exists (
+      select 1 from apip_sharing.pooled_requests pr
+      where pr.patient = new.patient
+        and pr.case_id = new.case_id
+        and pr.state = 'pending_claim'
+    ) then
+      raise exception 'ACTIVE_ASSIGNMENT_CONFLICT';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function apip_sharing.prevent_pool_direct_overlap()
+  from public, anon, authenticated, apip_adr_writer;
+
+create trigger sharing_requests_prevent_pool_overlap
+  before insert on apip_sharing.requests
+  for each row execute function apip_sharing.prevent_pool_direct_overlap();
 grant execute on function apip_sharing.insert_claimed_assignment(uuid, uuid, uuid, uuid)
   to apip_sharing_executor;
 
@@ -297,6 +324,9 @@ begin
   end if;
 
   if p_op = 'pool_get' then
+    if p_id is null then
+      raise exception 'INVALID_REQUEST';
+    end if;
     select * into pr from apip_sharing.pooled_requests where id = p_id or active_assignment_id = p_id;
     if not found then
       return null;
@@ -404,6 +434,9 @@ begin
   end if;
 
   if p_op = 'pool_claim' then
+    if p_id is null then
+      raise exception 'INVALID_REQUEST';
+    end if;
     if not apip_sharing.eligible(actor) then
       raise exception 'FORBIDDEN';
     end if;
@@ -499,6 +532,9 @@ begin
   end if;
 
   if p_op = 'pool_release' then
+    if p_id is null then
+      raise exception 'INVALID_REQUEST';
+    end if;
     if not apip_sharing.eligible(actor) then
       raise exception 'FORBIDDEN';
     end if;
@@ -568,6 +604,9 @@ begin
   end if;
 
   if p_op = 'pool_withdraw' then
+    if p_id is null then
+      raise exception 'INVALID_REQUEST';
+    end if;
     perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('sharing-pool:' || p_id::text, 7345));
     select * into pr from apip_sharing.pooled_requests where id = p_id for update;
     if not found or pr.patient <> actor then

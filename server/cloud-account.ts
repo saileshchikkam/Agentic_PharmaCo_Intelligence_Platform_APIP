@@ -1,6 +1,6 @@
 import {sharingRouter} from './sharing/router';
 import {postgresSharingRepository,type SharingRepository} from './sharing/repository';
-import {createSharingPoolRepository,type SharingPoolRepository} from './sharing/pool';
+import {postgresSharingPoolRepository,type SharingPoolRepository} from './sharing/pool';
 import express, { type Request, type Express } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import postgres from 'postgres';
@@ -103,11 +103,17 @@ export function configuredCloudAccount(app: Express, env = process.env) {
       throw Error('AUTH_UNAVAILABLE');
     }
     return data.user && !data.user.is_anonymous ? { id: data.user.id } : null;
-  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_SHARING_ENABLED==='1'?createSharingPoolRepository(sql):null);
+  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_SHARING_ENABLED==='1'&&env.APIP_POOL_POSTGRES==='1'?postgresSharingPoolRepository(sql):null);
   let readiness: { expires: number; check: Promise<{ database: boolean; pdf: boolean; auth: boolean }> } | undefined;
   app.get('/api/ready', async (_req, res) => {
     if (!readiness || readiness.expires < Date.now()) {
-      const database = sql`select
+      const database = env.APIP_POOL_POSTGRES === '1'
+        ? sql`select
+        has_function_privilege(current_user, 'apip_adr.find_command_receipt(uuid,integer,uuid,text,text)', 'EXECUTE')
+        and has_function_privilege(current_user, 'apip_adr.append_revision(uuid,integer,uuid,text,text,jsonb)', 'EXECUTE')
+        and has_function_privilege(current_user, 'apip_adr.record_pdf_export(uuid,integer,uuid,text,text,integer)', 'EXECUTE')
+        and has_function_privilege(current_user, 'apip_sharing.pool_operation(text,uuid,jsonb,uuid)', 'EXECUTE') as ready`
+        : sql`select
         has_function_privilege(current_user, 'apip_adr.find_command_receipt(uuid,integer,uuid,text,text)', 'EXECUTE')
         and has_function_privilege(current_user, 'apip_adr.append_revision(uuid,integer,uuid,text,text,jsonb)', 'EXECUTE')
         and has_function_privilege(current_user, 'apip_adr.record_pdf_export(uuid,integer,uuid,text,text,integer)', 'EXECUTE') as ready`;

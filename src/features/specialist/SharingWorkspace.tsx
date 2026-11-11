@@ -30,6 +30,8 @@ export async function sharingRequest(
     throw Error(
       err === 'SHARING_NOT_ENABLED'
         ? 'Secure sharing is awaiting database activation. Your report remains private.'
+        : err === 'POOL_MIGRATION_REQUIRED' || err === 'POOL_SQLITE_FORBIDDEN_IN_CLOUD'
+        ? 'Shared specialist review queue requires a pending database migration. Direct specialist assignments remain active.'
         : err === 'NOT_FOUND'
         ? 'This assignment is unavailable or access has ended.'
         : err === 'INTAKE_INCOMPLETE'
@@ -334,6 +336,7 @@ export function SharingInbox({ owner }: { owner: string }) {
   const [optIn, setOptIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingQueue, setLoadingQueue] = useState(true);
+  const [poolUnavailable, setPoolUnavailable] = useState(false);
   const [busy, setBusy] = useState(false);
   const latest = useRef(0);
 
@@ -353,9 +356,18 @@ export function SharingInbox({ owner }: { owner: string }) {
     try {
       const res = await sharingRequest(owner, '/queue', undefined, undefined, signal);
       const data = await res.json();
+      setPoolUnavailable(false);
       setQueue(data.queue ?? []);
     } catch (e) {
-      if (!signal?.aborted) setError((e as Error).message);
+      if (signal?.aborted) return;
+      const msg = (e as Error).message;
+      if (msg.includes('pending database migration')) {
+        setPoolUnavailable(true);
+        setQueue([]);
+        setActiveTab(prev => (prev === 'queue' ? 'assigned' : prev));
+      } else {
+        setError(msg);
+      }
     } finally {
       if (!signal?.aborted) setLoadingQueue(false);
     }
@@ -369,11 +381,11 @@ export function SharingInbox({ owner }: { owner: string }) {
       .catch(() => {});
 
     void loadAssigned(controller.signal);
-    void loadQueue(controller.signal);
+    if (!poolUnavailable) void loadQueue(controller.signal);
 
     // C1-D: Polling interval (10 seconds) for synchronizing queue state
     const timer = setInterval(() => {
-      void loadQueue();
+      if (!poolUnavailable) void loadQueue();
       void loadAssigned();
     }, 10000);
 
@@ -381,7 +393,7 @@ export function SharingInbox({ owner }: { owner: string }) {
       controller.abort();
       clearInterval(timer);
     };
-  }, [owner]);
+  }, [owner, poolUnavailable]);
 
   useEffect(() => {
     return () => {
@@ -518,6 +530,11 @@ export function SharingInbox({ owner }: { owner: string }) {
 
           {loadingQueue ? (
             <p role="status">Loading available review queue…</p>
+          ) : poolUnavailable ? (
+            <p role="note">
+              Shared specialist review queue requires a pending database migration. Direct specialist assignments in
+              My Assigned Reviews remain active.
+            </p>
           ) : !queue.length ? (
             <p>No patient reports are currently awaiting claim in the shared pool.</p>
           ) : (

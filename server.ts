@@ -705,13 +705,19 @@ Provide a concise 3-4 sentence Medical Causality Assessment opinion following in
     }
   });
 
-  return { app, close: () => cloud ? cloud.close() : account?.close() };
+  return { app, close: () => cloud ? cloud.close() : account?.close(), cloudConfigured: Boolean(cloud) };
 }
 
 export async function startServer() {
   const config = readRuntimeConfig();
-  const { app } = createApiApp(config);
+  const { app, cloudConfigured } = createApiApp(config);
+  if (config.mode === 'production' && process.env.APIP_ACCOUNT_MODE !== 'disabled' && !cloudConfigured) {
+    throw Error('Hosted Supabase cloud account configuration is required in production mode.');
+  }
   const server = createHttpServer(app);
+  app.use('/api', (_req, res) => {
+    res.status(404).json({ error: 'NOT_FOUND' });
+  });
   // Vite Middleware / Static Serving
   if (config.mode === 'development') {
     const vite = await createViteServer({
@@ -722,7 +728,11 @@ export async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
-    app.get("*", (_req, res) => {
+    app.get("*", (req, res) => {
+      if (req.path.startsWith('/api/') || req.path === '/api') {
+        res.status(404).json({ error: 'NOT_FOUND' });
+        return;
+      }
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

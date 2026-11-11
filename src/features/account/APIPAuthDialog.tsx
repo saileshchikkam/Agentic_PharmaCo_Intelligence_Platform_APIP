@@ -42,8 +42,13 @@ export function APIPAuthDialog({
   const dialogRef = useRef<MdDialog>(null);
   const lastActiveElement = useRef<HTMLElement | null>(null);
   const submitting = useRef(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isSpecialist = role === 'specialist';
+
+  useEffect(() => () => {
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+  }, []);
 
   // Sync props when opening
   useEffect(() => {
@@ -205,7 +210,10 @@ export function APIPAuthDialog({
       });
       return;
     }
-    if (accountClient.kind !== 'supabase') return;
+    if (accountClient.kind !== 'supabase') {
+      setGoogleEnabled(false);
+      return;
+    }
     const controller = new AbortController();
     const url = String(import.meta.env.VITE_SUPABASE_URL || '');
     const key = String(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '');
@@ -274,6 +282,10 @@ export function APIPAuthDialog({
   };
 
   const switchMode = (nextMode: AuthMode) => {
+    if (resetTimerRef.current) {
+      clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = null;
+    }
     setMode(nextMode);
     setNotice(null);
     let path = '/sign-in/' + role;
@@ -330,6 +342,7 @@ export function APIPAuthDialog({
     submitting.current = true;
     setBusy(true);
 
+    const previousReturn = mode === 'signup' ? sessionStorage.getItem('apip.account.return') : null;
     try {
       if (mode === 'signup') {
         sessionStorage.setItem('apip.account.return', isSpecialist ? '/specialist/profile' : accountDestination(requestedTask));
@@ -366,12 +379,18 @@ export function APIPAuthDialog({
         if (accountClient.updatePassword) {
           await accountClient.updatePassword(password);
           setNotice({ type: 'success', message: 'Password updated successfully! Redirecting…' });
-          setTimeout(() => {
+          if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+          resetTimerRef.current = setTimeout(() => {
+            resetTimerRef.current = null;
             switchMode('signin');
           }, 1500);
         }
       }
     } catch (err: unknown) {
+      if (mode === 'signup') {
+        if (previousReturn === null) sessionStorage.removeItem('apip.account.return');
+        else sessionStorage.setItem('apip.account.return', previousReturn);
+      }
       setPassword('');
       setNotice({ type: 'error', message: formatAuthError(err) });
     } finally {
@@ -561,7 +580,7 @@ export function APIPAuthDialog({
               </div>
 
               {/* Notice / Alert Banner */}
-              {(notice || (authError && /session|expired|unauthorized/i.test(authError))) && (
+              {(notice || (authError && /session|expired|unauthorized|cancelled|sign-in|completed/i.test(authError))) && (
                 <div
                   role={notice?.type === 'error' || authError ? 'alert' : 'status'}
                   className={`apip-auth-notice ${notice?.type ?? 'error'}`}

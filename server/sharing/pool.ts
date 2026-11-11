@@ -147,8 +147,14 @@ export function createSharingPoolRepository(
   sql: Sql | null,
   dbPath?: string
 ): SharingPoolRepository {
-  if (sql && !dbPath && process.env.APIP_POOL_POSTGRES === '1') {
+  if (sql && !dbPath) {
+    if (process.env.APIP_POOL_POSTGRES !== '1') {
+      throw Error('POOL_MIGRATION_REQUIRED');
+    }
     return postgresSharingPoolRepository(sql);
+  }
+  if (!dbPath && (process.env.NODE_ENV === 'production' || process.env.APIP_ACCOUNT_MODE === 'cloud')) {
+    throw Error('POOL_SQLITE_FORBIDDEN_IN_CLOUD');
   }
   const path = dbPath ?? join(homedir(), '.apip', 'sharing-pool.sqlite');
   if (path !== ':memory:') {

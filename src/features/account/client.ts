@@ -123,6 +123,10 @@ function configuredClient(): AccountClient | null {
     function redirectTo() {
       return location.origin + '/?apip_auth=1';
     }
+    const cloudSync = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('apip.cloud.auth.sync') : null;
+    const notifyCloudSync = () => {
+      try { cloudSync?.postMessage({ type: 'sync', at: Date.now() }); } catch { /* ignore closed channel */ }
+    };
     return {
       kind: 'supabase',
       subscribe(listener) {
@@ -130,23 +134,43 @@ function configuredClient(): AccountClient | null {
         let expiry: ReturnType<typeof setTimeout> | undefined;
         let generation = 0;
         let unsubscribe: (() => void) | undefined;
+        const handleSession = (session: { user: AccountUser; expires_at?: number } | null, message?: string) => {
+          clearTimeout(expiry);
+          const current = ++generation;
+          const remaining = session?.expires_at ? session.expires_at * 1000 - Date.now() : 0;
+          listener(remaining > 0 ? session!.user : null, message);
+          if (session) expiry = setTimeout(() => {
+            listener(null, 'Your session expired. Sign in again if it cannot be restored.');
+            void sdk.auth.getSession().then(({ data, error }) => {
+              if (!disposed && current === generation && !error && data.session?.expires_at
+                  && data.session.expires_at * 1000 > Date.now()) listener(data.session.user);
+            }).catch(() => {});
+          }, Math.min(Math.max(remaining, 0), 2147483647));
+        };
+        const syncSessionAcrossTabs = () => {
+          void sdk.auth.getSession().then(({ data, error }) => {
+            if (disposed) return;
+            handleSession(error ? null : data.session);
+          }).catch(() => {
+            if (!disposed) handleSession(null);
+          });
+        };
+        const onStorage = (event: StorageEvent) => {
+          if (event.key === null || event.key === 'apip.cloud.auth') syncSessionAcrossTabs();
+        };
+        const onChannel = () => { syncSessionAcrossTabs(); };
         void callbackReady.then(message => {
           if (disposed) return;
           const { data } = sdk.auth.onAuthStateChange((event, session) => {
-            clearTimeout(expiry);
-            const current = ++generation;
-            const remaining = session?.expires_at ? session.expires_at * 1000 - Date.now() : 0;
-            listener(remaining > 0 ? session!.user : null, event === 'INITIAL_SESSION' ? message : undefined);
-            if (session) expiry = setTimeout(() => {
-              listener(null, 'Your session expired. Sign in again if it cannot be restored.');
-              void sdk.auth.getSession().then(({ data, error }) => {
-                if (!disposed && current === generation && !error && data.session?.expires_at
-                    && data.session.expires_at * 1000 > Date.now()) listener(data.session.user);
-              }).catch(() => {});
-            }, Math.min(Math.max(remaining, 0), 2147483647));
-
+            handleSession(session, event === 'INITIAL_SESSION' ? message : undefined);
           });
-          unsubscribe = () => data.subscription.unsubscribe();
+          window.addEventListener('storage', onStorage);
+          cloudSync?.addEventListener('message', onChannel);
+          unsubscribe = () => {
+            window.removeEventListener('storage', onStorage);
+            cloudSync?.removeEventListener('message', onChannel);
+            data.subscription.unsubscribe();
+          };
         });
         return () => { disposed = true; clearTimeout(expiry); unsubscribe?.(); };
       },
@@ -158,11 +182,13 @@ function configuredClient(): AccountClient | null {
       async signUp(email, password) {
         const { data, error } = await sdk.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo() } });
         if (error) throw error;
+        if (data.session) notifyCloudSync();
         return !data.session;
       },
       async signIn(email, password) {
         const { error } = await sdk.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        notifyCloudSync();
       },
       async google(workspace?: 'specialist') {
         const task = sessionStorage.getItem(continuationKey);
@@ -181,11 +207,13 @@ function configuredClient(): AccountClient | null {
       async updatePassword(password) {
         const { error } = await sdk.auth.updateUser({ password });
         if (error) throw error;
+        notifyCloudSync();
       },
       async signOut() {
         const { error } = await sdk.auth.signOut({ scope: 'local' });
         if (error) throw error;
         sessionStorage.removeItem(continuationKey);
+        notifyCloudSync();
       },
       async readProfile(userId) { const { data, error } = await sdk.from('patient_profiles').select('*').eq('user_id', userId).maybeSingle(); if (error) throw error; return data; },
       async saveProfile(userId, profile, revision) {

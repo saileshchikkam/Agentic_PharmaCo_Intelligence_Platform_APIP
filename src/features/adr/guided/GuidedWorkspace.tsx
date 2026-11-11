@@ -9,11 +9,12 @@ import {questionCopy} from './questionCopy';
 import {LiveFormPreview} from './LiveFormPreview';
 import {ReportExport} from './ReportExport';
 import {AdrLanding, type SavedReport} from './AdrLanding';
+const allowLocalBrowserDemo = import.meta.env.DEV && accountClient?.kind !== 'supabase';
 type Props={renderNavigation:(back:()=>void,label:string)=>React.ReactNode;onExit:()=>void;initialCaseId?:string};
 export function GuidedWorkspace(props:Props){const {user,ready}=useAccount();const [legacy,setLegacy]=useState(false);
- if(legacy)return <><M3Button variant="text" onClick={()=>setLegacy(false)}>Return to guided reporting</M3Button><LegacyWorkspace {...props}/></>;
+ if(legacy&&allowLocalBrowserDemo)return <><M3Button variant="text" onClick={()=>setLegacy(false)}>Return to guided reporting</M3Button><LegacyWorkspace {...props}/></>;
  if(!ready)return <p role="status">Checking your account…</p>;
- if(!user)return <section className="adr-guide"><h1>Prepare a suspected ADR report</h1><p>Use a fictional case. Sign in to save and resume your guided report.</p><a href="#/sign-in/patient?continue=adr-report">Sign in to start</a><M3Button variant="text" onClick={()=>setLegacy(true)}>Open previous draft preview</M3Button></section>;
+ if(!user)return <section className="adr-guide"><h1>Prepare a suspected ADR report</h1><p>Use a fictional case. Sign in to save and resume your guided report.</p><a href="#/sign-in/patient?continue=adr-report">Sign in to start</a>{allowLocalBrowserDemo&&<M3Button variant="text" onClick={()=>setLegacy(true)}>Open previous draft preview</M3Button>}</section>;
  return <Guide key={user.id} owner={user.id} {...props}/>;
 }
 type View={case:GuidedCase};

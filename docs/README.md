@@ -64,3 +64,5 @@ Prefer concise pages and links over repetition. Add READMEs for substantial dire
 Do not publish secrets, patient narratives, private chat/account IDs, or workstation-specific paths. Use repository-relative links and fictional examples.
 
 The [account/profile foundation](../database/README.md) is the source for signup, provider setup, shared health-profile contracts, SQL access rules and verification limits.
+
+P0 storage isolation and unified auth contracts: [P0 storage inventory and pooled-queue migration audit](architecture/p0-storage-and-migration-audit.md) and [MedAssist unified auth and PostgreSQL integration contract](collaboration/medassist-integration-contract.md).

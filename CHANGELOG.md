@@ -1,5 +1,20 @@
 # Changelog
 
+## P0 Unified Auth, Fail-Closed Postgres Persistence & Multi-Actor Isolation - 2026-11-11
+
+### Changed
+
+- Enforced Supabase PostgreSQL fail-closed persistence in hosted/cloud runtime (`server/cloud-account.ts`, `server/sharing/pool.ts`, `server/sharing/router.ts`, `server/sharing/repository.ts`): removed automatic SQLite pool fallback (`503 POOL_MIGRATION_REQUIRED` / `503 POOL_SQLITE_FORBIDDEN_IN_CLOUD`), verified `apip_sharing.pool_operation` execute privilege on `/api/ready` when `APIP_POOL_POSTGRES=1`, and mapped PostgreSQL `ACTIVE_ASSIGNMENT_CONFLICT` errors to HTTP `409`.
+- Hardened single-origin API behavior (`server.ts`): production startup now fails if `APIP_ACCOUNT_MODE !== 'disabled'` without Supabase configuration, and unmatched `/api` / `/api/*` routes return JSON `404` instead of SPA HTML.
+- Fixed same-tab session drop after sign-in (`src/features/account/client.ts`): separated APIP's cross-tab notification channel (`apip.cloud.auth.sync`) from Supabase `GoTrueClient`'s internal `apip.cloud.auth` channel, added `storage` cross-tab listeners, and cleared legacy `localStorage` ADR draft keys on Supabase init and `signOut` (`AccountProvider.tsx`).
+- Tightened cloud auth dialog & workspace behavior (`APIPAuthDialog.tsx`, `AdrWorkspace.tsx`, `GuidedWorkspace.tsx`, `SharingWorkspace.tsx`): locked Google sign-in outside `supabase`, cleaned up password-reset timers, restored previous return paths on signup errors, expanded auth error banner detection, hid `localStorage` ADR fallback buttons in cloud builds, and handled `503 POOL_MIGRATION_REQUIRED` cleanly in Specialist Review Workspace.
+- Hardened pooled queue SQL migration (`supabase/migrations/20261111000000_adr_pooled_sharing_queue.sql`) with null-UUID guards and `apip_sharing.prevent_pool_direct_overlap()` overlap trigger.
+
+### Added
+
+- Multi-actor PGlite + HTTP isolation security suite ([scripts/p0-isolation-security.test.ts](scripts/p0-isolation-security.test.ts)) integrated into `npm test`.
+- Authoritative P0 storage/migration audit ([docs/architecture/p0-storage-and-migration-audit.md](docs/architecture/p0-storage-and-migration-audit.md)) and MedAssist integration boundary contract ([docs/collaboration/medassist-integration-contract.md](docs/collaboration/medassist-integration-contract.md)), indexed in [docs/README.md](docs/README.md).
+
 ## Platform Stabilization, Unified Portal, Secret Hygiene & ADR Phase 3C-C1 Security Remediation - 2026-11-11
 
 - **Authentication UX, Session Isolation & Navigation (`G01`–`G07`)**:

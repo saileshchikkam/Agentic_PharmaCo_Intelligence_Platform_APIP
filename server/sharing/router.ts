@@ -4,7 +4,7 @@ import type { GuidedCaseRepository } from '../adr/repository';
 import type { SharingRepository } from './repository';
 import { prepareDisclosure } from './disclosure';
 import { createPdfService } from '../adr/pdf';
-import { createSharingPoolRepository, type SharingPoolRepository } from './pool';
+import type { SharingPoolRepository } from './pool';
 
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 const status: Record<string, number> = {
@@ -24,6 +24,8 @@ const status: Record<string, number> = {
   INVALID_REQUEST: 400,
   INTAKE_INCOMPLETE: 422,
   RESERVED_FIELD_REQUIRES_CORRECTION: 422,
+  POOL_MIGRATION_REQUIRED: 503,
+  POOL_SQLITE_FORBIDDEN_IN_CLOUD: 503,
 };
 const exact = (v: any, keys: string[]) =>
   v &&
@@ -39,7 +41,7 @@ export function sharingRouter(
   poolRepo?: SharingPoolRepository | null
 ) {
   const pdf = createPdfService();
-  const pool = poolRepo ?? createSharingPoolRepository(null);
+  const pool = poolRepo ?? null;
   const router = Router();
 
   router.use((req, res, next) => {
@@ -156,6 +158,7 @@ export function sharingRouter(
 
       // Phase 3C-C1: Pooled sharing
       if (b.target === 'pool') {
+        if (!pool) throw Error('POOL_MIGRATION_REQUIRED');
         if (
           !exact(b, ['caseId', 'revision', 'target', 'consent', 'policyVersion', 'digest']) ||
           !uuid.test(b.caseId) ||
@@ -249,7 +252,8 @@ export function sharingRouter(
     endpoint(async (req, res) => {
       // Caller must be currently approved specialist
       await op(req, 'count');
-      const queue = pool ? await pool.listQueue(50, actor(req)) : [];
+      if (!pool) throw Error('POOL_MIGRATION_REQUIRED');
+      const queue = await pool.listQueue(50, actor(req));
       res.json({ queue });
     })
   );
@@ -261,6 +265,7 @@ export function sharingRouter(
       if (!uuid.test(req.params.id) || !exact(req.body, [])) throw Error('INVALID_REQUEST');
       // Caller must be currently approved specialist
       await op(req, 'count');
+      if (!pool) throw Error('POOL_MIGRATION_REQUIRED');
       const specialistId = actor(req);
       const command = key(req);
 
@@ -303,6 +308,7 @@ export function sharingRouter(
         !Number.isSafeInteger(req.body.expectedVersion)
       )
         throw Error('INVALID_REQUEST');
+      if (!pool) throw Error('POOL_MIGRATION_REQUIRED');
 
       const specialistId = actor(req);
       const command = key(req);

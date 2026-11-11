@@ -7,6 +7,16 @@ interface AccountState {
   reload: () => void; signOut: () => Promise<void>;
 }
 const Context = createContext<AccountState | null>(null);
+function clearLegacyBrowserDrafts() {
+  try {
+    window.localStorage.removeItem('apip.fictionalAdrDraft.v1');
+    window.localStorage.removeItem('apip.fictionalAdrDraft.v2');
+    window.localStorage.removeItem('apip.fictionalAdrDrafts.v1');
+  } catch {
+    // ignore storage access errors
+  }
+}
+
 export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AccountUser | null>(null);
   const [profile, setProfile] = useState<PatientProfile | null>(null);
@@ -21,6 +31,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // ignore storage access errors
     }
+    if (accountClient?.kind === 'supabase') clearLegacyBrowserDrafts();
     if (!accountClient) return;
     let disposed = false;
     const unsubscribe = accountClient.subscribe((user, message) => {
@@ -52,6 +63,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
       sessionStorage.removeItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.return');
       sessionStorage.removeItem('apip.last.role');
+      clearLegacyBrowserDrafts();
       setUser(null); setProfile(null);
     } catch { setError('Sign-out failed. Please retry.'); }
   };
