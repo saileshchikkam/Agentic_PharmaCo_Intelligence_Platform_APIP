@@ -9,6 +9,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.datastructures import Headers
 
+from .campaign_loader import DEFAULT_CAMPAIGN_ID, load_campaign_model
 from .schemas import NextRequest, NextResponse
 from .service import ArtifactUnavailable, LIMITATIONS, load_preserved
 from .demo import DemoResult, FixtureList, demo_fixtures, interview
@@ -83,8 +84,12 @@ def create_app(*, service=None, enabled=False, token=None, modular_enabled=False
 
     @app.get('/research/model-a/v1/health')
     def health():
-        return JSONResponse({'research_only': True, 'available': service is not None},
-                            status_code=200 if service is not None else 503)
+        payload = {'research_only': True, 'available': service is not None}
+        provenance = getattr(service, 'provenance', None)
+        if isinstance(provenance, dict) and 'campaign_id' in provenance:
+            payload['campaign_id'] = provenance['campaign_id']
+            payload['loader_version'] = provenance['loader_version']
+        return JSONResponse(payload, status_code=200 if service is not None else 503)
 
     @app.post('/research/model-a/v1/next', response_model=NextResponse)
     def next_question(request: NextRequest):
@@ -142,11 +147,21 @@ def create_app(*, service=None, enabled=False, token=None, modular_enabled=False
 def from_environment():
     enabled = os.environ.get('MEDASSIST_A_ENABLE_RESEARCH') == '1'
     token = os.environ.get('MEDASSIST_A_TOKEN')
+    campaign_id = os.environ.get('MEDASSIST_A_CAMPAIGN_ID')
+    campaign_opt_in = os.environ.get('MEDASSIST_A_ENABLE_CAMPAIGN') == '1'
     service = None
     if enabled and token and 32 <= len(token) <= 256:
+        run_root = os.environ.get('MEDASSIST_A_RUN_ROOT', '')
+        metadata_root = os.environ.get('MEDASSIST_A_METADATA_ROOT', '')
         try:
-            service = load_preserved(os.environ.get('MEDASSIST_A_RUN_ROOT', ''),
-                                     os.environ.get('MEDASSIST_A_METADATA_ROOT', ''))
+            if campaign_opt_in:
+                service = load_campaign_model(
+                    run_root,
+                    metadata_root,
+                    campaign_id=campaign_id or DEFAULT_CAMPAIGN_ID,
+                )
+            elif campaign_id is None:
+                service = load_preserved(run_root, metadata_root)
         except ArtifactUnavailable:
             pass  # Unavailable endpoints fail closed; no raw exception/path logs.
     return create_app(service=service, enabled=enabled, token=token,
