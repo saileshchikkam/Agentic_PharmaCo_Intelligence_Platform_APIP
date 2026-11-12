@@ -28,3 +28,7 @@ The separately approved flow cleanup is unchanged: `development-auth-flow-reset.
 The original owner approval was checksum-specific. Applying V2 to the hosted project therefore requires separate approval of its new checksum, while retaining the exact previously approved reset scope and unchanged flow-file approval. Before retrying, revalidate the two backup copies, recovery passphrase, Auth Admin authorization, ten UUIDs, record digests and maintenance state. If any prerequisite fails, stop before deletion. SQL and Auth API phases are not globally atomic; report any later partial failure immediately.
 
 Pending approval. No hosted records were deleted. Fresh account registration and administrator bootstrap remain paused.
+
+## Subsequent approval and execution
+
+Owner separately approved the exact V2 checksum and original scope. The approved retry completed on 2026-11-12 after all required private preflight checks. No further SQL revision was needed. Final table/identity/session and metadata checks pass; see [completion evidence](development-reset-completed-2026-11-12.md). Earlier pending statements describe the review checkpoint, not the final status.

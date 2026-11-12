@@ -1,6 +1,6 @@
 # Development data reset — consolidated review
 
-Status: **ORIGINAL SCOPE APPROVED; ORIGINAL SQL ATTEMPT ROLLED BACK; V2 RETRY NEEDS NEW CHECKSUM APPROVAL.** Target only development project `kstxwoitiistmvivwixd`.
+Status: **COMPLETE under separately approved V2 on 2026-11-12. The original failed attempt remains recorded below.** Target only development project `kstxwoitiistmvivwixd`.
 
 ## Verified backup and recovery evidence
 
@@ -78,3 +78,7 @@ Application SQL errors roll back within their transaction, including exceptional
 ## Approval gate and execution prerequisites
 
 One consolidated owner approval must identify the project, fixed encrypted subject manifest, both SQL hashes, table counts, exceptional trigger handling, ten hard-delete API operations and the stated recovery limits. The owner approved the exact original scope and both original SQL checksums. Both encrypted copies, the owner recovery passphrase, Auth Admin read authorization and the exact ten account UUIDs passed private preflight. The original application SQL then failed with PostgreSQL 55006 before commit. All 521 application records and every captured schema/security/migration fingerprint were verified unchanged after rollback. No flow SQL or Auth deletion was executed. The Auth worker was cancelled and its credentials cleared. The revised application SQL requires a new exact-checksum approval; see the V2 review. No new users or professional grants have been created.
+
+## Final approved V2 result
+
+The owner separately approved application V2 SHA-256 dbe7c13afaf8addcbe1cb326bdca8625cabe46db93f8a019bafd290d72c23609. Fresh preflight reverified both copies, owner recovery availability, Auth Admin authorization, exact subject set and original record digests. V2 and unchanged flow cleanup committed, then ten scoped Auth Admin hard deletions succeeded. All targeted tables/identities/session dependencies and flows are zero. Relevant schema/security/function/role and all migration-ledger fingerprints are unchanged. No new accounts, privileges or migrations were created. See [completion evidence](development-reset-completed-2026-11-12.md).

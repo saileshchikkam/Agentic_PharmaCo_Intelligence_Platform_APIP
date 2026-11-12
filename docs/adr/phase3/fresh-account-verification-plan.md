@@ -1,6 +1,6 @@
 # Fresh account verification plan — gated on reset completion
 
-Status: **Preparation only. Do not register new hosted accounts while reset is pending.**
+Status: **Reset completed on 2026-11-12. Registration testing remains preparation only: the reset approval explicitly authorized no new accounts or privileges.**
 
 ## Verified existing configuration
 
@@ -27,3 +27,7 @@ For a minimal demonstration, a Patient, one independently reviewed Specialist an
 ## Required evidence after reset
 
 Verify the real role rows, real browser sessions, wrong-portal denial, onboarding, pending review restriction, explicit independent approval, two-user ADR isolation, refresh/logout, 1440px and 375px layouts, and readiness through port 3602. Do not report those tests passed from the earlier fixture results. Auth service recovery and the pending cookie/BFF work remain separately scoped limitations.
+
+## Post-reset availability
+
+The unified site and proxied readiness endpoint returned HTTP 200 after reset; readiness reported database, PDF and Auth ready. The actual browser sign-in dialog opened with enabled email/password controls. This does not verify any fresh registration, confirmation delivery, login, onboarding or role routing. Those checks require separately authorized synthetic accounts. No existing administrator remains after the approved reset.
