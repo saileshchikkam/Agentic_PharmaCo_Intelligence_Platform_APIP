@@ -2,6 +2,7 @@ import {PatientSharing} from '../../specialist/SharingWorkspace';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { M3Button, M3Select, M3TextField } from '../../../components/material/core';
 import { guidedAccountHeaders } from '../../account/client';
+import { useAccount } from '../../account/AccountProvider';
 import { navigatePreview } from '../../access/navigation';
 import { DraftPreview } from '../guided/GuidedWorkspace';
 import { LiveFormPreview } from '../guided/LiveFormPreview';
@@ -11,22 +12,26 @@ import '../guided/guided.css';
 import './cases.css';
 
 const listPath='/patient/adr/cases';
-const date=(value:string)=>new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
+const date=(value:string)=>{if(!value)return 'Not recorded';const parsed=new Date(value);return Number.isNaN(parsed.getTime())?'Not recorded':new Intl.DateTimeFormat(undefined,{dateStyle:'medium',timeStyle:'short'}).format(parsed);};
 const messages:Record<string,string>={NOT_FOUND:'This report is unavailable in your account.',SIGN_IN_REQUIRED:'Please sign in again to open your reports.',
   ACCOUNT_CHANGED:'Your account changed. Reopen My ADR Reports.',INVALID_CURSOR:'This results page has expired. Return to the first page.',
   INVALID_FILTER:'Check the filters and date range.',PDF_BUSY:'The form service is busy. Please retry.'};
 async function request(owner:string,path:string,signal:AbortSignal){
-  const response=await fetch('/api/account/adr-cases'+path,{headers:await guidedAccountHeaders(owner),credentials:'same-origin',cache:'no-store',signal});
+  let headers:Record<string,string>;
+  try{headers=await guidedAccountHeaders(owner);}
+  catch{throw Object.assign(new Error(messages.SIGN_IN_REQUIRED),{code:'SIGN_IN_REQUIRED'});}
+  const response=await fetch('/api/account/adr-cases'+path,{headers,credentials:'same-origin',cache:'no-store',signal});
   const data=await response.json();
-  if(!response.ok)throw Error(messages[data.error]??'Your reports could not be loaded. Please retry.');
+  if(!response.ok)throw Object.assign(new Error(messages[data.error]??'Your reports could not be loaded. Please retry.'),{code:response.status===401?'SIGN_IN_REQUIRED':data.error});
   return data;
 }
 function useResource<T>(owner:string,path:string){
+  const {invalidateSession}=useAccount();
   const [data,setData]=useState<T|null>(null),[error,setError]=useState(''),[attempt,setAttempt]=useState(0);
   useEffect(()=>{
     const controller=new AbortController();setData(null);setError('');
     void request(owner,path,AbortSignal.any([controller.signal,AbortSignal.timeout(20000)]))
-      .then(value=>{if(!controller.signal.aborted)setData(value);},e=>{if(!controller.signal.aborted)setError(e.message);});
+      .then(value=>{if(!controller.signal.aborted)setData(value);},e=>{if(!controller.signal.aborted){if((e as {code?:string}).code==='SIGN_IN_REQUIRED')void invalidateSession(owner);setError(e.message);}});
     return()=>controller.abort();
   },[owner,path,attempt]);
   return {data,error,retry:()=>setAttempt(n=>n+1)};

@@ -199,3 +199,19 @@ test('staged embedded database credential triggers security violation and aborts
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Security violation: staged changes contain an embedded database credential/);
 });
+
+test('staged secret keys, service_role JWT, and private keys abort commit', async () => {
+  const { findSecretViolations } = await import('./git-workflow.mjs');
+  const sbKey = ['sb_secret_', 'fixture1234567890'].join('');
+  const gKey = ['AIza', 'SyFixtureKey12345678901234567890123'].join('');
+  const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
+  const payload = Buffer.from(JSON.stringify({ role: 'service_role', iss: 'supabase' })).toString('base64url');
+  const fakeJwt = `${header}.${payload}.${'a'.repeat(24)}`;
+  const pem = ['-----BEGIN', ' PRIVATE KEY-----\nfixture\n-----END PRIVATE KEY-----'].join('');
+
+  assert.equal(findSecretViolations(sbKey)[0].kind, 'supabase_secret_key');
+  assert.equal(findSecretViolations(gKey)[0].kind, 'google_api_key');
+  assert.equal(findSecretViolations(fakeJwt)[0].kind, 'supabase_service_role_jwt');
+  assert.equal(findSecretViolations(pem)[0].kind, 'private_key_pem');
+  assert.equal(findSecretViolations('postgresql://apip_adr_writer.{0}:{1}@{2}:6543/postgres').length, 0);
+});

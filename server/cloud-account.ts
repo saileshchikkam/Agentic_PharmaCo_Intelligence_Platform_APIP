@@ -1,5 +1,6 @@
 import {sharingRouter} from './sharing/router';
 import {postgresSharingRepository,type SharingRepository} from './sharing/repository';
+import {postgresSharingPoolRepository,type SharingPoolRepository} from './sharing/pool';
 import express, { type Request, type Express } from 'express';
 import { createClient } from '@supabase/supabase-js';
 import postgres from 'postgres';
@@ -19,7 +20,7 @@ type Principal = { id: string };
 type Verify = (token: string) => Promise<Principal | null>;
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 
-export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null, sharingRepository:SharingRepository|null=null, reviewRepository:ReviewRepository|null=null) {
+export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null, sharingRepository:SharingRepository|null=null, poolRepository:SharingPoolRepository|null=null, reviewRepository:ReviewRepository|null=null) {
   const router = express.Router();
   router.use((req,_res,next)=> /^\/(?:account\/adr-(guided|cases)(\/|$)|sharing(?:\/|$)|review(?:\/|$)|account\/capabilities$|specialist\/applications(?:\/|$)|admin\/specialist-applications(?:\/|$))/.test(req.path)?next():next('router'));
   const principals = new WeakMap<Request, Principal>();
@@ -59,7 +60,7 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     async (req, owner) => (await authenticate(req))?.id === owner));
   router.use('/account/adr-cases', casesRouter(repository, req => principals.get(req),
     async (req, owner) => (await authenticate(req))?.id === owner));
-  router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner));
+  router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner,poolRepository));
   router.use('/review',reviewRouter(reviewRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner));
   router.use(specialistRouter(identityRepository,req=>principals.get(req)));
   router.use((error: { status?: number }, _req: Request, res: express.Response, _next: express.NextFunction) => {
@@ -105,11 +106,17 @@ export function configuredCloudAccount(app: Express, env = process.env) {
       throw Error('AUTH_UNAVAILABLE');
     }
     return data.user && !data.user.is_anonymous ? { id: data.user.id } : null;
-  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_REVIEW_ENABLED==='1'?postgresReviewRepository(sql):null);
+  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_SHARING_ENABLED==='1'&&env.APIP_POOL_POSTGRES==='1'?postgresSharingPoolRepository(sql):null,env.APIP_REVIEW_ENABLED==='1'?postgresReviewRepository(sql):null);
   let readiness: { expires: number; check: Promise<{ database: boolean; pdf: boolean; auth: boolean }> } | undefined;
   app.get('/api/ready', async (_req, res) => {
     if (!readiness || readiness.expires < Date.now()) {
-      const database = sql`select
+      const database = env.APIP_POOL_POSTGRES === '1'
+        ? sql`select
+        has_function_privilege(current_user, 'apip_adr.find_command_receipt(uuid,integer,uuid,text,text)', 'EXECUTE')
+        and has_function_privilege(current_user, 'apip_adr.append_revision(uuid,integer,uuid,text,text,jsonb)', 'EXECUTE')
+        and has_function_privilege(current_user, 'apip_adr.record_pdf_export(uuid,integer,uuid,text,text,integer)', 'EXECUTE')
+        and has_function_privilege(current_user, 'apip_sharing.pool_operation(text,uuid,jsonb,uuid)', 'EXECUTE') as ready`
+        : sql`select
         has_function_privilege(current_user, 'apip_adr.find_command_receipt(uuid,integer,uuid,text,text)', 'EXECUTE')
         and has_function_privilege(current_user, 'apip_adr.append_revision(uuid,integer,uuid,text,text,jsonb)', 'EXECUTE')
         and has_function_privilege(current_user, 'apip_adr.record_pdf_export(uuid,integer,uuid,text,text,integer)', 'EXECUTE') as ready`;

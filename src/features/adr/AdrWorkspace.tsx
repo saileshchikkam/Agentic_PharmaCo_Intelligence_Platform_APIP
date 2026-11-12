@@ -15,6 +15,7 @@ export function AdrWorkspace(props: Props) {
   const account = useAccount();
   return <AccountDrafts key={account.user?.id ?? 'signed-out'} {...props} />;
 }
+const allowLocalBrowserDemo = import.meta.env.DEV && accountClient?.kind !== 'supabase';
 function AccountDrafts({ renderNavigation, onExit }: Props) {
   const { user, ready, error } = useAccount();
   const [browserDemo, setBrowserDemo] = useState(false);
@@ -23,13 +24,13 @@ function AccountDrafts({ renderNavigation, onExit }: Props) {
   const [attempt, setAttempt] = useState(0);
   const repository = accountClient?.drafts;
   useEffect(() => {
-    if (!user || !ready || !repository || browserDemo) return;
+    if (!user || !ready || !repository || (browserDemo && allowLocalBrowserDemo)) return;
     let cancelled = false;
     setDrafts(null); setFailure(false);
     void repository.load(user.id).then(result => { if (!cancelled) setDrafts(result); }, () => { if (!cancelled) setFailure(true); });
     return () => { cancelled = true; };
   }, [user?.id, ready, repository, browserDemo, attempt]);
-  if (browserDemo) return <ReportReactionView headerContext={<>
+  if (browserDemo && allowLocalBrowserDemo) return <ReportReactionView headerContext={<>
     <p className="access-notice" role="note">Separate browser demo · shared browser storage, not account records. Existing demos are not imported into any account.</p>
     <M3Button variant="text" onClick={() => { if (window.dispatchEvent(new Event('apip:before-navigate', { cancelable: true }))) setBrowserDemo(false); }}>Return to account drafts</M3Button>
   </>} renderNavigation={renderNavigation} onExit={onExit} />;
@@ -39,11 +40,11 @@ function AccountDrafts({ renderNavigation, onExit }: Props) {
       <h1 id="adr-draft-title" className="m3-headline-small">Your ADR drafts</h1>
       {!ready ? <p role="status">Checking your account…</p> : error ? <p role="alert">{error}</p>
         : !user ? <p>Sign in to save and reopen your own fictional ADR drafts.</p>
-        : !repository ? <p>ADR account storage is available in local development. This selected provider is not connected for ADR drafts.</p>
+        : !repository ? <p>ADR reporting is stored directly in your Supabase account. Open guided ADR reporting from your patient workspace.</p>
         : failure ? <p role="alert">Your drafts could not be loaded. No browser-storage fallback was used.</p> : <p role="status">Loading your account drafts…</p>}
       {!user && ready && <M3Button onClick={() => navigatePreview('/sign-in/patient?continue=adr-report')}>Sign in for account drafts</M3Button>}
       {failure && <M3Button variant="outlined" onClick={() => setAttempt(v => v + 1)}>Retry loading</M3Button>}
-      <M3Button variant="text" onClick={() => setBrowserDemo(true)}>Open separate browser demo</M3Button>
+      {allowLocalBrowserDemo && <M3Button variant="text" onClick={() => setBrowserDemo(true)}>Open separate browser demo</M3Button>}
     </section>
   </>;
   return <>

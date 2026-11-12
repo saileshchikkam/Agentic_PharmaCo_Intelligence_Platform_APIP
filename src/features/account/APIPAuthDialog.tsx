@@ -2,8 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { MdDialog } from '@material/web/dialog/dialog';
 import { M3Button, M3TextField } from '../../components/material/core';
 import { accountClient } from './client';
+import { formatAuthError } from './authError';
 import { useAccount } from './AccountProvider';
-import { accountDestination } from './authCallback';
+import {
+  accountDestination,
+  clearPendingAuthReturn,
+  readPendingAuthReturn,
+  savePendingAuthReturn,
+} from './authCallback';
 import { navigatePreview } from '../access/navigation';
 import { Brand } from '../access/PreviewLayout';
 import './auth-dialog.css';
@@ -36,19 +42,34 @@ export function APIPAuthDialog({
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<{ type: 'error' | 'success' | 'info'; message: string } | null>(null);
   const [verifyEmailSent, setVerifyEmailSent] = useState(false);
+  const [resending, setResending] = useState(false);
   const [googleEnabled, setGoogleEnabled] = useState<boolean | null>(null);
 
   const dialogRef = useRef<MdDialog>(null);
   const lastActiveElement = useRef<HTMLElement | null>(null);
   const submitting = useRef(false);
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isSpecialist = role === 'specialist';
+
+  useEffect(() => () => {
+    if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+  }, []);
 
   // Sync props when opening
   useEffect(() => {
     if (open) {
       lastActiveElement.current = document.activeElement as HTMLElement | null;
-      setRole(initialRole);
+      let nextRole = initialRole;
+      if (initialMode === 'reset') {
+        const pendingRole = readPendingAuthReturn(false)?.role;
+        let storedRole: string | null = null;
+        try { storedRole = sessionStorage.getItem('apip.last.role'); } catch {}
+        if (pendingRole === 'specialist' || (!pendingRole && storedRole === 'specialist')) {
+          nextRole = 'specialist';
+        }
+      }
+      setRole(nextRole);
       setMode(initialMode);
       setEmail('');
       setPassword('');
@@ -56,6 +77,7 @@ export function APIPAuthDialog({
       setShowPassword(false);
       setNotice(null);
       setVerifyEmailSent(false);
+      setResending(false);
     }
   }, [open, initialRole, initialMode]);
 
@@ -145,6 +167,8 @@ export function APIPAuthDialog({
   }, []);
 
   // Dialog imperative show/close syncing
+  const intendedOpenRef = useRef(open);
+  intendedOpenRef.current = open;
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
@@ -176,8 +200,12 @@ export function APIPAuthDialog({
     };
 
     const handleClosed = () => {
-      if (open) {
-        onClose();
+      if (intendedOpenRef.current) {
+        if (open) {
+          onClose();
+        } else {
+          void dialog.show();
+        }
       }
     };
 
@@ -198,7 +226,10 @@ export function APIPAuthDialog({
       });
       return;
     }
-    if (accountClient.kind !== 'supabase') return;
+    if (accountClient.kind !== 'supabase') {
+      setGoogleEnabled(false);
+      return;
+    }
     const controller = new AbortController();
     const url = String(import.meta.env.VITE_SUPABASE_URL || '');
     const key = String(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '');
@@ -217,7 +248,7 @@ export function APIPAuthDialog({
 
   // Post-authentication redirect and session handling
   useEffect(() => {
-    if (user && ready && mode !== 'reset') {
+    if (open && user && ready && mode !== 'reset') {
       const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.continue');
       const destination = sessionStorage.getItem('apip.account.return');
@@ -226,9 +257,10 @@ export function APIPAuthDialog({
       const rawDest = destination ? destination.replace(/^(\/#|#)/, '') : '';
       const validCustomDest =
         rawDest &&
-        /^(?:\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/adr-report\?case=[0-9a-f-]{36})$/i.test(
-          rawDest
-        );
+        (isSpecialist
+          ? /^(?:\/specialist(?:\/(?:profile|home|reviews))?|\/admin\/specialist-applications(?:\/[0-9a-f-]{36})?|\/account\/profile)$/i
+          : /^(?:\/patient\/home|\/account\/profile|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/(?:adr-report|medassist)(?:\?case=[0-9a-f-]{36})?)$/i
+        ).test(rawDest);
 
       const target = validCustomDest
         ? rawDest
@@ -236,10 +268,11 @@ export function APIPAuthDialog({
         ? '/specialist'
         : accountDestination(task);
 
-      onClose();
+      // Do NOT call onClose() here: onClose triggers history pop/fallback to landing page.
+      // Simply navigate to the target route; the dialog will unmount or close via route change.
       navigatePreview(target, { replace: true });
     }
-  }, [user?.id, ready, requestedTask, isSpecialist, mode, onClose]);
+  }, [open, user?.id, ready, requestedTask, isSpecialist, mode]);
 
   const handleCloseRequest = () => {
     const dialog = dialogRef.current;
@@ -260,11 +293,16 @@ export function APIPAuthDialog({
   const switchRole = (nextRole: AuthRole) => {
     setRole(nextRole);
     setNotice(null);
-    const basePath = mode === 'signup' ? '/sign-up/' : '/sign-in/';
+    const basePath =
+      mode === 'signup' ? '/sign-up/' : mode === 'forgot' ? '/forgot-password/' : '/sign-in/';
     navigatePreview(`${basePath}${nextRole}`, { replace: true });
   };
 
   const switchMode = (nextMode: AuthMode) => {
+    if (resetTimerRef.current) {
+      clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = null;
+    }
     setMode(nextMode);
     setNotice(null);
     let path = '/sign-in/' + role;
@@ -280,8 +318,8 @@ export function APIPAuthDialog({
         setNotice({ type: 'error', message: 'Please enter your new password.' });
         return false;
       }
-      if (password.length < 8) {
-        setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+      if (password.length < 12) {
+        setNotice({ type: 'error', message: 'Password must be at least 12 characters long.' });
         return false;
       }
       if (password !== confirmPassword) {
@@ -302,8 +340,8 @@ export function APIPAuthDialog({
       setNotice({ type: 'error', message: 'Please enter your password.' });
       return false;
     }
-    if (mode === 'signup' && password.length < 8) {
-      setNotice({ type: 'error', message: 'Password must be at least 8 characters long.' });
+    if (mode === 'signup' && password.length < 12) {
+      setNotice({ type: 'error', message: 'Password must be at least 12 characters long.' });
       return false;
     }
     return true;
@@ -321,18 +359,21 @@ export function APIPAuthDialog({
     submitting.current = true;
     setBusy(true);
 
+    const previousReturn = mode === 'signup' ? sessionStorage.getItem('apip.account.return') : null;
+    const previousPendingReturn = mode === 'signup' || mode === 'forgot' ? readPendingAuthReturn(false) : null;
     try {
       if (mode === 'signup') {
-        sessionStorage.setItem('apip.account.return', isSpecialist ? '/specialist/profile' : accountDestination(requestedTask));
+        const signupDestination = isSpecialist ? '/specialist/profile' : accountDestination(requestedTask);
+        sessionStorage.setItem('apip.account.return', signupDestination);
+        savePendingAuthReturn(signupDestination, role);
         const verifyNeeded = await accountClient.signUp(email.trim(), password);
         setPassword('');
         if (verifyNeeded) {
           setVerifyEmailSent(true);
         } else {
+          clearPendingAuthReturn();
           setNotice({ type: 'success', message: 'Account created! Opening your dashboard…' });
-          const target = isSpecialist ? '/specialist/profile' : accountDestination(requestedTask);
-          onClose();
-          navigatePreview(target, { replace: true });
+          navigatePreview(signupDestination, { replace: true });
         }
       } else if (mode === 'signin') {
         await accountClient.signIn(email.trim(), password);
@@ -347,6 +388,7 @@ export function APIPAuthDialog({
           setBusy(false);
           return;
         }
+        savePendingAuthReturn(isSpecialist ? '/specialist' : '/patient/home', role);
         if (accountClient.resetPassword) {
           await accountClient.resetPassword(email.trim());
         }
@@ -355,29 +397,73 @@ export function APIPAuthDialog({
           message: 'If an account exists for this email, password reset instructions have been sent.',
         });
       } else if (mode === 'reset') {
+        if (!user) {
+          setNotice({
+            type: 'error',
+            message: 'Your password reset link is missing or has expired. Request a new reset link to continue.',
+          });
+          return;
+        }
         if (accountClient.updatePassword) {
           await accountClient.updatePassword(password);
-          setNotice({ type: 'success', message: 'Password updated successfully! Redirecting…' });
-          setTimeout(() => {
-            switchMode('signin');
+          setPassword('');
+          setConfirmPassword('');
+          const pending = readPendingAuthReturn(true);
+          if (pending) {
+            try {
+              sessionStorage.setItem('apip.account.return', pending.path);
+              sessionStorage.setItem('apip.last.role', pending.role);
+            } catch {
+              // ignore storage access errors
+            }
+          }
+          const targetRole = pending?.role ?? role;
+          setRole(targetRole);
+          setNotice({ type: 'success', message: 'Password updated successfully! Opening your workspace…' });
+          if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+          resetTimerRef.current = setTimeout(() => {
+            resetTimerRef.current = null;
+            setMode('signin');
+            navigatePreview('/sign-in/' + targetRole, { replace: true });
           }, 1500);
         }
       }
     } catch (err: unknown) {
-      setPassword('');
-      const msg = err instanceof Error ? err.message : '';
-      if (/invalid.*credential/i.test(msg) || /invalid_grant/i.test(msg)) {
-        setNotice({ type: 'error', message: 'Incorrect email or password. Please try again.' });
-      } else if (/already.*registered/i.test(msg) || /user_already_exists/i.test(msg)) {
-        setNotice({ type: 'error', message: 'An account with this email already exists. Try signing in.' });
-      } else if (/rate.*limit/i.test(msg)) {
-        setNotice({ type: 'error', message: 'Too many attempts. Please wait a few moments and try again.' });
-      } else {
-        setNotice({ type: 'error', message: 'Unable to complete this request. Check your details or try again.' });
+      if (mode === 'signup') {
+        if (previousReturn === null) sessionStorage.removeItem('apip.account.return');
+        else sessionStorage.setItem('apip.account.return', previousReturn);
       }
+      if (mode === 'signup' || mode === 'forgot') {
+        if (previousPendingReturn) savePendingAuthReturn(previousPendingReturn.path, previousPendingReturn.role);
+        else clearPendingAuthReturn();
+      }
+      setPassword('');
+      setNotice({ type: 'error', message: formatAuthError(err) });
     } finally {
       submitting.current = false;
       setBusy(false);
+    }
+  };
+
+  const handleResend = async () => {
+    const cleanEmail = email.trim();
+    if (!cleanEmail || !accountClient?.resendConfirmation || resending || busy) return;
+    setResending(true);
+    setNotice(null);
+    try {
+      savePendingAuthReturn(
+        isSpecialist ? '/specialist/profile' : accountDestination(requestedTask),
+        role
+      );
+      await accountClient.resendConfirmation(cleanEmail);
+      setNotice({
+        type: 'success',
+        message: 'A new confirmation link has been sent if this email is awaiting verification.',
+      });
+    } catch (err: unknown) {
+      setNotice({ type: 'error', message: formatAuthError(err) });
+    } finally {
+      setResending(false);
     }
   };
 
@@ -387,10 +473,10 @@ export function APIPAuthDialog({
     setBusy(true);
     setNotice(null);
     try {
-      if (googleEnabled !== true) {
+      if (googleEnabled === false) {
         setNotice({
           type: 'info',
-          message: 'Google Sign-in is not yet enabled on the hosted project. Please use email and password to sign in.',
+          message: 'Google Sign-in is not enabled on this project. Please sign in with email and password.',
         });
         submitting.current = false;
         setBusy(false);
@@ -411,8 +497,15 @@ export function APIPAuthDialog({
     }
   };
 
+  const resetChecking = mode === 'reset' && !ready;
+  const resetInvalid = mode === 'reset' && ready && !user;
+  const visibleAuthError =
+    authError && !/profile could not be loaded/i.test(authError) ? authError : '';
+
   const dialogTitle =
-    mode === 'reset'
+    resetInvalid
+      ? 'Password reset link expired'
+      : mode === 'reset'
       ? 'Choose a new password'
       : mode === 'forgot'
       ? 'Reset your password'
@@ -425,7 +518,11 @@ export function APIPAuthDialog({
       : 'Patient Sign In';
 
   const subtitle =
-    mode === 'reset'
+    resetInvalid
+      ? 'Your recovery link is missing, invalid, or has expired'
+      : resetChecking
+      ? 'Verifying your password reset link…'
+      : mode === 'reset'
       ? 'Enter your new account password below'
       : mode === 'forgot'
       ? 'Enter your email to receive recovery instructions'
@@ -495,15 +592,37 @@ export function APIPAuthDialog({
                 Open the link in your email to confirm your account and access{' '}
                 {isSpecialist ? 'the specialist workspace' : 'your patient dashboard'}.
               </p>
-              <M3Button
-                variant="filled"
-                onClick={() => {
-                  setVerifyEmailSent(false);
-                  switchMode('signin');
-                }}
-              >
-                Back to sign in
-              </M3Button>
+              {notice && (
+                <div
+                  role={notice.type === 'error' ? 'alert' : 'status'}
+                  className={`apip-auth-notice ${notice.type}`}
+                >
+                  <span className="material-symbols-outlined" aria-hidden="true">
+                    {notice.type === 'success' ? 'check_circle' : notice.type === 'info' ? 'info' : 'error'}
+                  </span>
+                  <span>{notice.message}</span>
+                </div>
+              )}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center' }}>
+                {accountClient?.resendConfirmation && email.trim() && (
+                  <M3Button
+                    variant="outlined"
+                    disabled={resending || busy}
+                    onClick={() => void handleResend()}
+                  >
+                    {resending ? 'Sending…' : 'Resend confirmation email'}
+                  </M3Button>
+                )}
+                <M3Button
+                  variant="filled"
+                  onClick={() => {
+                    setVerifyEmailSent(false);
+                    switchMode('signin');
+                  }}
+                >
+                  Back to sign in
+                </M3Button>
+              </div>
             </div>
           ) : (
             <>
@@ -562,10 +681,10 @@ export function APIPAuthDialog({
               </div>
 
               {/* Notice / Alert Banner */}
-              {(notice || authError) && (
+              {(notice || visibleAuthError) && (
                 <div
-                  role={notice?.type === 'error' || authError ? 'alert' : 'status'}
-                  className={`apip-auth-notice ${notice?.type ?? (authError ? 'error' : 'info')}`}
+                  role={notice?.type === 'error' || (!notice && visibleAuthError) ? 'alert' : 'status'}
+                  className={`apip-auth-notice ${notice?.type ?? 'error'}`}
                 >
                   <span className="material-symbols-outlined" aria-hidden="true">
                     {notice?.type === 'success'
@@ -574,9 +693,24 @@ export function APIPAuthDialog({
                       ? 'info'
                       : 'error'}
                   </span>
-                  <span>{notice?.message ?? authError}</span>
+                  <span>{notice?.message ?? visibleAuthError}</span>
                 </div>
               )}
+              {mode === 'signin' &&
+                accountClient?.resendConfirmation &&
+                notice?.type === 'error' &&
+                /confirm your email/i.test(notice.message) &&
+                email.trim() && (
+                  <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '8px' }}>
+                    <M3Button
+                      variant="outlined"
+                      disabled={resending || busy}
+                      onClick={() => void handleResend()}
+                    >
+                      {resending ? 'Sending…' : 'Resend confirmation email'}
+                    </M3Button>
+                  </div>
+                )}
 
               {/* Google OAuth (only for signin and signup) */}
               {(mode === 'signin' || mode === 'signup') && (
@@ -592,12 +726,17 @@ export function APIPAuthDialog({
                       </svg>
                     }
                     className="apip-auth-google-btn"
-                    disabled={busy || !accountClient}
+                    disabled={busy || !accountClient || googleEnabled === false}
                     onClick={() => void handleGoogle()}
                     ariaLabel="Continue with Google"
                   >
                     Continue with Google
                   </M3Button>
+                  {googleEnabled === false && (
+                    <p className="apip-auth-prototype-note" style={{ textAlign: 'center', marginTop: '4px', marginBottom: '8px' }}>
+                      Google sign-in is not enabled on this environment. Please sign in with email and password.
+                    </p>
+                  )}
 
                   <div className="apip-auth-divider">
                     <span>or with email</span>
@@ -605,7 +744,37 @@ export function APIPAuthDialog({
                 </>
               )}
 
-              {/* Main Credentials Form */}
+              {resetChecking ? (
+                <p role="status" className="apip-auth-subtitle">Verifying your password reset link…</p>
+              ) : resetInvalid ? (
+                <div className="apip-auth-form" role="region" aria-label="Password reset link unavailable">
+                  {!notice && !visibleAuthError && (
+                    <div role="alert" className="apip-auth-notice error">
+                      <span className="material-symbols-outlined" aria-hidden="true">error</span>
+                      <span>
+                        This password reset link is missing, invalid, or has expired. Request a new reset link to continue.
+                      </span>
+                    </div>
+                  )}
+                  <div className="apip-auth-submit-row" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <M3Button
+                      variant="filled"
+                      className="apip-auth-submit-btn"
+                      onClick={() => switchMode('forgot')}
+                    >
+                      Request a new reset link
+                    </M3Button>
+                    <M3Button
+                      variant="outlined"
+                      className="apip-auth-submit-btn"
+                      onClick={() => switchMode('signin')}
+                    >
+                      Back to sign in
+                    </M3Button>
+                  </div>
+                </div>
+              ) : (
+              /* Main Credentials Form */
               <form onSubmit={submit} onKeyDown={handleFormKeyDown} noValidate className="apip-auth-form">
                 {mode !== 'reset' && (
                   <div className="apip-auth-field-wrapper">
@@ -651,7 +820,7 @@ export function APIPAuthDialog({
                       </span>
                     </button>
                     {mode === 'signup' && (
-                      <span className="apip-auth-helper">Minimum 8 characters</span>
+                      <span className="apip-auth-helper">Minimum 12 characters</span>
                     )}
                   </div>
                 )}
@@ -717,6 +886,7 @@ export function APIPAuthDialog({
                   </M3Button>
                 </div>
               </form>
+              )}
 
               {/* Footer Switcher */}
               <div className="apip-auth-footer">

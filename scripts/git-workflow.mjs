@@ -1,9 +1,49 @@
 import { spawnSync } from 'node:child_process';
 import { lstatSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const command = process.argv[2];
 const args = process.argv.slice(3);
+
+const PLACEHOLDER_PASSWORD_RE = /^(?:\{[^}]+\}|<[^>]+>|\[[^\]]+\]|\$\{?[^}\s]+\}?|your[_-]?(?:password|pass|secret)|placeholder|replace[-_]?me|\*{3,})$/i;
+const DB_URI_RE = /(?:postgres(?:ql)?|mysql|mongodb(?:\+srv)?|redis):\/\/([^:\s'"`]+):([^@\s'"`]+)@([^\s'"`/]+)/gi;
+const PEM_KEY_RE = new RegExp(['-----BEGIN', ' (?:RSA |EC |DSA |OPENSSH |PGP )?PRIVATE', ' KEY-----'].join(''));
+
+const TOKEN_PATTERNS = [
+  { kind: 'supabase_secret_key', re: /\bsb_secret_[a-zA-Z0-9_-]{12,}\b/ },
+  { kind: 'google_api_key', re: /\bAIza[0-9A-Za-z_-]{35}\b/ },
+  { kind: 'groq_api_key', re: /\bgsk_[A-Za-z0-9]{20,}\b/ },
+  { kind: 'openai_api_key', re: /\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{24,}\b/ },
+  { kind: 'github_token', re: /\b(?:gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})\b/ },
+  { kind: 'aws_access_key', re: /\bAKIA[0-9A-Z]{16}\b/ },
+  { kind: 'private_key_pem', re: PEM_KEY_RE },
+];
+
+export function findSecretViolations(text) {
+  const findings = [];
+  if (!text) return findings;
+  for (const match of text.matchAll(DB_URI_RE)) {
+    const password = match[2];
+    if (!PLACEHOLDER_PASSWORD_RE.test(password)) {
+      findings.push({ kind: 'embedded_database_credential' });
+    }
+  }
+  for (const { kind, re } of TOKEN_PATTERNS) {
+    if (re.test(text)) findings.push({ kind });
+  }
+  for (const match of text.matchAll(/\beyJhbGciOi[A-Za-z0-9_-]{10,}\.([A-Za-z0-9_-]{10,})\.[A-Za-z0-9_-]{20,}\b/g)) {
+    try {
+      const payload = JSON.parse(Buffer.from(match[1], 'base64url').toString('utf8'));
+      if (payload && payload.role === 'service_role') {
+        findings.push({ kind: 'supabase_service_role_jwt' });
+      }
+    } catch {
+      /* ignore non-JSON base64 segments */
+    }
+  }
+  return findings;
+}
 
 function git(args, optional = false) {
   const result = spawnSync('git', args, {
@@ -121,9 +161,10 @@ function complete() {
   }
   git(['diff', '--cached', '--check']);
   const addedLines = git(['diff', '--cached']).split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++')).join('\n');
-  if (/postgres(?:ql)?:\/\/[^:\s'"]+:[^@\s'"]+@/i.test(addedLines) || /sb_secret_[a-z0-9_-]+/i.test(addedLines)) {
+  const secretFindings = findSecretViolations(addedLines);
+  if (secretFindings.length > 0) {
     git(['reset']);
-    throw new Error('Security violation: staged changes contain an embedded database credential or connection string with password. Commit aborted.');
+    throw new Error(`Security violation: staged changes contain an embedded database credential or secret (${secretFindings.map(f => f.kind).join(', ')}). Commit aborted.`);
   }
   for (const file of staged.filter(file => file.startsWith('.githooks/') && !file.endsWith('.md'))) {
     if (existsSync(file)) git(['update-index', '--chmod=+x', '--', file]);
@@ -138,13 +179,16 @@ function complete() {
   console.log(`APIP: completion committed and synced (${head.slice(0, 7)}).`);
 }
 
-try {
-  process.chdir(git(['rev-parse', '--show-toplevel']));
-  if (command === 'install') install();
-  else if (command === 'push') push();
-  else if (command === 'complete') complete();
-  else throw new Error('Choose install, push, or complete. See scripts/README.md.');
-} catch (error) {
-  console.error(`APIP: ${error.message}`);
-  process.exitCode = 1;
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isMain) {
+  try {
+    process.chdir(git(['rev-parse', '--show-toplevel']));
+    if (command === 'install') install();
+    else if (command === 'push') push();
+    else if (command === 'complete') complete();
+    else throw new Error('Choose install, push, or complete. See scripts/README.md.');
+  } catch (error) {
+    console.error(`APIP: ${error.message}`);
+    process.exitCode = 1;
+  }
 }

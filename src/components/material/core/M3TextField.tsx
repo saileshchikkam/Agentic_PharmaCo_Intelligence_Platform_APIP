@@ -11,6 +11,7 @@ export interface M3TextFieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { value: string; name?: string } }) => void;
   onBlur?: (e: React.FocusEvent<any>) => void;
   onFocus?: (e: React.FocusEvent<any>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
   placeholder?: string;
   autoComplete?: string;
   supportingText?: string;
@@ -41,6 +42,7 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
   onChange,
   onBlur,
   onFocus,
+  onKeyDown,
   placeholder,
   autoComplete,
   supportingText,
@@ -57,20 +59,26 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
   maxLength,
 }) => {
   const elementRef = useRef<any>(null);
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
+  useEffect(() => {
+    const el = elementRef.current;
+    if (!el) return;
+    // Synchronize custom element value with React state
+    if (el.value !== value) {
+      el.value = value;
+    }
+  }, [value]);
 
   useEffect(() => {
     const el = elementRef.current;
     if (!el) return;
 
-    // Synchronize custom element value with React state
-    if (el.value !== value) {
-      el.value = value;
-    }
-
     const handleInput = (event: Event) => {
       const target = event.target as any;
-      if (onChange) {
-        onChange({
+      if (onChangeRef.current) {
+        onChangeRef.current({
           target: {
             value: target.value,
             name: name || id,
@@ -80,10 +88,12 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
     };
 
     el.addEventListener('input', handleInput);
+    el.addEventListener('change', handleInput);
     return () => {
       el.removeEventListener('input', handleInput);
+      el.removeEventListener('change', handleInput);
     };
-  }, [value, onChange, name, id]);
+  }, [name, id]);
 
   const isTextarea = type === 'textarea';
 
@@ -106,6 +116,7 @@ export const M3TextField: React.FC<M3TextFieldProps> = ({
     maxlength: maxLength,
     onBlur,
     onFocus,
+    onKeyDown,
     className: `apip-text-field w-full text-left font-sans ${className}`,
   };
 

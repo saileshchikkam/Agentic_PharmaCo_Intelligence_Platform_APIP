@@ -3,7 +3,7 @@ import { useAccount } from '../account/AccountProvider';
 import React, { useEffect, useRef, useState } from 'react';
 import { M3Button } from '../../components/material/core';
 import type { Appearance } from '../../design-system/appearance';
-import { followPreviewLink } from './navigation';
+import { followPreviewLink, navigatePreview } from './navigation';
 import { useDiscreetDeveloperAccess } from './discreetDeveloperAccess';
 import './access.css';
 
@@ -56,10 +56,31 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
         <nav className="access-header-navigation" aria-label="Main navigation">
           <a className="access-nav-link" href="#/" aria-current={screen === 'home' ? 'page' : undefined}
             onClick={(event) => followPreviewLink(event, '/')}>Home</a>
-            <a className="access-nav-link access-patients-link" href="#/patient/home" aria-current={screen === 'patient-home' ? 'page' : undefined}
-              onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a>
-            {account.user ? <><a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a><md-icon-button aria-label="Sign out" onClick={() => { void account.signOut(); }}><LogOut size={22} aria-hidden="true" /></md-icon-button></> : <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
-              onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>}
+          <a className="access-nav-link access-patients-link" href={account.user ? "#/patient/home" : "#/sign-in/patient"} aria-current={screen === 'patient-home' ? 'page' : undefined}
+            onClick={(event) => followPreviewLink(event, account.user ? '/patient/home' : '/sign-in/patient')}>For patients</a>
+          <a className="access-nav-link access-specialists-link" href={account.user ? "#/specialist" : "#/sign-in/specialist"} aria-current={screen === 'specialist' ? 'page' : undefined}
+            onClick={(event) => followPreviewLink(event, account.user ? '/specialist' : '/sign-in/specialist')}>For specialists</a>
+          {account.user ? (
+            <>
+              <a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a>
+              <md-icon-button aria-label="Sign out" title="Sign out" onClick={() => {
+                const leave = new CustomEvent('apip:before-navigate', { cancelable: true, detail: { to: '/' } });
+                if (!window.dispatchEvent(leave)) return;
+                try {
+                  sessionStorage.removeItem('apip.account.continue');
+                  sessionStorage.removeItem('apip.account.return');
+                  sessionStorage.removeItem('apip.last.role');
+                } catch {}
+                navigatePreview('/', { replace: true });
+                void account.signOut();
+              }}>
+                <LogOut size={22} aria-hidden="true" />
+              </md-icon-button>
+            </>
+          ) : (
+            <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
+              onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>
+          )}
         </nav>
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
           <span className="access-appearance-label">Appearance</span>

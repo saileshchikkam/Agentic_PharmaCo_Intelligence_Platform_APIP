@@ -20,17 +20,21 @@ const friendly:Record<string,string>={SPECIALIST_SETUP_REQUIRED:'Specialist onbo
  VERIFICATION_REQUIRED:'Record the independent synthetic evidence reference before approval.',INVALID_DECISION:'Check the decision reason and evidence reference.'};
 async function request(owner:string,path:string,signal:AbortSignal,body?:unknown,key?:string){
  const prefix=import.meta.env.VITE_APIP_IDENTITY_FIXTURE==='1'?'/api/account/identity-fixture':'/api';
+ let headers:Record<string,string>;
+ try{headers={...await guidedAccountHeaders(owner),...(key?{'Idempotency-Key':key}:{})};}
+ catch(e){const code=e instanceof Error?e.message:'';throw Object.assign(new Error(friendly[code]??friendly.SIGN_IN_REQUIRED),{code:code||'SIGN_IN_REQUIRED'});}
  const response=await fetch(prefix+path,{method:body===undefined?'GET':'POST',credentials:'same-origin',cache:'no-store',
-  headers:{...await guidedAccountHeaders(owner),...(key?{'Idempotency-Key':key}:{})},body:body===undefined?undefined:JSON.stringify(body),signal});
- const data=await response.json();if(!response.ok)throw Error(friendly[data.error]??'Unable to complete this action. Please retry.');return data;
+  headers,body:body===undefined?undefined:JSON.stringify(body),signal});
+ const data=await response.json();if(!response.ok)throw Object.assign(new Error(friendly[data.error]??'Unable to complete this action. Please retry.'),{code:response.status===401?'SIGN_IN_REQUIRED':data.error});return data;
 }
 export function SpecialistWorkspace({admin=false,id,view='entry'}:{admin?:boolean;id?:string;view?:SpecialistView}){
  const {user,ready}=useAccount();
- useEffect(()=>{if(ready&&!user){sessionStorage.setItem('apip.account.return',admin?(id?'/admin/specialist-applications/'+id:'/admin/specialist-applications'):view==='entry'?'/specialist':'/specialist/'+view);navigatePreview('/sign-in/specialist',{replace:true});}},[ready,user?.id,admin,id]);
- if(!ready||!user)return <p role="status">Checking your account…</p>;
+ useEffect(()=>{if(ready&&!user){sessionStorage.setItem('apip.account.return',admin?(id?'/admin/specialist-applications/'+id:'/admin/specialist-applications'):view==='entry'?'/specialist':'/specialist/'+view);navigatePreview('/sign-in/specialist',{replace:true});}},[ready,user?.id,admin,id,view]);
+ if(!ready||!user)return <div className="specialist-loading" role="status"><p className="m3-body-medium">Checking your account…</p></div>;
  return <IdentityWorkspace key={`${user.id}/${admin}/${id??''}/${view}`} owner={user.id} email={user.email??''} admin={admin} id={id} view={view}/>;
 }
 function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:string;admin:boolean;id?:string;view:SpecialistView}){
+ const {invalidateSession}=useAccount();
  const [caps,setCaps]=useState<Caps|null>(null),[application,setApplication]=useState<Application|null>(null),[list,setList]=useState<Application[]>([]);
  const [profile,setProfile]=useState(empty),[error,setError]=useState(''),[busy,setBusy]=useState(false),[loaded,setLoaded]=useState(false),[filter,setFilter]=useState('SUBMITTED');
  const [reason,setReason]=useState(''),[evidence,setEvidence]=useState(''),[action,setAction]=useState(''),[affirm,setAffirm]=useState(false),[dirty,setDirty]=useState(false);
@@ -53,7 +57,7 @@ function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:strin
     if(!alive.current||sequence!==generation.current)return;setApplication(value.application);if(!dirty)setProfile(value.application?.profile??empty);
    }
    setError('');setLoaded(true);
-  }catch(e){if(alive.current&&sequence===generation.current){setCaps(null);setList([]);setApplication(null);setError((e as Error).message);setLoaded(true);}}
+  }catch(e){if((e as {code?:string}).code==='SIGN_IN_REQUIRED')void invalidateSession(owner);if(alive.current&&sequence===generation.current){setCaps(null);setList([]);setApplication(null);setError((e as Error).message);setLoaded(true);}}
  }
  useEffect(()=>{void refresh();},[owner,admin,id,filter]);
  useEffect(()=>{if(admin||!loaded||error||!caps)return;const draft=!application||application.state==='DRAFT';if(view==='entry'||draft&&(view==='home'||view==='reviews'))navigatePreview(draft?'/specialist/profile':'/specialist/home',{replace:true});},[admin,loaded,error,caps,application?.state,view]);
@@ -76,7 +80,7 @@ function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:strin
    if(!alive.current)return;
    pending.current=undefined;setApplication(result.application);setProfile(result.application.profile);setDirty(false);dialog.current?.close();
    const c=await request(owner,'/account/capabilities',AbortSignal.timeout(12000));if(alive.current){setCaps(c);if(!admin&&result.application.state!=='DRAFT'&&(body as {command?:{type?:string}}).command?.type==='submit')navigatePreview('/specialist/home');}
-  }catch(e){if(alive.current)setError((e as Error).message);}finally{lock.current=false;if(alive.current)setBusy(false);}
+  }catch(e){if((e as {code?:string}).code==='SIGN_IN_REQUIRED')void invalidateSession(owner);if(alive.current)setError((e as Error).message);}finally{lock.current=false;if(alive.current)setBusy(false);}
  }
  const approve=()=>{
   if(!application)return;
@@ -120,7 +124,9 @@ function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:strin
      {['REVOKED','REJECTED'].includes(application.state)&&<p>Reinstatement and appeals are not enabled by the approved prototype policy.</p>}</section>}
     {application&&<section><h2>Authorization history</h2>{!application.decisions.length?<p>No administrator decisions have been recorded.</p>:<ol>{application.decisions.map(d=><li key={d.id}><strong>{d.action.replaceAll('_',' ')}</strong><p>{d.reason}</p><p>Synthetic evidence: {d.evidenceReference||'Not recorded'}</p><time>{new Date(d.at).toLocaleString()}</time></li>)}</ol>}</section>}
     {!admin&&<section><h2>Workspace modules</h2><p>{caps.specialistWorkspace?'Your specialist identity is currently authorized.':'Specialist functionality requires current, unexpired administrator authorization.'}</p>
-     <ul><li>My assigned reviews — unavailable until Phase 3C</li><li>Review queue — unavailable until Phase 3C</li><li>Safety analytics — planned Phase 3E</li><li>Evidence intelligence — planned Phase 3F</li></ul><p>No patient records are requested or displayed in this workspace.</p></section>}
+     <ul><li>Available review queue — {caps.specialistWorkspace?'enabled in Specialist Review Workspace':'requires active specialist authorization'}</li><li>My assigned reviews — {caps.specialistWorkspace?'enabled in Specialist Review Workspace':'requires active specialist authorization'}</li><li>Safety analytics — planned Phase 3E</li><li>Evidence intelligence — planned Phase 3F</li></ul>
+     {caps.specialistWorkspace&&<div className="specialist-actions"><M3Button variant="outlined" onClick={()=>navigatePreview('/specialist/reviews')}>Open review workspace</M3Button></div>}
+     <p>No patient records are requested or displayed in this identity profile view.</p></section>}
    </>}
   </>}
   <md-dialog class="specialist-dialog" ref={dialog} quick={matchMedia('(prefers-reduced-motion: reduce)').matches||undefined} aria-label={`Confirm ${action.replaceAll('_',' ')}`}>

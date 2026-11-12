@@ -1,4 +1,11 @@
-import { allowedAuthOrigin, readAuthCallback, accountDestination, safeAccountReturn } from './authCallback';
+import {
+  allowedAuthOrigin,
+  readAuthCallback,
+  accountDestination,
+  safeAccountReturn,
+  readPendingAuthReturn,
+  clearPendingAuthReturn,
+} from './authCallback';
 import { createClient } from '@supabase/supabase-js';
 import type { PatientProfile, ProfileInput } from './profile';
 import { readAccountDraft, type AccountDraftRepository } from '../adr/accountDraft';
@@ -10,10 +17,12 @@ export interface AccountClient {
   subscribe: (listener: (user: AccountUser | null, error?: string) => void) => () => void;
   signUp: (email: string, password: string) => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<void>;
+  resendConfirmation?: (email: string) => Promise<void>;
   google: (workspace?: 'specialist') => Promise<void>;
   resetPassword?: (email: string) => Promise<void>;
   updatePassword?: (password: string) => Promise<void>;
   accessToken?: (owner: string) => Promise<string>;
+  invalidateSession?: (owner?: string, message?: string) => Promise<void>;
   signOut: () => Promise<void>;
   readProfile: (userId: string) => Promise<PatientProfile | null>;
   saveProfile: (userId: string, profile: ProfileInput, revision: number | null) => Promise<PatientProfile>;
@@ -77,6 +86,10 @@ function localClient(): AccountClient {
     async google() { throw new Error('Google sign-in needs a configured provider.'); },
     async resetPassword(_email) { throw Error('LOCAL_RECOVERY_UNAVAILABLE'); },
     async updatePassword(_password) { throw Error('LOCAL_RECOVERY_UNAVAILABLE'); },
+    async invalidateSession(_owner, message) {
+      epoch++;
+      emit(null, message ?? 'Your session expired. Sign in again to continue.');
+    },
     async signOut() { await request('signout', {}); changed(null); },
     async readProfile(userId) { return (await request('profile', undefined, userId)).profile; },
     async saveProfile(userId, profile, revision) { return (await request('profile', { profile, expectedRevision: revision }, userId)).profile; },
@@ -95,30 +108,86 @@ function configuredClient(): AccountClient | null {
     const endpoint = new URL(url);
     if (endpoint.protocol !== 'https:' && !(endpoint.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(endpoint.hostname))) return null;
     const storage = {
-      getItem: (key: string) => (key.endsWith('-code-verifier') ? sessionStorage : localStorage).getItem(key),
-      setItem: (key: string, value: string) => (key.endsWith('-code-verifier') ? sessionStorage : localStorage).setItem(key, value),
-      removeItem: (key: string) => (key.endsWith('-code-verifier') ? sessionStorage : localStorage).removeItem(key),
+      getItem: (k: string) =>
+        k.endsWith('-code-verifier')
+          ? sessionStorage.getItem(k) ?? localStorage.getItem(k)
+          : localStorage.getItem(k),
+      setItem: (k: string, value: string) => {
+        if (k.endsWith('-code-verifier')) {
+          localStorage.setItem(k, value);
+          sessionStorage.setItem(k, value);
+        } else {
+          localStorage.setItem(k, value);
+        }
+      },
+      removeItem: (k: string) => {
+        sessionStorage.removeItem(k);
+        localStorage.removeItem(k);
+      },
     };
     const sdk = createClient(url, key, { auth: { flowType: 'pkce', detectSessionInUrl: false,
       persistSession: true, storage, storageKey: 'apip.cloud.auth', autoRefreshToken: true } });
     const continuationKey = 'apip.account.continue';
     const callback = readAuthCallback(new URL(location.href));
+    const hadStoredAuth = (() => {
+      try {
+        return Boolean(localStorage.getItem('apip.cloud.auth'));
+      } catch {
+        return false;
+      }
+    })();
+    const expiredListeners = new Set<(message: string) => void>();
+    const notifyExpired = (message: string) => {
+      expiredListeners.forEach(fn => fn(message));
+    };
+    const cloudSync = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('apip.cloud.auth.sync') : null;
+    const notifyCloudSync = () => {
+      try { cloudSync?.postMessage({ type: 'sync', at: Date.now() }); } catch { /* ignore closed channel */ }
+    };
     const callbackReady = (async () => {
       if (!callback) return;
+      const pending = readPendingAuthReturn(callback.type !== 'recovery');
       if (callback.type === 'recovery') {
+        if (pending) {
+          try {
+            sessionStorage.setItem('apip.last.role', pending.role);
+            sessionStorage.setItem('apip.account.return', pending.path);
+          } catch {
+            // ignore storage access errors
+          }
+        }
         history.replaceState(history.state, '', '/#/reset-password');
       } else {
-        const destination = safeAccountReturn(sessionStorage.getItem('apip.account.return'), '/sign-in/patient');
+        const sessionReturn = safeAccountReturn(sessionStorage.getItem('apip.account.return'), '');
+        const destination = safeAccountReturn(sessionReturn || pending?.path || null, '/sign-in/patient');
+        if (!sessionReturn && pending?.path) {
+          try {
+            sessionStorage.setItem('apip.account.return', pending.path);
+            sessionStorage.setItem('apip.last.role', pending.role);
+          } catch {
+            // ignore storage access errors
+          }
+        }
+        const targetRole = pending?.role ?? (destination.startsWith('/specialist') ? 'specialist' : 'patient');
         // Let the authenticated sign-in screen consume the saved destination.
         // Cancellation/expired-code messages must remain visible before any redirect.
-        history.replaceState(history.state, '', '/#/sign-in/' + (destination.startsWith('/specialist') ? 'specialist' : 'patient'));
+        history.replaceState(history.state, '', '/#/sign-in/' + targetRole);
       }
-      if (!callback.code) return 'Sign-in was cancelled or the link expired. Please try again.';
+      if (!callback.code) {
+        return callback.type === 'recovery'
+          ? 'This password reset link is invalid or expired. Please request a new reset link.'
+          : 'Sign-in was cancelled or the link expired. Please try again.';
+      }
       try {
         const { error } = await sdk.auth.exchangeCodeForSession(callback.code);
-        if (!error) return;
+        if (!error) {
+          notifyCloudSync();
+          return;
+        }
       } catch { /* Report a safe message without provider details. */ }
-      return 'Sign-in could not be completed. Open the link in the browser tab that requested it, or try again.';
+      return callback.type === 'recovery'
+        ? 'This password reset link could not be verified or has expired. Open the link in the browser you requested it from, or request a new reset link.'
+        : 'Sign-in could not be completed. Open the link in the browser tab that requested it, or try again.';
     })();
     function redirectTo() {
       return location.origin + '/?apip_auth=1';
@@ -130,39 +199,148 @@ function configuredClient(): AccountClient | null {
         let expiry: ReturnType<typeof setTimeout> | undefined;
         let generation = 0;
         let unsubscribe: (() => void) | undefined;
+        let startupPending = true;
+        const handleSession = (session: { user: AccountUser; expires_at?: number } | null, message?: string) => {
+          clearTimeout(expiry);
+          const current = ++generation;
+          const remaining = session?.expires_at ? session.expires_at * 1000 - Date.now() : 0;
+          if (session && remaining <= 0) {
+            void sdk.auth.refreshSession().then(({ data, error }) => {
+              if (disposed || current !== generation) return;
+              if (!error && data.session?.expires_at && data.session.expires_at * 1000 > Date.now()) {
+                handleSession(data.session, message);
+              } else {
+                try { localStorage.removeItem('apip.cloud.auth'); } catch { /* ignore */ }
+                listener(null, message ?? 'Your session expired. Sign in again to continue.');
+              }
+            }).catch(() => {
+              if (!disposed && current === generation) {
+                try { localStorage.removeItem('apip.cloud.auth'); } catch { /* ignore */ }
+                listener(null, message ?? 'Your session expired. Sign in again to continue.');
+              }
+            });
+            return;
+          }
+          listener(session && remaining > 0 ? session.user : null, message);
+          if (session?.expires_at && remaining > 0) {
+            expiry = setTimeout(() => {
+              void sdk.auth.getSession().then(async ({ data, error }) => {
+                if (disposed || current !== generation) return;
+                let active = !error ? data.session : null;
+                if (!active || !active.expires_at || active.expires_at * 1000 <= Date.now()) {
+                  const refreshed = await sdk.auth.refreshSession().catch(() => null);
+                  active = refreshed && !refreshed.error ? refreshed.data.session : null;
+                }
+                if (disposed || current !== generation) return;
+                if (active?.expires_at && active.expires_at * 1000 > Date.now()) {
+                  handleSession(active);
+                } else {
+                  try { localStorage.removeItem('apip.cloud.auth'); } catch { /* ignore */ }
+                  listener(null, 'Your session expired. Sign in again if it cannot be restored.');
+                }
+              }).catch(() => {
+                if (!disposed && current === generation) {
+                  listener(null, 'Your session expired. Sign in again if it cannot be restored.');
+                }
+              });
+            }, Math.min(Math.max(remaining, 0), 2147483647));
+          }
+        };
+        const syncSessionAcrossTabs = () => {
+          void sdk.auth.getSession().then(({ data, error }) => {
+            if (disposed) return;
+            handleSession(error ? null : data.session);
+          }).catch(() => {
+            if (!disposed) handleSession(null);
+          });
+        };
+        const onStorage = (event: StorageEvent) => {
+          if (event.key === null || event.key === 'apip.cloud.auth') syncSessionAcrossTabs();
+        };
+        const onChannel = () => { syncSessionAcrossTabs(); };
+        const onExpired = (message: string) => {
+          if (!disposed) handleSession(null, message);
+        };
+        expiredListeners.add(onExpired);
         void callbackReady.then(message => {
           if (disposed) return;
           const { data } = sdk.auth.onAuthStateChange((event, session) => {
-            clearTimeout(expiry);
-            const current = ++generation;
-            const remaining = session?.expires_at ? session.expires_at * 1000 - Date.now() : 0;
-            listener(remaining > 0 ? session!.user : null, event === 'INITIAL_SESSION' ? message : undefined);
-            if (session) expiry = setTimeout(() => {
-              listener(null, 'Your session expired. Sign in again if it cannot be restored.');
-              void sdk.auth.getSession().then(({ data, error }) => {
-                if (!disposed && current === generation && !error && data.session?.expires_at
-                    && data.session.expires_at * 1000 > Date.now()) listener(data.session.user);
-              }).catch(() => {});
-            }, Math.min(Math.max(remaining, 0), 2147483647));
-
+            const initialNotice = event === 'INITIAL_SESSION'
+              ? message ?? (!session && startupPending && !callback && hadStoredAuth
+                ? (() => {
+                    try { localStorage.removeItem('apip.cloud.auth'); } catch { /* ignore */ }
+                    return 'Your session expired. Sign in again to continue.';
+                  })()
+                : undefined)
+              : undefined;
+            startupPending = false;
+            handleSession(session, initialNotice);
           });
-          unsubscribe = () => data.subscription.unsubscribe();
+          window.addEventListener('storage', onStorage);
+          cloudSync?.addEventListener('message', onChannel);
+          unsubscribe = () => {
+            window.removeEventListener('storage', onStorage);
+            cloudSync?.removeEventListener('message', onChannel);
+            data.subscription.unsubscribe();
+          };
         });
-        return () => { disposed = true; clearTimeout(expiry); unsubscribe?.(); };
+        return () => {
+          disposed = true;
+          clearTimeout(expiry);
+          expiredListeners.delete(onExpired);
+          unsubscribe?.();
+        };
       },
       async accessToken(owner) {
-        const { data, error } = await sdk.auth.getSession();
+        let { data, error } = await sdk.auth.getSession();
+        if (!error && data.session?.expires_at && data.session.expires_at * 1000 <= Date.now() + 10_000) {
+          const refreshed = await sdk.auth.refreshSession().catch(() => null);
+          if (refreshed && !refreshed.error && refreshed.data.session) {
+            data = refreshed.data;
+          }
+        }
         if (error || !data.session || data.session.user.id !== owner) throw Error('SIGN_IN_REQUIRED');
         return data.session.access_token;
+      },
+      async invalidateSession(owner, message = 'Your session expired. Sign in again to continue.') {
+        const { data } = await sdk.auth.getSession().catch(() => ({ data: { session: null } }));
+        if (data.session && owner && data.session.user.id !== owner) return;
+        if (data.session) {
+          const refreshed = await sdk.auth.refreshSession().catch(() => null);
+          if (
+            refreshed &&
+            !refreshed.error &&
+            refreshed.data.session?.expires_at &&
+            refreshed.data.session.expires_at * 1000 > Date.now()
+          ) {
+            notifyCloudSync();
+            return;
+          }
+          await sdk.auth.signOut({ scope: 'local' }).catch(() => {});
+        }
+        try { localStorage.removeItem('apip.cloud.auth'); } catch { /* ignore */ }
+        clearPendingAuthReturn();
+        notifyExpired(message);
+        notifyCloudSync();
       },
       async signUp(email, password) {
         const { data, error } = await sdk.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo() } });
         if (error) throw error;
+        if (data.session) notifyCloudSync();
         return !data.session;
+      },
+      async resendConfirmation(email) {
+        const { error } = await sdk.auth.resend({
+          type: 'signup',
+          email,
+          options: { emailRedirectTo: redirectTo() },
+        });
+        if (error) throw error;
       },
       async signIn(email, password) {
         const { error } = await sdk.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        notifyCloudSync();
       },
       async google(workspace?: 'specialist') {
         const task = sessionStorage.getItem(continuationKey);
@@ -181,11 +359,14 @@ function configuredClient(): AccountClient | null {
       async updatePassword(password) {
         const { error } = await sdk.auth.updateUser({ password });
         if (error) throw error;
+        notifyCloudSync();
       },
       async signOut() {
         const { error } = await sdk.auth.signOut({ scope: 'local' });
         if (error) throw error;
         sessionStorage.removeItem(continuationKey);
+        clearPendingAuthReturn();
+        notifyCloudSync();
       },
       async readProfile(userId) { const { data, error } = await sdk.from('patient_profiles').select('*').eq('user_id', userId).maybeSingle(); if (error) throw error; return data; },
       async saveProfile(userId, profile, revision) {

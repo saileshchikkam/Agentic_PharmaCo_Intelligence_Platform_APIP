@@ -34,7 +34,12 @@ export type PreviewRoute =
 const roles: AccessRole[] = ['patient', 'specialist'];
 
 export function readPreviewRoute(): PreviewRoute {
-  const [path, query] = window.location.hash.slice(1).split('?');
+  if (typeof window !== 'undefined' && window.location.pathname !== '/' && window.location.pathname !== '/index.html' && !window.location.hash) {
+    const target = `${window.location.pathname}${window.location.search}`;
+    window.history.replaceState({ apipPreview: true, apipDepth: 0 }, '', `/#${target}`);
+  }
+  const [rawPath, query] = window.location.hash.slice(1).split('?');
+  const path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
   if (path === '/account/profile') return { screen: 'profile' };
   if (path === '/developer-reference') return { screen: 'developer-reference' };
   if (path === '/specialist') return { screen: 'specialist', view: 'entry' };
@@ -83,11 +88,21 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const helpDialog = useRef<HTMLDialogElement>(null);
   const isSignIn = route.screen === 'sign-in';
   const isPatientHome = route.screen === 'patient-home';
+  const lastRole = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apip.last.role') : null;
+  const roleDefault = lastRole === 'specialist' ? '/specialist/home' : '/patient/home';
   const backFallback = route.screen === 'adr-cases'
-    ? route.revision || route.history ? `/patient/adr/cases/${route.id}` : route.id ? '/patient/adr/cases' : '/patient/home'
+    ? route.revision || route.history ? `/patient/adr/cases/${route.id}` : route.id ? '/patient/adr/cases' : roleDefault
     : route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
-    : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? '/patient/home' : '/';
+    : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? roleDefault : '/';
+
+  useEffect(() => {
+    if (route.screen === 'specialist' && (route.view === 'home' || route.view === 'reviews' || route.admin)) {
+      try { sessionStorage.setItem('apip.last.role', 'specialist'); } catch {}
+    } else if (route.screen === 'patient-home') {
+      try { sessionStorage.setItem('apip.last.role', 'patient'); } catch {}
+    }
+  }, [route.screen, route.screen === 'specialist' ? route.view : undefined, route.screen === 'specialist' ? route.admin : undefined]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -98,14 +113,12 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     || (route.screen === 'adr-preview' && !!route.caseId);
   useEffect(() => {
     if (protectedRoute && account.ready && !account.user) {
-      if (route.screen === 'adr-cases' || route.screen === 'adr-preview') {
+      if (route.screen === 'adr-cases' || route.screen === 'adr-preview' || route.screen === 'medassist-preview') {
         sessionStorage.setItem('apip.account.return', window.location.hash.slice(1));
       }
       navigatePreview('/sign-in/patient', { replace: true });
     }
   }, [protectedRoute, account.ready, account.user]);
-
-  if (protectedRoute && (!account.ready || !account.user)) return <p role="status">Checking your account…</p>;
 
   return <div className={`access-app ${route.screen === 'medassist-conversation' ? 'access-app-conversation' : ''}`}>
     <a href="#access-main" className="access-skip-link" onClick={(event) => {
@@ -118,9 +131,15 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''}`}>
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' || isSignIn ? undefined : () => goBackPreview(backFallback)} />}
-      {(route.screen === 'home' || isSignIn) && <LandingBody signedIn={Boolean(account.user)} />}
+      {(route.screen === 'home' || isSignIn || (protectedRoute && !account.user)) && <LandingBody signedIn={Boolean(account.user)} />}
 
-      {isPatientHome && <section className="patient-home" aria-labelledby="access-title">
+      {protectedRoute && !account.ready && (
+        <div className="access-loading-shell" role="status" aria-live="polite">
+          <p className="m3-body-medium">Checking your account…</p>
+        </div>
+      )}
+
+      {isPatientHome && account.user && <section className="patient-home" aria-labelledby="access-title">
         <div className="patient-home-heading">
           <p className="access-eyebrow">Your health, your next step</p>
           <h1 id="access-title" tabIndex={-1}>Your APIP dashboard</h1>
@@ -165,7 +184,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
 
       {/* Material Design 3 Web Horizontal Authentication Dialog */}
       <APIPAuthDialog
-        open={isSignIn}
+        open={isSignIn || (protectedRoute && !account.user)}
         onClose={() => goBackPreview(backFallback)}
         initialRole={route.screen === 'sign-in' ? route.role : 'patient'}
         initialMode={
@@ -183,7 +202,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       />
 
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
-      {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
+      {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace key={account.user?.id ?? 'guest'} admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-cases' && account.user && <React.Suspense fallback={<p role="status">Opening your reports…</p>}>
         <CaseWorkspace key={account.user.id} owner={account.user.id} id={route.id} revision={route.revision} history={route.history}/>
@@ -191,7 +210,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {route.screen === 'adr-preview' && <section className="adr-preview-page" aria-label="Fictional ADR intake preview">
         <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p className="access-form-intro" role="status">Opening the fictional intake preview…</p></>}>
           <AdrWorkspace key={`${account.user?.id}/${route.caseId??'start'}`} initialCaseId={route.caseId} renderNavigation={(onBack, backLabel) => <PageNavigation onBack={onBack} backLabel={backLabel} />}
-            onExit={() => navigatePreview(route.caseId?`/patient/adr/cases/${route.caseId}`:'/patient/home')} />
+            onExit={() => navigatePreview(route.caseId?`/patient/adr/cases/${route.caseId}`:roleDefault)} />
         </React.Suspense>
       </section>}
       {route.screen === 'medassist-preview' && <React.Suspense fallback={<><PageNavigation onBack={() => goBackPreview(backFallback)} /><p role="status">Opening the MedAssist preview…</p></>}>
