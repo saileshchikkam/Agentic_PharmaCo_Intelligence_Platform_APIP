@@ -31,8 +31,15 @@ export function specialistRouter(repository:SpecialistRepository|null,principal:
   const version=(body:Record<string,unknown>)=>{if(!Number.isSafeInteger(body.expectedVersion)||Number(body.expectedVersion)<1)throw Error('INVALID_REQUEST');return Number(body.expectedVersion);};
   router.get('/account/capabilities',endpoint(async(req,res)=>{
     const identity=await repository!.identity(actor(req));
-    res.json({...capabilities(identity.applicationState,identity.identityAdministrator,identity.validUntil),authorizationVersion:identity.authorizationVersion,validUntil:identity.validUntil});
+    res.json({accountRole:identity.accountRole??null,...capabilities(identity.applicationState,identity.identityAdministrator,identity.validUntil),authorizationVersion:identity.authorizationVersion,validUntil:identity.validUntil});
   }));
+  router.use((req,res,next)=>{
+    void repository!.identity(actor(req)).then(identity=>{
+      if(req.path.startsWith('/specialist/')&&identity.accountRole!=='SPECIALIST')res.status(403).json({error:'FORBIDDEN'});
+      else if(req.path.startsWith('/admin/')&&!identity.identityAdministrator)res.status(403).json({error:'FORBIDDEN'});
+      else next();
+    }).catch(()=>res.status(503).json({error:'SPECIALIST_UNAVAILABLE'}));
+  });
   router.get('/specialist/applications/current',endpoint(async(req,res)=>{res.json({application:await repository!.currentApplication(actor(req))});}));
   router.post('/specialist/applications',endpoint(async(req,res)=>{
     if(!exact(req.body,['profile']))throw Error('INVALID_REQUEST');

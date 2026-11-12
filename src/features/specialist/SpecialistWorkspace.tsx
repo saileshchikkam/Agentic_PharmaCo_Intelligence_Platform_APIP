@@ -1,4 +1,17 @@
 import {SharingInbox} from './SharingWorkspace';
+import {CaseWorkspace} from '../adr/cases/CaseWorkspace';
+
+function ReviewWorkspace({owner}:{owner:string}) {
+ const [tab,setTab]=useState<'patient'|'own'>('patient');
+ return <div className="specialist-review-layout">
+  <div className="specialist-review-tabs" role="tablist" aria-label="Review workspace">
+   <button role="tab" aria-selected={tab==='patient'} aria-controls="patient-reviews" onClick={()=>setTab('patient')}>Patient ADR Reviews</button>
+   <button role="tab" aria-selected={tab==='own'} aria-controls="own-reports" onClick={()=>setTab('own')}>My ADR Reports</button>
+  </div>
+  <section id="patient-reviews" className={'specialist-review-patient '+(tab==='patient'?'active':'')} aria-label="Patient ADR reviews"><SharingInbox owner={owner}/></section>
+  <section id="own-reports" className={'specialist-review-own '+(tab==='own'?'active':'')} aria-label="My private ADR reports"><CaseWorkspace owner={owner}/></section>
+ </div>;
+}
 import {SpecialistExperience,type SpecialistView} from './SpecialistExperience';
 import {useEffect,useRef,useState} from 'react';
 import type {MdDialog} from '@material/web/dialog/dialog';
@@ -87,7 +100,7 @@ function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:strin
   void mutate(`/admin/specialist-applications/${application.id}/decisions`,{expectedVersion:application.version,
    command:{action,reason,evidenceReference:evidence,policyVersion:'private-fictional-3b-v1'}});
  };
- if(!admin&&view==='reviews'&&loaded&&caps?.specialistWorkspace)return <SharingInbox key={owner} owner={owner}/>;
+ if(!admin&&view==='reviews'&&loaded&&caps?.specialistWorkspace)return <ReviewWorkspace key={owner} owner={owner}/>;
  if(!admin)return <SpecialistExperience owner={owner} view={view} application={application} profile={profile} caps={caps} loaded={loaded} error={error} busy={busy} dirty={dirty} onRetry={()=>void refresh()} onChange={(key,value)=>{setProfile(old=>({...old,[key]:value}));setDirty(true);}} onSave={()=>{void mutate(application?`/specialist/applications/${application.id}/commands`:'/specialist/applications',application?{expectedVersion:application.version,command:{type:'save_draft',profile}}:{profile});}} onSubmit={()=>{if(application)void mutate(`/specialist/applications/${application.id}/commands`,{expectedVersion:application.version,command:{type:'submit'}});}}/>;
  return <section className="specialist-workspace" aria-labelledby="specialist-title">
   {import.meta.env.VITE_APIP_IDENTITY_FIXTURE==='1'&&<p className="specialist-notice" role="note">Disposable PostgreSQL fixture · local synthetic authentication. This is not hosted Supabase verification or a real professional approval.</p>}

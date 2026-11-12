@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { accountClient, type AccountUser } from './client';
+import { accountClient, guidedAccountHeaders, type AccountUser } from './client';
 import { clearPendingAuthReturn } from './authCallback';
 import type { PatientProfile } from './profile';
 
 interface AccountState {
   user: AccountUser | null; profile: PatientProfile | null; ready: boolean; error: string;
+  portal: 'patient' | 'specialist' | 'unknown'; portalReady: boolean;
   reload: () => void; signOut: () => Promise<void>;
   invalidateSession: (owner?: string, message?: string) => Promise<void>;
 }
@@ -27,6 +28,20 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [generation, setGeneration] = useState(0);
   const [authReady, setAuthReady] = useState(!accountClient);
   const [authError, setAuthError] = useState('');
+  const [portal,setPortal]=useState<'patient'|'specialist'|'unknown'>('unknown');
+  const [portalReady,setPortalReady]=useState(false);
+  useEffect(()=>{
+    if(!user){setPortal('unknown');setPortalReady(true);return;}
+    let cancelled=false;setPortal('unknown');setPortalReady(false);
+    void (async()=>{try{
+      const headers=await guidedAccountHeaders(user.id);
+      const response=await fetch('/api/account/capabilities',{headers,cache:'no-store'});
+      if(!response.ok)throw Error('PORTAL_UNAVAILABLE');
+      const c=await response.json();
+      if(!cancelled){setPortal(c.accountRole==='SPECIALIST'?'specialist':c.accountRole==='PATIENT'?'patient':'unknown');setPortalReady(true);}
+    }catch{if(!cancelled){setPortal('unknown');setPortalReady(true);}}})();
+    return()=>{cancelled=true;};
+  },[user?.id]);
   useEffect(() => {
     try {
       sessionStorage.removeItem('apip.guest.role');
@@ -74,7 +89,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     if (!accountClient?.invalidateSession) return;
     await accountClient.invalidateSession(owner, message);
   };
-  return <Context.Provider value={{ user, profile: profile?.user_id === user?.id ? profile : null,
+  return <Context.Provider value={{ user, portal, portalReady, profile: profile?.user_id === user?.id ? profile : null,
     ready: ready && authReady, error: authError || error, reload: () => setGeneration(v => v + 1), signOut, invalidateSession }}>{children}</Context.Provider>;
 }
 export function useAccount() {

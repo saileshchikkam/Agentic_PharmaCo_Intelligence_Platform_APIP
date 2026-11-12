@@ -56,10 +56,10 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
         <nav className="access-header-navigation" aria-label="Main navigation">
           <a className="access-nav-link" href="#/" aria-current={screen === 'home' ? 'page' : undefined}
             onClick={(event) => followPreviewLink(event, '/')}>Home</a>
-          <a className="access-nav-link access-patients-link" href={account.user ? "#/patient/home" : "#/sign-in/patient"} aria-current={screen === 'patient-home' ? 'page' : undefined}
-            onClick={(event) => followPreviewLink(event, account.user ? '/patient/home' : '/sign-in/patient')}>For patients</a>
-          <a className="access-nav-link access-specialists-link" href={account.user ? "#/specialist" : "#/sign-in/specialist"} aria-current={screen === 'specialist' ? 'page' : undefined}
-            onClick={(event) => followPreviewLink(event, account.user ? '/specialist' : '/sign-in/specialist')}>For specialists</a>
+          {(!account.user||account.portal==='patient')&&<a className="access-nav-link access-patients-link" href={account.user ? "#/patient/home" : "#/sign-in/patient"} aria-current={screen === 'patient-home' ? 'page' : undefined}
+            onClick={(event) => followPreviewLink(event, account.user ? '/patient/home' : '/sign-in/patient')}>For patients</a>}
+          {(!account.user||account.portal==='specialist')&&<a className="access-nav-link access-specialists-link" href={account.user ? "#/specialist" : "#/sign-in/specialist"} aria-current={screen === 'specialist' ? 'page' : undefined}
+            onClick={(event) => followPreviewLink(event, account.user ? '/specialist' : '/sign-in/specialist')}>For specialists</a>}
           {account.user ? (
             <>
               <a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a>

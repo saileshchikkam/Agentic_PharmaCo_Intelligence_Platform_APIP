@@ -2,7 +2,7 @@ import type {Application,ProfessionalProfile} from './domain';
 
 export type IdentityCommand = {type:'save_draft';profile:ProfessionalProfile}|{type:'submit'};
 export type DecisionCommand = {action:string;reason:string;evidenceReference:string;policyVersion:string};
-export type EffectiveIdentity = {applicationState?:Application['state'];identityAdministrator:boolean;authorizationVersion:string;validUntil?:string};
+export type EffectiveIdentity = {accountRole?:"PATIENT"|"SPECIALIST"|null;applicationState?:Application['state'];identityAdministrator:boolean;authorizationVersion:string;validUntil?:string};
 
 // Actor is supplied only by the existing verified Auth middleware, never a request body.
 export interface SpecialistRepository {

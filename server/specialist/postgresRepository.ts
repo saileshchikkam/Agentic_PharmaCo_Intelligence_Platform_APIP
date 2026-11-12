@@ -15,7 +15,14 @@ export function postgresSpecialistRepository(sql:Sql):SpecialistRepository{
       throw Error(known.has(message)?message:['3F000','42883'].includes(code??'')?'SPECIALIST_SETUP_REQUIRED':'SPECIALIST_UNAVAILABLE',{cause:e});}
   }
   return {
-    identity:actor=>operation(actor,'identity'),currentApplication:actor=>operation(actor,'current'),
+    identity:async actor=>{
+      const identity=await operation<import('./repository').EffectiveIdentity>(actor,'identity');
+      const rows=await sql.begin(async tx=>{
+        await tx`select set_config('request.jwt.claim.sub',${actor},true)`;
+        return tx`select role from apip_identity.account_roles where subject=${actor}::uuid`;
+      });
+      return {...identity,accountRole:rows[0]?.role??null};
+    },currentApplication:actor=>operation(actor,'current'),
     create:(actor,profile:ProfessionalProfile,key)=>operation<Application>(actor,'create',key,0,{profile},key),
     command:(actor,id,expected,command,key)=>operation(actor,'command',id,expected,command,key),
     listForAdministrator:(actor,state,limit,before)=>operation(actor,'admin_list',null,0,{state,limit,before}),

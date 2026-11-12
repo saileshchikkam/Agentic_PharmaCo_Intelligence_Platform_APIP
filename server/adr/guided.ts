@@ -57,7 +57,7 @@ export function guidedRouter(repository: GuidedCaseRepository, readUser: (req: R
       const after = req.query.after;
       if (typeof limit !== 'string' || !/^[1-9][0-9]?$/.test(limit) || Number(limit) > 50
         || (after !== undefined && (typeof after !== 'string' || !uuid.test(after)))) throw Error('INVALID_PAGE');
-      res.json(await repository.page(owner(req), Number(limit), after));
+      res.json(await repository.page(owner(req), Number(limit), after as string | undefined));
       return;
     }
     res.json({ cases: await repository.list(owner(req)) });

@@ -56,6 +56,15 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     }).catch(() => { res.status(503).json({ error: 'AUTH_UNAVAILABLE' }); });
   });
   router.use(express.json({ limit: '24kb' }));
+  router.use((req,res,next)=>{
+    if(!/^\/(?:sharing\/(?:inbox|queue)(?:\/|$)|review(?:\/|$))/.test(req.path)){next();return;}
+    if(!identityRepository){res.status(503).json({error:'SPECIALIST_SETUP_REQUIRED'});return;}
+    void identityRepository.identity(principals.get(req)!.id).then(identity=>{
+      if(identity.accountRole!=='SPECIALIST'){res.status(403).json({error:'FORBIDDEN'});return;}
+      next();
+    }).catch(()=>res.status(503).json({error:'SPECIALIST_UNAVAILABLE'}));
+  });
+
   router.use('/account/adr-guided', guidedRouter(repository, req => principals.get(req), provider,
     async (req, owner) => (await authenticate(req))?.id === owner));
   router.use('/account/adr-cases', casesRouter(repository, req => principals.get(req),

@@ -15,7 +15,7 @@ export interface AccountClient {
   kind: 'local' | 'supabase';
   drafts?: AccountDraftRepository;
   subscribe: (listener: (user: AccountUser | null, error?: string) => void) => () => void;
-  signUp: (email: string, password: string) => Promise<boolean>;
+  signUp: (email: string, password: string, role?: 'PATIENT' | 'SPECIALIST') => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<void>;
   resendConfirmation?: (email: string) => Promise<void>;
   google: (workspace?: 'specialist') => Promise<void>;
@@ -323,8 +323,8 @@ function configuredClient(): AccountClient | null {
         notifyExpired(message);
         notifyCloudSync();
       },
-      async signUp(email, password) {
-        const { data, error } = await sdk.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo() } });
+      async signUp(email, password, role = 'PATIENT') {
+        const { data, error } = await sdk.auth.signUp({ email, password, options: { emailRedirectTo: redirectTo(), data: { apip_registration_role: role } } });
         if (error) throw error;
         if (data.session) notifyCloudSync();
         return !data.session;

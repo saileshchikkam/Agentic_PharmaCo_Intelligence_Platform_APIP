@@ -89,13 +89,18 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const isSignIn = route.screen === 'sign-in';
   const isPatientHome = route.screen === 'patient-home';
   const lastRole = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apip.last.role') : null;
-  const roleDefault = lastRole === 'specialist' ? '/specialist/home' : '/patient/home';
+  const roleDefault = account.portal === 'specialist' ? '/specialist/home' : '/patient/home';
   const backFallback = route.screen === 'adr-cases'
     ? route.revision || route.history ? `/patient/adr/cases/${route.id}` : route.id ? '/patient/adr/cases' : roleDefault
     : route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
     : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? roleDefault : '/';
 
+  useEffect(() => {
+    if(!account.user||!account.portalReady)return;
+    if(account.portal==='patient'&&route.screen==='specialist')navigatePreview('/patient/home',{replace:true});
+    if(account.portal==='specialist'&&route.screen==='patient-home')navigatePreview('/specialist/home',{replace:true});
+  },[account.user?.id,account.portal,account.portalReady,route.screen,route.screen==='specialist'?route.view:undefined]);
   useEffect(() => {
     if (route.screen === 'specialist' && (route.view === 'home' || route.view === 'reviews' || route.admin)) {
       try { sessionStorage.setItem('apip.last.role', 'specialist'); } catch {}
@@ -133,13 +138,14 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' || isSignIn ? undefined : () => goBackPreview(backFallback)} />}
       {(route.screen === 'home' || isSignIn || (protectedRoute && !account.user)) && <LandingBody signedIn={Boolean(account.user)} />}
 
+      {account.user && account.portalReady && account.portal==='unknown' && <div className="access-loading-shell" role="alert"><h2>Account workspace unavailable</h2><p>Your account needs a verified patient or specialist role before a workspace can open. Contact the development administrator.</p></div>}
       {protectedRoute && !account.ready && (
         <div className="access-loading-shell" role="status" aria-live="polite">
           <p className="m3-body-medium">Checking your account…</p>
         </div>
       )}
 
-      {isPatientHome && account.user && <section className="patient-home" aria-labelledby="access-title">
+      {isPatientHome && account.user && account.portal==='patient' && <section className="patient-home" aria-labelledby="access-title">
         <div className="patient-home-heading">
           <p className="access-eyebrow">Your health, your next step</p>
           <h1 id="access-title" tabIndex={-1}>Your APIP dashboard</h1>
@@ -202,7 +208,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       />
 
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
-      {route.screen==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace key={account.user?.id ?? 'guest'} admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
+      {route.screen==='specialist'&&account.portalReady&&account.portal==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace key={account.user?.id ?? 'guest'} admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
       {route.screen === 'adr-cases' && account.user && <React.Suspense fallback={<p role="status">Opening your reports…</p>}>
         <CaseWorkspace key={account.user.id} owner={account.user.id} id={route.id} revision={route.revision} history={route.history}/>

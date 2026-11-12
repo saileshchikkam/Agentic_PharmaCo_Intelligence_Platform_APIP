@@ -32,7 +32,7 @@ export function APIPAuthDialog({
   initialMode = 'signin',
   requestedTask,
 }: APIPAuthDialogProps) {
-  const { user, ready, error: authError } = useAccount();
+  const { user, ready, portal, portalReady, error: authError } = useAccount();
   const [role, setRole] = useState<AuthRole>(initialRole);
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [email, setEmail] = useState('');
@@ -248,7 +248,7 @@ export function APIPAuthDialog({
 
   // Post-authentication redirect and session handling
   useEffect(() => {
-    if (open && user && ready && mode !== 'reset') {
+    if (open && user && ready && portalReady && portal !== 'unknown' && mode !== 'reset') {
       const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.continue');
       const destination = sessionStorage.getItem('apip.account.return');
@@ -262,17 +262,13 @@ export function APIPAuthDialog({
           : /^(?:\/patient\/home|\/account\/profile|\/patient\/adr\/cases(?:\/[0-9a-f-]{36}(?:\/history|\/revisions\/[1-9][0-9]{0,2})?)?|\/preview\/(?:adr-report|medassist)(?:\?case=[0-9a-f-]{36})?)$/i
         ).test(rawDest);
 
-      const target = validCustomDest
-        ? rawDest
-        : isSpecialist
-        ? '/specialist'
-        : accountDestination(task);
+      const target = portal === 'specialist' ? '/specialist' : validCustomDest && !rawDest.startsWith('/specialist') ? rawDest : accountDestination(task);
 
       // Do NOT call onClose() here: onClose triggers history pop/fallback to landing page.
       // Simply navigate to the target route; the dialog will unmount or close via route change.
       navigatePreview(target, { replace: true });
     }
-  }, [open, user?.id, ready, requestedTask, isSpecialist, mode]);
+  }, [open, user?.id, ready, portal, portalReady, requestedTask, isSpecialist, mode]);
 
   const handleCloseRequest = () => {
     const dialog = dialogRef.current;
@@ -366,7 +362,7 @@ export function APIPAuthDialog({
         const signupDestination = isSpecialist ? '/specialist/profile' : accountDestination(requestedTask);
         sessionStorage.setItem('apip.account.return', signupDestination);
         savePendingAuthReturn(signupDestination, role);
-        const verifyNeeded = await accountClient.signUp(email.trim(), password);
+        const verifyNeeded = await accountClient.signUp(email.trim(), password, isSpecialist ? 'SPECIALIST' : 'PATIENT');
         setPassword('');
         if (verifyNeeded) {
           setVerifyEmailSent(true);

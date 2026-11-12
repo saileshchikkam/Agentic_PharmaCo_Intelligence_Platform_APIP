@@ -22,7 +22,7 @@ export function fixtureSpecialistRepository(administrators:readonly string[],pol
   }
   return {
     async identity(actor){const own=[...applications.values()].find(a=>a.owner===actor);
-      return {applicationState:own?.state,identityAdministrator:administrators.includes(actor),authorizationVersion:String(own?.version??0),validUntil:own?.validUntil};},
+      return {accountRole:'SPECIALIST' as const,applicationState:own?.state,identityAdministrator:administrators.includes(actor),authorizationVersion:String(own?.version??0),validUntil:own?.validUntil};},
     async currentApplication(actor){return structuredClone([...applications.values()].find(a=>a.owner===actor)??null);},
     async create(actor,profile,key){return mutate(actor,key,'create',profile,()=>{
       if([...applications.values()].some(a=>a.owner===actor))throw Error('REVISION_CONFLICT');
