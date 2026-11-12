@@ -1,6 +1,6 @@
 # Development data reset — consolidated review
 
-Status: **PREPARED; NOT APPROVED OR EXECUTED.** Target only development project `kstxwoitiistmvivwixd`.
+Status: **ORIGINAL SCOPE APPROVED; ORIGINAL SQL ATTEMPT ROLLED BACK; V2 RETRY NEEDS NEW CHECKSUM APPROVAL.** Target only development project `kstxwoitiistmvivwixd`.
 
 ## Verified backup and recovery evidence
 
@@ -77,4 +77,4 @@ Application SQL errors roll back within their transaction, including exceptional
 
 ## Approval gate and execution prerequisites
 
-One consolidated owner approval must identify the project, fixed encrypted subject manifest, both SQL hashes, table counts, exceptional trigger handling, ten hard-delete API operations and the stated recovery limits. **No destructive approval has been received.** The server-only Auth Admin API credential is not available to this runner; secure injection is required after approval. No new credentials, users or professional grants have been created. No hosted records have been deleted.
+One consolidated owner approval must identify the project, fixed encrypted subject manifest, both SQL hashes, table counts, exceptional trigger handling, ten hard-delete API operations and the stated recovery limits. The owner approved the exact original scope and both original SQL checksums. Both encrypted copies, the owner recovery passphrase, Auth Admin read authorization and the exact ten account UUIDs passed private preflight. The original application SQL then failed with PostgreSQL 55006 before commit. All 521 application records and every captured schema/security/migration fingerprint were verified unchanged after rollback. No flow SQL or Auth deletion was executed. The Auth worker was cancelled and its credentials cleared. The revised application SQL requires a new exact-checksum approval; see the V2 review. No new users or professional grants have been created.
