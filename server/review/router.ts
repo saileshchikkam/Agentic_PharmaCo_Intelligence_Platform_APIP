@@ -3,7 +3,7 @@ import {randomUUID} from 'node:crypto';
 import type {ReviewRepository} from './repository';
 
 const uuid=/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
-const status:Record<string,number>={SIGN_IN_REQUIRED:401,FORBIDDEN:403,NOT_FOUND:404,INVALID_REQUEST:400,REVISION_CONFLICT:409,IDEMPOTENCY_CONFLICT:409};
+const status:Record<string,number>={SIGN_IN_REQUIRED:401,FORBIDDEN:403,NOT_FOUND:404,INVALID_REQUEST:400,REVISION_CONFLICT:409,IDEMPOTENCY_CONFLICT:409,ASSESSMENT_FINALIZED:409};
 const exact=(value:any,keys:string[])=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join(',')===keys.slice().sort().join(',');
 
 export function reviewRouter(repository:ReviewRepository|null,principal:(req:Request)=>{id:string}|undefined){

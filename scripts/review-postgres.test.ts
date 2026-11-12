@@ -15,6 +15,11 @@ test('professional review history is private, immutable, assignment-scoped and r
  async function call(actor:string,op:string,expected:number|null,body:unknown={},key=randomUUID()){await db.exec('begin;set local role apip_adr_writer');try{await db.query("select set_config('request.jwt.claim.sub',$1,true)",[actor]);const r=await db.query<{result:any}>('select apip_review.operation($1,$2,$3,$4::jsonb,$5) result',[op,assignment,expected,JSON.stringify(body),key]);await db.exec('commit');return r.rows[0].result;}catch(e){await db.exec('rollback');throw e;}}
  const command=randomUUID();assert.equal((await call(specialist,'assessment',0,{state:'draft',content:{summary:'Fictional human review'}},command)).version,1);assert.equal((await call(specialist,'assessment',0,{state:'draft',content:{summary:'Fictional human review'}},command)).replayed,true);
  await assert.rejects(call(patient,'assessments',null),/NOT_FOUND/);await assert.rejects(call(other,'assessments',null),/NOT_FOUND/);await assert.rejects(call(admin,'messages',null),/NOT_FOUND/);
+ await assert.rejects(call(specialist,'assessment',0,{state:'draft',content:{summary:'Stale'}}),/REVISION_CONFLICT/);
+ await call(specialist,'assessment',1,{state:'final',content:{summary:'Final human assessment'}});
+ await assert.rejects(call(specialist,'assessment',2,{state:'draft',content:{summary:'Overwrite'}}),/ASSESSMENT_FINALIZED/);
+ await assert.rejects(call(specialist,'assessment',2,{state:'final',content:{summary:'Overwrite'}}),/ASSESSMENT_FINALIZED/);
+ assert.equal((await call(specialist,'assessments',null)).length,2);
  await call(patient,'message',null,{body:'Fictional follow-up'});assert.equal((await call(specialist,'messages',null)).length,1);
  await db.query("update apip_identity.applications set state='REVOKED' where owner_id=$1",[specialist]);await assert.rejects(call(specialist,'assessments',null),/NOT_FOUND/);
  await db.query("update apip_sharing.requests set state='withdrawn' where id=$1",[assignment]);await assert.rejects(call(patient,'messages',null),/NOT_FOUND/);

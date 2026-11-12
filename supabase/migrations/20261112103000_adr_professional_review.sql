@@ -56,6 +56,7 @@ create function apip_review.operation(p_op text,p_id uuid,p_expected integer,p_b
 <<review_ctx>> declare actor uuid:=apip_review.subject();r jsonb;prior apip_review.receipts;fingerprint text;next_version integer;
 begin
  if actor is null then raise exception 'SIGN_IN_REQUIRED';end if;
+ perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('professional-review:'||p_id::text,7352));
  r:=apip_review.assignment(p_id);
  if r is null or r->>'state'<>'active' or (actor<>(r->>'patient')::uuid and (actor<>(r->>'specialist')::uuid or not apip_review.eligible(actor))) then raise exception 'NOT_FOUND';end if;
  if p_op='messages' then return coalesce((select jsonb_agg(jsonb_build_object('id',id,'sender',sender,'body',body,'createdAt',created_at) order by created_at,id) from apip_review.messages where assignment_id=p_id),'[]'::jsonb);end if;
@@ -67,6 +68,7 @@ begin
  select * into prior from apip_review.receipts where receipts.actor=review_ctx.actor and command_id=p_key;
  if found then if prior.request_hash<>fingerprint then raise exception 'IDEMPOTENCY_CONFLICT';end if;return jsonb_build_object('assignmentId',prior.assignment_id,'replayed',true);end if;
  if p_op='assessment' then
+  if exists(select 1 from apip_review.assessment_versions where assignment_id=p_id and state='final') then raise exception 'ASSESSMENT_FINALIZED';end if;
   if actor<>(r->>'specialist')::uuid or not apip_review.eligible(actor) or p_body->>'state' not in('draft','final') or jsonb_typeof(p_body->'content')<>'object' then raise exception 'FORBIDDEN';end if;
   next_version:=coalesce((select max(version)+1 from apip_review.assessment_versions where assignment_id=p_id),1);
   if p_expected is distinct from next_version-1 then raise exception 'REVISION_CONFLICT';end if;

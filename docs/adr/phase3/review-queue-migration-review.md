@@ -2,6 +2,12 @@
 
 ## Approval boundary
 
+Hosted ledger checked on 2026-11-12: pooled queue `20261111000000` and professional review `20261112103000` are both pending. Apply the pooled queue first, then professional review, after separate exact-SQL approval. Existing sharing is recorded as `20261108134740`; do not replay the repository's earlier sharing filename.
+
+Assessment writes now serialize by assignment, reject stale versions, return HTTP 409 for database concurrency conflicts, and reject every new assessment version after finalization. An identical retry remains idempotent.
+
+Real hosted schema review confirms sharing requests and specialist applications exist, are owned by postgres, and have RLS enabled. The new executor owns no tables, has no BYPASSRLS, and receives no direct patient/sharing/identity table grants. Fixed-search-path helper functions remain operator-owned and expose only assignment metadata and eligibility to the executor. Hosted application and resulting grants remain unverified until approval/application.
+
 `20261112103000_adr_professional_review.sql` is locally verified but is not applied to a hosted project. Hosted execution requires the owner's approval of the exact file and checksum.
 
 ## Scope
