@@ -83,3 +83,11 @@ test('authCallback restricts return URLs, handles trailing slashes, and isolates
   clearPendingAuthReturn(store);
   assert.equal(mem.size, 0);
 });
+
+test('portal failures explain wrong portal, unbound legacy identity and setup outages',()=>{
+ assert.match(formatAuthError(Error('PATIENT_PORTAL_REQUIRED')),/Patient Portal/);
+ assert.match(formatAuthError(Error('SPECIALIST_PORTAL_REQUIRED')),/Specialist Portal/);
+ assert.match(formatAuthError(Error('ACCOUNT_ROLE_MISSING')),/no verified portal role/);
+ assert.match(formatAuthError(Error('ACCOUNT_ROLE_SETUP_REQUIRED')),/setup is pending/);
+ assert.match(formatAuthError(Error('ACCOUNT_ROLE_UNAVAILABLE')),/could not be checked/);
+});

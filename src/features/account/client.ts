@@ -16,7 +16,7 @@ export interface AccountClient {
   drafts?: AccountDraftRepository;
   subscribe: (listener: (user: AccountUser | null, error?: string) => void) => () => void;
   signUp: (email: string, password: string, role?: 'PATIENT' | 'SPECIALIST') => Promise<boolean>;
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string, role?: 'PATIENT' | 'SPECIALIST') => Promise<void>;
   resendConfirmation?: (email: string) => Promise<void>;
   google: (workspace?: 'specialist') => Promise<void>;
   resetPassword?: (email: string) => Promise<void>;
@@ -337,10 +337,23 @@ function configuredClient(): AccountClient | null {
         });
         if (error) throw error;
       },
-      async signIn(email, password) {
-        const { error } = await sdk.auth.signInWithPassword({ email, password });
+      async signIn(email, password, role) {
+        const { data, error } = await sdk.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        notifyCloudSync();
+        try {
+          if(!data.session) throw Error('SIGN_IN_REQUIRED');
+          const response=await fetch('/api/account/capabilities',{headers:{Authorization:'Bearer '+data.session.access_token,'X-APIP-Account':data.user.id},cache:'no-store',signal:AbortSignal.timeout(12000)});
+          const result=await response.json();
+          if(!response.ok) throw Error(result.error==='ACCOUNT_ROLE_SETUP_REQUIRED'?'ACCOUNT_ROLE_SETUP_REQUIRED':'ACCOUNT_ROLE_UNAVAILABLE');
+          if(!['PATIENT','SPECIALIST'].includes(result.accountRole))throw Error('ACCOUNT_ROLE_MISSING');
+          if(role&&result.accountRole!==role)throw Error(result.accountRole==='PATIENT'?'PATIENT_PORTAL_REQUIRED':'SPECIALIST_PORTAL_REQUIRED');
+          notifyCloudSync();
+        } catch(error) {
+          const signedOut=await sdk.auth.signOut({scope:'local'});
+          notifyCloudSync();
+          if(signedOut.error)throw Error('SESSION_CLEANUP_FAILED');
+          throw error;
+        }
       },
       async google(workspace?: 'specialist') {
         const task = sessionStorage.getItem(continuationKey);

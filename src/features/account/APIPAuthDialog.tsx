@@ -248,7 +248,7 @@ export function APIPAuthDialog({
 
   // Post-authentication redirect and session handling
   useEffect(() => {
-    if (open && user && ready && portalReady && portal !== 'unknown' && mode !== 'reset') {
+    if (open && user && ready && portalReady && portal !== 'unknown' && !busy && mode !== 'reset') {
       const task = requestedTask ?? sessionStorage.getItem('apip.account.continue');
       sessionStorage.removeItem('apip.account.continue');
       const destination = sessionStorage.getItem('apip.account.return');
@@ -268,7 +268,7 @@ export function APIPAuthDialog({
       // Simply navigate to the target route; the dialog will unmount or close via route change.
       navigatePreview(target, { replace: true });
     }
-  }, [open, user?.id, ready, portal, portalReady, requestedTask, isSpecialist, mode]);
+  }, [open, user?.id, ready, portal, portalReady, busy, requestedTask, isSpecialist, mode]);
 
   const handleCloseRequest = () => {
     const dialog = dialogRef.current;
@@ -372,7 +372,7 @@ export function APIPAuthDialog({
           navigatePreview(signupDestination, { replace: true });
         }
       } else if (mode === 'signin') {
-        await accountClient.signIn(email.trim(), password);
+        await accountClient.signIn(email.trim(), password, isSpecialist ? 'SPECIALIST' : 'PATIENT');
         setPassword('');
         setNotice({ type: 'success', message: 'Signed in. Opening your dashboard…' });
       } else if (mode === 'forgot') {

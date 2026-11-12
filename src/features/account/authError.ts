@@ -1,6 +1,8 @@
 /** Maps provider and local account authentication failures to safe, user-actionable error notices. */
 export function formatAuthError(err: unknown): string {
   const msg = err instanceof Error ? err.message : '';
+  const roleErrors: Record<string,string>={PATIENT_PORTAL_REQUIRED:'This account belongs to the Patient Portal. Use Patient Sign In.',SPECIALIST_PORTAL_REQUIRED:'This account belongs to the Specialist Portal. Use Specialist Sign In.',ACCOUNT_ROLE_MISSING:'This account has no verified portal role. Contact the development administrator.',ACCOUNT_ROLE_SETUP_REQUIRED:'Account role setup is pending. Please contact the development administrator.',ACCOUNT_ROLE_UNAVAILABLE:'Account roles could not be checked. Please retry when the service is available.',SESSION_CLEANUP_FAILED:'Sign-out could not be confirmed. Close this page and retry before switching accounts.'};
+  if(roleErrors[msg])return roleErrors[msg];
   const name =
     err instanceof Error
       ? err.name

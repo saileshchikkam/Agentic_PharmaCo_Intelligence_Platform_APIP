@@ -20,7 +20,7 @@ export function postgresSpecialistRepository(sql:Sql):SpecialistRepository{
       const rows=await sql.begin(async tx=>{
         await tx`select set_config('request.jwt.claim.sub',${actor},true)`;
         return tx`select role from apip_identity.account_roles where subject=${actor}::uuid`;
-      });
+      }).catch(error=>{throw Error((error as {code?:string}).code==='42P01'?'ACCOUNT_ROLE_SETUP_REQUIRED':'ACCOUNT_ROLE_UNAVAILABLE');});
       return {...identity,accountRole:rows[0]?.role??null};
     },currentApplication:actor=>operation(actor,'current'),
     create:(actor,profile:ProfessionalProfile,key)=>operation<Application>(actor,'create',key,0,{profile},key),
