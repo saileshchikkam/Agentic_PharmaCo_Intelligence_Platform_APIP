@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added a locally verified, approval-gated professional ADR review queue foundation with exact-revision consent, claim/release, immutable assessment history, private messaging, and narrow server authorization.
+- Added an approval-gated professional ADR assessment foundation with immutable private specialist notes, assignment-scoped patient-specialist messaging, audit history, and narrow server authorization. It reuses the existing pooled queue and active assignments.
 
 ## P0-A Authentication Recovery & GitHub CI PDF Fix - 2026-11-11
 

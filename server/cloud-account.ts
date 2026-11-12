@@ -61,7 +61,7 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
   router.use('/account/adr-cases', casesRouter(repository, req => principals.get(req),
     async (req, owner) => (await authenticate(req))?.id === owner));
   router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner,poolRepository));
-  router.use('/review',reviewRouter(reviewRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner));
+  router.use('/review',reviewRouter(reviewRepository,req=>principals.get(req)));
   router.use(specialistRouter(identityRepository,req=>principals.get(req)));
   router.use((error: { status?: number }, _req: Request, res: express.Response, _next: express.NextFunction) => {
     const status = error.status === 413 ? 413 : error.status === 400 ? 400 : 503;
