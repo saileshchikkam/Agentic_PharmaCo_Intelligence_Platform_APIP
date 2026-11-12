@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added a locally verified, approval-gated professional ADR review queue foundation with exact-revision consent, claim/release, immutable assessment history, private messaging, and narrow server authorization.
+
 ## Material Design 3 Web authentication dialog centering, soft blur, animations, and button repair - 2026-11-09
 
 - Repaired visual centering of the horizontal authentication dialog: resolved left-alignment bug by enforcing outer margin: auto !important; position: fixed !important; inset: 0 !important; and background scroll/gutter lock (overflow: hidden; scrollbar-gutter: auto;), achieving exact 0px horizontal and vertical offsets across 1024px, 1440px, 1536px, and 1920px viewports.
