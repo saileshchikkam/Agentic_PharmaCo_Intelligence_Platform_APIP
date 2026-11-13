@@ -177,7 +177,6 @@ export function LandingFooter({ signedIn }: { signedIn: boolean }) {
         <a href="#landing-platform" onClick={event => jump(event, 'landing-platform')}>Platform capabilities</a>
         <a href="#landing-privacy" onClick={event => jump(event, 'landing-privacy')}>Privacy and trust</a>
       </nav>
-      <p className="landing-footer-note m3-body-small">APIP is an AI-assisted research platform and is not a substitute for professional medical advice, diagnosis, or treatment. Reports are not automatically submitted to PvPI.</p>
     </div>
   </footer>;
 }

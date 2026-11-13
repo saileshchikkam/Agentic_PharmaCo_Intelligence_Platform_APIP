@@ -1,3 +1,4 @@
+import {ResearchDisclaimerTicker} from './ResearchDisclaimerTicker';
 import { LandingBody, LandingFooter } from './LandingV2';
 import { APIPAuthDialog } from '../account/APIPAuthDialog';
 import { ProfilePage } from '../account/ProfilePage';
@@ -133,6 +134,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     <PreviewHeader screen={route.screen} appearance={appearance} setAppearance={setAppearance}
       preferencesSaved={preferencesSaved} onHelp={isPatientHome ? () => helpDialog.current?.showModal() : undefined} />
 
+    <ResearchDisclaimerTicker />
     <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''}`}>
       <div id="access-back-navigation" className="access-back-row" />
       <div className="access-page-shell">

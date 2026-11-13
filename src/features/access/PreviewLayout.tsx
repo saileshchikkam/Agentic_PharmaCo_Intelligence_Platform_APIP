@@ -111,10 +111,9 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
 
 export function PreviewFooter({ children }: { children?: React.ReactNode }) {
   useDiscreetDeveloperAccess();
-  return <footer className="access-footer">
-    <p>APIP is an AI-assisted research platform and is not a substitute for professional medical advice, diagnosis, or treatment. Reports are not automatically submitted to PvPI.</p>
+  return children ? <footer className="access-footer">
     {children}
-  </footer>;
+  </footer> : null;
 }
 
 export function PageNavigation({ onBack, backLabel = 'Back' }: { onBack?: () => void; backLabel?: string }) {
