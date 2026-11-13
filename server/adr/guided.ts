@@ -1,3 +1,4 @@
+import {patientCompleteness} from '../../src/features/adr/guided/completeness';
 import { Router, type Request, type RequestHandler } from 'express';
 import { randomUUID } from 'node:crypto';
 import { missing, nextQuestion, chronology, type GuidedCase } from '../../src/features/adr/guided/domain';
@@ -38,6 +39,10 @@ export function guidedRouter(repository: GuidedCaseRepository, readUser: (req: R
     next();
   });
   const owner = (req: Request) => readUser(req)!.id;
+  router.get('/:id/completeness',endpoint(async(req,res)=>{
+    const c=await load(owner(req),req.params.id);
+    res.set('Cache-Control','private, no-store').json(patientCompleteness(c));
+  }));
   const view = (c: GuidedCase) => ({ case: c, missing: missing(c), nextQuestion: nextQuestion(c),
     warnings: chronology(c), officialTemplateAvailable: pdf.available() });
   async function load(user: string, id: string) {

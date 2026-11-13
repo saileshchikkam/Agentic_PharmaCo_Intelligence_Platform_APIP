@@ -1,3 +1,4 @@
+import {CompletionPanel} from './CompletionPanel';
 import { accountClient, guidedAccountHeaders } from '../../account/client';
 import React,{useEffect,useRef,useState} from 'react';
 import {useAccount} from '../../account/AccountProvider';
@@ -115,6 +116,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  {!field&&<details className="adr-description"><summary>Describe several details together (optional AI assistance)</summary><p>Suggestions need your confirmation. Manual answers always work.</p><M3TextField label="Describe your fictional experience" type="textarea" value={narrative} maxLength={4000} disabled={busy} onChange={e=>setNarrative(e.target.value)}/><M3Button disabled={busy||!narrative.trim()} onClick={()=>run(()=>command({type:'describe',text:narrative}))}>Find suggested details</M3Button><p role="status">{c.providerStatus==='manual_required'?'No model configured. Your description is saved; continue with the guided questions.':c.providerStatus==='unavailable_or_invalid'?'The model could not provide valid suggestions. Your description is saved.':c.providerStatus==='proposals_ready'?'Review each suggestion below.':''}</p></details>}
  <ConfirmationPanel c={c} busy={busy} decide={(proposalId,accept)=>run(()=>command({type:'proposal',proposalId,accept},true))}/>
  </section>{field&&<LiveFormPreview c={c} owner={owner}/>}</div>
+ <CompletionPanel key={owner+c.id} owner={owner} id={c.id} revision={c.revision} correct={edit}/>
  </>}{busy&&<p role="status">Saving or checking your answer…</p>}{error&&<p className="adr-error" role="alert">{error}</p>}
  </div>;
 }
