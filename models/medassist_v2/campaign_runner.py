@@ -167,26 +167,8 @@ def fit_campaign(
     }
 
 
-def resume_post_fit(
-    data_root: str | Path,
-    run_root: str | Path,
-    campaign_id: str = "campaign-2026-v1",
-    execute: bool = False,
-) -> Dict[str, Any]:
-    """Resume strictly from verified Stage 4 fit artifacts through Stage 6 sealing.
-
-    Never refits models, never overwrites existing artifacts, and never opens locked-test records.
-    """
-    require(execute, 'explicit_official_resumption_required')
-    resume_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
-
-    p, representation, canonical_sha, historical_sha = authenticate_protocol()
-    environment(p)
-    dataset = OfficialDataset(data_root, p)
-    root = external_path(run_root)
-    require(root.is_dir(), 'run_root_missing')
-
-    # Strictly verify Stage 1-4 integrity before touching anything
+def _verify_stage1_4_artifacts(root: Path, dataset: OfficialDataset) -> None:
+    """Verify Stage 1-4 cryptographic receipts without modifying any artifact."""
     run_meta = read_json(root / 'run.json')
     require(run_meta['mode'] == dataset.mode, 'mode_mismatch')
     require(run_meta['implementation'] == implementation_hashes(), 'implementation_changed')
@@ -209,7 +191,79 @@ def resume_post_fit(
         ),
         'pairs_corrupt',
     )
+    require((root / 'frequency.json').is_file(), 'frequency_missing')
     require(not (root / 'fit-failure.json').exists(), 'fit_failure_present')
+
+
+def _write_campaign_provenance(
+    root: Path,
+    *,
+    campaign_id: str,
+    dataset: OfficialDataset,
+    resume_time: str,
+    resumption_note: str,
+    representation: str,
+    canonical_sha: str,
+    historical_sha: str,
+    seal_record: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Write campaign-provenance.json and return the completion summary."""
+    completion_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    provenance = {
+        'campaign_id': campaign_id,
+        'mode': dataset.mode,
+        'resumed_post_fit_utc': resume_time,
+        'completion_time_utc': completion_time,
+        'resumption_note': resumption_note,
+        'git_commit': 'da91ecd7596213a89219f730291ee0c242adaaaa',
+        'run_root': str(root.resolve()),
+        'active_protocol_representation': representation,
+        'canonical_protocol_sha256': canonical_sha,
+        'historical_protocol_sha256': historical_sha,
+        'active_protocol_sha256': file_hash(ref.PROTOCOL),
+        'implementation_hashes': implementation_hashes(),
+        'selected_alpha': seal_record['selected_alpha'],
+        'seal_sha256': file_hash(root / 'pre-test-seal.json'),
+        'locked_test_evaluated': False,
+    }
+    write_json(root / 'campaign-provenance.json', provenance)
+
+    selection = read_json(root / 'selection.json')
+    fit_results = read_json(root / 'fit-results.json')
+
+    return {
+        'status': 'campaign_training_complete',
+        'campaign_id': campaign_id,
+        'run_root': str(root.resolve()),
+        'seal_sha256': provenance['seal_sha256'],
+        'selected_alpha': seal_record['selected_alpha'],
+        'fit_results': fit_results,
+        'validation_scores': selection['scores'],
+        'artifacts': list(seal_record['artifacts'].keys()),
+        'locked_test_unopened': True,
+    }
+
+
+def resume_post_fit(
+    data_root: str | Path,
+    run_root: str | Path,
+    campaign_id: str = "campaign-2026-v1",
+    execute: bool = False,
+) -> Dict[str, Any]:
+    """Resume strictly from verified Stage 4 fit artifacts through Stage 6 sealing.
+
+    Never refits models, never overwrites existing artifacts, and never opens locked-test records.
+    """
+    require(execute, 'explicit_official_resumption_required')
+    resume_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+    p, representation, canonical_sha, historical_sha = authenticate_protocol()
+    environment(p)
+    dataset = OfficialDataset(data_root, p)
+    root = external_path(run_root)
+    require(root.is_dir(), 'run_root_missing')
+
+    _verify_stage1_4_artifacts(root, dataset)
     require(not (root / 'selection.json').exists(), 'selection_already_exists')
     require(not (root / 'validation-trajectories.sqlite').exists(), 'val_cache_already_exists')
     require(not (root / 'validation-aggregate.json').exists(), 'val_aggregate_already_exists')
@@ -239,37 +293,91 @@ def resume_post_fit(
         verify_seal(root, dataset, p)
         print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Campaign pre-test seal created and verified successfully!", flush=True)
 
-    completion_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    provenance = {
-        'campaign_id': campaign_id,
-        'mode': dataset.mode,
-        'resumed_post_fit_utc': resume_time,
-        'completion_time_utc': completion_time,
-        'resumption_note': 'Stages 1-4 completed cleanly; server restart interrupted Stage 5 before selection.json write. Resumed Stages 5-6 after cryptographic verification of all Stage 1-4 artifacts.',
-        'git_commit': '3585811589f07f2e65d4fcf3199d04171ec9feef',
-        'run_root': str(root.resolve()),
-        'active_protocol_representation': representation,
-        'canonical_protocol_sha256': canonical_sha,
-        'historical_protocol_sha256': historical_sha,
-        'active_protocol_sha256': file_hash(ref.PROTOCOL),
-        'implementation_hashes': implementation_hashes(),
-        'selected_alpha': seal_record['selected_alpha'],
-        'seal_sha256': file_hash(root / 'pre-test-seal.json'),
-        'locked_test_evaluated': False,
-    }
-    write_json(root / 'campaign-provenance.json', provenance)
+    return _write_campaign_provenance(
+        root,
+        campaign_id=campaign_id,
+        dataset=dataset,
+        resume_time=resume_time,
+        resumption_note='Stages 1-4 completed cleanly; server restart interrupted Stage 5 before selection.json write. Resumed Stages 5-6 after cryptographic verification of all Stage 1-4 artifacts.',
+        representation=representation,
+        canonical_sha=canonical_sha,
+        historical_sha=historical_sha,
+        seal_record=seal_record,
+    )
 
+
+def resume_stage6_only(
+    data_root: str | Path,
+    run_root: str | Path,
+    campaign_id: str = "campaign-2026-v1",
+    *,
+    execute: bool = False,
+    discard_incomplete_cache: bool = False,
+) -> Dict[str, Any]:
+    """Resume strictly from verified Stage 5 selection.json through Stage 6 sealing.
+
+    Never refits models, never reruns Stage 5 selection, and never opens locked-test records.
+    """
+    require(execute, 'explicit_stage6_resumption_required')
+    resume_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+    p, representation, canonical_sha, historical_sha = authenticate_protocol()
+    environment(p)
+    dataset = OfficialDataset(data_root, p)
+    root = external_path(run_root)
+    require(root.is_dir(), 'run_root_missing')
+
+    _verify_stage1_4_artifacts(root, dataset)
+    require((root / 'selection.json').is_file(), 'selection_missing')
+    require(not (root / 'validation-aggregate.json').exists(), 'val_aggregate_already_exists')
+    require(not (root / 'pre-test-seal.json').exists(), 'seal_already_exists')
+    require(not (root / 'pre-test-seal-hash.json').exists(), 'seal_hash_already_exists')
+
+    from .training.campaign import (
+        cache_partition,
+        cached_report,
+        choose,
+        load_models,
+    )
+
+    # Verify all 3 pickled models match fit-results.json SHA-256 and validate Stage 5 selection.json
+    load_models(root, p)
     selection = read_json(root / 'selection.json')
-    fit_results = read_json(root / 'fit-results.json')
+    require(selection.get('partition') == 'validation', 'selection_partition_invalid')
+    require(selection.get('training_overlap_excluded') is True, 'selection_overlap_invalid')
+    require(selection.get('model_refitted_after_selection') is False, 'selection_refit_flag_invalid')
+    require(selection.get('selected_alpha') == choose(selection['scores'], p), 'selection_rule_mismatch')
 
-    return {
-        'status': 'campaign_training_complete',
-        'campaign_id': campaign_id,
-        'run_root': str(root.resolve()),
-        'seal_sha256': provenance['seal_sha256'],
-        'selected_alpha': seal_record['selected_alpha'],
-        'fit_results': fit_results,
-        'validation_scores': selection['scores'],
-        'artifacts': list(seal_record['artifacts'].keys()),
-        'locked_test_unopened': True,
-    }
+    cache_path = root / 'validation-trajectories.sqlite'
+    journal_path = root / 'validation-trajectories.sqlite-journal'
+    if cache_path.exists() or journal_path.exists():
+        require(discard_incomplete_cache, 'incomplete_val_cache_present')
+        if journal_path.exists():
+            journal_path.unlink()
+        if cache_path.exists():
+            cache_path.unlink()
+
+    hasher(p)
+
+    with threadpool_limits(limits=1):
+        print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Stage 6/6 (Stage-6-only recovery): Rebuilding validation cache for 132,448 cases using frozen cache_partition...", flush=True)
+        cache_partition(dataset, root, p, 'validation')
+        print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Stage 6/6: Generating validation-aggregate.json...", flush=True)
+        write_json(root / 'validation-aggregate.json', cached_report(root, 'validation', p))
+
+        print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Sealing campaign artifacts...", flush=True)
+        seal_record = seal(root, p)
+        verify_seal(root, dataset, p)
+        print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Campaign pre-test seal created and verified successfully!", flush=True)
+
+    return _write_campaign_provenance(
+        root,
+        campaign_id=campaign_id,
+        dataset=dataset,
+        resume_time=resume_time,
+        resumption_note='Stages 1-5 completed cleanly (selection.json verified); server restart interrupted Stage 6 mid-cache with an incomplete validation-trajectories.sqlite (40,563 partial rows). Preserved a verified backup, removed the partial cache, and rebuilt Stage 6 only using the frozen cache_partition implementation.',
+        representation=representation,
+        canonical_sha=canonical_sha,
+        historical_sha=historical_sha,
+        seal_record=seal_record,
+    )

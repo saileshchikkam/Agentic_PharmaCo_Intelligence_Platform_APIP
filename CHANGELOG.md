@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-12
+
+### MedAssist — natural symptom understanding improvements, v2 evaluation suite, and Stage 6 recovery runner
+
+- Hardened deterministic NLP ingress with expanded allowlisted whole-token spellings, Indian English colloquial descriptors, and priority diffuse muscle pain handling (`E_144` vs `E_53`).
+- Added concept-bounded sub-clause lookahead splitting across contrastive boundaries (`without`, `except`, `only`, `yes|no`), typo-tolerant uncertainty cues, bare-noun third-person attribution, contrastive pain exception handling, and self-contradiction retention.
+- Added phonetic and colloquial variants for breathing emergencies and ambulance calls to provisional safety rules.
+- Authored and cryptographically sealed 240-case evaluation suite v2 (`suite.json` with SHA-256 seal `18c05418...`), achieving 240/240 (100.00%) accuracy with 0 critical negation inversions, 0 other-person leakage, 0 unconfirmed Model A leakage, and 0 missed emergency cases.
+- Added Stage 6 recovery runner `resume_stage6_only` in `models/medassist_v2/campaign_runner.py` for resumption from verified Stage 5 artifacts without refitting models or opening locked-test records.
+- Verified 5/5 understanding tests, 36/36 language variation tests, 6/6 safety tests, 8/8 campaign runner tests, 10/10 loader tests, and `tsc --noEmit` cleanly.
+
 ## 2026-11-10
 
 ### MedAssist — accelerated Model A Prompts 3 and 4 recovery audit and verification

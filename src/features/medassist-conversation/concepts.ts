@@ -13,7 +13,7 @@ const baseAnchors: Record<string, {
     E_211: { label: 'repeated vomiting', pattern: /\b(?:repeated(?:ly)?|keep|kept) (?:vomit(?:ing)?|throwing up)\b|\bvomit(?:ing)? repeatedly\b/i },
     E_129: { label: 'rash or skin lesions', pattern: /\brash\b|\bskin lesions?\b/i }, E_151: { label: 'swelling', pattern: /\bswell(?:ing|ed)?\b|\bswollen\b/i },
     E_30: { label: 'abdominal bloating', pattern: /\b(?:abdom(?:inal|en)|stomach|belly) (?:is |feels? )?bloat(?:ed|ing)\b|\bbloat(?:ed|ing) (?:stomach|belly)\b/i },
-    E_94: { label: 'chills', pattern: /\bchills\b/i }, E_50: { label: 'sweating', pattern: /\bsweat(?:ing)?\b/i }, E_144: { label: 'diffuse muscle pain', pattern: /\b(?:muscle aches? all over|diffuse muscle pain|all.over muscle aches?)\b/i },
+    E_94: { label: 'chills', pattern: /\bchills\b/i }, E_50: { label: 'sweating', pattern: /\bsweat(?:ing)?\b/i }, E_144: { label: 'diffuse muscle pain', pattern: /\b(?:muscle aches? all over|diffuse muscle pain|all.over muscle aches?|body (?:is )?aching all over|body aching all over)\b/i },
     E_175: { label: 'new fatigue or body aches', pattern: /\b(?:new fatigue|body aches|malaise)\b/i }, E_89: { label: 'constant fatigue or unrefreshing sleep', pattern: /\b(?:constant fatigue|always tired|unrefreshing sleep)\b/i },
     E_181: { label: 'nasal congestion or clear runny nose', pattern: /\b(?:nasal congestion|stuffy nose|clear runny nose)\b/i }, E_182: { label: 'green or yellow nasal discharge', pattern: /\b(?:green|yellow) (?:nasal discharge|mucus from (?:my|the) nose)\b/i },
     E_103: { label: 'loss of smell', pattern: /\b(?:loss of smell|lost (?:my )?sense of smell|cannot smell)\b/i }, E_212: { label: 'hoarse voice', pattern: /\bhoarse(?: voice)?\b/i },
@@ -35,7 +35,8 @@ const aliases: Record<string,string[]> = {
     "coughng",
     "cogh",
     "coffing",
-    "couffing"
+    "couffing",
+    "coffin"
   ],
   "E_53": [
     "stomach pain",
@@ -50,8 +51,22 @@ const aliases: Record<string,string[]> = {
     "head paining",
     "head is paining",
     "hed is paining",
+    "hed paining",
     "head has been aching",
     "aching head",
+    "aching hed",
+    "hed hurts",
+    "hed hurting",
+    "hedache",
+    "hed ache",
+    "tummy hurting",
+    "belly ache bad",
+    "stomach pain coming going",
+    "pain coming and going",
+    "pain coming going",
+    "bad stomach ache",
+    "bad headache",
+    "back pain",
     "throat is paining",
     "throat paining",
     "body is aching",
@@ -68,13 +83,18 @@ const aliases: Record<string,string[]> = {
     "nauseous",
     "nauseated",
     "nausous",
+    "nausia",
     "feel a bit pukey",
     "feeling sick to my stomach",
     "feel like puking",
     "feeling like puking",
     "feel sick to my stomach",
     "feel like vomiting",
-    "feel like throwing up"
+    "feel like throwing up",
+    "pukey feeling",
+    "pukey feeling in stomach",
+    "feeling pukey",
+    "feel like pukin"
   ],
   "E_51": [
     "diarrhea",
@@ -83,6 +103,9 @@ const aliases: Record<string,string[]> = {
     "loose motion",
     "loose motions",
     "motions are loose",
+    "motions loose",
+    "motions loose from morning",
+    "tummy upset with loose motions",
     "the runs",
     "diarhoea",
     "diarrea"
@@ -90,7 +113,10 @@ const aliases: Record<string,string[]> = {
   "E_91": [
     "fever",
     "feverish",
-    "fevr"
+    "fevr",
+    "body burning hot",
+    "burning hot body",
+    "burning body"
   ],
   "E_97": [
     "sore throat",
@@ -98,7 +124,10 @@ const aliases: Record<string,string[]> = {
     "throat has been sore",
     "throat feels soor",
     "sore thrt",
-    "sore throaat"
+    "sore throaat",
+    "soar throat",
+    "throat scratching while swallowing",
+    "scratchy throat"
   ],
   "E_181": [
     "nasal congestion",
@@ -136,7 +165,8 @@ const aliases: Record<string,string[]> = {
     "repeated vomiting",
     "repeatedly vomiting",
     "keep vomiting",
-    "vomiting repeatedly"
+    "vomiting repeatedly",
+    "vomting repeatedly"
   ],
   "E_219": [
     "worse at night",
@@ -146,7 +176,27 @@ const aliases: Record<string,string[]> = {
   "E_89": [
     "constant fatigue",
     "always tired",
+    "always tierd",
+    "tierd",
     "unrefreshing sleep"
+  ],
+  "E_144": [
+    "diffuse muscle pain",
+    "muscle aches all over",
+    "diffuse muscle aches",
+    "body is aching all over",
+    "body aching all over",
+    "aching all over",
+    "muscle pain all over",
+    "all over muscle aches"
+  ],
+  "E_74": [
+    "red eyes",
+    "red eye",
+    "eyes are red",
+    "eyes red",
+    "eye red",
+    "eyes feel red"
   ],
   "E_175": [
     "new fatigue",
@@ -160,7 +210,7 @@ const aliases: Record<string,string[]> = {
     "breathing normally"
   ]
 };
-aliases.E_76 = ['feel light headed', 'feeling light headed', 'little dizzy'];
+aliases.E_76 = ['feel light headed', 'feeling light headed', 'little dizzy', 'feel dizzzy', 'dizzzy', 'dizzy', 'head spinning', 'head is spinning', 'slight dizziness', 'lightheaded', 'lightheadedness'];
 baseAnchors.E_66 = { label: 'significant shortness of breath or difficulty breathing', pattern: /\b(?:significant (?:shortness of breath|difficulty breathing)|can breathe normally|breathing normally)\b/i };
 export const tokenize = (text:string) => [...text.matchAll(/[a-z]+(?:['’][a-z]+)?|[0-9]+(?:\.[0-9]+)?/gi)].map(m=>({text:m[0].toLowerCase().replaceAll('’',"'"),start:m.index!,end:m.index!+m[0].length}));
 export function labelIsSupported(quote:string,label:string) {
@@ -174,12 +224,13 @@ const escape = (text:string) => text.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 const wording: Record<string,RegExp> = {
  E_201: /\b(?:coff|couugh)\b/i,
  E_91: /\b(?:feever|fevar)\b/i,
- E_97: /\bsoar throat\b|\bthroat(?:['’]s|\s+(?:(?:is|feels?|not|a|little)\s+){0,4})\s*sore\b|\bthroat (?:is )?scratching while swallowing\b/i,
+ E_97: /\bsoar throat\b|\bthroat(?:['’]s|\s+(?:(?:is|feels?|not|a|little|[a-z]+)\s+){0,4})\s*sore\b|\bthroat (?:is )?scratching while swallowing\b/i,
  E_148: /\bnausia\b|\b(?:feel(?:ing)? (?:ready|about) to puke|vomiting sensation)\b/i,
  E_51: /\bdiarrhoe\b|\bno runs\b/i,
  E_94: /\bchils\b/i,
  E_76: /\b(?:liteheaded|light-headed|light headed i am)\b/i,
- E_53: /\b(?:head|hed|tummy)\s+(?:(?:is|does|not|has|been)\s+){0,4}hurt(?:s|ing)?\b|\bhead aches\b|\baching back\b|\bpainful (?:head|back|knee|shoulder|arm|leg|foot|stomach|belly|tummy)\b|\bonly my (?:knee|shoulder|arm|leg|foot) hurts\b/i,
+ E_74: /\b(?:eyes?\s+(?:are\s+)?(?:not\s+)?red|not\s+red\s+eyes?|eyes?\b[^.!?,;]{0,20}\bred|red\b[^.!?,;]{0,20}\beyes?|not\s+red)\b/i,
+ E_53: /\b(?:head|hed|tummy)\s+(?:(?:is|does|not|has|been)\s+){0,4}(?:hurt(?:s|ing)?|pain(?:ing)?)\b|\bhedache\b|\bhed\s*ache\b|\baching\s+hed\b|\bhead aches\b|\baching back\b|\bpainful (?:head|back|knee|shoulder|arm|leg|foot|stomach|belly|tummy)\b|\bonly my (?:knee|shoulder|arm|leg|foot) hurts\b/i,
  E_181: /\bnose\s+(?:(?:is|not|getting|feels?)\s+){0,4}(?:blocked|stufffed)\b|\bnose\s+(?:(?:is|not|won['’]t|will|stop)\s+){0,4}(?:leaking water|dripping clear water)\b/i,
 };
 export const languageConcepts = Object.entries(baseAnchors).map(([evidence_id, definition]) => {

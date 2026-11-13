@@ -5,9 +5,9 @@ export type ReportContext = 'current' | 'historical_or_resolved' | 'other_person
 // People routinely omit apostrophes in phone typing ("dont", "havent").
 // Treat that narrow orthographic normalization as the same polarity marker while
 // preserving the original source text, offsets and evidence confirmation step.
-export const uncertaintyCue = /\b(?:not sure|unsure|uncertain|unknown|maybe|might|may (?:have|be)|perhaps|possible|possibly|could be|don['’]?t know|do not know|think i|i think|not certain|wonder (?:if|whether)|doubting whether|hard to tell|can(?:not|['’]?t) (?:tell|decide)|my guess)\b/i;
-export const negationCue = /\b(?:no|not|neither|without|deny|denies|absent|free of|don['’]?t|haven['’]?t|hasn['’]?t|didn['’]?t|doesn['’]?t|isn['’]?t|aren['’]?t|wasn['’]?t|weren['’]?t)\b/i;
-export const correctionCue = /\b(?:actually|correction|i meant|instead|scratch that|take that back)\b/i;
+export const uncertaintyCue = /\b(?:not sure|unsure|uncertain|unknown|maybe|might|may (?:have|be)|perhaps|possible|possibly|could be|don['’]?t know|do not know|don not know|dont know|do nt know|dunno|think i|i think|not certain|wonder(?:ing)? (?:if|whether)|doubt(?:ing)? (?:if|whether)|hard to tell|can(?:not|['’]?t) (?:tell|decide)|my guess)\b/i;
+export const negationCue = /\b(?:no|not|neither|without|deny|denies|absent|free of|don['’]?t|haven['’]?t|hasn['’]?t|didn['’]?t|doesn['’]?t|isn['’]?t|aren['’]?t|wasn['’]?t|weren['’]?t|dont|havent|hasnt|didnt|doesnt|isnt|arent|wasnt|werent)\b/i;
+export const correctionCue = /\b(?:actually|correction|i meant|instead|scratch that|take that back|wait\s+no|wait)\b/i;
 export const negatedResolution = (text:string) => /\b(?:hasn't|has not|haven't|have not|isn't|is not|aren't|are not)\s+(?:yet\s+)?(?:stopped|resolved|gone|cleared up|over)\b/i.test(text.replaceAll('’',"'"));
 const resolvedCue = /\b(?:resolved|recovered|cleared up|no longer|stopped|gone now|(?:is|has) gone|went away|(?:is|are) over|not now)\b/i;
 export const reportsResolution = (text:string) => resolvedCue.test(text) && !negatedResolution(text);
@@ -16,9 +16,37 @@ const pastDate = /\b(?:yesterday|on (?:monday|tuesday|wednesday|thursday|friday|
 const continuing = /\b(?:since|still|throughout|now|(?:have|has) had)\b/i;
 
 function initialClauses(sentence: string) {
-  const parts = [...sentence.matchAll(/\b(?:and|but|plus)\b|,|((?:(?!\b(?:and|but|plus)\b)[^,])+)/gi)]
+  const splitter = /\b(?:and|but|plus)\b|,|;|:|\b—\b|--|((?:(?!\b(?:and|but|plus)\b)[^,;:—])+)/gi;
+  const rawParts = [...sentence.matchAll(splitter)]
     .filter(part => part[1])
     .map(part => ({ text: part[0], index: part.index! }));
+
+  const subRegex = /\b(?=(?:without|except|excluding|instead of|rather than|take that back|scratch that|actually\s+scratch\s+that|actually\s+i\s+meant|wait\s+actually|wait\s+no|now\s+(?:pain|fever|cough|chills|sore|rash)|only\s+(?:cough|fever|chills|nausea|pain|sore|rash|diarrhea|headache|stomach)|not\s+(?:cough|fever|chills|nausea|pain|sore|rash|diarrhea)|no\s+(?:cough|fever|chills|nausea|pain|sore|rash|diarrhea)|i\s+(?:only\s+)?have\s+(?:cough|fever|chills|nausea|pain|sore|rash))\b)|(?<=\b(?:yes|no)\b)\s+(?=(?:cough|fever|chills|nausea|pain|sore|rash|now)\b)/i;
+
+  const parts = rawParts.flatMap(part => {
+    const pieces: { text: string; index: number }[] = [];
+    let currentText = part.text, currentIndex = part.index;
+    while (currentText) {
+      const searchRegion = currentText.length > 1 ? currentText.slice(1) : '';
+      const match = subRegex.exec(searchRegion);
+      if (!match) {
+        pieces.push({ text: currentText, index: currentIndex });
+        break;
+      }
+      const matchIndex = 1 + match.index;
+      const before = currentText.slice(0, matchIndex);
+      if (before.trim() && languageConcepts.some(c => c.pattern.test(before))) {
+        pieces.push({ text: before, index: currentIndex });
+        currentIndex += matchIndex;
+        currentText = currentText.slice(matchIndex);
+      } else {
+        pieces.push({ text: currentText, index: currentIndex });
+        break;
+      }
+    }
+    return pieces;
+  });
+
   return parts.flatMap(part => {
     const denial = /\bno\s+(?:cough|fever|chills|nausea|pain|sore throat)\b/i.exec(part.text);
     const prefix = denial ? part.text.slice(0, denial.index) : '';
@@ -52,10 +80,10 @@ export function reportClauses(text:string) {
         previous.quote = text.slice(previous.start, end);
         continue;
       }
-      if(/\bmy (?:(?:fictional|older|younger|elder|little|best|work)\s+){0,2}(?:brother|sister|mother|father|friend|son|daughter|child|wife|husband|partner|aunt|uncle|colleague|coworker|neighbour|neighbor)\b|\b(?:he|she|they)\b/.test(normalized))subject='other';
+      if(/\b(?:(?:my|a|an|the)\s+)?(?:(?:fictional|older|younger|elder|little|best|work)\s+){0,2}(?:brother|sister|mother|father|friend|son|daughter|child|wife|husband|partner|aunt|uncle|colleague|coworker|neighbour|neighbor)\b|\b(?:he|she|they)\b/.test(normalized))subject='other';
       if(/^(?:actually\s+)?(?:(?:right )?now\s+|only\s+)?i\b|\bthe fictional (?:person|patient)\b/.test(normalized))subject='target';
       if(/\bmy (?:head|hed|tummy|stomach|back|lower back|belly|throat|nose|eyes|feet)\b/.test(normalized))subject='target';
-      const reported = /\b(?:someone|a friend|my \w+|he|she|they) (?:told me|texted me|said|wrote)\b/i.test(quote);
+      const reported = /\b(?:someone|a friend|friend|my \w+|he|she|they) (?:told me|texted me|said|wrote)\b/i.test(quote);
       const boundary=sentence[0].slice(0,part.index).match(/(\b(?:and|but|plus)\b|,)\s*$/i)?.[1]?.toLowerCase();
       const freshSubject = /^(?:(?:right )?now\s+|only\s+)?(?:i|my (?:head|stomach|back|throat|nose)|the fictional (?:person|patient))\b/i.test(normalized);
       if (boundary === 'but' || (boundary === 'and' && freshSubject && !quoted &&
@@ -68,7 +96,7 @@ export function reportClauses(text:string) {
       const ambiguousList: boolean = boundary === ',' && (negationStart !== null || sharedUncertainty)
         && !freshSubject && !independentAssertion && !negationCue.test(normalized) && !uncertaintyCue.test(normalized)
         && !/^(?:definitely|certainly)\b/i.test(normalized);
-      if (boundary !== 'and' || freshSubject || independentAssertion) negationStart = null;
+      if (boundary !== 'and' || freshSubject || independentAssertion || /^(?:only|without|except|now|not)\b/i.test(normalized)) negationStart = null;
       hypothetical ||= /^(?:what if|if|suppose|imagine|i would)\b/.test(normalized)
         || /\bwould\b.*\bif\b/.test(normalized);
       const future = /\b(?:tomorrow|next (?:day|week|month)|(?:might|may|will) (?:become|develop|get))\b/.test(normalized)

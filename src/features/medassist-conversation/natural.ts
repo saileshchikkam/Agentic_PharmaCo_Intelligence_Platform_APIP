@@ -185,7 +185,7 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
             const uncertain = clauses.some(clause => clause.uncertain);
             if (item.state === 'confirmed' && uncertain)
                 return reject('SOURCE_UNCERTAINTY');
-            if (clauses.some(clause => clause.negative) && clauses.some(clause => !clause.negative) && item.state !== 'contradiction')
+            if (clauses.some(clause => clause.negative) && clauses.some(clause => !clause.negative) && item.state !== 'contradiction' && !(d.evidence_id === 'E_53' && hasPainException(text)))
                 return reject('SOURCE_CONFLICT');
         }
         if (item.state === 'unknown' && !uncertaintyCue.test(item.quote))

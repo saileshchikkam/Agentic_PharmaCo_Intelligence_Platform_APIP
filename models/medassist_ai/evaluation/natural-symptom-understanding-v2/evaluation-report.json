@@ -1,0 +1,73 @@
+{
+  "evaluated_at": "2026-11-13T13:11:27.250Z",
+  "total_cases": 240,
+  "passed_cases": 240,
+  "accuracy_percentage": "100.00",
+  "critical_negation_inversions": 0,
+  "other_person_leakage": 0,
+  "unconfirmed_model_a_leakage": 0,
+  "missed_emergency_cases": 0,
+  "category_breakdown": {
+    "spelling_and_grammar": {
+      "total": 25,
+      "passed": 25,
+      "failed": []
+    },
+    "colloquial_and_informal": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "negation": {
+      "total": 25,
+      "passed": 25,
+      "failed": []
+    },
+    "uncertainty": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "corrections_and_retractions": {
+      "total": 15,
+      "passed": 15,
+      "failed": []
+    },
+    "subject_attribution": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "temporality_and_past": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "multiple_symptoms": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "vague_and_ambiguous": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "emergency_safety": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    },
+    "unsupported_and_adversarial": {
+      "total": 15,
+      "passed": 15,
+      "failed": []
+    },
+    "minimal_pairs": {
+      "total": 20,
+      "passed": 20,
+      "failed": []
+    }
+  },
+  "failures": []
+}

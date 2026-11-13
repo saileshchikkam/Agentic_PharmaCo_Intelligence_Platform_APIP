@@ -99,6 +99,28 @@ class CampaignRunnerTests(unittest.TestCase):
             self.assertEqual(real_res['official_patient_rows_decoded'], 0)
             self.assertTrue(real_res['locked_test_unopened'])
 
+    def test_resume_stage6_only_requires_explicit_flags(self):
+        from models.medassist_v2.campaign_runner import resume_stage6_only
+
+        with self.assertRaises(Exception):
+            resume_stage6_only('unused-data', self.root, execute=False)
+
+        with patch('models.medassist_v2.campaign_runner.authenticate_protocol') as mock_auth, \
+             patch('models.medassist_v2.campaign_runner.environment'), \
+             patch('models.medassist_v2.campaign_runner.OfficialDataset') as mock_ds, \
+             patch('models.medassist_v2.campaign_runner._verify_stage1_4_artifacts'), \
+             patch('models.medassist_v2.training.campaign.load_models'), \
+             patch('models.medassist_v2.training.campaign.choose', return_value=1e-05):
+            mock_auth.return_value = ({'question_budget': 20}, 'LF', 'a' * 64, 'b' * 64)
+            mock_ds.return_value = MagicMock(mode='official')
+            (self.root / 'selection.json').write_text(
+                '{"partition":"validation","training_overlap_excluded":true,"model_refitted_after_selection":false,"scores":[],"selected_alpha":1e-05}',
+                encoding='utf-8',
+            )
+            (self.root / 'validation-trajectories.sqlite').write_bytes(b'partial')
+            with self.assertRaises(Exception):
+                resume_stage6_only('unused-data', self.root, execute=True, discard_incomplete_cache=False)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -60,12 +60,15 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   const clauses=reportClauses(text), allowed=new Set(vocabulary.items.map(d=>d.evidence_id));
   const evidence=new Map<string,Proposal['observations'][number][]>();
   for(const [index, clause] of clauses.entries()) {
-    const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote)
+    let concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote)
       && !(c.evidence_id==='E_51' && /\bruns\b/i.test(clause.quote) && /\b(?:program|software|bus|train|race|engine)\b/i.test(clause.quote)));
+    if (concepts.some(c => c.evidence_id === 'E_144')) {
+      concepts = concepts.filter(c => c.evidence_id !== 'E_53');
+    }
     const previous = clauses[index - 1];
-    const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|i am not sure|no)|scratch that|i take that back)$/i.test(clause.quote);
+    const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]?t|do not|don not)(?:\s+have\s+it)?|i am not sure|no)|scratch that|i take that back|take that back)$/i.test(clause.quote);
     const correctionMarker = previous && /^(?:actually|wait)$/i.test(previous.quote);
-    const corrected = correctionMarker && /^(?:i\s+(?:don['’]t|do not)(?:\s+have\s+it)?|i am not sure|i take that back|no)$/i.test(clause.quote)
+    const corrected = correctionMarker && /^(?:i\s+(?:don['’]?t|do not|don not)(?:\s+have\s+it)?|i am not sure|i take that back|take that back|no)$/i.test(clause.quote)
       ? clauses[index - 2] : retractsPrevious ? previous : undefined;
     if (corrected?.context === 'current' && clause.context === 'current'
       && /^[.!?,;\s]*(?:(?:actually|wait)[,\s]+)?$/i.test(text.slice(corrected.end, clause.start))) {
@@ -122,7 +125,19 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   }
   for(const [id,claims] of evidence){
     const states=new Set(claims.map(c=>JSON.stringify([c.state,c.value])));
-    output.observations.push(states.size>1?{evidence_id:id,state:'contradiction',value:null,quote:text}:claims[0]);
+    if (states.size > 1) {
+      if (id === 'E_53') {
+        const positive = claims.find(c => c.value === true);
+        const negative = claims.find(c => c.value === false);
+        if (positive && negative && /\b(?:but|except|apart from|other than)\b/i.test(text)) {
+          output.observations.push(positive);
+          continue;
+        }
+      }
+      output.observations.push({evidence_id:id,state:'contradiction',value:null,quote:text});
+    } else {
+      output.observations.push(claims[0]);
+    }
   }
   if(pending){
     const parent=['E_54','E_55','E_56','E_57','E_58','E_59'].includes(pending.evidence_id)?'E_53':null;
