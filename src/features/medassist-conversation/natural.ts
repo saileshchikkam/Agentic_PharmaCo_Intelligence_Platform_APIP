@@ -1,4 +1,6 @@
 import { anchors, labelIsSupported } from './concepts';
+import { correctionCue, negationCue, negatedResolution, reportClauses, uncertaintyCue } from './language-context';
+import { hasPainException } from './pain-scope';
 /** Conversational transport and proposals, separate from the frozen research API. */
 import { readDemoResult, readRequest, type Answer, type Context, type DemoResult, type Question } from '../model-a-research/contracts';
 export type Definition = {
@@ -143,7 +145,7 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
             || !['confirmed', 'unknown', 'contradiction'].includes(item.state))
             return reject('OBSERVATION_SCHEMA_OR_SPAN');
         seen.add(d.evidence_id);
-        if (item.state === 'confirmed' && /\b(?:not sure|unsure|unknown|maybe|might|perhaps|don't know|do not know|think i|not certain)\b/i.test(item.quote))
+        if (item.state === 'confirmed' && uncertaintyCue.test(item.quote))
             return reject('UNCERTAIN_CONFIRMED');
         if (item.state !== 'confirmed') {
             if (item.value !== null)
@@ -165,9 +167,11 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         if (!isPending && (!anchors[d.evidence_id] || !anchors[d.evidence_id].pattern.test(item.quote)))
             return reject('UNSUPPORTED_ANCHOR');
         if (item.state === 'confirmed' && d.data_type === 'B') {
-            const uncertain = /\b(?:not sure|unsure|maybe|perhaps|might|unknown|don't know|think i|not certain)\b/i.test(item.quote);
+            if (d.evidence_id === 'E_53' && item.value === false && /\bchest pain\b/i.test(item.quote))
+                return reject('SITE_SPECIFIC_PAIN_DENIAL');
+            const uncertain = uncertaintyCue.test(item.quote);
             // Broad negation/contradiction checks fail closed; explicit confirmation still required.
-            const negative = /\b(?:no|not|without|deny|denies|absent|don't|do not|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t)\b/i.test(item.quote)
+            const negative = negationCue.test(item.quote) && !negatedResolution(item.quote) && !(d.evidence_id==='E_53'&&hasPainException(item.quote))
                 || d.evidence_id==='E_66'&&/\b(?:can breathe normally|breathing normally)\b/i.test(item.quote);
             if (uncertain || item.value === true && negative
                 || item.value === false && !negative && !/^\s*no[.!]?\s*$/i.test(item.quote))
@@ -175,40 +179,33 @@ export function readProposal(raw: any, text: string, vocabulary: NaturalVocabula
         }
         const anchor = anchors[d.evidence_id];
         if (anchor) {
-            // Negation shared across a coordinated phrase must not become presence.
-            // Ambiguous scope fails closed rather than guessing the omitted subject.
-            if (item.state === 'confirmed' && item.value === true && text.split(/[.;!?]|\bbut\b/i).some(sentence => {
-                const parts = sentence.split(/\band\b/i);
-                return parts.some((part, index) => anchor.pattern.test(part) && index > 0
-                    && !/^\s*(?:i|he|she|they|it|my|the person)\b/i.test(part)
-                    && /\b(?:no|not|without|don't|do not)\b/i.test(parts.slice(0, index).join(' and ')));
-            })) return reject('SHARED_NEGATION');
-            const clauses = text.split(/[.,;!?]|\bbut\b|\band\b/i).filter(s => anchor.pattern.test(s));
-            const uncertain = clauses.some(s => /\b(?:not sure|unsure|unknown|maybe|might|perhaps|don't know|think i|not certain)\b/i.test(s));
-            const negative = (s: string) => /\b(?:no|not|without|denies|deny|absent|don't|do not|haven['’]t|hasn['’]t|didn['’]t|doesn['’]t)\b/i.test(s);
+            const clauses = reportClauses(text).filter(clause => clause.context === 'current' && anchor.pattern.test(clause.quote));
+            if (item.state === 'confirmed' && item.value === true && clauses.length && clauses.every(clause => clause.negative))
+                return reject('SOURCE_NEGATION');
+            const uncertain = clauses.some(clause => clause.uncertain);
             if (item.state === 'confirmed' && uncertain)
                 return reject('SOURCE_UNCERTAINTY');
-            if (clauses.some(negative) && clauses.some(s => !negative(s)) && item.state !== 'contradiction')
+            if (clauses.some(clause => clause.negative) && clauses.some(clause => !clause.negative) && item.state !== 'contradiction' && !(d.evidence_id === 'E_53' && hasPainException(text)))
                 return reject('SOURCE_CONFLICT');
         }
-        if (item.state === 'unknown' && !/\b(?:not sure|unsure|unknown|don't know|do not know|maybe|might|perhaps|think i|not certain)\b/i.test(item.quote))
+        if (item.state === 'unknown' && !uncertaintyCue.test(item.quote))
             return reject('UNKNOWN_SUPPORT');
-        if (item.state === 'contradiction' && !/\b(?:but|actually|contradict(?:ory|ion)?|conflict(?:ing)?|yes and no)\b/i.test(item.quote))
+        if (item.state === 'contradiction' && !correctionCue.test(item.quote) && !/\b(?:but|contradict(?:ory|ion)?|conflict(?:ing)?|yes and no)\b/i.test(item.quote))
             return reject('CONTRADICTION_SUPPORT');
     }
     if (!raw.unmapped.every((i: any) => exactKeys(i, 'kind,quote') && typeof i.quote === 'string' && !!i.quote.trim() && text.includes(i.quote) && ['duration', 'unsupported', 'ambiguous'].includes(i.kind)))
         return reject('UNMAPPED_SCHEMA_OR_SPAN');
     return raw;
 }
-export function finalSummary(result: DemoResult, vocabulary: NaturalVocabulary, unmapped: string[] = []) {
-    const items = result.handoff?.items ?? [];
+export function finalSummary(reason: string | null, evidence: { items: { evidence_id: string; status: string }[]; context: Context } | null, unmapped: string[] = [], heldContext = 0) {
+    const items = evidence?.items ?? [];
     const label = evidenceLabel;
-    const conflicted = result.selection.reason === 'unresolved_contradiction';
+    const conflicted = reason === 'unresolved_contradiction';
     const positive = items.filter(i => i.status === 'observed_positive').map(i => label(i.evidence_id));
     const negative = items.filter(i => i.status === 'observed_negative').map(i => label(i.evidence_id));
-    const uncertain = items.filter(i => ['unknown', 'contradiction'].includes(i.status)).length;
-    return [result.selection.reason==='no_eligible_questions' ? `There are no further supported questions. You confirmed: ${positive.slice(0,5).join(', ')||'no present symptoms'}. I will not ask you to repeat them.` : conflicted ? 'Some details conflict. I have kept the original statements without choosing an interpretation.' : `You confirmed: ${positive.slice(0, 5).join(', ') || 'no supported present symptoms'}.`,
-        conflicted ? 'Please clarify the conflicting details before starting another interview.' : `Other details: age ${result.handoff?.context.age ?? 'not provided'}; ${negative.length ? 'you reported no ' + negative.slice(0, 3).join(', ') : 'no additional absent symptoms were confirmed'}.`,
+    const uncertain = items.filter(i => ['unknown', 'contradiction'].includes(i.status)).length + heldContext;
+    return [reason==='no_eligible_questions' ? `There are no further supported questions. You confirmed: ${positive.slice(0,5).join(', ')||'no present symptoms'}. I will not ask you to repeat them.` : conflicted ? 'Some details conflict. I have kept the original statements without choosing an interpretation.' : `You confirmed: ${positive.slice(0, 5).join(', ') || 'no supported present symptoms'}.`,
+        conflicted ? 'Please clarify the conflicting details before starting another interview.' : `Other details: age ${evidence?.context.age ?? 'not provided'}; ${negative.length ? 'you reported no ' + negative.slice(0, 3).join(', ') : 'no additional absent symptoms were confirmed'}.`,
         `Still uncertain: ${conflicted ? 'unresolved conflicting information; ' : ''}${uncertain} unanswered or conflicting details${unmapped.length ? '; some wording, including ' + unmapped.slice(0, 2).join('; ') + ', could not be recorded as structured answers' : ''}. Anything not discussed remains unspecified.`,
         'I cannot assess urgency or suggest personalized precautions. This summary is not a diagnosis.',
         'For real symptoms, speak with a qualified healthcare professional; use Emergency help if emergency assistance is needed.'].join('\n');

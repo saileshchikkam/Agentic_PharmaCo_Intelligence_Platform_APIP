@@ -1,0 +1,3150 @@
+{
+  "hash": "08519525e96b0d3f7c2772a3e5f967f23446c42e46a9a2f8a06f599739282c5c",
+  "categories": [
+    {
+      "category": "grammar",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "Indian and everyday English",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "fragmented and abbreviated",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "spelling",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "negation",
+      "matched": 7,
+      "total": 8
+    },
+    {
+      "category": "uncertainty",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "temporal",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "hypothetical and attribution",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "corrections and mixed",
+      "matched": 8,
+      "total": 8
+    },
+    {
+      "category": "unsupported and vague",
+      "matched": 8,
+      "total": 8
+    }
+  ],
+  "fullMatches": 79,
+  "expectedObservations": 74,
+  "observedObservations": 73,
+  "correctIdAndState": 73,
+  "rows": [
+    {
+      "id": "L5-01",
+      "category": "grammar",
+      "input": "A mild cough began this afternoon.",
+      "intendedMeaning": "cough present.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "cough"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "A mild cough began this afternoon"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "mild"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-02",
+      "category": "grammar",
+      "input": "My throat has been sore since lunch.",
+      "intendedMeaning": "sore throat present.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "throat has been sore"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "My throat has been sore since lunch"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "My throat has been sore since lunch",
+        "since lunch"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-03",
+      "category": "grammar",
+      "input": "I developed chills shortly after breakfast.",
+      "intendedMeaning": "chills present.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "chills"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "I developed chills shortly after breakfast"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-04",
+      "category": "grammar",
+      "input": "I have had nausea throughout the afternoon.",
+      "intendedMeaning": "nausea present.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "nausea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "I have had nausea throughout the afternoon"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-05",
+      "category": "grammar",
+      "input": "I am experiencing diarrhea today.",
+      "intendedMeaning": "diarrhea present.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "present",
+          "span": "diarrhea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "span": "I am experiencing diarrhea today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-06",
+      "category": "grammar",
+      "input": "I feel lightheaded when I stand up.",
+      "intendedMeaning": "slight dizziness or lightheadedness present.",
+      "evidence": [
+        {
+          "id": "E_76",
+          "concept": "slight dizziness or lightheadedness",
+          "state": "present",
+          "span": "lightheaded"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "span": "I feel lightheaded when I stand up"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-07",
+      "category": "grammar",
+      "input": "My nose feels congested.",
+      "intendedMeaning": "nasal congestion or clear runny nose present.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "nose feels congested"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "My nose feels congested"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-08",
+      "category": "grammar",
+      "input": "I have pain around my shoulder.",
+      "intendedMeaning": "general pain present.",
+      "evidence": [
+        {
+          "id": "E_53",
+          "concept": "general pain",
+          "state": "present",
+          "span": "pain"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "span": "I have pain around my shoulder"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-09",
+      "category": "Indian and everyday English",
+      "input": "Since evening I am getting cough.",
+      "intendedMeaning": "cough present.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "cough"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "Since evening I am getting cough"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "Since evening I am getting cough",
+        "Since evening"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-10",
+      "category": "Indian and everyday English",
+      "input": "My stomach is doing loose motion today.",
+      "intendedMeaning": "diarrhea present.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "present",
+          "span": "loose motion"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "span": "My stomach is doing loose motion today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "My stomach is doing loose motion today",
+        "stomach"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-11",
+      "category": "Indian and everyday English",
+      "input": "Throat paining only when talking.",
+      "intendedMeaning": "general pain present.",
+      "evidence": [
+        {
+          "id": "E_53",
+          "concept": "general pain",
+          "state": "present",
+          "span": "Throat paining"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "span": "Throat paining only when talking"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-12",
+      "category": "Indian and everyday English",
+      "input": "I feel a bit pukey after lunch.",
+      "intendedMeaning": "nausea present.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "pukey"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "I feel a bit pukey after lunch"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-13",
+      "category": "Indian and everyday English",
+      "input": "Nose fully blocked yaar.",
+      "intendedMeaning": "nasal congestion or clear runny nose present.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "Nose fully blocked"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "Nose fully blocked yaar"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-14",
+      "category": "Indian and everyday English",
+      "input": "Only little dizzy when getting up.",
+      "intendedMeaning": "slight dizziness or lightheadedness present.",
+      "evidence": [
+        {
+          "id": "E_76",
+          "concept": "slight dizziness or lightheadedness",
+          "state": "present",
+          "span": "little dizzy"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "span": "Only little dizzy when getting up"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-15",
+      "category": "Indian and everyday English",
+      "input": "My head has been aching since lunch.",
+      "intendedMeaning": "general pain present.",
+      "evidence": [
+        {
+          "id": "E_53",
+          "concept": "general pain",
+          "state": "present",
+          "span": "head has been aching"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "span": "My head has been aching since lunch"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "My head has been aching since lunch",
+        "head",
+        "since lunch"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-16",
+      "category": "Indian and everyday English",
+      "input": "I feel shivery and feverish today.",
+      "intendedMeaning": "chills present, fever present.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "shivery"
+        },
+        {
+          "id": "E_91",
+          "concept": "fever",
+          "state": "present",
+          "span": "feverish"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "I feel shivery"
+        },
+        {
+          "id": "E_91",
+          "state": "present",
+          "span": "feverish today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-17",
+      "category": "fragmented and abbreviated",
+      "input": "cgh since lunch",
+      "intendedMeaning": "cough present.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "cgh"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "cgh since lunch"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "cgh since lunch",
+        "since lunch"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-18",
+      "category": "fragmented and abbreviated",
+      "input": "sore throat throat",
+      "intendedMeaning": "sore throat present.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "sore throat"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "sore throat throat"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-19",
+      "category": "fragmented and abbreviated",
+      "input": "temp high since lunch",
+      "intendedMeaning": "Unqualified shorthand could refer to body temperature or another temperature.",
+      "evidence": [],
+      "retain": [
+        "temp high"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "temp high since lunch",
+        "since lunch"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-20",
+      "category": "fragmented and abbreviated",
+      "input": "chills... nausea...",
+      "intendedMeaning": "chills present, nausea present.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "chills"
+        },
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "nausea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "chills"
+        },
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "nausea"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-21",
+      "category": "fragmented and abbreviated",
+      "input": "nose blocked no cough",
+      "intendedMeaning": "nasal congestion or clear runny nose present, cough absent.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "nose blocked"
+        },
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "absent",
+          "span": "no cough"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "cough"
+      ],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "nose blocked"
+        },
+        {
+          "id": "E_201",
+          "state": "absent",
+          "span": "no cough"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-22",
+      "category": "fragmented and abbreviated",
+      "input": "fevr nd cough",
+      "intendedMeaning": "fever present, cough present.",
+      "evidence": [
+        {
+          "id": "E_91",
+          "concept": "fever",
+          "state": "present",
+          "span": "fevr"
+        },
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "cough"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "fevr nd cough"
+        },
+        {
+          "id": "E_91",
+          "state": "present",
+          "span": "fevr nd cough"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-23",
+      "category": "fragmented and abbreviated",
+      "input": "head ache bad since noon",
+      "intendedMeaning": "general pain present.",
+      "evidence": [
+        {
+          "id": "E_53",
+          "concept": "general pain",
+          "state": "present",
+          "span": "head ache"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "span": "head ache bad since noon"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "head ache bad since noon",
+        "head",
+        "since noon"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-24",
+      "category": "fragmented and abbreviated",
+      "input": "diarrhoea twice today",
+      "intendedMeaning": "diarrhea present.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "present",
+          "span": "diarrhoea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "span": "diarrhoea twice today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-25",
+      "category": "spelling",
+      "input": "Still couffing this afternoon.",
+      "intendedMeaning": "cough present.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "couffing"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "Still couffing this afternoon"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-26",
+      "category": "spelling",
+      "input": "My throat feels soor.",
+      "intendedMeaning": "sore throat present.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "throat feels soor"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "My throat feels soor"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-27",
+      "category": "spelling",
+      "input": "Feeling nausous today.",
+      "intendedMeaning": "nausea present.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "nausous"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "Feeling nausous today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-28",
+      "category": "spelling",
+      "input": "I have diarrea since noon.",
+      "intendedMeaning": "diarrhea present.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "present",
+          "span": "diarrea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "span": "I have diarrea since noon"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "I have diarrea since noon",
+        "since noon"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-29",
+      "category": "spelling",
+      "input": "Chillls after lunch.",
+      "intendedMeaning": "chills present.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "Chillls"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "Chillls after lunch"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-30",
+      "category": "spelling",
+      "input": "I feel light headed today.",
+      "intendedMeaning": "slight dizziness or lightheadedness present.",
+      "evidence": [
+        {
+          "id": "E_76",
+          "concept": "slight dizziness or lightheadedness",
+          "state": "present",
+          "span": "light headed"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "span": "I feel light headed today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-31",
+      "category": "spelling",
+      "input": "My nose is stufy.",
+      "intendedMeaning": "nasal congestion or clear runny nose present.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "nose is stufy"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "My nose is stufy"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-32",
+      "category": "spelling",
+      "input": "My kid has a coath with a torn button.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "coath"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My kid has a coath with a torn button"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-33",
+      "category": "negation",
+      "input": "Cough is absent, but the fictional person has a sore throat.",
+      "intendedMeaning": "cough absent, sore throat present.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "absent",
+          "span": "Cough is absent"
+        },
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "sore throat"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "cough"
+      ],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "span": "Cough is absent"
+        },
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "the fictional person has a sore throat"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-34",
+      "category": "negation",
+      "input": "No chills or fever today.",
+      "intendedMeaning": "chills absent, fever absent.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "absent",
+          "span": "No chills"
+        },
+        {
+          "id": "E_91",
+          "concept": "fever",
+          "state": "absent",
+          "span": "No chills or fever"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "chills",
+        "fever"
+      ],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_91",
+          "state": "absent",
+          "span": "No chills or fever today"
+        },
+        {
+          "id": "E_94",
+          "state": "absent",
+          "span": "No chills or fever today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-35",
+      "category": "negation",
+      "input": "I haven't got a blocked nose, but I have nausea.",
+      "intendedMeaning": "nasal congestion or clear runny nose absent, nausea present.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "absent",
+          "span": "haven't got a blocked nose"
+        },
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "nausea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "nasal congestion or clear runny nose"
+      ],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "absent",
+          "span": "I haven't got a blocked nose"
+        },
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "I have nausea"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-36",
+      "category": "negation",
+      "input": "I don't have diarrhea and I do have chills.",
+      "intendedMeaning": "diarrhea absent, chills present.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "absent",
+          "span": "don't have diarrhea"
+        },
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "do have chills"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "diarrhea"
+      ],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "absent",
+          "span": "I don't have diarrhea"
+        },
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "I do have chills"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-37",
+      "category": "negation",
+      "input": "I wouldn't say I'm not feverish.",
+      "intendedMeaning": "Double-negated wording requires clarification before assigning a state.",
+      "evidence": [],
+      "retain": [
+        "not feverish"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "I wouldn't say I'm not feverish"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-38",
+      "category": "negation",
+      "input": "No pain apart from an aching head.",
+      "intendedMeaning": "The stated exception is current general pain with location retained.",
+      "evidence": [
+        {
+          "id": "E_53",
+          "concept": "general pain",
+          "state": "present",
+          "span": "aching head"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "No pain apart from an aching head",
+        "No pain apart from an aching head",
+        "head"
+      ],
+      "issues": [
+        "missing E_53 present",
+        "clarification intent mismatch",
+        "confirmation intent mismatch"
+      ]
+    },
+    {
+      "id": "L5-39",
+      "category": "negation",
+      "input": "Neither fever nor cough today.",
+      "intendedMeaning": "fever absent, cough absent.",
+      "evidence": [
+        {
+          "id": "E_91",
+          "concept": "fever",
+          "state": "absent",
+          "span": "Neither fever"
+        },
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "absent",
+          "span": "Neither fever nor cough"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "fever",
+        "cough"
+      ],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "span": "Neither fever nor cough today"
+        },
+        {
+          "id": "E_91",
+          "state": "absent",
+          "span": "Neither fever nor cough today"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-40",
+      "category": "negation",
+      "input": "My nose is blocked, not my throat.",
+      "intendedMeaning": "nasal congestion or clear runny nose present.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "nose is blocked"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "My nose is blocked"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "not my throat"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-41",
+      "category": "uncertainty",
+      "input": "I suspect I may have nausea.",
+      "intendedMeaning": "nausea unknown.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "unknown",
+          "span": "may have nausea"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "nausea"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "unknown",
+          "span": "I suspect I may have nausea"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-42",
+      "category": "uncertainty",
+      "input": "Hard to tell whether there is a fever.",
+      "intendedMeaning": "fever unknown.",
+      "evidence": [
+        {
+          "id": "E_91",
+          "concept": "fever",
+          "state": "unknown",
+          "span": "Hard to tell"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "fever"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "span": "Hard to tell whether there is a fever"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-43",
+      "category": "uncertainty",
+      "input": "Perhaps I'm a little lightheaded, but I definitely have chills.",
+      "intendedMeaning": "slight dizziness or lightheadedness unknown, chills present.",
+      "evidence": [
+        {
+          "id": "E_76",
+          "concept": "slight dizziness or lightheadedness",
+          "state": "unknown",
+          "span": "Perhaps"
+        },
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "definitely have chills"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "slight dizziness or lightheadedness"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_76",
+          "state": "unknown",
+          "span": "Perhaps I'm a little lightheaded"
+        },
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "I definitely have chills"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-44",
+      "category": "uncertainty",
+      "input": "I might be coughing or just clearing my throat.",
+      "intendedMeaning": "cough unknown.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "unknown",
+          "span": "might be coughing"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "cough"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "unknown",
+          "span": "I might be coughing or just clearing my throat"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-45",
+      "category": "uncertainty",
+      "input": "I'm unsure about diarrhea. My nose is blocked.",
+      "intendedMeaning": "diarrhea unknown, nasal congestion or clear runny nose present.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "unknown",
+          "span": "unsure"
+        },
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "nose is blocked"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "diarrhea"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "unknown",
+          "span": "I'm unsure about diarrhea"
+        },
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "My nose is blocked"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-46",
+      "category": "uncertainty",
+      "input": "I can't tell if my throat is sore.",
+      "intendedMeaning": "sore throat unknown.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "unknown",
+          "span": "can't tell"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "sore throat"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "unknown",
+          "span": "I can't tell if my throat is sore"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-47",
+      "category": "uncertainty",
+      "input": "Possible fever, no chills.",
+      "intendedMeaning": "fever unknown, chills absent.",
+      "evidence": [
+        {
+          "id": "E_91",
+          "concept": "fever",
+          "state": "unknown",
+          "span": "Possible fever"
+        },
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "absent",
+          "span": "no chills"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [
+        "chills"
+      ],
+      "uncertainty": [
+        "fever"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "span": "Possible fever"
+        },
+        {
+          "id": "E_94",
+          "state": "absent",
+          "span": "no chills"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-48",
+      "category": "uncertainty",
+      "input": "I don't know if it counts as a cough.",
+      "intendedMeaning": "cough unknown.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "unknown",
+          "span": "don't know"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [
+        "cough"
+      ],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "unknown",
+          "span": "I don't know if it counts as a cough"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-49",
+      "category": "temporal",
+      "input": "On Monday I felt feverish, but I'm fine today.",
+      "intendedMeaning": "Past feverishness with no current fever asserted.",
+      "evidence": [],
+      "retain": [
+        "On Monday"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "On Monday I felt feverish",
+        "I'm fine today"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-50",
+      "category": "temporal",
+      "input": "I had chills at breakfast and still have them now.",
+      "intendedMeaning": "Chills began earlier and explicitly continue now.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "present",
+          "span": "still have them now"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "span": "I had chills at breakfast and still have them now"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-51",
+      "category": "temporal",
+      "input": "I used to cough. This afternoon I have diarrhea.",
+      "intendedMeaning": "diarrhea present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "present",
+          "span": "diarrhea"
+        }
+      ],
+      "retain": [
+        "used to cough"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "span": "This afternoon I have diarrhea"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "I used to cough"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-52",
+      "category": "temporal",
+      "input": "My fever went away; I have a sore throat now.",
+      "intendedMeaning": "sore throat present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "sore throat"
+        }
+      ],
+      "retain": [
+        "fever went away"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "I have a sore throat now"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "My fever went away"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-53",
+      "category": "temporal",
+      "input": "I have been coughing since Friday.",
+      "intendedMeaning": "cough present.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "coughing"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": false,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "I have been coughing since Friday"
+        }
+      ],
+      "observedFlags": {
+        "clarification": false,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "I have been coughing since Friday",
+        "since Friday"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-54",
+      "category": "temporal",
+      "input": "Chills are over, nausea is still here.",
+      "intendedMeaning": "nausea present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "nausea"
+        }
+      ],
+      "retain": [
+        "Chills are over"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "nausea is still here"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "Chills are over"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-55",
+      "category": "temporal",
+      "input": "I felt sick to my stomach this morning, but it has stopped.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "felt sick to my stomach"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "I felt sick to my stomach this morning",
+        "it has stopped",
+        "stomach",
+        "stopped"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-56",
+      "category": "temporal",
+      "input": "Yesterday no fever. Today my throat is sore.",
+      "intendedMeaning": "Past denial stays historical. The sore throat is current.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "throat is sore"
+        }
+      ],
+      "retain": [
+        "Yesterday no fever"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "Today my throat is sore"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "Yesterday no fever",
+        "Yesterday no fever"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-57",
+      "category": "hypothetical and attribution",
+      "input": "Would chills happen if I caught a cold?",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "chills"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "Would chills happen if I caught a cold"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-58",
+      "category": "hypothetical and attribution",
+      "input": "Tomorrow I might develop nausea, but right now I have a cough.",
+      "intendedMeaning": "Possible future nausea is not current. The cough is current.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "present",
+          "span": "cough"
+        }
+      ],
+      "retain": [
+        "Tomorrow"
+      ],
+      "temporalContext": "distinguish earlier or future wording from explicitly current evidence",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "span": "right now I have a cough"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "Tomorrow I might develop nausea"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-59",
+      "category": "hypothetical and attribution",
+      "input": "My neighbour texted me that her throat is sore.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "throat is sore"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My neighbour texted me that her throat is sore"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-60",
+      "category": "hypothetical and attribution",
+      "input": "A friend wrote “I feel feverish”; I feel nauseated myself.",
+      "intendedMeaning": "nausea present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "present",
+          "span": "nauseated"
+        }
+      ],
+      "retain": [
+        "I feel feverish"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "span": "I feel nauseated myself"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "A friend wrote “I feel feverish”"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-61",
+      "category": "hypothetical and attribution",
+      "input": "If there were a cough, chills might follow.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "chills might follow"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "If there were a cough",
+        "chills might follow"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-62",
+      "category": "hypothetical and attribution",
+      "input": "My aunt said ‘the nurse told me “I have diarrhea”’ and I only have a sore throat.",
+      "intendedMeaning": "sore throat present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_97",
+          "concept": "sore throat",
+          "state": "present",
+          "span": "sore throat"
+        }
+      ],
+      "retain": [
+        "I have diarrhea"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "span": "I only have a sore throat"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "My aunt said ‘the nurse told me “I have diarrhea”’"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-63",
+      "category": "hypothetical and attribution",
+      "input": "He is coughing. My nose is blocked.",
+      "intendedMeaning": "nasal congestion or clear runny nose present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "nose is blocked"
+        }
+      ],
+      "retain": [
+        "He is coughing"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "My nose is blocked"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "He is coughing"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-64",
+      "category": "hypothetical and attribution",
+      "input": "Imagine I have a fever; would that count as a symptom?",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "Imagine I have a fever"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "Imagine I have a fever",
+        "would that count as a symptom"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-65",
+      "category": "corrections and mixed",
+      "input": "There's nausea. Wait, I take that back.",
+      "intendedMeaning": "nausea contradiction.",
+      "evidence": [
+        {
+          "id": "E_148",
+          "concept": "nausea",
+          "state": "contradiction",
+          "span": "take that back"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": true,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_148",
+          "state": "contradiction",
+          "span": "There's nausea. Wait, I take that back"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": true
+      },
+      "narrative": [
+        "Wait"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-66",
+      "category": "corrections and mixed",
+      "input": "My throat is sore. Sorry, that was my brother.",
+      "intendedMeaning": "The next clause corrects the attribution of the symptom.",
+      "evidence": [],
+      "retain": [
+        "my brother"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My throat is sore",
+        "Sorry",
+        "that was my brother"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-67",
+      "category": "corrections and mixed",
+      "input": "I have no cough, but I am coughing now.",
+      "intendedMeaning": "Both incompatible current claims remain unresolved.",
+      "evidence": [
+        {
+          "id": "E_201",
+          "concept": "cough",
+          "state": "contradiction",
+          "span": "coughing now"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": true,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_201",
+          "state": "contradiction",
+          "span": "I have no cough, but I am coughing now."
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": true
+      },
+      "narrative": [],
+      "issues": []
+    },
+    {
+      "id": "L5-68",
+      "category": "corrections and mixed",
+      "input": "I have chills. Correction, I do not have chills.",
+      "intendedMeaning": "chills contradiction.",
+      "evidence": [
+        {
+          "id": "E_94",
+          "concept": "chills",
+          "state": "contradiction",
+          "span": "Correction"
+        }
+      ],
+      "retain": [],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": true,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_94",
+          "state": "contradiction",
+          "span": "I have chills. Correction, I do not have chills."
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": true
+      },
+      "narrative": [
+        "Correction"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-69",
+      "category": "corrections and mixed",
+      "input": "I feel lightheaded and my wrist tingles.",
+      "intendedMeaning": "slight dizziness or lightheadedness present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_76",
+          "concept": "slight dizziness or lightheadedness",
+          "state": "present",
+          "span": "lightheaded"
+        }
+      ],
+      "retain": [
+        "wrist tingles"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "span": "I feel lightheaded"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "my wrist tingles"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-70",
+      "category": "corrections and mixed",
+      "input": "I've got the runs; my belly also feels bubbly.",
+      "intendedMeaning": "diarrhea present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_51",
+          "concept": "diarrhea",
+          "state": "present",
+          "span": "the runs"
+        }
+      ],
+      "retain": [
+        "belly also feels bubbly"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "span": "I've got the runs"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "my belly also feels bubbly",
+        "belly"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-71",
+      "category": "corrections and mixed",
+      "input": "Blocked nose plus a funny taste in my mouth.",
+      "intendedMeaning": "nasal congestion or clear runny nose present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_181",
+          "concept": "nasal congestion or clear runny nose",
+          "state": "present",
+          "span": "Blocked nose"
+        }
+      ],
+      "retain": [
+        "funny taste"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "span": "Blocked nose"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "a funny taste in my mouth"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-72",
+      "category": "corrections and mixed",
+      "input": "Head hurts. My foot is numb.",
+      "intendedMeaning": "general pain present; retain separate context.",
+      "evidence": [
+        {
+          "id": "E_53",
+          "concept": "general pain",
+          "state": "present",
+          "span": "Head hurts"
+        }
+      ],
+      "retain": [
+        "foot is numb"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": true,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "span": "Head hurts"
+        }
+      ],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": true,
+        "conflict": false
+      },
+      "narrative": [
+        "Head hurts",
+        "My foot is numb",
+        "Head"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-73",
+      "category": "unsupported and vague",
+      "input": "My chest feels fluttery.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "fluttery"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My chest feels fluttery"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-74",
+      "category": "unsupported and vague",
+      "input": "Things look doubled today.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "look doubled"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "Things look doubled today"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-75",
+      "category": "unsupported and vague",
+      "input": "My ears are ringing.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "ears are ringing"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My ears are ringing"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-76",
+      "category": "unsupported and vague",
+      "input": "My knee keeps giving way.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "knee keeps giving way"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My knee keeps giving way"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-77",
+      "category": "unsupported and vague",
+      "input": "I threw up once after lunch.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "threw up once"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "I threw up once after lunch"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-78",
+      "category": "unsupported and vague",
+      "input": "A woozy sort of feeling.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "woozy"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "A woozy sort of feeling"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-79",
+      "category": "unsupported and vague",
+      "input": "My nose keeps dripping.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "nose keeps dripping"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "My nose keeps dripping"
+      ],
+      "issues": []
+    },
+    {
+      "id": "L5-80",
+      "category": "unsupported and vague",
+      "input": "I just feel off today.",
+      "intendedMeaning": "Keep the wording as narrative and clarify before assigning a field.",
+      "evidence": [],
+      "retain": [
+        "feel off"
+      ],
+      "temporalContext": "ordinary initial description; respect explicitly stated scope",
+      "negationScope": [],
+      "uncertainty": [],
+      "confirmation": false,
+      "clarification": true,
+      "conflict": false,
+      "unsupportedBehavior": "Keep unmatched wording as narrative; no extra IDs.",
+      "safety": "ordinary scripted language path",
+      "observed": [],
+      "observedFlags": {
+        "clarification": true,
+        "confirmation": false,
+        "conflict": false
+      },
+      "narrative": [
+        "I just feel off today"
+      ],
+      "issues": []
+    }
+  ],
+  "warningRows": [
+    {
+      "id": "W1",
+      "input": "Please call emergency services.",
+      "expect": "interrupt",
+      "observed": "interrupt",
+      "matched": true
+    },
+    {
+      "id": "W2",
+      "input": "Air won't go into my lungs at all.",
+      "expect": "interrupt",
+      "observed": "ordinary",
+      "matched": false
+    },
+    {
+      "id": "W3",
+      "input": "The narrator wrote, “I can't breathe.”",
+      "expect": "ordinary",
+      "observed": "interrupt",
+      "matched": false
+    },
+    {
+      "id": "W4",
+      "input": "I didn't ask you to call an ambulance.",
+      "expect": "ordinary",
+      "observed": "interrupt",
+      "matched": false
+    }
+  ]
+}

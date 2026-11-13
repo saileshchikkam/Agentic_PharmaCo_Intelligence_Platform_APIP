@@ -1,0 +1,2979 @@
+{
+  "version": "medassist-l7-english-v1",
+  "baseline": "60c53c3ae7590205f7e9d4aab948f1d0a8a67efe",
+  "provenance": "AI-authored after contract and prior-report review, separately from prior corpora. Same assistant authors and executes. No external annotator, representative sampling or blinding. No L7 parser execution before freeze.",
+  "scoring": {
+    "fullCase": "Exact ID/state set, required source substrings, intended clarify/abstain/confirm/conflict flags, valid proposal and literal provenance. Each case stays in denominator.",
+    "clarification": "Initial-turn projected interaction: no observations, ambiguous unmapped clause, contradiction, or existing pain-location prompt. Actual helpful wording sampled separately in browser.",
+    "context": "Temporal/speaker correctness reported as evidence-set correctness on the corresponding case subsets, not independent annotation accuracy.",
+    "provenance": "Every emitted quote must occur literally in input; annotation offsets must reproduce quote. Literal correctness does not establish semantic correctness.",
+    "span": "Expected spans are minimum semantic substrings; a wider original-text quote may match. Multi-span arrays require every listed substring.",
+    "abstain": "Zero structured proposals, including UNKNOWN. Unsupported correctly retained/clarified is not successful supported extraction."
+  },
+  "cases": [
+    {
+      "id": "L7-001",
+      "category": "proper English",
+      "input": "A cough has bothered the fictional person throughout this shift.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-002",
+      "category": "proper English",
+      "input": "The fictional person reports nausea during the train ride.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-003",
+      "category": "proper English",
+      "input": "There is a sore throat after the rehearsal.",
+      "intendedMeaning": "E_97 present",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "sore throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-004",
+      "category": "proper English",
+      "input": "The fictional person currently experiences diarrhea.",
+      "intendedMeaning": "E_51 present",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "spans": [
+            "diarrhea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-005",
+      "category": "proper English",
+      "input": "A clear runny nose started during the lecture.",
+      "intendedMeaning": "E_181 present",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "clear runny nose"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-006",
+      "category": "proper English",
+      "input": "The fictional person feels slightly dizzy while waiting.",
+      "intendedMeaning": "E_76 present",
+      "evidence": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "spans": [
+            "slightly dizzy"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-007",
+      "category": "proper English",
+      "input": "The fictional person reports no chills this afternoon.",
+      "intendedMeaning": "E_94 absent",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "absent",
+          "spans": [
+            "no chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-008",
+      "category": "proper English",
+      "input": "There is no fever during this episode.",
+      "intendedMeaning": "E_91 absent",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "no fever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-009",
+      "category": "proper English",
+      "input": "The fictional person is unsure whether nausea is present.",
+      "intendedMeaning": "E_148 unknown",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "unknown",
+          "spans": [
+            "nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-010",
+      "category": "proper English",
+      "input": "An aching sensation surrounds the fictional person's knee.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "An aching sensation surrounds the fictional person's knee"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-011",
+      "category": "everyday English",
+      "input": "I've got a nagging cough on the bus.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-012",
+      "category": "everyday English",
+      "input": "My tummy hurts while I'm sitting here.",
+      "intendedMeaning": "E_53 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "tummy hurts"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-013",
+      "category": "everyday English",
+      "input": "I feel ready to puke, though nothing has come up.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "ready to puke"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-014",
+      "category": "everyday English",
+      "input": "My nose won't stop dripping clear water.",
+      "intendedMeaning": "E_181 present",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "nose won't stop dripping clear water"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-015",
+      "category": "everyday English",
+      "input": "My throat's sore after that meeting.",
+      "intendedMeaning": "E_97 present",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "throat's sore"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-016",
+      "category": "everyday English",
+      "input": "I feel a little light-headed right this minute.",
+      "intendedMeaning": "E_76 present",
+      "evidence": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "spans": [
+            "light-headed"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-017",
+      "category": "everyday English",
+      "input": "No runs today, just a cough.",
+      "intendedMeaning": "E_51 absent; E_201 present",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "absent",
+          "spans": [
+            "No runs"
+          ]
+        },
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-018",
+      "category": "everyday English",
+      "input": "I feel sick, but I can't tell what kind of sick.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I feel sick, but I can't tell what kind of sick"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-019",
+      "category": "everyday English",
+      "input": "My head feels heavy, not painful.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My head feels heavy, not painful"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-020",
+      "category": "everyday English",
+      "input": "My stomach is turning; I mean I feel nauseated.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nauseated"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-021",
+      "category": "Indian conversational English",
+      "input": "Cough is coming again and again today only.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "Cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-022",
+      "category": "Indian conversational English",
+      "input": "Loose motions happening since tea time.",
+      "intendedMeaning": "E_51 present",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "spans": [
+            "Loose motions"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-023",
+      "category": "Indian conversational English",
+      "input": "For me nose getting blocked now, yaar.",
+      "intendedMeaning": "E_181 present",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "nose getting blocked"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-024",
+      "category": "Indian conversational English",
+      "input": "Head paining continuously after class.",
+      "intendedMeaning": "E_53 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "Head paining"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-025",
+      "category": "Indian conversational English",
+      "input": "Vomiting sensation coming, no actual vomit.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "Vomiting sensation"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-026",
+      "category": "Indian conversational English",
+      "input": "Fever not there; chills are there now.",
+      "intendedMeaning": "E_91 absent; E_94 present",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "Fever not there"
+          ]
+        },
+        {
+          "id": "E_94",
+          "state": "present",
+          "spans": [
+            "chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-027",
+      "category": "Indian conversational English",
+      "input": "Throat little sore only, no cough also.",
+      "intendedMeaning": "E_97 present; E_201 absent",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "Throat little sore"
+          ]
+        },
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "no cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-028",
+      "category": "Indian conversational English",
+      "input": "I am doubting whether this is fever or not.",
+      "intendedMeaning": "E_91 unknown",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "spans": [
+            "fever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-029",
+      "category": "Indian conversational English",
+      "input": "Body feeling weak weak since the walk.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "Body feeling weak weak since the walk"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-030",
+      "category": "Indian conversational English",
+      "input": "Stomach gas problem only, cannot explain more.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "Stomach gas problem only, cannot explain more"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-031",
+      "category": "fragments and abbreviations",
+      "input": "cough / chills / sore throat, all now",
+      "intendedMeaning": "E_201 present; E_94 present; E_97 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cough"
+          ]
+        },
+        {
+          "id": "E_94",
+          "state": "present",
+          "spans": [
+            "chills"
+          ]
+        },
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "sore throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-032",
+      "category": "fragments and abbreviations",
+      "input": "blocked nose + nausea now",
+      "intendedMeaning": "E_181 present; E_148 present",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "blocked nose"
+          ]
+        },
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-033",
+      "category": "fragments and abbreviations",
+      "input": "fever? unsure.",
+      "intendedMeaning": "E_91 unknown",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "spans": [
+            "fever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-034",
+      "category": "fragments and abbreviations",
+      "input": "no cough fever absent",
+      "intendedMeaning": "E_201 absent; E_91 absent",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "no cough"
+          ]
+        },
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "fever absent"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-035",
+      "category": "fragments and abbreviations",
+      "input": "cgh for four hours, no fever",
+      "intendedMeaning": "E_201 present; E_91 absent",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cgh for four hours"
+          ]
+        },
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "no fever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-036",
+      "category": "fragments and abbreviations",
+      "input": "HA since tea; sore throat too",
+      "intendedMeaning": "E_53 present; E_97 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "HA"
+          ]
+        },
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "sore throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-037",
+      "category": "fragments and abbreviations",
+      "input": "N/V since noon",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "N/V since noon"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-038",
+      "category": "fragments and abbreviations",
+      "input": "pain comes goes, where hard to say",
+      "intendedMeaning": "E_53 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "pain"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-039",
+      "category": "fragments and abbreviations",
+      "input": "nose blocked chills present",
+      "intendedMeaning": "E_181 present; E_94 present",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "nose blocked"
+          ]
+        },
+        {
+          "id": "E_94",
+          "state": "present",
+          "spans": [
+            "chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-040",
+      "category": "fragments and abbreviations",
+      "input": "thrt scratchy. little detail.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "thrt scratchy. little detail"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-041",
+      "category": "new spelling variations",
+      "input": "My coff has lasted all afternoon.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "coff"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-042",
+      "category": "new spelling variations",
+      "input": "I have a feever at the moment.",
+      "intendedMeaning": "E_91 present",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "present",
+          "spans": [
+            "feever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-043",
+      "category": "new spelling variations",
+      "input": "A soar throat started just now.",
+      "intendedMeaning": "E_97 present",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "soar throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-044",
+      "category": "new spelling variations",
+      "input": "I feel nausia during this ride.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nausia"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-045",
+      "category": "new spelling variations",
+      "input": "Diarrhoe today, definitely happening.",
+      "intendedMeaning": "E_51 present",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "spans": [
+            "Diarrhoe"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-046",
+      "category": "new spelling variations",
+      "input": "Nose is stufffed, no cough.",
+      "intendedMeaning": "E_181 present; E_201 absent",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "Nose is stufffed"
+          ]
+        },
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "no cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-047",
+      "category": "new spelling variations",
+      "input": "I do not have a couugh today.",
+      "intendedMeaning": "E_201 absent",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "do not have a couugh"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-048",
+      "category": "new spelling variations",
+      "input": "Maybe this is a fevar.",
+      "intendedMeaning": "E_91 unknown",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "spans": [
+            "fevar"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-049",
+      "category": "new spelling variations",
+      "input": "Chils have started while I wait.",
+      "intendedMeaning": "E_94 present",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "spans": [
+            "Chils"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-050",
+      "category": "new spelling variations",
+      "input": "I feel liteheaded at this instant.",
+      "intendedMeaning": "E_76 present",
+      "evidence": [
+        {
+          "id": "E_76",
+          "state": "present",
+          "spans": [
+            "liteheaded"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-051",
+      "category": "multiple complaints and correction",
+      "input": "I have nausea and chills during the film.",
+      "intendedMeaning": "E_148 present; E_94 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nausea"
+          ]
+        },
+        {
+          "id": "E_94",
+          "state": "present",
+          "spans": [
+            "chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-052",
+      "category": "multiple complaints and correction",
+      "input": "My nose is stuffy, but there is no sore throat.",
+      "intendedMeaning": "E_181 present; E_97 absent",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "nose is stuffy"
+          ]
+        },
+        {
+          "id": "E_97",
+          "state": "absent",
+          "spans": [
+            "no sore throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-053",
+      "category": "multiple complaints and correction",
+      "input": "I have a cough plus an itchy wrist.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-054",
+      "category": "multiple complaints and correction",
+      "input": "I have diarrhea and perhaps a fever.",
+      "intendedMeaning": "E_51 present; E_91 unknown",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "spans": [
+            "diarrhea"
+          ]
+        },
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "spans": [
+            "perhaps a fever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-055",
+      "category": "multiple complaints and correction",
+      "input": "I have a headache but no cough or nausea.",
+      "intendedMeaning": "E_53 present; E_201 absent; E_148 absent",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "headache"
+          ]
+        },
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "no cough"
+          ]
+        },
+        {
+          "id": "E_148",
+          "state": "absent",
+          "spans": [
+            "nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-056",
+      "category": "multiple complaints and correction",
+      "input": "There is a cough. Wait, I take that back.",
+      "intendedMeaning": "E_201 contradiction",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "contradiction",
+          "spans": [
+            "cough. Wait, I take that back"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": true,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-057",
+      "category": "multiple complaints and correction",
+      "input": "I have chills; correction, I do not have chills.",
+      "intendedMeaning": "E_94 contradiction",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "contradiction",
+          "spans": [
+            "chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": true,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-058",
+      "category": "multiple complaints and correction",
+      "input": "Only a sore throat; my aunt has nausea.",
+      "intendedMeaning": "E_97 present",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "sore throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-059",
+      "category": "multiple complaints and correction",
+      "input": "No diarrhea. No chills. My nose is blocked.",
+      "intendedMeaning": "E_51 absent; E_94 absent; E_181 present",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "absent",
+          "spans": [
+            "No diarrhea"
+          ]
+        },
+        {
+          "id": "E_94",
+          "state": "absent",
+          "spans": [
+            "No chills"
+          ]
+        },
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "nose is blocked"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-060",
+      "category": "multiple complaints and correction",
+      "input": "My stomach hurts and I am slightly dizzy.",
+      "intendedMeaning": "E_53 present; E_76 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "stomach hurts"
+          ]
+        },
+        {
+          "id": "E_76",
+          "state": "present",
+          "spans": [
+            "slightly dizzy"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-061",
+      "category": "negation and exceptions",
+      "input": "I haven't got a cough this time.",
+      "intendedMeaning": "E_201 absent",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "haven't got a cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-062",
+      "category": "negation and exceptions",
+      "input": "There isn't any fever now.",
+      "intendedMeaning": "E_91 absent",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "isn't any fever"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-063",
+      "category": "negation and exceptions",
+      "input": "Neither nausea nor diarrhea is present.",
+      "intendedMeaning": "E_148 absent; E_51 absent",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "absent",
+          "spans": [
+            "Neither nausea"
+          ]
+        },
+        {
+          "id": "E_51",
+          "state": "absent",
+          "spans": [
+            "diarrhea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-064",
+      "category": "negation and exceptions",
+      "input": "I deny having chills or a cough.",
+      "intendedMeaning": "E_94 absent; E_201 absent",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "absent",
+          "spans": [
+            "deny having chills"
+          ]
+        },
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-065",
+      "category": "negation and exceptions",
+      "input": "Cough is absent but nausea persists.",
+      "intendedMeaning": "E_201 absent; E_148 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "Cough is absent"
+          ]
+        },
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nausea persists"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-066",
+      "category": "negation and exceptions",
+      "input": "I am not without a sore throat.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I am not without a sore throat"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-067",
+      "category": "negation and exceptions",
+      "input": "I wouldn't say I don't have a fever.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I wouldn't say I don't have a fever"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-068",
+      "category": "negation and exceptions",
+      "input": "Apart from my painful head, nothing hurts.",
+      "intendedMeaning": "E_53 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "painful head"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-069",
+      "category": "negation and exceptions",
+      "input": "There is pain nowhere except in my stomach.",
+      "intendedMeaning": "E_53 present",
+      "evidence": [
+        {
+          "id": "E_53",
+          "state": "present",
+          "spans": [
+            "pain"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-070",
+      "category": "negation and exceptions",
+      "input": "No fever and no chills, but the nausea continues.",
+      "intendedMeaning": "E_91 absent; E_94 absent; E_148 present",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "No fever"
+          ]
+        },
+        {
+          "id": "E_94",
+          "state": "absent",
+          "spans": [
+            "no chills"
+          ]
+        },
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "nausea continues"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-071",
+      "category": "uncertainty and alternatives",
+      "input": "I cannot decide whether I have a cough.",
+      "intendedMeaning": "E_201 unknown",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "unknown",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-072",
+      "category": "uncertainty and alternatives",
+      "input": "I'm not certain about these chills.",
+      "intendedMeaning": "E_94 unknown",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "unknown",
+          "spans": [
+            "chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-073",
+      "category": "uncertainty and alternatives",
+      "input": "There may be nausea, I'm honestly unsure.",
+      "intendedMeaning": "E_148 unknown",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "unknown",
+          "spans": [
+            "nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-074",
+      "category": "uncertainty and alternatives",
+      "input": "I suspect I might be feverish right now.",
+      "intendedMeaning": "E_91 unknown",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "spans": [
+            "feverish"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-075",
+      "category": "uncertainty and alternatives",
+      "input": "Perhaps diarrhea; definitely no cough.",
+      "intendedMeaning": "E_51 unknown; E_201 absent",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "unknown",
+          "spans": [
+            "Perhaps diarrhea"
+          ]
+        },
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "no cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-076",
+      "category": "uncertainty and alternatives",
+      "input": "I think my nose is blocked, but I'm not sure.",
+      "intendedMeaning": "E_181 unknown",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "unknown",
+          "spans": [
+            "nose is blocked"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-077",
+      "category": "uncertainty and alternatives",
+      "input": "Sore throat or just a dry mouth; I can't tell.",
+      "intendedMeaning": "E_97 unknown",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "unknown",
+          "spans": [
+            "Sore throat"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-078",
+      "category": "uncertainty and alternatives",
+      "input": "Maybe cough and maybe nausea while waiting.",
+      "intendedMeaning": "E_201 unknown; E_148 unknown",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "unknown",
+          "spans": [
+            "Maybe cough"
+          ]
+        },
+        {
+          "id": "E_148",
+          "state": "unknown",
+          "spans": [
+            "maybe nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-079",
+      "category": "uncertainty and alternatives",
+      "input": "Either chills or fever, I cannot distinguish.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "Either chills or fever, I cannot distinguish"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-080",
+      "category": "uncertainty and alternatives",
+      "input": "My guess is nausea rather than pain; I don't really know.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My guess is nausea rather than pain; I don't really know"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-081",
+      "category": "temporal and hypothetical",
+      "input": "I had a fever in childhood; now I have nausea.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "now I have nausea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-082",
+      "category": "temporal and hypothetical",
+      "input": "My cough stopped at dawn. I currently have chills.",
+      "intendedMeaning": "E_94 present",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "present",
+          "spans": [
+            "currently have chills"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-083",
+      "category": "temporal and hypothetical",
+      "input": "I have had diarrhea continuously since the weekend.",
+      "intendedMeaning": "E_51 present",
+      "evidence": [
+        {
+          "id": "E_51",
+          "state": "present",
+          "spans": [
+            "diarrhea"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-084",
+      "category": "temporal and hypothetical",
+      "input": "My nose was blocked an hour ago, but it is clear now.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My nose was blocked an hour ago, but it is clear now"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-085",
+      "category": "temporal and hypothetical",
+      "input": "Tomorrow I might develop a sore throat.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "Tomorrow I might develop a sore throat"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-086",
+      "category": "temporal and hypothetical",
+      "input": "Suppose nausea started, would that be relevant?",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "Suppose nausea started, would that be relevant"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-087",
+      "category": "temporal and hypothetical",
+      "input": "I had chills on Tuesday. They ended then.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I had chills on Tuesday. They ended then"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-088",
+      "category": "temporal and hypothetical",
+      "input": "A cough began earlier and remains present right now.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-089",
+      "category": "temporal and hypothetical",
+      "input": "I used to feel nauseated, but today my throat is sore.",
+      "intendedMeaning": "E_97 present",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "today my throat is sore"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-090",
+      "category": "temporal and hypothetical",
+      "input": "I have no fever now, although I was feverish last month.",
+      "intendedMeaning": "E_91 absent",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "absent",
+          "spans": [
+            "no fever now"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Use explicit current assertion only; retain historical/resolved/future/hypothetical wording",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-091",
+      "category": "speakers and quotation",
+      "input": "My sister is coughing; I feel nauseated now.",
+      "intendedMeaning": "E_148 present",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "present",
+          "spans": [
+            "I feel nauseated now"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-092",
+      "category": "speakers and quotation",
+      "input": "My colleague has chills, but I have no chills.",
+      "intendedMeaning": "E_94 absent",
+      "evidence": [
+        {
+          "id": "E_94",
+          "state": "absent",
+          "spans": [
+            "I have no chills"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-093",
+      "category": "speakers and quotation",
+      "input": "He says I look feverish, but I cannot tell whether I have a fever.",
+      "intendedMeaning": "E_91 unknown",
+      "evidence": [
+        {
+          "id": "E_91",
+          "state": "unknown",
+          "spans": [
+            "cannot tell whether I have a fever"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-094",
+      "category": "speakers and quotation",
+      "input": "The leaflet says 'nausea'; I only have a cough.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "I only have a cough"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-095",
+      "category": "speakers and quotation",
+      "input": "I copied the words \"sore throat\" into my notebook.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I copied the words \"sore throat\" into my notebook"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-096",
+      "category": "speakers and quotation",
+      "input": "My partner had diarrhea; my own nose is blocked now.",
+      "intendedMeaning": "E_181 present",
+      "evidence": [
+        {
+          "id": "E_181",
+          "state": "present",
+          "spans": [
+            "my own nose is blocked now"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-097",
+      "category": "speakers and quotation",
+      "input": "We both have a cough, including me.",
+      "intendedMeaning": "E_201 present",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "present",
+          "spans": [
+            "We both have a cough"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": false,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-098",
+      "category": "speakers and quotation",
+      "input": "My fictional son feels slightly dizzy. I feel fine.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My fictional son feels slightly dizzy. I feel fine"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-099",
+      "category": "speakers and quotation",
+      "input": "A stranger wrote, 'I have fever and chills'.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "A stranger wrote, 'I have fever and chills'"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-100",
+      "category": "speakers and quotation",
+      "input": "I have a sore throat; my friend does not.",
+      "intendedMeaning": "E_97 present",
+      "evidence": [
+        {
+          "id": "E_97",
+          "state": "present",
+          "spans": [
+            "I have a sore throat"
+          ]
+        }
+      ],
+      "speaker": "Only the fictional target; quoted/other speakers excluded",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-101",
+      "category": "unsupported and vague",
+      "input": "My elbow clicks every time I bend it.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My elbow clicks every time I bend it"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-102",
+      "category": "unsupported and vague",
+      "input": "My eyes burn after reading.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My eyes burn after reading"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-103",
+      "category": "unsupported and vague",
+      "input": "The fictional person's skin is itchy all over.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "The fictional person's skin is itchy all over"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-104",
+      "category": "unsupported and vague",
+      "input": "I cannot taste the fictional drink.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I cannot taste the fictional drink"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-105",
+      "category": "unsupported and vague",
+      "input": "The fictional person's ears are ringing.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "The fictional person's ears are ringing"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-106",
+      "category": "unsupported and vague",
+      "input": "I feel off-colour and washed out.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "I feel off-colour and washed out"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-107",
+      "category": "unsupported and vague",
+      "input": "Everything in my body feels strange today.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "Everything in my body feels strange today"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-108",
+      "category": "unsupported and vague",
+      "input": "I threw up once, without feeling nauseated.",
+      "intendedMeaning": "E_148 absent",
+      "evidence": [
+        {
+          "id": "E_148",
+          "state": "absent",
+          "spans": [
+            "without feeling nauseated"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-109",
+      "category": "unsupported and vague",
+      "input": "My nose has green mucus, no other detail.",
+      "intendedMeaning": "No safe supported current field; retain the wording and clarify.",
+      "evidence": [],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": true,
+      "confirmation": false,
+      "conflict": false,
+      "retain": [
+        "My nose has green mucus, no other detail"
+      ],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    },
+    {
+      "id": "L7-110",
+      "category": "unsupported and vague",
+      "input": "I have a pounding heartbeat and no cough.",
+      "intendedMeaning": "E_201 absent",
+      "evidence": [
+        {
+          "id": "E_201",
+          "state": "absent",
+          "spans": [
+            "no cough"
+          ]
+        }
+      ],
+      "speaker": "Fictional target unless explicitly attributed",
+      "temporal": "Current unless expressly historical or hypothetical",
+      "clarification": true,
+      "abstain": false,
+      "confirmation": true,
+      "conflict": false,
+      "retain": [],
+      "transition": "Propose only; no acceptance until an explicit user confirmation"
+    }
+  ],
+  "journeys": [
+    {
+      "id": "L7-M01",
+      "name": "clarification addition",
+      "texts": [
+        "My wrist is clicking.",
+        "A cough is bothering me during this shift."
+      ],
+      "expected": [
+        [
+          "E_201",
+          true
+        ]
+      ],
+      "flow": "clarify_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M02",
+      "name": "compatible pending addition",
+      "texts": [
+        "There is nausea during this ride.",
+        "Chills have started now as well."
+      ],
+      "expected": [
+        [
+          "E_148",
+          true
+        ],
+        [
+          "E_94",
+          true
+        ]
+      ],
+      "flow": "merge_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M03",
+      "name": "unsupported preserves pending",
+      "texts": [
+        "A cough started during rehearsal.",
+        "The fictional elbow clicks too."
+      ],
+      "expected": [
+        [
+          "E_201",
+          true
+        ]
+      ],
+      "flow": "merge_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M04",
+      "name": "pending opposite review newer",
+      "texts": [
+        "I have chills during this shift.",
+        "No chills during this shift."
+      ],
+      "expected": [
+        [
+          "E_94",
+          false
+        ]
+      ],
+      "flow": "review_newer_negative_only",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M05",
+      "name": "pending opposite review earlier",
+      "texts": [
+        "I have nausea during this ride.",
+        "No nausea during this ride."
+      ],
+      "expected": [
+        [
+          "E_148",
+          true
+        ]
+      ],
+      "flow": "review_earlier_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M06",
+      "name": "rejected draft replacement",
+      "texts": [
+        "My nose is stuffy during class.",
+        "My throat feels sore during class."
+      ],
+      "expected": [
+        [
+          "E_97",
+          true
+        ]
+      ],
+      "flow": "reject_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M07",
+      "name": "UNKNOWN before positive",
+      "texts": [
+        "Perhaps a cough during this shift.",
+        "A cough is definitely present now."
+      ],
+      "expected": [],
+      "flow": "accepted_unknown_conflict_no_interview",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M08",
+      "name": "negative confirmation",
+      "texts": [
+        "I have a sore throat but no chills during class."
+      ],
+      "expected": [
+        [
+          "E_97",
+          true
+        ],
+        [
+          "E_94",
+          false
+        ]
+      ],
+      "flow": "confirm_context_stop",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M09",
+      "name": "follow-up UNKNOWN",
+      "texts": [
+        "I feel nauseated during this ride."
+      ],
+      "expected": [
+        [
+          "E_148",
+          true
+        ],
+        [
+          "E_201",
+          null
+        ]
+      ],
+      "flow": "confirm_context_cough_unknown_stop",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M10",
+      "name": "accepted contradiction",
+      "texts": [
+        "I have diarrhea during this shift.",
+        "Actually I do not have diarrhea now."
+      ],
+      "expected": [
+        [
+          "E_51",
+          true
+        ]
+      ],
+      "flow": "accepted_conflict_export_blocked",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M11",
+      "name": "third party follow-up",
+      "texts": [
+        "I have a sore throat during rehearsal.",
+        "My brother has chills during rehearsal."
+      ],
+      "expected": [
+        [
+          "E_97",
+          true
+        ],
+        [
+          "E_201",
+          false
+        ]
+      ],
+      "flow": "off_question_then_no_stop",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M12",
+      "name": "history then current",
+      "texts": [
+        "I used to have nausea in childhood.",
+        "Now my nose is blocked during this shift."
+      ],
+      "expected": [
+        [
+          "E_181",
+          true
+        ]
+      ],
+      "flow": "clarify_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M13",
+      "name": "pending temporal retraction",
+      "texts": [
+        "I have a cough during this shift.",
+        "That cough has stopped now."
+      ],
+      "expected": [],
+      "flow": "pending_resolution_must_block_stale_confirmation",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M14",
+      "name": "multiple initial symptoms",
+      "texts": [
+        "A cough and chills started during class."
+      ],
+      "expected": [
+        [
+          "E_201",
+          true
+        ],
+        [
+          "E_94",
+          true
+        ]
+      ],
+      "flow": "confirm_context_stop",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M15",
+      "name": "off-question addition",
+      "texts": [
+        "My nose is blocked during rehearsal.",
+        "I feel nauseated during rehearsal as well."
+      ],
+      "expected": [
+        [
+          "E_181",
+          true
+        ],
+        [
+          "E_148",
+          true
+        ],
+        [
+          "E_201",
+          false
+        ]
+      ],
+      "flow": "queue_then_no_stop",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M16",
+      "name": "pending uncertain collision",
+      "texts": [
+        "I have a sore throat during class.",
+        "Maybe I have a sore throat during class."
+      ],
+      "expected": [
+        [
+          "E_97",
+          true
+        ]
+      ],
+      "flow": "review_earlier_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M17",
+      "name": "early stop missing fields",
+      "texts": [
+        "I have chills during rehearsal."
+      ],
+      "expected": [
+        [
+          "E_94",
+          true
+        ]
+      ],
+      "flow": "confirm_context_stop",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M18",
+      "name": "duplicate pending wording",
+      "texts": [
+        "I feel nauseated during class.",
+        "I have nausea during class."
+      ],
+      "expected": [
+        [
+          "E_148",
+          true
+        ]
+      ],
+      "flow": "merge_then_confirm",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M19",
+      "name": "uncertain context refuses progression",
+      "texts": [
+        "My throat is sore during rehearsal."
+      ],
+      "expected": [],
+      "flow": "unknown_age_no_interview",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    },
+    {
+      "id": "L7-M20",
+      "name": "restart isolates accepted state",
+      "texts": [
+        "I have diarrhea during rehearsal."
+      ],
+      "expected": [],
+      "flow": "confirm_context_restart_empty",
+      "age": 29,
+      "sex": "F",
+      "expectations": "Keep original source records; unconfirmed evidence must never be exported as accepted. Confirm explicitly. Preserve UNKNOWN separately from No. Conflicts or explicit resolution must not permit stale current evidence. Final summary/export must equal expected evidence; unsupported wording stays narrative."
+    }
+  ],
+  "knownLimits": [
+    {
+      "id": "K1",
+      "input": "No pain apart from an aching head.",
+      "expected": "E_53 present"
+    },
+    {
+      "id": "K2",
+      "input": "I had chills and nausea at supper and still have them now.",
+      "expected": "Clarify multiple referents without current guesses"
+    },
+    {
+      "id": "K3",
+      "input": "Loose motion from yesterday.",
+      "expected": "Clarify whether ongoing; do not assume current"
+    },
+    {
+      "id": "K4",
+      "input": "Perhaps I have a fever. / I have measured a fever now.",
+      "expected": "Explicit reconciliation of previously confirmed UNKNOWN; conservative conflict acceptable but remains usability gap"
+    }
+  ],
+  "safety": [
+    {
+      "id": "W1",
+      "input": "This is a medical emergency.",
+      "expected": "interrupt"
+    },
+    {
+      "id": "W2",
+      "input": "Air won't go into my lungs at all.",
+      "expected": "interrupt"
+    },
+    {
+      "id": "W3",
+      "input": "The narrator wrote, “I can't breathe.”",
+      "expected": "ordinary"
+    },
+    {
+      "id": "W4",
+      "input": "I didn't ask you to call an ambulance.",
+      "expected": "ordinary"
+    }
+  ]
+}

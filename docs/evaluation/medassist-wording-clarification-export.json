@@ -1,0 +1,173 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "04989a4b-8936-4df9-9e6e-01cda79d2451",
+      "text": "My stomach feels weird.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My stomach feels weird",
+          "start": 0,
+          "end": 22,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "location",
+          "quote": "stomach",
+          "start": 3,
+          "end": 10,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "068b041a-f514-4150-a499-ac2db2ed044c",
+      "text": "Loose motion going on.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "Loose motion going on",
+          "start": 0,
+          "end": 21,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "unknown",
+        "value": null
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_51",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_201",
+          "state": "unknown",
+          "value": null
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [
+    {
+      "concept": "initial:feels stomach weird",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    }
+  ],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "My stomach feels weird.",
+    "Loose motion going on.",
+    "F",
+    "Not sure",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "Loose motion going on",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "My stomach feels weird"
+  ],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 1
+}

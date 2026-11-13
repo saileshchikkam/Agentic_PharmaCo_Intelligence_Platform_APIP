@@ -1,0 +1,135 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "e7200e92-d99c-47f4-9ad4-ef4e27b48100",
+      "text": "I have a sore throat during class.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have a sore throat during class",
+          "start": 0,
+          "end": 33,
+          "context": "current",
+          "evidence_id": "E_97",
+          "concept": "concept.E_97",
+          "normalized": "sore throat",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_97"
+      ]
+    },
+    {
+      "request_id": "55d7b924-9d42-4940-823c-062c72fff68f",
+      "text": "Maybe I have a sore throat during class.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "Maybe I have a sore throat during class",
+          "start": 0,
+          "end": 39,
+          "context": "current",
+          "evidence_id": "E_97",
+          "concept": "concept.E_97",
+          "normalized": "sore throat",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_97",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_97",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_97",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "I have a sore throat during class.",
+    "Maybe I have a sore throat during class.",
+    "F",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_97",
+          "quote": "I have a sore throat during class",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 0
+}

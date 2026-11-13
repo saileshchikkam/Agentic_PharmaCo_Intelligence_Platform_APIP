@@ -1,5 +1,9 @@
 # Development history
 
+- [2026-11-14](2026-11-14.md): MedAssist v2 conversational UI integration, canonical routing, four-level urgency assessment panel with neutral "Not assessed" state, and final demo restoration.
+
+- [2026-11-13](2026-11-13.md): Phase B specialist review and private archive, approved development migrations, compact ADR finalization panel and consistent M3 grid spacing.
+
 - [2026-11-07](2026-11-07.md): hosted two-account ADR and original PDF verification, with remaining recovery gates.
 
 - [2026-11-04](2026-11-04.md): ADR-1A PDF fidelity, guided UX and authenticated navigation corrections.

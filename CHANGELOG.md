@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **MedAssist v2 Conversational UI & Assessment Integration**:
+  - Promoted Jayanth's merged MedAssist v2 conversational implementation (`src/features/medassist-conversation/`) to the canonical Patient route (`#/preview/medassist`), removing dev-only gating while preserving legacy mock access at `#/preview/medassist-legacy`.
+  - Upgraded conversational header with research mode badges (`Scripted research demo` / `Model A research connected`), status indicator (`Urgency not assessed`), and direct `Restart` and `Emergency help` actions.
+  - Implemented the Material Design 3 four-level urgency assessment status panel (Low, Moderate, High, Very High) displaying truthful neutral "Not assessed" states, explicit non-clinical disclosure, emergency guard warning, and live session research metrics (answered questions, confirmed symptoms, additional descriptions, model status, and safety guard indicator).
+  - Bounded desktop layout to a balanced two-column workspace (~68% conversational timeline / ~32% assessment panel) with responsive collapse on tablet and mobile viewports (<1000px).
+  - Maintained zero patient data leakage, strict emergency statement escalation (`112 in India`), and full isolation from clinical ADR reporting.
+
 - Compact ADR finalization panel with Material Design 3 radius, status pill, and structured checklist; standardized card padding and grid spacing rhythm across Patient and Specialist portals.
 
 - Repair current-schema PostgreSQL CI fixtures and bounded hosted account-switch verification; the real Patient/Specialist/Patient journey passes without changing application authentication. Avoid disposable Vite dependency-scan shutdown races.

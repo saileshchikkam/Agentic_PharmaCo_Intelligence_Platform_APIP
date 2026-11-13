@@ -17,7 +17,7 @@ const CaseWorkspace = React.lazy(() => import('../adr/cases/CaseWorkspace').then
 const DeveloperArchive=React.lazy(()=>import('../specialist/DeveloperArchive').then(module=>({default:module.DeveloperArchive})));
 const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
   .then((module) => ({ default: module.MedAssistPreview })));
-const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../medassist-conversation/MedAssistConversation')) : null;
+const MedAssistConversation = React.lazy(() => import('../medassist-conversation/MedAssistConversation'));
 
 export type AccessRole = 'patient' | 'specialist';
 export type PatientTask = 'medassist' | 'adr-report';
@@ -60,14 +60,14 @@ export function readPreviewRoute(): PreviewRoute {
     const id = new URLSearchParams(query).get('case');
     return { screen: 'adr-preview', ...(/^[0-9a-f-]{36}$/i.test(id ?? '') ? { caseId: id! } : {}) };
   }
-  if (path === '/preview/medassist') return { screen: 'medassist-preview' };
+  if (path === '/preview/medassist' || path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
+  if (path === '/preview/medassist-legacy') return { screen: 'medassist-preview' };
   if (path === '/reset-password') return { screen: 'sign-in', role: 'patient', resetPassword: true };
   if (path.startsWith('/forgot-password')) {
     const rolePart = path.replace(/^\/forgot-password\/?/, '');
     const validRole = roles.includes(rolePart as AccessRole) ? (rolePart as AccessRole) : 'patient';
     return { screen: 'sign-in', role: validRole, forgotPassword: true };
   }
-  if (import.meta.env.DEV && path === '/preview/medassist-conversation') return { screen: 'medassist-conversation' };
   const signup = path.startsWith('/sign-up/');
   const role = path.replace(signup ? '/sign-up/' : '/sign-in/', '');
   if (roles.includes(role as AccessRole) && (path.startsWith('/sign-in/') || signup)) {
@@ -100,7 +100,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     ? route.revision || route.history ? `/patient/adr/cases/${route.id}` : route.id ? '/patient/adr/cases' : roleDefault
     : route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
-    : route.screen === 'adr-preview' || route.screen === 'medassist-preview' ? roleDefault : '/';
+    : route.screen === 'adr-preview' || route.screen === 'medassist-preview' || route.screen === 'medassist-conversation' ? roleDefault : '/';
 
   useEffect(() => {
     if(!account.user||!account.portalReady)return;
@@ -124,7 +124,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     || (route.screen === 'adr-preview' && !!route.caseId);
   useEffect(() => {
     if (protectedRoute && account.ready && !account.user) {
-      if (route.screen === 'adr-cases' || route.screen === 'adr-preview' || route.screen === 'medassist-preview') {
+      if (route.screen === 'adr-cases' || route.screen === 'adr-preview' || route.screen === 'medassist-preview' || route.screen === 'medassist-conversation') {
         sessionStorage.setItem('apip.account.return', window.location.hash.slice(1));
       }
       navigatePreview('/sign-in/patient', { replace: true });
@@ -170,7 +170,6 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
               <p className="patient-task-note"><span className="material-symbols-outlined" aria-hidden="true">info</span> Assistant guidance is a planned preview; it does not diagnose or replace professional care.</p>
             </div>
             <M3Button variant="outlined" trailingIcon="arrow_forward" onClick={() => openTask('medassist')}>Explore MedAssist</M3Button>
-            {import.meta.env.DEV && <M3Button variant="text" onClick={() => navigatePreview('/preview/medassist-conversation')}>Try fictional adaptive conversation</M3Button>}
           </article>
           <article className="patient-task-card patient-report-card">
             <div className="patient-task-icon"><span className="material-symbols-outlined" aria-hidden="true">description</span></div>

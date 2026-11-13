@@ -27,12 +27,12 @@ test('untrusted provider extraction is schema/vocabulary constrained, never a cl
   assert.equal(languageProvider, null);
   assert.deepEqual(Object.values(futureCapabilities), ['unavailable', 'unavailable', 'unavailable']);
 });
-test('main-site route and navigation are DEV-only; developer lab retained, no account import or storage', () => {
+test('main-site route and navigation serve conversational MedAssist; developer lab retained, no account import or storage', () => {
   const access = readFileSync('src/features/access/AccessPreview.tsx', 'utf8');
   const app = readFileSync('src/App.tsx', 'utf8');
   const chat = readFileSync('src/features/medassist-conversation/MedAssistConversation.tsx', 'utf8');
-  assert.match(access, /import\.meta\.env\.DEV && path === '\/preview\/medassist-conversation'/);
-  assert.match(access, /Try the fictional MedAssist conversation/);
+  assert.match(access, /path === '\/preview\/medassist' \|\| path === '\/preview\/medassist-conversation'/);
+  assert.match(access, /Explore MedAssist/);
   assert.match(app, /#\/research\/model-a/);
   assert.doesNotMatch(chat, /localStorage|sessionStorage|useAccount|console\.|dangerouslySetInnerHTML/);
   assert.match(chat, /readNaturalResult/); assert.match(chat, /turns:/); assert.match(chat, /generation\.current/);
@@ -49,7 +49,7 @@ test('normal chat never renders the evidence collection and keeps details option
   assert.match(chat, /readNaturalResult/); assert.match(chat, /selection.question/);
   assert.match(css, /max-width: 1160px/); assert.match(css, /height: auto/);
   assert.match(css, /\.conversation-messages[^}]+overflow: visible/);
-  assert.match(css, /\.conversation-layout[^}]+grid-template-columns: minmax\(0,1fr\) 260px/);
+  assert.match(css, /\.conversation-layout[^}]+grid-template-columns: minmax\(0,\s*1fr\)\s*320px/);
   assert.match(chat, /showNavigation \|\| emergency/);
 });
 

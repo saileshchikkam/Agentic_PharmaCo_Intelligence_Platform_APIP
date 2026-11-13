@@ -1,0 +1,369 @@
+{
+  "version": "medassist-l3-english-v1",
+  "baseline": "47f509f078f27c73b2b2d9be98e98022facce166",
+  "provenance": "AI-authored fictional cases, separate from L2, after source inspection and before first execution. No external annotator or clinical labels.",
+  "scope": "Single initial description, no prior turns. Evidence sets use ID plus + (present), - (absent), ? (unknown), ! (contradiction). requiredSpan is a literal substring of some evidence quote. retain is a literal substring of an unmapped quote or unstructured detail. Expected interaction is a presentation intent. Interrupt rows define a separate fictional warning exercise, not a clinical truth label.",
+  "cases": [
+    {
+      "id": "L3-01",
+      "style": "formal",
+      "text": "I have been nauseated since breakfast.",
+      "evidence": [
+        "E_148+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "nauseated",
+      "retain": "since breakfast"
+    },
+    {
+      "id": "L3-02",
+      "style": "formal",
+      "text": "I have experienced diarrhea for two days.",
+      "evidence": [
+        "E_51+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "diarrhea",
+      "retain": "for two days"
+    },
+    {
+      "id": "L3-03",
+      "style": "formal",
+      "text": "I have chills and a sore throat.",
+      "evidence": [
+        "E_94+",
+        "E_97+"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-04",
+      "style": "everyday",
+      "text": "My nose is blocked.",
+      "evidence": [
+        "E_181+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "blocked"
+    },
+    {
+      "id": "L3-05",
+      "style": "everyday",
+      "text": "My throat is scratchy.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "scratchy"
+    },
+    {
+      "id": "L3-06",
+      "style": "slang",
+      "text": "I feel like puking.",
+      "evidence": [
+        "E_148+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "puking"
+    },
+    {
+      "id": "L3-07",
+      "style": "slang",
+      "text": "I've got the runs.",
+      "evidence": [
+        "E_51+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "the runs"
+    },
+    {
+      "id": "L3-08",
+      "style": "Indian English",
+      "text": "Since last night, motions are loose.",
+      "evidence": [
+        "E_51+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "motions are loose"
+    },
+    {
+      "id": "L3-09",
+      "style": "Indian English",
+      "text": "Throat is paining when I swallow.",
+      "evidence": [
+        "E_53+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "Throat is paining"
+    },
+    {
+      "id": "L3-10",
+      "style": "Indian English",
+      "text": "I am feeling fever only in the evening.",
+      "evidence": [
+        "E_91+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "fever"
+    },
+    {
+      "id": "L3-11",
+      "style": "broken grammar",
+      "text": "cough there since 2 days",
+      "evidence": [
+        "E_201+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "cough"
+    },
+    {
+      "id": "L3-12",
+      "style": "broken grammar",
+      "text": "No fever. Throat sore.",
+      "evidence": [
+        "E_91-",
+        "E_97+"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-13",
+      "style": "spelling",
+      "text": "I keep coffing at night.",
+      "evidence": [
+        "E_201+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "coffing"
+    },
+    {
+      "id": "L3-14",
+      "style": "spelling",
+      "text": "Sore throaat since Sunday.",
+      "evidence": [
+        "E_97+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "throaat"
+    },
+    {
+      "id": "L3-15",
+      "style": "spelling",
+      "text": "Diarhoea since yesterday.",
+      "evidence": [
+        "E_51+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "Diarhoea"
+    },
+    {
+      "id": "L3-16",
+      "style": "multiple",
+      "text": "The fictional patient has a cough, chills, and nausea.",
+      "evidence": [
+        "E_201+",
+        "E_94+",
+        "E_148+"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-17",
+      "style": "multiple",
+      "text": "I feel slightly dizzy, but my nose is stuffy too.",
+      "evidence": [
+        "E_76+",
+        "E_181+"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-18",
+      "style": "negation",
+      "text": "No cough and no fever, but I have chills.",
+      "evidence": [
+        "E_201-",
+        "E_91-",
+        "E_94+"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-19",
+      "style": "negation",
+      "text": "I have a cough but haven't had any fever.",
+      "evidence": [
+        "E_201+",
+        "E_91-"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-20",
+      "style": "negation",
+      "text": "I am free of fever today.",
+      "evidence": [
+        "E_91-"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "free of fever"
+    },
+    {
+      "id": "L3-21",
+      "style": "uncertainty",
+      "text": "Could be a fever; I haven't checked.",
+      "evidence": [
+        "E_91?"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "Could be a fever"
+    },
+    {
+      "id": "L3-22",
+      "style": "uncertainty",
+      "text": "I’m not certain I have a cough.",
+      "evidence": [
+        "E_201?"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "not certain"
+    },
+    {
+      "id": "L3-23",
+      "style": "uncertainty",
+      "text": "Possibly nausea, definitely chills.",
+      "evidence": [
+        "E_148?",
+        "E_94+"
+      ],
+      "interaction": "confirm"
+    },
+    {
+      "id": "L3-24",
+      "style": "temporal",
+      "text": "My cough cleared up but I have chills now.",
+      "evidence": [
+        "E_94+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "chills",
+      "retain": "cough cleared up"
+    },
+    {
+      "id": "L3-25",
+      "style": "temporal",
+      "text": "I used to get nausea. Now my nose is stuffy.",
+      "evidence": [
+        "E_181+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "stuffy",
+      "retain": "used to get nausea"
+    },
+    {
+      "id": "L3-26",
+      "style": "temporal",
+      "text": "Yesterday I was feverish. Today I feel fine.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "Yesterday I was feverish"
+    },
+    {
+      "id": "L3-27",
+      "style": "contradiction",
+      "text": "I have a sore throat. Actually, no sore throat.",
+      "evidence": [
+        "E_97!"
+      ],
+      "interaction": "review_conflict"
+    },
+    {
+      "id": "L3-28",
+      "style": "contradiction",
+      "text": "I have chills. Scratch that, I don't.",
+      "evidence": [
+        "E_94!"
+      ],
+      "interaction": "review_conflict"
+    },
+    {
+      "id": "L3-29",
+      "style": "ambiguity",
+      "text": "Something feels off around my head.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "Something feels off"
+    },
+    {
+      "id": "L3-30",
+      "style": "ambiguity",
+      "text": "My nose is running.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "nose is running"
+    },
+    {
+      "id": "L3-31",
+      "style": "unsupported",
+      "text": "I've vomited three times and feel nauseated.",
+      "evidence": [
+        "E_148+"
+      ],
+      "interaction": "confirm",
+      "requiredSpan": "nauseated",
+      "retain": "vomited three times"
+    },
+    {
+      "id": "L3-32",
+      "style": "unsupported",
+      "text": "The room is spinning when I stand.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "room is spinning"
+    },
+    {
+      "id": "L3-33",
+      "style": "context",
+      "text": "My father has a cough, not me.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "father has a cough"
+    },
+    {
+      "id": "L3-34",
+      "style": "context",
+      "text": "If I get chills and nausea, what then?",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "chills"
+    },
+    {
+      "id": "L3-35",
+      "style": "safety",
+      "text": "This is a medical emergency. I also have chills.",
+      "evidence": [],
+      "interaction": "interrupt"
+    },
+    {
+      "id": "L3-36",
+      "style": "safety",
+      "text": "I can't get any air in.",
+      "evidence": [],
+      "interaction": "interrupt"
+    },
+    {
+      "id": "L3-37",
+      "style": "safety",
+      "text": "I read the phrase “I cannot breathe” in a story.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "I cannot breathe"
+    },
+    {
+      "id": "L3-38",
+      "style": "safety",
+      "text": "I never said I need an ambulance.",
+      "evidence": [],
+      "interaction": "clarify",
+      "retain": "never said"
+    }
+  ]
+}

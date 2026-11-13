@@ -1,0 +1,198 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "77570b2f-99eb-4c41-a8c9-eed2460614a7",
+      "text": "My nose is leaking water and my throat little sore but no couugh.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My nose is leaking water",
+          "start": 0,
+          "end": 24,
+          "context": "current",
+          "evidence_id": "E_181",
+          "concept": "concept.E_181",
+          "normalized": "nasal congestion or clear runny nose",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "my throat little sore",
+          "start": 29,
+          "end": 50,
+          "context": "current",
+          "evidence_id": "E_97",
+          "concept": "concept.E_97",
+          "normalized": "sore throat",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "no couugh",
+          "start": 55,
+          "end": 64,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_181",
+        "E_97",
+        "E_201"
+      ]
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_181",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_97",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "observed_negative",
+        "value": false
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "unknown",
+        "value": null
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_181",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_97",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "status": "observed_negative",
+        "value": false
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "unknown",
+        "value": null
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [],
+  "excluded_from_current": [],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_181",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [
+      {
+        "evidence_id": "E_97",
+        "state": "confirmed",
+        "value": true
+      },
+      {
+        "evidence_id": "E_201",
+        "state": "confirmed",
+        "value": false
+      }
+    ],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_91",
+          "state": "unknown",
+          "value": null
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "My nose is leaking water and my throat little sore but no couugh.",
+    "F",
+    "Not sure",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_181",
+          "quote": "My nose is leaking water",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_97",
+          "quote": "my throat little sore",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_201",
+          "quote": "no couugh",
+          "state": "confirmed",
+          "value": false
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 1
+}

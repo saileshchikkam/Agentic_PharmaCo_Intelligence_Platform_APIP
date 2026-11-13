@@ -1,0 +1,242 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "e9c6bb21-cf6f-40b3-a488-8d5fe4fb7bff",
+      "text": "I have a cough during this shift.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have a cough during this shift",
+          "start": 0,
+          "end": 32,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "6c3c6fc7-409f-40ed-ba17-de3fdbeda1f4",
+      "text": "That cough has stopped now.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "That cough has stopped now",
+          "start": 0,
+          "end": 26,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 15,
+          "end": 22,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "not_applicable",
+      "confirmed": false
+    },
+    {
+      "request_id": "e8b8adfc-9d65-44ef-80cc-05004f2b6c7c",
+      "text": "Diarhoea and my left elbow feels weird.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "Diarhoea",
+          "start": 0,
+          "end": 8,
+          "context": "current",
+          "evidence_id": "E_51",
+          "concept": "concept.E_51",
+          "normalized": "diarrhea",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "my left elbow feels weird",
+          "start": 13,
+          "end": 38,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_51"
+      ]
+    },
+    {
+      "request_id": "840a723f-dac1-4252-8c51-9c1e4c59d60f",
+      "text": "My left elbow hurts.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "My left elbow hurts",
+          "start": 0,
+          "end": 19,
+          "context": "unsupported_or_ambiguous",
+          "evidence_id": null,
+          "concept": null,
+          "normalized": null,
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    }
+  ],
+  "question_clarifications": [],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_51",
+        "status": "observed_positive",
+        "value": true
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": null,
+  "context_updates": [
+    {
+      "request_id": "6c3c6fc7-409f-40ed-ba17-de3fdbeda1f4",
+      "text": "That cough has stopped now.",
+      "quote": "That cough has stopped now",
+      "evidence_id": "E_201",
+      "kind": "reported_resolution",
+      "status": "unresolved",
+      "accepted_affected": false,
+      "held_sources": [
+        {
+          "requestId": "e9c6bb21-cf6f-40b3-a488-8d5fe4fb7bff",
+          "proposal": {
+            "schema_version": "medassist.natural-extraction.v1",
+            "observations": [
+              {
+                "evidence_id": "E_201",
+                "quote": "I have a cough during this shift",
+                "state": "confirmed",
+                "value": true
+              }
+            ],
+            "unmapped": [],
+            "instruction_attempt": false
+          }
+        }
+      ]
+    }
+  ],
+  "excluded_from_current": [
+    "E_201"
+  ],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_51",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [],
+    "turns": [],
+    "stop": "user_stopped"
+  },
+  "unresolved_concepts": [
+    {
+      "concept": "initial:elbow hurts left",
+      "attempts": 1,
+      "reason": "unsupported",
+      "terminal": false
+    }
+  ],
+  "evidence_usage": "fictional_only_no_clinical_assessment",
+  "narratives": [
+    "I have a cough during this shift.",
+    "That cough has stopped now.",
+    "Diarhoea and my left elbow feels weird.",
+    "My left elbow hurts.",
+    "F",
+    "End this fictional interview"
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_51",
+          "quote": "Diarhoea",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [
+        {
+          "quote": "my left elbow feels weird",
+          "kind": "ambiguous"
+        }
+      ],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [
+    "my left elbow feels weird",
+    "My left elbow hurts"
+  ],
+  "unresolved_conflict": false,
+  "routine_questions_answered": 0
+}

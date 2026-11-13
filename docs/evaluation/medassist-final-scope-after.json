@@ -1,0 +1,620 @@
+[
+  {
+    "text": "I have no pain.",
+    "evidence": [
+      "53-"
+    ],
+    "validation_failed": false,
+    "unmapped": []
+  },
+  {
+    "text": "No pain apart from an aching head.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "No pain apart from an aching head",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "I have no pain except in my head.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "I have no pain except in my head",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "No pain other than in my knee.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": []
+  },
+  {
+    "text": "Apart from my painful head, nothing hurts.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "Apart from my painful head",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "nothing hurts",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "Apart from an aching back, nothing hurts.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "Apart from an aching back",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "nothing hurts",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "My head aches, but the rest of my body does not hurt.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My head aches",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "the rest of my body does not hurt",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "Only my knee hurts.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": []
+  },
+  {
+    "text": "No pain anywhere, including my head.",
+    "evidence": [
+      "53-"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "including my head",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My brother has head pain, but I do not.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My brother has head pain",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "My brother has head pain",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "I do not",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "Maybe my head hurts, I'm not sure.",
+    "evidence": [
+      "53?"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "Maybe my head hurts, I'm not sure",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "Maybe no pain except in my head.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "Maybe no pain except in my head",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "Maybe no pain except in my head",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "No pain apart from something strange.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "No pain apart from something strange",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "No pain except perhaps the head.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "No pain except perhaps the head",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "No pain except perhaps the head",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "If I had no pain except in my head, what then?",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "If I had no pain except in my head",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "If I had no pain except in my head",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "what then",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My brother has no pain apart from an aching head.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My brother has no pain apart from an aching head",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "My brother has no pain apart from an aching head",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "The note says \"No pain apart from an aching head\".",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "The note says \"No pain apart from an aching head\"",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "The note says \"No pain apart from an aching head\"",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "I had no pain apart from an aching head yesterday.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "I had no pain apart from an aching head yesterday",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "I had no pain apart from an aching head yesterday",
+        "kind": "duration"
+      }
+    ]
+  },
+  {
+    "text": "No pain apart from an aching head, but now it has stopped.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "No pain apart from an aching head",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "No pain apart from an aching head",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "now it has stopped",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "No pain apart from an aching head and I have nausea.",
+    "evidence": [
+      "148+",
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "No pain apart from an aching head",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "No pain apart from an aching head. Actually, I take that back.",
+    "evidence": [
+      "53!"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "No pain apart from an aching head",
+        "kind": "unsupported"
+      },
+      {
+        "quote": "Actually",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My daughter has fever, but I have a cough.",
+    "evidence": [
+      "201+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My daughter has fever",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My mother is coughing. I am not.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My mother is coughing",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "I am not",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My brother had pain yesterday; I have nausea now.",
+    "evidence": [
+      "148+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My brother had pain yesterday",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "My brother had pain yesterday",
+        "kind": "duration"
+      }
+    ]
+  },
+  {
+    "text": "We both feel unwell, but only I have a sore throat.",
+    "evidence": [
+      "97+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "We both feel unwell",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My child is sick, and now I feel feverish.",
+    "evidence": [
+      "91+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My child is sick",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My mother has a cough and only I have nausea.",
+    "evidence": [
+      "148+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My mother has a cough",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My mother has a cough and now she has nausea.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My mother has a cough",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "now she has nausea",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My mother says 'now I have nausea'.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My mother says 'now I have nausea'",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My child has fever and only I do not have a cough.",
+    "evidence": [
+      "201-"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My child has fever",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My brother had pain yesterday and now I may have chills.",
+    "evidence": [
+      "94?"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My brother had pain yesterday",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "My brother had pain yesterday",
+        "kind": "duration"
+      }
+    ]
+  },
+  {
+    "text": "My brother has pain and his head hurts.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My brother has pain",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "his head hurts",
+        "kind": "ambiguous"
+      },
+      {
+        "quote": "his head hurts",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "HA since supper.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "HA since supper",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "HA means headache; I have a headache now.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": []
+  },
+  {
+    "text": "The HA software is running.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "The HA software is running",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My head feels strange.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My head feels strange",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My stomach is acting weird.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "My stomach is acting weird",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "I feel funny while walking.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "I feel funny while walking",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "Not able to describe it properly.",
+    "evidence": [],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "Not able to describe it properly",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "The pain comes and goes.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "goes",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "My tummy hurts.",
+    "evidence": [
+      "53+"
+    ],
+    "validation_failed": false,
+    "unmapped": []
+  },
+  {
+    "text": "No cough or nausea, but I have chills.",
+    "evidence": [
+      "148-",
+      "201-",
+      "94+"
+    ],
+    "validation_failed": false,
+    "unmapped": []
+  },
+  {
+    "text": "Cough and chills, both now.",
+    "evidence": [
+      "201+",
+      "94+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "both now",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "I have a cough, definitely happening.",
+    "evidence": [
+      "201+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "definitely happening",
+        "kind": "unsupported"
+      }
+    ]
+  },
+  {
+    "text": "I have a cough, and an odd elbow sensation.",
+    "evidence": [
+      "201+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "an odd elbow sensation",
+        "kind": "ambiguous"
+      }
+    ]
+  },
+  {
+    "text": "I have a cough and something I cannot describe.",
+    "evidence": [
+      "201+"
+    ],
+    "validation_failed": false,
+    "unmapped": [
+      {
+        "quote": "something I cannot describe",
+        "kind": "ambiguous"
+      }
+    ]
+  }
+]
