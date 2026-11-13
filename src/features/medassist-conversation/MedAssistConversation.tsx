@@ -489,7 +489,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           <h1 id="medassist-conversation-title" tabIndex={-1}>MedAssist AI</h1>
           <div className="conversation-badges" aria-label="System status">
             <span className="conversation-badge conversation-badge-mode">
-              {scripted ? 'Scripted research demo' : vocabulary ? 'Model A research connected' : 'Model A research unavailable'}
+              {scripted ? 'Scripted research demo' : vocabulary ? 'Model A runtime verified' : 'Model A runtime offline'}
             </span>
             <span className="conversation-badge conversation-badge-urgency">Urgency not assessed</span>
           </div>
@@ -502,15 +502,15 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
       </div>
     </header>
     <aside className="conversation-notice" aria-label="Fictional demo limitations">
-      {scripted && <p className="conversation-notice-text"><strong>Fictional scripted research demo — Model A inference is not running.</strong> Try describing a fictional cough, headache, or nausea.</p>}
+      {scripted && <p className="conversation-notice-text"><strong>Fictional scripted research demo — Model A inference is not running.</strong> Supported structured symptoms: cough, fever, sore throat, nasal congestion, chills, general pain, nausea, diarrhea, dizziness.</p>}
       <div className="conversation-actions">
         <M3Button variant="text" onClick={switchMode}>{scripted ? 'Switch to Model A research' : 'Switch to scripted demo'}</M3Button>
         <span className="conversation-mode-hint">Switching modes starts a new session.</span>
       </div>
       <details><summary>Demo scope and privacy</summary>
-        <p>Fictional research only, not a medical service. Bounded 9-field symptom scope (cough, fever, sore throat, runny nose, shortness of breath, headache, nausea, chest pain, fatigue). Explicit confirmation is required before any symptom is recorded.</p>
-        <p>Additional descriptions not matching the bounded scope are retained separately as unmapped descriptions in the patient’s own words. {scripted ? 'Scripted symptom mapping and question selection run entirely in this browser without contacting a model or external provider.' : localLanguage?.provider === 'groq-cloud' ? 'Uncovered free-text descriptions or replies may share fictional text and relevant earlier fictional context with Groq through the backend. Supported deterministic expressions do not require a cloud call.' : localLanguage ? 'Experimental local extraction is configured.' : 'Only supported deterministic wording can be interpreted when the question service is ready.'}</p>
-        <p>Questions organize information, not diagnoses or severity. Model A adaptive research is {scripted ? 'simulated in this demo' : vocabulary ? 'connected' : 'offline'}. Model B urgency classification is not available, trained, or clinically authorized. English emergency rules are provisional; no match means no assessment. State stays in page memory; refreshing safely clears this fictional session rather than replaying a pending request. No account or patient information is imported.</p>
+        <p>Fictional research preview only, not a medical service. Bounded 9-field symptom ontology scope: 1. Cough, 2. Fever, 3. Sore throat, 4. Nasal congestion, 5. Chills, 6. General pain, 7. Nausea, 8. Diarrhea, and 9. Dizziness. Explicit user confirmation is strictly required before any symptom enters confirmed structured evidence.</p>
+        <p>Descriptions outside this 9-field ontology (such as chest pain, shortness of breath, headache, or fatigue) are not confirmed structured fields; they are retained separately as unmapped descriptions in the patient’s own words. Provisional emergency warnings remain active for severe statements. {scripted ? 'Scripted symptom mapping and question selection run entirely in this browser without contacting a model or external provider.' : localLanguage?.provider === 'groq-cloud' ? 'Uncovered free-text descriptions or replies may share fictional text and relevant earlier fictional context with Groq through the backend. Supported deterministic expressions do not require a cloud call.' : localLanguage ? 'Experimental local extraction is configured.' : 'Only supported deterministic wording can be interpreted when the question service is ready.'}</p>
+        <p>Questions organize information, not diagnoses or severity. Model A adaptive research is {scripted ? 'simulated in this browser session' : vocabulary ? 'connected and runtime verified' : 'offline'}. Model B urgency classification is not trained, implemented, or clinically authorized. English emergency rules are provisional; no match means no assessment. State stays in page memory; refreshing safely clears this fictional session rather than replaying a pending request. No account or patient identity information is imported.</p>
         <a href="#/research/model-a">Developer research lab</a>
       </details>
     </aside>
@@ -623,7 +623,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                 </li>
               ))}
             </ul>
-            <p className="assessment-disclaimer">No category is selected. Future assessed levels require independent clinical validation and regulatory authorization.</p>
+            <p className="assessment-disclaimer">All four categories remain unassessed. No individual patient severity or urgency level is determined or implied. Future assessed tiers require independent clinical validation and regulatory authorization.</p>
             {emergency && (
               <div className="assessment-warning" role="alert">
                 <p><strong>Emergency statement guard triggered.</strong></p>
@@ -650,8 +650,8 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                   <dd>{openMentions.length}</dd>
                 </div>
                 <div className="assessment-metric">
-                  <dt>Model A Status</dt>
-                  <dd>{scripted ? 'Unavailable (Simulated)' : vocabulary ? 'Connected' : 'Offline'}</dd>
+                  <dt>Model A Runtime</dt>
+                  <dd>{scripted ? 'Simulated in-browser (Client-side)' : vocabulary ? 'Verified connected (/api/research/model-a)' : readinessError ? 'Offline (Unreachable)' : 'Checking runtime availability…'}</dd>
                 </div>
                 <div className="assessment-metric">
                   <dt>Safety Guard</dt>

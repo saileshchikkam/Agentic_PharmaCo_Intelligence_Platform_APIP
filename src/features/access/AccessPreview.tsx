@@ -105,7 +105,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   useEffect(() => {
     if(!account.user||!account.portalReady)return;
     if(account.portal==='patient'&&route.screen==='specialist')navigatePreview('/patient/home',{replace:true});
-    if(account.portal==='specialist'&&route.screen==='patient-home')navigatePreview('/specialist/home',{replace:true});
+    if(account.portal==='specialist'&&(route.screen==='patient-home'||route.screen==='medassist-conversation'||route.screen==='medassist-preview'||route.screen==='adr-cases'))navigatePreview('/specialist/home',{replace:true});
   },[account.user?.id,account.portal,account.portalReady,route.screen,route.screen==='specialist'?route.view:undefined]);
   useEffect(() => {
     if (route.screen === 'specialist' && (route.view === 'home' || route.view === 'reviews' || route.admin)) {
@@ -120,7 +120,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : route.screen === 'medassist-conversation' ? 'medassist-conversation-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
 
-  const protectedRoute = isPatientHome || route.screen === 'medassist-preview' || route.screen === 'adr-cases' || route.screen==='developer-archive'
+  const protectedRoute = isPatientHome || route.screen === 'medassist-conversation' || route.screen === 'medassist-preview' || route.screen === 'adr-cases' || route.screen==='developer-archive'
     || (route.screen === 'adr-preview' && !!route.caseId);
   useEffect(() => {
     if (protectedRoute && account.ready && !account.user) {
