@@ -15,8 +15,6 @@ const errors: Record<string, string> = {
 export function LiveFormPreview({ c, owner, historical = false }: { c: GuidedCase; owner: string; historical?: boolean }) {
   const [open, setOpen] = useState(false);
   return <aside className="adr-live-form" aria-label="Original PvPI form preview">
-    <h2>Original PvPI form</h2>
-    <p>Version 1.4 · saved revision {c.revision}. Confirmed details only.</p>
     <div className="adr-preview-toggle">
       <M3Button variant="outlined" onClick={() => setOpen(!open)}>{open ? 'Hide form preview' : 'Show form preview'}</M3Button>
     </div>
@@ -29,6 +27,7 @@ export function LiveFormPreview({ c, owner, historical = false }: { c: GuidedCas
 function RevisionPreview({ id, revision, owner, open, historical }: { id: string; revision: number; owner: string; open: boolean; historical: boolean }) {
   const [result, setResult] = useState<{ url: string } | { error: string } | null>(null);
   const [retry, setRetry] = useState(0);
+  const [zoom,setZoom]=useState(1);
   useEffect(() => {
     const wide = matchMedia('(min-width: 1000px)');
     let dispose = () => {};
@@ -73,13 +72,18 @@ function RevisionPreview({ id, revision, owner, open, historical }: { id: string
   if (!result) return <p role="status">Preparing the saved form preview…</p>;
   if ('error' in result) return <><p role="status">{result.error}</p><M3Button variant="text" onClick={() => setRetry(retry + 1)}>Retry preview</M3Button></>;
   return <>
-    <a className="adr-download" href={result.url} download={`APIP-PvPI-${id}-r${revision}.pdf`}>Download PDF · revision {revision}</a>
-    <a href={result.url} target="_blank" rel="noopener">Open form preview in a separate viewer</a>
-    <FormPage url={result.url} />
+    <div className="adr-pdf-scroll" tabIndex={0} aria-label="Original PvPI document, scroll to see all pages">
+      <div style={{width:`${zoom*100}%`}}><FormPage url={result.url} allPages /></div>
+    </div>
+    <div className="adr-pdf-footer">
+      <div className="adr-pdf-zoom" aria-label="PDF zoom"><M3Button variant="text" disabled={zoom<=1} onClick={()=>setZoom(Math.max(1,zoom-.25))}>Zoom out</M3Button><M3Button variant="text" disabled={zoom>=2} onClick={()=>setZoom(Math.min(2,zoom+.25))}>Zoom in</M3Button></div>
+      <a className="adr-download" href={result.url} download={`APIP-PvPI-${id}-r${revision}.pdf`}>Download PDF · revision {revision}</a>
+    </div>
   </>;
 }
 
-export function FormPage({ url }: { url: string }) {
+export function FormPage({ url, allPages=false, pageNumber=1 }: { url: string; allPages?: boolean; pageNumber?: number }) {
+  const [pages,setPages]=useState(1);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [state, setState] = useState<'loading' | 'ready' | 'failed'>('loading');
   useEffect(() => {
@@ -98,7 +102,9 @@ export function FormPage({ url }: { url: string }) {
         pdf.GlobalWorkerOptions.workerSrc = workerUrl || new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
         const loading = pdf.getDocument({ url, isEvalSupported: false });
         destroy = () => { void loading.destroy().catch(() => {}); };
-        const page = await (await loading.promise).getPage(1);
+        const document=await loading.promise;
+        if(allPages&&!disposed)setPages(document.numPages);
+        const page = await document.getPage(pageNumber);
         if (disposed || !canvas.current) return;
         const viewport = page.getViewport({ scale: 1.5 });
         const target = canvas.current;
@@ -115,10 +121,11 @@ export function FormPage({ url }: { url: string }) {
     }
     void draw();
     return () => { disposed = true; cancel?.(); destroy?.(); };
-  }, [url]);
+  }, [url,allPages,pageNumber]);
   return <>
     {state === 'loading' && <p role="status">Rendering the first page…</p>}
     {state === 'failed' && <p role="status">The page could not be rendered here. Open the full form in a separate viewer.</p>}
-    <canvas style={{width:"100%",maxWidth:"100%",height:"auto"}} ref={canvas} hidden={state !== 'ready'} role="img" aria-label="Live preview of the original PvPI form, page 1" />
+    <canvas style={{width:"100%",maxWidth:"100%",height:"auto"}} ref={canvas} hidden={state !== 'ready'} role="img" aria-label={`Live preview of the original PvPI form, page ${pageNumber}`} />
+    {allPages&&Array.from({length:pages-1},(_,i)=><FormPage key={i+2} url={url} pageNumber={i+2}/>)}
   </>;
 }
