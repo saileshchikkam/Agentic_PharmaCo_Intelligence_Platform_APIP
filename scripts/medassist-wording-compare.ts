@@ -1,0 +1,22 @@
+/** Summarize known-case comparisons without changing frozen evaluators/expectations. */
+import { readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
+const root=new URL('../docs/evaluation/',import.meta.url);
+const read=(name:string)=>JSON.parse(readFileSync(new URL(name,root),'utf8'));
+const hashes={l3:'0c8999b4d8d34433d7e9721d33d8e3c5dd28af3a53a08e679cae317854c9fa44',l5:'08519525e96b0d3f7c2772a3e5f967f23446c42e46a9a2f8a06f599739282c5c',l7:'d107ff88fb601c1ac5581db8817a9fdc489b012387172c7e81e842f6606dc3b8'};
+for(const [key,hash] of Object.entries(hashes))assert.equal(createHash('sha256').update(readFileSync(new URL('medassist-'+key+'-english-v1.json',root),'utf8').replaceAll('\r\n','\n')).digest('hex'),hash);
+const before=read('medassist-post-l7-l7-comparison.json'),after=read('medassist-wording-l7-comparison.json'),l5=read('medassist-wording-l5-comparison.json');
+const l3Output=readFileSync(new URL('../node_modules/.apip-tools/wording-l3.txt',import.meta.url),'utf8');
+assert.match(l3Output,/language: 34\/34 full matches/);assert.match(l3Output,/safety: 1\/4 full matches/);
+after.execution.implementationModified=true;
+after.comparison={kind:'known_case_development_comparison',implementationStart:'aaaa1538c25d65a48600c23ef774b58b11673a79',note:'Frozen evaluators and expectations unchanged. Exposed development data, not independent accuracy.'};
+writeFileSync(new URL('medassist-wording-l7-comparison.json',root),JSON.stringify(after,null,2)+'\n');
+const byId=new Map(before.rows.map((r:any)=>[r.id,r]));
+const recovered=after.rows.filter((r:any)=>!r.issues.length&&(byId.get(r.id) as any).issues.length).map((r:any)=>r.id);
+const regressions=after.rows.filter((r:any)=>r.issues.length&&!(byId.get(r.id) as any).issues.length).map((r:any)=>r.id);
+const missing=after.rows.flatMap((r:any)=>r.issues.filter((s:string)=>s.startsWith('missing E_')).map((s:string)=>({id:r.id,issue:s})));
+const remaining=after.rows.filter((r:any)=>r.issues.length).map((r:any)=>({id:r.id,input:r.input,issues:r.issues}));
+const summary={kind:'KNOWN-CASE DEVELOPMENT COMPARISONS',hashes,l3:{fullMatches:34,total:34,warning:1,warningTotal:4,source:'medassist-l3-evaluate.ts stdout, reproduced this task'},l5:{before:79,after:l5.fullMatches,total:80},l7:{before:before.metrics,after:after.metrics,recovered,regressions,missing,remaining},warnings:after.warnings};
+writeFileSync(new URL('medassist-wording-comparison-summary.json',root),JSON.stringify(summary,null,2)+'\n');
+console.log(JSON.stringify({recovered,regressions,missing,full:after.metrics.fullCases,l5:l5.fullMatches}));

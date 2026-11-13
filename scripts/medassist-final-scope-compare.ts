@@ -1,0 +1,18 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+const root=new URL('../docs/evaluation/',import.meta.url);
+const read=(s:string)=>JSON.parse(readFileSync(new URL(s,root),'utf8'));
+const before=read('medassist-wording-l7-comparison.json'),after=read('medassist-final-scope-l7-comparison.json');
+const hashes={l3:'0c8999b4d8d34433d7e9721d33d8e3c5dd28af3a53a08e679cae317854c9fa44',l5:'08519525e96b0d3f7c2772a3e5f967f23446c42e46a9a2f8a06f599739282c5c',l7:'d107ff88fb601c1ac5581db8817a9fdc489b012387172c7e81e842f6606dc3b8'};
+for(const [k,h] of Object.entries(hashes))assert.equal(createHash('sha256').update(readFileSync(new URL('medassist-'+k+'-english-v1.json',root),'utf8').replaceAll('\r\n','\n')).digest('hex'),h);
+assert.match(readFileSync(new URL('../node_modules/.apip-tools/final-scope-l3-final.txt',import.meta.url),'utf8'),/language: 34\/34 full matches/);
+after.execution.implementationModified=true;
+after.comparison={kind:'KNOWN-CASE DEVELOPMENT COMPARISON',implementationStart:'0d78aa79508660d0ae16692da6ebf77580f55b36',note:'Frozen expectations/evaluator unchanged; repeated exposed cases are not fresh accuracy.'};
+writeFileSync(new URL('medassist-final-scope-l7-comparison.json',root),JSON.stringify(after,null,2)+'\n');
+const byId=new Map(before.rows.map((r:any)=>[r.id,r]));
+const recovered=after.rows.filter((r:any)=>!r.issues.length&&(byId.get(r.id) as any).issues.length).map((r:any)=>r.id);
+const regressions=after.rows.filter((r:any)=>r.issues.length&&!(byId.get(r.id) as any).issues.length).map((r:any)=>r.id);
+const summary={kind:'KNOWN-CASE DEVELOPMENT COMPARISONS',hashes,originalFull:{l3:'16/34',l5:'40/80',l7:'61/110'},preTaskFull:{l3:'34/34',l5:'79/80',l7:'87/110'},postTaskFull:{l3:'34/34',l5:read('medassist-final-scope-l5-comparison.json').fullMatches+'/80',l7:after.metrics.fullCases.numerator+'/110'},before:before.metrics,after:after.metrics,recovered,regressions,evidenceExact:after.rows.filter((r:any)=>r.evidenceExact).length,remaining:after.rows.filter((r:any)=>r.issues.length).map((r:any)=>({id:r.id,input:r.input,evidence:r.evidence,observed:r.observed,issues:r.issues})),warnings:after.warnings};
+writeFileSync(new URL('medassist-final-scope-comparison-summary.json',root),JSON.stringify(summary,null,2)+'\n');
+console.log(JSON.stringify({full:summary.postTaskFull,recovered,regressions,metrics:after.metrics,remaining:summary.remaining.map((r:any)=>({id:r.id,issues:r.issues}))}));

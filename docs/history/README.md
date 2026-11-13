@@ -8,6 +8,10 @@ Use actual dated entries to preserve the project's journey without a fixed-durat
 
 ## Entries
 
+- [2026-11-08](2026-11-08.md): post-L7 context repair, bounded wording work and Prompt 1 final scoped remediation; verified known browser journeys and exports, with fresh evaluation still pending.
+
+- [2026-11-07](2026-11-07.md): post-L6 bounded coverage and L7 fresh frozen evaluation, including semantic failures, browser evidence and unchanged implementation.
+
 - [2026-10-18](2026-10-18.md): English-only account/profile foundation, local PostgreSQL ownership tests, connected SQLite authentication/storage, and deferred cloud provisioning.
 
 - [2026-10-17](2026-10-17.md): model-access research, the earlier fictional ADR draft slice, the developer-reference/palette correction, and the rough welcome/sign-in UI.

@@ -1,0 +1,390 @@
+{
+  "kind": "KNOWN-CASE DEVELOPMENT COMPARISONS",
+  "hashes": {
+    "l3": "0c8999b4d8d34433d7e9721d33d8e3c5dd28af3a53a08e679cae317854c9fa44",
+    "l5": "08519525e96b0d3f7c2772a3e5f967f23446c42e46a9a2f8a06f599739282c5c",
+    "l7": "d107ff88fb601c1ac5581db8817a9fdc489b012387172c7e81e842f6606dc3b8"
+  },
+  "l3": {
+    "fullMatches": 34,
+    "total": 34,
+    "warning": 1,
+    "warningTotal": 4,
+    "source": "medassist-l3-evaluate.ts stdout, reproduced this task"
+  },
+  "l5": {
+    "before": 79,
+    "after": 79,
+    "total": 80
+  },
+  "l7": {
+    "before": {
+      "fullCases": {
+        "numerator": 73,
+        "denominator": 110
+      },
+      "expectedIdRecall": {
+        "numerator": 88,
+        "denominator": 110
+      },
+      "expectedIdStateRecall": {
+        "numerator": 88,
+        "denominator": 110
+      },
+      "unexpectedIds": {
+        "numerator": 0,
+        "denominator": 88
+      },
+      "wrongStates": {
+        "numerator": 0,
+        "denominator": 88
+      },
+      "missingObservations": {
+        "numerator": 22,
+        "denominator": 110
+      },
+      "incorrectPositive": {
+        "numerator": 0,
+        "denominator": 45
+      },
+      "incorrectNegative": {
+        "numerator": 0,
+        "denominator": 27
+      },
+      "incorrectUnknown": {
+        "numerator": 0,
+        "denominator": 14
+      },
+      "negationEvidenceCases": {
+        "numerator": 19,
+        "denominator": 23
+      },
+      "uncertaintyEvidenceCases": {
+        "numerator": 13,
+        "denominator": 14
+      },
+      "temporalEvidenceCases": {
+        "numerator": 10,
+        "denominator": 10
+      },
+      "speakerEvidenceCases": {
+        "numerator": 10,
+        "denominator": 10
+      },
+      "appropriateAbstention": {
+        "numerator": 26,
+        "denominator": 26
+      },
+      "clarificationIntent": {
+        "numerator": 83,
+        "denominator": 110
+      },
+      "confirmationIntent": {
+        "numerator": 92,
+        "denominator": 110
+      },
+      "evidenceProvenance": {
+        "numerator": 88,
+        "denominator": 88
+      },
+      "annotationOffsets": {
+        "numerator": 182,
+        "denominator": 182
+      }
+    },
+    "after": {
+      "fullCases": {
+        "numerator": 87,
+        "denominator": 110
+      },
+      "expectedIdRecall": {
+        "numerator": 108,
+        "denominator": 110
+      },
+      "expectedIdStateRecall": {
+        "numerator": 108,
+        "denominator": 110
+      },
+      "unexpectedIds": {
+        "numerator": 0,
+        "denominator": 108
+      },
+      "wrongStates": {
+        "numerator": 0,
+        "denominator": 108
+      },
+      "missingObservations": {
+        "numerator": 2,
+        "denominator": 110
+      },
+      "incorrectPositive": {
+        "numerator": 0,
+        "denominator": 62
+      },
+      "incorrectNegative": {
+        "numerator": 0,
+        "denominator": 29
+      },
+      "incorrectUnknown": {
+        "numerator": 0,
+        "denominator": 15
+      },
+      "negationEvidenceCases": {
+        "numerator": 23,
+        "denominator": 23
+      },
+      "uncertaintyEvidenceCases": {
+        "numerator": 14,
+        "denominator": 14
+      },
+      "temporalEvidenceCases": {
+        "numerator": 10,
+        "denominator": 10
+      },
+      "speakerEvidenceCases": {
+        "numerator": 10,
+        "denominator": 10
+      },
+      "appropriateAbstention": {
+        "numerator": 26,
+        "denominator": 26
+      },
+      "clarificationIntent": {
+        "numerator": 96,
+        "denominator": 110
+      },
+      "confirmationIntent": {
+        "numerator": 109,
+        "denominator": 110
+      },
+      "evidenceProvenance": {
+        "numerator": 108,
+        "denominator": 108
+      },
+      "annotationOffsets": {
+        "numerator": 182,
+        "denominator": 182
+      }
+    },
+    "recovered": [
+      "L7-014",
+      "L7-015",
+      "L7-016",
+      "L7-017",
+      "L7-027",
+      "L7-041",
+      "L7-042",
+      "L7-043",
+      "L7-044",
+      "L7-046",
+      "L7-047",
+      "L7-048",
+      "L7-049",
+      "L7-050"
+    ],
+    "regressions": [],
+    "missing": [
+      {
+        "id": "L7-036",
+        "issue": "missing E_53 present"
+      },
+      {
+        "id": "L7-068",
+        "issue": "missing E_53 present"
+      }
+    ],
+    "remaining": [
+      {
+        "id": "L7-012",
+        "input": "My tummy hurts while I'm sitting here.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-013",
+        "input": "I feel ready to puke, though nothing has come up.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-018",
+        "input": "I feel sick, but I can't tell what kind of sick.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-019",
+        "input": "My head feels heavy, not painful.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-021",
+        "input": "Cough is coming again and again today only.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-023",
+        "input": "For me nose getting blocked now, yaar.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-025",
+        "input": "Vomiting sensation coming, no actual vomit.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-030",
+        "input": "Stomach gas problem only, cannot explain more.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-031",
+        "input": "cough / chills / sore throat, all now",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-036",
+        "input": "HA since tea; sore throat too",
+        "issues": [
+          "missing E_53 present",
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-045",
+        "input": "Diarrhoe today, definitely happening.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-055",
+        "input": "I have a headache but no cough or nausea.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-068",
+        "input": "Apart from my painful head, nothing hurts.",
+        "issues": [
+          "missing E_53 present",
+          "clarification intent",
+          "abstain intent",
+          "confirmation intent"
+        ]
+      },
+      {
+        "id": "L7-069",
+        "input": "There is pain nowhere except in my stomach.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-077",
+        "input": "Sore throat or just a dry mouth; I can't tell.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-079",
+        "input": "Either chills or fever, I cannot distinguish.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-084",
+        "input": "My nose was blocked an hour ago, but it is clear now.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-086",
+        "input": "Suppose nausea started, would that be relevant?",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-088",
+        "input": "A cough began earlier and remains present right now.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-097",
+        "input": "We both have a cough, including me.",
+        "issues": [
+          "clarification intent"
+        ]
+      },
+      {
+        "id": "L7-099",
+        "input": "A stranger wrote, 'I have fever and chills'.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-106",
+        "input": "I feel off-colour and washed out.",
+        "issues": [
+          "missing retained wording"
+        ]
+      },
+      {
+        "id": "L7-109",
+        "input": "My nose has green mucus, no other detail.",
+        "issues": [
+          "missing retained wording"
+        ]
+      }
+    ]
+  },
+  "warnings": [
+    {
+      "id": "W1",
+      "input": "This is a medical emergency.",
+      "expected": "interrupt",
+      "observed": "interrupt"
+    },
+    {
+      "id": "W2",
+      "input": "Air won't go into my lungs at all.",
+      "expected": "interrupt",
+      "observed": "ordinary"
+    },
+    {
+      "id": "W3",
+      "input": "The narrator wrote, “I can't breathe.”",
+      "expected": "ordinary",
+      "observed": "interrupt"
+    },
+    {
+      "id": "W4",
+      "input": "I didn't ask you to call an ambulance.",
+      "expected": "ordinary",
+      "observed": "interrupt"
+    }
+  ]
+}

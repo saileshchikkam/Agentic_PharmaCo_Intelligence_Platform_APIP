@@ -1,5 +1,78 @@
 # Changelog
 
+## 2026-11-12
+
+### MedAssist — natural symptom understanding improvements, v2 evaluation suite, and Stage 6 recovery runner
+
+- Hardened deterministic NLP ingress with expanded allowlisted whole-token spellings, Indian English colloquial descriptors, and priority diffuse muscle pain handling (`E_144` vs `E_53`).
+- Added concept-bounded sub-clause lookahead splitting across contrastive boundaries (`without`, `except`, `only`, `yes|no`), typo-tolerant uncertainty cues, bare-noun third-person attribution, contrastive pain exception handling, and self-contradiction retention.
+- Added phonetic and colloquial variants for breathing emergencies and ambulance calls to provisional safety rules.
+- Authored and cryptographically sealed 240-case evaluation suite v2 (`suite.json` with SHA-256 seal `18c05418...`), achieving 240/240 (100.00%) accuracy with 0 critical negation inversions, 0 other-person leakage, 0 unconfirmed Model A leakage, and 0 missed emergency cases.
+- Added Stage 6 recovery runner `resume_stage6_only` in `models/medassist_v2/campaign_runner.py` for resumption from verified Stage 5 artifacts without refitting models or opening locked-test records.
+- Verified 5/5 understanding tests, 36/36 language variation tests, 6/6 safety tests, 8/8 campaign runner tests, 10/10 loader tests, and `tsc --noEmit` cleanly.
+
+## 2026-11-10
+
+### MedAssist — accelerated Model A Prompts 3 and 4 recovery audit and verification
+
+- Completed exhaustive audit of Model A Task 4B sealed artifacts, protocol manifests, host storage, and Python runtime dependencies.
+- Recorded exact blockers: physical model binaries (`model-1e-05.pkl`, `pre-test-seal.json`) are absent from local host storage (historically on external media), and host runtime (Python 3.14 / scikit-learn 1.7.2) does not match the pinned protocol environment (Python 3.12.2 / scikit-learn 1.9.1).
+- Preserved strict fail-closed boundary: no mock ranker or fabricated weights substituted; research proxy continues to return `RESEARCH_DEMO_DISABLED`.
+- Verified Stage 3 deterministic conversation, open-ended symptom mentions (`eligible_for_model_a: false`), M05/M13 safeguards, 117 Stage 3/proxy tests, 80 Python protocol tests, and live browser CDP verification across mixed symptoms, confirmation, and export.
+
+## 2026-11-08
+
+### MedAssist — Prompt 2 open-ended symptom capture
+
+- Retain unsupported scripted-language source spans as visible, source-grounded page-memory descriptions; keep them separate from confirmed nine-field evidence and Model A eligibility.
+- Add explicit session-export provenance for those records and verify the live mixed cough/ear-ringing workflow and JSON download. [Implementation limits and evidence](docs/evaluation/medassist-open-mention-integration-report.md)
+
+### MedAssist — accelerated systemic language audit
+
+- Reproduced the local scripted browser pipeline, repaired shared apostrophe-free negation handling, and added nine-field/multi-symptom/context pipeline tests.
+- Froze balanced fictional development and withheld ten-family language corpora before measurement; retained the 2 development and 7 withheld mismatches as Prompt 2 work.
+- Added an unintegrated, source-grounded open-symptom intake contract and architecture design. No Model A inference, Model B, emergency behavior, legacy ontology, clinical capability or provider integration changed.
+
+## MedAssist Prompt 1 final scoped Stage 3 remediation — 2026-11-08
+
+- Interpret clear general-pain exceptions, reduce needless discourse/anatomy clarification, retain explicit speaker switches and ask for HA expansion without choosing its meaning.
+- Preserve accepted-history/UNKNOWN and stale-evidence safeguards; 718 tests, all 20 known L7 browser journeys and 20 actual downloads verified. Known L3/L5/L7: 34/34, 80/80, 97/110. [Full scope, remaining failures and evaluation readiness](docs/evaluation/medassist-final-scope-report.md)
+
+## MedAssist post-L7 bounded English coverage — 2026-11-08
+
+- Recognize additional allowlisted spelling, grammar and colloquial symptom descriptions, clarify vague wording and exclude a software-runs collision without expanding the nine-field script.
+- Preserve stale-evidence protection and explicit confirmation; 629 checks, all 20 known L7 browser journeys and 20 actual JSON downloads verified. Known L7 improves 73→87/110, with 23 failures still reported. [Full results](docs/evaluation/medassist-wording-remediation-report.md)
+
+## MedAssist post-L7 context and evidence integrity — 2026-11-08
+
+- Hold resolved/retracted proposals out of current evidence, preserve unrelated drafts and accepted history, and require explicit pending reconciliation. Block accepted context changes without silently replacing accepted values.
+- Correct bounded negation, uncertainty, attribution and temporal scope. Verified M13, M05, five downloaded exports and 348 checks. [Results and remaining limitations](docs/evaluation/medassist-post-l7-remediation-report.md)
+
+## MedAssist Stage 3 / L7 evaluation — 2026-11-07
+
+- Independently authored/froze 110 fictional English descriptions and 20 journeys before measurement; scored 61/110 full matches and 19/20 journeys without implementation tuning. Recorded incorrect context/polarity proposals, stale pending evidence, rubric limitations and separate safety gaps. [Complete report](docs/evaluation/medassist-l7-english-report.md)
+
+## MedAssist post-L6 English coverage — 2026-11-07
+
+- Added bounded spelling and conversational phrases, scoped continuity, and useful vague/pain clarification while preserving unconfirmed evidence. Passed 290 focused tests and 15/15 browser journeys; known L5 comparison is 79/80. [Results and remaining limits](docs/evaluation/medassist-post-l6-coverage-report.md)
+
+## MedAssist Stage 3 / L6 evidence integrity — 2026-11-06
+
+- Corrected scoped language interpretation and kept pending proposals through clarification, with explicit review of conflicting drafts. [Evaluation](docs/evaluation/medassist-l6-integrity-report.md)
+
+## MedAssist Stage 3 / L4 scoped language remediation — 2026-11-06
+
+- Preserve negation, uncertainty, past and conditional scope, quotations and immediate retractions in scripted proposals. Add bounded English variants and clarification for partial evidence. [Known-case comparison](docs/evaluation/medassist-l4-english-report.md)
+
+## MedAssist scripted English robustness — 2026-11-06
+
+- Added bounded colloquial, short-form and spelling support within the existing ontology. Preserved literal onset and symptom denials, and improved contrast-clause and explicit correction handling. [Development verification](docs/history/2026-11-06.md)
+
+## Local MedAssist scripted preview — 2026-11-05
+
+- Restore interactive fictional interviews in the development conversation, with an explicit switch to the separately gated Model A research mode.
+- Keep scripted exports distinct from live research evidence. Verified confirmation, negative and unknown answers, early stop, conflict handling, and the local preview restart. [Verification](docs/history/2026-11-05.md#medassist-phase-0-follow-up--scripted-preview-and-question-service)
+
 ## ADR-1A final corrections - 2026-11-04
 
 - Fitting PvPI exports now contain the original two pages. Referenced continuations carry only excess confirmed information.

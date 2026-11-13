@@ -20,6 +20,18 @@ The [hospital requirements register](hospital-requirements.md) records the notes
 
 The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) preserves the product vision, current research-demo evidence, safety gates and delivery plan; planned clinical capabilities remain explicitly blocked pending their prerequisites.
 
+The [MedAssist progress tracker](medassist-progress.md) records the seven-stage evidence snapshot, component availability and local completion checklist. The milestone roadmap remains the planning entry point.
+
+The [Prompt 1 final scoped Stage 3 report](evaluation/medassist-final-scope-report.md) owns pain-exception/clarification/referent changes, UNKNOWN reconciliation limits, prospective expectations, known comparisons, browser exports and readiness for Prompt 2's fresh evaluation.
+
+The [accelerated systemic language audit](evaluation/medassist-accelerated-language-audit-report.md) owns the live pipeline trace, nine-field smoke evidence, frozen ten-family fictional corpora, retained failure matrix and the bounded Prompt 2 architecture. The companion [open-ended symptom intake design](architecture/medassist-open-ended-symptom-intake.md) is not yet a product/data-model integration.
+
+The [post-L7 wording remediation](evaluation/medassist-wording-remediation-report.md) classifies all 37 starting findings, documents bounded coverage/clarification, all 23 remaining known mismatches, prospective contrasts and actual browser/download evidence.
+
+The [post-L7 context/state report](evaluation/medassist-post-l7-remediation-report.md) documents M13's repair, current-versus-historical/pending export semantics, actual browser downloads and remaining known language mismatches.
+
+The [L7 fictional English evaluation](evaluation/medassist-l7-english-report.md) links its frozen corpus/checksum, complete case matrix, original measured results, browser evidence, scoring limitations and next remediation priorities. It evaluates the unchanged nine-field script, not genuine Model A or clinical accuracy.
+
 For the practical build sequence, start with the [roadmap's first working day](roadmap.md#first-working-day). The [AI implementation guide](ai-implementation.md) explains the ML training workflow, model/provider choices, English-only RAG, and agent implementation without creating another task queue.
 
 The [model catalogue](../models/README.md) records actual local inventory and diagnostic runs separately from provider candidates. The [research register](research-and-validation.md#candidate-data-and-evidence-sources) records dataset suitability, rights gaps, and the preliminary MALADE reference; a shortlist is not acquired data or an implemented integration.

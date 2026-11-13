@@ -1,0 +1,268 @@
+{
+  "schema_version": "medassist.scripted-conversation-export.v1",
+  "understanding_version": "medassist.understanding.v1",
+  "understanding_records": [
+    {
+      "request_id": "049f0a1e-be13-4089-9b16-6f7cd037a44f",
+      "text": "I have a cough and chills.",
+      "question_id": null,
+      "annotations": [
+        {
+          "quote": "I have a cough",
+          "start": 0,
+          "end": 14,
+          "context": "current",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        },
+        {
+          "quote": "chills",
+          "start": 19,
+          "end": 25,
+          "context": "current",
+          "evidence_id": "E_94",
+          "concept": "concept.E_94",
+          "normalized": "chills",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "not_applicable",
+      "confirmed": true,
+      "extraction_method": "scripted_deterministic.v1",
+      "confirmed_evidence_ids": [
+        "E_201",
+        "E_94"
+      ]
+    },
+    {
+      "request_id": "89170279-9a3f-4ecd-956b-fdd86ce86ad1",
+      "text": "I feel nauseated.",
+      "question_id": "E_181",
+      "annotations": [
+        {
+          "quote": "I feel nauseated",
+          "start": 0,
+          "end": 16,
+          "context": "current",
+          "evidence_id": "E_148",
+          "concept": "concept.E_148",
+          "normalized": "nausea",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [],
+      "compatibility": "unrelated",
+      "confirmed": false,
+      "extraction_method": "scripted_deterministic.v1"
+    },
+    {
+      "request_id": "1d8adeb0-17b7-427b-a541-d425921b2192",
+      "text": "My cough has stopped now.",
+      "question_id": "E_181",
+      "annotations": [
+        {
+          "quote": "My cough has stopped now",
+          "start": 0,
+          "end": 24,
+          "context": "historical_or_resolved",
+          "evidence_id": "E_201",
+          "concept": "concept.E_201",
+          "normalized": "cough",
+          "method": "deterministic.v1"
+        }
+      ],
+      "details": [
+        {
+          "kind": "progression",
+          "quote": "stopped",
+          "start": 13,
+          "end": 20,
+          "origin": "unstructured_user_report",
+          "structured_value_inferred": false
+        }
+      ],
+      "compatibility": "unrelated",
+      "confirmed": false
+    }
+  ],
+  "question_clarifications": [
+    {
+      "question_id": "E_181",
+      "attempts": 1
+    }
+  ],
+  "evidence": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_94",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_97",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "evidence_state_version": "medassist.evidence-state.v1",
+  "accepted_evidence_history": {
+    "schema_version": "medassist.scripted-evidence.v1",
+    "mode": "scripted_fictional",
+    "model_a_inference": false,
+    "model_b_status": "not_enabled",
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "missing_item_semantics": "unspecified_never_negative",
+    "items": [
+      {
+        "evidence_id": "E_201",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_94",
+        "status": "observed_positive",
+        "value": true
+      },
+      {
+        "evidence_id": "E_91",
+        "status": "unknown",
+        "value": null
+      },
+      {
+        "evidence_id": "E_97",
+        "status": "observed_negative",
+        "value": false
+      }
+    ]
+  },
+  "confirmed_queued_disclosures": [],
+  "pending_proposals": {
+    "sources": [
+      {
+        "requestId": "89170279-9a3f-4ecd-956b-fdd86ce86ad1",
+        "proposal": {
+          "schema_version": "medassist.natural-extraction.v1",
+          "observations": [
+            {
+              "evidence_id": "E_148",
+              "quote": "I feel nauseated",
+              "state": "confirmed",
+              "value": true
+            }
+          ],
+          "unmapped": [],
+          "instruction_attempt": false
+        }
+      }
+    ]
+  },
+  "context_updates": [
+    {
+      "request_id": "1d8adeb0-17b7-427b-a541-d425921b2192",
+      "text": "My cough has stopped now.",
+      "quote": "My cough has stopped now",
+      "evidence_id": "E_201",
+      "kind": "reported_resolution",
+      "status": "unresolved",
+      "accepted_affected": true,
+      "held_sources": []
+    }
+  ],
+  "excluded_from_current": [
+    "E_201"
+  ],
+  "conversation": {
+    "schema_version": "medassist.natural-request.v1",
+    "fictional_only": true,
+    "context": {
+      "age": 29,
+      "source_sex": "F"
+    },
+    "initial": {
+      "evidence_id": "E_201",
+      "state": "confirmed",
+      "value": true
+    },
+    "initial_disclosures": [
+      {
+        "evidence_id": "E_94",
+        "state": "confirmed",
+        "value": true
+      }
+    ],
+    "turns": [
+      {
+        "answer": {
+          "evidence_id": "E_91",
+          "state": "unknown",
+          "value": null
+        },
+        "disclosures": []
+      },
+      {
+        "answer": {
+          "evidence_id": "E_97",
+          "state": "confirmed",
+          "value": false
+        },
+        "disclosures": []
+      }
+    ],
+    "stop": "unresolved_contradiction"
+  },
+  "unresolved_concepts": [],
+  "evidence_usage": "blocked_context_update",
+  "narratives": [
+    "I have a cough and chills.",
+    "F",
+    "Not sure",
+    "No",
+    "I feel nauseated.",
+    "My cough has stopped now."
+  ],
+  "user_confirmed_proposals": [
+    {
+      "schema_version": "medassist.natural-extraction.v1",
+      "observations": [
+        {
+          "evidence_id": "E_201",
+          "quote": "I have a cough",
+          "state": "confirmed",
+          "value": true
+        },
+        {
+          "evidence_id": "E_94",
+          "quote": "chills",
+          "state": "confirmed",
+          "value": true
+        }
+      ],
+      "unmapped": [],
+      "instruction_attempt": false
+    }
+  ],
+  "unmapped": [],
+  "unresolved_conflict": true,
+  "routine_questions_answered": 2
+}

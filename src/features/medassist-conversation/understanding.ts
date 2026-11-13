@@ -9,7 +9,7 @@ export type Compatibility={status:'not_applicable'|'valid'|'ambiguous'|'unrelate
 export function reportedDetails(text:string){
   const patterns:Record<string,RegExp>={location:/\b(?:lower back|lumbar spine|head|stomach|abdomen|belly|breast|anus|(?:right|left) ankle)\b/gi,
     duration:/\b(?:for\s+(?:[a-z]+|[0-9]+)\s+(?:days?|weeks?|hours?|months?|years?))\b/gi,
-    onset:/\b(?:since yesterday(?: evening)?|since this morning|started this morning|since [a-z]+)\b/gi,
+    onset:/\b(?:(?:since|from|started)\s+(?:this\s+)?morning|since yesterday(?: evening)?|since [a-z]+)\b/gi,
     frequency:/\b(?:at night|persistent|repeated(?:ly)?|constant|always)\b/gi,
     severity_description:/\b(?:mild|moderate|severe|intense)\b/gi,progression:/\b(?:worse|better|resolved|stopped|gone|cleared up)\b/gi};
   return Object.entries(patterns).flatMap(([kind,pattern])=>[...text.matchAll(pattern)].map(m=>({kind,quote:m[0],start:m.index!,end:m.index!+m[0].length,origin:'unstructured_user_report' as const,structured_value_inferred:false as const})));
@@ -59,9 +59,32 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   if(/\b(ignore|disregard|override|system prompt|prescribe|diagnose|api key)\b/i.test(text))return{proposal:{...output,instruction_attempt:true},annotations,compatibility,complete:true};
   const clauses=reportClauses(text), allowed=new Set(vocabulary.items.map(d=>d.evidence_id));
   const evidence=new Map<string,Proposal['observations'][number][]>();
-  for(const clause of clauses) {
-    const concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote));
-    if(/\b(?:not only|either|neither)\b/i.test(clause.quote)||/\bor\b/i.test(clause.quote)&&concepts.length>1){
+  for(const [index, clause] of clauses.entries()) {
+    let concepts=languageConcepts.filter(c=>allowed.has(c.evidence_id)&&c.pattern.test(clause.quote)
+      && !(c.evidence_id==='E_51' && /\bruns\b/i.test(clause.quote) && /\b(?:program|software|bus|train|race|engine)\b/i.test(clause.quote)));
+    if (concepts.some(c => c.evidence_id === 'E_144')) {
+      concepts = concepts.filter(c => c.evidence_id !== 'E_53');
+    }
+    const previous = clauses[index - 1];
+    const retractsPrevious = /^(?:actually[,\s]+(?:i\s+(?:don['’]?t|do not|don not)(?:\s+have\s+it)?|i am not sure|no)|scratch that|i take that back|take that back)$/i.test(clause.quote);
+    const correctionMarker = previous && /^(?:actually|wait)$/i.test(previous.quote);
+    const corrected = correctionMarker && /^(?:i\s+(?:don['’]?t|do not|don not)(?:\s+have\s+it)?|i am not sure|i take that back|take that back|no)$/i.test(clause.quote)
+      ? clauses[index - 2] : retractsPrevious ? previous : undefined;
+    if (corrected?.context === 'current' && clause.context === 'current'
+      && /^[.!?,;\s]*(?:(?:actually|wait)[,\s]+)?$/i.test(text.slice(corrected.end, clause.start))) {
+      const preceding = languageConcepts.filter(c => allowed.has(c.evidence_id) && c.pattern.test(corrected.quote));
+      const claim = preceding.length === 1 && evidence.get(preceding[0].evidence_id)?.at(-1);
+      if (claim && claim.quote === corrected.quote && claim.value === true) {
+        const { evidence_id, concept_id } = preceding[0];
+        const quote = text.slice(corrected.start, clause.end);
+        evidence.set(evidence_id, [{ evidence_id, state: 'contradiction', value: null, quote }]);
+        annotations.push(annotate(text, quote, 'explicit_correction', evidence_id, concept_id, corrected.start));
+        continue;
+      }
+    }
+    const coordinatedDenial = /^(?:i (?:have|feel) )?no\b/i.test(clause.quote) || /^i deny\b/i.test(clause.quote)
+      || /^neither\b.*\bnor\b/i.test(clause.quote);
+    if(/\b(?:not only|either)\b/i.test(clause.quote)||(!coordinatedDenial&&/\b(?:or|neither)\b/i.test(clause.quote)&&concepts.length>1)){
       for(const concept of concepts)annotations.push(annotate(text,clause.quote,'unsupported_or_ambiguous',concept.evidence_id,concept.concept_id,clause.start));
       output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;
     }
@@ -69,18 +92,30 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
       annotations.push(annotate(text,clause.quote,clause.context,concept.evidence_id,concept.concept_id,clause.start));
       if(clause.correction)annotations.push(annotate(text,clause.quote,'explicit_correction',concept.evidence_id,concept.concept_id,clause.start));
       if(clause.context!=='current'){output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;}
+      if (concept.evidence_id === 'E_53' && clause.negative && /\bchest pain\b/i.test(clause.quote)) {
+        output.unmapped.push({ quote: clause.quote, kind: 'unsupported' });
+        continue;
+      }
       const normalBreathing=concept.evidence_id==='E_66'&&/\b(?:can breathe normally|breathing normally)\b/i.test(clause.quote);
       if(normalBreathing&&/\b(?:shortness of breath|difficulty breathing|breathless)\b/i.test(text)
         &&! /\bsignificant (?:shortness of breath|difficulty breathing)\b/i.test(text)){
         output.unmapped.push({quote:clause.quote,kind:'ambiguous'});continue;
       }
-      const observation={evidence_id:concept.evidence_id,quote:clause.quote,state:clause.uncertain?'unknown' as const:'confirmed' as const,value:clause.uncertain?null:normalBreathing?false:!clause.negative};
+      const quote = text.slice(clause.negationStart ?? clause.start, clause.end);
+      const observation={evidence_id:concept.evidence_id,quote,state:clause.uncertain?'unknown' as const:'confirmed' as const,value:clause.uncertain?null:normalBreathing?false:!clause.negative};
       evidence.set(concept.evidence_id,[...(evidence.get(concept.evidence_id)??[]),observation]);
     }
     if(!concepts.length){
-      const context=clause.context==='current'?'unsupported_or_ambiguous':clause.context;
+      // Literal discourse tails supply no extra symptom. Keep them as narrative,
+      // and only recognize them after a supported current claim in this sentence.
+      const discourse=clause.context==='current'&&previous?.context==='current'&&evidence.size>0
+        && !/[.!?;]/.test(text.slice(previous.end,clause.start))
+        && /^(?:(?:all|both) (?:now|today)|(?:definitely|certainly) happening(?: now)?|again(?: (?:today|now))?(?: only)?|remains? present(?: right)? now|including me|yaar|though nothing has come up|nothing hurts)$/i.test(clause.quote);
+      const context=clause.context==='current'?(discourse?'current':'unsupported_or_ambiguous'):clause.context;
       annotations.push(annotate(text,clause.quote,context,null,null,clause.start));
-      output.unmapped.push({quote:clause.quote,kind:'ambiguous'});
+      const unsupportedDenial = clause.negative && /\b(?:vomit(?:ing|ed)?|throw(?:ing)? up)\b/i.test(clause.quote)
+        || /^not my (?:throat|nose|head|stomach|back)$/i.test(clause.quote);
+      output.unmapped.push({quote:clause.quote,kind:unsupportedDenial||discourse?'unsupported':'ambiguous'});
     }
     // Keep the complete source clause as unstructured context, including anatomy/time,
     // rather than inventing encoded anatomy, dates, frequency or severity scores.
@@ -90,7 +125,19 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
   }
   for(const [id,claims] of evidence){
     const states=new Set(claims.map(c=>JSON.stringify([c.state,c.value])));
-    output.observations.push(states.size>1?{evidence_id:id,state:'contradiction',value:null,quote:text}:claims[0]);
+    if (states.size > 1) {
+      if (id === 'E_53') {
+        const positive = claims.find(c => c.value === true);
+        const negative = claims.find(c => c.value === false);
+        if (positive && negative && /\b(?:but|except|apart from|other than)\b/i.test(text)) {
+          output.observations.push(positive);
+          continue;
+        }
+      }
+      output.observations.push({evidence_id:id,state:'contradiction',value:null,quote:text});
+    } else {
+      output.observations.push(claims[0]);
+    }
   }
   if(pending){
     const parent=['E_54','E_55','E_56','E_57','E_58','E_59'].includes(pending.evidence_id)?'E_53':null;

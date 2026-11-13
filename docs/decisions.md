@@ -2,6 +2,26 @@
 
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
+## Engineering record — hybrid open-ended symptom intake boundary, 2026-11-08
+
+For the accelerated language program, retain deterministic context/polarity/source validation and explicit confirmation as the authority. A future contextual model may only propose source-grounded open symptom mentions; it may not directly create accepted legacy evidence, select Model A questions, infer diagnosis/urgency or replace a user statement. The existing nine-field research contract and frozen protocol remain unchanged. Pretrained-model selection is deferred until a fixed fictional evaluation demonstrates a material, safety-preserving improvement on the actual local runtime. [Audit and rationale](evaluation/medassist-accelerated-language-audit-report.md).
+
+## Engineering record — page-memory open symptom mentions, 2026-11-08
+
+Prompt 2 implements only a deterministic, source-grounded retention layer for spans the current scripted interpreter already leaves unmapped. Its records are append-only, `mapping: null`, `confirmation: not_applicable` and ineligible for Model A. They are displayed/exported separately from the existing nine-field confirmation/evidence state, and a similarity heuristic must not silently supersede a prior source statement. Mapping, durable storage, reconciliation and any candidate extractor require a separately authorized design and fresh evaluation. [Implementation evidence](evaluation/medassist-open-mention-integration-report.md).
+
+## Engineering record — clear exception scope and accepted-history limits, 2026-11-08
+
+Prompt 1 authorizes a bounded linguistic exception grammar shared by parser/validator, literal discourse retention without extra symptom questions, explicit speaker switches and neutral abbreviation clarification. General pain stays one existing field. Accepted UNKNOWN or other accepted answers remain immutable in the append-only interview; a later user-confirmed difference blocks use, with explicit clarified restart. An in-session accepted-value revision needs separately designed versioned reconciliation/replay and is not added here. Frozen evaluations retain their labels; one old development blanket-abstention expectation is explicitly revised for the authorized clear exception behavior. [Evidence and limits](evaluation/medassist-final-scope-report.md).
+
+## Engineering record — bounded fictional wording, 2026-11-08
+
+Match additional allowlisted words and complete supported phrases directly against original source text rather than rewriting it or selecting nearest ontology IDs. All additions pass the same semantic/context/confirmation and evidence-state contracts. Ambiguous abbreviations, pain exceptions and unsupported fatigue/sleep/colored-discharge wording retain clarification/abstention; scoring-only retention findings remain separate. Repeated L3/L5/L7 scores are known-case development comparisons. A genuinely new fixed evaluation is recommended before further implementation; no provider, ontology or safety expansion is authorized by a coverage score. [Evidence](evaluation/medassist-wording-remediation-report.md).
+
+## Engineering record — fictional context changes, 2026-11-08
+
+Implemented within the authorized post-L7 task: preserve source statements and accepted history separately from effective current evidence. A relevant newer resolution/retraction holds pending fields without inventing absence; accepted-context changes block use until clarified in a restarted session. Reconciliation of a pending field requires a fresh explicit confirmation or answer. Export consumers must honor blocked usage and field-level confirmation metadata. This is a simulated engineering contract, not a new clinical decision or research-protocol change. [Evidence and limits](evaluation/medassist-post-l7-remediation-report.md).
+
 ## DEC-001 — Mission and name
 
 **Confirmed 2026-10-16; origin described as September 2024.** APIP means Agentic Pharma Co-intelligence Platform. Easy suspected-ADR reporting is the core; technology serves the workflow. This supersedes older APP/Pharma Intelligence naming. Original mission notes lacked reliable dates; none are invented.

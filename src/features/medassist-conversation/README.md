@@ -1,5 +1,55 @@
 # MedAssist conversational research slice — L2 implementation 1
 
+## Prompt 2 open-ended symptom capture — 2026-11-08
+
+The simulated page now retains source-bound unsupported spans as **Additional descriptions** in page memory. They retain exact wording/offsets and bounded context labels, but remain `mapping: null`, `confirmation: not_applicable` and ineligible for Model A. They neither become a ninth-plus evidence field nor change the existing confirmation, UNKNOWN, M05 or M13 state contracts. The scripted download adds a separate `medassist.open-symptom-export.v1` section; it is not a Model A handoff.
+
+The deterministic layer accepts only source spans that the existing scripted interpreter already classified as unmapped. It has no persistence, mapping/reconciliation UI, provider, independent model extractor, diagnosis, severity or safety behavior. [Implementation report and browser/download evidence](../../../docs/evaluation/medassist-open-mention-integration-report.md) records five prospective checks and the fictional mixed cough/ear-ringing workflow. A new frozen contextual/open-ended evaluation is required before considering broader extraction work.
+
+## Accelerated systemic language audit — 2026-11-08
+
+The default browser route is the local **SIMULATED** scripted path: it calls `understand` in the page and has no Model A/provider dependency. The separately visible research-mode switch is correctly unavailable without its private adapter/operator opt-in. A shared context normalization now recognizes ordinary omitted-apostrophe negatives such as `dont` and `havent`; it still preserves the literal source, requires confirmation and never broadens the nine-field ontology.
+
+[The audit](../../../docs/evaluation/medassist-accelerated-language-audit-report.md) records nine-field browser/unit evidence and two frozen fictional 50-case corpora (development 48/50, withheld 43/50). It documents retained resolution, site-scope, context and grammar failures rather than treating them as coverage. [Open-ended symptom intake](../../../docs/architecture/medassist-open-ended-symptom-intake.md) now records the bounded Prompt-2 page-memory implementation; no Model A input, provider or clinical capability changed.
+
+## Prompt 1 final scoped remediation — 2026-11-08
+
+`pain-scope.ts` supplies a bounded source-literal exception grammar shared by interpretation and validation. Clear no-pain-except wording can propose existing general pain; uncertain/unsupported exceptions abstain. Explicit now-I/only-I switches preserve speaker distinctions. A bounded discourse tail after a supported current claim remains narrative without another symptom question. Already supplied tummy/headache anatomy is recognized, vague walking/description prompts improve, and HA asks for expansion without assuming a head meaning.
+
+Accepted evidence, UNKNOWN and context-update contracts below remain unchanged: a later different accepted value blocks use and requires clarified restart; pending holds can be explicitly reconciled. No accepted-history editor, new field, provider or clinical functionality is added. [Full report](../../../docs/evaluation/medassist-final-scope-report.md): 718 tests, 20/20 known browser journeys and 20 actual downloads; known L3/L5/L7 34/34, 80/80, 97/110. READY FOR EVALUATION under Prompt 2, which has not started. Thirteen L7 mismatches and all safety/runtime qualification limits remain disclosed.
+
+## Post-L7 wording and clarification — 2026-11-08
+
+Bounded whole-token spellings and grammar in `concepts.ts` now recognize additional fictional descriptions while matching the original text directly. No replacement narrative, unrestricted fuzzy matching, new ontology ID or provider runs. Shared context gates preserve polarity, uncertainty, history, attribution, quotes, retractions and resolution. Explicit “just [symptom]” can establish an independent mixed clause; software/transport runs do not establish diarrhea. Vague stomach/head/body descriptions clarify; tiredness/sleep remain outside the script. Higher-priority context notices still apply.
+
+The existing post-L7 evidence-state and confirmation/export contracts below are unchanged. [Full wording report](../../../docs/evaluation/medassist-wording-remediation-report.md): 629 tests, all 20 known L7 browser journeys, 20 actual downloads; known L7 87/110 with 23 full-case failures retained. These are development comparisons, not independent accuracy. Next evaluation must use genuinely new fixed cases without parser tuning. The preview remains SIMULATED; Model B and clinical guidance stay disabled.
+
+## Post-L7 context and evidence integrity — 2026-11-08
+
+The nine-field simulated preview now records source-bound context changes before duplicate/empty-proposal handling. Resolution does not infer absence. Implicated pending fields are held out while unrelated proposals remain confirmable. Fresh explicit confirmation or a routine explicit answer can reconcile pending holds; old held sources and stale UI callbacks cannot. Accepted evidence is retained and a newer unresolved accepted-context change blocks progression until restart.
+
+The scripted export adds `medassist.evidence-state.v1` metadata: effective evidence, accepted history snapshot, confirmed queued disclosures, pending proposals, context updates and excluded IDs. Per-source `confirmed_evidence_ids` identifies which fields were accepted in a mixed statement. The legacy confirmed Boolean does not accept every annotation. Consumers must honor `blocked_context_update` and the existing `blocked_unresolved_conflict`, and must not merge narrative/history/pending data into current evidence. Existing wrapper/ontology contracts remain unchanged.
+
+[Full verification](../../../docs/evaluation/medassist-post-l7-remediation-report.md): 348 checks, actual M13/M05 browser replay and five downloaded exports. Known L7 is 73/110 with 37 remaining mismatches; this is development evidence, not fresh independent accuracy. Model B and clinical guidance stay disabled; emergency rules are unchanged.
+
+## Post-L6 scripted English coverage — 2026-11-07
+
+The default fictional scripted preview still accepts only nine fields and requires explicit confirmation. Allowlisted spellings and complete colloquial/word-order phrases are matched against original source text; no unrestricted fuzzy substitution runs. Appended denials keep separate scope. Explicit same-sentence continuity can reactivate one unambiguous historical referent; resolution, uncertainty and multiple referents stay conservative.
+
+Vague descriptions ask for one concrete detail. Spinning sensations ask what the person means. General pain without anatomy asks where and what it feels like; the proposal remains pending. Unmapped follow-ups retain earlier proposals through the existing L6 review flow. Anatomy-only “not my throat” wording is narrative, not an inferred sore-throat denial.
+
+See the [post-L6 report](../../../docs/evaluation/medassist-post-l6-coverage-report.md) for the full 21-row analysis, 290 focused tests, 79/80 known L5 comparison and 15/15 browser replay. Pain exceptions, “from yesterday” ambiguity, broader English and warning findings remain unresolved. Genuine Model A did not run; Model B remains disabled. Historical sections below describe their recorded research modes.
+
+## Scripted English evidence handling — 2026-11-06
+
+The browser script covers nine existing symptom fields. “My head is paining badly from morning” proposes general pain and retains “from morning” as a literal onset detail. “Feeling like vomiting but not vomiting” proposes nausea and retains the denial as narrative. Generic vomiting has no matching field. A denial of chest pain also remains scoped to the original wording. Bare “giddy” and “body hot” prompt clarification before any evidence is proposed. Questions remain fixed and evidence needs explicit confirmation. See the [T01–T35 development cases](../../../scripts/medassist-language-variation.test.ts) and [verification record](../../../docs/history/2026-11-06.md).
+
+## Local scripted preview — 2026-11-05
+
+Start APIP with Node 24 using `node scripts/start-server.mjs development` and open [the MedAssist preview](http://127.0.0.1:3000/#/preview/medassist-conversation). The default **SIMULATED** mode runs in page memory, using five authored symptom fields and a fixed follow-up order. Try “I have a cough, but no fever.” Confirm the proposal and provide fictional context to start questions. The JSON download uses `medassist.scripted-conversation-export.v1` with explicit simulation provenance. It cannot be read as a Model A handoff.
+
+**Switch to Model A research** starts a separate empty session and checks the existing guarded local proxy. If the proxy or adapter is unavailable, research mode stays offline until the user retries or explicitly changes modes. See the [private Model A setup](../model-a-research/README.md) for prerequisites. The simulated interview requires no adapter, provider, credentials or private data. The conversation route is development-only, the assessment stays unassessed in scripted mode, and the existing emergency help and location-consent controls remain available.
+
 ## Current checkpoint — 2026-10-25
 
 The [consolidated status](../../../models/medassist_ai/docs/checkpoint-2026-10-25.md) and [latest understanding report](../../../models/medassist_ai/docs/symptom-understanding.md) supersede historical snapshots below. Current behavior uses document scrolling, one composer, explicit confirmation, up to eight topical Model A questions, deterministic/context-validated English proposals and bounded clarification. Export is `medassist.conversation-export.v2` with the unchanged 223-item `model-a-to-b.evidence.v1` nested inside. Provider retries are bounded and successful request replay is in process memory only. No new clinical capability is established. Provisional safety still misses the documented heart-attack and stroke declarations; Model B, personalized precautions and facility verification remain unavailable.

@@ -1,0 +1,35 @@
+{
+  "layouts": [
+    {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 375
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "scrollWidth": 805
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "scrollWidth": 1425
+    }
+  ],
+  "logs": [
+    {
+      "level": "warn",
+      "message": "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.",
+      "timestamp": "2026-11-07T06:43:11.597Z",
+      "url": "http://127.0.0.1:3000/node_modules/.vite/deps/chunk-SNKPEVA4.js?v=c0455855"
+    }
+  ],
+  "networkCapture": "Blocked: supported browser surface has no network capability and read-only evaluate does not expose performance. No claim of a complete request trace. Existing local security tests and code path establish separate inference restrictions.",
+  "manualEmergencyHelp": "Opened; ordinary composer disabled; no test call or Maps request made.",
+  "singleTurnSamples": [
+    "L7-018 clarification",
+    "L7-052 correct mixed polarity",
+    "L7-062 incorrect fever-positive",
+    "L7-071 indirect uncertainty incorrectly positive"
+  ]
+}
