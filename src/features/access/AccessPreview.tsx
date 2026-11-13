@@ -134,6 +134,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       preferencesSaved={preferencesSaved} onHelp={isPatientHome ? () => helpDialog.current?.showModal() : undefined} />
 
     <main id="access-main" tabIndex={-1} className={`access-main ${route.screen === 'medassist-conversation' ? 'access-main-conversation' : ''}`}>
+      <div id="access-back-navigation" className="access-back-row" />
       <div className="access-page-shell">
       {route.screen !== 'adr-preview' && route.screen !== 'medassist-preview' && <PageNavigation onBack={route.screen === 'home' || isSignIn ? undefined : () => goBackPreview(backFallback)} />}
       {(route.screen === 'home' || isSignIn || (protectedRoute && !account.user)) && <LandingBody signedIn={Boolean(account.user)} />}

@@ -1,6 +1,7 @@
 import { ArrowLeft, Check, CircleHelp, LogOut, Moon, Settings, Sun, X } from 'lucide-react';
 import { useAccount } from '../account/AccountProvider';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { M3Button } from '../../components/material/core';
 import type { Appearance } from '../../design-system/appearance';
 import { followPreviewLink, navigatePreview } from './navigation';
@@ -117,8 +118,10 @@ export function PreviewFooter({ children }: { children?: React.ReactNode }) {
 }
 
 export function PageNavigation({ onBack, backLabel = 'Back' }: { onBack?: () => void; backLabel?: string }) {
-  if (!onBack) return null;
-  return <nav className="access-page-navigation" aria-label="Page navigation">
+  const [host,setHost]=useState<HTMLElement|null>(null);
+  useLayoutEffect(()=>{setHost(document.getElementById('access-back-navigation'));},[]);
+  if (!onBack || !host) return null;
+  return createPortal(<nav className="access-page-navigation" aria-label="Page navigation">
     <M3Button variant="text" leadingIcon={<ArrowLeft size={18} />} ariaLabel={backLabel} onClick={onBack}>Back</M3Button>
-  </nav>;
+  </nav>,host);
 }
