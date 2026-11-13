@@ -1,6 +1,6 @@
 # Phase A2 — immutable owner finalization
 
-Status: implemented and locally verified; hosted application/activation pending exact SQL approval. No professional privileges or hosted migrations were changed.
+Status: implemented, locally verified and applied to the approved development project. Development finalization is enabled after post-deployment checks. Real authenticated Patient and Specialist own-report finalization passes. Forwarding remains BLOCKED; no personal professional or administrator privileges were granted.
 
 ## Transaction boundary
 
@@ -41,8 +41,38 @@ Send for specialist review opens the existing exact-revision disclosure/recipien
 - Direct SQL invalid-age finalization denied; browser-role function and raw writer mutation denial pass. Actual prior identity/direct/pool schema compatibility passes without rewriting sharing operations. Sharing triggers reject an unfinalized exact revision.
 - Full local unit/PostgreSQL suite: **70 passed**. PDF API suite: **11 passed**. TypeScript, build and secret scan passed. Native PDF template/data mapping are unchanged.
 - Browser: built UI plus disposable PostgreSQL/restricted writer and **explicitly mocked Auth**, PATIENT and SPECIALIST actors, 1440/375px. Confirmation, finalized heading, no Save controls and no overflow pass. Screenshots are private fixture evidence, not hosted approval.
-- The hosted backend was restarted with secure TLS and reports database/PDF/Auth ready through the single 3602 origin. Its new readiness route is installed, but no authenticated hosted readiness/finalization/forwarding PASS is claimed. Schema and activation are absent; privileged/hosted browser tests await approval and existing-account private sign-in.
+- Initial pre-approval hosted readiness succeeded, with finalization disabled. The approved deployment and actual authenticated results below supersede that initial activation blocker; forwarding remains separately blocked.
 - Fixture socket transactions serialize, so request races demonstrate conflict/idempotency correctness, not measured managed PostgreSQL concurrency capacity. English initials/date parity is checked; complex-script acceptance and rendered clinical wording remain separate validation limits.
-- Future pooled-schema activation, follow-up/addendum policy and professional review UI remain outside this phase. Hosted consent/forwarding remains unverified. Phase B has not begun.
+- Future pooled-schema activation, follow-up/addendum policy and professional review UI remain outside this phase. Hosted consent/forwarding remains unverified. No new Phase B implementation was performed.
 
 Additional real-schema fixture verification: the actual direct-sharing operation now passes explicit-consent denial, unfinalized-report denial, pending-recipient denial, finalized consented creation, identical-key replay and approved specialist report access. Approved professional state was seeded only inside disposable PostgreSQL. No hosted account was approved or restored. Finalized-list browser Download PDF actions passed for both fixture roles after including the existing historical receipt migration in that fixture.
+
+## Approved development deployment — 2026-11-13
+
+The owner approved only the SQL/checksum above. Immediately before application, the project/dependency checks found two accounts, six cases, seventeen revisions, forty-one PDF receipts, zero sharing requests and no partial finalization objects. The migration was applied once through the supported migration operation. Its actual hosted ledger version is **20261113144504**, name `adr_patient_finalization`; the recorded statement is byte-for-byte equal to the approved file. Preserve this ledger version instead of replaying the source filename timestamp.
+
+Post-application counts and complete-row fingerprints of the existing accounts, cases, revisions and PDF receipts matched the preflight. Every pre-existing policy was unchanged; four narrowly scoped policies were added. FORCE RLS, all four enabled guards, non-login/non-BYPASSRLS executor ownership, fixed empty function search paths and restricted grants were checked against the actual catalog. PUBLIC/anon/authenticated cannot execute the new functions; browser roles cannot access the new table. The writer cannot mutate finalization rows or become the executor; the executor owns no patient table and cannot create schema objects. Temporary operator membership has SET and INHERIT disabled.
+
+The actual restricted runtime writer connected with strict client-to-pooler TLS verification and denied a finalization call without a verified subject. `pg_stat_ssl` reports the separate pooler-to-database hop, so it was not used as proof of client TLS. The existing backend was restarted with `APIP_ADR_FINALIZATION_ENABLED=1`; the unified `/api/ready` returned 200 with database/PDF/Auth ready. No other migration was applied, no data reset occurred and no account privileges changed. There are zero administrator grants and zero approved specialists; forwarding has no currently approved destination. The pool remains absent and disabled.
+
+Security advisors reported no finalization-specific notice. Existing notices remain: deny-by-default RLS without a policy on identity provisioning events (INFO), and leaked-password protection disabled (WARN). Neither was changed by this approval.
+
+`scripts/adr-finalization-hosted.browser.mjs` is an explicit bounded acceptance runner for existing accounts. It creates only new fictional reports, uses browser-held sessions without logging credentials, and distinguishes hosted results from the fixture evidence above.
+
+### Real hosted acceptance
+
+Both existing synthetic accounts passed with independently verified PATIENT/SPECIALIST server roles and distinct authenticated subjects. One new fictional report was created for each account; pre-existing reports were not edited or finalized.
+
+- Incomplete finalization: **422 INCOMPLETE_REPORT**. Ready saved report: **200**, finalized through the actual Material Web confirmation dialog.
+- Stale revision: **409 REVISION_CONFLICT**. Same-command replay: **200**, identical immutable receipt. New repeat command: **409 ALREADY_FINALIZED**. Subsequent draft command: **409 REPORT_FINALIZED**.
+- Foreign case/read/finalization/historical PDF: **404**. Unknown optional weight and reaction stop date remained unknown. No professional approval was required or granted for specialist-owned reporting.
+- Reload retained the finalized read-only view, no Save controls, and the exact revision. Finalized search returned the report; resumable-draft pagination excluded it. The real list rendered View finalized report actions.
+- Chrome at **1440px and 375px**, both roles: finalized UI, visible original-form canvas and no horizontal overflow passed. Mobile screenshots show rendered original forms. The desktop full-page capture shows a preparing-preview state despite the earlier canvas assertion, so that capture alone is **not** rendered-preview evidence.
+- The actual preview blob and downloaded PDF bytes matched for each role. Both downloaded PDFs contain two original-form pages and the expected fictional initials/age; independent native rendering with form appearances enabled was visually inspected on a representative output. Template and PDF-generation code were unchanged.
+- Actual restricted-writer rollback-only tests rejected the legacy append RPC with **REPORT_FINALIZED** and denied direct finalization/audit mutation. The managed operator could not SET ROLE to the writer; no membership was granted to work around this. Verification instead used the existing runtime writer connection and rolled back every diagnostic transaction.
+
+After testing, both accounts and all original six cases, seventeen revisions and forty-one PDF receipts still matched their preflight fingerprints. Exactly two new finalizations exist; zero shares were created. Existing-account/browser windows were closed after the bounded checks; no credentials or tokens were written to evidence files.
+
+**Forwarding: BLOCKED.** The current development sharing endpoint returns **503 SHARING_NOT_ENABLED**, and the database has zero approved specialist destinations and no administrator grant. The existing flag was preserved. No pool/professional-review migration or personal privilege activation is included. A separately authorized destination/configuration is required before any real consented-forwarding PASS can be claimed.
+
+Earlier 70 unit/PostgreSQL and 11 PDF tests, TypeScript/build and fixture evidence remain applicable because no application or PDF code changed during deployment. This follow-up adds the explicit hosted runner and deployment evidence only. The prior pushed implementation's push CI passed; PR verification is independently blocked by existing merge conflicts and must not be described as green PR CI.

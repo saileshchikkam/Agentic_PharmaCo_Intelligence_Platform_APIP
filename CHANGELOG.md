@@ -594,3 +594,7 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 ## Owner finalization foundation — 2026-11-13
 
 - Added approval-gated immutable PostgreSQL ADR finalization, guarded legacy mutations, Material Web confirmation/read-only views and finalized report filtering. New sharing records must reference the exact finalized revision after deployment. No hosted SQL or professional privilege was applied.
+
+## Approved development finalization deployment — 2026-11-13
+
+- Applied the exact owner-approved finalization SQL once, verified ledger bytes/RLS/grants and preserved existing account/ADR fingerprints. Enabled only development finalization. Existing Patient and Specialist own-report browser journeys pass locking, PDFs, isolation, reload and finalized-list checks at 1440/375px. Added a bounded hosted acceptance runner. Forwarding remains blocked by disabled sharing and no independently approved specialist destination; no personal privileges or other migrations were applied.

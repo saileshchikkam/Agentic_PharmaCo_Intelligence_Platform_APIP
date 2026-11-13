@@ -271,6 +271,6 @@ The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md)
 
 [Authentication corrections and current hosted gates](adr/phase3/auth-and-hosted-closure.md): responsive UI and affected disposable regressions pass. The exact applicant capability is owner-approved; real sharing, Google and recovery acceptance remain gated. Phase 3C-C is not started.
 
-## Phase A2 owner finalization — approval pending
+## Phase A2 owner finalization — development verified, forwarding blocked
 
-Locally implemented owner-only immutable finalization with transaction locks, audit/receipt metadata, legacy command guards, read-only report views and finalized-list filtering. SQL and server activation are not enabled on hosted development. See [review and evidence](adr/phase3/phase-a2-finalization.md). Live finalization/forwarding and any Phase B work remain gated.
+Approved exact SQL is deployed on development and the server flag is enabled after catalog/security checks. Real existing Patient and Specialist accounts pass own-report finalization, immutable locking, ownership denial, PDF access, reload and finalized/draft lists at desktop/mobile sizes. Existing records are preserved. See [review and evidence](adr/phase3/phase-a2-finalization.md). Consented forwarding remains blocked by disabled sharing and no approved destination; the pool and personal privileges remain separately gated. No new Phase B implementation was performed.
