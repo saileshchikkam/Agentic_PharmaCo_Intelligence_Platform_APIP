@@ -24,8 +24,6 @@
 .specialist-dialog [slot="actions"] { padding:8px 24px 24px; margin:0; }
 .specialist-dialog md-outlined-text-field { margin-block:12px; }
 .specialist-workspace :focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:3px; }
-.access-main:has(.specialist-workspace) { padding-inline-start:max(var(--access-page-gutter),env(safe-area-inset-left)); }
-.access-main:has(.specialist-workspace)>.access-page-shell>.access-page-navigation { position:static; }
 @media(max-width:700px) {
  .specialist-fields { grid-template-columns:minmax(0,1fr); }
  .specialist-status, .specialist-profile, .specialist-notice { padding:16px; }
