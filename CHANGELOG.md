@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Repair current-schema PostgreSQL CI fixtures and bounded hosted account-switch verification; the real Patient/Specialist/Patient journey passes without changing application authentication. Avoid disposable Vite dependency-scan shutdown races.
+
 - Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
 
 - Added an approval-gated professional ADR assessment foundation with immutable private specialist notes, assignment-scoped patient-specialist messaging, audit history, and narrow server authorization. It reuses the existing pooled queue and active assignments.

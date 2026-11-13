@@ -53,7 +53,8 @@ export async function startSpecialistFixture(port=0,sharing=false){
   app.use('/api/account/adr-cases',guard,casesRouter(cases,req=>local.readUser(req),async(req,owner)=>local.readUser(req)?.id===owner));
  }
  local=registerLocalAccount(app,{file:join(dir,'fictional.sqlite'),originPort:actualPort});
- const vite=await createServer({server:{middlewareMode:true,hmr:{server},watch:{ignored:['**/docs/**','**/scripts/**','**/database/**','**/supabase/**','**/CHANGELOG.md']}},define:{
+ // This disposable API fixture must not start an asynchronous whole-app dependency crawl.
+ const vite=await createServer({optimizeDeps:{noDiscovery:true,entries:[]},server:{middlewareMode:true,hmr:{server},watch:{ignored:['**/docs/**','**/scripts/**','**/database/**','**/supabase/**','**/CHANGELOG.md']}},define:{
   'import.meta.env.VITE_APIP_IDENTITY_FIXTURE':JSON.stringify('1'),
   'import.meta.env.VITE_APIP_SHARING_FIXTURE':JSON.stringify(sharing?'1':''),
   'import.meta.env.VITE_SUPABASE_URL':JSON.stringify(''),'import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY':JSON.stringify('')}});

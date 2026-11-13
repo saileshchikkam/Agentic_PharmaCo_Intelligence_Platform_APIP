@@ -1,3 +1,4 @@
+import {installFixturePortalRoles} from './fixture-portal-roles';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -31,6 +32,7 @@ test('Phase 3B restricted PostgreSQL: migration, owner/admin gates, audit, retri
  await db.exec(identityMigration);
  await db.exec(await readFile(new URL('../supabase/migrations/20261107210206_specialist_verified_subject_boundary.sql',import.meta.url),'utf8'));
  await db.exec('reset role');
+ await installFixturePortalRoles(db,[[a,'SPECIALIST'],[b,'SPECIALIST'],[admin,'SPECIALIST']]);
  const migrationMembership=(await db.query<{set_option:boolean;inherit_option:boolean}>(`select set_option,inherit_option from pg_auth_members
    where member=(select oid from pg_roles where rolname='fixture_migrator') and roleid=(select oid from pg_roles where rolname='apip_identity_executor')`)).rows[0];
  assert.deepEqual(migrationMembership,{set_option:false,inherit_option:false});
@@ -50,12 +52,13 @@ test('Phase 3B restricted PostgreSQL: migration, owner/admin gates, audit, retri
  const profile={fullName:'Fictional Reviewer',category:categories[0],qualification:'Synthetic qualification',registration:'',jurisdiction:'Fictional',organization:'Example Institute',department:'',experience:'',specialization:''};
  const decide=(id:string,version:number,action:string,key=randomUUID())=>repo.decide(admin,id,version,{action,reason:'Fictional independent check',evidenceReference:'synthetic-reference',policyVersion:'private-fictional-3b-v1'},key);
  try{
+  assert.equal((await repo.identity(a)).accountRole,'SPECIALIST');
   const role=(await db.query<{rolcanlogin:boolean;rolsuper:boolean;rolbypassrls:boolean;rolcreaterole:boolean;rolinherit:boolean}>("select rolcanlogin,rolsuper,rolbypassrls,rolcreaterole,rolinherit from pg_roles where rolname='apip_identity_executor'")).rows[0];
   assert.deepEqual(role,{rolcanlogin:false,rolsuper:false,rolbypassrls:false,rolcreaterole:false,rolinherit:false});
   assert.equal((await db.query<{n:number}>(`select count(*)::int n from pg_auth_members where member=(select oid from pg_roles where rolname='apip_identity_executor')`)).rows[0].n,0);
   assert.equal((await db.query<{member:boolean}>("select pg_has_role('apip_adr_writer','apip_identity_executor','MEMBER') member")).rows[0].member,false);
   const tables=(await db.query<{relname:string;relrowsecurity:boolean;owner:string}>(`select c.relname,c.relrowsecurity,pg_get_userbyid(c.relowner) owner from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='apip_identity' and c.relkind='r'`)).rows;
-  assert.equal(tables.length,6);assert(tables.every(t=>t.relrowsecurity&&t.owner!=='apip_identity_executor'));
+  assert.equal(tables.length,7);assert(tables.every(t=>t.relrowsecurity&&t.owner!=='apip_identity_executor'));
   assert.equal((await db.query<{owner:string}>("select pg_get_userbyid(proowner) owner from pg_proc where oid='apip_identity.identity_operation(text,uuid,integer,jsonb,uuid)'::regprocedure")).rows[0].owner,'apip_identity_executor');
   for(const table of ['administrator_capabilities','applications','decisions','command_receipts','audit_events','provisioning_events']){
     for(const role of ['anon','authenticated','apip_adr_writer']){

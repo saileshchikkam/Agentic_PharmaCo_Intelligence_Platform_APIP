@@ -1,3 +1,4 @@
+import {installFixturePortalRoles} from './fixture-portal-roles';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -36,8 +37,11 @@ test('managed Auth schema permission failure and verified-subject repair without
   // Apply only to this disposable fixture using the realistic non-superuser operator.
   const repair=await readFile(new URL('../supabase/migrations/20261107210206_specialist_verified_subject_boundary.sql',import.meta.url),'utf8');
   await sql.begin(async tx=>{await tx`set local role migration_operator`;await tx.unsafe(repair.replace(/^begin;$/gm,'').replace(/^commit;$/gm,'')).simple();});
+  await installFixturePortalRoles(db,[[a,'SPECIALIST'],[b,'PATIENT']]);
   repo=postgresSpecialistRepository(restricted);
   assert.equal((await repo.identity(a)).identityAdministrator,false);
+  assert.equal((await repo.identity(a)).accountRole,'SPECIALIST');
+  assert.equal((await repo.identity(b)).accountRole,'PATIENT');
   const profile={fullName:'Fictional hosted permission test',category:categories[0],qualification:'Fictional qualification',registration:'',jurisdiction:'',organization:'Synthetic institute',department:'',experience:'',specialization:''};
   const key=randomUUID(),created=await repo.create(a,profile,key);
   assert.equal(created.state,'DRAFT');assert.equal((await repo.create(a,profile,key)).id,created.id);

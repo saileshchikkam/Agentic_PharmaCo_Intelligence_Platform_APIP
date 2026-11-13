@@ -1,3 +1,4 @@
+import {installFixturePortalRoles} from './fixture-portal-roles';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
@@ -213,6 +214,7 @@ test('multi-actor isolation matrix across profiles, guided ADR cases, specialist
       await db.exec(await readMigration(m));
     }
     await db.exec('reset role');
+    await installFixturePortalRoles(db,[[patientA,'PATIENT'],[patientB,'PATIENT'],...[specApproved1,specApproved2,specApproved3,specUnapproved,specRevoked,specExpired].map(id=>[id,'SPECIALIST'] as const)]);
 
     // Verify pooled queue least privilege and no public EXECUTE grants
     assert.equal(
@@ -352,15 +354,22 @@ test('multi-actor isolation matrix across profiles, guided ADR cases, specialist
 
     // Verify capabilities strictly enforce APPROVED + non-expired
     for (const approvedId of [specApproved1, specApproved2, specApproved3]) {
-      const cap = await (await reqAs(approvedId, '/api/account/capabilities')).json();
+      const response=await reqAs(approvedId, '/api/account/capabilities');assert.equal(response.status,200);
+      const cap=await response.json();assert.equal(cap.accountRole,'SPECIALIST');
       assert.equal(cap.specialistWorkspace, true);
       assert.equal(cap.identityAdministration, false);
     }
     for (const ineligible of [patientA, patientB, specUnapproved, specRevoked, specExpired]) {
-      const cap = await (await reqAs(ineligible, '/api/account/capabilities')).json();
+      const response=await reqAs(ineligible, '/api/account/capabilities');assert.equal(response.status,200);
+      const cap=await response.json();assert.equal(cap.accountRole,[patientA,patientB].includes(ineligible)?'PATIENT':'SPECIALIST');
       assert.equal(cap.specialistWorkspace, false);
       assert.equal((await reqAs(ineligible, '/api/sharing/queue')).status, 403);
       assert.equal((await reqAs(ineligible, '/api/sharing/inbox')).status, 403);
+    }
+
+    for(const patient of [patientA,patientB]){
+      assert.equal((await reqAs(patient,'/api/specialist/applications/current')).status,403);
+      assert.equal((await reqAs(patient,'/api/admin/specialist-applications')).status,403);
     }
 
     // Header impersonation rejected with 409 ACCOUNT_CHANGED
@@ -487,7 +496,7 @@ test('multi-actor isolation matrix across profiles, guided ADR cases, specialist
     await db.query("update apip_identity.applications set state='REVOKED' where owner_id=$1", [winner]);
     assert.equal((await reqAs(winner, '/api/sharing/inbox')).status, 403);
     assert.equal((await reqAs(winner, '/api/sharing/queue')).status, 403);
-    assert.equal((await reqAs(winner, `/api/sharing/inbox/${assignmentId}`)).status, 404);
+    assert.equal((await reqAs(winner, `/api/sharing/inbox/${assignmentId}`)).status, 403, 'revoked actor is rejected before resource lookup');
     await db.query("update apip_identity.applications set state='APPROVED' where owner_id=$1", [winner]);
 
     // Release back to queue, second specialist claims, patient withdraws -> second specialist loses access
