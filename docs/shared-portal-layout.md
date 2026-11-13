@@ -17,3 +17,9 @@ The header alone uses HeaderBrandText. It holds APIP for 2.5 seconds, reveals th
 Hide only the document scrollbar when APIP is mounted; never disable document overflow or hide component/dialog scrollbars. Header left padding uses the shared gutter. Keep ticker, Back outlet and independent content shell unchanged.
 
 ADR reporting's desktop questionnaire/form presentation uses equal columns at >=1000px. The original-form panel owns an internal document scroller, fit-to-width PDF.js pages, viewer-only zoom and a stable download footer outside the scroll area. Revision-bound generation/download contracts and the original PvPI form remain unchanged. Below the breakpoint, questionnaire precedes the collapsible form preview.
+
+## Internal page top alignment
+
+All non-landing APIP pages should begin their first meaningful content at the shared Back-navigation vertical level wherever the viewport permits. The Back button remains in the left viewport gutter, while main content remains independently centered. Avoid excessive top whitespace and duplicated layout offsets.
+
+AccessPreview selects access-main-internal only for authenticated non-landing/non-sign-in pages. At >=1400px the Back outlet and centered shell share a grid row, with the Back hit area constrained to the unused outer gutter. The shell still spans the full grid column and centers independently; no asymmetric sidebar or negative offset is used. Below that width, retain separate rows to avoid colliding with full-width content, using a 12px gap. Remove only the first direct page section's duplicate top padding/margin; preserve internal heading/form/card spacing. The public landing and sign-in composition are excluded.

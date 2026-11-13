@@ -294,3 +294,15 @@ html:has(.access-app)::-webkit-scrollbar{width:0;height:0}
 @media(min-width:1200px){.access-header-brand-text{width:440px;font-size:20px}.access-header .access-brand svg{flex-shrink:0}}
 @media(max-width:1199px){.access-header-brand-text{width:44px}}
 @media(max-width:599px){.access-header-actions{min-width:0}}
+
+/* Internal pages share one top reference. Keep separate rows where the gutter
+   cannot hold Back beside the existing centered content without overlap. */
+.access-main.access-main-internal{padding-block-start:24px}
+.access-main-internal>.access-back-row .access-page-navigation{margin-block-end:12px}
+.access-main-internal>.access-page-shell>:first-child{padding-block-start:0;margin-block-start:0}
+@media(min-width:1400px){
+ .access-main.access-main-internal{display:grid;grid-template-columns:minmax(0,1fr);align-content:start}
+ .access-main-internal>.access-back-row,.access-main-internal>.access-page-shell{grid-area:1/1;align-self:start}
+ .access-main-internal>.access-back-row{width:max-content;max-width:96px;z-index:1}
+ .access-main-internal>.access-back-row .access-page-navigation{margin:0}
+}
