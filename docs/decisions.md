@@ -219,3 +219,7 @@ Export loads an authenticated owner-scoped persisted revision and rechecks sessi
 ## DEC-037 â€” Separate dashboard access from professional review authority
 
 A submitted specialist applicant may use the home page and existing own-patient tools. Only current server capabilities determine professional identity status; navigation and completed profiles grant no case rights. The three-card review inbox remains unconnected until consent/assignment policies and backend grants are separately approved. Do not display invented report counts. [3C-A evidence](adr/phase3/3c-a-implementation-and-verification.md).
+
+## Phase B private archive boundary — 2026-11-13
+
+Completed developer access is a separate capability, never inherited from identity administration or a hidden route/email. Separate patient archive consent, provider-verified exact email, current assignment/approval and pre-delivery checks are required. No personal provisioning is authorized by implementation or migration approval. See [review and approval gates](adr/phase3/phase-b-migration-review.md).

@@ -142,7 +142,7 @@ test('shared queue HTTP endpoints enforce authentication, atomic claim, self-rev
     const qA = await (await call(specialistA, '/queue')).json();
     assert.equal(qA.queue.length, 1);
     assert.equal(qA.queue[0].id, requestId);
-    assert(qA.queue[0].safeMetadata.reactionSnippet.startsWith('Fictional severe itching'));
+    assert.equal(qA.queue[0].safeMetadata.reactionSnippet,'Confirmed reaction reported');
     // Ensure no patient personal information or inline email/phone in queue response
     assert(!JSON.stringify(qA).includes('Fictional Reporter'));
     assert(!JSON.stringify(qA).includes('patient@example.test'));

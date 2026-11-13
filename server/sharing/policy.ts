@@ -97,86 +97,10 @@ export function canClaimPooledReview(
   return { allowed: true };
 }
 
-const DIRECT_IDENTIFIER_KEYS = new Set([
-  'initials',
-  'dob',
-  'reporterName',
-  'address',
-  'pin',
-  'email',
-  'phone',
-  'occupation',
-]);
-const EMAIL_RE = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
-const URL_RE = /\bhttps?:\/\/\S+/gi;
-const PHONE_OR_ID_RE = /(?:\+?\d[\d\s\-().]{5,}\d)/g;
-
-function sanitizeQueueText(raw: unknown, personalValues: string[], maxLen: number, fallback: string): string {
-  if (typeof raw !== 'string') return fallback;
-  let text = raw.replace(/[\u0000-\u001F\u007F]+/g, ' ').trim();
-  if (!text) return fallback;
-  for (const secret of personalValues) {
-    if (secret.length >= 4) {
-      const escaped = secret.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      text = text.replace(new RegExp(escaped, 'gi'), '[redacted]');
-    }
-  }
-  text = text
-    .replace(EMAIL_RE, '[redacted email]')
-    .replace(URL_RE, '[redacted link]')
-    .replace(PHONE_OR_ID_RE, '[redacted number]')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (!text) return fallback;
-  return text.length > maxLen ? `${text.slice(0, maxLen - 1).trimEnd()}…` : text;
-}
-
 export function extractSafeMetadata(snapshot: any, disclosure: any): SafeQueueMetadata {
+  // Free-text redaction cannot guarantee removal of unlisted third-party names.
+  // Pre-claim rows disclose structural counts only; assigned reviewers get summaries.
   const caseRef = typeof snapshot?.id === 'string' ? snapshot.id.slice(0, 8) : 'Case';
-  const personalValues: string[] = [];
-  if (Array.isArray(disclosure?.fields)) {
-    for (const f of disclosure.fields) {
-      if (DIRECT_IDENTIFIER_KEYS.has(f?.key) && f?.state === 'provided' && typeof f?.value === 'string') {
-        const trimmed = f.value.trim();
-        if (trimmed) personalValues.push(trimmed);
-      }
-    }
-  }
-  if (snapshot?.values && typeof snapshot.values === 'object') {
-    for (const key of DIRECT_IDENTIFIER_KEYS) {
-      const v = snapshot.values[key];
-      if (v?.state === 'provided' && typeof v?.value === 'string' && v.value.trim()) {
-        personalValues.push(v.value.trim());
-      }
-    }
-  }
-
-  const rxField = disclosure?.fields?.find((f: any) => f.key === 'reaction');
-  const reactionSnippet = sanitizeQueueText(
-    rxField?.state === 'provided' ? rxField.value : '',
-    personalValues,
-    120,
-    'Adverse event summary'
-  );
-
-  const medNames: string[] = [];
-  if (snapshot?.medications && Array.isArray(snapshot.medications)) {
-    for (const m of snapshot.medications) {
-      if (m.kind === 'suspect') {
-        const nameField = disclosure?.fields?.find((f: any) => f.key === `med.${m.id}.name`);
-        if (nameField && nameField.state === 'provided' && typeof nameField.value === 'string' && nameField.value.trim()) {
-          const safeMed = sanitizeQueueText(nameField.value, personalValues, 80, '');
-          if (safeMed) medNames.push(safeMed);
-        }
-      }
-    }
-  }
-  const suspectMedicineClass = sanitizeQueueText(medNames.join(', '), personalValues, 120, 'Suspect medication');
-  const serField = disclosure?.fields?.find((f: any) => f.key === 'seriousness');
-  const seriousness =
-    serField && serField.state === 'provided' && typeof serField.value === 'string'
-      ? sanitizeQueueText(serField.value, personalValues, 80, '') || undefined
-      : undefined;
-
-  return { caseRef, reactionSnippet, suspectMedicineClass, seriousness };
+  const count=Array.isArray(snapshot?.medications)?snapshot.medications.filter((m:any)=>m.kind==='suspect').length:0;
+  return {caseRef,reactionSnippet:'Confirmed reaction reported',suspectMedicineClass:count+' suspect medicine'+(count===1?'':'s')+' recorded'};
 }

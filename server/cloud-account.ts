@@ -16,14 +16,15 @@ import {postgresSpecialistRepository} from './specialist/postgresRepository';
 import type {SpecialistRepository} from './specialist/repository';
 import {reviewRouter} from './review/router';
 import {postgresReviewRepository,type ReviewRepository} from './review/repository';
+import {archiveRouter,postgresArchiveRepository,supabasePrivatePdfStore,type ArchiveRepository,type PrivatePdfStore} from './review/archive';
 
-type Principal = { id: string };
+type Principal = { id: string;email?:string;emailVerified?:boolean };
 type Verify = (token: string) => Promise<Principal | null>;
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 
-export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null, sharingRepository:SharingRepository|null=null, poolRepository:SharingPoolRepository|null=null, reviewRepository:ReviewRepository|null=null) {
+export function registerVerifiedAdr(app: Express, repository: GuidedCaseRepository, verify: Verify, provider: IntakeProvider | null = null, logRequests = false, identityRepository:SpecialistRepository|null=null, sharingRepository:SharingRepository|null=null, poolRepository:SharingPoolRepository|null=null, reviewRepository:ReviewRepository|null=null,archiveRepository:ArchiveRepository|null=null,archiveStore:PrivatePdfStore|null=null) {
   const router = express.Router();
-  router.use((req,_res,next)=> /^\/(?:account\/adr-(guided|cases)(\/|$)|sharing(?:\/|$)|review(?:\/|$)|account\/capabilities$|specialist\/applications(?:\/|$)|admin\/specialist-applications(?:\/|$))/.test(req.path)?next():next('router'));
+  router.use((req,_res,next)=> /^\/(?:account\/adr-(guided|cases)(\/|$)|sharing(?:\/|$)|review(?:\/|$)|archive(?:\/|$)|account\/capabilities$|specialist\/applications(?:\/|$)|admin\/specialist-applications(?:\/|$))/.test(req.path)?next():next('router'));
   const principals = new WeakMap<Request, Principal>();
   async function authenticate(req: Request) {
     const match = /^Bearer ([A-Za-z0-9._-]{1,8192})$/i.exec(req.get('authorization') ?? '');
@@ -72,6 +73,7 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     async (req, owner) => (await authenticate(req))?.id === owner,sharingRepository));
   router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner,poolRepository));
   router.use('/review',reviewRouter(reviewRepository,req=>principals.get(req)));
+  router.use('/archive',archiveRouter(archiveRepository,archiveStore,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner));
   router.use(specialistRouter(identityRepository,req=>principals.get(req)));
   router.use((error: { status?: number }, _req: Request, res: express.Response, _next: express.NextFunction) => {
     const status = error.status === 413 ? 413 : error.status === 400 ? 400 : 503;
@@ -115,8 +117,10 @@ export function configuredCloudAccount(app: Express, env = process.env) {
       if (error.status === 400 || error.status === 401 || error.status === 403) return null;
       throw Error('AUTH_UNAVAILABLE');
     }
-    return data.user && !data.user.is_anonymous ? { id: data.user.id } : null;
-  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_SHARING_ENABLED==='1'&&env.APIP_POOL_POSTGRES==='1'?postgresSharingPoolRepository(sql):null,env.APIP_REVIEW_ENABLED==='1'?postgresReviewRepository(sql):null);
+    return data.user && !data.user.is_anonymous ? { id: data.user.id,email:data.user.email,emailVerified:!!data.user.email_confirmed_at } : null;
+  }, configuredProvider(env) ?? null, env.APIP_ADR_LOG_REQUESTS === '1',postgresSpecialistRepository(sql),env.APIP_SHARING_ENABLED==='1'?postgresSharingRepository(sql):null,env.APIP_SHARING_ENABLED==='1'&&env.APIP_POOL_POSTGRES==='1'?postgresSharingPoolRepository(sql):null,env.APIP_REVIEW_ENABLED==='1'?postgresReviewRepository(sql):null,
+  env.APIP_ARCHIVE_ENABLED==='1'?postgresArchiveRepository(sql):null,
+  env.APIP_ARCHIVE_ENABLED==='1'&&env.APIP_ARCHIVE_STORAGE_KEY?supabasePrivatePdfStore(createClient(endpoint.origin,env.APIP_ARCHIVE_STORAGE_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false},global:{fetch:(input,init)=>fetch(input,{...init,signal:AbortSignal.timeout(12000)})}})):null);
   let readiness: { expires: number; check: Promise<{ database: boolean; pdf: boolean; auth: boolean }> } | undefined;
   app.get('/api/ready', async (_req, res) => {
     if (!readiness || readiness.expires < Date.now()) {

@@ -14,6 +14,7 @@ const AdrWorkspace = React.lazy(() => import('../adr/guided/GuidedWorkspace')
   .then((module) => ({ default: module.GuidedWorkspace })));
 const SpecialistWorkspace = React.lazy(()=>import('../specialist/SpecialistWorkspace').then(module=>({default:module.SpecialistWorkspace})));
 const CaseWorkspace = React.lazy(() => import('../adr/cases/CaseWorkspace').then(module=>({default:module.CaseWorkspace})));
+const DeveloperArchive=React.lazy(()=>import('../specialist/DeveloperArchive').then(module=>({default:module.DeveloperArchive})));
 const MedAssistPreview = React.lazy(() => import('../medassist/MedAssistPreview')
   .then((module) => ({ default: module.MedAssistPreview })));
 const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../medassist-conversation/MedAssistConversation')) : null;
@@ -21,6 +22,7 @@ const MedAssistConversation = import.meta.env.DEV ? React.lazy(() => import('../
 export type AccessRole = 'patient' | 'specialist';
 export type PatientTask = 'medassist' | 'adr-report';
 export type PreviewRoute =
+  | {screen:'developer-archive'}
   | { screen: 'specialist'; admin?: boolean; id?: string; view?: 'entry' | 'profile' | 'home' | 'reviews' }
   | { screen: 'home' }
   | { screen: 'profile' }
@@ -42,6 +44,9 @@ export function readPreviewRoute(): PreviewRoute {
   const [rawPath, query] = window.location.hash.slice(1).split('?');
   const path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath;
   if (path === '/account/profile') return { screen: 'profile' };
+  if(path==='/internal/completed-adr')return {screen:'developer-archive'};
+  const review=/^\/specialist\/reviews\/([0-9a-f-]{36})$/i.exec(path);
+  if(review)return {screen:'specialist',view:'reviews',id:review[1]};
   if (path === '/developer-reference') return { screen: 'developer-reference' };
   if (path === '/specialist') return { screen: 'specialist', view: 'entry' };
   const specialistView = /^\/specialist\/(profile|home|reviews)$/.exec(path);
@@ -91,7 +96,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
   const isPatientHome = route.screen === 'patient-home';
   const lastRole = typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('apip.last.role') : null;
   const roleDefault = account.portal === 'specialist' ? '/specialist/home' : '/patient/home';
-  const backFallback = route.screen === 'adr-cases'
+  const backFallback = route.screen==='specialist'&&route.view==='reviews'&&route.id?'/specialist/reviews':route.screen === 'adr-cases'
     ? route.revision || route.history ? `/patient/adr/cases/${route.id}` : route.id ? '/patient/adr/cases' : roleDefault
     : route.screen === 'sign-in'
     ? route.requestedTask ? '/patient/home' : '/'
@@ -115,7 +120,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
     document.getElementById(route.screen === 'adr-preview' ? 'adr-draft-title' : route.screen === 'medassist-preview' ? 'medassist-title' : route.screen === 'medassist-conversation' ? 'medassist-conversation-title' : 'access-title')?.focus({ preventScroll: true });
   }, [route.screen]);
 
-  const protectedRoute = isPatientHome || route.screen === 'medassist-preview' || route.screen === 'adr-cases'
+  const protectedRoute = isPatientHome || route.screen === 'medassist-preview' || route.screen === 'adr-cases' || route.screen==='developer-archive'
     || (route.screen === 'adr-preview' && !!route.caseId);
   useEffect(() => {
     if (protectedRoute && account.ready && !account.user) {
@@ -131,7 +136,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       event.preventDefault();
       document.getElementById('access-main')?.focus();
     }}>Skip to main content</a>
-    <PreviewHeader screen={route.screen} appearance={appearance} setAppearance={setAppearance}
+    <PreviewHeader screen={route.screen==='developer-archive'?'developer-reference':route.screen} appearance={appearance} setAppearance={setAppearance}
       preferencesSaved={preferencesSaved} onHelp={isPatientHome ? () => helpDialog.current?.showModal() : undefined} />
 
     <ResearchDisclaimerTicker />
@@ -213,6 +218,7 @@ export function AccessPreview({ route, appearance, setAppearance, preferencesSav
       {route.screen === 'medassist-conversation' && MedAssistConversation && <React.Suspense fallback={<p role="status">Opening fictional MedAssist…</p>}><MedAssistConversation /></React.Suspense>}
       {route.screen==='specialist'&&account.portalReady&&account.portal==='specialist'&&<React.Suspense fallback={<p role="status">Opening identity workspace…</p>}><SpecialistWorkspace key={account.user?.id ?? 'guest'} admin={route.admin} id={route.id} view={route.view}/></React.Suspense>}
       {route.screen === 'profile' && <ProfilePage key={account.user?.id ?? 'preview'} />}
+      {route.screen==='developer-archive'&&account.user&&<React.Suspense fallback={<p role="status">Checking private archive access…</p>}><DeveloperArchive key={account.user.id}/></React.Suspense>}
       {route.screen === 'adr-cases' && account.user && <React.Suspense fallback={<p role="status">Opening your reports…</p>}>
         <CaseWorkspace key={account.user.id} owner={account.user.id} id={route.id} revision={route.revision} history={route.history}/>
       </React.Suspense>}

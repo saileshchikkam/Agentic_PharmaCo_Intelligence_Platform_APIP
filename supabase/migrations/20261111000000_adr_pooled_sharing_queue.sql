@@ -259,6 +259,10 @@ begin
 
   perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtextextended('identity-grant:' || actor::text, 7342));
 
+  if p_op='pool_assignments' then
+    if not apip_sharing.eligible(actor) then raise exception 'FORBIDDEN';end if;
+    return coalesce((select jsonb_agg(jsonb_build_object('assignmentId',active_assignment_id,'poolRequestId',id,'releaseVersion',version)) from apip_sharing.pooled_requests where claimed_by=actor and state='claimed'),'[]'::jsonb);
+  end if;
   if p_op = 'pool_list' then
     if not apip_sharing.eligible(actor) then
       raise exception 'FORBIDDEN';
@@ -680,4 +684,19 @@ alter function apip_sharing.pool_operation(text, uuid, jsonb, uuid) owner to api
 revoke create on schema apip_sharing from apip_sharing_executor;
 grant apip_sharing_executor to current_user with set false;
 
+-- Phase A may already be deployed when this previously pending migration is installed.
+do $poolguard$begin
+ if to_regprocedure('apip_adr.require_finalized_sharing()') is not null then
+  execute $fn$create function apip_sharing.require_pool_finalization() returns trigger language plpgsql security definer set search_path='' as $body$
+   begin if not exists(select 1 from apip_adr.finalizations where owner_id=new.patient and case_id=new.case_id and revision=new.revision) then raise exception 'REPORT_NOT_FINALIZED';end if;return new;end;$body$$fn$;
+  execute 'revoke all on function apip_sharing.require_pool_finalization() from public,anon,authenticated,apip_adr_writer';
+  execute 'create trigger pool_finalization_guard before insert on apip_sharing.pooled_requests for each row execute function apip_sharing.require_pool_finalization()';
+  execute format('grant apip_finalization_executor to %I with set true',current_user);
+  execute format('grant apip_finalization_executor to %I with inherit false',current_user);
+  execute 'grant usage,create on schema apip_sharing to apip_finalization_executor';
+  execute 'alter function apip_sharing.require_pool_finalization() owner to apip_finalization_executor';
+  execute 'revoke create on schema apip_sharing from apip_finalization_executor';
+  execute format('grant apip_finalization_executor to %I with set false',current_user);
+ end if;
+end;$poolguard$;
 commit;

@@ -274,3 +274,7 @@ The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md)
 ## Phase A2 owner finalization â€” development verified, forwarding blocked
 
 Approved exact SQL is deployed on development and the server flag is enabled after catalog/security checks. Real existing Patient and Specialist accounts pass own-report finalization, immutable locking, ownership denial, PDF access, reload and finalized/draft lists at desktop/mobile sizes. Existing records are preserved. See [review and evidence](adr/phase3/phase-a2-finalization.md). Consented forwarding remains blocked by disabled sharing and no approved destination; the pool and personal privileges remain separately gated. No new Phase B implementation was performed.
+
+## Phase B — fixture verified, hosted blocked
+
+[Review and archive implementation](adr/phase3/phase-b-review-and-archive.md) completes safe independent UI/API/PostgreSQL/native-PDF work. Hosted queue/review/archive SQL, independent administrator/specialist authorization, developer subject/email entitlement and private Storage configuration remain separate gates. No clinical validation, Agents/RAG, deployment or main merge is implied.

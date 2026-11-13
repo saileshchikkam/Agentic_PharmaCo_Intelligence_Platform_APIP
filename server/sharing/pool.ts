@@ -13,6 +13,7 @@ import {
 } from './policy';
 
 export interface SharingPoolRepository {
+  listClaimed?(actor:string):Promise<any[]>;
   readonly mode?: 'postgres' | 'sqlite';
   createPoolRequest(
     patient: string,
@@ -91,6 +92,7 @@ export function postgresSharingPoolRepository(sql: Sql): SharingPoolRepository {
 
   return {
     mode: 'postgres',
+    async listClaimed(actor){return execOp(actor,'pool_assignments',null,{},randomUUID());},
 
     async createPoolRequest(patient, body, key) {
       if (body.policyVersion !== pooledSharingPolicyVersion) {

@@ -3,7 +3,7 @@ import {randomUUID} from 'node:crypto';
 import type {ReviewRepository} from './repository';
 
 const uuid=/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
-const status:Record<string,number>={SIGN_IN_REQUIRED:401,FORBIDDEN:403,NOT_FOUND:404,INVALID_REQUEST:400,REVISION_CONFLICT:409,IDEMPOTENCY_CONFLICT:409,ASSESSMENT_FINALIZED:409};
+const status:Record<string,number>={SIGN_IN_REQUIRED:401,FORBIDDEN:403,NOT_FOUND:404,INVALID_REQUEST:400,ASSESSMENT_REQUIRED:422,REVISION_CONFLICT:409,IDEMPOTENCY_CONFLICT:409,ASSESSMENT_FINALIZED:409};
 const exact=(value:any,keys:string[])=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join(',')===keys.slice().sort().join(',');
 
 export function reviewRouter(repository:ReviewRepository|null,principal:(req:Request)=>{id:string}|undefined){
@@ -13,6 +13,7 @@ export function reviewRouter(repository:ReviewRepository|null,principal:(req:Req
  const actor=(req:Request)=>principal(req)!.id;
  const key=(req:Request)=>{const value=req.get('Idempotency-Key');if(!value||!uuid.test(value))throw Error('INVALID_REQUEST');return value;};
  const op=(req:Request,name:string,id:string,expected:number|null=null,body:unknown={},command:string=randomUUID())=>repository!.operation(actor(req),name,id,expected,body,command);
+ router.get('/assignments',endpoint(async(req,res)=>{res.json({assignments:await repository!.operation(actor(req),'overview',null,null,{},randomUUID())});}));
  router.get('/:id/assessments',endpoint(async(req,res)=>{if(!uuid.test(req.params.id))throw Error('INVALID_REQUEST');res.json({assessments:await op(req,'assessments',req.params.id)});}));
  router.post('/:id/assessments',endpoint(async(req,res)=>{if(!uuid.test(req.params.id)||!exact(req.body,['expectedVersion','state','content'])||!Number.isSafeInteger(req.body.expectedVersion)||!['draft','final'].includes(req.body.state)||!req.body.content||typeof req.body.content!=='object'||Array.isArray(req.body.content))throw Error('INVALID_REQUEST');res.status(201).json({assessment:await op(req,'assessment',req.params.id,req.body.expectedVersion,{state:req.body.state,content:req.body.content},key(req))});}));
  router.get('/:id/messages',endpoint(async(req,res)=>{if(!uuid.test(req.params.id))throw Error('INVALID_REQUEST');res.json({messages:await op(req,'messages',req.params.id)});}));

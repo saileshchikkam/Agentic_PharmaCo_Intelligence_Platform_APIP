@@ -137,6 +137,7 @@ export function sharingRouter(
         state: p.state === 'claimed' ? 'active' : p.state,
         version: p.version,
         target: 'pool',
+        assignmentId:p.activeAssignmentId??null,
         assignedAt: p.claimedAt ?? p.createdAt,
       }));
       res.json({ requests: [...filteredDirect, ...formattedPoolReqs] });
@@ -232,7 +233,7 @@ export function sharingRouter(
 
       const command = key(req);
       const poolItem = pool ? await pool.get(req.params.id, actor(req)) : null;
-      if (poolItem && poolItem.patient === actor(req)) {
+      if (pool && poolItem && poolItem.patient === actor(req)) {
         const result = await pool.withdraw(
           actor(req),
           poolItem.id,
@@ -349,7 +350,7 @@ export function sharingRouter(
       const command = key(req);
       const specialistId = actor(req);
       const poolItem = pool ? await pool.get(req.params.id, specialistId) : null;
-      if (poolItem && poolItem.state === 'claimed' && poolItem.claimedBy === specialistId) {
+      if (pool && poolItem && poolItem.state === 'claimed' && poolItem.claimedBy === specialistId) {
         const result = await pool.release(
           specialistId,
           req.params.id,
@@ -369,7 +370,8 @@ export function sharingRouter(
   router.get(
     '/inbox',
     endpoint(async (req, res) => {
-      res.json({ requests: await op(req, 'inbox') });
+      const requests=await op(req,'inbox');const claimed=await pool?.listClaimed?.(actor(req))??[];
+      res.json({requests:requests.map((r:any)=>({...r,...claimed.find(p=>p.assignmentId===r.id)}))});
     })
   );
   router.get(

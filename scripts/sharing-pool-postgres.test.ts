@@ -140,7 +140,7 @@ test('PostgreSQL-authoritative pooled sharing queue enforces least privilege, co
     assert(!meta.reactionSnippet.includes('98765'));
     assert(!meta.reactionSnippet.includes('https://example.test'));
     assert(!meta.suspectMedicineClass.includes('98765'));
-    assert(meta.suspectMedicineClass.includes('Amoxicillin 500mg'));
+    assert.equal(meta.suspectMedicineClass,'1 suspect medicine recorded');assert.equal(meta.reactionSnippet,'Confirmed reaction reported');
 
     // Start PGLite TCP socket server with multiple role connections
     wire = new PGLiteSocketServer({ db, host: '127.0.0.1', port: 0, maxConnections: 5 });

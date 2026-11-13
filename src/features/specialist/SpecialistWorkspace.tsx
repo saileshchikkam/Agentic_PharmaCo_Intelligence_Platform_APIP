@@ -1,4 +1,5 @@
 import {SharingInbox} from './SharingWorkspace';
+import {ProfessionalReview} from './ProfessionalReview';
 import {CaseWorkspace} from '../adr/cases/CaseWorkspace';
 
 function ReviewWorkspace({owner}:{owner:string}) {
@@ -100,7 +101,7 @@ function IdentityWorkspace({owner,email,admin,id,view}:{owner:string;email:strin
   void mutate(`/admin/specialist-applications/${application.id}/decisions`,{expectedVersion:application.version,
    command:{action,reason,evidenceReference:evidence,policyVersion:'private-fictional-3b-v1'}});
  };
- if(!admin&&view==='reviews'&&loaded&&caps?.specialistWorkspace)return <ReviewWorkspace key={owner} owner={owner}/>;
+ if(!admin&&view==='reviews'&&loaded&&caps?.specialistWorkspace)return id?<ProfessionalReview key={owner+id} owner={owner} id={id}/>:<ReviewWorkspace key={owner} owner={owner}/>;
  if(!admin)return <SpecialistExperience owner={owner} view={view} application={application} profile={profile} caps={caps} loaded={loaded} error={error} busy={busy} dirty={dirty} onRetry={()=>void refresh()} onChange={(key,value)=>{setProfile(old=>({...old,[key]:value}));setDirty(true);}} onSave={()=>{void mutate(application?`/specialist/applications/${application.id}/commands`:'/specialist/applications',application?{expectedVersion:application.version,command:{type:'save_draft',profile}}:{profile});}} onSubmit={()=>{if(application)void mutate(`/specialist/applications/${application.id}/commands`,{expectedVersion:application.version,command:{type:'submit'}});}}/>;
  return <section className="specialist-workspace" aria-labelledby="specialist-title">
   {import.meta.env.VITE_APIP_IDENTITY_FIXTURE==='1'&&<p className="specialist-notice" role="note">Disposable PostgreSQL fixture · local synthetic authentication. This is not hosted Supabase verification or a real professional approval.</p>}

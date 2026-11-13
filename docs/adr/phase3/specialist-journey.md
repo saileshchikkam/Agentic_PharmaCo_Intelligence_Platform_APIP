@@ -37,3 +37,7 @@ Withdrawal, reassignment or role revocation blocks subsequent access and final P
 Screens are application/status, assigned inbox, guided review/PDF, draft/final review, clarification and permission-changed recovery states. Test two patients, two specialists, an unapproved applicant and an approver; nested IDs, unshared revisions, raw proposal/profile exclusion, revocation during rendering and audit failure.
 
 At 320/360/820/1440px verify readable controls, actual form preview, keyboard, reduced motion, themes and account switching. No unrelated patient access, automatic clinical decision, autonomous causality or recommendation is accepted.
+
+## Phase B implementation checkpoint — 2026-11-13
+
+[Assessment and private archive](phase-b-review-and-archive.md) implements the independent workflow and records fixture versus hosted evidence. Hosted migrations, administrator/specialist activation and developer email/subject provisioning remain separate approval gates.

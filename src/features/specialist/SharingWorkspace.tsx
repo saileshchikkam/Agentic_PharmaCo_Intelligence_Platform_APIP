@@ -1,4 +1,6 @@
 import { FormPage } from '../adr/guided/LiveFormPreview';
+import {ArchiveConsent} from './ArchiveConsent';
+import {reviewRequest} from './reviewClient';
 import { navigatePreview } from '../access/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { M3Button, M3Checkbox, M3Select, M3Radio } from '../../components/material/core';
@@ -236,7 +238,7 @@ export function PatientSharing({
               ) : (
                 <p>
                   Your case will be placed in the shared specialist review queue. Any approved, active
-                  specialist can see limited non-identifying metadata (reaction summary, suspect medicine,
+                  specialist can see limited structural metadata (reaction recorded, suspect-medicine count,
                   and date), but only one specialist can claim it for full review.
                 </p>
               )}
@@ -352,6 +354,7 @@ export function PatientSharing({
                   Withdraw future access
                 </M3Button>
               )}
+              {r.state==='active'&&(r.assignmentId||(r.target!=='pool'&&r.id))&&<ArchiveConsent owner={owner} assignment={r.assignmentId??r.id}/>}
             </article>
           ))}
         </>
@@ -398,7 +401,9 @@ export function SharingInbox({ owner }: { owner: string }) {
     try {
       const res = await sharingRequest(owner, '/inbox', undefined, undefined, signal);
       const data = await res.json();
-      setItems(data.requests ?? []);
+      let summaries:any[]=[];
+      try{summaries=(await(await reviewRequest(owner,'review/assignments',undefined,undefined,signal)).json()).assignments??[];}catch(e){if((e as {status?:number}).status===403)throw e;}
+      if(!signal?.aborted)setItems((data.requests??[]).map((r:any)=>({...r,...summaries.find((s:any)=>s.id===r.id)})));
     } catch (e) {
       if (!signal?.aborted) handleInboxError(e);
     } finally {
@@ -634,23 +639,26 @@ export function SharingInbox({ owner }: { owner: string }) {
             <p>No active assignments. Claim cases from the available review queue or accept direct referrals.</p>
           ) : (
             items.map(r => (
-              <article className="specialist-profile" key={r.id} style={{ marginBottom: '16px' }}>
+              <article className="specialist-profile review-report-row" key={r.id}>
                 <h2>Case {r.caseId.slice(0, 8)}</h2>
                 <p>
                   Saved revision {r.revision} · {r.state} · Assigned{' '}
                   {new Date(r.assignedAt).toLocaleDateString()}
                 </p>
+                <p>{r.status??'Assigned to me'}</p>
+                {r.fields&&<dl>{r.fields.filter((f:any)=>['initials','reaction'].includes(f.key)||/^med\..+\.name$/.test(f.key)).map((f:any)=><div key={f.key}><dt>{f.label}</dt><dd>{f.state==='unknown'?'Unknown':f.value}</dd></div>)}</dl>}
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                  <M3Button onClick={()=>navigatePreview('/specialist/reviews/'+r.id)}>{r.status==='Professionally finalized'?'View finalized review':r.status==='Under professional review'?'Continue Review':'Review ADR'}</M3Button>
                   <M3Button variant="outlined" onClick={() => void open(r.id)}>
                     Open assigned revision
                   </M3Button>
-                  <M3Button
+                  {r.poolRequestId&&<M3Button
                     variant="text"
                     disabled={busy}
-                    onClick={() => void releaseCase(r.id, r.version)}
+                    onClick={() => void releaseCase(r.poolRequestId, r.releaseVersion)}
                   >
                     Release case back to queue
-                  </M3Button>
+                  </M3Button>}
                   <M3Button
                     variant="text"
                     onClick={() =>

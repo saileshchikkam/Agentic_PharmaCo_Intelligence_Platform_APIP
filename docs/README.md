@@ -66,3 +66,5 @@ Do not publish secrets, patient narratives, private chat/account IDs, or worksta
 The [account/profile foundation](../database/README.md) is the source for signup, provider setup, shared health-profile contracts, SQL access rules and verification limits.
 
 P0 storage isolation and unified auth contracts: [P0 storage inventory and pooled-queue migration audit](architecture/p0-storage-and-migration-audit.md) and [MedAssist unified auth and PostgreSQL integration contract](collaboration/medassist-integration-contract.md).
+
+[Phase B specialist assessment and private completed archive](adr/phase3/phase-b-review-and-archive.md) records current independent implementation, tests and still-blocked hosted privileges.

@@ -146,3 +146,9 @@ See [delivery and test boundaries](adr/phase3/3b-implementation-and-verification
 ### Owner ADR finalization activation
 
 See [Phase A2 SQL review](adr/phase3/phase-a2-finalization.md). `APIP_ADR_FINALIZATION_ENABLED` defaults off. Set it to `1` only after separately approved migration installation, ledger/RLS/function-grant verification and restricted-writer checks. It is a server-only setting; never derive it from client metadata. Missing schema or disabled activation must leave Finalize unavailable while retaining existing drafts. A future pool installation must include the finalization insertion guard before enabling that pool.
+
+### Phase B private review/archive activation
+
+Keep `APIP_SHARING_ENABLED`, `APIP_POOL_POSTGRES`, `APIP_REVIEW_ENABLED` and `APIP_ARCHIVE_ENABLED` off until the [exact migrations and gates](adr/phase3/phase-b-migration-review.md) are approved and verified. Preserve Phase A finalization. `APIP_ARCHIVE_STORAGE_KEY` is server-only and must never use a VITE prefix or enter Git. The fixed private bucket is `apip-completed-adr`; no browser Storage policies or signed/public URLs are used. Developer access requires separately provisioned exact subject/verified email plus patient archive consent. The unlisted route is `/#/internal/completed-adr`.
+
+Disposable browser checks: supply `APIP_PLAYWRIGHT_MODULE`, `APIP_PDF_PYTHON` and a private `APIP_AUTH_EVIDENCE` directory, then run `node --import tsx scripts/phase-b.browser.ts`. This uses disposable PostgreSQL and mocked Auth/Storage, never hosted approvals. Unit/API checks are included in npm test and native appendix checks in npm run test:pdf. Remove inherited hosted connection variables only from test-process environments when running isolated legacy-server tests.

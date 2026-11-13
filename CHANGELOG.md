@@ -598,3 +598,7 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 ## Approved development finalization deployment â€” 2026-11-13
 
 - Applied the exact owner-approved finalization SQL once, verified ledger bytes/RLS/grants and preserved existing account/ADR fingerprints. Enabled only development finalization. Existing Patient and Specialist own-report browser journeys pass locking, PDFs, isolation, reload and finalized-list checks at 1440/375px. Added a bounded hosted acceptance runner. Forwarding remains blocked by disabled sharing and no independently approved specialist destination; no personal privileges or other migrations were applied.
+
+## Phase B review and private archive — 2026-11-13
+
+- Added assignment-scoped human assessment UI/history/finalization, separately consented completed-PDF archival and an unlisted exact-email/entitlement developer workspace. Added native assessment appendices while preserving original PvPI pages and excluding private notes. Isolated security/API/browser/PDF checks pass; hosted migrations and personal privileges remain separately approval-gated.
