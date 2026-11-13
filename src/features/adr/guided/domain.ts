@@ -15,6 +15,9 @@ export const stages = ['Getting started','Patient','Reaction','Medicines','Conte
 export function questions(c:GuidedCase):Field[] {
  return [...fields.filter(f=>f.key!=='followUp'||c.values.caseType?.value==='Follow-up'),...c.medications.flatMap(m=>medicationFields.filter(f=>m.kind==='suspect'||['name','dose','route','frequency','start','stop','indication'].includes(f.key)).map(f=>({...f,key:`med.${m.id}.${f.key}`,label:`${m.kind==='suspect'?'Suspected':'Concomitant'} medicine · ${f.label}`})))].sort((a,b)=>a.stage-b.stage);
 }
+export function addressedQuestions(fields: Field[], values: GuidedCase['values']): number {
+ return fields.filter(({ key }) => values[key]?.state === 'provided' || values[key]?.state === 'unknown').length;
+}
 export function missing(c:GuidedCase) { return questions(c).filter(f=>f.required&&c.values[f.key]?.state!=='provided').map(f=>f.key).concat(c.medications.some(m=>m.kind==='suspect')?[]:['suspectMedicine']); }
 export function nextQuestion(c:GuidedCase) { return questions(c).find(f=>!c.values[f.key])?.key??null; }
 export function validateValue(f:Field,value:unknown):value is string|null {

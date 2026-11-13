@@ -1,5 +1,15 @@
 # Milestone roadmap
 
+**2026-11-08 Phase 3B:** independent specialist/application/admin functionality and security fixtures are implemented; development migration and hosted runtime readiness pass. Live administrator bootstrap/privileged browser gates remain blocked. [Actual delivery](adr/phase3/3b-implementation-and-verification.md). Phase 3C remains gated and unstarted; older dated milestone statements below retain their historical scope.
+
+**2026-11-07 Phase 3A:** the authorized owner-dashboard/history/exact-PDF subset passes fixture and real hosted checks. [Actual delivery and gates](adr/phase3/3a-implementation-and-verification.md). P01/P08/P09/P17 lifecycle actions remain disabled. Phase 3B requires separate authorization and P02/P03/P11/P12/P13; no specialist feature has started.
+
+**2026-11-07 hosted backend verification:** real owner isolation, revisions, comprehensive native PDF checks, client interruption/reconnect, application restart, revocation and natural expiry checks passed. The expiry-only worker returned API 401 and provider 403 after natural expiration. GO for the private backend verification milestone; Google OAuth remains separately pending and Phase 3 scope/implementation requires its own brief. [Evidence](../database/hosted-verification-2026-11-07.md).
+
+**2026-11-04 ADR-1B Phase 2** adds the original-form preview and saved intake progress on the isolated feature branch. [Scope and verification](adr/09-adr-1a-checkpoint.md#adr-1b-phase-2--original-form-preview-and-intake-progress). Phase 3 requires separate authorization.
+
+**2026-11-04 ADR-1B Phase 1** establishes the shared UI and guided reporting landing page on an isolated branch. Later ADR phases require separate authorization. [Phase 1 scope and verification](adr/11-adr-1b-phase-1.md).
+
 **2026-11-03 ADR-1A:** guided fictional intake, owner-isolated save/resume, revision history, editable review and native official PvPI PDF generation/reveal are implemented. [Checkpoint and remaining gates](adr/09-adr-1a-checkpoint.md). English fictional export, overflow, ownership and responsive browser checks pass. Telugu/mixed-script export and multiple-seriousness resolution remain gaps; unconditional ADR-1B progression is NO-GO. No ADR-1B work was started. This narrower task does not implement the full ADR-0 agents/review/analytics roadmap.
 
 **Current scope (user revision, 2026-10-17): English only; no required paid services; all-age product intent with caregiver-managed child profiles. This supersedes earlier Telugu/bilingual and INR 500 planning references below. Clinical coverage for each age group still needs suitable data and evaluation.**
@@ -250,3 +260,13 @@ The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md)
 ## P0 read-only protocol portability verified — 2026-10-26
 
 [Authenticated LF/CRLF compatibility](model-a-protocol-portability.md) passes clean-checkout Python, actual-model/HTTP/seal, TypeScript and build verification. The previous reconciliation portability blocker is resolved for read-only inference without changing frozen study evidence or locked-test behavior. PR readiness/main merge still require actual GitHub state confirmation. Legacy study commands remain strict; clinical and data-governance gates are unchanged.
+
+## Phase 3C-A delivery — 2026-11-08
+
+[Specialist UI redesign](adr/phase3/3c-a-implementation-and-verification.md) passes fixture and real hosted read-only checks. This is a substage within canonical Phase 3C; 3C-B sharing, 3C-C review and 3C-D clarification remain separate policy gates, not the canonical later Phase 3D integration milestone. [Next gated prompt](adr/phase3/3c-b-next-prompt.md).
+
+### 2026-11-09 Phase 3C-B hosted verification evidence
+
+- [Phase 3C-B hosted patient-to-specialist sharing and authentication closure](adr/phase3/auth-and-hosted-closure.md): Audited administrator capability decisions completed for `Fictional APIP Sharing Reviewer` (30-day capability). All 10 hosted Phase 3C-B gates pass against Supabase (`kstxwoitiistmvivwixd`), including explicit consent, specialist assignment, Pending Review Reports, original PvPI PDF preview with `pypdf` validation, newer-revision privacy, unauthorized denial, and consent withdrawal. The previously revoked specialist remains strictly revoked. Phase 3C-C is not started.
+
+[Authentication corrections and current hosted gates](adr/phase3/auth-and-hosted-closure.md): responsive UI and affected disposable regressions pass. The exact applicant capability is owner-approved; real sharing, Google and recovery acceptance remain gated. Phase 3C-C is not started.

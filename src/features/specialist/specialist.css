@@ -1,0 +1,81 @@
+.specialist-workspace { max-width:1160px; margin:auto; padding:16px 0 40px; overflow-wrap:anywhere; }
+.specialist-workspace h1 { font-size:clamp(2rem,4vw,3rem); line-height:1.2; }
+.specialist-workspace h2 { font-size:1.4rem; margin:16px 0; }
+.specialist-workspace p { line-height:1.65; }
+.specialist-nav, .specialist-actions { display:flex; flex-wrap:wrap; gap:12px; margin:20px 0; }
+.specialist-status, .specialist-notice, .specialist-profile, .specialist-list>li {
+ border:1px solid var(--md-sys-color-outline-variant); border-radius:24px; padding:24px; margin:20px 0;
+ background:var(--md-sys-color-surface-container-low);
+}
+.specialist-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+.specialist-fields>* { min-width:0; }
+.specialist-fields md-outlined-select { width:100%; min-width:0; }
+.specialist-profile md-outlined-text-field, .specialist-dialog md-outlined-text-field { width:100%; min-width:0; box-sizing:border-box; }
+.specialist-list { list-style:none; padding:0; }
+/* Material Web inherits these host dimensions into its native top-layer dialog. */
+.specialist-dialog {
+ --md-dialog-container-color:var(--md-sys-color-surface-container-high);
+ --md-dialog-container-shape:28px;
+ margin:auto; inset:0; position:fixed; width:min(560px,calc(100vw - 32px)); min-width:0;
+ max-width:calc(100vw - 32px); max-height:calc(100dvh - 48px);
+}
+.specialist-dialog [slot="headline"] { padding:24px 24px 0; }
+.specialist-dialog [slot="content"] { padding:16px 24px; min-width:0; overflow-wrap:anywhere; }
+.specialist-dialog [slot="actions"] { padding:8px 24px 24px; margin:0; }
+.specialist-dialog md-outlined-text-field { margin-block:12px; }
+.specialist-workspace :focus-visible { outline:3px solid var(--md-sys-color-primary); outline-offset:3px; }
+@media(max-width:700px) {
+ .specialist-fields { grid-template-columns:minmax(0,1fr); }
+ .specialist-status, .specialist-profile, .specialist-notice { padding:16px; }
+ .specialist-actions>* { max-width:100%; }
+}
+@media(prefers-reduced-motion:reduce) { .specialist-workspace * { animation:none!important; transition:none!important; } }
+/* 3C-A: Material 3 surface cards; Material Web has no stable card element. */
+.specialist-experience { padding-top:8px; }
+.specialist-topline { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:24px; }
+.specialist-environment { color:var(--md-sys-color-on-surface-variant); font-size:12px; letter-spacing:.03em; }
+.specialist-intro { max-width:800px; margin-bottom:24px; }
+.specialist-intro h1 { margin:10px 0 14px; font-weight:500; letter-spacing:-.035em; }
+.specialist-intro>p:last-child { color:var(--md-sys-color-on-surface-variant); max-width:65ch; }
+.specialist-verification { display:flex; align-items:flex-start; gap:14px; padding:18px 22px; border-radius:18px; background:var(--md-sys-color-secondary-container); color:var(--md-sys-color-on-secondary-container); margin-bottom:28px; }
+.specialist-verification>svg { flex-shrink:0; margin-top:2px; }
+.specialist-verification p { margin:4px 0 0; font-size:14px; }
+.specialist-profile-page { margin:0; padding:28px; }
+.specialist-form-heading { display:flex; align-items:flex-start; gap:14px; margin-bottom:28px; }
+.specialist-form-heading h2 { margin:0 0 6px; }
+.specialist-form-heading p { margin:0; color:var(--md-sys-color-on-surface-variant); font-size:14px; }
+.specialist-profile-page .specialist-fields { gap:24px; }
+.specialist-additional { border-top:1px solid var(--md-sys-color-outline-variant); margin-top:28px; padding-top:20px; }
+.specialist-additional summary { cursor:pointer; min-height:44px; font-weight:500; }
+.specialist-additional summary span { margin-left:8px; color:var(--md-sys-color-on-surface-variant); font-size:13px; font-weight:400; }
+.specialist-additional .specialist-fields { margin-top:12px; }
+.specialist-save-hint { align-self:center; font-size:13px; color:var(--md-sys-color-on-surface-variant); }
+.specialist-service-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; width:100%; }
+.specialist-service { min-width:0; min-height:350px; display:flex; flex-direction:column; align-items:flex-start; border:1px solid var(--md-sys-color-outline-variant); border-radius:28px; padding:36px; background:var(--md-sys-color-surface-container-low); transition:background-color .18s ease; }
+.specialist-service:hover { background:var(--md-sys-color-surface-container); }
+.specialist-service-icon { padding:16px; border-radius:18px; color:var(--md-sys-color-on-primary-container); background:var(--md-sys-color-primary-container); display:inline-flex; margin-bottom:16px; }
+.specialist-service h2 { font-size:1.35rem; line-height:1.3; margin:0 0 12px; }
+.specialist-service>p { margin:0 0 14px; }
+.specialist-service .specialist-card-detail { font-size:14px; color:var(--md-sys-color-on-surface-variant); flex:1; }
+.specialist-service>button, .specialist-service>md-outlined-button { margin-top:12px; max-width:100%; }
+.specialist-inbox { text-align:center; max-width:720px; margin:36px auto; padding:32px; border-radius:28px; background:var(--md-sys-color-surface-container-low); }
+.specialist-inbox>svg { margin:0 auto; color:var(--md-sys-color-primary); }
+.specialist-activity { padding-left:20px; font-size:14px; }
+@media(max-width:1100px) { .specialist-service-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:700px) { .specialist-service-grid { grid-template-columns:minmax(0,1fr); } }
+@media(max-width:600px) { .specialist-topline { align-items:flex-start; margin-bottom:18px; } .specialist-profile-page { padding:20px 16px; } .specialist-service { display:flex; padding:24px; } .specialist-verification { padding:16px; } .specialist-intro h1 { font-size:2rem; } .specialist-form-heading { gap:10px; } }
+/* The two work areas remain distinct: assigned patient cases and account-owned reports. */
+.specialist-review-layout{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:24px;align-items:start;padding:24px;}
+.specialist-review-layout>section{min-width:0;}
+.specialist-review-tabs{display:none;}
+@media(max-width:900px){
+ .specialist-review-layout{display:block;padding:16px;}
+ .specialist-review-tabs{display:flex;gap:8px;margin-bottom:16px;}
+ .specialist-review-tabs button{min-height:48px;flex:1;border:0;border-bottom:2px solid transparent;background:transparent;color:inherit;cursor:pointer;}
+ .specialist-review-tabs button[aria-selected=true]{border-color:var(--md-sys-color-primary);color:var(--md-sys-color-primary);}
+ .specialist-review-layout>section:not(.active){display:none;}
+}
+
+.specialist-intro { margin-inline:auto; text-align:center; }
+.specialist-intro>p:last-child { margin-inline:auto; }
+.specialist-service-icon svg { width:32px; height:32px; }

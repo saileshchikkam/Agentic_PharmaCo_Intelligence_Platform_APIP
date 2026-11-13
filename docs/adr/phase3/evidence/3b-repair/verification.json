@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-08",
+  "baseline": "3dce84c7182e22f938f6dacabfef84867e071eb6",
+  "before": {
+    "authenticatedCapabilitiesStatus": 503,
+    "applicationError": "SPECIALIST_UNAVAILABLE",
+    "hostedExecutorAuthUsage": false,
+    "reproducedSqlstate": "42501",
+    "reproducedMessage": "permission denied for schema auth",
+    "sqlstateEvidence": "realistic disposable managed-role fixture; raw hosted driver SQLSTATE was not logged"
+  },
+  "repair": {
+    "approvedProposalFilename": "20261107205724_specialist_verified_subject_boundary.sql",
+    "recordedVersion": "20261107210206",
+    "sha256": "0a3aa18cb30657f877edeaa8e26c379aaf8f19a49c90ae3b64efa6612c56e658",
+    "appliedExactSql": true
+  },
+  "after": {
+    "authenticatedCapabilitiesStatus": 200,
+    "state": "SUBMITTED",
+    "savedVersion": 3,
+    "fictionalProfileCreatedAndSaved": true,
+    "reloadAndSessionRestoration": "PASS",
+    "administratorDenial": "PASS",
+    "sameChromeSession": true
+  },
+  "tests": {
+    "focused": 7,
+    "passed": 7,
+    "failed": 0,
+    "fixtureBrowser1440": "PASS",
+    "strictTypescript": "PASS",
+    "unchangedEvidenceReused": [
+      "PDF",
+      "production build",
+      "four-width layout",
+      "natural token expiry"
+    ]
+  },
+  "administratorBootstrap": "NOT AUTHORIZED / NOT EXECUTED"
+}

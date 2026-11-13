@@ -54,3 +54,17 @@ Tests create isolated local repositories and local bare remotes; they never push
 To disable automatic pushes in this checkout, set `git config --local apip.autoSync false`. The hook then reports pending sync instead of pushing. To remove the project hook path as well, use `git config --local --unset core.hooksPath`; reconcile any other hooks first. Update the standing project instructions if the user revokes automatic completion.
 
 Git's [hook documentation](https://git-scm.com/docs/githooks) explains the commit event and why hook failure cannot undo a local commit.
+
+## Private hosted preview preflight
+
+`start-hosted-preview.ps1` accepts RuntimeRoot, ProjectRef, PublishableKey, PdfPython and optional Port (3301). RuntimeRoot must contain the authorized CA, built frontend under dist, original template under docs/adr/templates, and unchanged PDF generator under server/adr. The repository server bundle must already exist. Frontend publishable configuration is compiled separately; service-role keys never belong in it.
+
+Example (PowerShell variables contain local approved paths and the public project configuration, never a password):
+
+```powershell
+& ./scripts/start-hosted-preview.ps1 -RuntimeRoot $runtime -ProjectRef $project -PublishableKey $publicKey -PdfPython $python -Port 3301
+```
+
+The script validates prerequisites before masked credential entry, sets NODE_EXTRA_CA_CERTS before Node, verifies the restricted transaction-pooler connection, then checks Auth and application readiness. It neither stops occupied ports nor grants roles. The writer URI stays only in its process environment and is cleared on exit. Never enter passwords in chat or add runtime/CA/configuration files to Git. [Detailed stage status](../docs/adr/phase3/3b-implementation-and-verification.md).
+
+Disposable specialist browser preview: set ADR_PLAYWRIGHT_MODULE to the installed Playwright module, then run `node --import tsx scripts/specialist.browser.mjs --serve`. It uses port 3300, disposable PostgreSQL and existing local test authentication, with a visible fixture banner. It is never a cloud fallback or professional approval.

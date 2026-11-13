@@ -3,12 +3,17 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "engines": { "node": ">=24.0.0 <25.0.0" },
+  "engines": {
+    "node": ">=24.0.0 <25.0.0"
+  },
   "scripts": {
     "dev": "node scripts/start-server.mjs development",
     "build": "vite build && esbuild server-entry.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "start": "node scripts/start-server.mjs production",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "test": "node --import tsx --test scripts/auth-error.test.ts scripts/account-profile.test.ts scripts/adr-connection-loss.test.ts scripts/adr-pdf-runtime.test.ts scripts/adr-postgres.test.ts scripts/cloud-auth.test.ts scripts/compact-extraction.test.ts scripts/git-workflow.test.mjs scripts/hosted-preview-preflight.test.mjs scripts/legacy-security.test.ts scripts/local-account.test.ts scripts/medassist-governance.test.ts scripts/medassist-safety.test.ts scripts/p0-isolation-security.test.ts scripts/preview-navigation.test.mjs scripts/sharing-disclosure.test.ts scripts/sharing-policy.test.ts scripts/sharing-pool-postgres.test.ts scripts/sharing-postgres.test.ts scripts/sharing-queue-api.test.ts scripts/sharing-upgrade.test.ts scripts/specialist-api.test.ts scripts/specialist-hosted-permissions.test.ts scripts/specialist-identity.test.ts scripts/specialist-postgres.test.ts",
+    "test:pdf": "node --import tsx --test scripts/adr-cases.test.ts scripts/adr-cloud-wire.test.ts scripts/adr-guided.test.ts scripts/sharing-api.test.ts"
   },
   "dependencies": {
     "@google/genai": "^2.21.0",
@@ -18,12 +23,15 @@
     "express": "^4.21.2",
     "lucide-react": "^1.16.0",
     "motion": "^12.4.7",
+    "pdfjs-dist": "5.6.205",
+    "postgres": "4.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^3.10.1"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "0.5.10",
+    "@electric-sql/pglite": "0.5.15",
+    "@electric-sql/pglite-socket": "0.2.18",
     "@tailwindcss/vite": "^4.0.9",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",

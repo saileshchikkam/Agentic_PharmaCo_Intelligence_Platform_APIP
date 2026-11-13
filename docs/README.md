@@ -1,6 +1,12 @@
 # APIP documentation
 
+[Phase 3B specialist identity](adr/phase3/3b-implementation-and-verification.md) documents implementation, exact hosted migration, fixture/browser evidence and separately blocked administrator bootstrap.
+
+The [canonical ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) owns proposed case management, specialist review, analytics and governed evidence stages. Implementation requires separate authorization.
+
 Current ADR implementation and verification: [ADR-1A guided intake](adr/09-adr-1a-checkpoint.md); [architecture and phase navigation](adr/README.md).
+
+[Phase 3A patient case management](adr/phase3/3a-implementation-and-verification.md) records actual owner dashboard/history/export behavior, hosted checks, remaining policy gates and a code walkthrough.
 
 The [root README](../README.md) introduces the repository. [AGENTS.md](../AGENTS.md) contains mandatory contributor/agent instructions.
 
@@ -17,6 +23,7 @@ The [hospital requirements register](hospital-requirements.md) records the notes
 7. [Research and validation](research-and-validation.md): evidence, data rights, and evaluation.
 8. [History](history/README.md) and [changelog](../CHANGELOG.md): actual work and notable changes.
 9. [Automatic commit and sync](../scripts/README.md): checkout setup, task completion, checks, and failure recovery.
+10. [Codex & Antigravity handoff](collaboration/codex-antigravity-handoff.md): canonical collaboration baseline, environment variables, verification protocol, and operating rules.
 
 The [MedAssist master blueprint](architecture/MEDASSIST_MASTER_BLUEPRINT.md) preserves the product vision, current research-demo evidence, safety gates and delivery plan; planned clinical capabilities remain explicitly blocked pending their prerequisites.
 
@@ -57,3 +64,5 @@ Prefer concise pages and links over repetition. Add READMEs for substantial dire
 Do not publish secrets, patient narratives, private chat/account IDs, or workstation-specific paths. Use repository-relative links and fictional examples.
 
 The [account/profile foundation](../database/README.md) is the source for signup, provider setup, shared health-profile contracts, SQL access rules and verification limits.
+
+P0 storage isolation and unified auth contracts: [P0 storage inventory and pooled-queue migration audit](architecture/p0-storage-and-migration-audit.md) and [MedAssist unified auth and PostgreSQL integration contract](collaboration/medassist-integration-contract.md).

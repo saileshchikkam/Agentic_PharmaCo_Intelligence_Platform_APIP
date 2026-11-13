@@ -13,3 +13,296 @@
 .account-shared dt { font-weight: 500; text-transform: capitalize; margin-block-start: 12px; }
 .account-divider { text-align: center; color: var(--md-sys-color-on-surface-variant); }
 @media (max-width: 600px) { .account-grid { grid-template-columns: 1fr; } .account-profile fieldset { padding: 20px 16px; } }
+
+
+/* ========================================================
+   APIP Redesigned Minimalist Authentication Experience
+   ======================================================== */
+
+.auth-card-shell {
+  inline-size: 100%;
+  max-inline-size: 552px;
+  margin-inline: auto;
+  margin-block: 12px 32px;
+  padding: 32px 40px;
+  border-radius: 28px;
+  background: var(--md-sys-color-surface-container-lowest, #ffffff);
+  border: 1px solid var(--md-sys-color-outline-variant, #e0e2ec);
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  animation: auth-fade-in 200ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes auth-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card-header {
+  text-align: center;
+  margin-block-end: 20px;
+}
+
+.auth-card-brand-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 56px;
+  block-size: 56px;
+  border-radius: 16px;
+  background: var(--md-sys-color-primary-container, #e0f2fe);
+  margin-block-end: 16px;
+}
+
+.auth-card-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--md-sys-color-on-surface, #1e293b);
+  margin: 0 0 6px 0;
+}
+
+.auth-card-subtitle {
+  font-size: 0.9375rem;
+  color: var(--md-sys-color-on-surface-variant, #64748b);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Role switcher segmented pill */
+.auth-role-switch {
+  display: flex;
+  background: var(--md-sys-color-surface-container-high, #f1f5f9);
+  padding: 4px;
+  border-radius: 14px;
+  margin-block-end: 20px;
+  gap: 4px;
+}
+
+.auth-role-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 48px;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant, #64748b);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 180ms ease;
+  font-family: inherit;
+}
+
+.auth-role-tab.active {
+  background: var(--md-sys-color-surface, #ffffff);
+  color: var(--md-sys-color-primary, #0284c7);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+}
+
+.auth-role-tab:hover:not(.active) {
+  color: var(--md-sys-color-on-surface, #1e293b);
+}
+
+/* Notice / Error banner */
+.auth-notice-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-block-end: 18px;
+}
+
+.auth-notice-banner.error {
+  background: var(--md-sys-color-error-container, #fee2e2);
+  color: var(--md-sys-color-on-error-container, #991b1b);
+}
+
+.auth-notice-banner.success {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.auth-notice-banner.info {
+  background: var(--md-sys-color-secondary-container, #f0f9ff);
+  color: var(--md-sys-color-on-secondary-container, #075985);
+}
+
+/* Google OAuth Button */
+/* Official Material Web outlined button owns border, focus and state layers. */
+.auth-google-btn { inline-size:100%; --md-outlined-button-container-height:48px; --md-outlined-button-label-text-size: .9375rem; }
+.auth-role-tab { gap:6px; }
+.auth-role-tab svg, .auth-specialist-note svg, .auth-notice-banner svg { flex-shrink:0; }
+.auth-card-brand-symbol { color:var(--md-sys-color-primary); }
+
+/* Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-block: 20px;
+  color: var(--md-sys-color-outline, #94a3b8);
+  font-size: 0.8125rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant, #e2e8f0);
+}
+
+.auth-divider span {
+  padding-inline: 12px;
+}
+
+/* Form body */
+.auth-form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-field-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-field-wrapper m3-text-field {
+  inline-size: 100%;
+}
+
+.auth-password-toggle {
+  position: absolute;
+  inset-inline-end: 6px;
+  inset-block-start: 6px;
+  background: none;
+  border: none;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface-variant, #64748b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.auth-password-toggle:hover {
+  color: var(--md-sys-color-on-surface, #1e293b);
+}
+
+.auth-field-helper {
+  font-size: 0.75rem;
+  color: var(--md-sys-color-on-surface-variant, #64748b);
+  margin-block-start: 4px;
+  margin-inline-start: 4px;
+}
+
+.auth-forgot-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-block-start: -4px;
+}
+
+.auth-link-btn {
+  background: none;
+  border: none;
+  min-block-size: 44px;
+  padding: 8px 4px;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant, #64748b);
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.auth-link-btn:hover {
+  text-decoration: underline;
+  color: var(--md-sys-color-primary, #0284c7);
+}
+
+.auth-link-btn.primary {
+  color: var(--md-sys-color-primary, #0284c7);
+  font-weight: 500;
+}
+
+.auth-specialist-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--md-sys-color-surface-container, #f8fafc);
+  border: 1px solid var(--md-sys-color-outline-variant, #e2e8f0);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--md-sys-color-on-surface-variant, #475569);
+}
+
+.auth-submit-row {
+  margin-block-start: 8px;
+}
+
+.auth-submit-row m3-button {
+  inline-size: 100%;
+}
+
+.auth-submit-row md-filled-button {
+  inline-size: 100%;
+}
+
+/* Card footer */
+.auth-card-footer {
+  text-align: center;
+  margin-block-start: 24px;
+  padding-block-start: 16px;
+  border-block-start: 0;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant, #64748b);
+}
+
+.auth-card-footer p {
+  margin: 0;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 480px) {
+  .auth-card-shell {
+    margin-block: 12px 24px;
+    padding: 24px 18px;
+    border-radius: 20px;
+    box-shadow: none;
+  }
+  .auth-card-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Auth-specific composition; semantic segmented controls follow M3 state roles. */
+.access-main-sign-in .access-page-navigation { max-inline-size:552px; margin-inline:auto; }
+.auth-card-shell :focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 3px; }
+.auth-field-wrapper:has(.auth-password-toggle) md-outlined-text-field { --md-outlined-text-field-trailing-space: 54px; }
+.auth-role-tab:disabled { opacity:.6; cursor:default; }
+@media (prefers-reduced-motion: reduce) { .auth-card-shell { animation:none; } .auth-role-tab, .auth-google-btn { transition:none; } }
+
+/* Do not inherit the legacy page-wide Back rail on authentication screens. */
+.access-main-sign-in:has(.access-page-navigation) { padding-inline-start: var(--access-page-gutter); }
+.access-main-sign-in .access-page-navigation { position:static; inline-size:min(100%,552px); margin-inline:auto; }
+.access-sign-in-centered-section { inline-size:100%; min-inline-size:0; }
+.auth-card-shell > * { min-inline-size:0; }
+.auth-role-tab { min-inline-size:0; }

@@ -53,7 +53,8 @@ test('real local HTTP auth: durable profiles, isolated accounts, cookies, expiry
   const stop = async () => { await new Promise<void>((resolve, reject) => runtime.server.close(e => e ? reject(e) : resolve())); runtime.service.close(); };
   try {
     const password = randomBytes(24).toString('base64url');
-    assert.equal((await call('signup', { email: 'first@example.test', password: 'short' })).status, 400);
+    assert.equal((await call('signup', { email: 'first@example.test', password: '' })).status, 400);
+    assert.equal((await call('signup', { email: 'short@example.test', password: 'short' })).status, 201);
     assert.equal((await call('signup', { email: 'first@example.test', password }, '', undefined, 'https://unrelated.example')).status, 403);
     const first = await call('signup', { email: 'first@example.test', password });
     assert.equal(first.status, 201);

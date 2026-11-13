@@ -1,0 +1,3 @@
+-- Superseded proposal. Canonical reviewed SQL:
+-- supabase/migrations/20261112155338_account_portal_binding.sql
+-- Hosted application requires explicit owner approval of the canonical checksum.

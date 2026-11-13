@@ -1,5 +1,19 @@
 # Access and navigation
 
+## Public homepage
+
+The home route uses [LandingV2.tsx](LandingV2.tsx) for the body and footer. The shared header and the footer on other routes still use [PreviewLayout.tsx](PreviewLayout.tsx). The home links use the existing route guard and navigation helpers.
+
+The walkthrough uses official Material Web tabs, buttons and progress with a fictional example. The feature cards and expandable privacy answers use native markup with APIP Material color, type, shape and elevation roles. [landing-v2.css](landing-v2.css) scopes Roboto and motion to the home body and footer. Panels enter briefly on selection, cards can reveal as they enter the viewport, and reduced motion disables both.
+
+[The Chrome regression](../../../scripts/landing-v2.browser.mjs) compares the rendered header with captures from the pre-redesign worktree and checks the new page. Run the script against the baseline with `--baseline` and then against the redesigned page with the same `APIP_LANDING_EVIDENCE` directory. Set `APIP_LANDING_URL` if the preview uses a different origin, and `ADR_PLAYWRIGHT_MODULE` if Playwright is installed outside the checkout.
+
+## Historical access design notes
+
+The notes below record earlier access designs and their original constraints.
+
+
+
 **Update 2026-10-17:** patient signup/sign-in now uses the configuration-gated [account foundation](../../../database/README.md), with Google/email paths and the `#/account/profile` route. Local SQLite signup/session/profile storage are now connected; hosted setup is still pending. Specialist/developer screens remain design previews and do not grant roles. The original design/reference notes below describe the preceding UI state, not the newer patient implementation.
 
 This is the selected rough UI task, ahead of authentication. It provides a simple APIP welcome page and one shared sign-in composition with three workspace views. It does not access an account, submit credentials, create a session, or establish permissions.

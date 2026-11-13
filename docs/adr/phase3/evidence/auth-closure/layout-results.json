@@ -1,0 +1,42 @@
+{
+  "mode": "real hosted Supabase through existing API",
+  "layout": [
+    {
+      "width": 320,
+      "card": 272.8000183105469,
+      "result": "PASS",
+      "keyboard": "browser Back/Forward, visibility and segmented controls"
+    },
+    {
+      "width": 360,
+      "card": 296.8000183105469,
+      "result": "PASS",
+      "keyboard": "browser Back/Forward, visibility and segmented controls"
+    },
+    {
+      "width": 820,
+      "card": 552.0000228881836,
+      "result": "PASS",
+      "keyboard": "browser Back/Forward, visibility and segmented controls"
+    },
+    {
+      "width": 1024,
+      "card": 552.0000152587891,
+      "result": "PASS",
+      "keyboard": "browser Back/Forward, visibility and segmented controls"
+    },
+    {
+      "width": 1440,
+      "card": 552.0000305175781,
+      "result": "PASS",
+      "keyboard": "browser Back/Forward, visibility and segmented controls"
+    },
+    {
+      "width": 1920,
+      "card": 552,
+      "result": "PASS",
+      "keyboard": "browser Back/Forward, visibility and segmented controls"
+    }
+  ],
+  "gates": {}
+}

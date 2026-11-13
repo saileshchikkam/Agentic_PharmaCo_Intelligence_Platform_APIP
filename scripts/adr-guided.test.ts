@@ -6,9 +6,26 @@ import {existsSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {registerLocalAccount} from '../server/local-account';
-import {questions,nextQuestion,missing,chronology,validateValue,type GuidedCase} from '../src/features/adr/guided/domain';
+import {addressedQuestions,questions,nextQuestion,missing,chronology,validateValue,type GuidedCase} from '../src/features/adr/guided/domain';
 import {checkedProposals} from '../server/adr/provider';
 const empty=():GuidedCase=>({schemaVersion:1,id:'case',revision:1,fictionalOnly:true,updatedAt:'',values:{},medications:[{id:'med',kind:'suspect'}],statements:[],proposals:[],providerStatus:'manual'});
+test('intake progress follows the saved plan, including optional, unknown and repeated answers',()=>{
+ const c=empty();
+ const count=()=>addressedQuestions(questions(c),c.values);
+ const saved={confirmedAt:'2026-11-04',source:'manual',statementId:'1'} as const;
+ assert.equal(count(),0);
+ c.values.age={...saved,state:'unknown',value:null};
+ c.values.caseType={...saved,state:'provided',value:'Initial'};
+ assert.equal(count(),2);
+ const original=questions(c).length;
+ c.medications.push({id:'second',kind:'concomitant'});
+ assert.equal(questions(c).length,original+7);
+ c.values['med.second.name']={...saved,state:'provided',value:'Fictional medicine'};
+ const resumed:GuidedCase=JSON.parse(JSON.stringify(c));
+ assert.equal(addressedQuestions(questions(resumed),resumed.values),3);
+ c.values.age={...saved,state:'provided',value:'30'};
+ assert.equal(count(),3);
+});
 test('planner, field validation, complete field coverage and unknown semantics',()=>{
  const c=empty();assert.equal(nextQuestion(c),'caseType');assert(!questions(c).some(f=>f.key==='followUp'));
  c.values.caseType={value:'Follow-up',state:'provided',confirmedAt:'',source:'manual',statementId:'1'};assert.equal(nextQuestion(c),'followUp');

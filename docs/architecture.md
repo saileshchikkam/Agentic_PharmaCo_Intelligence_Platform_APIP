@@ -1,5 +1,11 @@
 # Architecture and implementation status
 
+**2026-11-08 Phase 3B:** [specialist identity, private administration, database authorization and evidence](adr/phase3/3b-implementation-and-verification.md) are implemented for the fictional prototype. The additive development migration is applied; exact administrator bootstrap and live privileged workflow verification remain blocked. Patient ownership policies, PDF mapping and MedAssist are unchanged.
+
+**2026-11-07 Phase 3A:** [owner case management, exact history/PDF contracts and evidence](adr/phase3/3a-implementation-and-verification.md) reuse the existing repositories, guided editor and original form. Summaries derive from current snapshots; one approved development migration adds a restricted historical-export receipt function. Lifecycle writes and specialist access remain disabled pending policy approval.
+
+**2026-11-07 planning update.** The [ADR Phase 3–4 master blueprint](architecture/ADR_PHASE3_MASTER_BLUEPRINT.md) is the canonical future ADR architecture and stage plan. Its schemas, APIs, specialist privileges, analytics and AI workflows are proposals. Actual backend checks remain in the [hosted evidence](../database/hosted-verification-2026-11-07.md).
+
 **2026-11-03 ADR-1A update:** [guided intake checkpoint](adr/09-adr-1a-checkpoint.md) adds owner-isolated revisioned SQLite cases, a deterministic question planner, optional local-model proposals and a six-stage Material Web interface. Authenticated native PvPI PDF generation uses the supplied original AcroForm, explicit appearance streams and appended continuation pages; editable review/regeneration and an accessible reveal are checked for English fictional cases. Unsupported scripts and multiple seriousness selections fail explicitly. Earlier dated architecture observations below retain their historical scope.
 
 Last inspected: 2026-10-18. The current shell presents welcome, sign-in, patient-home, a guided fictional MedAssist symptom conversation, and fictional ADR drafts plus an explicit developer-reference route. MedAssist preserves page-memory answers and optionally uses local Ollama to select source quotes. It offers a location-only Maps search handoff; model-driven urgency, tailored precautions, and clinical validation are absent. The ADR preview now uses owner-isolated SQLite drafts for local accounts, with a separate optional browser demo. Neither task preview is a protected clinical workflow. Local email/password authentication, cookie sessions and SQLite profiles now work in development. The optional Supabase client/RLS schema remain prepared; hosted setup is unverified.
@@ -120,3 +126,7 @@ The component reference is now a separate hash view alongside the rough welcome/
 ## Contributor backend integration boundary — 2026-10-26
 
 The preserved standalone `app/` FastAPI/PostgreSQL backend and its archived disease model coexist in Git with APIP React/Express and the separate sealed Model A research adapter. They are distinct entry points and dependency environments. No APIP route is redirected to the contributor predictor, precautions or seeded hospitals; its import-time model loading/database creation is not activated. [Contributor context](contributors/jayanth-medassist-backend.md) and [main reconciliation evidence](reconciliation-2026-10-26.md) record provenance, unchanged files and the failing fresh-checkout protocol gate. Both histories are preserved in the integration branch; main merge remains blocked pending verification.
+
+## Specialist presentation routes — 2026-11-08
+
+[3C-A](adr/phase3/3c-a-implementation-and-verification.md) separates the professional profile, three-card home and restricted/unconnected inbox while retaining the existing server capability and application API boundaries. No consent, sharing, assignment or specialist clinical schema was added.

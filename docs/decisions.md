@@ -1,5 +1,9 @@
 # Decisions
 
+## 2026-11-07 — Owner management without unapproved lifecycle writes
+
+The authorized Phase 3A subset derives owner summaries directly from current immutable snapshots rather than introducing a backfilled search/management subsystem. Existing bounds make this reviewable without projection drift; larger limits require separate performance evidence. Readiness/archive/deletion policies remain unapproved, so their commands are denied rather than inferred from checklist completeness. Historical exports use a separate owner-checked receipt function and preserve the current-PDF latest-revision check. [Actual contracts and tests](adr/phase3/3a-implementation-and-verification.md).
+
 **Confirmed** means directly established by the user, not implemented or clinically validated. Engineering recommendations stay proposed until selected.
 
 ## DEC-001 — Mission and name
@@ -207,3 +211,11 @@ Preserve the reviewed current bytes under `models/medassist_ai/`, `models/medass
 **Implemented for fictional ADR-1A, 2026-11-03.** Use the hash-bound original PvPI Version 1.4 PDF, deterministic native field filling and explicit appearances. Do not reconstruct its artwork or ask an LLM to write the PDF. Keep the original reporting instructions and append clearly identified continuation pages for overflow and full confirmed details. Repair shared appearance streams and misplaced checkbox annotations without modifying source-template bytes. Retain editable native fields; APIP's saved review remains authoritative for regeneration.
 
 Export loads an authenticated owner-scoped persisted revision and rechecks session/revision before delivery. AMC/NCC identifiers, causality and signatures remain unfilled. Unknowns remain explicit; unsupported glyphs and unresolved multiple seriousness selections fail rather than silently changing facts. No provider call, clinical approval, government submission or production enablement follows from generating a PDF. [Evidence, coverage and limits](adr/09-adr-1a-checkpoint.md).
+
+## DEC-036 — Separate specialist identity from patient access
+
+**Private fictional Phase 3B, 2026-11-08.** Reuse Supabase Auth with authoritative private PostgreSQL identity capabilities, not registration choice or editable metadata. An independently authorized identity administrator may review four approved fictional categories, with no self-approval, 30-day validity, explicit renewal and database authorization on every privileged request. Atomic immutable decisions/audit accompany changes. Identity approval and administrator scope grant no patient-case, revision or PDF rights. Exact administrator subject/bootstrap requires separate private approval; it remains unexecuted. Hosted migration approval does not authorize bootstrap or Phase 3C. [Evidence and contracts](adr/phase3/3b-implementation-and-verification.md).
+
+## DEC-037 — Separate dashboard access from professional review authority
+
+A submitted specialist applicant may use the home page and existing own-patient tools. Only current server capabilities determine professional identity status; navigation and completed profiles grant no case rights. The three-card review inbox remains unconnected until consent/assignment policies and backend grants are separately approved. Do not display invented report counts. [3C-A evidence](adr/phase3/3c-a-implementation-and-verification.md).

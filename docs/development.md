@@ -74,6 +74,8 @@ See the [documentation guide](README.md) for the ongoing maintenance workflow.
 
 The [repository workflow](../scripts/README.md) uses Node.js and Git without installing application dependencies. It is enabled locally in the current checkout; new clones need the documented installer. Codex commits its completed task files and documentation under the user's standing authorization, and the post-commit event pushes them to the matching origin branch.
 
+For shared development between OpenAI Codex and Google Antigravity, follow the [canonical collaboration handoff](collaboration/codex-antigravity-handoff.md) which defines the active integration baseline, environment variables, verification protocol, and operating rules.
+
 Check behavior before committing; the helper does not run or certify all application tests. It preserves unrelated work, refuses an existing staged index, requires a changed dated history entry, and reports pending sync on a failed push. It never force-pushes or rewrites history. Approval controls still apply; a permission/network/conflict failure must be reported rather than bypassed.
 
 ## Developer reference and appearance
@@ -136,3 +138,7 @@ Fresh-checkout Model A/Python execution remains blocked by the original CRLF-loc
 ## Read-only Model A portability repair — 2026-10-26
 
 Use the [authenticated adapter boundary](model-a-protocol-portability.md), accepting only canonical LF or historical CRLF without changing frozen files/hashes/artifacts. No generic hashing monkeypatch or normalization setup step is needed. Keep original private roots, pinned environment and trusted-pickle provenance. Frozen training/locked-test commands remain strict and are not authorized by this change. Full clean-checkout verification must pass before PR #1 is marked ready.
+
+## Phase 3B identity development
+
+See [delivery and test boundaries](adr/phase3/3b-implementation-and-verification.md), the [identity API guide](../server/specialist/README.md), [controlled bootstrap runbook](../database/operations/README.md) and [reusable hosted launch instructions](../scripts/README.md#private-hosted-preview-preflight). Ordinary SQLite patient mode intentionally does not grant specialist functionality. Use explicitly labeled disposable fixtures for administrator tests until exact live bootstrap approval exists.

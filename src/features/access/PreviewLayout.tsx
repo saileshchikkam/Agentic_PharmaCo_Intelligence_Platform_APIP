@@ -1,22 +1,26 @@
+import {HeaderBrandText,FULL_BRAND_NAME} from './HeaderBrandText';
+import { ArrowLeft, Check, CircleHelp, LogOut, Moon, Settings, Sun, X } from 'lucide-react';
 import { useAccount } from '../account/AccountProvider';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { M3Button } from '../../components/material/core';
 import type { Appearance } from '../../design-system/appearance';
-import { followPreviewLink } from './navigation';
+import { followPreviewLink, navigatePreview } from './navigation';
+import { useDiscreetDeveloperAccess } from './discreetDeveloperAccess';
 import './access.css';
 
-export function Brand({ large = false }: { large?: boolean }) {
+export function Brand({ large = false, animated = false }: { large?: boolean; animated?: boolean }) {
   return <span className={`access-brand ${large ? 'access-brand-large' : ''}`}>
     <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
       <rect x="4" y="14" width="32" height="12" rx="6" fill="currentColor" opacity=".7" />
       <rect x="14" y="4" width="12" height="32" rx="6" fill="currentColor" />
       <circle cx="20" cy="20" r="3" fill="var(--md-sys-color-surface)" />
-    </svg><span>APIP</span>
+    </svg>{animated ? <HeaderBrandText /> : <span>APIP</span>}
   </span>;
 }
 
 interface HeaderProps {
-  screen: 'profile' | 'home' | 'patient-home' | 'sign-in' | 'adr-preview' | 'medassist-preview' | 'medassist-conversation' | 'developer-reference';
+  screen: 'specialist' | 'profile' | 'home' | 'patient-home' | 'sign-in' | 'adr-preview' | 'adr-cases' | 'medassist-preview' | 'medassist-conversation' | 'developer-reference';
   appearance: Appearance;
   setAppearance: React.Dispatch<React.SetStateAction<Appearance>>;
   preferencesSaved: boolean;
@@ -25,6 +29,17 @@ interface HeaderProps {
 
 export function PreviewHeader({ screen, appearance, setAppearance, preferencesSaved, onHelp }: HeaderProps) {
   const account = useAccount();
+  const header = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const element = header.current;
+    if (!element) return;
+    const root = document.documentElement;
+    const measure = () => root.style.setProperty('--apip-header-height', `${element.offsetHeight}px`);
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    measure();
+    return () => { observer.disconnect(); root.style.removeProperty('--apip-header-height'); };
+  }, []);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const closeSettings = () => { setSettingsOpen(false); document.getElementById('access-settings-button')?.focus(); };
   useEffect(() => { setSettingsOpen(false); }, [screen]);
@@ -35,20 +50,39 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
     void button?.updateComplete.then(() => { if (!disposed) button.focus(); });
     return () => { disposed = true; };
   }, [settingsOpen, appearance.accent]);
-  return <header className={`access-header ${settingsOpen ? 'access-header-settings-open' : ''}`} onKeyDown={(event) => {
+  return <header ref={header} className="access-header" onKeyDown={(event) => {
       if (settingsOpen && event.key === 'Escape') { event.preventDefault(); closeSettings(); }
     }}>
-      <a className="access-home-link" href="#/" aria-label="APIP home" onClick={(event) => followPreviewLink(event, '/')}><Brand /></a>
+      <a className="access-home-link" href="#/" aria-label={FULL_BRAND_NAME+' home'} onClick={(event) => followPreviewLink(event, '/')}><Brand animated /></a>
       <div className="access-header-actions">
         <nav className="access-header-navigation" aria-label="Main navigation">
           <a className="access-nav-link" href="#/" aria-current={screen === 'home' ? 'page' : undefined}
             onClick={(event) => followPreviewLink(event, '/')}>Home</a>
-          {!settingsOpen && <>
-            <a className="access-nav-link access-patients-link" href="#/patient/home" aria-current={screen === 'patient-home' ? 'page' : undefined}
-              onClick={(event) => followPreviewLink(event, '/patient/home')}>For patients</a>
-            {account.user ? <><a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a><md-icon-button aria-label="Sign out" onClick={() => { void account.signOut(); }}><md-icon><span className="material-symbols-outlined">logout</span></md-icon></md-icon-button></> : <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
-              onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>}
-          </>}
+          {(!account.user||account.portal==='patient')&&<a className="access-nav-link access-patients-link" href={account.user ? "#/patient/home" : "#/sign-in/patient"} aria-current={screen === 'patient-home' ? 'page' : undefined}
+            onClick={(event) => followPreviewLink(event, account.user ? '/patient/home' : '/sign-in/patient')}>For patients</a>}
+          {(!account.user||account.portal==='specialist')&&<a className="access-nav-link access-specialists-link" href={account.user ? "#/specialist" : "#/sign-in/specialist"} aria-current={screen === 'specialist' ? 'page' : undefined}
+            onClick={(event) => followPreviewLink(event, account.user ? '/specialist' : '/sign-in/specialist')}>For specialists</a>}
+          {account.user ? (
+            <>
+              <a className="access-nav-link" href="#/account/profile" onClick={event => followPreviewLink(event, '/account/profile')}>Profile</a>
+              <md-icon-button aria-label="Sign out" title="Sign out" onClick={() => {
+                const leave = new CustomEvent('apip:before-navigate', { cancelable: true, detail: { to: '/' } });
+                if (!window.dispatchEvent(leave)) return;
+                try {
+                  sessionStorage.removeItem('apip.account.continue');
+                  sessionStorage.removeItem('apip.account.return');
+                  sessionStorage.removeItem('apip.last.role');
+                } catch {}
+                navigatePreview('/', { replace: true });
+                void account.signOut();
+              }}>
+                <LogOut size={22} aria-hidden="true" />
+              </md-icon-button>
+            </>
+          ) : (
+            <a className="access-nav-link" href="#/sign-in/patient" aria-current={screen === 'sign-in' ? 'page' : undefined}
+              onClick={(event) => followPreviewLink(event, '/sign-in/patient')}>Log in</a>
+          )}
         </nav>
         {settingsOpen && <div id="access-appearance-settings" className="access-header-preferences" role="group" aria-label="Appearance settings">
           <span className="access-appearance-label">Appearance</span>
@@ -57,28 +91,37 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
               aria-label={`${accent[0].toUpperCase()}${accent.slice(1)} highlight`} toggle selected={appearance.accent === accent || undefined}
               onClick={() => setAppearance((value) => ({ ...value, accent }))}>
               <span className={`access-accent-dot access-accent-${accent}`} aria-hidden="true">
-                {appearance.accent === accent && <span className="material-symbols-outlined">check</span>}
+                {appearance.accent === accent && <Check size={16} />}
               </span>
             </md-icon-button>)}
           </div>
           <md-icon-button aria-label="Dark mode" toggle selected={appearance.isDark || undefined}
             onClick={() => setAppearance((value) => ({ ...value, isDark: !value.isDark }))}>
-            <md-icon><span className="material-symbols-outlined">{appearance.isDark ? 'dark_mode' : 'light_mode'}</span></md-icon>
+            {appearance.isDark ? <Moon size={22} aria-hidden="true" /> : <Sun size={22} aria-hidden="true" />}
           </md-icon-button>
           <span className="access-preference-status" role="status">{preferencesSaved ? 'Appearance saved in this browser.' : 'Appearance applies to this visit only.'}</span>
         </div>}
         <md-icon-button id="access-settings-button" aria-label={settingsOpen ? 'Close appearance settings' : 'Appearance settings'} aria-expanded={settingsOpen}
           aria-controls={settingsOpen ? 'access-appearance-settings' : undefined} onClick={() => settingsOpen ? closeSettings() : setSettingsOpen(true)}>
-          <md-icon><span className="material-symbols-outlined">{settingsOpen ? 'close' : 'settings'}</span></md-icon>
+          {settingsOpen ? <X size={22} aria-hidden="true" /> : <Settings size={22} aria-hidden="true" />}
         </md-icon-button>
-        {onHelp && !settingsOpen && <M3Button className="access-help-button" variant="text" leadingIcon="help" ariaLabel="Help with patient home" onClick={onHelp}><span className="access-help-label">Help</span></M3Button>}
+        {onHelp && <span className="access-help-button"><M3Button variant="text" leadingIcon={<CircleHelp size={20} />} ariaLabel="Help with patient home" onClick={onHelp}><span className="access-help-label">Help</span></M3Button></span>}
       </div>
     </header>;
 }
 
-/** A permanent 48px navigation slot keeps every screen's Back control aligned. */
+export function PreviewFooter({ children }: { children?: React.ReactNode }) {
+  useDiscreetDeveloperAccess();
+  return children ? <footer className="access-footer">
+    {children}
+  </footer> : null;
+}
+
 export function PageNavigation({ onBack, backLabel = 'Back' }: { onBack?: () => void; backLabel?: string }) {
-  return <nav className="access-page-navigation" aria-label="Page navigation">
-    {onBack && <M3Button variant="text" leadingIcon="arrow_back" ariaLabel={backLabel} onClick={onBack}>Back</M3Button>}
-  </nav>;
+  const [host,setHost]=useState<HTMLElement|null>(null);
+  useLayoutEffect(()=>{setHost(document.getElementById('access-back-navigation'));},[]);
+  if (!onBack || !host) return null;
+  return createPortal(<nav className="access-page-navigation" aria-label="Page navigation">
+    <M3Button variant="text" leadingIcon={<ArrowLeft size={18} />} ariaLabel={backLabel} onClick={onBack}>Back</M3Button>
+  </nav>,host);
 }

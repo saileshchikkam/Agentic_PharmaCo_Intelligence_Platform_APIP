@@ -17,6 +17,15 @@ def fixture(extra=False):
  return c
 
 class PdfTests(unittest.TestCase):
+ def test_demographic_widget_baselines(self):
+  source=form.original().get_fields();filled=PdfReader(io.BytesIO(form.generate(fixture()))).get_fields()
+  original={a.get_object()['/T']:a.get_object() for a in form.original().pages[0]['/Annots']}
+  output=PdfReader(io.BytesIO(form.generate(fixture())))
+  actual={a.get_object()['/T']:a.get_object() for a in output.pages[0]['/Annots']}
+  for name,drop in {'Text Field0':4.5,'Text Field1':4.5,'Text Field126':3.0}.items():
+   before=list(map(float,original[name]['/Rect']));after=list(map(float,actual[name]['/Rect']))
+   self.assertAlmostEqual(after[1],before[1]-drop);self.assertAlmostEqual(after[3],before[3]-drop)
+   self.assertEqual(after[0],before[0]);self.assertEqual(after[2],before[2])
  def test_inventory(self):
   inv=form.inventory();self.assertEqual(len(inv),147);self.assertEqual(sum(x['type']=='/Tx' for x in inv),127);self.assertEqual(sum(x['name'].startswith('Check Box') for x in inv),19);self.assertTrue(all(x['page']==1 for x in inv));self.assertEqual(len(form.TEXT),127)
  def test_full_mapping_and_appearances(self):

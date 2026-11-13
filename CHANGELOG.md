@@ -1,5 +1,181 @@
 # Changelog
 
+## Unreleased
+
+- Repair current-schema PostgreSQL CI fixtures and bounded hosted account-switch verification; the real Patient/Specialist/Patient journey passes without changing application authentication. Avoid disposable Vite dependency-scan shutdown races.
+
+- Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
+
+- Added an approval-gated professional ADR assessment foundation with immutable private specialist notes, assignment-scoped patient-specialist messaging, audit history, and narrow server authorization. It reuses the existing pooled queue and active assignments.
+
+## P0-A Authentication Recovery & GitHub CI PDF Fix - 2026-11-11
+
+### Changed
+
+- Fixed cross-tab Supabase PKCE email confirmation and password recovery flows (`src/features/account/client.ts`, `src/features/account/authCallback.ts`, `src/features/account/APIPAuthDialog.tsx`): stored PKCE `-code-verifier` entries in `localStorage` as well as `sessionStorage` with cleanup on exchange/removal, added TTL-bounded non-PII cross-tab pending return restoration (`apip.account.pending_return`), preserved selected role across `/forgot-password/*` and `/#/reset-password`, added explicit expired/missing recovery link fallback actions instead of failing on submit, added resend-confirmation actions, and fixed Google OAuth gate handling (`googleEnabled === false` vs unprobed `null`).
+- Hardened authentication error mapping, session refresh stability, and expired-session reconciliation (`src/features/account/authError.ts`, `src/features/account/client.ts`, `src/features/account/AccountProvider.tsx`, `src/features/specialist/SpecialistWorkspace.tsx`, `src/features/specialist/SharingWorkspace.tsx`, `src/features/adr/guided/GuidedWorkspace.tsx`, `src/features/adr/cases/CaseWorkspace.tsx`): mapped `AuthSessionMissingError`, PKCE verifier, OTP expiry, same-password, and timeout errors; eliminated premature logout flashes during background token refresh on expiry timers; added proactive token refresh and `invalidateSession` recovery on HTTP `401 SIGN_IN_REQUIRED`; cleared stale inbox/queue state on `403 FORBIDDEN`.
+- Normalized trailing-slash preview routes, preserved return destinations for `/#/preview/medassist`, limited `apip.last.role = 'specialist'` sticky tracking to active specialist workspace views (`home`, `reviews`, `admin`), and honored navigation dirty guards during header sign-out (`src/features/access/AccessPreview.tsx`, `src/features/access/PreviewLayout.tsx`).
+- Fixed the GitHub CI `503 !== 404` failure in `scripts/sharing-api.test.ts` (`server/adr/pdf.ts`, `server/sharing/router.ts`, `scripts/sharing-api.test.ts`): exported injectable `PdfService` on `sharingRouter`, mapped PDF service/template unavailability errors explicitly to HTTP `503`, separated `404 NOT_FOUND` authorization/withdrawal enforcement from `503 PDF_TEMPLATE_MISSING` / `PDF_RUNTIME_DEPENDENCIES_MISSING`, and verified deterministic tests both with and without gitignored `ADRRF_2.pdf`.
+
+### Added
+
+- Expanded unit and callback coverage in [scripts/auth-error.test.ts](scripts/auth-error.test.ts) and added cross-tab email confirmation, cross-tab password reset, expired recovery UI, and `401` session reconciliation Playwright browser verification in [scripts/auth-recovery.browser.mjs](scripts/auth-recovery.browser.mjs).
+
+## P0 Unified Auth, Fail-Closed Postgres Persistence & Multi-Actor Isolation - 2026-11-11
+
+### Changed
+
+- Enforced Supabase PostgreSQL fail-closed persistence in hosted/cloud runtime (`server/cloud-account.ts`, `server/sharing/pool.ts`, `server/sharing/router.ts`, `server/sharing/repository.ts`): removed automatic SQLite pool fallback (`503 POOL_MIGRATION_REQUIRED` / `503 POOL_SQLITE_FORBIDDEN_IN_CLOUD`), verified `apip_sharing.pool_operation` execute privilege on `/api/ready` when `APIP_POOL_POSTGRES=1`, and mapped PostgreSQL `ACTIVE_ASSIGNMENT_CONFLICT` errors to HTTP `409`.
+- Hardened single-origin API behavior (`server.ts`): production startup now fails if `APIP_ACCOUNT_MODE !== 'disabled'` without Supabase configuration, and unmatched `/api` / `/api/*` routes return JSON `404` instead of SPA HTML.
+- Fixed same-tab session drop after sign-in (`src/features/account/client.ts`): separated APIP's cross-tab notification channel (`apip.cloud.auth.sync`) from Supabase `GoTrueClient`'s internal `apip.cloud.auth` channel, added `storage` cross-tab listeners, and cleared legacy `localStorage` ADR draft keys on Supabase init and `signOut` (`AccountProvider.tsx`).
+- Tightened cloud auth dialog & workspace behavior (`APIPAuthDialog.tsx`, `AdrWorkspace.tsx`, `GuidedWorkspace.tsx`, `SharingWorkspace.tsx`): locked Google sign-in outside `supabase`, cleaned up password-reset timers, restored previous return paths on signup errors, expanded auth error banner detection, hid `localStorage` ADR fallback buttons in cloud builds, and handled `503 POOL_MIGRATION_REQUIRED` cleanly in Specialist Review Workspace.
+- Hardened pooled queue SQL migration (`supabase/migrations/20261111000000_adr_pooled_sharing_queue.sql`) with null-UUID guards and `apip_sharing.prevent_pool_direct_overlap()` overlap trigger.
+
+### Added
+
+- Multi-actor PGlite + HTTP isolation security suite ([scripts/p0-isolation-security.test.ts](scripts/p0-isolation-security.test.ts)) integrated into `npm test`.
+- Authoritative P0 storage/migration audit ([docs/architecture/p0-storage-and-migration-audit.md](docs/architecture/p0-storage-and-migration-audit.md)) and MedAssist integration boundary contract ([docs/collaboration/medassist-integration-contract.md](docs/collaboration/medassist-integration-contract.md)), indexed in [docs/README.md](docs/README.md).
+
+## Platform Stabilization, Unified Portal, Secret Hygiene & ADR Phase 3C-C1 Security Remediation - 2026-11-11
+
+- **Authentication UX, Session Isolation & Navigation (`G01`–`G07`)**:
+  - Added `src/features/account/authError.ts` mapping Supabase Auth error codes and local errors cleanly instead of showing generic `"Request failed"` alerts; updated Google OAuth button state using live `/auth/v1/settings`; aligned signup/reset password minimum to 12 characters in `APIPAuthDialog.tsx` and `AccountSignIn.tsx`.
+  - Stabilized `M3TextField` input change listeners (`onChangeRef`), guarded post-auth redirect / modal close races and role-scoped `apip.account.return`, fixed `CaseWorkspace.tsx` `date()` handling on missing/invalid timestamps, keyed `SpecialistWorkspace` by authenticated user ID, added `Open review workspace` on `/specialist/profile`, normalized non-hash deep links synchronously inside `readPreviewRoute()`, and added `For specialists` plus safe `#/` sign-out transition in `PreviewLayout.tsx`.
+  - Rewrote `scripts/closure-preview.mjs` as the unified single-origin gateway (`http://127.0.0.1:3602` / `http://localhost:3602`) serving built `dist/` assets with SPA fallback and `/api/*` proxying to `127.0.0.1:3601`.
+- **ADR Phase 3C-C1 Security & Architecture Remediation (`G08`–`G12`)**:
+  - Authored `supabase/migrations/20261111000000_adr_pooled_sharing_queue.sql` and `postgresSharingPoolRepository(sql)` in `server/sharing/pool.ts` (activated when `APIP_POOL_POSTGRES=1`) to eliminate SQLite queue persistence and server-side patient impersonation on claim; hardened SQLite fallback (`pool_receipts`, per-key serialization, release by `poolRequestId` or `assignmentId`, fresh assignment IDs on reclaim).
+  - Hardened `extractSafeMetadata()` PII redaction (`server/sharing/policy.ts`), `/requests` deduplication and `Withdraw future access` rendering for `claimed` pool items (`server/sharing/router.ts`, `SharingWorkspace.tsx`), and connected `/inbox/:id/decline` back to `pool.release`.
+- **Secret Hygiene, CI & Risk Governance (`G13`–`G15`)**:
+  - Added `findSecretViolations()` in `scripts/git-workflow.mjs` and standalone `scripts/scan-secrets.mjs`; scrubbed a hardcoded local database password in `alembic.ini` line 89; added `scan:secrets`, `test`, and `test:pdf` npm scripts plus `.github/workflows/ci.yml`; documented Claude Audit Risk Register in `docs/history/2026-11-11.md`.
+- **Verified**: `npm run scan:secrets` (`0` findings across `883` files), `npm run lint`, `npm run build`, `npm test` (`62/62`), `npm run test:pdf` (`9/9`), hosted `verify-hosted-phase3cb-workflow.ts` (`10/10`) & `verify-phase3cc1-shared-queue.ts` (`13/13`), live multi-viewport E2E on `http://127.0.0.1:3602` (`8/8` viewports, `15/15` routes, `0` console/page/5xx errors), and mocked session-isolation E2E. Hosted SQL DDL application (`20261111000000`) and credential rotation remain pending explicit owner action.
+
+## ADR Phase 3C-C1: Shared Specialist Review Queue & Atomic Case Assignment Foundation - 2026-11-10
+
+- Implemented shared specialist ADR review queue and atomic case assignment foundation:
+  - Added patient-controlled explicit consent for the Approved Specialist Review Pool (`target: 'pool'`, policy `'phase3c-c1-v1'`) in `PatientSharing`, including disclosure of minimal queue metadata visibility, single-specialist claim rule, and withdrawal restrictions.
+  - Implemented `SharingPoolRepository` with SQLite persistence and PostgreSQL-level advisory transaction lock (`pg_advisory_xact_lock`) concurrency serialization in `server/sharing/pool.ts`.
+  - Added `GET /api/sharing/queue` endpoint delivering minimal safe display metadata (caseRef, reactionSnippet, suspectMedicineClass, createdAt) to approved, active specialists only; patient names and contact details strictly withheld.
+  - Added atomic `POST /api/sharing/queue/:id/claim` endpoint with conflict of interest rejection (`CONFLICT_OF_INTEREST`) prohibiting self-assignment, database assignment creation in `apip_sharing.requests`, and 409 `ACTIVE_ASSIGNMENT_CONFLICT` rejection on simultaneous claim races.
+  - Added `POST /api/sharing/queue/:id/release` allowing claimed specialists to return cases to `pending_claim` in the pool.
+  - Enhanced `SharingInbox` with Material Design 3 tabbed navigation between "Available Review Queue" and "My Assigned Reviews", 10-second polling synchronization, and manual refresh controls.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), all 6 unit and HTTP sharing suites passed, and all 13/13 gates passed in `scripts/verify-phase3cc1-shared-queue.ts` against live Supabase PostgreSQL (`kstxwoitiistmvivwixd`) and PDF engine.
+
+
+## Removal of temporary guest demonstration mode & restoration of real Supabase authentication - 2026-11-10
+
+- Completely decommissioned temporary fictional guest authentication system:
+  - Purged `GUEST_PATIENT`, `GUEST_SPECIALIST`, `GUEST_PATIENT_PROFILE`, and `GUEST_SPECIALIST_PROFILE` constants and mock state from `AccountProvider.tsx`.
+  - Added session cleanup in `AccountProvider.tsx` to clear legacy `apip.guest.role` keys.
+  - Removed "Reviewer & Guest Preview" card and guest exploration buttons ("Explore as Patient", "Explore as Specialist") from `APIPAuthDialog.tsx` and removed corresponding CSS.
+  - Restored strict fail-closed route enforcement in `AccessPreview.tsx`; accessing protected routes (`#/patient/home`, `#/patient/adr/cases`, `#/preview/medassist`, `#/specialist`) unauthenticated now redirects directly to the appropriate sign-in dialog and preserves the return URL.
+  - Removed client-side mock handlers from `CaseWorkspace.tsx`, `GuidedWorkspace.tsx`, and `SharingWorkspace.tsx`; all ADR case creation, revision persistence, and specialist sharing strictly query authentic Supabase-connected endpoints.
+  - Restored fail-closed identity administration check in `DeveloperReference.tsx`.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build` in 20.35s), leak guard check passed, 10/10 hosted Phase 3C-B workflow gates passed against live Supabase database, and 12/12 authentication dialog browser suites passed.
+
+## Complete website demonstration, subpage navigation repair, and guest fixture isolation - 2026-11-10
+
+- Resolved subpage navigation blocker and infinite redirect loop:
+  - Added dedicated client-side fictional guest entities (`GUEST_PATIENT`, `GUEST_SPECIALIST`) in `AccountProvider.tsx` enabling full visual and interactive exploration across all subpages (`#/patient/home`, `#/preview/adr-report`, `#/patient/adr/cases`, `#/preview/medassist`, `#/specialist`, `#/specialist/profile`, `#/developer-reference`).
+  - Corrected `APIPAuthDialog` post-authentication redirect guard (`open && user && !isGuest && ready && mode !== 'reset'`) and conditionally mounted it in `AccessPreview.tsx` only during active sign-in views (`isSignIn`), eliminating recursive navigation resets.
+  - Added in-memory mock handlers in `GuidedWorkspace.tsx` and `CaseWorkspace.tsx` for `fictional-` owners, allowing live 5-stage ADR report creation, revision updates, and draft case listing without remote API calls.
+  - Added guest exploration triggers ("Explore as Patient", "Explore as Specialist") to the Material 3 horizontal authentication dialog.
+  - Enabled developer design reference inspection in development and guest preview modes.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build` in 4.82s), leak guard checks pass, and end-to-end multi-viewport route verification (11/11 routes pass).
+
+
+## Protected route navigation repair, keyboard event forwarding, port consolidation, and full website review - 2026-11-09
+
+- Repaired unauthenticated navigation and eliminated the "Checking your account..." blank white screen defect:
+  - Removed top-level unstyled return in `AccessPreview.tsx` that previously replaced the application shell and styling with raw text on unauthenticated protected route access.
+  - Protected routes now gracefully maintain the application shell (`PreviewHeader`, `LandingBody`, `LandingFooter`) and open `APIPAuthDialog` with `open={isSignIn || (protectedRoute && !account.user)}`.
+  - Updated "For patients" header link to route directly to `#/sign-in/patient` when unauthenticated, avoiding unneeded protected route transitions.
+  - Wrapped `SpecialistWorkspace` loading fallback in a styled Material 3 container.
+- Repaired keyboard event handling and form responsiveness:
+  - Enhanced `discreetDeveloperAccess.ts` to support `event.code === 'KeyD'` across all keyboard layouts, and added shadow DOM inspection via `event.composedPath()` to prevent intercepting keystrokes during text field editing.
+  - Added `'change'` event listener and `onKeyDown` prop forwarding to `M3TextField.tsx` for autofill and keyboard submission compatibility.
+- Cleared unused ports: killed orphaned dev process on port 3000; consolidated active verification on preview port 3602 and backend on 3601.
+- Executed comprehensive multi-viewport visual review and captured 22 responsive screenshots across Desktop, Tablet, and Mobile in Light and Dark modes.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), navigation unit tests (6/6 pass), and leak guard tests (11/11 pass).
+
+## Material Design 3 Web authentication dialog centering, soft blur, animations, and button repair - 2026-11-09
+
+- Repaired visual centering of the horizontal authentication dialog: resolved left-alignment bug by enforcing outer margin: auto !important; position: fixed !important; inset: 0 !important; and background scroll/gutter lock (overflow: hidden; scrollbar-gutter: auto;), achieving exact 0px horizontal and vertical offsets across 1024px, 1440px, 1536px, and 1920px viewports.
+- Applied polished soft background blur: injected backdrop-filter: blur(6px) onto the shadow DOM scrim, leaving modal dialog content completely crisp while softly blurring the background landing page and header.
+- Implemented natural Material Design 3 opening and closing animations (280ms entry with 0.97->1.0 scale and 10px->0px vertical translation; 200ms graceful exit with 1.0->0.97 scale and 0px->8px vertical translation) with full prefers-reduced-motion support.
+- Repaired authentication controls:
+  - Fixed Close X button by eliminating disabled="false" attribute on <md-icon-button> that caused pointer-events suppression.
+  - Enabled Enter-key submission from password/email text fields by capturing composed keydown events on the form.
+  - Ensured primary Sign in button triggers submission directly on click.
+  - Added truthful unavailable-state feedback for Continue with Google when unconfigured on the hosted project.
+- Verified test suite: clean TypeScript (npm run lint), production build (npm run build), leak guard (11/11 pass), navigation unit tests (6/6 pass), and automated Chrome browser acceptance (12/12 test suites pass).
+
+## Material Design 3 Web horizontal authentication dialog and private developer access - 2026-11-09
+
+- Replaced standalone patient, specialist, and mock developer login pages with a wide, landscape-oriented Material Design 3 Web modal dialog (`APIPAuthDialog`) using official `@material/web` `<md-dialog>`.
+- Two-column horizontal desktop composition (840px x 560px): left column provides product context (APIP brand, welcoming headline, 1-sentence workspace description, Material Symbol, research prototype label); right column provides authentication form (role switcher, text fields, password visibility, Google sign-in check, forgot-password, account creation, and validation notices).
+- Fully responsive across 320px, 360px, 768px, 1024px, 1440px viewports with zero horizontal overflow in light and dark themes.
+- Preserved complete route compatibility: direct URL navigation, refresh, back/forward, and task continuation across `/#/sign-in/patient`, `/#/sign-in/specialist`, `/#/sign-up/patient`, `/#/sign-up/specialist`, `/#/forgot-password/patient`, `/#/forgot-password/specialist`, and `/#/reset-password`.
+- Removed all public developer entry points: removed "Developer" from public role selector, removed visible "Developer sign-in" footer links, and removed mock developer login forms.
+- Added discreet owner developer entrance: 5-click gesture on footer brand element within 3 seconds, plus `Ctrl+Shift+D` keyboard shortcut.
+- Implemented real developer authorization for `DeveloperReference`: permits access in local development; production builds verify identity administration capability (`/api/account/capabilities`) and fail closed with "Access Denied" and redirect to home if unauthorized. Preserved `CoreComponentsView`, `DomainComponentsView`, `DesignFoundationView`, and `MaterialNavTabs`.
+- Preserved existing APIP header layout, structure, dimensions, and styling 100% unchanged across all viewports.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), navigation unit tests (6/6 pass), and Chrome browser acceptance (12/12 pass).
+
+## Master repository audit, safe branch consolidation, and shared development workflow - 2026-11-09
+
+- Audited 21 remote branches and 16 PRs; proved that PRs #6 through #14 are linear ancestors strictly preserved inside `codex/apip-landing-v2` (`faf5c8a`, PR #16).
+- Merged `origin/main` commit `b66ea03` ("Add diagram badge to README") cleanly into `codex/apip-landing-v2` with zero conflicts. Retargeted PR #16 to `main` as the consolidated integration PR.
+- Safely deleted 4 obsolete remote branches (`codex/apip-signal`, `feat/adr-1a-guided-reporting`, `feat/adr-1b-ui-foundation`, `codex/adr-phase3-master-blueprint`) after confirming zero unique unmerged work and resolved PR status.
+- Strictly preserved all MedAssist branches (`feat/medassist-jayanth`, `codex/medassist-v2-task5a-adapter`, `codex/medassist-emergency-recognition`) and all active worktrees.
+- Authored canonical collaboration handoff in `docs/collaboration/codex-antigravity-handoff.md` establishing permanent operating rules for OpenAI Codex and Google Antigravity.
+- Verified test suite: clean TypeScript (`npm run lint`), production build (`npm run build`), leak guard (11/11 pass), hosted database/PDF gates (10/10 pass), and full responsive M3 Web layout verification (12/12 combinations pass with byte-for-byte identical header).
+
+## Material Design 3 public homepage - 2026-11-09
+
+- Reworked the homepage body and footer with a fictional reporting walkthrough, prototype and planned capability labels, patient and specialist journeys, and consent and withdrawal information.
+- Reused APIP's Material Web components and appearance system. The shared header and other routes retain their existing layout and behavior.
+
+
+
+## Priority 0 credential remediation and hosted browser sharing diagnostics - 2026-11-09
+
+- Remediated database credentials leak by replacing hardcoded connection strings with fail-closed user environment variable APIP_ADR_DATABASE_URL in verify-hosted-phase3cb-workflow.ts.
+- Rotated apip_adr_writer password on hosted Supabase PostgreSQL, verifying old password rejection (28P01) and pooler port 6543 connectivity.
+- Implemented automated pre-commit secret leak guard in git-workflow.mjs, verified by comprehensive test suite (11/11 pass).
+- Verified all ten automated Phase 3C-B workflow gates against hosted Supabase: capability verification, revoked exclusion, directory opt-in, case creation, consented sharing, inbox retrieval, original PvPI PDF preview, negative denials, newer-revision privacy, and consent withdrawal.
+- Diagnosed two-account browser runner (auth-sharing-hosted.browser.mjs): isolated contexts timed out awaiting active sessions as invalid credentials returned HTTP 400 invalid_credentials from Supabase Auth; interactive browser acceptance remains gated pending credential verification.
+
+## Phase 3C-B hosted verification and administrator capability decision - 2026-11-09
+
+- Completed audited administrator capability decisions for the owner-approved synthetic applicant (`Fictional APIP Sharing Reviewer`), recording `begin_verification` and `approve` with a bounded 30-day validity window under confirmed identity administrator. The previously revoked specialist remains strictly revoked.
+- Verified all ten hosted Phase 3C-B workflow gates against the development Supabase project: patient consent, specialist assignment, directory opt-in, Pending Review Reports, original PvPI PDF preview generation with `pypdf` field assertions, cross-patient and unauthorized denial, newer-revision privacy, and consent withdrawal.
+- Preserved target application deep links during authentication redirects in `SpecialistWorkspace.tsx`.
+
+## Authentication layout and session corrections - 2026-11-09
+
+- Improved responsive Material 3 authentication, accessible controls and route/history behavior; repaired local session restoration and simulated OAuth continuation/cancellation. Real Google, recovery and hosted-sharing acceptance remain gated. [Evidence](docs/adr/phase3/auth-and-hosted-closure.md).
+
+## Specialist identity and controlled administration - 2026-11-08
+
+- Added fictional specialist applications, status/profile, private administrator decisions and database-backed per-request capabilities with 30-day expiry, atomic audit and immediate future-request revocation. No patient-sharing privileges. Applied the separately approved development migration; live administrator bootstrap remains blocked. Added strict-TLS preview preflight and responsive Chrome evidence. [Delivery](docs/adr/phase3/3b-implementation-and-verification.md).
+
+## Patient ADR case management - 2026-11-07
+
+- Added owner-filtered case lists, connected guided editing, immutable saved-revision views and exact historical original-form PDF export. Real hosted two-account checks and responsive fictional browser/PDF regressions pass. Lifecycle writes remain policy-gated. [Delivery and walkthrough](docs/adr/phase3/3a-implementation-and-verification.md).
+
+## PostgreSQL disconnect recovery - 2026-11-07
+
+- Updated the pinned PostgreSQL driver to prevent an uncaught rollback crash after connection loss, with a disposable connection-loss regression. See [verification evidence](database/hosted-verification-2026-11-07.md).
+
+## ADR-1B Phase 2 - 2026-11-04
+
+- Added the original PvPI form preview and saved intake progress. Shared Back now sits beneath the logo beside the content. [Verification](docs/adr/09-adr-1a-checkpoint.md#adr-1b-phase-2--original-form-preview-and-intake-progress).
+
+## ADR-1B Phase 1 - 2026-11-04
+
+- Added a shared sticky header and research disclaimer, and improved responsive spacing and appearance controls.
+- Added the ADR reporting introduction, a pausable process illustration and saved draft cards. [Scope and verification](docs/adr/11-adr-1b-phase-1.md).
+
 ## ADR-1A final corrections - 2026-11-04
 
 - Fitting PvPI exports now contain the original two pages. Referenced continuations carry only excess confirmed information.
@@ -186,6 +362,8 @@
 Notable product and developer-facing changes. Entries describe completed work; plans belong in the [roadmap](docs/roadmap.md). An unreleased entry does not imply a release or clinical readiness.
 
 ## Unreleased
+
+- Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
 
 ### Guided MedAssist symptom conversation and local AI — 2026-10-17
 
@@ -400,3 +578,15 @@ Reproduced declared dependencies in an isolated hash-locked environment, added l
 ### Model B gated readiness foundation — 2026-10-24
 
 Added provisional urgency schema, provenance-gated ingestion, group-safe splits, offline trainer/evaluator and research-only registration. Synthetic checks do not train or clinically validate Model B; the active provider remains disabled. [Implementation and gates](models/medassist_ai/model_b/README.md).
+
+## Hosted specialist verified-subject repair - 2026-11-08
+
+- Repaired the private identity function and RLS subject lookup for managed PostgreSQL without granting broader Auth-schema or patient access. Real hosted capabilities, saved profile/submission and session restoration pass; administrator bootstrap remains blocked. [Evidence](docs/adr/phase3/3b-hosted-specialist-repair.md).
+
+## Phase 3B hosted administrator verification - 2026-11-08
+
+- Completed separately approved one-time identity-administrator bootstrap and real hosted two-account approval/revocation plus foreign patient/PDF denial. No clinical permissions or sharing enabled. [Evidence](docs/adr/phase3/3b-hosted-administrator-gate.md).
+
+## Specialist experience redesign (3C-A) - 2026-11-08
+
+- Added a cohesive specialist profile, compact verification status and three-card home connected to existing MedAssist/owned ADR tools. Real hosted revoked-state screenshots and four-width regressions pass. Review inbox remains explicitly restricted/unconnected; no sharing, database or privilege changes. [Delivery](docs/adr/phase3/3c-a-implementation-and-verification.md).

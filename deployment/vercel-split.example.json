@@ -1,0 +1,9 @@
+{
+  "buildCommand": "bunx --no-install vite build",
+  "outputDirectory": "dist",
+  "functions": { "api/[...path].ts": { "maxDuration": 30 } },
+  "rewrites": [
+    { "source": "/api/account/adr-guided/:id/pdf", "destination": "https://REPLACE-WITH-AUTHORIZED-API-ORIGIN/api/account/adr-guided/:id/pdf" },
+    { "source": "/api/ready", "destination": "https://REPLACE-WITH-AUTHORIZED-API-ORIGIN/api/ready" }
+  ]
+}

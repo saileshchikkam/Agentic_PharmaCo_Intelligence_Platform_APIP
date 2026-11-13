@@ -75,7 +75,7 @@ export function ProfilePage() {
       <div className="account-actions"><M3Button type="submit" loading={busy} disabled={!user || !accountClient || !ready || !!error}>Save profile</M3Button>
         {profile && <M3Button variant="text" disabled={busy} onClick={() => void remove()}>Delete health profile</M3Button>}
         {!user && <M3Button variant="text" onClick={() => navigatePreview('/sign-in/patient')}>Go to sign in</M3Button>}
-        {profile && !dirty && <M3Button variant="outlined" onClick={() => { const task = sessionStorage.getItem('apip.account.continue'); sessionStorage.removeItem('apip.account.continue'); navigatePreview(task === 'medassist' || task === 'adr-report' ? `/preview/${task}` : '/patient/home'); }}>Continue</M3Button>}
+        {profile && !dirty && <M3Button variant="outlined" onClick={() => { const task = sessionStorage.getItem('apip.account.continue'); sessionStorage.removeItem('apip.account.continue'); const lastRole = sessionStorage.getItem('apip.last.role'); navigatePreview(task === 'medassist' || task === 'adr-report' ? `/preview/${task}` : lastRole === 'specialist' ? '/specialist/home' : '/patient/home'); }}>Continue</M3Button>}
       </div>
       {notice && <p role="status">{notice}</p>}
     </form>
