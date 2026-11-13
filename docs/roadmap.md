@@ -278,3 +278,5 @@ Approved exact SQL is deployed on development and the server flag is enabled aft
 ## Phase B — fixture verified, hosted blocked
 
 [Review and archive implementation](adr/phase3/phase-b-review-and-archive.md) completes safe independent UI/API/PostgreSQL/native-PDF work. Hosted queue/review/archive SQL, independent administrator/specialist authorization, developer subject/email entitlement and private Storage configuration remain separate gates. No clinical validation, Agents/RAG, deployment or main merge is implied.
+
+Phase B deployment update: approved SQL is installed and post-verified. Remaining hosted gates are personal administrator/specialist/developer authorization, private Storage runtime configuration and real privileged acceptance; no new access has been activated.

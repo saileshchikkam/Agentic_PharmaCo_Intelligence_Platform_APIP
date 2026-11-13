@@ -1,6 +1,6 @@
-# Phase B migration review — pending owner approval
+# Phase B migration review — approved development deployment
 
-Target: **development project `kstxwoitiistmvivwixd` only**. No Phase B hosted SQL has been applied.
+Target: **development project `kstxwoitiistmvivwixd` only**. All three exact approved files were applied once on 2026-11-13; no personal privileges or runtime activation were included.
 
 ## Exact application order
 
@@ -45,3 +45,11 @@ Each file is transactional. On any failure stop and verify rollback/ledger; neve
 Keep sharing/pool/review/archive flags OFF until each dependency/security gate passes. Phase A finalization stays ON. Real hosted acceptance additionally needs separately approved administrator provisioning, independent specialist approval, separate developer subject/email entitlement, private Storage configuration and actual patient archive consent. No new hosted privilege may be inferred from this SQL approval.
 
 Administrator plan: reuse `database/operations/bootstrap-specialist-admin.sql` after private exact confirmed subject selection and separate approval; do not reuse any old pre-reset UUID. Developer plan: `database/operations/bootstrap-completed-archive-developer.sql` proposes one-time 30-day access for an exact confirmed subject/email, no professional application and atomic audit. This is a template, not an executed or approved grant. Both require their own checksum/target/account approval. No automatic renewal.
+
+## Approved deployment receipt — 2026-11-13
+
+Owner approval covered only the three exact hashes above. Preflight confirmed dependencies, absent new objects/bucket, zero shares, default-deny Storage RLS and unchanged two-account scope. Applied in approved order; actual ledger versions are `20261113162633` (pool), `20261113162639` (professional review), and `20261113162645` (archive). Each ledger stores one statement whose SHA-256 exactly matches its approved file. Do not replay the source timestamps.
+
+Post-deployment catalog checks pass: RLS on all new tables; FORCE RLS on review/archive tables; non-login/non-inheriting/non-BYPASSRLS executors owning no tables; no browser privileged EXECUTE; no direct writer table access or executor membership; writer EXECUTE only through intended operations; private PDF-only bucket and unchanged Storage default deny; active pool finalization guard. Every old policy is unchanged. Account, case, revision, PDF, finalization, identity-application and permanent-role fingerprints match preflight. Counts remain zero for shares, identity administrators, approved specialists and developer entitlements. No account or ADR data was created/changed by deployment.
+
+The actual runtime writer connected with strict TLS and all three operation functions rejected missing identity. Unified readiness remains 200; unauthenticated review/archive APIs return 401. Advisors have only the pre-existing provisioning-events default-deny INFO and leaked-password-protection WARN, with no new Phase B finding. Sharing/pool/review/archive runtime flags remain OFF; Phase A remains enabled. Live privileged/Storage acceptance is still BLOCKED by separate provisioning, professional authorization, server-only Storage setup and patient consent. No new browser/login loops were run during deployment.

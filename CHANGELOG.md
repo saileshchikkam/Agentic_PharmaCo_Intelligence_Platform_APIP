@@ -602,3 +602,5 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 ## Phase B review and private archive — 2026-11-13
 
 - Added assignment-scoped human assessment UI/history/finalization, separately consented completed-PDF archival and an unlisted exact-email/entitlement developer workspace. Added native assessment appendices while preserving original PvPI pages and excluding private notes. Isolated security/API/browser/PDF checks pass; hosted migrations and personal privileges remain separately approval-gated.
+
+- Applied only the three exact approved Phase B development migrations, verified ledger/security/data preservation and kept all personal privileges and hosted activation disabled.
