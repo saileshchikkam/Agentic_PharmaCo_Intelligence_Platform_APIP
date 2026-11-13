@@ -98,8 +98,8 @@ function Guide({owner,...props}:Props&{owner:string}){
  {props.renderNavigation(props.onExit,props.initialCaseId?'Back to report':'Back to dashboard')}
  {intro?<AdrLanding drafts={list} busy={busy} loadFailed={!!error} start={start} resume={open} retry={loadDrafts}/>:c&&<>
  <nav className="adr-stages" aria-label="Reporting stages">{stages.map((name,i)=><button key={name} disabled={busy} aria-current={stage===i?'step':undefined} onClick={()=>{editing.current=false;choose(i===5?null:all.find(f=>f.stage===i&&!c.values[f.key])?.key??all.find(f=>f.stage===i)?.key??null);}}><span>{i+1}</span>{name}</button>)}</nav>
- <div className="adr-status"><span role="status">Saved revision {c.revision}{dirty?' · unsaved answer':''}</span></div>
- <div className="adr-intake-progress"><label>Intake progress: {answered} of {all.length} questions addressed <progress value={answered} max={all.length}/></label><p>Includes saved Unknown answers and optional questions. This measures intake only.</p></div>
+
+ <div className="adr-intake-progress"><label>Intake progress: {answered} of {all.length} questions addressed <progress value={answered} max={all.length}/></label></div>
  <div className={field?'adr-columns adr-with-form':'adr-columns single'}><section className="adr-question" key={key??'review'} onKeyDown={event=>{
    if(!field || event.key!=='Enter' || event.nativeEvent.isComposing || event.repeat || event.altKey || event.shiftKey) return;
    const input=event.nativeEvent.composedPath()[0];

@@ -122,6 +122,11 @@ def generate(case):
     # Uniform explicit appearances; never rely on a viewer to regenerate them.
     # Original widgets share /AP objects. Detach before updating, or values leak visually.
     checkbox_positions={16:(102.955,737.020),1:(254.925,737.020),0:(85.889,696.430),17:(105.835,696.430),18:(141.115,696.430),2:(451.795,540.620),3:(486.375,540.620),4:(325.025,529.100),7:(451.315,529.100),5:(325.025,519.020),8:(451.555,519.020),6:(325.025,508.700),9:(451.075,508.700),10:(325.025,481.340),12:(382.885,481.340),14:(488.055,481.340),11:(325.025,471.020),13:(383.365,471.020),15:(487.335,471.020)}
+    # Demographic widgets in the supplied form sit above their label baseline.
+    # Move only these widget rectangles; preserve page artwork and field mapping.
+    for field,drop in {'Text Field0':4.5,'Text Field1':4.5,'Text Field126':3.0}.items():
+        x0,y0,x1,y1=map(float,widgets[field]['/Rect'])
+        widgets[field][NameObject('/Rect')]=RectangleObject([x0,y0-drop,x1,y1-drop])
     for name,a in widgets.items():
         if a.get('/FT')=='/Tx':
             a.pop(NameObject('/AP'),None)
