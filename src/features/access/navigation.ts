@@ -15,16 +15,18 @@ function canLeavePreview(): boolean {
 }
 
 /** Navigate to an in-app preview route while marking it in browser history. */
-export function navigatePreview(path: string): void {
+export function navigatePreview(path: string, { replace = false } = {}): void {
   const route = path.startsWith('/') ? path : `/${path}`;
   if (window.location.hash === `#${route}`) return;
   if (!canLeavePreview()) return;
   const state: ApipHistoryState = {
     ...(window.history.state && typeof window.history.state === 'object' ? window.history.state : {}),
     apipPreview: true,
-    apipDepth: currentDepth() + 1,
+    apipDepth: currentDepth() + (replace ? 0 : 1),
   };
-  window.history.pushState(state, '', `${window.location.pathname}${window.location.search}#${route}`);
+  const url = `${window.location.pathname}${window.location.search}#${route}`;
+  if (replace) window.history.replaceState(state, '', url);
+  else window.history.pushState(state, '', url);
   window.dispatchEvent(new HashChangeEvent('hashchange'));
 }
 

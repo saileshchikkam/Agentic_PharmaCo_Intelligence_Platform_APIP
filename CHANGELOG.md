@@ -73,6 +73,23 @@
 - Restore interactive fictional interviews in the development conversation, with an explicit switch to the separately gated Model A research mode.
 - Keep scripted exports distinct from live research evidence. Verified confirmation, negative and unknown answers, early stop, conflict handling, and the local preview restart. [Verification](docs/history/2026-11-05.md#medassist-phase-0-follow-up--scripted-preview-and-question-service)
 
+## ADR-1A final corrections - 2026-11-04
+
+- Fitting PvPI exports now contain the original two pages. Referenced continuations carry only excess confirmed information.
+- Guided reporting uses clearer question text, keyboard progression and grouped review. Login and signup lead to the dashboard. [Verification and limits](docs/adr/10-adr-1a-final-corrections.md).
+
+## ADR-1A official PDF recovery - 2026-11-03
+
+- Added deterministic native filling of the original PvPI Version 1.4 AcroForm, complete widget inventory, explicit text/checkbox appearances, medication rows and continuation pages.
+- Added owner/revision-checked download, editable review/regeneration and an accessible top-to-bottom reveal with Skip and reduced-motion support.
+- English fictional PDF, ownership, responsive browser, TypeScript and build checks pass. Unsupported scripts and multiple seriousness selections remain explicit export limits; ADR-1B was not started. [Results and remaining gate](docs/adr/09-adr-1a-checkpoint.md).
+
+## ADR-1A guided intake checkpoint - 2026-11-03
+
+- Added six-stage Material Web fictional intake, explicit field confirmation, repeatable medicines, structured live preview and corrections.
+- Added owner-isolated SQLite cases/history and configurable local extraction with deterministic manual fallback.
+- Official PvPI template/PDF checkpoint blocked by missing supplied `ADRRF_2.pdf`; no official form or PDF fidelity claim. [Details and tests](docs/adr/09-adr-1a-checkpoint.md).
+
 ## Authenticated read-only Model A protocol compatibility — 2026-10-26
 
 - Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.
