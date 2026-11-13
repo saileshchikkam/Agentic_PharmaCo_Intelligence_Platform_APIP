@@ -1,3 +1,4 @@
+import {HeaderBrandText,FULL_BRAND_NAME} from './HeaderBrandText';
 import { ArrowLeft, Check, CircleHelp, LogOut, Moon, Settings, Sun, X } from 'lucide-react';
 import { useAccount } from '../account/AccountProvider';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -8,13 +9,13 @@ import { followPreviewLink, navigatePreview } from './navigation';
 import { useDiscreetDeveloperAccess } from './discreetDeveloperAccess';
 import './access.css';
 
-export function Brand({ large = false }: { large?: boolean }) {
+export function Brand({ large = false, animated = false }: { large?: boolean; animated?: boolean }) {
   return <span className={`access-brand ${large ? 'access-brand-large' : ''}`}>
     <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
       <rect x="4" y="14" width="32" height="12" rx="6" fill="currentColor" opacity=".7" />
       <rect x="14" y="4" width="12" height="32" rx="6" fill="currentColor" />
       <circle cx="20" cy="20" r="3" fill="var(--md-sys-color-surface)" />
-    </svg><span>APIP</span>
+    </svg>{animated ? <HeaderBrandText /> : <span>APIP</span>}
   </span>;
 }
 
@@ -52,7 +53,7 @@ export function PreviewHeader({ screen, appearance, setAppearance, preferencesSa
   return <header ref={header} className="access-header" onKeyDown={(event) => {
       if (settingsOpen && event.key === 'Escape') { event.preventDefault(); closeSettings(); }
     }}>
-      <a className="access-home-link" href="#/" aria-label="APIP home" onClick={(event) => followPreviewLink(event, '/')}><Brand /></a>
+      <a className="access-home-link" href="#/" aria-label={FULL_BRAND_NAME+' home'} onClick={(event) => followPreviewLink(event, '/')}><Brand animated /></a>
       <div className="access-header-actions">
         <nav className="access-header-navigation" aria-label="Main navigation">
           <a className="access-nav-link" href="#/" aria-current={screen === 'home' ? 'page' : undefined}

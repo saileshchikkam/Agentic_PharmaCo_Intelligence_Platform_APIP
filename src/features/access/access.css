@@ -285,3 +285,12 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
 }
 
 .access-app h1:focus, .access-main:focus { outline: none; }
+/* Hide only the document scrollbar; independent overflow components retain theirs. */
+html:has(.access-app){scrollbar-width:none;scrollbar-gutter:auto}
+html:has(.access-app)::-webkit-scrollbar{width:0;height:0}
+.access-header{padding-inline-start:max(var(--access-page-gutter),env(safe-area-inset-left))}
+.access-header .access-home-link{min-width:0;flex-shrink:0}
+.access-header-brand-text{display:inline-block;white-space:nowrap}
+@media(min-width:1200px){.access-header-brand-text{width:440px;font-size:20px}.access-header .access-brand svg{flex-shrink:0}}
+@media(max-width:1199px){.access-header-brand-text{width:44px}}
+@media(max-width:599px){.access-header-actions{min-width:0}}
