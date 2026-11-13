@@ -23,6 +23,8 @@ test('identity APIs reuse verified principal; metadata, workspace and request ro
   assert.equal((await call('/account/capabilities',undefined,'invalid')).status,401);
   assert.equal((await call('/account/capabilities',undefined,'a',b)).status,409);
   assert.equal((await call('/admin/specialist-applications')).status,403);
+  assert.equal((await call('/sharing/inbox')).status,403);
+  assert.equal((await call('/sharing/inbox',undefined,'admin')).status,403);
   assert.equal((await call('/specialist/applications',{profile,role:'admin'})).status,400);
   assert.equal((await call('/specialist/applications',{profile:{...profile,approved:true}})).status,400);
   const created=await call('/specialist/applications',{profile});assert.equal(created.status,201);const c=(await created.json()).application;

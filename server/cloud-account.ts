@@ -11,6 +11,7 @@ import { casesRouter } from './adr/cases';
 import type { GuidedCaseRepository } from './adr/repository';
 import { postgresGuidedRepository } from './adr/postgresRepository';
 import {specialistRouter} from './specialist/router';
+import {capabilities as specialistCapabilities} from './specialist/domain';
 import {postgresSpecialistRepository} from './specialist/postgresRepository';
 import type {SpecialistRepository} from './specialist/repository';
 import {reviewRouter} from './review/router';
@@ -60,7 +61,7 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
     if(!/^\/(?:sharing\/(?:inbox|queue)(?:\/|$)|review(?:\/|$))/.test(req.path)){next();return;}
     if(!identityRepository){res.status(503).json({error:'SPECIALIST_SETUP_REQUIRED'});return;}
     void identityRepository.identity(principals.get(req)!.id).then(identity=>{
-      if(identity.accountRole!=='SPECIALIST'){res.status(403).json({error:'FORBIDDEN'});return;}
+      if(identity.accountRole!=='SPECIALIST'||!specialistCapabilities(identity.applicationState,identity.identityAdministrator,identity.validUntil).specialistWorkspace){res.status(403).json({error:'FORBIDDEN'});return;}
       next();
     }).catch(()=>res.status(503).json({error:'SPECIALIST_UNAVAILABLE'}));
   });

@@ -1,33 +1,44 @@
-# Fresh account verification plan — gated on reset completion
+# Fresh account authentication verification — 2026-11-13
 
-Status: **Reset completed on 2026-11-12. Registration testing remains preparation only: the reset approval explicitly authorized no new accounts or privileges.**
+The owner authorized fresh nonprivileged registration after the approved development reset. The two existing synthetic accounts were reused for this verification; no reset, registration, migration or role changes were repeated during recovery.
 
-## Verified existing configuration
+## Actual hosted evidence
 
-A read-only check of the existing development Auth settings returned `disable_signup=false`, `mailer_autoconfirm=false`, `external.email=true`, `external.phone=false`. Email/password registration is enabled and email confirmation remains required. No provider settings, email delivery, redirect allowlists or Google configuration were changed/tested in this reset work.
+Development project: `kstxwoitiistmvivwixd`. Public Auth settings returned email authentication enabled and `mailer_autoconfirm=true` after the owner disabled confirmation privately. Exactly one PATIENT and one SPECIALIST binding were previously verified. No Management API token was requested again.
 
-After the reset is verified, check the existing same-origin site on port 3602 and internal API on 3601. Confirm the existing PKCE return URL `http://127.0.0.1:3602/?apip_auth=1` is allowlisted before sending confirmation mail. Use owner-approved synthetic inboxes and private browser entry. Send one confirmation per test account; do not loop email-delivery attempts or disable email confirmation to force a pass.
+Real isolated Chrome contexts against the unified port 3602 site verified:
 
-## Patient
+- PASS: existing Patient and Specialist password login, authenticated capabilities HTTP 200 with the correct permanent role, and session restoration after reload.
+- PASS: Patient dashboard/navigation and denial of specialist application/admin APIs; specialist redirect away from the patient dashboard.
+- PASS: fictional specialist profile save/submission, SUBMITTED state, redesigned three-card dashboard, and restricted patient-review action. No professional approval was granted.
+- PASS: wrong-portal password login denial in both directions with partial-session cleanup.
+- PASS: completed logout and correct re-login for each account; their previously saved ADR revision remained readable afterward.
+- PASS: fictional owner ADR creation/update, reload persistence and cross-owner GET denial (404) in both directions.
+- PASS: Patient and Specialist screenshots at 1440px and 375px; three desktop specialist cards, mobile stacking, no horizontal overflow. Screenshot inspection confirmed pending status and disabled review action.
+- BLOCKED: the final same-browser-context Patient-to-Specialist switch. The helper crashed on an unhandled response-wait rejection during logout. Credentials were held only in the departed process; no extra sign-in loop was started. This is not evidence that application account switching passed or failed.
 
-Register through Patient Registration. Verify the immutable role row is PATIENT for the verified new Auth UUID, without deriving permissions from the login URL or editable metadata. Confirm email; sign in; test dashboard, refresh, logout and account switching. Patient navigation must omit specialist entries. Direct specialist/admin/review URLs and APIs must fail closed. Valid patient credentials entered through Specialist Sign In must produce the correct-portal notice and clear the partial session.
+Local-only screenshots and sanitized result JSON remain in the private verification output, not Git. No tokens, passwords, email addresses or Auth subjects are included in this report.
 
-## Specialist
+## Findings and fixes
 
-Register through Specialist Registration, confirm email and verify the immutable SPECIALIST portal binding. First sign-in opens professional profile onboarding. Save draft and submit synthetic details. A submitted profile permits the specialist dashboard and own MedAssist/ADR tools; patient review access remains denied. Verify existing pending, rejected, expired, suspended and revoked semantics without altering genuine historical records. Wrong Patient Portal sign-in must be denied with partial-session cleanup. Registration/profile submission never creates professional approval.
+The earlier reload failure was not reproduced: real capability responses were HTTP 200 and both sessions survived reload. The historical failing worker did not retain enough diagnostics to prove its original cause. The replacement waits on the actual capability response before asserting the role/dashboard, rather than a premature state snapshot.
 
-## Independent administrator bootstrap
+A genuine authorization-order issue was found: a submitted but unapproved Specialist could receive a disabled-service 503 on the inbox route. The shared protected-route guard now checks current professional capability as well as permanent SPECIALIST role before reaching sharing/review services. The real pending applicant now receives 403 FORBIDDEN. Fixture checks also deny an identity administrator without professional authorization. Ownership and database policies were not widened.
 
-Deleting the old ten identities removes the sole identity administrator. No new administrator is provisioned automatically. Prepare a separate dedicated confirmed synthetic identity with no specialist application. Current routing requires a compatible SPECIALIST portal binding for administrative routes; that portal type is not professional approval. Do not use the applicant account or an ordinary patient account as an administrator.
+A stale list assertion was corrected: an ADR created through an independent API request requires reloading the already-open report list before expecting its card. Dialog checks now wait for Material opening animations and use a known-origin document navigation between portal attempts. The helper also attaches rejection handling immediately to response waits; this syntax repair has not been rerun through a new private login session.
 
-Reuse `database/operations/bootstrap-specialist-admin.sql`. Recheck its actual checksum, subject ownership/confirmation, absence of an application and narrow identity-only capability. Privately display the exact selected UUID and obtain a new explicit owner approval of that UUID, bootstrap checksum, target and audit effects. Only an approved operator may run the one-time audited bootstrap. The runtime writer and browser cannot self-provision privileges. No patient-record access or professional review permission follows from administrator capability.
+An intermittent specialist-current 503 disappeared after the controlled backend restart; the same writer's read-only operation and subsequent hosted application calls passed. Its original underlying error was not captured. Bounded repository diagnostics now log only operation, SQLSTATE, error type and a connection-failure boolean, never the raw error message or identity.
 
-For a minimal demonstration, a Patient, one independently reviewed Specialist and a dedicated identity administrator can use three accounts. Show the Specialist pending first, then approve only with separate exact-subject owner authorization and the audited administrator workflow. Simultaneously displaying separate pending and approved specialists would require another synthetic identity and should be explicitly planned rather than silently created.
+## Checks and preview
 
-## Required evidence after reset
+Seven focused authentication/API/diagnostic tests passed. The role-binding PostgreSQL fixture passed registration binding, immutable assignment, metadata-change resistance, owner RLS, transaction cleanup and browser/runtime mutation denial. Frontend TypeScript (`npm run lint`), targeted server TypeScript, production build, helper syntax and diff checks passed. Build retains the existing large-chunk warning. Unchanged PDF fidelity and natural JWT-expiry suites were not repeated.
 
-Verify the real role rows, real browser sessions, wrong-portal denial, onboarding, pending review restriction, explicit independent approval, two-user ADR isolation, refresh/logout, 1440px and 375px layouts, and readiness through port 3602. Do not report those tests passed from the earlier fixture results. Auth service recovery and the pending cookie/BFF work remain separately scoped limitations.
+The existing unified site returned HTTP 200 at `http://127.0.0.1:3602/`; `/api/ready` returned ready=true with database, PDF and Auth true. Backend remains internal on 3601 with verified TLS. This is laptop-only localhost, not a shared/public deployment. Browser login/dashboard checks used this real origin, not fixtures. Google provider verification remains separate and pending.
 
-## Post-reset availability
+## Independent administrator bootstrap — still approval-gated
 
-The unified site and proxied readiness endpoint returned HTTP 200 after reset; readiness reported database, PDF and Auth ready. The actual browser sign-in dialog opened with enabled email/password controls. This does not verify any fresh registration, confirmation delivery, login, onboarding or role routing. Those checks require separately authorized synthetic accounts. No existing administrator remains after the approved reset.
+No administrator was recreated. Select a dedicated confirmed synthetic identity with a compatible SPECIALIST portal binding and no specialist application; neither the ordinary Patient nor the submitted applicant should be repurposed.
+
+Reviewed operator SQL: `database/operations/bootstrap-specialist-admin.sql`, SHA-256 `8b371734e24b0dcfcac481c6fa2b9ca716c31bf164d1537abababc1abe9138ac`. Privately verify the exact candidate subject, confirmation, absence of an application and existing capability, then request separate approval binding that subject, file checksum and development target. Only the approved operator may execute the atomic identity-administration grant and provisioning audit. The restricted runtime writer cannot bootstrap. This grants neither professional approval nor patient-record access. No exact candidate has been selected or authorized in this fresh dataset.
+
+Remaining action: rerun only the final same-context switch after an essential private sign-in checkpoint; preserve every passing result. No further ADR feature is authorized by this report.

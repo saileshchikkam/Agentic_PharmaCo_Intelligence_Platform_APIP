@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
+
 - Added an approval-gated professional ADR assessment foundation with immutable private specialist notes, assignment-scoped patient-specialist messaging, audit history, and narrow server authorization. It reuses the existing pooled queue and active assignments.
 
 ## P0-A Authentication Recovery & GitHub CI PDF Fix - 2026-11-11
@@ -358,6 +360,8 @@
 Notable product and developer-facing changes. Entries describe completed work; plans belong in the [roadmap](docs/roadmap.md). An unreleased entry does not imply a release or clinical readiness.
 
 ## Unreleased
+
+- Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
 
 ### Guided MedAssist symptom conversation and local AI — 2026-10-17
 
