@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Compact ADR finalization panel with Material Design 3 radius, status pill, and structured checklist; standardized card padding and grid spacing rhythm across Patient and Specialist portals.
+
 - Repair current-schema PostgreSQL CI fixtures and bounded hosted account-switch verification; the real Patient/Specialist/Patient journey passes without changing application authentication. Avoid disposable Vite dependency-scan shutdown races.
 
 - Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
@@ -38,14 +40,14 @@
 
 ## Platform Stabilization, Unified Portal, Secret Hygiene & ADR Phase 3C-C1 Security Remediation - 2026-11-11
 
-- **Authentication UX, Session Isolation & Navigation (`G01`–`G07`)**:
+- **Authentication UX, Session Isolation & Navigation (`G01`â€“`G07`)**:
   - Added `src/features/account/authError.ts` mapping Supabase Auth error codes and local errors cleanly instead of showing generic `"Request failed"` alerts; updated Google OAuth button state using live `/auth/v1/settings`; aligned signup/reset password minimum to 12 characters in `APIPAuthDialog.tsx` and `AccountSignIn.tsx`.
   - Stabilized `M3TextField` input change listeners (`onChangeRef`), guarded post-auth redirect / modal close races and role-scoped `apip.account.return`, fixed `CaseWorkspace.tsx` `date()` handling on missing/invalid timestamps, keyed `SpecialistWorkspace` by authenticated user ID, added `Open review workspace` on `/specialist/profile`, normalized non-hash deep links synchronously inside `readPreviewRoute()`, and added `For specialists` plus safe `#/` sign-out transition in `PreviewLayout.tsx`.
   - Rewrote `scripts/closure-preview.mjs` as the unified single-origin gateway (`http://127.0.0.1:3602` / `http://localhost:3602`) serving built `dist/` assets with SPA fallback and `/api/*` proxying to `127.0.0.1:3601`.
-- **ADR Phase 3C-C1 Security & Architecture Remediation (`G08`–`G12`)**:
+- **ADR Phase 3C-C1 Security & Architecture Remediation (`G08`â€“`G12`)**:
   - Authored `supabase/migrations/20261111000000_adr_pooled_sharing_queue.sql` and `postgresSharingPoolRepository(sql)` in `server/sharing/pool.ts` (activated when `APIP_POOL_POSTGRES=1`) to eliminate SQLite queue persistence and server-side patient impersonation on claim; hardened SQLite fallback (`pool_receipts`, per-key serialization, release by `poolRequestId` or `assignmentId`, fresh assignment IDs on reclaim).
   - Hardened `extractSafeMetadata()` PII redaction (`server/sharing/policy.ts`), `/requests` deduplication and `Withdraw future access` rendering for `claimed` pool items (`server/sharing/router.ts`, `SharingWorkspace.tsx`), and connected `/inbox/:id/decline` back to `pool.release`.
-- **Secret Hygiene, CI & Risk Governance (`G13`–`G15`)**:
+- **Secret Hygiene, CI & Risk Governance (`G13`â€“`G15`)**:
   - Added `findSecretViolations()` in `scripts/git-workflow.mjs` and standalone `scripts/scan-secrets.mjs`; scrubbed a hardcoded local database password in `alembic.ini` line 89; added `scan:secrets`, `test`, and `test:pdf` npm scripts plus `.github/workflows/ci.yml`; documented Claude Audit Risk Register in `docs/history/2026-11-11.md`.
 - **Verified**: `npm run scan:secrets` (`0` findings across `883` files), `npm run lint`, `npm run build`, `npm test` (`62/62`), `npm run test:pdf` (`9/9`), hosted `verify-hosted-phase3cb-workflow.ts` (`10/10`) & `verify-phase3cc1-shared-queue.ts` (`13/13`), live multi-viewport E2E on `http://127.0.0.1:3602` (`8/8` viewports, `15/15` routes, `0` console/page/5xx errors), and mocked session-isolation E2E. Hosted SQL DDL application (`20261111000000`) and credential rotation remain pending explicit owner action.
 
@@ -193,167 +195,167 @@
 - Added owner-isolated SQLite cases/history and configurable local extraction with deterministic manual fallback.
 - Official PvPI template/PDF checkpoint blocked by missing supplied `ADRRF_2.pdf`; no official form or PDF fidelity claim. [Details and tests](docs/adr/09-adr-1a-checkpoint.md).
 
-## Authenticated read-only Model A protocol compatibility — 2026-10-26
+## Authenticated read-only Model A protocol compatibility â€” 2026-10-26
 
 - Accept only authenticated CRLF/LF protocol representations, preserving original pins, frozen study code and exact binary/implementation hashes.
 - Add tampering tests and migrate read-only adapter/fixture/smoke entry points. Fresh-checkout verification remains a separate readiness gate. [Guarantees](docs/model-a-protocol-portability.md).
 
-## Main reconciliation prepared; merge blocked — 2026-10-26
+## Main reconciliation prepared; merge blocked â€” 2026-10-26
 
 - Resolved README and ignore-rule conflicts in an isolated integration branch; preserved contributor documentation and both commit histories.
 - Preserved canonical contributor file bytes with scoped attributes; no model/provider or frozen-study changes.
 - TypeScript/HTTP, types/build and responsive regressions pass, but fresh-checkout Python fails the existing protocol checksum gate. Main remains unmerged pending a separately reviewed integrity-preserving repair. [Evidence and next action](docs/reconciliation-2026-10-26.md).
 
-## MedAssist verified checkpoint consolidation — 2026-10-25
+## MedAssist verified checkpoint consolidation â€” 2026-10-25
 
 - Synchronized current README, setup, architecture, capability gates and safety status with the implemented fictional conversation, without rewriting historical verification receipts.
 - Preserved byte hashes for newly tracked research sources/reports using scoped Git attributes, and excluded Python caches. Frozen Model A protocol portability remains unresolved.
 - Consolidated pending adapter, modular research, language/reliability, evidence, UI and evaluation work for a reviewed feature-branch checkpoint. Recovered contributor data/weights remain local and already available in the cited remote-main history. See [scope, checks and exclusions](models/medassist_ai/docs/checkpoint-2026-10-25.md).
 
-## MedAssist symptom understanding and evidence integrity — 2026-10-25
+## MedAssist symptom understanding and evidence integrity â€” 2026-10-25
 
 - Added exact schema/language/question-target inventory, deterministic supported-English normalization and source/context provenance without new model features.
 - Added typed/anatomical question compatibility, bounded clarification outside the eight-question budget, full-source polarity validation and explicit v2 conversation export with unchanged v1 evidence handoff.
 - Preserved actual sealed Model A ranking, disabled clinical Model B and the existing UI. Fictional development/mocked checks and real-model integration are separated; two unchanged emergency-rule misses remain blockers. [Evidence and limitations](models/medassist_ai/docs/symptom-understanding.md).
 
-## MedAssist P0 submission and provider recovery — 2026-10-25
+## MedAssist P0 submission and provider recovery â€” 2026-10-25
 
 - Prevented duplicate description bubbles, confirmations and question transitions through stable request IDs and bounded local replay.
 - Replaced permanent temporary-rate blocking with categorized failures, Retry-After recovery, bounded transient retries and sanitized development diagnostics.
 - Preserved strict evidence validation, explicit confirmation, unsupported wording and independent emergency help. Live/recorded integration and confirmed Groq TPM limits are separated in the [verification report](models/medassist_ai/docs/p0-reliability.md). No UI redesign or clinical activation.
 
-## MedAssist symptom recognition and bounded fallback — 2026-10-25
+## MedAssist symptom recognition and bounded fallback â€” 2026-10-25
 
 - Added the existing general-pain field to the constrained language catalogue; actual stomach-pain/headache cases now reach confirmation and real Model A pain questions without inventing anatomical codes.
 - Added bounded, phase-aware clarification for repeated/equivalent wording and already-recorded facts; separated provider/quota, timeout, invalid-output, mapping and question-service failures.
 - Display trusted source labels for encoded answer choices while preserving original values and UNKNOWN. Preserved the eight-question stop, independent safety, disabled Model B and all sealed research protections. [Actual evidence and limitations](models/medassist_ai/docs/recognition-fix.md).
 
-## MedAssist natural conversation and topical questions — 2026-10-25
+## MedAssist natural conversation and topical questions â€” 2026-10-25
 
 - Reused the existing Material 3 chat with document scrolling, an accessible sticky composer, neutral progress and a concise natural summary.
 - Added a separate experimental Groq sparse-language profile, explicit rich-reply confirmation and traceable session export; actual coverage is 28 anchors, not universal symptom understanding.
 - Added an eight-routine-question topical wrapper around unchanged sealed Model A, preserving original research endpoints, frozen protocol and evidence contract. Verified real-model sequences, UNKNOWN, emergency precedence, responsive layout and consent/failure navigation. Clinical use remains blocked. See [current evidence and limitations](models/medassist_ai/docs/natural-conversation.md).
 
-## MedAssist conversational experience — 2026-10-25
+## MedAssist conversational experience â€” 2026-10-25
 
 - Replaced research-form controls with a Material 3 chat, one animated/reduced-motion greeting, inline confirmation and explicit fictional-context questions, typed answers, retry, summary and unchanged evidence export.
 - Added neutral desktop/mobile assessment status without enabling Model B; made Maps contextual while preserving immediate independent emergency help. Fixed shared-preview CSS height collision and offscreen-focus page growth.
 - Verified five responsive widths, 20-question history, safety/failure behavior, four actual Model A conversations and one fictional live qualified Groq integration. Preserved all 17 sealed artifacts and frozen implementation/protocol. See [exact evidence and limitations](models/medassist_ai/docs/chat-verification.json).
 
-## Provisional MedAssist safety and navigation — 2026-10-25
+## Provisional MedAssist safety and navigation â€” 2026-10-25
 
 - Added independent emergency-statement precedence across both fictional previews and backend extraction, including pending/offline models. Shared rules remain provisional and unreviewed; no clinical clearance or urgency prediction is enabled.
 - Added separately consented location-only Maps search with permission/network failure handling and explicit unverified-facility semantics. Existing layout, confirmed evidence and Model A question authority are preserved.
 - Completed 43 TypeScript and 15 Python tests, responsive safety and 20-question browser regressions, actual Model A smoke and fresh verification of all 17 sealed artifacts/frozen code and protocol. See [scope and release blockers](models/medassist_ai/docs/safety-navigation.md).
 
-## NHAMCS ED Experiment 2 — 2026-10-24
+## NHAMCS ED Experiment 2 â€” 2026-10-24
 
 - Compared two fixed, training-weighted Extra Trees configurations on the existing training/validation partitions, excluding the previously exposed test from prediction and scoring. Neither improved macro-F1 or severe recall; no model was selected.
 - Documented source-imputation leakage, corrected age-flag interpretation and preserved Experiment 1 artifacts/results. Four-class Model B stays disabled; all 17 Model A sealed artifact hashes and frozen code/protocol matched before and after.
 
-## NHAMCS five-class ED research baseline — 2026-10-24
+## NHAMCS five-class ED research baseline â€” 2026-10-24
 
 - Trained one isolated real-data multinomial logistic-regression baseline with explicit missing states and stratified duplicate-group separation; documented held-out errors, calibration, abstention, source limitations and reproducible artifact hashes.
 - Test accuracy 45.84%, macro-F1 0.3342 and immediate-class recall 17.86% keep clinical integration NO-GO. Four-class Model B remains disabled; all 17 sealed Model A artifacts and frozen code/protocol matched before and after.
 
-## MedAssist extraction qualification and bounded comparison — 2026-10-21
+## MedAssist extraction qualification and bounded comparison â€” 2026-10-21
 
 - Compared three installed local models on 20 identical fictional cases using two fixed variants; preserved baseline and all failures. No candidate qualified.
 - Added hash/digest-bound qualification, stricter uncertainty/negative validation and fast rejection of unqualified live language requests. Explicit structured Model A interviews and the existing UI are preserved.
 - Verified actual Model A, 17 sealed artifacts and untouched official test/ledger protections. No training, downloads or Git publication.
 
-## Explicit local MedGemma fictional integration — 2026-10-21
+## Explicit local MedGemma fictional integration â€” 2026-10-21
 
 - Added an opt-in installed-only loopback Ollama provider, constrained extraction guards and existing-chat confirmation bridge to real Model A; preserved UI layout and frozen contracts.
 - Preserved both 20-case development runs and disclosed failed extraction-quality gates, latency, memory limits and strengthened hallucination guards. No clinical enablement, downloads, training or Git publication.
 
-## MedAssist intelligence evidence and governed boundaries — 2026-10-21
+## MedAssist intelligence evidence and governed boundaries â€” 2026-10-21
 
 - Froze a 48-case fictional extraction benchmark, strict evaluation-only contract and promotion gates; implemented a capped local-only installed-model evaluator and preserved failed screen results without provider enablement.
 - Verified actual sealed Model A over 20 follow-ups, UNKNOWN/dependency/duplicate/export behaviour and all 17 artifact hashes; froze the UI and existing evidence contract.
 - Recorded blocked Model B label/data readiness and defined unavailable clinician-review/precautions/consented-navigation interfaces. No training, official test/ledger access, downloads or Git publication.
 
-## MedAssist compact conversation UI correction — 2026-10-21
+## MedAssist compact conversation UI correction â€” 2026-10-21
 
 - Kept the normal conversation within a responsive viewport shell, with bounded scrollable history, one accessible composer and optional summary/privacy details; developer evidence remains exclusive to the separate inspector.
 - Verified 20-turn layouts at 390/820/1440px, keyboard replies/history navigation, unchanged evidence semantics and focused tests. No frozen/research data changes or Git publication.
 
 
-## MedAssist L2 implementation 1 — limited fictional conversation — 2026-10-21
+## MedAssist L2 implementation 1 â€” limited fictional conversation â€” 2026-10-21
 
 - Added a DEV-only conversational page in the existing APIP shell and navigation, separate from the developer lab; confirmed supported symptoms feed actual preserved Model A follow-ups and unchanged evidence semantics.
 - Added an exact metadata-verified initial vocabulary and strict candidate-extraction boundary. No language model is configured or selected; ambiguous/unsupported text clarifies, and clinical capabilities remain unavailable.
 - Verified focused tests, local actual-model/browser behaviour and preservation gates; no training, official test/ledger access or Git publication. Full L2 remains open pending comparative language evaluation and clinical wording review.
 
-## MedAssist sprint Day 2 — fictional adaptive question lab — 2026-10-21
+## MedAssist sprint Day 2 â€” fictional adaptive question lab â€” 2026-10-21
 
 - Added a DEV-only Material Web workflow using the preserved actual Model A: authored fixture start, typed B/C/M answers, UNKNOWN/conflict handling, stop/reset, evidence summary and unchanged versioned evidence export.
 - Added a development-only guarded loopback proxy with server-side token, bounded validated transport and no production/patient inference integration. Fixed overlapping fixture startup reads discovered in browser smoke; inference remains serialized.
 - Verified focused lifecycle/isolation tests and short real-model loopback/browser checks. Model B remains disabled; no training, official locked test, ledger claim or commit/merge/push.
 
-## MedAssist sprint Day 1 review and evidence contract — 2026-10-20
+## MedAssist sprint Day 1 review and evidence contract â€” 2026-10-20
 
 - Reviewed the preserved 21-file Task 5A patch; fixed unsupported false binary initial complaints while preserving explicit negative follow-up answers and frozen ranker behavior.
 - Defined a separate versioned research evidence handoff with positive/negative/value/unknown/not-asked/unsupported/conflict provenance; 28 focused tests passed. No Model B or clinical output was enabled.
-- Verified existing NHAMCS availability without parsing records; clinical Model B data readiness remains NO-GO. Planned Days 2–5 around a nonclinical fallback; no commit, merge or push.
+- Verified existing NHAMCS availability without parsing records; clinical Model B data readiness remains NO-GO. Planned Days 2â€“5 around a nonclinical fallback; no commit, merge or push.
 
-## Model A research integration prototype for review — 2026-10-20
+## Model A research integration prototype for review â€” 2026-10-20
 
 - Added an isolated, opt-in loopback FastAPI adapter using the existing sealed selected v2 ranker and frozen features/eligibility, with versioned fictional request/response/evidence contracts and safe abstention.
 - Added focused contract/safety/parity tests and local latency/memory measurements; no production routes, model fitting, validation replay, official patient decoding or locked-test access. Frozen assets remain unchanged; the patch is uncommitted pending review.
 
-## MedAssist v2 official validation and verified pre-test seal — 2026-10-20
+## MedAssist v2 official validation and verified pre-test seal â€” 2026-10-20
 
 - Completed the original single campaign with 132,448 validation interviews and 529,792 cached policy trajectories; selected alpha 0.00001 using the frozen validation rule without refitting.
 - Recorded full/sensitivity baseline comparisons, subgroup support and paired cluster-bootstrap uncertainty; full-validation synthetic recall@20 is 77.1866% versus 59.5172% training frequency.
 - Independently verified all 17 sealed artifacts and five sources; original process exited 0, locked test/ledger remained unopened, and existing monitor was paused. Preserved the unresolved fresh-checkout CRLF/LF protocol-digest caveat. No application or clinical functionality changed.
 
-## MedAssist v2 official fitting milestone — 2026-10-19
+## MedAssist v2 official fitting milestone â€” 2026-10-19
 
 - Verified sources/environment/parity and prepared frozen training/validation cohorts and 1,048,576 training pairs; all three real SGD alpha fits completed without recorded warnings or numerical failures.
 - Validation-only selection remains in progress. No winner, baseline comparison, full uncertainty report, pre-test seal or locked-test result is claimed; the original campaign is preserved without retraining.
 
-## MedAssist v2 frozen runner and software preflight — 2026-10-19
+## MedAssist v2 frozen runner and software preflight â€” 2026-10-19
 
 - Implemented frozen training-reference/prefix/grid/selection/seal/test-cache/report stages with durable one-use test governance and aggregate subgroup/paired-bootstrap calculations.
 - Passed 22 distinct focused tests, fictional end-to-end dry runs with a non-learning estimator and source/environment-only official preflight. No DDXPlus fitting, official validation/test outcomes, protocol change or application integration occurred.
 
-## MedAssist v2 adaptive-questioning protocol freeze — 2026-10-19
+## MedAssist v2 adaptive-questioning protocol freeze â€” 2026-10-19
 
 - Froze the restricted 218-question synthetic collection task, unknown/default/conditional semantics, training-only overlap reference, prefix sampling, three baselines, lightweight ranking grid and one-time test design.
 - Added checksum/metadata/protocol validation and synthetic leakage tests. Five unresolved history questions remain quarantined; no model training, corpus rescan or application behavior changed.
 
-## MedAssist v2 official data acquisition and audit — 2026-10-19
+## MedAssist v2 official data acquisition and audit â€” 2026-10-19
 
 - Verified all five pinned English v2 sources externally and audited 1,292,579 records without changing official partitions; published aggregate checksums, duplicate/coverage findings and Task 4 design gates.
 - Fixed the official extensionless CSV-member format without relaxing archive/record/oracle checks; added acquisition/audit tooling and ten focused regressions. No model training or application behavior changed.
 
-## MedAssist v2 read-only loader and simulator — 2026-10-19
+## MedAssist v2 read-only loader and simulator â€” 2026-10-19
 
 - Added pinned source-size/hash verification, safe bounded CSV-in-ZIP streaming and deterministic staged answers with separate hidden oracle/evaluator data.
 - Added 19 Task 2 synthetic regressions and a truthful missing-data report with manual acquisition commands. No source files downloaded, models trained or application behavior changed.
 
-## MedAssist Symptom Assessment v2 foundation — 2026-10-19
+## MedAssist Symptom Assessment v2 foundation â€” 2026-10-19
 
 - Added an isolated research directory with verified English DDXPlus v2 provenance, structured interview and separate proposed urgency-label contracts.
-- Added source/evidence/provenance checks, aggregate quality and group-split feasibility, external storage guards and synthetic regressions. Original Phase 1–4A artifacts and application behavior remain unchanged; no training or patient-data download occurred.
+- Added source/evidence/provenance checks, aggregate quality and group-split feasibility, external storage guards and synthetic regressions. Original Phase 1â€“4A artifacts and application behavior remain unchanged; no training or patient-data download occurred.
 
-## MedAssist Phase 4A error audit and validation design — 2026-10-19
+## MedAssist Phase 4A error audit and validation design â€” 2026-10-19
 
 - Added a read-only cached-prediction auditor with preservation checks and synthetic regression tests; frozen Phase 3 models, thresholds, assignments and protocol remain unchanged.
 - Documented development versus opened-test error patterns, feature/target mismatch, nine-source feasibility, a clinician-reviewable independent study and research risks. No training, clinical rules or application inference changed.
 
-## Profile editability and hospital requirements — 2026-10-18
+## Profile editability and hospital requirements â€” 2026-10-18
 
 - Fixed Material controls staying disabled after profile loading by controlling each field and checkbox explicitly. Added a browser regression fixture.
 - Recorded Mahesh-attributed hospital ADR requirements, current module gaps, source uncertainties and phased integration without enabling clinical workflows or changing the database schema.
 
-## Local database and authentication — 2026-10-18
+## Local database and authentication â€” 2026-10-18
 
 - Connected development signup/sign-in, server-side cookie sessions and durable SQLite health profiles without Docker or cloud services.
 - Added real HTTP integration checks for ownership, persistence across restart, validation, expiry, logout and rate limits; retained the optional Supabase adapter.
 
-## Account/profile foundation — 2026-10-18
+## Account/profile foundation â€” 2026-10-18
 
 - Added configuration-gated patient signup/sign-in, Google provider integration, shared health-profile editing/deletion, per-layer sharing choices and owner-enforced PostgreSQL bootstrap with local isolation tests. Hosted connection remains pending.
 - Switched active MedAssist/ADR interfaces to English only. Preserved existing saved draft text and historical evaluation records.
@@ -365,67 +367,67 @@ Notable product and developer-facing changes. Entries describe completed work; p
 
 - Deny pending or nonprofessional identities before sharing/review service dispatch, add bounded identity diagnostics, and record real hosted portal/reload/persistence verification with the final same-context browser-switch check explicitly blocked.
 
-### Guided MedAssist symptom conversation and local AI — 2026-10-17
+### Guided MedAssist symptom conversation and local AI â€” 2026-10-17
 
 - Added English/Telugu symptom follow-ups, explicit unknown answers, review/edit, stable question-level Back, and discard protection.
 - Connected a local Ollama source-quote helper after explicit fictional-case consent, with bounded requests, strict quote validation, cancellation, and preserved originals on failure. Two live fictional source/unknown checks passed; clinical urgency remains unassessed.
 - Added location-only Google Maps hospital-search handoff with manual entry and optional permission-based location, without sending symptom statements.
 - Corrected the next model research task to symptom/urgency data, documented primary dataset candidates, and retained clinical assessment/precautions as pending review/evaluation.
 
-### MedAssist conversation design preview — 2026-10-17
+### MedAssist conversation design preview â€” 2026-10-17
 
 - Added a responsive Material 3 conversation shell with English/Telugu interface text and consistent Back/ADR navigation.
 - Marked the experience as a design preview: fictional messages remain in page memory and no model, persistence, or clinical guidance is connected.
 - Documented that public pharmacovigilance datasets do not supply symptom-urgency labels, and recorded current openFDA/VigiBase access limitations.
 
-### Delete saved fictional ADR drafts — 2026-10-17
+### Delete saved fictional ADR drafts â€” 2026-10-17
 
 - Added a per-draft Delete action with a centered confirmation dialog, cancel support, accessible focus restoration, and English/Telugu copy.
 - Persisted confirmed deletions to the browser-local draft collection; failures keep the draft and report the storage error.
 - Added an empty-list message after the last draft is removed and documented that browser-profile users share these fictional drafts.
 
-### Shared navigation and stable page layout — 2026-10-17
+### Shared navigation and stable page layout â€” 2026-10-17
 
 - Added text-style Home, For patients, and Log in links to a shared header, including the developer reference.
 - Kept Back in one fixed page row, connected ADR Back to its review/editor steps, and reserved scrollbar space so routes do not shift horizontally.
 - Shared Google Sans Flex typography and inline appearance controls; prevented duplicate history entries and preserved modified-link behaviour.
 - Added navigation regression checks and corrected the reference workflow tracker overflowing at tablet widths.
 
-### Page-level back control placement — 2026-10-17
+### Page-level back control placement â€” 2026-10-17
 
 - Moved the shared Back action out of the app header and into a left-aligned page navigation row beneath it, reducing header crowding across preview pages.
 - Restored centered welcome, patient, sign-in, and ADR layouts after adding the page wrapper; aligned the Back row to each screen's content width.
 
-### Consistent back navigation — 2026-10-17
+### Consistent back navigation â€” 2026-10-17
 
 - Added a shared in-app Back control that follows the previous APIP screen and uses a safe parent route when a page is opened directly.
 - Added ADR step/list back actions and a discard confirmation for unsaved draft edits; updated preview route links to retain browser history behavior.
 
-### Multiple fictional ADR drafts — 2026-10-17
+### Multiple fictional ADR drafts â€” 2026-10-17
 
 - Added an in-page Material 3 list to open saved fictional drafts or start another, with each draft retaining its own review/confirmation state.
 - Migrated existing single-draft browser storage into the list in memory; new saves use a validated versioned collection.
 - Clearly disclosed that drafts are shared by users of the same browser profile because sign-in is not implemented.
 
-### ADR draft review and confirmation — 2026-10-17
+### ADR draft review and confirmation â€” 2026-10-17
 
 - Split fictional ADR entry into a two-step flow: enter details, review reporter-originated values with unknowns preserved, then explicitly confirm and save in this browser.
 - Added draft schema v2 with a user-confirmed status and timestamp; legacy v1 drafts migrate as unconfirmed.
 - Kept professional review, authentication, server persistence, AI, and report submission out of the preview.
 
-### Fictional ADR intake preview — 2026-10-17
+### Fictional ADR intake preview â€” 2026-10-17
 
 - Mounted the existing English/Telugu fictional draft form at `#/preview/adr-report`, lazy-loaded it from the selected ADR sign-in preview, and added a clear return to patient home.
 - Kept draft storage in this browser only and the explicit fictional-use notice; no authentication, AI, submission, or professional review was added.
 - Updated the app route title, keyboard focus, and layer/architecture documentation.
 
-### Appearance palette and header spacing — 2026-10-17
+### Appearance palette and header spacing â€” 2026-10-17
 
 - Replaced the blue/black/green accent choices with familiar Google-inspired blue, red, yellow, and green highlights; only primary roles change with the selected accent.
 - Lifted dark surfaces to readable Chrome-like charcoal greys and tuned the patient-home Help button's Material icon spacing.
 - Preserved existing green and dark-mode preferences; retired black preferences return to the default blue.
 
-### Patient home UI preview — 2026-10-17
+### Patient home UI preview â€” 2026-10-17
 
 - Added a responsive patient home with MedAssist and direct suspected-ADR reporting choices, plus patient-oriented header help and a clear preview label.
 - Centered the Help dialog in the viewport on desktop and phones.
@@ -433,12 +435,12 @@ Notable product and developer-facing changes. Entries describe completed work; p
 - Corrected the shared button wrapper to place trailing icons in Material Web's supported icon slot and trailing-icon state.
 - Added visible patient-home Help in the header and task-specific sign-in navigation that carries the requested destination while clearly stating authentication is unavailable.
 
-### Access header refinements — 2026-10-17
+### Access header refinements â€” 2026-10-17
 
 - Restored Material Web capsule-button spacing and clarified the welcome header action as **Log in**.
 - Moved access-page appearance controls into the existing header with a short, reduced-motion-aware transition, accessible theme toggles, and no page displacement.
 
-### Welcome and sign-in interface — 2026-10-17
+### Welcome and sign-in interface â€” 2026-10-17
 
 - Added a simple main-page sign-in action and shared Material 3 Patient, Specialist, and Developer sign-in views.
 - Preserved the developer component library through an explicit preview route; no authentication or authorization is implied.
@@ -446,7 +448,7 @@ Notable product and developer-facing changes. Entries describe completed work; p
 - Kept credentials ephemeral and unsubmitted; preview submission honestly reports that sign-in is pending.
 
 
-### Developer design reference and appearance — 2026-10-17
+### Developer design reference and appearance â€” 2026-10-17
 
 - Restored the component/token showcase as the running developer reference and removed the product-prototype tabs from its navigation.
 - Replaced the teal palette with white neutral surfaces and default blue highlights; settings offer blue, black, green, and optional dark mode with browser persistence.
@@ -456,7 +458,7 @@ Notable product and developer-facing changes. Entries describe completed work; p
 - Updated the phase handoff sequence before further product/model work.
 
 
-### Fictional ADR draft prototype — 2026-10-17
+### Fictional ADR draft prototype â€” 2026-10-17
 
 - Replaced the misleading simulated report submission with a bilingual local draft flow using the existing Material Web wrappers.
 - Preserved reporter-entered medicine, dose, reaction, and timing statements in a versioned browser-local draft; omitted optional values remain unknown.
@@ -466,28 +468,28 @@ Notable product and developer-facing changes. Entries describe completed work; p
 - Added root ignore rules for dependencies, generated output, environment files, and common machine artifacts.
 - The draft is not authenticated, user-isolated, server-persisted, reviewed, or submitted. Frozen dependency installation, frontend lint, and the production build passed; Vite reported a 741 kB JavaScript chunk above its 500 kB advisory threshold.
 
-### Free-tier medical-model availability — 2026-10-17
+### Free-tier medical-model availability â€” 2026-10-17
 
 - Recorded Groq free-tier evaluation as approved direction and distinguished its general models from medical specialists.
 - Verified Ollama medical candidates, Hugging Face model/provider status, a community ZeroGPU demo, and author repositories.
 - Corrected the earlier Hugging Face USD 0.10 credit assumption: its live pricing page now lists no included credits for free users.
 - Updated catalogues and references without enabling providers, installing models, or changing application routing.
 
-### Model and dataset research — 2026-10-16
+### Model and dataset research â€” 2026-10-16
 
 - Inventoried five installed Ollama models and added separate local/API catalogues without changing application model routing.
 - Added a dependency-free local diagnostic and saved four fictional English/Telugu extraction observations, including one incorrect Telugu medicine field.
 - Recorded model/provider candidates, free-tier limitations, dataset rights/task suitability, and a likely MALADE reference.
 - Confirmed the INR 500 monthly planning budget and recorded Mahesh's reported pharmacy-reviewer role with limited availability; AI checks remain distinct from human clinical sign-off.
 
-### Detailed implementation planning — 2026-10-16
+### Detailed implementation planning â€” 2026-10-16
 
 - Expanded the milestone roadmap with indicative working-day windows, first-day steps, proposed responsibilities, inputs needed, review gates, and fallback scope.
 - Added a linked guide for local/API model comparison, custom ML training/evaluation, bilingual RAG, and four-agent implementation.
 - Recorded the selected English/Telugu fictional-case scope and provisional INR 500 monthly planning ceiling.
 - Kept model/architecture choices proposed and clinical/public deployment dependent on evidence; no application behavior or dependency changed.
 
-### Repository automation — 2026-10-16
+### Repository automation â€” 2026-10-16
 
 - Added a task-completion helper that commits explicitly selected files with a required dated history update.
 - Added an installed checkout-local post-commit hook for automatic ordinary pushes to the matching branch of the reviewed origin.
@@ -495,7 +497,7 @@ Notable product and developer-facing changes. Entries describe completed work; p
 - Recorded standing user authorization for routine completed-work commits and GitHub sync without repeated confirmation.
 - Verified the workflow with ten integration tests against isolated local Git repositories and remotes.
 
-### Documentation — 2026-10-16
+### Documentation â€” 2026-10-16
 
 - Established the canonical product name, vision, connected layers, and four-agent direction.
 - Rewrote the README to explain the demonstration baseline and guide contributors.
@@ -513,39 +515,39 @@ Application code and dependency versions are unchanged. See [dated history](docs
 
 Earlier templates did not establish a reliable release history. No version tags or completion dates are invented for that work.
 
-## 2026-10-18 — Local account ADR persistence
+## 2026-10-18 â€” Local account ADR persistence
 
 - Added owner-isolated fictional ADR drafts with unfinished save, reopen/edit, explicit user confirmation and revision-checked deletion.
 - Preserved legacy browser drafts in a separate demo; no automatic import or cloud provision.
 - Added HTTP persistence/ownership/migration checks and a separate UI failure regression fixture. Hospital review/submission remains unimplemented.
 
-## 2026-10-18 — Restrict legacy agents and startup exposure
+## 2026-10-18 â€” Restrict legacy agents and startup exposure
 
 - Disabled legacy APIs by default and permanently in production; trusted local opt-in precedes parsing/provider work and adds non-clinical metadata.
 - Removed global permissive CORS; development HTTP/HMR bind to loopback.
 - Added explicit Windows-compatible mode launchers, validated bind configuration and focused security tests.
 
-## 2026-10-19 — Open-access MedAssist dataset strategy
+## 2026-10-19 â€” Open-access MedAssist dataset strategy
 
 - Verified NHAMCS 2022 IMMEDR labels, published class/missingness marginals, source terms and leakage risks.
 - Added a pinned metadata manifest and separate real-acuity/synthetic-question experiment plan with three structured-model candidates and explicit uncertainty/evaluation gates.
 - Kept MIMIC-IV-ED Demo smoke-only; no restricted data, training or patient-facing changes.
 
-## 2026-10-19 — MedAssist ML Phase 1 data engineering
+## 2026-10-19 â€” MedAssist ML Phase 1 data engineering
 
 - Implemented isolated Python acquisition, Stata decoding, missingness/provenance audits and deterministic group-disjoint candidate partitions, with 14 passing synthetic tests.
 - Acquired official NHAMCS 2022 outside Git; actual 16,025 visits/913 columns and all IMMEDR counts reconcile exactly. Committed safe aggregate reports/receipt summaries only.
 - Verified supporting DDXPlus/MIMIC demo metadata without patient archives. Documented sparse Immediate support, symptom-filter selection, age provenance and timing blockers requiring Phase 1 review before training.
 - Preserved application/ADR behavior and unrelated untracked work; no estimator training or clinical deployment.
 
-## 2026-10-19 — MedAssist Phase 2 baseline protocol freeze
+## 2026-10-19 â€” MedAssist Phase 2 baseline protocol freeze
 
 - Froze primary binary all-labelled and exploratory five-class symptom tasks, preserving existing group-disjoint outer partitions and matched vitals comparisons.
 - Added no-RFV initial-vitals features, explicit zero/provenance cleaning, saved-assignment/source checks and fit-only CV/support preflight.
 - Fixed LR/RF/HGB grids, primary-only calibration/threshold procedures and locked evaluation/rare-class safeguards. Twenty-three focused synthetic tests passed with warnings treated as errors.
 - Recorded offline-only training readiness; no models trained or patient-facing MedAssist/ADR behavior changed.
 
-## 2026-10-19 — MedAssist Phase 3 offline training and locked evaluation
+## 2026-10-19 â€” MedAssist Phase 3 offline training and locked evaluation
 
 - Implemented fold-local LR/RF/HGB pipelines, bounded candidate workers, convergence/failure logs, primary frozen-base calibration, development-only thresholds and all-task pre-test hashing/sealing.
 - Completed all 60 configurations/180 CV fold fits, 12 final models and six calibrators under unchanged v1, then evaluated each frozen model once. No recorded training warnings/failures.
@@ -553,29 +555,29 @@ Earlier templates did not establish a reliable release history. No version tags 
 - Recorded material negative findings: primary vitals CV winner missed 86/411 high and 7/26 Immediate cases; every five-class variant missed exact Immediate class on all ten cases. Singleton strata suppress intervals. No clinical/app/ADR integration or safety behavior changed.
 
 
-### 2026-10-21 — MedAssist conversational refinement (uncommitted)
+### 2026-10-21 â€” MedAssist conversational refinement (uncommitted)
 
 - Removed duplicate initial confirmation bubbles and duplicate follow-up headings; added a shared exact-answer composer, retry locking and client replay rejection.
 - Kept the provider disabled; added a validated suggestion-only evaluation seam and current candidate feasibility notes. L2 remains partial with clinical features unavailable.
 - Verified 15 Node and 18 authored Python tests, type/build checks and three-width Chrome lifecycle with response stubs; actual-model/LLM benchmarking remains open.
 
-### MedAssist Groq fictional extraction — 2026-10-23
+### MedAssist Groq fictional extraction â€” 2026-10-23
 
 Added a backend-only, explicitly enabled, hash-qualified Groq provider with sparse evidence validation and confirmation before frozen Model A inference. Qwen passed the bounded 20-case gate; real browser smoke passed. See [evaluation and limitations](models/medassist_intelligence/groq-v1/README.md). Clinical functions remain disabled; no UI layout redesign.
 
-### Modular MedAssist research architecture — 2026-10-23
+### Modular MedAssist research architecture â€” 2026-10-23
 
 Added injectable component registry/orchestrator, canonical Model A adapter, qualified Groq OOP wrapper and safe operational metadata, evidence boundaries, pinned disabled Jayanth adapter, and disabled urgency/safety/hospital interfaces. Existing routes/UI and frozen assets remain preserved. [Implementation and checks](models/medassist_ai/README.md).
 
-### Jayanth canonical artifact recovery — 2026-10-24
+### Jayanth canonical artifact recovery â€” 2026-10-24
 
 Verified remote merge ancestry and restored 16 missing canonical ML/data/dependency files from pinned remote main without merging or overwriting work. Adapter integrity now checks Git blob identity and SHA-256; Joblib execution stays disabled. [Recovery evidence](models/medassist_ai/docs/artifact-recovery.md).
 
-### Jayanth compatibility and leakage validation — 2026-10-24
+### Jayanth compatibility and leakage validation â€” 2026-10-24
 
 Reproduced declared dependencies in an isolated hash-locked environment, added literal-only vocabulary inspection and deterministic explicit-unknown normalization, and audited duplicate-group leakage. Disease execution and clinical guidance remain disabled. [Evidence and limitations](models/medassist_ai/docs/jayanth-technical-validation.md).
 
-### Model B gated readiness foundation — 2026-10-24
+### Model B gated readiness foundation â€” 2026-10-24
 
 Added provisional urgency schema, provenance-gated ingestion, group-safe splits, offline trainer/evaluator and research-only registration. Synthetic checks do not train or clinically validate Model B; the active provider remains disabled. [Implementation and gates](models/medassist_ai/model_b/README.md).
 
@@ -591,15 +593,15 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 
 - Added a cohesive specialist profile, compact verification status and three-card home connected to existing MedAssist/owned ADR tools. Real hosted revoked-state screenshots and four-width regressions pass. Review inbox remains explicitly restricted/unconnected; no sharing, database or privilege changes. [Delivery](docs/adr/phase3/3c-a-implementation-and-verification.md).
 
-## Owner finalization foundation — 2026-11-13
+## Owner finalization foundation â€” 2026-11-13
 
 - Added approval-gated immutable PostgreSQL ADR finalization, guarded legacy mutations, Material Web confirmation/read-only views and finalized report filtering. New sharing records must reference the exact finalized revision after deployment. No hosted SQL or professional privilege was applied.
 
-## Approved development finalization deployment — 2026-11-13
+## Approved development finalization deployment â€” 2026-11-13
 
 - Applied the exact owner-approved finalization SQL once, verified ledger bytes/RLS/grants and preserved existing account/ADR fingerprints. Enabled only development finalization. Existing Patient and Specialist own-report browser journeys pass locking, PDFs, isolation, reload and finalized-list checks at 1440/375px. Added a bounded hosted acceptance runner. Forwarding remains blocked by disabled sharing and no independently approved specialist destination; no personal privileges or other migrations were applied.
 
-## Phase B review and private archive � 2026-11-13
+## Phase B review and private archive — 2026-11-13
 
 - Added assignment-scoped human assessment UI/history/finalization, separately consented completed-PDF archival and an unlisted exact-email/entitlement developer workspace. Added native assessment appendices while preserving original PvPI pages and excluding private notes. Isolated security/API/browser/PDF checks pass; hosted migrations and personal privileges remain separately approval-gated.
 

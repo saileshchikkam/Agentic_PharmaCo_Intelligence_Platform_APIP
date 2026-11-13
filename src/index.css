@@ -13,6 +13,21 @@
     --md-sys-shape-corner-extra-large: 28px;
     --md-sys-shape-corner-full: 9999px;
 
+    /* Material 3 Spacing System */
+    --apip-space-xs: 4px;
+    --apip-space-sm: 8px;
+    --apip-space-md: 12px;
+    --apip-space-base: 16px;
+    --apip-space-lg: 20px;
+    --apip-space-xl: 24px;
+    --apip-space-xxl: 32px;
+
+    /* Shared Layout Rhythms */
+    --apip-gap-cards: 24px;
+    --apip-gap-cards-tablet: 20px;
+    --apip-gap-cards-mobile: 16px;
+    --apip-section-spacing: 24px;
+
     /* Material 3 Elevation System */
     --md-sys-elevation-level0: none;
     --md-sys-elevation-level1: 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 1px rgba(0, 0, 0, 0.06);

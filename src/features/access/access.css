@@ -171,23 +171,23 @@ html { scrollbar-gutter: stable; scroll-padding-top: calc(var(--apip-header-heig
 .patient-home-heading { max-width: 780px; margin: 0 auto 24px; text-align: center; }
 .patient-home-heading .access-eyebrow { margin-bottom: 12px; }
 .patient-home-heading h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; letter-spacing: -.04em; font-weight: 500; }
-.patient-home-heading > p:last-child { margin: 14px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 1rem; line-height: 1.5rem; }
+.patient-home-heading > p:last-child { margin: 12px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 1rem; line-height: 1.5rem; }
 .patient-task-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 24px; }
-.patient-task-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface); box-shadow: var(--md-sys-elevation-level1); }
+.patient-task-card { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 24px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-extra-large, 28px); background: var(--md-sys-color-surface); box-shadow: var(--md-sys-elevation-level1); }
 .patient-medassist-card { background: var(--md-sys-color-surface-container-low); box-shadow: none; }
 .patient-task-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
 .patient-task-icon .material-symbols-outlined { font-size: 28px; font-variation-settings: 'FILL' 1, 'wght' 400; }
 .patient-task-copy { flex: 1; }
-.patient-task-kicker { margin: 24px 0 8px; color: var(--md-sys-color-primary); font-size: .75rem; line-height: 1rem; font-weight: 600; letter-spacing: .08em; }
-.patient-task-card h2 { margin: 0; font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; letter-spacing: -.025em; }
+.patient-task-kicker { margin: 16px 0 8px; color: var(--md-sys-color-primary); font-size: .75rem; line-height: 1rem; font-weight: 600; letter-spacing: .08em; }
+.patient-task-card h2 { margin: 0 0 12px; font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; letter-spacing: -.025em; }
 .patient-task-card .patient-task-copy > p:not(.patient-task-kicker):not(.patient-task-note) { margin: 12px 0 0; color: var(--md-sys-color-on-surface-variant); font-size: 1rem; line-height: 1.5rem; }
 .patient-task-card ul { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
 .patient-task-card li { position: relative; padding-inline-start: 28px; font-size: .9375rem; line-height: 1.4rem; }
 .patient-task-card li::before { position: absolute; inset-inline-start: 0; color: var(--md-sys-color-primary); content: '\2713'; font-weight: 600; }
-.patient-task-note { display: flex; align-items: flex-start; gap: 10px; margin: 24px 0; padding: 14px; border-radius: 16px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
+.patient-task-note { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0; padding: 14px; border-radius: 16px; background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface-variant); font-size: .8125rem; line-height: 1.25rem; }
 .patient-task-note .material-symbols-outlined { flex: 0 0 auto; font-size: 18px; }
 .patient-task-card > md-filled-button, .patient-task-card > md-outlined-button { margin-top: 12px; }
-.patient-home-message { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding: 8px 12px 8px 18px; border-radius: 16px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); font-size: .875rem; line-height: 1.35rem; animation: access-enter 180ms cubic-bezier(.2,0,0,1) both; }
+.patient-home-message { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; padding: 8px 12px 8px 18px; border-radius: 16px; background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); font-size: .875rem; line-height: 1.35rem; animation: access-enter 180ms cubic-bezier(.2,0,0,1) both; }
 .patient-help-dialog { position: fixed; inset: 0; width: min(560px, calc(100vw - 32px)); height: fit-content; max-width: none; max-height: calc(100dvh - 32px); margin: auto; overflow: auto; padding: 28px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 28px; background: var(--md-sys-color-surface-container-low); color: var(--md-sys-color-on-surface); box-shadow: var(--md-sys-elevation-level3); }
 .patient-help-dialog::backdrop { background: rgb(24 28 32 / 38%); backdrop-filter: blur(2px); }
 .patient-help-heading { display: flex; align-items: center; gap: 14px; }
