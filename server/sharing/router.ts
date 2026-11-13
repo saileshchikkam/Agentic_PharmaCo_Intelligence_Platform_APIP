@@ -8,6 +8,7 @@ import type { SharingPoolRepository } from './pool';
 
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 const status: Record<string, number> = {
+  REPORT_NOT_FINALIZED:409,
   PDF_BUSY: 429,
   PDF_UNSUPPORTED_SCRIPT: 422,
   PDF_SELECT_ONE_SERIOUSNESS: 422,

@@ -1,14 +1,14 @@
 import { missing, type GuidedCase } from '../guided/domain';
 
 export type CaseFilters = {
-  limit: number; q: string; medicine: string; status: 'all' | 'draft' | 'intake_complete';
+  limit: number; q: string; medicine: string; status: 'all' | 'draft' | 'intake_complete' | 'finalized';
   caseType: 'all' | 'Initial' | 'Follow-up'; dateField: 'created' | 'updated' | 'reported';
   from: string; to: string; sort: 'created' | 'updated'; direction: 'asc' | 'desc'; archived: 'exclude';
 };
 export const defaultFilters: CaseFilters = { limit: 12, q: '', medicine: '', status: 'all', caseType: 'all',
   dateField: 'updated', from: '', to: '', sort: 'updated', direction: 'desc', archived: 'exclude' };
 export type CaseCard = { id: string; revision: number; createdAt: string; updatedAt: string;
-  medicines: string[]; caseType: string | null; intakeComplete: boolean; status: 'draft'; reviewStatus: null };
+  medicines: string[]; caseType: string | null; intakeComplete: boolean; status: 'draft'|'finalized'; reviewStatus: 'shared'|null };
 export type CasePage = { cases: CaseCard[]; nextCursor: string | null };
 export type RevisionDescriptor = { revision: number; savedAt: string };
 export const confirmed = (c: GuidedCase, key: string) => c.values[key]?.state === 'provided' ? c.values[key].value : null;

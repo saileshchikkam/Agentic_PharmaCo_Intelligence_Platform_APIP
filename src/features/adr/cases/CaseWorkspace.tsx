@@ -42,14 +42,18 @@ function Notice({error,retry}:{error:string;retry:()=>void}){
 function Select({label,value,values,onChange}:{label:string;value:string;values:[string,string][];onChange:(s:string)=>void}){
   return <M3Select label={label} value={value} onChange={onChange} options={values.map(([value,label])=>({value,label}))}/>;
 }
-function Card({c}:{c:CaseCard}){
+function Card({c,owner}:{c:CaseCard;owner:string}){
+  const [downloading,setDownloading]=useState(false),[downloadError,setDownloadError]=useState('');const pending=useRef<AbortController|null>(null);
+  useEffect(()=>()=>pending.current?.abort(),[owner]);
+  const download=async()=>{pending.current?.abort();const controller=new AbortController();pending.current=controller;setDownloading(true);setDownloadError('');try{const response=await fetch(`/api/account/adr-cases/${c.id}/revisions/${c.revision}/pdf`,{method:'POST',headers:{...await guidedAccountHeaders(owner),'Content-Type':'application/json'},body:'{}',signal:controller.signal});if(!response.ok||response.headers.get('X-APIP-Revision')!==String(c.revision))throw Error('This PDF could not be downloaded. Open the saved report and retry.');const blob=await response.blob();if(controller.signal.aborted)return;const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`APIP-PvPI-${c.id}-r${c.revision}.pdf`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){if(!controller.signal.aborted)setDownloadError((e as Error).message);}finally{if(!controller.signal.aborted)setDownloading(false);}};
+
   return <li className="adr-case-card"><div><p className="adr-eyebrow">PRIVATE REPORT · {c.caseType??'Type not provided'}</p>
     <h2>Report {c.id.slice(0,8)}</h2><p>{c.medicines.join(' · ')||'Medicine not confirmed'}</p></div>
-    <dl><div><dt>Status</dt><dd>Draft{c.intakeComplete?' · intake checklist complete':''}</dd></div>
+    <dl><div><dt>Status</dt><dd>{c.status==='finalized'?(c.reviewStatus==='shared'?'Finalized · shared for review':'Finalized · unshared'):'Draft'}{c.intakeComplete?' · intake checklist complete':''}</dd></div>
       <div><dt>Saved revision</dt><dd>{c.revision}</dd></div><div><dt>Created</dt><dd>{date(c.createdAt)}</dd></div>
       <div><dt>Updated</dt><dd>{date(c.updatedAt)}</dd></div></dl>
-    <div className="adr-actions"><M3Button onClick={()=>navigatePreview(`${listPath}/${c.id}`)}>View report</M3Button>
-      <M3Button variant="outlined" onClick={()=>navigatePreview(`/preview/adr-report?case=${c.id}`)}>Continue reporting</M3Button>
+    <div className="adr-actions"><M3Button onClick={()=>navigatePreview(`${listPath}/${c.id}`)}>{c.status==='finalized'?'View finalized report':'View report'}</M3Button>
+      {c.status==='finalized'&&<M3Button variant="outlined" disabled={downloading} onClick={()=>void download()}>Download PDF</M3Button>}{downloadError&&<p role="alert">{downloadError}</p>}{c.status!=='finalized'&&<M3Button variant="outlined" onClick={()=>navigatePreview(`/preview/adr-report?case=${c.id}`)}>Continue reporting</M3Button>}
       <M3Button variant="text" onClick={()=>navigatePreview(`${listPath}/${c.id}/history`)}>View history</M3Button></div></li>;
 }
 export function CaseWorkspace({owner,id,revision,history=false}:{owner:string;id?:string;revision?:number;history?:boolean}){
@@ -76,7 +80,7 @@ function CaseList({owner}:{owner:string}){
       <M3TextField label="Search case reference or medicine" type="search" value={filters.q} maxLength={100} onChange={e=>change('q',e.target.value)}/>
       <M3TextField label="Medicine name" value={filters.medicine} maxLength={100} onChange={e=>change('medicine',e.target.value)}/>
       <Select label="Intake status" value={filters.status} onChange={v=>change('status',v)} values={[
-        ['all','All drafts'],['draft','Checklist incomplete'],['intake_complete','Checklist complete']]}/>
+        ['all','All reports'],['finalized','Finalized reports'],['draft','Checklist incomplete'],['intake_complete','Checklist complete']]}/>
       <Select label="Report type" value={filters.caseType} onChange={v=>change('caseType',v)} values={[
         ['all','All types'],['Initial','Initial'],['Follow-up','Follow-up']]}/>
       <details className="adr-case-more"><summary>Date and sort options</summary><div className="adr-case-filter-grid">
@@ -94,7 +98,7 @@ function CaseList({owner}:{owner:string}){
     </form>
     {!data?<><Notice error={error} retry={retry}/>{error&&cursor&&<M3Button variant="text" onClick={()=>{setCursor('');setTrail([]);}}>Return to first page</M3Button>}</>:<><p role="status">{data.cases.length} reports on this page</p>
       {!data.cases.length?<div className="adr-case-empty"><h2>{applied.q||applied.medicine||applied.status!=='all'||applied.caseType!=='all'||applied.from||applied.to?'No reports match these filters':'No saved reports yet'}</h2><p>Change the filters or create a fictional ADR report to get started.</p></div>
-        :<ul className="adr-case-list">{data.cases.map(c=><Card key={c.id} c={c}/>)}</ul>}
+        :<ul className="adr-case-list">{data.cases.map(c=><Card key={owner+c.id} c={c} owner={owner}/>)}</ul>}
       <nav className="adr-actions" aria-label="Report result pages"><M3Button variant="outlined" disabled={!trail.length} onClick={()=>{
         setCursor(trail.at(-1)!);setTrail(trail.slice(0,-1));}}>Previous page</M3Button>
         <M3Button variant="outlined" disabled={!data.nextCursor} onClick={()=>{setTrail([...trail,cursor]);setCursor(data.nextCursor!);}}>Next page</M3Button></nav></>}
@@ -102,17 +106,17 @@ function CaseList({owner}:{owner:string}){
 }
 function CaseDetail({owner,id,revision,history}:{owner:string;id:string;revision?:number;history:boolean}){
   const path=`/${id}${revision?`/revisions/${revision}`:''}`;
-  const {data,error,retry}=useResource<{case:GuidedCase;summary?:CaseCard;savedAt?:string}>(owner,path);
+  const {data,error,retry}=useResource<{case:GuidedCase;summary?:CaseCard;savedAt?:string;readOnly?:boolean;finalization?:{revision:number}}>(owner,path);
   const [before,setBefore]=useState(501),[trail,setTrail]=useState<number[]>([]);
   const versions=useResource<{versions:RevisionDescriptor[];nextBefore:number|null}>(owner,`/${id}/revisions?limit=10&before=${before}`);
   if(!data)return <Notice error={error} retry={retry}/>;
   const c=data.case;
   return <section className="adr-cases"><p className="adr-eyebrow">PRIVATE · {revision?'READ-ONLY SAVED VERSION':'DRAFT'}</p>
     <h1 tabIndex={-1}>Report {id.slice(0,8)}{history?' · revision history':''}</h1>
-    <PatientSharing key={owner+id+c.revision} owner={owner} caseId={id} revision={c.revision}/><p>Saved revision {c.revision} · {date(data.savedAt??c.updatedAt)}</p>
+    {data.finalization?.revision===c.revision?<PatientSharing key={owner+id+c.revision} owner={owner} caseId={id} revision={c.revision}/>:<p>Specialist forwarding requires this exact revision to be finalized first. No report is shared by saving a draft.</p>}<p>Saved revision {c.revision} · {date(data.savedAt??c.updatedAt)}</p>
     {data.summary&&<p>Created {date(data.summary.createdAt)} · {data.summary.medicines.join(' · ')||'Medicine not confirmed'}</p>}
-    <p>{revision?'This is an immutable saved version. Editing opens the latest report; it cannot overwrite this version.':'Patient draft. Specialist review and sharing are not enabled.'}</p>
-    <div className="adr-actions"><M3Button onClick={()=>navigatePreview(`/preview/adr-report?case=${id}`)}>Edit latest report</M3Button>
+    <p>{revision?'This is an immutable saved version. Editing opens the latest report; it cannot overwrite this version.':data.finalization?'Finalized patient-authored report. Sharing requires separate consent.':'Patient draft. Finalize before requesting specialist review.'}</p>
+    <div className="adr-actions">{!data.finalization&&<M3Button onClick={()=>navigatePreview(`/preview/adr-report?case=${id}`)}>Edit latest report</M3Button>}
       <M3Button variant="outlined" onClick={()=>navigatePreview(`${listPath}/${id}/history`)}>Revision history</M3Button>
       <M3Button variant="text" onClick={()=>navigatePreview(listPath)}>My ADR Reports</M3Button></div>
     {history?<section aria-label="Saved revisions"><h2>Revision history</h2>

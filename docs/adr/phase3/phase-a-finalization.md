@@ -1,6 +1,6 @@
 # Phase A — finalization and specialist sharing
 
-Status: **PARTIAL implementation, not a finalization/forwarding release.** No new hosted SQL, privilege or lifecycle transition has been applied.
+Status: readiness checkpoint; superseded by [Phase A2 implementation and migration review](phase-a2-finalization.md). Hosted finalization remains disabled pending exact SQL approval.
 
 ## Official form specification
 

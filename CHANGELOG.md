@@ -590,3 +590,7 @@ Added provisional urgency schema, provenance-gated ingestion, group-safe splits,
 ## Specialist experience redesign (3C-A) - 2026-11-08
 
 - Added a cohesive specialist profile, compact verification status and three-card home connected to existing MedAssist/owned ADR tools. Real hosted revoked-state screenshots and four-width regressions pass. Review inbox remains explicitly restricted/unconnected; no sharing, database or privilege changes. [Delivery](docs/adr/phase3/3c-a-implementation-and-verification.md).
+
+## Owner finalization foundation — 2026-11-13
+
+- Added approval-gated immutable PostgreSQL ADR finalization, guarded legacy mutations, Material Web confirmation/read-only views and finalized report filtering. New sharing records must reference the exact finalized revision after deployment. No hosted SQL or professional privilege was applied.

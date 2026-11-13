@@ -69,7 +69,7 @@ export function registerVerifiedAdr(app: Express, repository: GuidedCaseReposito
   router.use('/account/adr-guided', guidedRouter(repository, req => principals.get(req), provider,
     async (req, owner) => (await authenticate(req))?.id === owner));
   router.use('/account/adr-cases', casesRouter(repository, req => principals.get(req),
-    async (req, owner) => (await authenticate(req))?.id === owner));
+    async (req, owner) => (await authenticate(req))?.id === owner,sharingRepository));
   router.use('/sharing',sharingRouter(sharingRepository,repository,req=>principals.get(req),async(req,owner)=>(await authenticate(req))?.id===owner,poolRepository));
   router.use('/review',reviewRouter(reviewRepository,req=>principals.get(req)));
   router.use(specialistRouter(identityRepository,req=>principals.get(req)));
@@ -109,7 +109,7 @@ export function configuredCloudAccount(app: Express, env = process.env) {
     ? postgres : (postgres as unknown as { default: typeof postgres }).default;
   const sql = createPostgres(db, { max: Number(poolSize), prepare: false, connect_timeout: 5, idle_timeout: 20,
     ssl: { rejectUnauthorized: true } });
-  registerVerifiedAdr(app, postgresGuidedRepository(sql), async token => {
+  registerVerifiedAdr(app, postgresGuidedRepository(sql,env.APIP_ADR_FINALIZATION_ENABLED==='1'), async token => {
     const { data, error } = await sdk.auth.getUser(token);
     if (error) {
       if (error.status === 400 || error.status === 401 || error.status === 403) return null;

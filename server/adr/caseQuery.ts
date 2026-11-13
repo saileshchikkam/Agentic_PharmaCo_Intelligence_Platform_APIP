@@ -17,7 +17,7 @@ export function parseCaseFilters(query: Record<string, unknown>): CaseFilters {
       f.limit = Number(value);
     } else (f as unknown as Record<string, unknown>)[key] = value.trim();
   }
-  if (f.q.length > 100 || f.medicine.length > 100 || !['all','draft','intake_complete'].includes(f.status)
+  if (f.q.length > 100 || f.medicine.length > 100 || !['all','draft','intake_complete','finalized'].includes(f.status)
     || !['all','Initial','Follow-up'].includes(f.caseType) || !['created','updated','reported'].includes(f.dateField)
     || !['created','updated'].includes(f.sort) || !['asc','desc'].includes(f.direction) || f.archived !== 'exclude') invalid();
   for (const date of [f.from, f.to]) if (date && (!/^\d{4}-\d{2}-\d{2}$/.test(date)

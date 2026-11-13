@@ -7,7 +7,10 @@ type Awaitable<T> = T | Promise<T>;
 export type CaseSummary = Pick<GuidedCase, 'id' | 'revision' | 'updatedAt'>;
 
 // Owner comes from the verified session. A successful save returns the persisted revision.
+export type Finalization={owner_id:string;case_id:string;revision:number;finalized_by:string;finalized_at:string;command_id:string;content_sha256:string};
 export interface GuidedCaseRepository {
+  lifecycle?(owner:string,id:string):Awaitable<{available:boolean;finalization:Finalization|null}>;
+  finalize?(owner:string,id:string,revision:number,key:string):Awaitable<Finalization>;
   search(owner: string, filters: CaseFilters, position?: CasePosition): Awaitable<CaseCard[]>;
   snapshot(owner: string, id: string, revision: number): Awaitable<GuidedCase | null>;
   revisions(owner: string, id: string, limit: number, before: number): Awaitable<RevisionDescriptor[]>;

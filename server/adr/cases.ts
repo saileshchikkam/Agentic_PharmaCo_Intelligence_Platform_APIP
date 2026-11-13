@@ -1,3 +1,4 @@
+import type {SharingRepository} from '../sharing/repository';
 import { Router, type Request } from 'express';
 import { caseCard } from '../../src/features/adr/cases/contracts';
 import { decodeCursor, encodeCursor, parseCaseFilters } from './caseQuery';
@@ -6,7 +7,7 @@ import { createPdfService } from './pdf';
 import { endpoint } from './guided';
 
 export function casesRouter(repository: GuidedCaseRepository, readUser:(req:Request)=>{id:string}|null|undefined,
-  revalidate=(req:Request,owner:string):boolean|Promise<boolean>=>readUser(req)?.id===owner) {
+  revalidate=(req:Request,owner:string):boolean|Promise<boolean>=>readUser(req)?.id===owner, sharing:SharingRepository|null=null) {
   const router=Router(),pdf=createPdfService();
   router.use((req,res,next)=>{
     res.set({'Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'});
@@ -28,12 +29,14 @@ export function casesRouter(repository: GuidedCaseRepository, readUser:(req:Requ
   router.get('/',endpoint(async(req,res)=>{
     const user=owner(req),f=parseCaseFilters(req.query),position=decodeCursor(user,f,req.query.cursor);
     const rows=await repository.search(user,f,position),cases=rows.slice(0,f.limit),last=cases.at(-1);
+    if(sharing){const requests=await sharing.operation(user,'patient_list',null,{},'00000000-0000-4000-8000-000000000000');for(const c of cases)if(c.status==='finalized'&&requests.some((r:any)=>r.caseId===c.id&&r.revision===c.revision&&['active','pending_claim','claimed'].includes(r.state)))c.reviewStatus='shared';}
     res.json({cases,nextCursor:rows.length>f.limit&&last?encodeCursor(user,f,
       {at:f.sort==='created'?last.createdAt:last.updatedAt,id:last.id}):null});
   }));
   router.get('/:id',endpoint(async(req,res)=>{
     const user=owner(req),c=await load(user,req.params.id),first=await repository.snapshot(user,c.id,1);
-    res.json({case:c,summary:caseCard(c,first?.updatedAt??c.updatedAt),readOnly:false,
+    const lifecycle=await repository.lifecycle?.(user,c.id);
+    res.json({case:c,summary:caseCard(c,first?.updatedAt??c.updatedAt),readOnly:!!lifecycle?.finalization,finalization:lifecycle?.finalization??null,
       capabilities:{markReady:false,archive:false,restore:false,deletionRequest:false},
       policyBlockers:['P01','P08','P09','P17']});
   }));
@@ -49,7 +52,7 @@ export function casesRouter(repository: GuidedCaseRepository, readUser:(req:Requ
     const user=owner(req),revision=positive(req.params.revision,500);
     const c=await repository.snapshot(user,req.params.id,revision);
     if(!c)throw Error('NOT_FOUND');
-    res.json({case:c,savedAt:c.updatedAt,readOnly:true});
+    res.json({case:c,savedAt:c.updatedAt,readOnly:true,finalization:(await repository.lifecycle?.(user,c.id))?.finalization??null});
   }));
   router.post('/:id/revisions/:revision/pdf',endpoint(async(req,res)=>{
     if(!req.body||Object.keys(req.body).length)throw Error('INVALID_COMMAND');

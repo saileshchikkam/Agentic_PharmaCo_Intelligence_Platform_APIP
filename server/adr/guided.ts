@@ -9,7 +9,7 @@ import { createPdfService } from './pdf';
 
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
 const errors: Record<string, number> = {
-  SIGN_IN_REQUIRED: 401, ACCOUNT_CHANGED: 409, NOT_FOUND: 404, FICTIONAL_ONLY: 400,
+  REPORT_FINALIZED:409,ALREADY_FINALIZED:409,INCOMPLETE_REPORT:422,FINALIZATION_UNAVAILABLE:503,SIGN_IN_REQUIRED: 401, ACCOUNT_CHANGED: 409, NOT_FOUND: 404, FICTIONAL_ONLY: 400,
   INVALID_COMMAND: 400, INVALID_PAGE: 400, IDEMPOTENCY_KEY_REQUIRED: 400,
   INVALID_FILTER: 400, INVALID_CURSOR: 400, POLICY_NOT_APPROVED: 403,
   REVISION_CONFLICT: 409, IDEMPOTENCY_CONFLICT: 409, CASE_LIMIT: 409, HISTORY_LIMIT: 409,
@@ -41,7 +41,19 @@ export function guidedRouter(repository: GuidedCaseRepository, readUser: (req: R
   const owner = (req: Request) => readUser(req)!.id;
   router.get('/:id/completeness',endpoint(async(req,res)=>{
     const c=await load(owner(req),req.params.id);
-    res.set('Cache-Control','private, no-store').json(patientCompleteness(c));
+    const lifecycle=await repository.lifecycle?.(owner(req),c.id)??{available:false,finalization:null};
+    res.set('Cache-Control','private, no-store').json({...patientCompleteness(c),...lifecycle});
+  }));
+  router.post('/:id/finalize',endpoint(async(req,res)=>{
+    const actor=owner(req),body=req.body,key=req.get('Idempotency-Key');
+    if(!key||!uuid.test(key)||!exact(body,['expectedRevision','confirmed'])||body.confirmed!==true||!Number.isSafeInteger(body.expectedRevision))throw Error('INVALID_COMMAND');
+    const c=await load(actor,req.params.id);
+    const state=await repository.lifecycle?.(actor,c.id);
+    if(!state?.available||!repository.finalize)throw Error('FINALIZATION_UNAVAILABLE');
+    if(c.revision!==body.expectedRevision)throw Error('REVISION_CONFLICT');
+    const completeness=patientCompleteness(c);
+    if(!completeness.ready){res.status(422).json({error:'INCOMPLETE_REPORT',...completeness});return;}
+    res.json({finalization:await repository.finalize(actor,c.id,body.expectedRevision,key)});
   }));
   const view = (c: GuidedCase) => ({ case: c, missing: missing(c), nextQuestion: nextQuestion(c),
     warnings: chronology(c), officialTemplateAvailable: pdf.available() });
@@ -103,6 +115,7 @@ export function guidedRouter(repository: GuidedCaseRepository, readUser: (req: R
   }));
   router.post('/:id/command', endpoint(async (req, res) => {
     const user = owner(req), id = req.params.id, c = await load(user, id);
+    if((await repository.lifecycle?.(user,id))?.finalization)throw Error('REPORT_FINALIZED');
     const b = req.body;
     if (!exact(b, ['expectedRevision', 'command']) || !Number.isSafeInteger(b.expectedRevision)) throw Error('REVISION_CONFLICT');
     const cmd = b.command, mutation = key(req);

@@ -338,7 +338,7 @@ export function PatientSharing({
                   ? `Specialist Review Pool (${r.state === 'pending_claim' ? 'Awaiting Claim' : r.state})`
                   : `Direct Assignment (${r.state})`}
               </h3>
-              <p role="status">{r.state}</p>
+              <p role="status">{['active','pending_claim','claimed'].includes(r.state)?'Forwarded for specialist review.':r.state}</p>
               {(r.state === 'active' || r.state === 'pending_claim' || r.state === 'claimed') && (
                 <M3Button
                   variant="outlined"

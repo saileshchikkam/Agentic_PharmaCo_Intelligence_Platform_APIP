@@ -270,3 +270,7 @@ The [consolidation record](../models/medassist_ai/docs/checkpoint-2026-10-25.md)
 - [Phase 3C-B hosted patient-to-specialist sharing and authentication closure](adr/phase3/auth-and-hosted-closure.md): Audited administrator capability decisions completed for `Fictional APIP Sharing Reviewer` (30-day capability). All 10 hosted Phase 3C-B gates pass against Supabase (`kstxwoitiistmvivwixd`), including explicit consent, specialist assignment, Pending Review Reports, original PvPI PDF preview with `pypdf` validation, newer-revision privacy, unauthorized denial, and consent withdrawal. The previously revoked specialist remains strictly revoked. Phase 3C-C is not started.
 
 [Authentication corrections and current hosted gates](adr/phase3/auth-and-hosted-closure.md): responsive UI and affected disposable regressions pass. The exact applicant capability is owner-approved; real sharing, Google and recovery acceptance remain gated. Phase 3C-C is not started.
+
+## Phase A2 owner finalization — approval pending
+
+Locally implemented owner-only immutable finalization with transaction locks, audit/receipt metadata, legacy command guards, read-only report views and finalized-list filtering. SQL and server activation are not enabled on hosted development. See [review and evidence](adr/phase3/phase-a2-finalization.md). Live finalization/forwarding and any Phase B work remain gated.

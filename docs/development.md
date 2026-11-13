@@ -142,3 +142,7 @@ Use the [authenticated adapter boundary](model-a-protocol-portability.md), accep
 ## Phase 3B identity development
 
 See [delivery and test boundaries](adr/phase3/3b-implementation-and-verification.md), the [identity API guide](../server/specialist/README.md), [controlled bootstrap runbook](../database/operations/README.md) and [reusable hosted launch instructions](../scripts/README.md#private-hosted-preview-preflight). Ordinary SQLite patient mode intentionally does not grant specialist functionality. Use explicitly labeled disposable fixtures for administrator tests until exact live bootstrap approval exists.
+
+### Owner ADR finalization activation
+
+See [Phase A2 SQL review](adr/phase3/phase-a2-finalization.md). `APIP_ADR_FINALIZATION_ENABLED` defaults off. Set it to `1` only after separately approved migration installation, ledger/RLS/function-grant verification and restricted-writer checks. It is a server-only setting; never derive it from client metadata. Missing schema or disabled activation must leave Finalize unavailable while retaining existing drafts. A future pool installation must include the finalization insertion guard before enabling that pool.

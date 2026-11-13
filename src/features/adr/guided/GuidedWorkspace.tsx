@@ -22,6 +22,8 @@ export function GuidedWorkspace(props:Props){const {user,ready}=useAccount();con
 type View={case:GuidedCase};
 function Guide({owner,...props}:Props&{owner:string}){
  const {invalidateSession}=useAccount();
+ const [finalized,setFinalized]=useState(false);
+ useEffect(()=>{setFinalized(false);},[props.initialCaseId]);
  const [c,setCase]=useState<GuidedCase|null>(null),[list,setList]=useState<SavedReport[] | null>(null),[intro,setIntro]=useState(true),[key,setKey]=useState<string|null>(null),[value,setValue]=useState(''),[dirty,setDirty]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[narrative,setNarrative]=useState('');
  const editing=useRef(false);
  const alive=useRef(true),lock=useRef(false),heading=useRef<HTMLHeadingElement>(null);
@@ -101,7 +103,7 @@ function Guide({owner,...props}:Props&{owner:string}){
  <nav className="adr-stages" aria-label="Reporting stages">{stages.map((name,i)=><button key={name} disabled={busy} aria-current={stage===i?'step':undefined} onClick={()=>{editing.current=false;choose(i===5?null:all.find(f=>f.stage===i&&!c.values[f.key])?.key??all.find(f=>f.stage===i)?.key??null);}}><span>{i+1}</span>{name}</button>)}</nav>
 
  <div className="adr-intake-progress"><label>Intake progress: {answered} of {all.length} questions addressed <progress value={answered} max={all.length}/></label></div>
- <div className={field?'adr-columns adr-with-form':'adr-columns single'}><section className="adr-question" key={key??'review'} onKeyDown={event=>{
+ <div className={field||finalized?'adr-columns adr-with-form':'adr-columns single'}>{finalized?<section className="adr-question"><h2>Finalized report</h2><p>Read-only patient-authored revision {c.revision}.</p><DraftPreview c={c} edit={()=>{}} readOnly/></section>:<section className="adr-question" key={key??'review'} onKeyDown={event=>{
    if(!field || event.key!=='Enter' || event.nativeEvent.isComposing || event.repeat || event.altKey || event.shiftKey) return;
    const input=event.nativeEvent.composedPath()[0];
    const shortcut=event.ctrlKey||event.metaKey;
@@ -115,8 +117,8 @@ function Guide({owner,...props}:Props&{owner:string}){
  {(!field||field.stage===3&&field.key.endsWith('.name'))&&<MedicationEntries c={c} busy={busy} add={kind=>run(async()=>{await command({type:'add_medication',kind},true);})}/>}
  {!field&&<details className="adr-description"><summary>Describe several details together (optional AI assistance)</summary><p>Suggestions need your confirmation. Manual answers always work.</p><M3TextField label="Describe your fictional experience" type="textarea" value={narrative} maxLength={4000} disabled={busy} onChange={e=>setNarrative(e.target.value)}/><M3Button disabled={busy||!narrative.trim()} onClick={()=>run(()=>command({type:'describe',text:narrative}))}>Find suggested details</M3Button><p role="status">{c.providerStatus==='manual_required'?'No model configured. Your description is saved; continue with the guided questions.':c.providerStatus==='unavailable_or_invalid'?'The model could not provide valid suggestions. Your description is saved.':c.providerStatus==='proposals_ready'?'Review each suggestion below.':''}</p></details>}
  <ConfirmationPanel c={c} busy={busy} decide={(proposalId,accept)=>run(()=>command({type:'proposal',proposalId,accept},true))}/>
- </section>{field&&<LiveFormPreview c={c} owner={owner}/>}</div>
- <CompletionPanel key={owner+c.id} owner={owner} id={c.id} revision={c.revision} correct={edit}/>
+ </section>}{(field||finalized)&&<LiveFormPreview c={c} owner={owner}/>}</div>
+ <CompletionPanel key={owner+c.id} owner={owner} id={c.id} revision={c.revision} correct={edit} onFinalized={setFinalized} blocked={dirty||busy}/>
  </>}{busy&&<p role="status">Saving or checking your answer…</p>}{error&&<p className="adr-error" role="alert">{error}</p>}
  </div>;
 }
