@@ -40,7 +40,9 @@ try {
    await input.fill('I have a cough. Fictional detail '+i);await input.press('Enter');
    await page.getByRole('button',{name:'No / Not sure — correct this',exact:true}).click();
   }
+  assert(await page.locator('.conversation-open-mentions').count()===0,'additional descriptions panel must not render');
   const after=await panel.boundingBox();
+  assert(before.height>=720,'chat should use more available height');
   assert(Math.abs(before.height-after.height)<2,'chat grew at '+width);
   assert(await log.evaluate(e=>e.scrollHeight>e.clientHeight),'history must scroll');
   await log.evaluate(e=>{e.scrollTop=0;e.dispatchEvent(new Event('scroll'));});
@@ -56,6 +58,14 @@ try {
   assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),'horizontal overflow '+width);
   assert(await page.locator('.conversation-input').evaluate(e=>e.getBoundingClientRect().bottom<=e.parentElement.getBoundingClientRect().bottom),'composer outside card');
   if(output) await page.screenshot({path:`${output}/medassist-after-${width}.png`,fullPage:true});
+  await page.getByRole('button',{name:'Confirm these details',exact:true}).click();
+  await page.getByRole('textbox').first().fill('35');
+  await page.getByRole('textbox').first().press('Enter');
+  await page.getByRole('button',{name:'F',exact:true}).click();
+  for(let turn=0;turn<3;turn++) await page.getByRole('button',{name:'Not sure',exact:true}).click();
+  assert(await page.locator('.conversation-summary').count()===1,'session summary missing');
+  assert(await page.locator('.conversation-open-mentions').count()===0,'panel reappeared during follow-up');
+  assert(Math.abs((await panel.boundingBox()).height-before.height)<2,'follow-ups changed card height');
   await page.getByRole('button',{name:'Restart',exact:true}).click();
   assert(await page.locator('.conversation-user').count()===0,'restart failed');
   await page.getByRole('button',{name:'Emergency help',exact:true}).click();

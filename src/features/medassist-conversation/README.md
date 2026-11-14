@@ -248,8 +248,8 @@ The download wrapper is explicitly **`medassist.conversation-export.v2`** with u
 
 ## Stable chat layout — 2026-11-14
 
-The shared conversation uses a bounded workspace: 600–680px on desktop and
-440–640px below 1000px, with viewport-aware vh/dvh sizing. The transcript owns
+The shared conversation uses a bounded workspace: 720–1040px on desktop and
+480–780px below 1000px, with viewport-aware vh/dvh sizing. The transcript owns
 vertical scrolling; the separate composer remains inside the card. New messages
 follow only when the reader is within 80px of the bottom. Research scope,
 ontology, privacy, keyboard help and the mode switch live in the native
@@ -270,3 +270,21 @@ containment, restart, emergency help and no overflow passed. TypeScript, build
 and 13 focused natural/scripted tests passed. Unified frontend/API returned 200.
 Authenticated integrated verification remains unverified: a fresh browser needs
 private Patient sign-in. No hosted records, models or backend behavior changed.
+
+
+### Taller workspace and quieter conversation — 2026-11-14
+
+Removed the repeated Additional descriptions panel from the shared transcript.
+Capture, reconciliation, export and the assessment summary counter remain intact;
+only its visual listing and unused display-label map were removed. Height no
+longer stops at 680px: desktop uses 720–1040px and smaller layouts 480–780px,
+with viewport-aware sizing. The fixed card still owns a scrolling message list
+and separate bottom composer; the assessment sidebar is unchanged.
+
+Chrome fixture checks at 1440/1024/768/375/320px passed 15 exchanges and three
+follow-up questions each. At 900px viewport height, all cards measured 720px
+before/after (previously 680px desktop, 640px smaller widths). No description
+panel, horizontal overflow or inaccessible confirmation/composer controls were
+observed. Restart and emergency help passed. TypeScript, production build and
+focused natural/scripted tests pass. These are real-component fixture results;
+authenticated integrated checks remain unverified without private sign-in.

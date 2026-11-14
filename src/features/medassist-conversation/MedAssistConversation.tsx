@@ -23,13 +23,6 @@ type Message = {
 const greeting: Message[] = [{ role: 'MedAssist', text: welcome }];
 const displayValue = (v: Scalar) => typeof v === 'boolean' ? v ? 'Yes' : 'No' : String(v);
 const clean = (a: Answer): Answer => ({ evidence_id: a.evidence_id, state: a.state, value: a.value });
-const openMentionStatusText: Record<OpenMentionRecord['status'], string> = {
-    retained: 'Kept as an additional description',
-    needs_clarification: 'Needs clarification before it can be interpreted',
-    historical_or_resolved: 'Historical or resolved description',
-    other_person: 'Description about another person',
-    hypothetical: 'Hypothetical or non-current description',
-};
 export default function MedAssistConversation() {
     const [scripted, setScripted] = useState(true);
     return <Conversation key={String(scripted)} scripted={scripted} switchMode={() => setScripted(value => !value)}/>;
@@ -520,11 +513,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           </section>}
           {error && <p role="alert" className="conversation-error">{error}</p>}
           {contextNotice && <p role="status" className="conversation-question">{contextNotice}</p>}
-          {!emergency && openMentions.length > 0 && <section className="conversation-question conversation-open-mentions" aria-labelledby="open-mentions-title">
-            <h2 id="open-mentions-title">Additional descriptions</h2>
-            <p>These are retained in this fictional session in the words provided. They are not structured research evidence and cannot enter Model A by themselves.</p>
-            <ul>{openMentions.map(record => <li key={record.id}><strong>{openMentionStatusText[record.status]}:</strong> {record.mention.description}</li>)}</ul>
-          </section>}
           {!emergency && !vocabulary && <div className="conversation-question">
             <p role={readinessError ? 'alert' : 'status'}>{readinessError || 'Checking local availability…'}</p>
             {readinessError && <M3Button variant="outlined" onClick={() => { setReadinessError(''); setRetryAvailability(v => v + 1); }}>Retry availability</M3Button>}</div>}
