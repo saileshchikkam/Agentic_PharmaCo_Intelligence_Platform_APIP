@@ -244,3 +244,29 @@ The [exact coverage inventory](../../../models/medassist_ai/docs/symptom-coverag
 The download wrapper is explicitly **`medassist.conversation-export.v2`** with understanding records, literal detail tags, extraction source/confirmation and clarification counts. Consumers of the old wrapper must recognize v2; the nested **`model-a-to-b.evidence.v1` stays unchanged**. No silent clinical schema extension or narrative-to-negative conversion occurs. Refresh still clears page-memory state. Start a new fictional interview after an implementation/filter update.
 
 [Full milestone evidence and unresolved safety misses](../../../models/medassist_ai/docs/symptom-understanding.md) distinguish 115 development utterances, 15 supplementary canonical cases, 22 adversarial provider fixtures and actual Model A/HTTP checks. No fresh Groq inference was needed for this task. Literal heart-attack/stroke declarations remain missed by the unchanged provisional safety rules, as recorded failures. This prevents clinical readiness despite passing software regressions. Model B and clinical guidance remain disabled.
+
+
+## Stable chat layout — 2026-11-14
+
+The shared conversation uses a bounded workspace: 600–680px on desktop and
+440–640px below 1000px, with viewport-aware vh/dvh sizing. The transcript owns
+vertical scrolling; the separate composer remains inside the card. New messages
+follow only when the reader is within 80px of the bottom. Research scope,
+ontology, privacy, keyboard help and the mode switch live in the native
+**Research details** disclosure. Header Restart is the single restart action.
+Assessment semantics, emergency handling, extraction and providers are unchanged.
+
+Run `node scripts/medassist-layout.browser.mjs` with Playwright installed, or set
+`MEDASSIST_PLAYWRIGHT_MODULE` to its module URL. Optional
+`MEDASSIST_UI_SCREENSHOTS` saves before/after-conversation screenshots;
+`MEDASSIST_VERIFY_UNIFIED_PREVIEW=1` also checks the existing 3602 preview.
+The fixture mounts the actual component with existing Material Web/theme code,
+without hosted account access or model inference.
+
+Verification: 15 fictional exchanges at 1440/1024/768/375/320px retained 680px
+desktop / 640px smaller-width card heights in a 900px-high viewport. Internal
+scrolling, reading-position preservation, disclosure, confirmation, composer
+containment, restart, emergency help and no overflow passed. TypeScript, build
+and 13 focused natural/scripted tests passed. Unified frontend/API returned 200.
+Authenticated integrated verification remains unverified: a fresh browser needs
+private Patient sign-in. No hosted records, models or backend behavior changed.

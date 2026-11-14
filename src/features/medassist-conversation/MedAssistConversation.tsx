@@ -67,11 +67,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const retryAt = useRef(0), invalidAttempts = useRef(new Map<string, number>());
     const clarification = useRef(new ClarificationTracker());
     const safetyLatch = useRef(false), abort = useRef<AbortController | null>(null), generation = useRef(0), inFlight = useRef(false);
-    const timeline = useRef<HTMLOListElement>(null), end = useRef<HTMLDivElement>(null), followLatest = useRef(true), questionHeading = useRef<HTMLHeadingElement>(null);
+    const timeline = useRef<HTMLOListElement>(null), followLatest = useRef(true), questionHeading = useRef<HTMLHeadingElement>(null);
     const say = (text: string) => setMessages(c => [...c, { role: 'MedAssist', text }]);
     const name = evidenceLabel;
     useEffect(() => { const q = window.matchMedia('(min-width:1000px)'), f = () => setAssessmentOpen(q.matches); q.addEventListener('change', f); return () => q.removeEventListener('change', f); }, []);
-    useEffect(() => { const f = () => { followLatest.current = document.documentElement.scrollHeight - window.scrollY - window.innerHeight < 200; }; window.addEventListener('scroll', f, { passive: true }); return () => window.removeEventListener('scroll', f); }, []);
     useEffect(() => {
         if (scripted) return;
         const c = new AbortController();
@@ -103,14 +102,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     useEffect(() => { if (emergency)
         questionHeading.current?.focus(); }, [emergency]);
     useEffect(() => {
-        const marker=end.current, log=timeline.current;
-        if(!marker||!log)return;
-        const reveal=()=>{if(!followLatest.current)return;const composer=marker.nextElementSibling;
-            marker.style.scrollMarginBottom=`${(composer?.getBoundingClientRect().height??0)+16}px`;
-            marker.scrollIntoView({block:'nearest',behavior:'instant'});};
-        reveal();const resize=new ResizeObserver(reveal);resize.observe(log);
-        if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
-        return()=>resize.disconnect();
+        const log = timeline.current;
+        if (!log) return;
+        if (followLatest.current) log.scrollTop = log.scrollHeight;
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
     function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setOpenMentions([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
     function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
@@ -119,7 +113,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     async function describe(event?: React.FormEvent, retryText?: string) {
         event?.preventDefault();
         const text = (retryText ?? description).trim();
-        followLatest.current = true;
         if (escalate(text) || safetyLatch.current || inFlight.current || busy || pendingRetry || candidate?.alternative || !text)
             return;
         if (requestsNavigation(text)) {
@@ -336,7 +329,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     function confirmInitial() {
         if (!canConfirmPending(candidate,changesRef.current) || !candidate || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
             return;
-        followLatest.current = true;
         confirmedCandidate.current = candidate;
         keepChanges(reconcilePendingUpdates(changesRef.current,candidate.sources));
         const acceptedIds = new Set(candidate.sources.map(source => source.requestId));
@@ -436,7 +428,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                 setError(attempts>=2?'I cannot validate another reply here. Please choose Not sure; no extra question was consumed.':compatibility.message??'Please clarify this answer.');return;
             }
         }
-        followLatest.current=true;
         if(scripted&&state!=='contradiction')keepChanges(reconcilePendingUpdates(changesRef.current,[{
             requestId:'confirmed-turn:'+request.turns.length,
             proposal:{schema_version:'medassist.natural-extraction.v1',observations:[{evidence_id:q.evidence_id,state,value,quote:label}],unmapped:[],instruction_attempt:false},
@@ -495,28 +486,30 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           </div>
         </div>
         <p className="conversation-subtitle">Conversational Symptom Understanding — Research Preview</p>
+        <details className="conversation-research-details">
+          <summary>Research details</summary>
+          <div className="conversation-research-content">
+        <p>Fictional research preview only, not a medical service. Bounded 9-field symptom ontology scope: 1. Cough, 2. Fever, 3. Sore throat, 4. Nasal congestion, 5. Chills, 6. General pain (E_53), 7. Nausea, 8. Diarrhea, and 9. Dizziness. Explicit user confirmation is strictly required before any symptom enters confirmed structured evidence.</p>
+        <p>Headache is not a separate structured field, but supported headache descriptions may be represented by the existing general pain field (E_53). Mentions outside this 9-field ontology scope (such as chest pain, shortness of breath, or fatigue) are not confirmed structured fields; they are retained separately as unmapped descriptions in the patient’s own words. Provisional emergency warnings remain active for severe statements. {scripted ? 'Scripted symptom mapping and question selection run entirely in this browser without contacting a model or external provider.' : localLanguage?.provider === 'groq-cloud' ? 'Uncovered free-text descriptions or replies may share fictional text and relevant earlier fictional context with Groq through the backend. Supported deterministic expressions do not require a cloud call.' : localLanguage ? 'Experimental local extraction is configured.' : 'Only supported deterministic wording can be interpreted when the question service is ready.'}</p>
+        <p>Questions organize information, not diagnoses or severity. Model A adaptive research adapter is {scripted ? 'simulated in this browser session' : vocabulary ? 'reachable (vocabulary endpoint verified; model inference not running)' : 'offline'}. Model B urgency classification is not trained, implemented, or clinically authorized. English emergency rules are provisional; no match means no assessment. State stays in page memory; refreshing safely clears this fictional session rather than replaying a pending request. No account or patient identity information is imported.</p>
+        <a href="#/research/model-a">Developer research lab</a>
+          <p>Enter to send · Shift+Enter for a new line. Use fictional information only; never enter real patient data.</p>
+          <div className="conversation-actions">
+            <M3Button variant="text" onClick={switchMode}>{scripted ? 'Switch to Model A research' : 'Switch to scripted demo'}</M3Button>
+            <span className="conversation-mode-hint">Switching modes starts a new session.</span>
+          </div>
+          </div>
+        </details>
+
       </div>
       <div className="conversation-header-actions">
         <M3Button variant="text" onClick={restart}>Restart</M3Button>
         <M3Button variant="outlined" onClick={() => escalate('I need emergency help')}>Emergency help</M3Button>
       </div>
     </header>
-    <aside className="conversation-notice" aria-label="Fictional demo limitations">
-      {scripted && <p className="conversation-notice-text"><strong>Fictional scripted research demo — Model A inference is not running.</strong> Supported structured symptoms: cough, fever, sore throat, nasal congestion, chills, general pain (E_53), nausea, diarrhea, dizziness. Headache is not a separate structured field; supported descriptions map to general pain.</p>}
-      <div className="conversation-actions">
-        <M3Button variant="text" onClick={switchMode}>{scripted ? 'Switch to Model A research' : 'Switch to scripted demo'}</M3Button>
-        <span className="conversation-mode-hint">Switching modes starts a new session.</span>
-      </div>
-      <details><summary>Demo scope and privacy</summary>
-        <p>Fictional research preview only, not a medical service. Bounded 9-field symptom ontology scope: 1. Cough, 2. Fever, 3. Sore throat, 4. Nasal congestion, 5. Chills, 6. General pain (E_53), 7. Nausea, 8. Diarrhea, and 9. Dizziness. Explicit user confirmation is strictly required before any symptom enters confirmed structured evidence.</p>
-        <p>Headache is not a separate structured field, but supported headache descriptions may be represented by the existing general pain field (E_53). Mentions outside this 9-field ontology scope (such as chest pain, shortness of breath, or fatigue) are not confirmed structured fields; they are retained separately as unmapped descriptions in the patient’s own words. Provisional emergency warnings remain active for severe statements. {scripted ? 'Scripted symptom mapping and question selection run entirely in this browser without contacting a model or external provider.' : localLanguage?.provider === 'groq-cloud' ? 'Uncovered free-text descriptions or replies may share fictional text and relevant earlier fictional context with Groq through the backend. Supported deterministic expressions do not require a cloud call.' : localLanguage ? 'Experimental local extraction is configured.' : 'Only supported deterministic wording can be interpreted when the question service is ready.'}</p>
-        <p>Questions organize information, not diagnoses or severity. Model A adaptive research adapter is {scripted ? 'simulated in this browser session' : vocabulary ? 'reachable (vocabulary endpoint verified; model inference not running)' : 'offline'}. Model B urgency classification is not trained, implemented, or clinically authorized. English emergency rules are provisional; no match means no assessment. State stays in page memory; refreshing safely clears this fictional session rather than replaying a pending request. No account or patient identity information is imported.</p>
-        <a href="#/research/model-a">Developer research lab</a>
-      </details>
-    </aside>
     <div className="conversation-layout">
       <div className="conversation-workspace">
-        <ol ref={timeline} tabIndex={0} className="conversation-messages" role="log" aria-label="Fictional conversation" aria-live="polite" aria-relevant="additions">
+        <ol ref={timeline} onScroll={event => { const log = event.currentTarget; followLatest.current = log.scrollHeight - log.scrollTop - log.clientHeight < 80; }} tabIndex={0} className="conversation-messages" role="log" aria-label="Fictional conversation" aria-live="polite" aria-relevant="additions">
           {messages.map((message, index) => <li key={session + ':' + index} className={'conversation-message conversation-' + (message.role === 'You' ? 'user' : 'assistant') + (index === 0 ? ' conversation-welcome' : '')}>
             <span className="conversation-speaker">{message.role === 'MedAssist' ? 'MedAssist AI' : 'You'}</span><p>{message.text}</p></li>)}
           <li className="conversation-turn">
@@ -577,7 +570,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           {finished && <p role="status">No diagnosis, urgency result or care advice was produced.</p>}
           </li>
         </ol>
-        <div ref={end} aria-hidden="true"/>
         <form onSubmit={describe} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
         event.preventDefault();
         void describe();
@@ -586,7 +578,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         setDescription(event.target.value);
     } }}/>
           <M3Button disabled={!!emergency || busy || !!pendingRetry || !!candidate?.alternative || !description.trim()} onClick={() => void describe()}>{request ? 'Send answer' : 'Send description'}</M3Button>
-          <p className="conversation-composer-help">{scripted ? 'Simulated · No Model A inference. ' : localLanguage?.provider === 'groq-cloud' && !contextStep ? 'Uncovered fictional wording may be sent to Groq. ' : ''}Enter to send · Shift+Enter for a new line. No real patient data.</p>
         </form>
         <div className="conversation-session">
           {evidence && <details className="conversation-summary"><summary>Session summary</summary>
@@ -597,7 +588,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           </details>}
           <div className="conversation-actions">
             {!emergency && !finished && request && <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={stopInterview}>End interview</M3Button>}
-            <M3Button variant="text" onClick={restart}>Restart fictional interview</M3Button>
           </div>
         </div>
       </div>

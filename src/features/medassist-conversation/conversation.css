@@ -21,17 +21,12 @@
 .conversation-subtitle { font-size: 13px; color: var(--md-sys-color-on-surface-variant); margin: 0; line-height: 1.4; }
 .conversation-header-actions { display: flex; align-items: center; gap: 8px; flex: none; }
 
-/* Notice Banner */
-.conversation-notice { flex: none; font-size: 12px; color: var(--md-sys-color-on-surface-variant); display: flex; flex-direction: column; gap: 6px; }
-.conversation-notice-text { margin: 2px 0 0; }
 .conversation-mode-hint { font-size: 11px; color: var(--md-sys-color-on-surface-variant); align-self: center; }
-.conversation-notice details[open] { max-height: none; overflow: visible; background: var(--md-sys-color-surface-container); border-radius: 12px; padding: 10px 14px; margin-top: 4px; }
-.conversation-notice details summary { font-weight: 600; cursor: pointer; padding: 4px 0; color: var(--md-sys-color-primary); }
 
 /* Layout: 2 Columns (~68% / ~32%) */
 .conversation-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; flex: 1; min-height: 0; }
-.conversation-workspace { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 8px; }
-.conversation-messages { flex: 1; min-height: 0; overflow: visible; list-style: none; padding: 16px 14px; display: flex; flex-direction: column; gap: 16px; margin: 0; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface); position: relative; }
+.conversation-workspace { min-width: 0; min-height: 0; display: flex; flex-direction: column; gap: 0; height: clamp(600px, calc(100vh - 220px), 680px); height: clamp(600px, calc(100dvh - 220px), 680px); border: 1px solid var(--md-sys-color-outline-variant); border-radius: 24px; background: var(--md-sys-color-surface); overflow: hidden; }
+.conversation-messages { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-gutter: stable; list-style: none; padding: 16px 14px; display: flex; flex-direction: column; gap: 16px; margin: 0; border: 0; border-radius: 0; background: var(--md-sys-color-surface); position: relative; }
 .conversation-message { flex: none; border-radius: 20px; padding: 12px 16px; max-width: min(92%, 620px); overflow-wrap: anywhere; }
 .conversation-message p { white-space: pre-wrap; }
 .conversation-speaker { font-size: 11px; font-weight: 600; color: var(--md-sys-color-on-surface-variant); }
@@ -46,13 +41,12 @@
 .conversation-actions > * { min-height: 48px; max-width: 100%; white-space: normal; }
 
 /* Composer Input */
-.conversation-input { position: sticky; bottom: 0; z-index: 2; padding: 8px 0; border-top: 1px solid var(--md-sys-color-outline-variant); flex: none; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 6px 8px; min-width: 0; margin: 0; background: var(--md-sys-color-surface); }
-.conversation-input > :last-child { grid-column: 1 / -1; }
-.conversation-composer-help { font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin: 0 !important; }
+.conversation-input { position: relative; padding: 12px 16px; border-top: 1px solid var(--md-sys-color-outline-variant); flex: none; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 6px 8px; min-width: 0; margin: 0; background: var(--md-sys-color-surface); }
+.conversation-input md-outlined-text-field { min-width: 0; max-height: 132px; }
 .conversation-question { padding: 8px 4px; }
 .conversation-emergency { border: 1px solid var(--md-sys-color-error); border-radius: 16px; padding: 12px; }
 .medassist-conversation fieldset { display: grid; gap: 8px; border: 1px solid var(--md-sys-color-outline-variant); border-radius: 12px; padding: 12px; }
-.conversation-session { flex: none; display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 4px; font-size: 12px; }
+.conversation-session { padding: 0 16px; max-height: 120px; overflow-y: auto; flex: none; display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 4px; font-size: 12px; }
 .conversation-session .conversation-actions { margin: 0; }
 .conversation-summary { flex: 1; min-width: 140px; max-height: none; overflow: visible; }
 .medassist-conversation summary { cursor: pointer; min-height: 32px; padding-block: 4px; }
@@ -90,7 +84,7 @@
 /* Responsive */
 @media (max-width: 999px) {
   .conversation-layout { display: flex; flex-direction: column-reverse; gap: 12px; }
-  .conversation-workspace { flex: 1; }
+  .conversation-workspace { flex: none; height: clamp(440px, calc(100vh - 200px), 640px); height: clamp(440px, calc(100dvh - 200px), 640px); }
   .conversation-assessment { align-self: stretch; flex: none; position: static; padding: 10px 14px; font-size: 12px; }
 }
 @media (max-width: 600px) {
@@ -102,14 +96,13 @@
   .conversation-messages { padding: 10px 8px; gap: 12px; border-radius: 18px; }
   .conversation-input { grid-template-columns: minmax(0,1fr); }
   .conversation-input > md-filled-button { justify-self: end; }
-  .conversation-composer-help { font-size: 10px; }
   .conversation-session { font-size: 11px; }
-}
-@media (max-height: 700px) {
-  .access-app.access-app-conversation { height: auto; min-height: 100dvh; }
-  .access-app-conversation .medassist-conversation { min-height: 540px; }
-  .conversation-messages { flex-basis: auto; max-height: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .medassist-conversation *, .medassist-conversation *::before, .medassist-conversation *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* Native disclosure keeps research/privacy information reachable without a banner. */
+.conversation-research-details { font-size: 12px; }
+.conversation-research-details > summary { color: var(--md-sys-color-primary); width: fit-content; }
+.conversation-research-content { padding: 12px; background: var(--md-sys-color-surface-container); border-radius: 12px; }
