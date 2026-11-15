@@ -2,6 +2,16 @@
 
 ## 2026-11-15
 
+### MedAssist Phase B3 — symptom-matched healthcare facility discovery and Google Maps integration
+
+- Established versioned facility discovery contracts (`medassist.facility-discovery-request.v1` and `medassist.facility-discovery.v1`) consuming Phase B2 navigation requirements with strict privacy guarantees (zero PII, symptoms, or transcripts transmitted).
+- Implemented 5-priority intelligent facility ranking engine across all 10 healthcare facility tiers (clinics/polyclinics, PHCs, CHCs, nursing homes, district hospitals, multi-specialty, super-specialty, medical colleges, diagnostic centres, emergency departments) enforcing clinical capability, urgency availability, duration, road distance, and accessibility tier suitability.
+- Enforced core accessibility ranking rule: a nearby single-doctor clinic ranks ahead of distant large hospitals for routine/outpatient urgency.
+- Implemented wrong-specialty rejection, diagnostic centre restriction, and emergency department capability filtering (routine clinics excluded for emergencies; 24x7 ERs prioritized).
+- Built server-side Google Maps Platform integration (`server/medassist-maps-provider.ts` and `models/medassist_ai/hospital/maps_provider.py`) supporting Places API (New) Text Search (`places:searchText`) and Routes API (`computeRoutes`), with deterministic multi-tier reference fixture fallback when API keys are unconfigured.
+- Upgraded `HospitalNavigation.tsx` into an interactive discovery panel displaying provider status, verified registry filter, facility cards with distance, drive time, operating hours, address, match reasons, and action links ("Open in Maps", "Get Directions", "Call").
+- Verified 10/10 TypeScript tests, 6/6 Python unit tests, `npm run lint`, `npm run build`, and live browser CDP preview flow.
+
 ### MedAssist Phase B2 — symptom-specific precautions and healthcare specialty intelligence
 
 - Implemented structured, evidence-backed precautions knowledge base covering all 11 core symptom categories (respiratory, fever & general, headache & neurological, digestive & abdominal, skin, ENT, eye & ophthalmic, musculoskeletal, dental & oral, urinary & renal, pediatric & pregnancy).

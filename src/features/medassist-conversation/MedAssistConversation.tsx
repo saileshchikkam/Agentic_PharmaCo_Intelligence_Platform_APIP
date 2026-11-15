@@ -629,7 +629,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             </fieldset>}
             <div className="conversation-actions"><M3Button variant="tonal" disabled={busy || !!pendingRetry} onClick={() => answer('unknown', null, 'Not sure')}>Not sure</M3Button></div></>}
           </section>}
-          {(showNavigation || emergency) && <HospitalNavigation key={navigationSession + ':' + !!emergency} emergency={!!emergency}/>}
+          {(showNavigation || emergency) && <HospitalNavigation key={navigationSession + ':' + !!emergency} emergency={!!emergency} navigationContract={precautionGuidance.facility_navigation_contract}/>}
           {!emergency && busy && <div role="status" className="conversation-typing"><span aria-hidden="true">•••</span> Working on your message…</div>}
           {pendingRetry && !emergency && <M3Button variant="outlined" disabled={busy} onClick={() => void send(pendingRetry.next, pendingRetry.label)}>Retry last action</M3Button>}
           {languageRetry && !emergency && <M3Button variant="outlined" disabled={busy} onClick={() => void describe(undefined, languageRetry)}>Retry description</M3Button>}
@@ -694,6 +694,11 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
               {precautionGuidance.facility_navigation_contract.explicit_exclusions.length > 0 && (
                 <p className="assessment-meta-list"><strong>Excluded:</strong> {precautionGuidance.facility_navigation_contract.explicit_exclusions.join(', ')}</p>
               )}
+              <div style={{ marginTop: '8px' }}>
+                <M3Button variant="tonal" onClick={() => setShowNavigation(true)}>
+                  Find nearby facilities
+                </M3Button>
+              </div>
             </details>
           </div>
 

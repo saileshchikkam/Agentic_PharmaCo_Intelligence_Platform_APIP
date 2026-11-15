@@ -105,3 +105,28 @@
 .precaution-bullet-list { margin: 2px 0 4px 16px; padding: 0; font-size: 11px; }
 .precaution-bullet-list li { margin-bottom: 2px; }
 .precaution-warning-item { color: var(--md-sys-color-error); }
+
+/* Phase B3 Facility Discovery & Google Maps styles */
+.facility-discovery-container { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.facility-provider-banner { font-size: 11px; padding: 6px 10px; border-radius: 8px; background: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant); color: var(--md-sys-color-on-surface-variant); }
+.facility-provider-banner.live-api { border-color: #2e7d32; background: #e8f5e9; color: #1b5e20; }
+.facility-provider-banner.simulated { border-color: #f57f17; background: #fffde7; color: #f57f17; }
+.facility-cards-list { display: flex; flex-direction: column; gap: 10px; }
+.facility-card { padding: 12px; border-radius: 14px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); display: flex; flex-direction: column; gap: 6px; }
+.facility-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+.facility-title { font-size: 14px; font-weight: 700; margin: 0; color: var(--md-sys-color-on-surface); }
+.facility-badge-group { display: flex; flex-wrap: wrap; gap: 4px; }
+.facility-badge { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 6px; text-transform: uppercase; }
+.facility-badge.verified { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.facility-badge.provisional { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+.facility-badge.unverified { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+.facility-badge.emergency { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+.facility-meta-row { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11px; color: var(--md-sys-color-on-surface-variant); }
+.facility-meta-row strong { color: var(--md-sys-color-on-surface); }
+.facility-address { font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin: 2px 0; }
+.facility-reason-list { font-size: 10px; color: var(--md-sys-color-primary); margin: 2px 0; }
+.facility-action-buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.facility-action-buttons > * { min-height: 36px; font-size: 12px; }
+.emergency-call-banner { background: #ffebee; border: 2px solid var(--md-sys-color-error); border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; }
+.emergency-call-btn { background: var(--md-sys-color-error) !important; color: #fff !important; font-weight: 700; text-align: center; border-radius: 8px; padding: 8px 12px; text-decoration: none; display: inline-block; }
+.facility-filter-actions { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }

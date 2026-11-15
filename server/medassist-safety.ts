@@ -3,6 +3,7 @@ import type { RuntimeConfig } from './runtime';
 import { trustedLocalRequest } from './local-request';
 import { evaluateStatement } from '../src/features/medassist-safety/safety';
 import { navigationHandoff } from '../src/features/medassist-safety/navigation';
+import { GoogleMapsFacilityProvider } from './medassist-maps-provider';
 
 /** Available independently of Model A/Groq tokens, only in the existing guarded local demo. */
 export function registerSafetyNavigation(app: Express, config: RuntimeConfig) {
@@ -16,7 +17,7 @@ export function registerSafetyNavigation(app: Express, config: RuntimeConfig) {
     if (!req.is('application/json')) { res.sendStatus(415); return; }
     next();
   });
-  const parser = express.json({ limit: '4kb', strict: true });
+  const parser = express.json({ limit: '16kb', strict: true });
   router.use((req, res, next) => parser(req, res, error => error ? res.status(400).json({ error: 'INVALID_INPUT' }) : next()));
   router.post('/safety', (req, res) => {
     const r = req.body;
@@ -29,6 +30,25 @@ export function registerSafetyNavigation(app: Express, config: RuntimeConfig) {
     const result = navigationHandoff(req.body, req.params.kind === 'emergency');
     if (!result) { res.status(422).json({ error: 'LOCATION_CONSENT_REQUIRED' }); return; }
     res.json(result);
+  });
+  router.post('/facilities', async (req, res) => {
+    const r = req.body;
+    if (
+      !r ||
+      r.schema_version !== 'medassist.facility-discovery-request.v1' ||
+      !r.consent_granted ||
+      !r.navigation_contract
+    ) {
+      res.status(422).json({ error: 'INVALID_FACILITY_DISCOVERY_REQUEST' });
+      return;
+    }
+    const provider = new GoogleMapsFacilityProvider();
+    try {
+      const response = await provider.discover(r);
+      res.json(response);
+    } catch {
+      res.status(500).json({ error: 'FACILITY_DISCOVERY_FAILED' });
+    }
   });
   router.use((_req, res) => { res.sendStatus(404); });
   app.use(prefix, router);
