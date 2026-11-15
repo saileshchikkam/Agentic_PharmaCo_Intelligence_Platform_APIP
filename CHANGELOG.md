@@ -2,6 +2,14 @@
 
 ## 2026-11-15
 
+### MedAssist Phase B4 — final integration, safety verification, and release preparation
+
+- Expanded deterministic NLP natural understanding layer with Unicode property escapes and Unicode boundary matching, adding verified Telugu transliteration and Telugu script aliases for primary symptoms (`E_201` cough: daggu/దగ్గు; `E_91` fever: jwaram/జ్వరం; `E_53` headache/pain: talanoppi/తలనొప్పి/కడుపునొప్పి; `E_51` diarrhea: virechanalu/విరేచనాలు; `E_148` nausea: vanthulu/వాంతులు; `E_97` sore throat: gonthu noppi/గొంతు నొప్పి) with 100% pass rate maintained across 240 evaluation cases.
+- Implemented fictional facility action safeguards and explicit labeling: added `[Simulated Research Fixture]` badge on simulated facility cards, disabled real telephone dialing (`tel:...`) in favor of in-UI simulated action alerts preventing accidental outbound phone calls, replaced external route dispatch with simulated in-UI route previews, and added clear server environment configuration guidance when `GOOGLE_MAPS_API_KEY` is missing.
+- Built comprehensive Phase B4 end-to-end integration and safety test suite (`scripts/medassist-phase-b4.test.ts`), verifying the complete conversational pipeline from natural description through confirmation, adaptive questioning, patient severity, hybrid urgency, precautions, specialty mapping, and care facility discovery.
+- Verified clinical safety audit: critical emergency override precedence (low discomfort never downgrades emergency warning signs), Telugu negation preservation (`value: false`), and vulnerable population floors (pediatric under 2–5 years, geriatric 65+ with systemic illness).
+- Maintained Model A and Model B isolation: Model A Stage 6 background worker PID 14752 continues uninterrupted in `C:\apip_research\campaign_2026\run_01` (4,641+ CPU seconds), genuine Model A inference remains fail-closed pending final seal, and ML-based Model B remains strictly disabled.
+
 ### MedAssist Phase B3 — symptom-matched healthcare facility discovery and Google Maps integration
 
 - Established versioned facility discovery contracts (`medassist.facility-discovery-request.v1` and `medassist.facility-discovery.v1`) consuming Phase B2 navigation requirements with strict privacy guarantees (zero PII, symptoms, or transcripts transmitted).

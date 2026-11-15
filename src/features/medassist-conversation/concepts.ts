@@ -36,7 +36,17 @@ const aliases: Record<string,string[]> = {
     "cogh",
     "coffing",
     "couffing",
-    "coffin"
+    "coffin",
+    "daggu",
+    "daggina",
+    "daggu vastondi",
+    "daggu undi",
+    "dagguthunna",
+    "dry daggu",
+    "severe daggu",
+    "దగ్గు",
+    "దగ్గుగా ఉంది",
+    "దగ్గు వస్తుంది"
   ],
   "E_53": [
     "stomach pain",
@@ -76,7 +86,19 @@ const aliases: Record<string,string[]> = {
     "lower back has been aching",
     "back aches",
     "stomache ache",
-    "headach"
+    "headach",
+    "talanoppi",
+    "thala noppi",
+    "tala noppi",
+    "kadupu noppi",
+    "kadupunoppi",
+    "kadupulo noppi",
+    "noppi",
+    "తలనొప్పి",
+    "తల నొప్పి",
+    "కడుపు నొప్పి",
+    "కడుపునొప్పి",
+    "నొప్పి"
   ],
   "E_148": [
     "nausea",
@@ -94,7 +116,14 @@ const aliases: Record<string,string[]> = {
     "pukey feeling",
     "pukey feeling in stomach",
     "feeling pukey",
-    "feel like pukin"
+    "feel like pukin",
+    "vanthulu",
+    "vaanthulu",
+    "vanthi sensation",
+    "vanti vastunnatlu",
+    "vanthi",
+    "వాంతులు",
+    "వాంతి"
   ],
   "E_51": [
     "diarrhea",
@@ -108,7 +137,12 @@ const aliases: Record<string,string[]> = {
     "tummy upset with loose motions",
     "the runs",
     "diarhoea",
-    "diarrea"
+    "diarrea",
+    "virechanalu",
+    "virechanaalu",
+    "motions avtunnayi",
+    "motions aithunnai",
+    "విరేచనాలు"
   ],
   "E_91": [
     "fever",
@@ -116,7 +150,16 @@ const aliases: Record<string,string[]> = {
     "fevr",
     "body burning hot",
     "burning hot body",
-    "burning body"
+    "burning body",
+    "jwaram",
+    "jvaram",
+    "jvaramu",
+    "jwaramga undi",
+    "jwaram vastondi",
+    "high jwaram",
+    "జ్వరం",
+    "జ్వరము",
+    "జ్వరంగా ఉంది"
   ],
   "E_97": [
     "sore throat",
@@ -127,7 +170,13 @@ const aliases: Record<string,string[]> = {
     "sore throaat",
     "soar throat",
     "throat scratching while swallowing",
-    "scratchy throat"
+    "scratchy throat",
+    "gontu noppi",
+    "gonthu noppi",
+    "gontulo manta",
+    "gonthu manta",
+    "గొంతు నొప్పి",
+    "గొంతు మంట"
   ],
   "E_181": [
     "nasal congestion",
@@ -212,7 +261,7 @@ const aliases: Record<string,string[]> = {
 };
 aliases.E_76 = ['feel light headed', 'feeling light headed', 'little dizzy', 'feel dizzzy', 'dizzzy', 'dizzy', 'head spinning', 'head is spinning', 'slight dizziness', 'lightheaded', 'lightheadedness'];
 baseAnchors.E_66 = { label: 'significant shortness of breath or difficulty breathing', pattern: /\b(?:significant (?:shortness of breath|difficulty breathing)|can breathe normally|breathing normally)\b/i };
-export const tokenize = (text:string) => [...text.matchAll(/[a-z]+(?:['’][a-z]+)?|[0-9]+(?:\.[0-9]+)?/gi)].map(m=>({text:m[0].toLowerCase().replaceAll('’',"'"),start:m.index!,end:m.index!+m[0].length}));
+export const tokenize = (text:string) => [...text.matchAll(/[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)?|[0-9]+(?:\.[0-9]+)?/gu)].map(m=>({text:m[0].toLowerCase().replaceAll('’',"'"),start:m.index!,end:m.index!+m[0].length}));
 export function labelIsSupported(quote:string,label:string) {
   const normalize=(s:string)=>tokenize(s).map(t=>t.text).join(' ');
   const n=' '+normalize(quote)+' ', side=label.match(/^(.*)\(([RL])\)$/);
@@ -235,7 +284,10 @@ const wording: Record<string,RegExp> = {
 };
 export const languageConcepts = Object.entries(baseAnchors).map(([evidence_id, definition]) => {
   const synonyms = aliases[evidence_id] ?? [definition.label];
-  const pattern = new RegExp('(?:'+definition.pattern.source+'|'+synonyms.map(s=>'\\b'+escape(s).replaceAll(' ','\\s+')+'\\b').join('|')+(wording[evidence_id]?'|'+wording[evidence_id].source:'')+')','i');
+  const bound = (s: string) => /[^\x00-\x7F]/.test(s)
+    ? '(?<=^|[^\\p{L}\\p{N}])' + escape(s).replaceAll(' ', '\\s+') + '(?=$|[^\\p{L}\\p{N}])'
+    : '\\b' + escape(s).replaceAll(' ', '\\s+') + '\\b';
+  const pattern = new RegExp('(?:'+definition.pattern.source+'|'+synonyms.map(bound).join('|')+(wording[evidence_id]?'|'+wording[evidence_id].source:'')+')','iu');
   return {concept_id:'concept.'+evidence_id,evidence_id,canonical:definition.label,synonyms,pattern,
     qualifier_policy:'Match complete supported meaning; ambiguous qualifiers remain context.',confirmation_required:true as const};
 });

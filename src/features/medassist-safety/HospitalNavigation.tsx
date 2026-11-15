@@ -23,6 +23,7 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
   const [url, setUrl] = useState<string | null>(null);
   const [discoveryResponse, setDiscoveryResponse] = useState<FacilityDiscoveryResponse | null>(null);
   const [filterVerifiedOnly, setFilterVerifiedOnly] = useState(false);
+  const [simulatedActionNotice, setSimulatedActionNotice] = useState<string | null>(null);
 
   const generation = useRef(0);
   const abort = useRef<AbortController | null>(null);
@@ -225,12 +226,45 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
       {discoveryResponse && (
         <div className="facility-discovery-container">
           <div className={`facility-provider-banner ${discoveryResponse.provider_status === 'live_api_active' ? 'live-api' : 'simulated'}`}>
-            <strong>Provider:</strong> {discoveryResponse.provider_status === 'live_api_active' ? 'Live Google Maps Platform' : 'Simulated Research Fixtures (Pending Google Maps API Key)'}
-            {' · '}
-            <span>Service: {discoveryResponse.searched_service}</span>
-            {' · '}
-            <span>Acuity: {discoveryResponse.urgency_level.toUpperCase()}</span>
+            <div>
+              <strong>Provider:</strong> {discoveryResponse.provider_status === 'live_api_active' ? 'Live Google Maps Platform' : 'Simulated Research Fixtures (Pending Google Maps API Key)'}
+              {' · '}
+              <span>Service: {discoveryResponse.searched_service}</span>
+              {' · '}
+              <span>Acuity: {discoveryResponse.urgency_level.toUpperCase()}</span>
+            </div>
+            {discoveryResponse.provider_status !== 'live_api_active' && (
+              <p style={{ margin: '6px 0 0 0', fontSize: '11px', opacity: 0.9 }}>
+                ⚙️ <strong>Configuration Notice:</strong> Live Places API discovery requires <code>GOOGLE_MAPS_API_KEY</code>.
+                Currently operating safely in offline simulation mode using multi-tier research fixtures. Real dialing and navigation are disabled for fictional fixtures; live facility verification remains explicitly pending.
+              </p>
+            )}
           </div>
+
+          {simulatedActionNotice && (
+            <div className="simulated-action-banner" role="alert" style={{
+              margin: '12px 0',
+              padding: '10px 14px',
+              backgroundColor: 'var(--md-sys-color-surface-variant)',
+              color: 'var(--md-sys-color-on-surface-variant)',
+              borderRadius: '8px',
+              border: '1px solid var(--md-sys-color-outline)',
+              fontSize: '12px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+              <span>{simulatedActionNotice}</span>
+              <button
+                type="button"
+                onClick={() => setSimulatedActionNotice(null)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold', marginLeft: '12px' }}
+                aria-label="Dismiss notice"
+              >
+                ✕
+              </button>
+            </div>
+          )}
 
           <div className="facility-filter-actions">
             <M3Button
@@ -245,66 +279,117 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
           </div>
 
           <div className="facility-cards-list">
-            {displayedFacilities.map(fac => (
-              <div key={fac.facility_id} className="facility-card">
-                <div className="facility-card-header">
-                  <h4 className="facility-title">{fac.name}</h4>
-                  <div className="facility-badge-group">
-                    <span className="facility-badge">{fac.facility_category_display}</span>
-                    <span className={`facility-badge ${fac.capability_verification_status === 'verified_registry' ? 'verified' : 'provisional'}`}>
-                      {fac.capability_verification_status === 'verified_registry' ? 'Verified Registry' : 'Provisional Match'}
-                    </span>
-                    {fac.emergency_capable && (
-                      <span className="facility-badge emergency">24x7 ER</span>
+            {displayedFacilities.map(fac => {
+              const isSimulated = discoveryResponse.provider_status !== 'live_api_active' ||
+                fac.facility_id.startsWith('SIM_') ||
+                fac.facility_id.startsWith('FAC_');
+
+              return (
+                <div key={fac.facility_id} className="facility-card">
+                  <div className="facility-card-header">
+                    <div>
+                      <h4 className="facility-title">{fac.name}</h4>
+                      {isSimulated && (
+                        <span className="facility-simulated-tag" style={{
+                          display: 'inline-block',
+                          fontSize: '10px',
+                          fontWeight: 'bold',
+                          color: 'var(--md-sys-color-error)',
+                          backgroundColor: 'var(--md-sys-color-error-container)',
+                          padding: '2px 6px',
+                          borderRadius: '4px',
+                          marginTop: '2px',
+                        }}>
+                          [Simulated Research Fixture]
+                        </span>
+                      )}
+                    </div>
+                    <div className="facility-badge-group">
+                      <span className="facility-badge">{fac.facility_category_display}</span>
+                      <span className={`facility-badge ${fac.capability_verification_status === 'verified_registry' ? 'verified' : 'provisional'}`}>
+                        {fac.capability_verification_status === 'verified_registry' ? 'Verified Registry' : 'Provisional Match'}
+                      </span>
+                      {fac.emergency_capable && (
+                        <span className="facility-badge emergency">24x7 ER</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="facility-meta-row">
+                    {fac.distance_text && (
+                      <span><strong>Distance:</strong> {fac.distance_text}</span>
+                    )}
+                    {fac.travel_duration_text && (
+                      <span><strong>Drive Time:</strong> {fac.travel_duration_text}</span>
+                    )}
+                    <span><strong>Hours:</strong> {fac.is_24x7 ? '24x7 Emergency' : fac.opening_hours_text || 'See listing'}</span>
+                  </div>
+
+                  <p className="facility-address">{fac.address}</p>
+
+                  {fac.ranking_reasons.length > 0 && (
+                    <p className="facility-reason-list">
+                      ✓ {fac.ranking_reasons.join(' · ')}
+                    </p>
+                  )}
+
+                  <div className="facility-action-buttons">
+                    {isSimulated ? (
+                      <>
+                        <M3Button
+                          variant="outlined"
+                          onClick={() => {
+                            setSimulatedActionNotice(
+                              `[Simulated Action] Navigation preview simulated for research fixture "${fac.name}". Address: ${fac.address}. No external route dispatched.`
+                            );
+                          }}
+                        >
+                          Simulate Navigation
+                        </M3Button>
+                        {fac.phone_number && (
+                          <M3Button
+                            variant="tonal"
+                            onClick={() => {
+                              setSimulatedActionNotice(
+                                `[Simulated Action] Direct dialing is disabled for fictional research facility "${fac.name}" (${fac.phone_number}). Real dialing is prohibited for simulated fixtures. In a real medical emergency, dial 112 or 108 immediately.`
+                              );
+                            }}
+                          >
+                            Simulate Call ({fac.phone_number})
+                          </M3Button>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <a
+                          href={fac.maps_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          referrerPolicy="no-referrer"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          <M3Button variant="outlined">Open in Maps</M3Button>
+                        </a>
+                        <a
+                          href={fac.directions_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          referrerPolicy="no-referrer"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          <M3Button variant="outlined">Get Directions</M3Button>
+                        </a>
+                        {fac.phone_number && (
+                          <a href={`tel:${fac.phone_number}`} style={{ textDecoration: 'none' }}>
+                            <M3Button variant="tonal">Call {fac.phone_number}</M3Button>
+                          </a>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
-
-                <div className="facility-meta-row">
-                  {fac.distance_text && (
-                    <span><strong>Distance:</strong> {fac.distance_text}</span>
-                  )}
-                  {fac.travel_duration_text && (
-                    <span><strong>Drive Time:</strong> {fac.travel_duration_text}</span>
-                  )}
-                  <span><strong>Hours:</strong> {fac.is_24x7 ? '24x7 Emergency' : fac.opening_hours_text || 'See listing'}</span>
-                </div>
-
-                <p className="facility-address">{fac.address}</p>
-
-                {fac.ranking_reasons.length > 0 && (
-                  <p className="facility-reason-list">
-                    ✓ {fac.ranking_reasons.join(' · ')}
-                  </p>
-                )}
-
-                <div className="facility-action-buttons">
-                  <a
-                    href={fac.maps_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    referrerPolicy="no-referrer"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <M3Button variant="outlined">Open in Maps</M3Button>
-                  </a>
-                  <a
-                    href={fac.directions_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    referrerPolicy="no-referrer"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <M3Button variant="outlined">Get Directions</M3Button>
-                  </a>
-                  {fac.phone_number && (
-                    <a href={`tel:${fac.phone_number}`} style={{ textDecoration: 'none' }}>
-                      <M3Button variant="tonal">Call {fac.phone_number}</M3Button>
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
+              );
+            })}
 
             {displayedFacilities.length === 0 && (
               <p style={{ fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)' }}>
