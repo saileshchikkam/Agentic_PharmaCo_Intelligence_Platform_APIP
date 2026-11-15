@@ -78,3 +78,16 @@
   .conversation-messages { flex-basis: auto; max-height: none; }
 }
 @media (prefers-reduced-motion: reduce) { .medassist-conversation *, .medassist-conversation *::before, .medassist-conversation *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
+
+/* Phase B1 Severity & Urgency styles */
+.severity-selection-card { display: flex; flex-direction: column; gap: 8px; margin: 8px 0; }
+.severity-options-grid { display: flex; flex-direction: column; gap: 6px; }
+.severity-options-grid > * { justify-content: flex-start; text-align: left; }
+.assessment-urgency-card { margin-top: 12px; padding: 10px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); }
+.assessment-urgency-badge { font-weight: 700; font-size: 14px; text-transform: uppercase; margin: 4px 0; }
+.assessment-urgency-badge.urgency-low { color: #2e7d32; }
+.assessment-urgency-badge.urgency-medium { color: #f57f17; }
+.assessment-urgency-badge.urgency-high { color: #e65100; }
+.assessment-urgency-badge.urgency-extreme { color: var(--md-sys-color-error); }
+.assessment-emergency-alert { color: var(--md-sys-color-error); font-weight: 700; padding: 6px; border: 1px solid currentColor; border-radius: 8px; margin: 6px 0; }
+.assessment-meta-list { font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin: 6px 0; }

@@ -14,6 +14,9 @@ import { runScriptedInterview, scriptedVocabulary } from './scripted';
 import { reviewProposal, type PendingProposal } from './pending-proposal';
 import { contextUpdates, holdPending, currentEvidence, reconcilePendingUpdates, acceptedUpdateBlocked, canConfirmPending, updateNotice, type ContextUpdate } from './evidence-state';
 import { captureOpenMentions, openMentionExport, reconcileOpenMentions, type OpenMentionRecord } from './open-symptom';
+import { SEVERITY_OPTIONS, type SeverityLevel } from '../medassist-severity/severity-contracts';
+import { parseNaturalSeverity } from '../medassist-severity/severity-understanding';
+import { evaluateHybridUrgency } from '../medassist-severity/urgency-engine';
 import './conversation.css';
 const api = '/api/research/model-a';
 type Message = {
@@ -39,7 +42,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const [vocabulary, setVocabulary] = useState<NaturalVocabulary | null>(scripted ? scriptedVocabulary : null);
     const [readinessError, setReadinessError] = useState('');
     const [retryAvailability, setRetryAvailability] = useState(0), [description, setDescription] = useState('');
-    const [contextStep, setContextStep] = useState<'age' | 'sex' | null>(null), [fictionalAge, setFictionalAge] = useState<number | null>(null);
+    const [contextStep, setContextStep] = useState<'age' | 'sex' | 'severity' | null>(null), [fictionalAge, setFictionalAge] = useState<number | null>(null);
+    const [sourceSex, setSourceSex] = useState<'M' | 'F' | null>(null);
+    const [patientSeverity, setPatientSeverity] = useState<SeverityLevel | null>(null);
+    const [symptomSeverities, setSymptomSeverities] = useState<Record<string, SeverityLevel>>({});
     const [contextUnavailable, setContextUnavailable] = useState(false), [showNavigation, setShowNavigation] = useState(false), [session, setSession] = useState(0);
     const [assessmentOpen, setAssessmentOpen] = useState(() => window.matchMedia('(min-width:1000px)').matches);
     const [languageRetry, setLanguageRetry] = useState<string | null>(null), [candidate, setCandidate] = useState<PendingProposal | null>(null);
@@ -112,7 +118,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
         return()=>resize.disconnect();
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
-    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setOpenMentions([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
+    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setSourceSex(null); setPatientSeverity(null); setSymptomSeverities({}); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setOpenMentions([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
     function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
         return false; if (safetyLatch.current)
         return true; safetyLatch.current = true; generation.current++; abort.current?.abort(); inFlight.current = false; setEmergency(d); setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setSelected([]); setDescription(''); setLanguageRetry(null); setContextStep(null); setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]); return true; }
@@ -169,6 +175,13 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             setUnderstandingRecords(old=>[...old,{request_id:submission.id,text,question_id:pendingQuestion?.evidence_id??null,annotations:analysis.annotations,details:reportedDetails(text),compatibility:analysis.compatibility.status,confirmed:false}]);
             const captured = captureOpenMentions({ text, requestId: submission.id, turn: narratives.length + 1, unmapped: analysis.proposal.unmapped });
             if (captured.length) setOpenMentions(existing => reconcileOpenMentions(existing, captured));
+            const parsedSev = parseNaturalSeverity(text);
+            if (parsedSev.overall && !parsedSev.is_other_person) {
+                setPatientSeverity(current => current ?? parsedSev.overall);
+                if (Object.keys(parsedSev.symptom_severities).length) {
+                    setSymptomSeverities(existing => ({ ...existing, ...parsedSev.symptom_severities }));
+                }
+            }
         }
         if (scripted) {
             const changes=contextUpdates(text,submission.id,vocabulary,candidate,acceptedAnswers());
@@ -413,13 +426,43 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: 'For this limited fictional example, select female (F) or male (M). This does not determine gender. If neither entry can be provided, choose Not sure; I will not substitute one.' }]);
             return;
         }
-        const sex = readSourceSex(text);
-        if (!sex || fictionalAge === null) {
-            setError('Please choose F, M or Not sure.');
+        if (contextStep === 'sex') {
+            const sex = readSourceSex(text);
+            if (!sex || fictionalAge === null) {
+                setError('Please choose F, M or Not sure.');
+                return;
+            }
+            localSubmissions.current.add(key);
+            setSourceSex(sex);
+            setContextStep('severity');
+            setDescription('');
+            setError('');
+            setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: 'How uncomfortable are your symptoms right now? You can select an option below or describe your symptoms in your own words.' }]);
             return;
         }
-        localSubmissions.current.add(key);
-        begin({ age: fictionalAge, source_sex: sex }, text);
+        if (contextStep === 'severity') {
+            const parsed = parseNaturalSeverity(text);
+            if (!parsed.overall && !contextUnknown(text)) {
+                setError('Please choose a discomfort level (Low, Medium, High, Extreme, Not sure) or describe it in your own words.');
+                return;
+            }
+            const chosen = parsed.overall ?? 'not_sure';
+            localSubmissions.current.add(key);
+            setPatientSeverity(chosen);
+            if (Object.keys(parsed.symptom_severities).length) {
+                setSymptomSeverities(existing => ({ ...existing, ...parsed.symptom_severities }));
+            }
+            setContextStep(null);
+            setDescription('');
+            setError('');
+            const opt = SEVERITY_OPTIONS.find(o => o.value === chosen);
+            const labelText = opt ? `${opt.label}: ${opt.description}` : text;
+            setMessages(c => [...c, { role: 'You', text: labelText }]);
+            if (fictionalAge !== null && sourceSex !== null) {
+                begin({ age: fictionalAge, source_sex: sourceSex }, 'Severity: ' + chosen);
+            }
+            return;
+        }
     }
     function begin(context: Context, label: string) { const initial = queued.find(a => a.state === 'confirmed' && a.value === true && vocabulary?.items.find(d => d.evidence_id === a.evidence_id)?.initial_allowed); if (initial)
         void send({ schema_version: 'medassist.natural-request.v1', fictional_only: true, context, initial, initial_disclosures: queued.filter(a => a.evidence_id !== initial.evidence_id), turns: [], stop: null }, label); }
@@ -455,7 +498,18 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const acceptedEvidence = result && ('scriptedEvidence' in result ? result.scriptedEvidence : result.handoff);
     const evidence = acceptedEvidence && scripted ? currentEvidence(acceptedEvidence,contextChanges) : acceptedEvidence;
     const contextNotice = scripted ? updateNotice(contextChanges) : null;
-    const status = scripted ? 'Not assessed' : assessmentStatus({ started: !!request || !!contextStep, finished: !!finished, unavailable: contextUnavailable });
+    const confirmedEvidenceIds = acceptedAnswers().filter(a => a.state === 'confirmed' && a.value === true).map(a => a.evidence_id);
+    const urgencyAssessment = evaluateHybridUrgency({
+        confirmedSymptoms: confirmedEvidenceIds,
+        selfReportedSeverity: patientSeverity,
+        symptomSeverities,
+        age: fictionalAge,
+        sourceSex: sourceSex ?? undefined,
+        emergencyDetected: !!emergency,
+        emergencyTrigger: emergency?.guidance ?? undefined,
+        contradictionsPresent: acceptedAnswers().some(a => a.state === 'contradiction'),
+    });
+    const status = emergency ? 'Emergency override' : urgencyAssessment.status === 'assessed' ? `Urgency: ${urgencyAssessment.assessed_urgency?.toUpperCase()}` : scripted ? 'Not assessed' : assessmentStatus({ started: !!request || !!contextStep, finished: !!finished, unavailable: contextUnavailable });
     const exportEvidence = () => {
         if (!evidence) return;
         const url = URL.createObjectURL(new Blob([JSON.stringify({
@@ -473,6 +527,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             evidence_usage: acceptedUpdateBlocked(contextChanges) ? 'blocked_context_update' : result?.selection.reason === 'unresolved_contradiction' ? 'blocked_unresolved_conflict' : 'fictional_only_no_clinical_assessment',
             narratives, user_confirmed_proposals: confirmedProposals, unmapped,
             open_symptom_mentions: openMentionExport(openMentions),
+            patient_reported_severity: patientSeverity,
+            symptom_specific_severities: symptomSeverities,
+            urgency_assessment: urgencyAssessment,
             unresolved_conflict: result?.selection.reason === 'unresolved_contradiction', routine_questions_answered: count,
         }, null, 2)], { type: 'application/json' }));
         const link = document.createElement('a');
@@ -544,6 +601,14 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             <M3Button variant="outlined" disabled={busy || !!pendingRetry} onClick={() => collectContext('M')}>M</M3Button>
             <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => collectContext('Not sure')}>Not sure</M3Button>
           </div>}
+          {!emergency && contextStep === 'severity' && <div className="conversation-question severity-selection-card">
+            <h2>How uncomfortable are your symptoms right now?</h2>
+            <div className="severity-options-grid" role="group" aria-label="Symptom discomfort level">
+              {SEVERITY_OPTIONS.map(opt => <M3Button key={opt.value} variant={opt.value === 'extreme' ? 'filled' : opt.value === 'high' ? 'tonal' : 'outlined'} disabled={busy || !!pendingRetry} onClick={() => collectContext(opt.label)}>
+                <strong>{opt.label}</strong> — {opt.description}
+              </M3Button>)}
+            </div>
+          </div>}
           {!emergency && result && !candidate && <section aria-labelledby="conversation-question-title" aria-busy={busy}>
             <h2 id="conversation-question-title" className="conversation-sr-only" tabIndex={-1} ref={questionHeading}>{finished ? 'Fictional interview finished' : 'Reply to the latest question'}</h2>
             {question && <><div className="conversation-actions">
@@ -568,7 +633,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         event.preventDefault();
         void describe();
     } }} className="conversation-input" aria-label="Describe a fictional symptom">
-          <M3TextField id="fictional-description" type="textarea" rows={2} label={contextStep === 'age' ? 'Fictional age in years' : contextStep === 'sex' ? 'Fictional female or male entry' : request ? 'Your answer' : 'Fictional symptom description'} placeholder={request ? 'Reply in your own words, or use an answer button' : contextStep ? 'Use explicit fictional context only' : 'How is the fictional person feeling?'} value={description} maxLength={300} disabled={!!emergency} onChange={event => { if (!escalate(event.target.value) && !safetyLatch.current) {
+          <M3TextField id="fictional-description" type="textarea" rows={2} label={contextStep === 'age' ? 'Fictional age in years' : contextStep === 'sex' ? 'Fictional female or male entry' : contextStep === 'severity' ? 'Describe your discomfort, or choose an option' : request ? 'Your answer' : 'Fictional symptom description'} placeholder={request ? 'Reply in your own words, or use an answer button' : contextStep === 'severity' ? 'Select an option or describe your discomfort' : contextStep ? 'Use explicit fictional context only' : 'How is the fictional person feeling?'} value={description} maxLength={300} disabled={!!emergency} onChange={event => { if (!escalate(event.target.value) && !safetyLatch.current) {
         setDescription(event.target.value);
     } }}/>
           <M3Button disabled={!!emergency || busy || !!pendingRetry || !!candidate?.alternative || !description.trim()} onClick={() => void describe()}>{request ? 'Send answer' : 'Send description'}</M3Button>
@@ -590,9 +655,18 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
       <aside className="conversation-assessment" aria-label="Assessment status">
         <details open={assessmentOpen} onToggle={event => setAssessmentOpen(event.currentTarget.open)} className="assessment-details"><summary>Assessment status · {status}</summary>
           <p role="status">{status}</p>
-          <p>{request && !finished ? scripted ? `Scripted follow-up ${count + 1}. ` : `Question ${Math.min(count + 1, 8)} of up to 8. ` : ''}Urgency assessment is unavailable. Gathering answers does not establish severity.</p>
-          <ul aria-label="Unassessed severity categories">{['Low', 'Moderate', 'High', 'Very High'].map((level, index) => <li key={level} className={'severity-neutral severity-' + index}><span aria-hidden="true"/>{level}<small>{['Green', 'Yellow', 'Orange', 'Red'][index]} · not assessed</small></li>)}</ul>
-          <p>No category is selected. Future assessed levels require independent clinical validation and authorization.</p>
+          <div className="assessment-urgency-card">
+            <p><strong>Patient Severity:</strong> {patientSeverity ? patientSeverity.toUpperCase() : 'Not reported yet'}</p>
+            {Object.keys(symptomSeverities).length > 0 && <p className="assessment-meta-list">Specific: {Object.entries(symptomSeverities).map(([id, s]) => `${name(id)}: ${s}`).join(', ')}</p>}
+            <p><strong>Research Urgency:</strong> <span className={'assessment-urgency-badge urgency-' + (urgencyAssessment.assessed_urgency ?? 'unable_to_assess')}>{urgencyAssessment.status === 'assessed' ? urgencyAssessment.assessed_urgency?.toUpperCase() : 'UNABLE TO ASSESS'}</span></p>
+            {urgencyAssessment.emergency_override && <p role="alert" className="assessment-emergency-alert">🚨 EMERGENCY SAFETY OVERRIDE: {urgencyAssessment.emergency_trigger}</p>}
+            {urgencyAssessment.relevant_risk_factors.length > 0 && <p className="assessment-meta-list">Risk Factors: {urgencyAssessment.relevant_risk_factors.join(', ')}</p>}
+            <p className="assessment-meta-list">{urgencyAssessment.navigation_requirements.rationale}</p>
+            {urgencyAssessment.rule_provenance.length > 0 && <details><summary>Rule Provenance ({urgencyAssessment.rule_provenance.length})</summary>
+              <ul>{urgencyAssessment.rule_provenance.map(r => <li key={r.rule_id}><strong>{r.rule_id}</strong>: {r.description} ({r.approval_status})</li>)}</ul>
+            </details>}
+          </div>
+          <p className="assessment-meta-list">Experimental non-clinical research rubric. Gathering answers does not establish diagnosis or certified triage.</p>
           {emergency && <p className="assessment-warning">Independent emergency help is active. This is a provisional safety interruption, not a severity prediction.</p>}
         </details>
       </aside>

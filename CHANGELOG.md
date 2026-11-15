@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-15
+
+### MedAssist Phase B1 — patient-reported severity and hybrid urgency assessment
+
+- Added natural conversational discomfort question ("How uncomfortable are your symptoms right now?") with 5 selectable options (Low, Medium, High, Extreme, Not sure) within the 8–10 question target.
+- Added deterministic natural language severity parsing supporting typos, colloquial Indian English, negations, corrections, and symptom-specific severity breakdowns.
+- Implemented rule-based hybrid urgency assessment engine separating self-reported severity from evaluated urgency, with documented rule provenance (`rules.json`).
+- Enforced strict emergency safety precedence: emergency warning signs immediately override ordinary severity and questioning; Low self-reported severity never downgrades an identified emergency.
+- Established versioned downstream output contract (`medassist.urgency-assessment.v1`) for Phase B2 and B3.
+- Added comprehensive unit tests in Python (7/7 passed) and TypeScript (9/9 passed).
+- Launched background execution for Model A Stage 6 validation cache and sealed pre-test integrity.
+
 ## 2026-11-12
 
 ### MedAssist — natural symptom understanding improvements, v2 evaluation suite, and Stage 6 recovery runner

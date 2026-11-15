@@ -1,0 +1,88 @@
+{
+  "schema_version": "medassist.severity-rules.v1",
+  "provenance_authority": "APIP MedAssist Research Team",
+  "clinical_approval_status": "provisional_research_rule_unreviewed",
+  "disclaimer": "All rules are experimental non-clinical research heuristics for fictional software validation. They do not constitute certified medical triage or diagnostic advice.",
+  "rules": [
+    {
+      "rule_id": "RULE_EMERGENCY_OVERRIDE",
+      "name": "Immediate Emergency Safety Override",
+      "description": "Explicit breathing difficulty, respiratory arrest, cardiac emergency, or direct ambulance requests immediately escalate assessed urgency to Extreme and trigger emergency safety protocols regardless of self-reported severity.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "NHS Shortness of breath triage guidance & India ERSS 112 protocol.",
+      "precedence": 100
+    },
+    {
+      "rule_id": "RULE_ABSTAIN_CONTRADICTION",
+      "name": "Unresolved Contradiction Abstention",
+      "description": "When confirmed evidence contains self-contradictory symptom states or irreconcilable conflict, urgency assessment abstains with status unable_to_assess.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "APIP fail-closed evidence safety architecture.",
+      "precedence": 90
+    },
+    {
+      "rule_id": "RULE_ABSTAIN_NO_EVIDENCE",
+      "name": "Missing or Empty Evidence Abstention",
+      "description": "When no positive symptoms are confirmed or context is missing (age/sex unknown), urgency assessment abstains with status unable_to_assess.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "APIP evidence completeness criteria.",
+      "precedence": 80
+    },
+    {
+      "rule_id": "RULE_PED_FEVER_HIGH_RISK",
+      "name": "Pediatric Age < 2 with Fever Escalation",
+      "description": "Infants and young children under 2 years of age presenting with confirmed fever are evaluated with minimum High urgency due to rapid decompensation risk.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "NICE Clinical Guideline CG160: Fever in under 5s.",
+      "precedence": 70
+    },
+    {
+      "rule_id": "RULE_GERIATRIC_SYSTEMIC_ESCALATION",
+      "name": "Geriatric Age >= 65 with Multiple Systemic Symptoms",
+      "description": "Older adults presenting with fever combined with pain or dizziness are evaluated with minimum High urgency.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "Emergency Severity Index (ESI) Implementation Handbook v4.",
+      "precedence": 65
+    },
+    {
+      "rule_id": "RULE_INTENSITY_EXTREME_ESCALATION",
+      "name": "Patient-Reported Extreme Functional Impact",
+      "description": "Patient self-reports extreme discomfort that is extremely difficult to tolerate, escalating baseline urgency to Extreme if systemic symptoms are confirmed.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "Visual Analog Scale & Patient-Reported Functional Impairment Metrics.",
+      "precedence": 60
+    },
+    {
+      "rule_id": "RULE_INTENSITY_HIGH_FUNCTIONAL",
+      "name": "Patient-Reported High Functional Impact",
+      "description": "Patient self-reports symptoms significantly affecting normal functioning with multiple confirmed symptoms, yielding High urgency.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "Patient-Reported Outcomes Measurement Information System (PROMIS).",
+      "precedence": 50
+    },
+    {
+      "rule_id": "RULE_INTENSITY_MEDIUM_MODERATE",
+      "name": "Moderate Discomfort Interfering with Activities",
+      "description": "Confirmed symptoms interfering with daily activities with moderate symptom load, yielding Medium urgency.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "General Practice Clinical Assessment Guidelines.",
+      "precedence": 40
+    },
+    {
+      "rule_id": "RULE_INTENSITY_LOW_MILD",
+      "name": "Mild Discomfort with Normal Functioning",
+      "description": "Isolated mild symptoms where normal activities are possible and no systemic red flags exist, yielding Low urgency.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "Primary Care Self-Care & Monitoring Framework.",
+      "precedence": 30
+    },
+    {
+      "rule_id": "RULE_UNSURE_FALLBACK",
+      "name": "Severity Uncertainty Conservative Assessment",
+      "description": "When patient is unsure of severity, urgency is derived conservatively from confirmed objective symptoms and age risk factors without penalizing uncertainty.",
+      "approval_status": "provisional_research_rule_unreviewed",
+      "source_reference": "Conservative Triage Decision Rules under Uncertainty.",
+      "precedence": 20
+    }
+  ]
+}
