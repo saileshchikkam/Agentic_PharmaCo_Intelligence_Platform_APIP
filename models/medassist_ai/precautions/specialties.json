@@ -1,0 +1,119 @@
+{
+  "schema_version": "medassist.specialties.v1",
+  "content_version": "1.0.0",
+  "provenance_authority": "APIP MedAssist Research Team",
+  "clinical_review_status": "provisional_research_rule_unreviewed",
+  "disclaimer": "Specialty routing rules are non-clinical heuristics designed to guide navigation and demonstration. They do not constitute human medical triaging.",
+  "specialties": [
+    {
+      "specialty_id": "emergency_medicine",
+      "name": "Emergency Medicine & Trauma Care",
+      "description": "Immediate evaluation and stabilization for acute life-threatening, organ-threatening, or severe trauma conditions.",
+      "trigger_categories": ["emergency"],
+      "trigger_symptoms": ["breathing difficulty", "chest pain", "unconscious", "severe bleeding", "emergency_override", "severe trauma"],
+      "required_capabilities": ["emergency_resuscitation", "advanced_cardiac_life_support", "emergency_airway_management", "continuous_monitoring"],
+      "default_urgency": "extreme",
+      "alternative_specialties": ["general_medicine"]
+    },
+    {
+      "specialty_id": "paediatrics",
+      "name": "Paediatrics & Child Health",
+      "description": "Medical care for infants, children, and adolescents up to 18 years of age.",
+      "trigger_categories": ["pediatric_pregnancy"],
+      "trigger_symptoms": ["pediatric_under_5", "infant_care", "pediatric_under_2_with_fever"],
+      "required_capabilities": ["pediatric_consultation", "pediatric_dosing_expertise", "pediatric_vitals_monitoring"],
+      "age_threshold": 18,
+      "alternative_specialties": ["family_medicine", "general_medicine"]
+    },
+    {
+      "specialty_id": "obstetrics_gynaecology",
+      "name": "Obstetrics & Gynaecology (OB/GYN)",
+      "description": "Care for female reproductive health, pregnancy, antenatal, and perinatal conditions.",
+      "trigger_categories": ["pediatric_pregnancy", "urinary_renal"],
+      "trigger_symptoms": ["pregnancy_precaution", "maternal_care", "pelvic_pain", "vaginal_bleeding"],
+      "required_capabilities": ["obstetric_care", "fetal_monitoring", "pelvic_ultrasound", "gynecological_examination"],
+      "alternative_specialties": ["family_medicine", "general_medicine"]
+    },
+    {
+      "specialty_id": "pulmonology",
+      "name": "Pulmonology & Respiratory Medicine",
+      "description": "Specialized evaluation and management of diseases affecting the lungs and respiratory system.",
+      "trigger_categories": ["respiratory"],
+      "trigger_symptoms": ["E_201", "cough", "coughing", "E_203", "intense coughing fits", "E_212", "hoarse voice", "wheezing", "asthma"],
+      "required_capabilities": ["spirometry", "chest_radiography", "oxygen_therapy", "nebulization"],
+      "alternative_specialties": ["family_medicine", "general_medicine"]
+    },
+    {
+      "specialty_id": "ent",
+      "name": "Ear, Nose & Throat (Otorhinolaryngology)",
+      "description": "Diagnosis and management of disorders of the ear, nose, sinuses, pharynx, and larynx.",
+      "trigger_categories": ["ent"],
+      "trigger_symptoms": ["E_97", "sore throat", "E_181", "nasal congestion", "E_182", "nasal discharge", "E_103", "loss of smell", "earache", "throat pain"],
+      "required_capabilities": ["otoscopy", "endoscopic_rhinoscopy", "pharyngeal_examination", "audiometry"],
+      "alternative_specialties": ["family_medicine", "general_medicine"]
+    },
+    {
+      "specialty_id": "dermatology",
+      "name": "Dermatology",
+      "description": "Evaluation and management of skin, hair, nail conditions, and cutaneous manifestations of systemic disease.",
+      "trigger_categories": ["skin_dermatological"],
+      "trigger_symptoms": ["E_129", "rash or skin lesions", "rash", "skin lesions", "E_151", "swelling", "itching"],
+      "required_capabilities": ["dermoscopy", "skin_scraping_biopsy", "topical_phototherapy"],
+      "alternative_specialties": ["family_medicine", "general_medicine"]
+    },
+    {
+      "specialty_id": "ophthalmology",
+      "name": "Ophthalmology",
+      "description": "Comprehensive medical and surgical eye care, ocular diagnostics, and visual preservation.",
+      "trigger_categories": ["eye_ophthalmological"],
+      "trigger_symptoms": ["E_74", "red eyes", "E_127", "excessive tears", "E_170", "severe eye itching", "eye redness", "watery eyes"],
+      "required_capabilities": ["slit_lamp_biomicroscopy", "visual_acuity_testing", "tonometry", "ophthalmoscopy"],
+      "alternative_specialties": ["family_medicine", "general_medicine"]
+    },
+    {
+      "specialty_id": "gastroenterology",
+      "name": "Gastroenterology & Hepatology",
+      "description": "Evaluation and management of digestive tract, liver, gallbladder, and pancreatic disorders.",
+      "trigger_categories": ["digestive_abdominal"],
+      "trigger_symptoms": ["E_51", "diarrhea", "E_148", "nausea", "E_211", "repeated vomiting", "E_30", "abdominal bloating", "E_32", "decreased appetite", "stomach pain", "abdominal pain"],
+      "required_capabilities": ["diagnostic_endoscopy", "abdominal_ultrasound", "liver_function_testing"],
+      "alternative_specialties": ["general_medicine", "family_medicine"]
+    },
+    {
+      "specialty_id": "orthopaedics",
+      "name": "Orthopaedics & Musculoskeletal Medicine",
+      "description": "Care for bones, joints, ligaments, tendons, and spine disorders or traumatic injury.",
+      "trigger_categories": ["musculoskeletal"],
+      "trigger_symptoms": ["E_144", "diffuse muscle pain", "body aches", "back pain", "joint pain", "muscle pain"],
+      "required_capabilities": ["musculoskeletal_radiography", "joint_aspiration", "splinting_casting", "physical_therapy_referral"],
+      "alternative_specialties": ["general_medicine", "family_medicine"]
+    },
+    {
+      "specialty_id": "dentistry",
+      "name": "Dentistry & Oral Surgery",
+      "description": "Evaluation, diagnosis, prevention, and treatment of oral cavity diseases, dentition, and gums.",
+      "trigger_categories": ["dental_oral"],
+      "trigger_symptoms": ["toothache", "dental pain", "mouth ulcer", "gum swelling", "bleeding gums", "tooth pain"],
+      "required_capabilities": ["dental_chair_examination", "intraoral_radiography", "dental_restoration_extraction"],
+      "alternative_specialties": ["ent", "general_medicine"]
+    },
+    {
+      "specialty_id": "family_medicine",
+      "name": "Family Medicine & General Practice",
+      "description": "Comprehensive continuous primary healthcare for individuals and families across all ages and body systems.",
+      "trigger_categories": ["fever_general", "respiratory", "digestive_abdominal", "ent", "musculoskeletal"],
+      "trigger_symptoms": ["E_91", "fever", "E_94", "chills", "E_175", "new fatigue or body aches", "E_89", "constant fatigue"],
+      "required_capabilities": ["primary_clinical_evaluation", "point_of_care_testing", "preventive_counseling", "chronic_disease_monitoring"],
+      "alternative_specialties": ["general_medicine"]
+    },
+    {
+      "specialty_id": "general_medicine",
+      "name": "General Medicine / Internal Medicine",
+      "description": "Adult comprehensive non-surgical medical care for complex, multisystem, and undifferentiated illnesses.",
+      "trigger_categories": ["fever_general", "headache_neurological", "digestive_abdominal", "urinary_renal"],
+      "trigger_symptoms": ["E_91", "fever", "headache", "E_53", "pain", "E_76", "dizziness", "painful urination", "burning micturition", "urinary frequency"],
+      "required_capabilities": ["general_inpatient_outpatient_care", "laboratory_diagnostics", "systemic_evaluation", "differential_workup"],
+      "alternative_specialties": ["family_medicine"]
+    }
+  ]
+}

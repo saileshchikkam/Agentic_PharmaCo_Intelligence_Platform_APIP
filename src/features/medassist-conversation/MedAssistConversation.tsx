@@ -17,6 +17,7 @@ import { captureOpenMentions, openMentionExport, reconcileOpenMentions, type Ope
 import { SEVERITY_OPTIONS, type SeverityLevel } from '../medassist-severity/severity-contracts';
 import { parseNaturalSeverity } from '../medassist-severity/severity-understanding';
 import { evaluateHybridUrgency } from '../medassist-severity/urgency-engine';
+import { evaluatePrecautionsAndSpecialty, FACILITY_TIERS_META } from '../medassist-precautions';
 import './conversation.css';
 const api = '/api/research/model-a';
 type Message = {
@@ -509,6 +510,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         emergencyTrigger: emergency?.guidance ?? undefined,
         contradictionsPresent: acceptedAnswers().some(a => a.state === 'contradiction'),
     });
+    const precautionGuidance = evaluatePrecautionsAndSpecialty(urgencyAssessment, {
+        age: fictionalAge,
+        isPregnant: false,
+    });
     const status = emergency ? 'Emergency override' : urgencyAssessment.status === 'assessed' ? `Urgency: ${urgencyAssessment.assessed_urgency?.toUpperCase()}` : scripted ? 'Not assessed' : assessmentStatus({ started: !!request || !!contextStep, finished: !!finished, unavailable: contextUnavailable });
     const exportEvidence = () => {
         if (!evidence) return;
@@ -530,6 +535,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             patient_reported_severity: patientSeverity,
             symptom_specific_severities: symptomSeverities,
             urgency_assessment: urgencyAssessment,
+            precaution_guidance: precautionGuidance,
+            specialty_recommendation: precautionGuidance.specialty_recommendation,
+            facility_navigation_contract: precautionGuidance.facility_navigation_contract,
             unresolved_conflict: result?.selection.reason === 'unresolved_contradiction', routine_questions_answered: count,
         }, null, 2)], { type: 'application/json' }));
         const link = document.createElement('a');
@@ -666,6 +674,56 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
               <ul>{urgencyAssessment.rule_provenance.map(r => <li key={r.rule_id}><strong>{r.rule_id}</strong>: {r.description} ({r.approval_status})</li>)}</ul>
             </details>}
           </div>
+
+          <div className="assessment-specialty-card">
+            <h3 className="assessment-specialty-title">Specialty Recommendation</h3>
+            <p><strong>Primary:</strong> {precautionGuidance.specialty_recommendation.primary_specialty_name}</p>
+            {precautionGuidance.specialty_recommendation.alternative_specialty_name && (
+              <p><strong>Alternative:</strong> {precautionGuidance.specialty_recommendation.alternative_specialty_name}</p>
+            )}
+            <p className="assessment-meta-list">{precautionGuidance.specialty_recommendation.rationale}</p>
+
+            <details>
+              <summary>Facility Capabilities ({precautionGuidance.facility_navigation_contract.eligible_facility_tiers.length} tiers)</summary>
+              <p className="assessment-meta-list"><strong>Emergency Care:</strong> {precautionGuidance.facility_navigation_contract.emergency_department_required ? 'Required (24x7 ED)' : 'Not mandatory'}</p>
+              <div className="assessment-facility-list">
+                {precautionGuidance.facility_navigation_contract.eligible_facility_tiers.map(tierId => (
+                  <span key={tierId} className="facility-tier-tag">{FACILITY_TIERS_META[tierId]?.display_name ?? tierId}</span>
+                ))}
+              </div>
+              {precautionGuidance.facility_navigation_contract.explicit_exclusions.length > 0 && (
+                <p className="assessment-meta-list"><strong>Excluded:</strong> {precautionGuidance.facility_navigation_contract.explicit_exclusions.join(', ')}</p>
+              )}
+            </details>
+          </div>
+
+          {precautionGuidance.symptom_precautions.length > 0 && (
+            <div className="assessment-precautions-card">
+              <h3 className="assessment-specialty-title">Symptom Precautions</h3>
+              <p className="assessment-meta-list"><strong>Guidance:</strong> {precautionGuidance.urgency_guidance.title}</p>
+              <p className="assessment-meta-list"><strong>Timeframe:</strong> {precautionGuidance.urgency_guidance.recommended_timeframe}</p>
+              <details>
+                <summary>Comfort Measures ({precautionGuidance.symptom_precautions.length} categories)</summary>
+                {precautionGuidance.symptom_precautions.map(prec => (
+                  <div key={prec.precaution_id} className="precaution-item">
+                    <p className="precaution-item-title">{prec.title}</p>
+                    <p className="precaution-section-subtitle">Comfort Steps:</p>
+                    <ul className="precaution-bullet-list">
+                      {prec.guidance.map((g, idx) => <li key={idx}>{g}</li>)}
+                    </ul>
+                    <p className="precaution-section-subtitle">Warning Signs:</p>
+                    <ul className="precaution-bullet-list">
+                      {prec.warning_signs.map((w, idx) => <li key={idx} className="precaution-warning-item">{w}</li>)}
+                    </ul>
+                    <p className="precaution-section-subtitle">What to Avoid:</p>
+                    <ul className="precaution-bullet-list">
+                      {prec.what_to_avoid.map((a, idx) => <li key={idx}>{a}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </details>
+            </div>
+          )}
           <p className="assessment-meta-list">Experimental non-clinical research rubric. Gathering answers does not establish diagnosis or certified triage.</p>
           {emergency && <p className="assessment-warning">Independent emergency help is active. This is a provisional safety interruption, not a severity prediction.</p>}
         </details>

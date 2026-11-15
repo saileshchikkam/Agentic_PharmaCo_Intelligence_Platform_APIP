@@ -2,6 +2,16 @@
 
 ## 2026-11-15
 
+### MedAssist Phase B2 — symptom-specific precautions and healthcare specialty intelligence
+
+- Implemented structured, evidence-backed precautions knowledge base covering all 11 core symptom categories (respiratory, fever & general, headache & neurological, digestive & abdominal, skin, ENT, eye & ophthalmic, musculoskeletal, dental & oral, urinary & renal, pediatric & pregnancy).
+- Each precaution record incorporates symptom triggers, applicability, exclusions, safe actionable comfort steps, explicit red-flag warning signs, what to avoid, authoritative references (NICE, NHS, WHO, CDC), provisional clinical review status (`provisional_research_rule_unreviewed`), and versioning. Strictly no drug prescriptions, dosages, or definitive clinical diagnoses.
+- Implemented urgency-based guidance engine tailoring monitoring advice, doctor preparation, immediate comfort actions, first-aid safety steps, and what NOT to do across Low, Medium, High, Extreme, and Unable to Assess tiers.
+- Implemented deterministic healthcare specialty mapping across all 12 medical specialties (General Medicine, Family Medicine, Pulmonology, ENT, Dermatology, Ophthalmology, Orthopaedics, Gastroenterology, Dentistry, Paediatrics, Obstetrics & Gynaecology, Emergency Medicine) with primary + alternative recommendations, clinical rationales, and emergency overrides.
+- Established downstream contract `medassist.facility-navigation.v1` for Phase B3 Google Maps care facility routing across all 10 healthcare facility tiers without commercial brand or size bias.
+- Integrated specialty recommendation and precaution guidance into `MedAssistConversation.tsx` reactive assessment drawer and exported session JSON.
+- Verified 12/12 Python unit tests, 13/13 TypeScript tests, `npm run lint`, `npm run build`, and live browser CDP preview flow.
+
 ### MedAssist Phase B1 — patient-reported severity and hybrid urgency assessment
 
 - Added natural conversational discomfort question ("How uncomfortable are your symptoms right now?") with 5 selectable options (Low, Medium, High, Extreme, Not sure) within the 8–10 question target.

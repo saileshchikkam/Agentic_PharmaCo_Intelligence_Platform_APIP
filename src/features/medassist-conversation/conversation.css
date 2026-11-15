@@ -91,3 +91,17 @@
 .assessment-urgency-badge.urgency-extreme { color: var(--md-sys-color-error); }
 .assessment-emergency-alert { color: var(--md-sys-color-error); font-weight: 700; padding: 6px; border: 1px solid currentColor; border-radius: 8px; margin: 6px 0; }
 .assessment-meta-list { font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin: 6px 0; }
+
+/* Phase B2 Specialty & Precautions styles */
+.assessment-specialty-card { margin-top: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface-container); }
+.assessment-specialty-title { font-weight: 700; font-size: 13px; color: var(--md-sys-color-primary); margin: 2px 0 6px; }
+.assessment-facility-list { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+.facility-tier-tag { font-size: 10px; padding: 2px 6px; border-radius: 6px; background: var(--md-sys-color-surface-container-high); border: 1px solid var(--md-sys-color-outline-variant); }
+.assessment-precautions-card { margin-top: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); }
+.precaution-item { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--md-sys-color-outline-variant); }
+.precaution-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.precaution-item-title { font-weight: 600; font-size: 12px; margin: 4px 0; }
+.precaution-section-subtitle { font-weight: 600; font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px; }
+.precaution-bullet-list { margin: 2px 0 4px 16px; padding: 0; font-size: 11px; }
+.precaution-bullet-list li { margin-bottom: 2px; }
+.precaution-warning-item { color: var(--md-sys-color-error); }

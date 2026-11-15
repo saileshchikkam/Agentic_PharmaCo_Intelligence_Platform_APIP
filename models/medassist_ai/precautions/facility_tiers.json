@@ -1,0 +1,109 @@
+{
+  "schema_version": "medassist.facility-tiers.v1",
+  "content_version": "1.0.0",
+  "provenance_authority": "APIP MedAssist Research Team",
+  "clinical_review_status": "provisional_research_rule_unreviewed",
+  "disclaimer": "Facility classification is based on standard public health service capabilities (such as IPHS guidelines) without brand or commercial bias.",
+  "facility_tiers": [
+    {
+      "tier_id": "clinics_polyclinics",
+      "display_name": "Clinics & Polyclinics",
+      "description": "Outpatient primary consultation facilities providing basic doctor consultations, vital signs checks, and prescription management.",
+      "level": "primary_outpatient",
+      "typical_bed_count": 0,
+      "capabilities": ["primary_clinical_evaluation", "outpatient_consultation", "prescription_services", "basic_point_of_care_testing"],
+      "emergency_capable": false,
+      "eligible_urgencies": ["low", "medium", "unable_to_assess"]
+    },
+    {
+      "tier_id": "primary_health_centres",
+      "display_name": "Primary Health Centres (PHC)",
+      "description": "First-contact public healthcare facilities providing basic medical care, maternal-child health services, vaccination, and basic triage.",
+      "level": "primary_public",
+      "typical_bed_count": 4,
+      "capabilities": ["primary_clinical_evaluation", "essential_medicines", "maternal_child_care", "basic_oral_rehydration", "first_aid_stabilization"],
+      "emergency_capable": false,
+      "eligible_urgencies": ["low", "medium", "unable_to_assess"]
+    },
+    {
+      "tier_id": "community_health_centres",
+      "display_name": "Community Health Centres (CHC)",
+      "description": "Block-level referral public hospitals providing 30 inpatient beds, specialist consultations (medicine, surgery, OB/GYN, pediatrics), X-ray, and basic laboratory.",
+      "level": "secondary_block",
+      "typical_bed_count": 30,
+      "capabilities": ["inpatient_care", "obstetric_care", "pediatric_consultation", "basic_emergency_care", "x_ray_imaging", "essential_laboratory"],
+      "emergency_capable": true,
+      "eligible_urgencies": ["low", "medium", "high"]
+    },
+    {
+      "tier_id": "small_private_hospitals",
+      "display_name": "Small Private Hospitals & Nursing Homes",
+      "description": "Local inpatient and outpatient facilities (10-50 beds) offering doctor consultations, day-care procedures, and general medical/surgical admissions.",
+      "level": "secondary_private_local",
+      "typical_bed_count": 30,
+      "capabilities": ["outpatient_consultation", "inpatient_care", "general_surgery", "maternity_services", "routine_laboratory"],
+      "emergency_capable": false,
+      "eligible_urgencies": ["low", "medium", "high"]
+    },
+    {
+      "tier_id": "government_general_district_hospitals",
+      "display_name": "Government General / District Hospitals",
+      "description": "Comprehensive district-level referral hospitals (100-500 beds) offering 24x7 emergency departments, critical care, blood bank, major operating rooms, and multi-specialty clinics.",
+      "level": "secondary_district_referral",
+      "typical_bed_count": 250,
+      "capabilities": ["24x7_emergency_services", "emergency_resuscitation", "icu_critical_care", "blood_bank", "comprehensive_specialties", "inpatient_wards", "radiology_ct_scan"],
+      "emergency_capable": true,
+      "eligible_urgencies": ["low", "medium", "high", "extreme", "unable_to_assess"]
+    },
+    {
+      "tier_id": "private_multispecialty_hospitals",
+      "display_name": "Private Multi-Specialty Hospitals",
+      "description": "Full-service private healthcare hospitals offering broad specialist coverage, dedicated emergency departments, intensive care, and modern diagnostic suites.",
+      "level": "secondary_tertiary_private",
+      "typical_bed_count": 150,
+      "capabilities": ["24x7_emergency_services", "icu_critical_care", "diagnostic_imaging", "specialist_consultations", "inpatient_care", "advanced_surgical_suites"],
+      "emergency_capable": true,
+      "eligible_urgencies": ["low", "medium", "high", "extreme", "unable_to_assess"]
+    },
+    {
+      "tier_id": "superspecialty_tertiary_hospitals",
+      "display_name": "Super-Specialty Hospitals & Tertiary Care",
+      "description": "Advanced referral centers focusing on specialized sub-disciplines such as cardiology, oncology, neurosurgery, organ transplants, and advanced critical care.",
+      "level": "tertiary_quaternary",
+      "typical_bed_count": 400,
+      "capabilities": ["tertiary_subspecialty_care", "advanced_icu", "cath_lab", "advanced_mri_pet_scan", "organ_transplantation", "complex_reconstructive_surgery"],
+      "emergency_capable": true,
+      "eligible_urgencies": ["medium", "high", "extreme"]
+    },
+    {
+      "tier_id": "medical_college_hospitals",
+      "display_name": "Medical College Hospitals & Teaching Institutions",
+      "description": "Large university and government teaching hospitals with comprehensive faculty departments, high-volume emergency trauma bays, intensive care units, and clinical research.",
+      "level": "tertiary_teaching",
+      "typical_bed_count": 750,
+      "capabilities": ["24x7_emergency_trauma_care", "comprehensive_faculties", "pediatric_icu", "neonatal_icu", "multi_specialty_inpatient", "advanced_diagnostics"],
+      "emergency_capable": true,
+      "eligible_urgencies": ["low", "medium", "high", "extreme", "unable_to_assess"]
+    },
+    {
+      "tier_id": "diagnostic_centres",
+      "display_name": "Diagnostic Centres & Imaging Facilities",
+      "description": "Specialized standalone outpatient diagnostic clinics providing pathology, biochemistry, ultrasound, X-ray, CT, and MRI investigations without inpatient or emergency services.",
+      "level": "diagnostic_outpatient",
+      "typical_bed_count": 0,
+      "capabilities": ["radiology_imaging", "ultrasound", "laboratory_pathology", "biochemistry", "ecg_tmt"],
+      "emergency_capable": false,
+      "eligible_urgencies": ["low", "medium"]
+    },
+    {
+      "tier_id": "emergency_departments_trauma",
+      "display_name": "24x7 Emergency Departments & Trauma Care",
+      "description": "Dedicated emergency resuscitation units staffed around the clock with acute care specialists and emergency physicians for urgent life stabilization.",
+      "level": "emergency_trauma_critical",
+      "typical_bed_count": 20,
+      "capabilities": ["24x7_emergency_services", "emergency_resuscitation", "advanced_cardiac_life_support", "emergency_airway_management", "trauma_stabilization", "rapid_triage"],
+      "emergency_capable": true,
+      "eligible_urgencies": ["high", "extreme"]
+    }
+  ]
+}

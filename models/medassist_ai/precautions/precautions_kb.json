@@ -1,0 +1,396 @@
+{
+  "schema_version": "medassist.precautions-kb.v1",
+  "content_version": "1.0.0",
+  "provenance_authority": "APIP MedAssist Research Team",
+  "clinical_review_status": "provisional_research_rule_unreviewed",
+  "disclaimer": "All precaution records are experimental non-clinical guidance for fictional research software validation. They do not constitute certified medical treatment, drug prescription, or clinical triage.",
+  "precautions": [
+    {
+      "precaution_id": "PREC_RESP_COUGH",
+      "symptom_ids": ["E_201", "cough", "coughing", "E_203", "intense coughing fits", "E_212", "hoarse voice"],
+      "category": "respiratory",
+      "title": "Respiratory Comfort & Cough Management Precautions",
+      "applicability_conditions": ["Patient reports acute or subacute cough, coughing fits, or hoarseness without acute respiratory distress."],
+      "exclusion_criteria": ["Severe shortness of breath", "Stridor or inability to speak full sentences", "Coughing up significant blood (hemoptysis)"],
+      "guidance": [
+        "Maintain upright or elevated resting posture using pillows to ease airflow during sleep.",
+        "Stay well hydrated with warm water, herbal teas, or broths to thin mucus secretions.",
+        "Use warm steam inhalation or a cool mist humidifier in well-ventilated rooms.",
+        "Sip warm water with honey (for individuals older than 1 year only) to soothe throat irritation."
+      ],
+      "warning_signs": [
+        "Sudden onset of severe shortness of breath or audible wheezing.",
+        "Bluish discoloration of lips, tongue, or fingertips (cyanosis).",
+        "Chest pain that worsens with deep breathing or coughing.",
+        "Coughing up frank blood or rust-colored sputum.",
+        "Cough persisting for more than 3 weeks without improvement."
+      ],
+      "what_to_avoid": [
+        "Do not self-prescribe or purchase over-the-counter antibiotics without a doctor's examination.",
+        "Avoid active and passive tobacco smoke, fumes, and aerosol irritants.",
+        "Do not suppress productive (phlegm-producing) coughs with strong cough suppressants without clinical advice.",
+        "Avoid intense aerobic exercise while coughing fits are active."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NICE Clinical Knowledge Summaries (CKS): Cough - acute with chest signs (2023)",
+        "NHS Health A to Z: Cough (2024)",
+        "WHO Pocket Book of Hospital Care for Children: Cough or Difficult Breathing"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_FEVER_GENERAL",
+      "symptom_ids": ["E_91", "fever", "feverish", "E_94", "chills", "E_50", "sweating", "E_175", "new fatigue or body aches", "E_89", "constant fatigue"],
+      "category": "fever_general",
+      "title": "Fever, Chills & Systemic Malaise Supportive Precautions",
+      "applicability_conditions": ["Patient reports elevated body temperature, feverish feeling, chills, or generalized malaise."],
+      "exclusion_criteria": ["Infants under 3 months with fever >= 38°C", "Stiff neck with light sensitivity (photophobia)", "Non-blanching petechial or purpuric rash", "Altered mental status or delirium"],
+      "guidance": [
+        "Rest adequately and avoid physical overexertion.",
+        "Wear lightweight, breathable loose cotton clothing and keep room temperature comfortably cool.",
+        "Maintain frequent intake of oral fluids (water, oral rehydration solutions, clear broths) to replace fluid loss from sweating.",
+        "Use lukewarm water sponge baths if fever causes significant distress; do not use cold water or ice."
+      ],
+      "warning_signs": [
+        "Fever exceeding 39.5°C (103°F) that does not come down with supportive measures.",
+        "Fever accompanied by severe stiff neck, confusion, extreme drowsiness, or seizures.",
+        "Development of a purple or dark red rash that does not fade when pressed with a glass (tumbler test).",
+        "Fever lasting more than 3 consecutive days in adults or 48 hours in children.",
+        "Signs of dehydration: dry mouth, sunken eyes, absence of urination for 8+ hours."
+      ],
+      "what_to_avoid": [
+        "Do not wrap the person in heavy blankets or bundle with excess clothes during chills.",
+        "Do not take aspirin in children or adolescents under 19 years due to risk of Reye's syndrome.",
+        "Do not combine multiple over-the-counter multi-symptom cold/fever medications without checking active ingredients for duplication.",
+        "Do not consume alcohol or caffeinated energy drinks while feverish."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NICE Clinical Guideline CG160: Fever in under 5s - assessment and initial management (2021)",
+        "NHS Health A to Z: High temperature (fever) in adults (2023)",
+        "CDC: Clinical Guidance on Fever and Febrile Illness"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_HEADACHE_NEURO",
+      "symptom_ids": ["headache", "E_53", "pain", "E_76", "slight dizziness or lightheadedness", "E_177", "numbness or tingling", "E_93", "numb feet"],
+      "category": "headache_neurological",
+      "title": "Headache, Dizziness & Neurological Safety Precautions",
+      "applicability_conditions": ["Patient reports tension-type headache, mild lightheadedness, or localized head discomfort without red-flag neurological deficits."],
+      "exclusion_criteria": ["Sudden onset 'thunderclap' headache (worst headache of life reaching peak in seconds)", "Focal neurological deficit (facial droop, arm weakness, slurred speech - FAST criteria)", "Head trauma within previous 48 hours", "Headache with progressive visual field loss"],
+      "guidance": [
+        "Rest in a quiet, dimly lit, and well-ventilated room.",
+        "Apply a cool or lukewarm compress across the forehead or the back of the neck.",
+        "Ensure adequate hydration and regular light meals; hunger and dehydration are frequent triggers.",
+        "Change positions slowly from lying to sitting, and from sitting to standing, to avoid orthostatic dizziness."
+      ],
+      "warning_signs": [
+        "Sudden, explosive headache reaching maximum intensity within seconds (thunderclap).",
+        "Weakness, numbness, or paralysis on one side of the face or body.",
+        "Difficulty speaking, slurred words, or inability to understand speech.",
+        "Loss of balance, sudden unsteadiness, or severe vertigo with vomiting.",
+        "Headache with high fever, neck stiffness, and painful aversion to light."
+      ],
+      "what_to_avoid": [
+        "Do not drive, operate heavy machinery, or ride two-wheelers if feeling dizzy or uncoordinated.",
+        "Avoid prolonged screen time (mobile phones, laptops, television) in bright environments.",
+        "Avoid excessive intake of pain medications to prevent medication-overuse (rebound) headaches.",
+        "Do not ignore sudden changes in vision or speech."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NICE Clinical Guideline CG150: Headaches in over 12s - diagnosis and management (2021)",
+        "NHS Health A to Z: Headaches (2024)",
+        "American Academy of Neurology: Guideline on Evaluation of Acute Headache"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_DIGESTIVE_ABDOMINAL",
+      "symptom_ids": ["E_51", "diarrhea", "E_148", "nausea", "E_211", "repeated vomiting", "E_30", "abdominal bloating", "E_32", "decreased appetite", "stomach pain", "abdominal pain"],
+      "category": "digestive_abdominal",
+      "title": "Digestive & Gastrointestinal Recovery Precautions",
+      "applicability_conditions": ["Patient reports gastrointestinal distress such as mild diarrhea, nausea, bloating, or stomach ache without signs of surgical abdomen."],
+      "exclusion_criteria": ["Severe localized abdominal rigidity, rebound tenderness, or guarding (acute abdomen)", "Vomiting blood or material resembling coffee grounds (hematemesis)", "Black tarry stools (melena) or frank rectal bleeding", "Inability to retain liquids for more than 12-24 hours"],
+      "guidance": [
+        "Focus on oral rehydration therapy: sip oral rehydration salts (ORS), clear electrolyte solutions, or rice congee frequently in small quantities.",
+        "Adopt a bland, gentle diet (e.g. bananas, rice, curd/yogurt, toast, boiled potatoes) once nausea subsides.",
+        "Eat small, frequent meals rather than large heavy portions.",
+        "Wash hands thoroughly with soap and clean water after using the restroom and before preparing food."
+      ],
+      "warning_signs": [
+        "Severe, sharp, continuous localized abdominal pain (especially lower right quadrant).",
+        "Inability to keep any fluids down for over 12 hours accompanied by intense thirst or dizziness.",
+        "Presence of fresh blood or dark coffee-ground appearance in vomit.",
+        "Stools that are dark black, tarry, or visibly bloody.",
+        "High fever (>38.5°C) accompanying acute diarrheal illness."
+      ],
+      "what_to_avoid": [
+        "Do not take anti-motility agents (such as loperamide) if there is high fever or bloody diarrhea without physician instructions.",
+        "Avoid oily, greasy, highly spiced, or deep-fried foods.",
+        "Avoid unpasteurized milk, raw salads from outside vendors, and ice from unverified water sources.",
+        "Do not take NSAID pain relievers (like ibuprofen or diclofenac) on an empty stomach with abdominal distress."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "WHO Guidelines: The Treatment of Diarrhoea - A manual for physicians and other senior health workers",
+        "NICE Clinical Knowledge Summaries: Gastroenteritis (2023)",
+        "NHS Health A to Z: Diarrhoea and vomiting (2024)"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_SKIN_DERMATOLOGICAL",
+      "symptom_ids": ["E_129", "rash or skin lesions", "rash", "skin lesions", "E_151", "swelling", "itching"],
+      "category": "skin_dermatological",
+      "title": "Skin Rash, Lesions & Dermatological Care Precautions",
+      "applicability_conditions": ["Patient reports localized or generalized skin rash, superficial irritation, or localized swelling without anaphylaxis."],
+      "exclusion_criteria": ["Facial swelling involving lips, tongue, eyelids, or throat tightness (angioedema/anaphylaxis)", "Extensive blistering or skin peeling over large body surface area (e.g. Stevens-Johnson syndrome / TEN)", "Rapidly spreading warmth, redness, and severe pain suggestive of necrotizing fasciitis"],
+      "guidance": [
+        "Keep the affected skin clean, dry, and exposed to comfortable circulating air.",
+        "Wear loose-fitting, soft cotton clothing to prevent friction and sweat accumulation.",
+        "Apply cool, damp compresses to localized itchy or inflamed areas to relieve irritation.",
+        "Trim fingernails short to minimize skin breakage and secondary bacterial infection from scratching."
+      ],
+      "warning_signs": [
+        "Sudden rash accompanied by difficulty breathing, wheezing, or facial/lip swelling.",
+        "Rapidly spreading bright red, hot, exquisitely tender skin with fever (cellulitis or necrotizing infection).",
+        "Formation of widespread blisters, painful mouth ulcers, or peeling skin.",
+        "Pus-filled lesions with red streaks extending toward the core of the body.",
+        "Dark purple spots or bruised appearance that does not fade when pressed."
+      ],
+      "what_to_avoid": [
+        "Do not scratch, pop blisters, or vigorously rub inflamed skin areas.",
+        "Avoid harsh chemical soaps, heavily perfumed lotions, and strong topical remedies without medical advice.",
+        "Avoid bathing in hot water; use lukewarm water instead.",
+        "Do not share towels, clothing, or bedding if a contagious condition (scabies, fungal infection) is suspected."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "British Association of Dermatologists: Patient Information Leaflets",
+        "NHS Health A to Z: Rashes in adults and children (2024)",
+        "NICE Clinical Knowledge Summaries: Eczema - atopic / Urticaria (2023)"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_ENT_UPPER_AIRWAY",
+      "symptom_ids": ["E_97", "sore throat", "E_181", "nasal congestion or clear runny nose", "E_182", "green or yellow nasal discharge", "E_103", "loss of smell", "earache", "throat pain"],
+      "category": "ent",
+      "title": "Ear, Nose & Throat (ENT) Comfort Precautions",
+      "applicability_conditions": ["Patient presents with sore throat, nasal congestion, sinus fullness, or clear/colored nasal discharge without airway compromise."],
+      "exclusion_criteria": ["Inability to swallow saliva or open the mouth (trismus / peritonsillar abscess)", "Severe stridor or breathing distress", "Persistent clear fluid dripping from nose or ear following head injury (CSF leak)"],
+      "guidance": [
+        "Gargle with warm salt water (1/2 teaspoon salt in 1 glass of warm water) 3-4 times daily to reduce pharyngeal swelling and discomfort.",
+        "Use normal saline nasal drops or sprays to loosen thick secretions and clear nasal passages gently.",
+        "Maintain elevated head position while sleeping to relieve sinus pressure.",
+        "Stay hydrated with warm, soothing broths, herbal teas, or warm water."
+      ],
+      "warning_signs": [
+        "Severe difficulty swallowing leading to drooling or inability to swallow liquids.",
+        "Inability to fully open the mouth (trismus) or asymmetrical bulging of the tonsils (quincy).",
+        "Severe unilateral ear pain with fluid or pus discharge, or redness/swelling behind the ear over the mastoid bone.",
+        "High fever with severe unilateral facial pain and swelling around the eyes.",
+        "Symptoms worsening significantly after temporary improvement ('double sickening')."
+      ],
+      "what_to_avoid": [
+        "Do not force-blow both nostrils simultaneously with high pressure; blow gently one nostril at a time.",
+        "Avoid overuse of topical decongestant nasal sprays (xylometazoline/oxymetazoline) for more than 3-5 days to avoid rebound congestion (rhinitis medicamentosa).",
+        "Avoid smoking and exposure to dusty or smoke-filled environments.",
+        "Do not poke cotton buds, pins, or foreign objects into the ear canal."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NICE Clinical Guideline NG84: Sore throat (acute): antimicrobial prescribing (2018)",
+        "NHS Health A to Z: Sore throat / Sinusitis (2023)",
+        "American Academy of Otolaryngology-Head and Neck Surgery: Clinical Practice Guideline - Adult Sinusitis"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_EYE_OPHTHALMIC",
+      "symptom_ids": ["E_74", "red eyes", "E_127", "excessive tears", "E_170", "severe eye itching", "eye redness", "watery eyes"],
+      "category": "eye_ophthalmological",
+      "title": "Ocular Comfort & Eye Hygiene Precautions",
+      "applicability_conditions": ["Patient presents with mild conjunctival irritation, superficial red eye, watering, or itching without vision reduction."],
+      "exclusion_criteria": ["Significant decrease in visual acuity or blurriness", "Severe, deep, boring eye pain", "Corneal cloudiness or unequal pupils", "Chemical splash or penetrating eye trauma"],
+      "guidance": [
+        "Wash hands with soap and water thoroughly before and after touching the eye region.",
+        "Apply a clean, cool, moist cloth compress over closed eyelids to soothe itching and irritation.",
+        "Use preservative-free lubricating artificial tear drops if eyes feel dry or gritty.",
+        "Discard disposable eye makeup or applicators that may have been contaminated during infection."
+      ],
+      "warning_signs": [
+        "Sudden reduction in vision, halo formation around lights, or complete loss of vision in one eye.",
+        "Severe, throbbing eye pain or headache centered around the ocular socket.",
+        "Extreme sensitivity to ordinary room light (photophobia).",
+        "Copious, thick yellow or green purulent discharge that glues eyelids shut repeatedly.",
+        "History of foreign body sensation or high-velocity metal/chemical injury to the eye."
+      ],
+      "what_to_avoid": [
+        "Do not rub or press on the eyes, as rubbing can cause corneal micro-abrasions and spread infection.",
+        "Do not wear contact lenses while experiencing eye redness, itching, or discharge; switch to spectacles.",
+        "Do not use leftover steroid or antibiotic eye drops from previous prescriptions without an ophthalmologist's slit-lamp examination.",
+        "Avoid sharing towels, pillows, or cosmetics with others."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "Royal College of Ophthalmologists: Primary Eye Care Guidance",
+        "NHS Health A to Z: Red eye / Conjunctivitis (2024)",
+        "American Academy of Ophthalmology: Preferred Practice Pattern - Conjunctivitis"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_MUSCULOSKELETAL",
+      "symptom_ids": ["E_144", "diffuse muscle pain", "body aches", "back pain", "joint pain", "muscle pain"],
+      "category": "musculoskeletal",
+      "title": "Musculoskeletal Care & Body Pain Precautions",
+      "applicability_conditions": ["Patient reports diffuse muscle aches, postural back discomfort, or joint stiffness without neurological loss."],
+      "exclusion_criteria": ["Loss of bowel or bladder sphincter control (cauda equina syndrome)", "Saddle anesthesia (numbness in groin, buttocks, or perineum)", "Inability to bear weight after acute traumatic fall or injury", "Hot, swollen, acutely erythematous single joint with fever (septic arthritis)"],
+      "guidance": [
+        "Alternate periods of gentle activity and rest; avoid complete prolonged bed rest which worsens back stiffness.",
+        "Apply cold packs for the first 48 hours following an acute muscle strain, followed by warm compresses to relax tight muscles.",
+        "Maintain supportive ergonomics while sitting, with feet flat on the floor and lower back supported.",
+        "Engage in gentle stretching within comfort limits; stop if sharp pain is provoked."
+      ],
+      "warning_signs": [
+        "New onset incontinence of bowel or bladder, or difficulty urinating accompanied by back pain.",
+        "Numbness, loss of sensation around the genitals or saddle area.",
+        "Progressive weakness in the legs or inability to lift the foot (foot drop).",
+        "An acutely hot, red, swollen joint with high fever and inability to move the limb.",
+        "Pain that is constant, unremitting, awakens from sleep, and not relieved by rest."
+      ],
+      "what_to_avoid": [
+        "Do not lift heavy weights or twist the torso while lifting.",
+        "Avoid aggressive spinal manipulation or forceful chiropractic adjustments during acute severe pain.",
+        "Do not remain completely immobile in bed for multiple consecutive days.",
+        "Avoid high-impact jumping or running until acute muscular pain resolves."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NICE Guideline NG59: Low back pain and sciatica in over 16s: assessment and management (2020)",
+        "NHS Health A to Z: Back pain / Muscle aches (2023)",
+        "British Orthopaedic Association: Triage Guidelines for Musculoskeletal Trauma"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_DENTAL_ORAL",
+      "symptom_ids": ["toothache", "dental pain", "mouth ulcer", "gum swelling", "bleeding gums", "tooth pain"],
+      "category": "dental_oral",
+      "title": "Dental & Oral Hygiene Comfort Precautions",
+      "applicability_conditions": ["Patient presents with localized dental pain, tooth sensitivity, gum swelling, or superficial oral aphthous ulcers."],
+      "exclusion_criteria": ["Facial swelling spreading to the lower jaw, floor of mouth, or neck with difficulty breathing/swallowing (Ludwig's angina)", "Uncontrolled oral hemorrhage following extraction or trauma", "Trismus with high fever"],
+      "guidance": [
+        "Rinse mouth gently with warm salt water (1/2 teaspoon in warm water) after meals to cleanse food debris and reduce bacteria.",
+        "Use a soft-bristled toothbrush and clean teeth with gentle circular strokes without scrubbing hard against inflamed gums.",
+        "Apply a cold compress against the outer cheek near the painful tooth to reduce local swelling and throbbing.",
+        "Floss gently between adjacent teeth to dislodge any trapped food particles causing localized pressure."
+      ],
+      "warning_signs": [
+        "Swelling extending into the neck, under the jaw, or causing difficulty swallowing or breathing.",
+        "High fever with chills accompanying tooth pain and facial swelling.",
+        "Inability to open mouth wide enough to eat or speak.",
+        "Continuous oozing of blood from the gum socket that does not stop after 20 minutes of firm gauze pressure.",
+        "Numbness of the lip, chin, or tongue following dental pain."
+      ],
+      "what_to_avoid": [
+        "Never place an aspirin tablet or chemical painkiller directly against the gum or tooth surface (causes chemical acid burns).",
+        "Avoid very hot, icy-cold, or excessively sugary foods and beverages that provoke sharp pulpal pain.",
+        "Do not chew hard foods (nuts, ice, hard candy) on the affected side.",
+        "Do not pop or drain dental abscesses or gum boils at home."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NHS Health A to Z: Toothache (2023)",
+        "British Dental Association: Management of Acute Dental Pain and Infection",
+        "American Dental Association: Dental Emergencies Guidance"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_URINARY_RENAL",
+      "symptom_ids": ["painful urination", "burning micturition", "urinary frequency", "dysuria", "discolored urine", "flank pain"],
+      "category": "urinary_renal",
+      "title": "Urinary Comfort & Hydration Precautions",
+      "applicability_conditions": ["Patient presents with mild dysuria, urinary frequency, or mild lower abdominal urinary discomfort without systemic toxic signs."],
+      "exclusion_criteria": ["High spiking fever with shaking chills and severe flank pain (acute pyelonephritis)", "Visible frank blood or clots in urine (gross hematuria)", "Complete inability to pass urine (acute urinary retention)", "Pregnancy with any urinary symptoms (requires immediate medical review)"],
+      "guidance": [
+        "Increase fluid intake by drinking plenty of plain water throughout the day to flush the urinary tract.",
+        "Empty the bladder completely whenever the urge to urinate arises; do not delay urination.",
+        "Wipe from front to back after using the toilet (particularly important for females) to prevent bacterial transfer.",
+        "Apply a warm water bottle across the lower abdomen to ease bladder cramping."
+      ],
+      "warning_signs": [
+        "High fever with rigors/chills and sharp pain in the side of the back (flank / kidney tenderness).",
+        "Urine that is visibly red, pink, or containing distinct blood clots.",
+        "Complete inability to urinate despite having a full, painful bladder.",
+        "Nausea and repeated vomiting preventing the retention of oral fluids.",
+        "Confusion or acute mental status changes in older adults presenting with urinary changes."
+      ],
+      "what_to_avoid": [
+        "Do not self-medicate with leftover antibiotics; improper use leads to treatment failure and antibiotic resistance.",
+        "Avoid coffee, alcohol, citrus juices, and carbonated beverages that irritate the bladder lining.",
+        "Avoid using perfumed bubble baths, vaginal douches, or harsh chemical hygiene sprays.",
+        "Do not restrict water intake in an attempt to reduce frequency of urination."
+      ],
+      "urgent_assessment_required": false,
+      "authoritative_references": [
+        "NICE Guideline NG109: Urinary tract infection (lower): antimicrobial prescribing (2018)",
+        "NHS Health A to Z: Urinary tract infections (UTIs) (2023)",
+        "CDC: Urinary Tract Infection Basics and Clinical Guidance"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    },
+    {
+      "precaution_id": "PREC_PEDIATRIC_PREGNANCY",
+      "symptom_ids": ["pediatric_under_5", "infant_care", "pregnancy_precaution", "maternal_care", "pediatric_under_2_with_fever"],
+      "category": "pediatric_pregnancy",
+      "title": "Pediatric & Pregnancy Safety & Vulnerability Precautions",
+      "applicability_conditions": ["Applicable when patient is an infant/child under 5 years or when maternal/pregnancy context is present."],
+      "exclusion_criteria": ["Neonatal fever (<3 months) with temperature >= 38°C", "Decreased or absent fetal movements in third trimester", "Vaginal bleeding or fluid leakage in pregnancy", "Seizure or floppy/lethargic child unresponsive to voice"],
+      "guidance": [
+        "For infants and young children, offer frequent small sips of fluids, breastmilk, or oral electrolyte solutions to prevent rapid dehydration.",
+        "Monitor wet nappies/diapers closely (minimum 4-6 wet diapers in 24 hours indicates adequate hydration).",
+        "Keep child in comfortable, light clothing; monitor temperature with a digital armpit or forehead thermometer.",
+        "For pregnant individuals, rest on the left lateral side to optimize maternal-fetal circulation and placental perfusion.",
+        "Consult a qualified healthcare provider before consuming any herbal preparations, supplements, or medications during pregnancy or breastfeeding."
+      ],
+      "warning_signs": [
+        "Child is unusually drowsy, difficult to wake, or does not interact or make eye contact.",
+        "Rapid breathing with chest indrawing (ribs sucking in deeply) or grunting with every breath.",
+        "High-pitched, weak, or continuous abnormal cry in an infant.",
+        "In pregnancy: any vaginal bleeding, sudden leakage of fluid, or sharp unrelenting abdominal pain.",
+        "In pregnancy: severe frontal headache with blurred vision, swelling of hands/face, or sudden epigastric pain (signs of pre-eclampsia)."
+      ],
+      "what_to_avoid": [
+        "Never give honey to an infant under 12 months due to the risk of infant botulism.",
+        "Never give aspirin or aspirin-containing products to children or teenagers.",
+        "Do not administer cold remedies or multi-ingredient cough syrups to children under 6 years without a paediatrician's direction.",
+        "In pregnancy, never take NSAIDs (like ibuprofen) without explicit obstetrician clearance."
+      ],
+      "urgent_assessment_required": true,
+      "authoritative_references": [
+        "WHO Integrated Management of Childhood Illness (IMCI) Guidelines",
+        "NICE Clinical Guideline CG160: Fever in under 5s (2021)",
+        "NICE Guideline NG201: Antenatal care (2021)",
+        "NHS Health A to Z: Pregnancy and baby guide (2024)"
+      ],
+      "clinical_review_status": "provisional_research_rule_unreviewed",
+      "content_version": "1.0.0"
+    }
+  ]
+}
