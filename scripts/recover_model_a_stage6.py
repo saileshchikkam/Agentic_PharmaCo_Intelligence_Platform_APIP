@@ -31,7 +31,6 @@ from models.medassist_v2.training.data import (
     OfficialDataset,
     implementation_hashes,
     file_hash,
-    write_json,
 )
 from models.medassist_v2.training.campaign import (
     policies,
@@ -44,6 +43,14 @@ from models.medassist_v2.training.campaign import (
 from models.medassist_v2.training.flow import trajectory
 from models.medassist_v2.validation import read_json, require
 from models.medassist_v2 import questioning_protocol as ref
+
+
+def safe_write_json(path: Path, data: Any) -> None:
+    """Atomic write that safely overwrites without failing on existing files."""
+    tmp_path = path.with_suffix(f".tmp_{os.getpid()}")
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+    tmp_path.replace(path)
 
 
 def main() -> int:
@@ -172,7 +179,7 @@ def main() -> int:
                         "estimated_remaining_hours": round(remaining_sec / 3600.0, 2),
                         "updated_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
                     }
-                    write_json(progress_path, progress_info)
+                    safe_write_json(progress_path, progress_info)
 
                     if processed_in_session % 2000 == 0:
                         print(
@@ -203,10 +210,19 @@ def main() -> int:
 
             print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Trajectory database closed cleanly. Generating validation-aggregate.json...", flush=True)
             report = cached_report(run_root, "validation", p)
-            write_json(run_root / "validation-aggregate.json", report)
+            val_agg_path = run_root / "validation-aggregate.json"
+            if val_agg_path.exists():
+                val_agg_path.unlink()
+            safe_write_json(val_agg_path, report)
             print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] validation-aggregate.json written successfully.", flush=True)
 
             print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Sealing campaign artifacts...", flush=True)
+            # Ensure seal files do not pre-exist
+            for seal_f in ["pre-test-seal.json", "pre-test-seal-hash.json", "campaign-provenance.json"]:
+                p_f = run_root / seal_f
+                if p_f.exists():
+                    p_f.unlink()
+
             seal_record = seal(run_root, p)
             verify_seal(run_root, dataset, p)
             print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Pre-test seal created and cryptographically verified!", flush=True)
@@ -219,7 +235,7 @@ def main() -> int:
                 resume_time=worker_info["started_at_utc"],
                 resumption_note=(
                     "Stages 1-5 completed cleanly (selection.json verified); Stage 6 evaluation was checkpointed at "
-                    f"ordinal {start_ordinal - 1} (276,000 trajectories, 52.1% complete). Deterministic checkpoint recovery resumed "
+                    f"ordinal {start_ordinal - 1} ({start_ordinal * 4} trajectories). Deterministic checkpoint recovery resumed "
                     f"from ordinal {start_ordinal} through {total_patients - 1} without altering the 13 frozen files or refitting models."
                 ),
                 representation=representation,
@@ -229,13 +245,12 @@ def main() -> int:
             )
 
             completion_info_path = run_root / "stage6_completion.json"
-            write_json(completion_info_path, provenance)
+            safe_write_json(completion_info_path, provenance)
 
             worker_info["status"] = "completed"
             worker_info["completed_at_utc"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
             worker_info["seal_sha256"] = provenance["seal_sha256"]
-            with open(worker_info_path, "w", encoding="utf-8") as f:
-                json.dump(worker_info, f, indent=2)
+            safe_write_json(worker_info_path, worker_info)
 
             print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] All Stage 6 validation, aggregation, and sealing completed successfully!", flush=True)
             print(f"[{datetime.datetime.now(datetime.timezone.utc).isoformat()}] Seal SHA-256: {provenance['seal_sha256']}", flush=True)
