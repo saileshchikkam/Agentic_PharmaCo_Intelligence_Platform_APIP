@@ -2,6 +2,15 @@
 
 ## 2026-11-17
 
+### MedAssist Phase C1 — Assessment Content Refinement
+
+- Renamed restart action from "Restart fictional interview" to "Restart Session" across the conversation UI and completion views.
+- Updated Box 1 ("Your Reported Severity"): displays vertical list of all 4 severity tiers (Low, Medium, High, Extreme) with circular colored dots (Low `#22C55E`, Medium `#EAB308`, High `#EF4444`, Extreme `#000000` with subtle contrasting outline for dark theme). When assessed, highlights the selected row with matching colored border, tinted background, semibold text, and right-aligned checkmark (`✓`); non-selected rows remain visible but visually muted. Displays neutral gray indicator when unassessed or inconclusive.
+- Updated Box 2 ("Symptom-Based Assessment"): displays vertical list of all 4 severity tiers with circular colored dots and independent highlighting matching assessed urgency, paired with concise explanation of the result, risk factors, and emergency safety override alerts.
+- Updated Box 3 ("Recommended Precautions"): provides clear, actionable, evidence-grounded precautions in properly formatted bulleted sections: When to Seek Medical Attention, What to Do, What to Avoid, and Warning Signs (Red Flags).
+- Added "Download Session" action: generates and downloads a readable, standard PDF 1.4 document (`src/features/medassist-conversation/pdf-export.ts`) capturing completed conversation questions & answers, confirmed symptoms, patient-reported severity, system-assessed urgency, precautions, specialty routing, and research disclaimer with zero external npm dependencies.
+- Preserved existing overall interface, RHS drawer dimensions, theme compatibility, emergency overrides, specialist recommendations, and facility discovery.
+
 ### MedAssist — Final Integration & Release Readiness
 
 - Verified the complete multi-phase MedAssist pipeline: natural symptom intake → deterministic confirmation → Model A adaptive questioning (65,537 learned parameters) → patient-reported severity → hybrid urgency assessment → symptom-specific precautions → healthcare specialty mapping → care facility discovery via Google Maps Platform.

@@ -18,6 +18,7 @@ import { SEVERITY_OPTIONS, type SeverityLevel } from '../medassist-severity/seve
 import { parseNaturalSeverity } from '../medassist-severity/severity-understanding';
 import { evaluateHybridUrgency } from '../medassist-severity/urgency-engine';
 import { evaluatePrecautionsAndSpecialty, FACILITY_TIERS_META } from '../medassist-precautions';
+import { generateSessionPdf } from './pdf-export';
 import './conversation.css';
 const api = '/api/research/model-a';
 type Message = {
@@ -34,6 +35,38 @@ const openMentionStatusText: Record<OpenMentionRecord['status'], string> = {
     other_person: 'Description about another person',
     hypothetical: 'Hypothetical or non-current description',
 };
+
+const SEVERITY_LEVELS_META = [
+    { id: 'low', label: 'Low', dotClass: 'severity-dot-low', highlightClass: 'highlight-low' },
+    { id: 'medium', label: 'Medium', dotClass: 'severity-dot-medium', highlightClass: 'highlight-medium' },
+    { id: 'high', label: 'High', dotClass: 'severity-dot-high', highlightClass: 'highlight-high' },
+    { id: 'extreme', label: 'Extreme', dotClass: 'severity-dot-extreme', highlightClass: 'highlight-extreme' },
+] as const;
+
+function SeverityLevelsList({ selectedLevel }: { selectedLevel: 'low' | 'medium' | 'high' | 'extreme' | null }) {
+    return (
+        <div className="severity-level-list" role="list" aria-label="Severity levels">
+            {SEVERITY_LEVELS_META.map(level => {
+                const isSelected = selectedLevel === level.id;
+                return (
+                    <div
+                        key={level.id}
+                        role="listitem"
+                        className={`severity-level-row ${isSelected ? `highlighted ${level.highlightClass}` : 'muted'}`}
+                        aria-selected={isSelected}
+                    >
+                        <div className="severity-level-content">
+                            <span className={`severity-dot ${level.dotClass}`} aria-hidden="true" />
+                            <span>{level.label}</span>
+                        </div>
+                        {isSelected && <span className="severity-row-check" aria-hidden="true">✓</span>}
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
 export default function MedAssistConversation() {
     const [scripted, setScripted] = useState(true);
     return <Conversation key={String(scripted)} scripted={scripted} switchMode={() => setScripted(value => !value)}/>;
@@ -546,6 +579,61 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         link.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
     };
+    const downloadSessionPdf = () => {
+        const qaPairs: Array<{ question: string; answer: string }> = [];
+        for (let i = 0; i < messages.length; i++) {
+            const msg = messages[i];
+            if (msg.role === 'MedAssist' && i > 0 && messages[i + 1]?.role === 'You') {
+                qaPairs.push({
+                    question: msg.text,
+                    answer: messages[i + 1].text,
+                });
+            }
+        }
+        const pdfBytes = generateSessionPdf({
+            sessionDate: new Date().toLocaleString(),
+            patientDescription: narratives[0] || description || 'Initial symptom description',
+            confirmedSymptoms: confirmedEvidenceIds.map(id => name(id)),
+            fictionalAge,
+            fictionalSex: sourceSex,
+            questionsAndAnswers: qaPairs,
+            patientSeverity,
+            symptomSeverities,
+            assessedUrgency: urgencyAssessment.status === 'assessed' ? urgencyAssessment.assessed_urgency : null,
+            urgencyRationale: urgencyAssessment.navigation_requirements.rationale,
+            emergencyOverride: !!urgencyAssessment.emergency_override || !!emergency,
+            emergencyTrigger: urgencyAssessment.emergency_trigger || emergency?.guidance,
+            riskFactors: urgencyAssessment.relevant_risk_factors,
+            recommendedSpecialty: {
+                primary: precautionGuidance.specialty_recommendation.primary_specialty_name,
+                alternative: precautionGuidance.specialty_recommendation.alternative_specialty_name || undefined,
+                rationale: precautionGuidance.specialty_recommendation.rationale,
+            },
+            precautions: {
+                timeframe: precautionGuidance.urgency_guidance.recommended_timeframe,
+                whatToDo: Array.from(new Set([
+                    ...precautionGuidance.urgency_guidance.immediate_actions,
+                    ...precautionGuidance.symptom_precautions.flatMap(p => p.guidance),
+                ])),
+                whatToAvoid: Array.from(new Set([
+                    ...precautionGuidance.urgency_guidance.what_to_avoid,
+                    ...precautionGuidance.symptom_precautions.flatMap(p => p.what_to_avoid),
+                ])),
+                warningSigns: Array.from(new Set([
+                    ...precautionGuidance.symptom_precautions.flatMap(p => p.warning_signs),
+                ])),
+            },
+        });
+        const blob = new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `medassist-session-${new Date().toISOString().slice(0, 10)}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
     return <section className="medassist-conversation" aria-labelledby="medassist-conversation-title">
     <header className="conversation-header">
       <span className="conversation-avatar material-symbols-outlined" aria-hidden="true">forum</span>
@@ -633,7 +721,15 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           {!emergency && busy && <div role="status" className="conversation-typing"><span aria-hidden="true">•••</span> Working on your message…</div>}
           {pendingRetry && !emergency && <M3Button variant="outlined" disabled={busy} onClick={() => void send(pendingRetry.next, pendingRetry.label)}>Retry last action</M3Button>}
           {languageRetry && !emergency && <M3Button variant="outlined" disabled={busy} onClick={() => void describe(undefined, languageRetry)}>Retry description</M3Button>}
-          {finished && <p role="status">No diagnosis, urgency result or care advice was produced.</p>}
+          {finished && (
+            <div className="conversation-completion-card">
+              <p role="status">Interview completed. No diagnosis or certified triage was produced.</p>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                <M3Button variant="filled" onClick={downloadSessionPdf}>Download Session</M3Button>
+                <M3Button variant="outlined" onClick={restart}>Restart Session</M3Button>
+              </div>
+            </div>
+          )}
           </li>
         </ol>
         <div ref={end} aria-hidden="true"/>
@@ -651,28 +747,105 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           {evidence && <details className="conversation-summary"><summary>Session summary</summary>
             {contextNotice && <p>{contextNotice}</p>}
             <p>{count} follow-up questions. Yes: {evidence.items.filter(i => i.status === 'observed_positive').length}; No: {evidence.items.filter(i => i.status === 'observed_negative').length}; Not sure: {evidence.items.filter(i => i.status === 'unknown').length}. Missing stays unspecified.</p>
-            <M3Button variant="text" onClick={exportEvidence}>Download session</M3Button>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', margin: '4px 0' }}>
+              <M3Button variant="text" onClick={downloadSessionPdf}>Download Session</M3Button>
+              <M3Button variant="text" onClick={exportEvidence}>Export JSON</M3Button>
+            </div>
             {!emergency && question && <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={() => answer('contradiction', null, 'My answer is conflicting; leave it unresolved')}>Report conflicting information and stop</M3Button>}
           </details>}
           <div className="conversation-actions">
             {!emergency && !finished && request && <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={stopInterview}>End interview</M3Button>}
-            <M3Button variant="text" onClick={restart}>Restart fictional interview</M3Button>
+            {finished && <M3Button variant="tonal" onClick={downloadSessionPdf}>Download Session</M3Button>}
+            <M3Button variant="text" onClick={restart}>Restart Session</M3Button>
           </div>
         </div>
       </div>
       <aside className="conversation-assessment" aria-label="Assessment status">
         <details open={assessmentOpen} onToggle={event => setAssessmentOpen(event.currentTarget.open)} className="assessment-details"><summary>Assessment status · {status}</summary>
           <p role="status">{status}</p>
+
           <div className="assessment-urgency-card">
-            <p><strong>Patient Severity:</strong> {patientSeverity ? patientSeverity.toUpperCase() : 'Not reported yet'}</p>
-            {Object.keys(symptomSeverities).length > 0 && <p className="assessment-meta-list">Specific: {Object.entries(symptomSeverities).map(([id, s]) => `${name(id)}: ${s}`).join(', ')}</p>}
-            <p><strong>Research Urgency:</strong> <span className={'assessment-urgency-badge urgency-' + (urgencyAssessment.assessed_urgency ?? 'unable_to_assess')}>{urgencyAssessment.status === 'assessed' ? urgencyAssessment.assessed_urgency?.toUpperCase() : 'UNABLE TO ASSESS'}</span></p>
+            <h3 className="assessment-box-title">Your Reported Severity</h3>
+            <SeverityLevelsList selectedLevel={patientSeverity && patientSeverity !== 'not_sure' ? patientSeverity : null} />
+            {(!patientSeverity || patientSeverity === 'not_sure') && (
+              <div className="severity-neutral-indicator">
+                <span className="severity-dot severity-dot-neutral" aria-hidden="true" />
+                <span>{patientSeverity === 'not_sure' ? 'Reported as inconclusive / not sure' : 'Not reported yet'}</span>
+              </div>
+            )}
+            {Object.keys(symptomSeverities).length > 0 && (
+              <p className="assessment-meta-list">Specific: {Object.entries(symptomSeverities).map(([id, s]) => `${name(id)}: ${s}`).join(', ')}</p>
+            )}
+          </div>
+
+          <div className="assessment-urgency-card">
+            <h3 className="assessment-box-title">Symptom-Based Assessment</h3>
+            <SeverityLevelsList selectedLevel={urgencyAssessment.status === 'assessed' && urgencyAssessment.assessed_urgency && urgencyAssessment.assessed_urgency !== 'unable_to_assess' ? urgencyAssessment.assessed_urgency : null} />
+            {urgencyAssessment.status !== 'assessed' && (
+              <div className="severity-neutral-indicator">
+                <span className="severity-dot severity-dot-neutral" aria-hidden="true" />
+                <span>{urgencyAssessment.status === 'unable_to_assess' ? 'Inconclusive assessment' : 'Assessment in progress'}</span>
+              </div>
+            )}
             {urgencyAssessment.emergency_override && <p role="alert" className="assessment-emergency-alert">🚨 EMERGENCY SAFETY OVERRIDE: {urgencyAssessment.emergency_trigger}</p>}
             {urgencyAssessment.relevant_risk_factors.length > 0 && <p className="assessment-meta-list">Risk Factors: {urgencyAssessment.relevant_risk_factors.join(', ')}</p>}
             <p className="assessment-meta-list">{urgencyAssessment.navigation_requirements.rationale}</p>
             {urgencyAssessment.rule_provenance.length > 0 && <details><summary>Rule Provenance ({urgencyAssessment.rule_provenance.length})</summary>
               <ul>{urgencyAssessment.rule_provenance.map(r => <li key={r.rule_id}><strong>{r.rule_id}</strong>: {r.description} ({r.approval_status})</li>)}</ul>
             </details>}
+          </div>
+
+          <div className="assessment-precautions-card">
+            <h3 className="assessment-box-title">Recommended Precautions</h3>
+            {precautionGuidance.symptom_precautions.length === 0 && !urgencyAssessment.emergency_override ? (
+              <div className="severity-neutral-indicator">
+                <span className="severity-dot severity-dot-neutral" aria-hidden="true" />
+                <span>No confirmed symptoms yet. Actionable precautions will appear once symptoms are identified.</span>
+              </div>
+            ) : (
+              <div className="precautions-content">
+                <div className="precaution-block">
+                  <p className="precaution-section-subtitle">When to Seek Medical Attention:</p>
+                  <ul className="precaution-bullet-list">
+                    <li>{precautionGuidance.urgency_guidance.recommended_timeframe}</li>
+                  </ul>
+                </div>
+                <div className="precaution-block">
+                  <p className="precaution-section-subtitle">What to Do:</p>
+                  <ul className="precaution-bullet-list">
+                    {Array.from(new Set([
+                      ...precautionGuidance.urgency_guidance.immediate_actions,
+                      ...precautionGuidance.symptom_precautions.flatMap(p => p.guidance),
+                    ])).slice(0, 4).map((action, idx) => (
+                      <li key={`action-${idx}`}>{action}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="precaution-block">
+                  <p className="precaution-section-subtitle">What to Avoid:</p>
+                  <ul className="precaution-bullet-list">
+                    {Array.from(new Set([
+                      ...precautionGuidance.urgency_guidance.what_to_avoid,
+                      ...precautionGuidance.symptom_precautions.flatMap(p => p.what_to_avoid),
+                    ])).slice(0, 4).map((avoid, idx) => (
+                      <li key={`avoid-${idx}`}>{avoid}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="precaution-block">
+                  <p className="precaution-section-subtitle">Warning Signs:</p>
+                  <ul className="precaution-bullet-list">
+                    {Array.from(new Set([
+                      ...(urgencyAssessment.emergency_override ? [`Immediate emergency warning: ${urgencyAssessment.emergency_trigger}`] : []),
+                      ...precautionGuidance.symptom_precautions.flatMap(p => p.warning_signs),
+                      'Sudden severe worsening of symptoms or development of breathing difficulty.',
+                    ])).slice(0, 4).map((warn, idx) => (
+                      <li key={`warn-${idx}`} className="precaution-warning-item">{warn}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="assessment-specialty-card">
@@ -702,33 +875,6 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             </details>
           </div>
 
-          {precautionGuidance.symptom_precautions.length > 0 && (
-            <div className="assessment-precautions-card">
-              <h3 className="assessment-specialty-title">Symptom Precautions</h3>
-              <p className="assessment-meta-list"><strong>Guidance:</strong> {precautionGuidance.urgency_guidance.title}</p>
-              <p className="assessment-meta-list"><strong>Timeframe:</strong> {precautionGuidance.urgency_guidance.recommended_timeframe}</p>
-              <details>
-                <summary>Comfort Measures ({precautionGuidance.symptom_precautions.length} categories)</summary>
-                {precautionGuidance.symptom_precautions.map(prec => (
-                  <div key={prec.precaution_id} className="precaution-item">
-                    <p className="precaution-item-title">{prec.title}</p>
-                    <p className="precaution-section-subtitle">Comfort Steps:</p>
-                    <ul className="precaution-bullet-list">
-                      {prec.guidance.map((g, idx) => <li key={idx}>{g}</li>)}
-                    </ul>
-                    <p className="precaution-section-subtitle">Warning Signs:</p>
-                    <ul className="precaution-bullet-list">
-                      {prec.warning_signs.map((w, idx) => <li key={idx} className="precaution-warning-item">{w}</li>)}
-                    </ul>
-                    <p className="precaution-section-subtitle">What to Avoid:</p>
-                    <ul className="precaution-bullet-list">
-                      {prec.what_to_avoid.map((a, idx) => <li key={idx}>{a}</li>)}
-                    </ul>
-                  </div>
-                ))}
-              </details>
-            </div>
-          )}
           <p className="assessment-meta-list">Experimental non-clinical research rubric. Gathering answers does not establish diagnosis or certified triage.</p>
           {emergency && <p className="assessment-warning">Independent emergency help is active. This is a provisional safety interruption, not a severity prediction.</p>}
         </details>

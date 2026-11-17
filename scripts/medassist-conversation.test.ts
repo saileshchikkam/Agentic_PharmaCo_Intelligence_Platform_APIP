@@ -36,7 +36,7 @@ test('main-site route and navigation are DEV-only; developer lab retained, no ac
   assert.match(app, /#\/research\/model-a/);
   assert.doesNotMatch(chat, /localStorage|sessionStorage|useAccount|console\.|dangerouslySetInnerHTML/);
   assert.match(chat, /readNaturalResult/); assert.match(chat, /turns:/); assert.match(chat, /generation\.current/);
-  assert.match(chat, /role="log"/); assert.match(chat, /Restart fictional interview/);
+  assert.match(chat, /role="log"/); assert.match(chat, /Restart Session/);
 });
 
 test('normal chat never renders the evidence collection and keeps details optional', () => {

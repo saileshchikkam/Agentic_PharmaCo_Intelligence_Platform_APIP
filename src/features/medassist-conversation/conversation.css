@@ -130,3 +130,35 @@
 .emergency-call-banner { background: #ffebee; border: 2px solid var(--md-sys-color-error); border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; }
 .emergency-call-btn { background: var(--md-sys-color-error) !important; color: #fff !important; font-weight: 700; text-align: center; border-radius: 8px; padding: 8px 12px; text-decoration: none; display: inline-block; }
 .facility-filter-actions { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+
+/* Phase C1: Assessment Content Refinement & Severity Highlighting */
+.severity-level-list { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
+.severity-level-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); font-size: 12px; transition: all 150ms ease-in-out; }
+.severity-level-row.muted { opacity: 0.55; border-color: var(--md-sys-color-outline-variant); background: transparent; font-weight: 400; }
+.severity-level-content { display: flex; align-items: center; gap: 8px; }
+.severity-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+.severity-dot-low { background-color: #22C55E; }
+.severity-dot-medium { background-color: #EAB308; }
+.severity-dot-high { background-color: #EF4444; }
+.severity-dot-extreme { background-color: #000000; box-shadow: 0 0 0 1px rgba(128, 128, 128, 0.4); }
+:root.dark .severity-dot-extreme, .dark .severity-dot-extreme { border: 1.5px solid rgba(255, 255, 255, 0.75); box-shadow: none; }
+.severity-dot-neutral { background-color: #9CA3AF; }
+
+.severity-level-row.highlighted { font-weight: 600; opacity: 1; }
+.severity-level-row.highlight-low { border: 1.5px solid #22C55E; background-color: rgba(34, 197, 94, 0.10); color: #15803d; }
+:root.dark .severity-level-row.highlight-low, .dark .severity-level-row.highlight-low { color: #4ade80; background-color: rgba(34, 197, 94, 0.16); }
+
+.severity-level-row.highlight-medium { border: 1.5px solid #EAB308; background-color: rgba(234, 179, 8, 0.10); color: #a16207; }
+:root.dark .severity-level-row.highlight-medium, .dark .severity-level-row.highlight-medium { color: #fde047; background-color: rgba(234, 179, 8, 0.16); }
+
+.severity-level-row.highlight-high { border: 1.5px solid #EF4444; background-color: rgba(239, 68, 68, 0.10); color: #b91c1c; }
+:root.dark .severity-level-row.highlight-high, .dark .severity-level-row.highlight-high { color: #f87171; background-color: rgba(239, 68, 68, 0.16); }
+
+.severity-level-row.highlight-extreme { border: 1.5px solid #000000; background-color: rgba(0, 0, 0, 0.08); color: #000000; }
+:root.dark .severity-level-row.highlight-extreme, .dark .severity-level-row.highlight-extreme { border: 1.5px solid #F3F4F6; background-color: rgba(255, 255, 255, 0.12); color: #F9FAFB; }
+
+.severity-row-check { font-size: 13px; font-weight: 700; line-height: 1; margin-left: 6px; }
+.severity-neutral-indicator { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--md-sys-color-on-surface-variant); margin: 4px 0; }
+.assessment-box-title { font-weight: 700; font-size: 13px; color: var(--md-sys-color-primary); margin: 0 0 6px; }
+.precaution-block { margin-bottom: 6px; }
+.conversation-completion-card { padding: 12px; border-radius: 14px; border: 1px solid var(--md-sys-color-primary); background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); display: flex; flex-direction: column; gap: 8px; margin: 8px 0; }
