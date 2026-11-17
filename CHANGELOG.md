@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-17
+
+### MedAssist Model A Phase A2.3 — trained model integration and campaign sealing verification
+
+- Verified Phase A2.2 Stage 6 completion receipt (`stage6_completion.json`), `pre-test-seal.json`, `pre-test-seal-hash.json` (`693326df4acf0d83543b91a124c968576fb7161fa4a98dddaa9958a826f498bc`), `campaign-provenance.json`, and 100% SHA-256 integrity across all 17 sealed campaign artifacts in `C:\apip_research\campaign_2026\run_01`.
+- Verified final validation metrics across 132,448 patients and 529,792 trajectories: selected SGDClassifier model ($\alpha = 10^{-5}$, exact learned parameter count: 65,537; 65,536 weights + 1 intercept) achieved `macro_recall@10` 0.5635, `macro_recall@20` 0.7719, and `useful_yield@20` 0.4540, strictly satisfying all research acceptance criteria with zero invalid selections (`invalid_rate = 0.0000`) and zero repeat selections (`repeat_rate = 0.0000`).
+- Hardened `models/medassist_v2/research_adapter/campaign_loader.py` `ALLOWED_PICKLE_GLOBALS` with NumPy 2.x `_frombuffer` array deserializers, ensuring safe, bounded unpickling of the fitted `SGDClassifier` weights on Python 3.12 / NumPy 2.x without permitting arbitrary execution.
+- Connected authenticated loopback FastAPI Model A adapter (`127.0.0.1:8766`) to Express development proxy (`127.0.0.1:3000`), integrating Model A question ranking seamlessly with the downstream Model B workflow (Phase B1 severity understanding & hybrid urgency assessment, Phase B2 precautions & specialty routing, Phase B3/B4 facility navigation) while preserving strict immediate emergency override precedence.
+- Authored Phase A2.3 integration and verification test suite (`scripts/medassist-phase-a2-3.test.ts`), verifying artifact sealing, validation metrics superiority, fail-closed security guards, and end-to-end pipeline execution (4/4 tests passing).
+- Executed browser CDP verification on `http://127.0.0.1:3000/#/preview/medassist-conversation`, confirming live Model A research mode activation, symptom extraction, user confirmation, ranked question delivery ("How old is this fictional person, in years?"), and reactive specialty updating to Pulmonology & Respiratory Medicine.
+- Maintained locked test dataset isolation: `release_test_patients.zip` remains unopened and sealed for Phase A2.4 evaluation. Production route remains strictly disabled (`RESEARCH_DEMO_DISABLED`).
+
 ## 2026-11-15
 
 ### MedAssist Phase B4 — final integration, safety verification, and release preparation

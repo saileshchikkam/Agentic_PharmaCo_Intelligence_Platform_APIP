@@ -66,6 +66,9 @@ ALLOWED_PICKLE_GLOBALS = frozenset({
     ('numpy', 'dtype'),
     ('numpy', 'ndarray'),
     ('numpy._core.multiarray', '_reconstruct'),
+    ('numpy._core.numeric', '_frombuffer'),
+    ('numpy.core.multiarray', '_reconstruct'),
+    ('numpy.core.numeric', '_frombuffer'),
     ('sklearn._loss._loss', 'CyHalfBinomialLoss'),
     ('sklearn.linear_model._stochastic_gradient', 'SGDClassifier'),
 })
