@@ -599,36 +599,39 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             questionsAndAnswers: qaPairs,
             patientSeverity,
             symptomSeverities,
-            assessedUrgency: urgencyAssessment.status === 'assessed' ? urgencyAssessment.assessed_urgency : null,
-            urgencyRationale: urgencyAssessment.navigation_requirements.rationale,
+            assessedUrgency: urgencyAssessment.status === 'assessed' ? urgencyAssessment.assessed_urgency : (emergency ? 'extreme' : null),
+            urgencyRationale: urgencyAssessment.navigation_requirements.rationale || (emergency ? `Emergency trigger: ${emergency.guidance}` : undefined),
             emergencyOverride: !!urgencyAssessment.emergency_override || !!emergency,
             emergencyTrigger: urgencyAssessment.emergency_trigger || emergency?.guidance,
             riskFactors: urgencyAssessment.relevant_risk_factors,
             recommendedSpecialty: {
-                primary: precautionGuidance.specialty_recommendation.primary_specialty_name,
+                primary: precautionGuidance.specialty_recommendation.primary_specialty_name || (emergency ? 'Emergency Medicine' : 'General Medicine'),
                 alternative: precautionGuidance.specialty_recommendation.alternative_specialty_name || undefined,
                 rationale: precautionGuidance.specialty_recommendation.rationale,
             },
             precautions: {
-                timeframe: precautionGuidance.urgency_guidance.recommended_timeframe,
+                timeframe: emergency ? 'IMMEDIATE EMERGENCY: Call 112 / 108 immediately or proceed to the nearest 24x7 Emergency Department.' : precautionGuidance.urgency_guidance.recommended_timeframe,
                 whatToDo: Array.from(new Set([
+                    ...(emergency ? ['Call emergency services immediately (112 in India).', 'Stay in an upright seated position to maintain open airway.', 'Keep medical information accessible for ambulance responders.'] : []),
                     ...precautionGuidance.urgency_guidance.immediate_actions,
                     ...precautionGuidance.symptom_precautions.flatMap(p => p.guidance),
                 ])),
                 whatToAvoid: Array.from(new Set([
+                    ...(emergency ? ['Do NOT drive yourself to the emergency department.', 'Do NOT delay seeking emergency professional care.', 'Do NOT exert yourself or consume unverified medications.'] : []),
                     ...precautionGuidance.urgency_guidance.what_to_avoid,
                     ...precautionGuidance.symptom_precautions.flatMap(p => p.what_to_avoid),
                 ])),
                 warningSigns: Array.from(new Set([
+                    ...(emergency ? [`CRITICAL EMERGENCY TRIGGER: ${emergency.guidance || urgencyAssessment.emergency_trigger}`] : []),
                     ...precautionGuidance.symptom_precautions.flatMap(p => p.warning_signs),
                 ])),
             },
         });
-        const blob = new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
+        const blob = new Blob([new Uint8Array(pdfBytes)], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `medassist-session-${new Date().toISOString().slice(0, 10)}.pdf`;
+        link.download = emergency ? `medassist-emergency-session-${new Date().toISOString().slice(0, 10)}.pdf` : `medassist-session-${new Date().toISOString().slice(0, 10)}.pdf`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -663,6 +666,9 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             <h2 tabIndex={-1} ref={questionHeading}>Emergency help</h2><p>{emergency.guidance}</p>
             <p><strong>For a real emergency only:</strong> <a href="tel:112">Call 112 in India</a>. Elsewhere use your local emergency number. Do not place test calls for fictional cases.</p>
             <p>Provisional statement guard · not clinically validated. Ordinary questions and self-care are paused. Urgency remains unassessed.</p>
+            <div style={{ marginTop: '8px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <M3Button variant="filled" onClick={downloadSessionPdf}>Download Emergency Session Summary</M3Button>
+            </div>
           </section>}
           {error && <p role="alert" className="conversation-error">{error}</p>}
           {contextNotice && <p role="status" className="conversation-question">{contextNotice}</p>}
@@ -755,7 +761,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           </details>}
           <div className="conversation-actions">
             {!emergency && !finished && request && <M3Button variant="text" disabled={busy || !!pendingRetry} onClick={stopInterview}>End interview</M3Button>}
-            {finished && <M3Button variant="tonal" onClick={downloadSessionPdf}>Download Session</M3Button>}
+            {(finished || emergency) && <M3Button variant="tonal" onClick={downloadSessionPdf}>Download Session</M3Button>}
             <M3Button variant="text" onClick={restart}>Restart Session</M3Button>
           </div>
         </div>
@@ -816,7 +822,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                     {Array.from(new Set([
                       ...precautionGuidance.urgency_guidance.immediate_actions,
                       ...precautionGuidance.symptom_precautions.flatMap(p => p.guidance),
-                    ])).slice(0, 4).map((action, idx) => (
+                    ])).map((action, idx) => (
                       <li key={`action-${idx}`}>{action}</li>
                     ))}
                   </ul>
@@ -827,7 +833,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                     {Array.from(new Set([
                       ...precautionGuidance.urgency_guidance.what_to_avoid,
                       ...precautionGuidance.symptom_precautions.flatMap(p => p.what_to_avoid),
-                    ])).slice(0, 4).map((avoid, idx) => (
+                    ])).map((avoid, idx) => (
                       <li key={`avoid-${idx}`}>{avoid}</li>
                     ))}
                   </ul>
@@ -839,7 +845,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
                       ...(urgencyAssessment.emergency_override ? [`Immediate emergency warning: ${urgencyAssessment.emergency_trigger}`] : []),
                       ...precautionGuidance.symptom_precautions.flatMap(p => p.warning_signs),
                       'Sudden severe worsening of symptoms or development of breathing difficulty.',
-                    ])).slice(0, 4).map((warn, idx) => (
+                    ])).map((warn, idx) => (
                       <li key={`warn-${idx}`} className="precaution-warning-item">{warn}</li>
                     ))}
                   </ul>

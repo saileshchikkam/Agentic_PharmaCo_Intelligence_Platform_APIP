@@ -2,13 +2,16 @@
 
 ## 2026-11-17
 
-### MedAssist Phase C1 — Assessment Content Refinement
+### MedAssist Phase C1 — Assessment Content Refinement & Stabilization
 
 - Renamed restart action from "Restart fictional interview" to "Restart Session" across the conversation UI and completion views.
 - Updated Box 1 ("Your Reported Severity"): displays vertical list of all 4 severity tiers (Low, Medium, High, Extreme) with circular colored dots (Low `#22C55E`, Medium `#EAB308`, High `#EF4444`, Extreme `#000000` with subtle contrasting outline for dark theme). When assessed, highlights the selected row with matching colored border, tinted background, semibold text, and right-aligned checkmark (`✓`); non-selected rows remain visible but visually muted. Displays neutral gray indicator when unassessed or inconclusive.
 - Updated Box 2 ("Symptom-Based Assessment"): displays vertical list of all 4 severity tiers with circular colored dots and independent highlighting matching assessed urgency, paired with concise explanation of the result, risk factors, and emergency safety override alerts.
 - Updated Box 3 ("Recommended Precautions"): provides clear, actionable, evidence-grounded precautions in properly formatted bulleted sections: When to Seek Medical Attention, What to Do, What to Avoid, and Warning Signs (Red Flags).
-- Added "Download Session" action: generates and downloads a readable, standard PDF 1.4 document (`src/features/medassist-conversation/pdf-export.ts`) capturing completed conversation questions & answers, confirmed symptoms, patient-reported severity, system-assessed urgency, precautions, specialty routing, and research disclaimer with zero external npm dependencies.
+- Eliminated silent precautions truncation: removed arbitrary `.slice(0, 4)` limits in both the UI rendering tree and PDF generator, ensuring all clinically matched precautions, comfort guidance, exclusions, and red flags are fully displayed and exported.
+- Implemented zero-dependency native browser PDF generator (`src/features/medassist-conversation/pdf-export.ts`) utilizing Web standard `TextEncoder` byte offsets with zero Node.js `Buffer` calls.
+- Preserved Telugu Unicode script and transliterated clinical gloss (`TELUGU_GLOSSARY`) in PDF exports ensuring accessibility and clinical readability across standard document viewers.
+- Added "Download Emergency Session Summary" directly in emergency override cards and enabled PDF session export on `(finished || emergency)`.
 - Preserved existing overall interface, RHS drawer dimensions, theme compatibility, emergency overrides, specialist recommendations, and facility discovery.
 
 ### MedAssist — Final Integration & Release Readiness
