@@ -18,6 +18,7 @@ import { SEVERITY_OPTIONS, type SeverityLevel } from '../medassist-severity/seve
 import { parseNaturalSeverity } from '../medassist-severity/severity-understanding';
 import { evaluateHybridUrgency } from '../medassist-severity/urgency-engine';
 import { evaluatePrecautionsAndSpecialty, FACILITY_TIERS_META } from '../medassist-precautions';
+import { generateSimplifiedPrecautions } from '../medassist-precautions/simplified-precautions';
 import { generateSessionPdf } from './pdf-export';
 import './conversation.css';
 const api = '/api/research/model-a';
@@ -107,7 +108,13 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     const retryAt = useRef(0), invalidAttempts = useRef(new Map<string, number>());
     const clarification = useRef(new ClarificationTracker());
     const safetyLatch = useRef(false), abort = useRef<AbortController | null>(null), generation = useRef(0), inFlight = useRef(false);
-    const timeline = useRef<HTMLOListElement>(null), end = useRef<HTMLDivElement>(null), followLatest = useRef(true), questionHeading = useRef<HTMLHeadingElement>(null);
+    const timeline = useRef<HTMLOListElement>(null), end = useRef<HTMLLIElement>(null), followLatest = useRef(true), questionHeading = useRef<HTMLHeadingElement>(null);
+    const isNearBottomRef = useRef(true);
+    const handleMessagesScroll = () => {
+        const el = timeline.current;
+        if (!el) return;
+        isNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight <= 100;
+    };
     const say = (text: string) => setMessages(c => [...c, { role: 'MedAssist', text }]);
     const name = evidenceLabel;
     useEffect(() => { const q = window.matchMedia('(min-width:1000px)'), f = () => setAssessmentOpen(q.matches); q.addEventListener('change', f); return () => q.removeEventListener('change', f); }, []);
@@ -143,16 +150,13 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     useEffect(() => { if (emergency)
         questionHeading.current?.focus(); }, [emergency]);
     useEffect(() => {
-        const marker=end.current, log=timeline.current;
-        if(!marker||!log)return;
-        const reveal=()=>{if(!followLatest.current)return;const composer=marker.nextElementSibling;
-            marker.style.scrollMarginBottom=`${(composer?.getBoundingClientRect().height??0)+16}px`;
-            marker.scrollIntoView({block:'nearest',behavior:'instant'});};
-        reveal();const resize=new ResizeObserver(reveal);resize.observe(log);
-        if(marker.nextElementSibling)resize.observe(marker.nextElementSibling);
-        return()=>resize.disconnect();
+        const log = timeline.current;
+        if (!log) return;
+        if (isNearBottomRef.current) {
+            log.scrollTo({ top: log.scrollHeight, behavior: 'smooth' });
+        }
     }, [messages, candidate, result, error, busy, contextStep, showNavigation]);
-    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setSourceSex(null); setPatientSeverity(null); setSymptomSeverities({}); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setOpenMentions([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
+    function restart() { keepChanges([]); setUnderstandingRecords([]); questionClarifications.current.clear(); submissions.current.reset(); localSubmissions.current.clear(); confirmedCandidate.current = null; retryAt.current = 0; invalidAttempts.current.clear(); clarification.current.reset(); generation.current++; abort.current?.abort(); inFlight.current = false; safetyLatch.current = false; followLatest.current = true; isNearBottomRef.current = true; if (timeline.current) timeline.current.scrollTop = 0; setSession(v => v + 1); setNavigationSession(v => v + 1); setContextStep(null); setFictionalAge(null); setSourceSex(null); setPatientSeverity(null); setSymptomSeverities({}); setContextUnavailable(false); setShowNavigation(false); setLanguageRetry(null); setEmergency(null); setRequest(null); setResult(null); setCandidate(null); setDescription(''); setMessages(greeting); setSelected([]); setBusy(false); setError(''); setPendingRetry(null); setQueued([]); setUnmapped([]); setOpenMentions([]); setNarratives([]); setCount(0); setConfirmedProposals([]); }
     function escalate(text: string) { const d = evaluateStatement(text); if (d.status !== 'escalate')
         return false; if (safetyLatch.current)
         return true; safetyLatch.current = true; generation.current++; abort.current?.abort(); inFlight.current = false; setEmergency(d); setBusy(false); setError(''); setCandidate(null); setPendingRetry(null); setSelected([]); setDescription(''); setLanguageRetry(null); setContextStep(null); setMessages(c => [...c, { role: 'You', text }, { role: 'MedAssist', text: d.guidance! }]); return true; }
@@ -160,6 +164,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         event?.preventDefault();
         const text = (retryText ?? description).trim();
         followLatest.current = true;
+        isNearBottomRef.current = true;
         if (escalate(text) || safetyLatch.current || inFlight.current || busy || pendingRetry || candidate?.alternative || !text)
             return;
         if (requestsNavigation(text)) {
@@ -384,6 +389,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         if (!canConfirmPending(candidate,changesRef.current) || !candidate || confirmedCandidate.current === candidate || inFlight.current || busy || pendingRetry || safetyLatch.current)
             return;
         followLatest.current = true;
+        isNearBottomRef.current = true;
         confirmedCandidate.current = candidate;
         keepChanges(reconcilePendingUpdates(changesRef.current,candidate.sources));
         const acceptedIds = new Set(candidate.sources.map(source => source.requestId));
@@ -434,6 +440,8 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         say('How old is this fictional person, in years? Please use fictional details only. I will not guess missing information.');
     }
     function collectContext(text: string) {
+        followLatest.current = true;
+        isNearBottomRef.current = true;
         if (safetyLatch.current || busy || pendingRetry)
             return;
         const key = 'context:' + contextStep + ':' + text;
@@ -514,6 +522,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             }
         }
         followLatest.current=true;
+        isNearBottomRef.current=true;
         if(scripted&&state!=='contradiction')keepChanges(reconcilePendingUpdates(changesRef.current,[{
             requestId:'confirmed-turn:'+request.turns.length,
             proposal:{schema_version:'medassist.natural-extraction.v1',observations:[{evidence_id:q.evidence_id,state,value,quote:label}],unmapped:[],instruction_attempt:false},
@@ -547,6 +556,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
         age: fictionalAge,
         isPregnant: false,
     });
+    const showPrecautions = finished || !!emergency || !!urgencyAssessment.emergency_override;
+    const simplifiedPrecautions = showPrecautions
+        ? generateSimplifiedPrecautions(urgencyAssessment, precautionGuidance, { age: fictionalAge })
+        : [];
     const status = emergency ? 'Emergency override' : urgencyAssessment.status === 'assessed' ? `Urgency: ${urgencyAssessment.assessed_urgency?.toUpperCase()}` : scripted ? 'Not assessed' : assessmentStatus({ started: !!request || !!contextStep, finished: !!finished, unavailable: contextUnavailable });
     const exportEvidence = () => {
         if (!evidence) return;
@@ -658,7 +671,7 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
     </aside>
     <div className="conversation-layout">
       <div className="conversation-workspace">
-        <ol ref={timeline} tabIndex={0} className="conversation-messages" role="log" aria-label="Fictional conversation" aria-live="polite" aria-relevant="additions">
+        <ol ref={timeline} onScroll={handleMessagesScroll} tabIndex={0} className="conversation-messages" role="log" aria-label="Fictional conversation" aria-live="polite" aria-relevant="additions">
           {messages.map((message, index) => <li key={session + ':' + index} className={'conversation-message conversation-' + (message.role === 'You' ? 'user' : 'assistant') + (index === 0 ? ' conversation-welcome' : '')}>
             <span className="conversation-speaker">{message.role === 'MedAssist' ? 'MedAssist AI' : 'You'}</span><p>{message.text}</p></li>)}
           <li className="conversation-turn">
@@ -737,8 +750,8 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             </div>
           )}
           </li>
+          <li ref={end} aria-hidden="true" style={{ listStyle: 'none', height: '1px', margin: 0, padding: 0 }} />
         </ol>
-        <div ref={end} aria-hidden="true"/>
         <form onSubmit={describe} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
         event.preventDefault();
         void describe();
@@ -801,58 +814,24 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             </details>}
           </div>
 
-          <div className="assessment-precautions-card">
-            <h3 className="assessment-box-title">Recommended Precautions</h3>
-            {precautionGuidance.symptom_precautions.length === 0 && !urgencyAssessment.emergency_override ? (
-              <div className="severity-neutral-indicator">
-                <span className="severity-dot severity-dot-neutral" aria-hidden="true" />
-                <span>No confirmed symptoms yet. Actionable precautions will appear once symptoms are identified.</span>
-              </div>
-            ) : (
+          {showPrecautions && (
+            <div className="assessment-precautions-card">
+              <h3 className="assessment-box-title">Recommended Precautions</h3>
               <div className="precautions-content">
-                <div className="precaution-block">
-                  <p className="precaution-section-subtitle">When to Seek Medical Attention:</p>
-                  <ul className="precaution-bullet-list">
-                    <li>{precautionGuidance.urgency_guidance.recommended_timeframe}</li>
-                  </ul>
-                </div>
-                <div className="precaution-block">
-                  <p className="precaution-section-subtitle">What to Do:</p>
-                  <ul className="precaution-bullet-list">
-                    {Array.from(new Set([
-                      ...precautionGuidance.urgency_guidance.immediate_actions,
-                      ...precautionGuidance.symptom_precautions.flatMap(p => p.guidance),
-                    ])).map((action, idx) => (
-                      <li key={`action-${idx}`}>{action}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="precaution-block">
-                  <p className="precaution-section-subtitle">What to Avoid:</p>
-                  <ul className="precaution-bullet-list">
-                    {Array.from(new Set([
-                      ...precautionGuidance.urgency_guidance.what_to_avoid,
-                      ...precautionGuidance.symptom_precautions.flatMap(p => p.what_to_avoid),
-                    ])).map((avoid, idx) => (
-                      <li key={`avoid-${idx}`}>{avoid}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="precaution-block">
-                  <p className="precaution-section-subtitle">Warning Signs:</p>
-                  <ul className="precaution-bullet-list">
-                    {Array.from(new Set([
-                      ...(urgencyAssessment.emergency_override ? [`Immediate emergency warning: ${urgencyAssessment.emergency_trigger}`] : []),
-                      ...precautionGuidance.symptom_precautions.flatMap(p => p.warning_signs),
-                      'Sudden severe worsening of symptoms or development of breathing difficulty.',
-                    ])).map((warn, idx) => (
-                      <li key={`warn-${idx}`} className="precaution-warning-item">{warn}</li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="precaution-bullet-list simplified-precautions-list">
+                  {simplifiedPrecautions.map((bullet, idx) => (
+                    <li
+                      key={`prec-${idx}`}
+                      className={bullet.isWarning ? 'precaution-warning-item' : undefined}
+                    >
+                      {bullet.isWarning && <strong aria-hidden="true">⚠️ </strong>}
+                      {bullet.text}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           <div className="assessment-specialty-card">
             <h3 className="assessment-specialty-title">Specialty Recommendation</h3>

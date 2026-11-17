@@ -2,6 +2,17 @@
 
 ## 2026-11-17
 
+### MedAssist Phase C1.1 — Chat Scrolling and Precaution Refinement
+
+- Implemented bounded height for `.conversation-workspace` (`height: clamp(520px, calc(100vh - 190px), 820px)`) and `.conversation-layout` (`align-items: start`), constraining the conversation thread to internal scrolling (`overflow-y: auto`) and keeping the composer input bar and buttons permanently anchored.
+- Added user-scroll position tracking (`isNearBottomRef`, `handleMessagesScroll`): auto-scroll triggers only when the user is within 100px of the bottom, permitting free upward scrolling to review previous messages without forced jumps.
+- Bounded right-side assessment drawer (`max-height: clamp(520px, calc(100vh - 190px), 820px); overflow-y: auto`), preventing page elongation and layout shifting.
+- Preserved Box 1 ("Your Reported Severity") and Box 2 ("Symptom-Based Assessment") in their entirety: 4-level vertical list, colored dots, dark-mode outline, selection highlighting, and clinical rationale.
+- Gated Box 3 ("Recommended Precautions") visibility: completely omitted from DOM during the ongoing questionnaire, rendered only upon session completion (`finished`) or immediate emergency override (`emergency`).
+- Ensured "Restart Session" immediately hides the precautions box, clears session state, and resets chat scroll to top.
+- Developed `src/features/medassist-precautions/simplified-precautions.ts` (`generateSimplifiedPrecautions`): delivers 4–7 concise, actionable, symptom-grounded bullet points in plain English, with safety red-flag highlighting and zero medication prescriptions. Full evidence-based guidance is preserved in client-side PDF export.
+- Added automated verification suite `scripts/medassist-phase-c1-1.test.ts` (4/4 gates passing).
+
 ### MedAssist Phase C1 — Assessment Content Refinement & Stabilization
 
 - Renamed restart action from "Restart fictional interview" to "Restart Session" across the conversation UI and completion views.
