@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import datetime
 import json
+import os
 from pathlib import Path
 import sqlite3
 import sys
@@ -16,7 +17,7 @@ from models.medassist_v2.training.data import file_hash
 
 
 def check_status() -> dict:
-    run_root = Path(r"C:\apip_research\campaign_2026\run_01")
+    run_root = Path(os.environ.get("MEDASSIST_A_RUN_ROOT", r"C:\apip_research\campaign_2026\run_01"))
     total_validation_cases = 132448
     policies_count = 4
     total_expected_trajectories = total_validation_cases * policies_count

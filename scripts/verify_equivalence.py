@@ -1,4 +1,5 @@
 import json
+import os
 import sqlite3
 from pathlib import Path
 from models.medassist_v2.training.data import OfficialDataset
@@ -6,9 +7,9 @@ from models.medassist_v2.training.campaign import policies
 from models.medassist_v2.training.flow import trajectory
 from models.medassist_v2.campaign_runner import authenticate_protocol
 
-data_root = Path(r"C:\apip_research\ddxplus_v2\source")
-run_root = Path(r"C:\apip_research\campaign_2026\run_01")
-db_path = r"C:\apip_research\campaign_2026\recovery_sandbox\validation-trajectories.sqlite"
+data_root = Path(os.environ.get("MEDASSIST_A_METADATA_ROOT", r"C:\apip_research\ddxplus_v2\source"))
+run_root = Path(os.environ.get("MEDASSIST_A_RUN_ROOT", r"C:\apip_research\campaign_2026\run_01"))
+db_path = Path(os.environ.get("MEDASSIST_A_DB_PATH", run_root / "validation-trajectories.sqlite"))
 
 p, _, _, _ = authenticate_protocol()
 dataset = OfficialDataset(data_root, p)

@@ -2,6 +2,16 @@
 
 ## 2026-11-17
 
+### MedAssist — Final Integration & Release Readiness
+
+- Verified the complete multi-phase MedAssist pipeline: natural symptom intake → deterministic confirmation → Model A adaptive questioning (65,537 learned parameters) → patient-reported severity → hybrid urgency assessment → symptom-specific precautions → healthcare specialty mapping → care facility discovery via Google Maps Platform.
+- Verified Model A and Model B research integration: immediate emergency override precedence ensures critical statements (e.g., severe dyspnea, anaphylaxis) immediately halt adaptive questioning and trigger emergency guidance regardless of low self-reported discomfort.
+- Built unified multi-process launcher `scripts/start-medassist-research.mjs` (registered as `npm run dev:medassist` in `package.json`) supporting automatic port conflict detection (8766, 3000), loopback health checks, environment propagation, and coordinated SIGINT/SIGTERM shutdown.
+- Eliminated machine-specific paths across integration code and test configuration (`scripts/medassist-phase-a2-3.test.ts`, `scripts/check_stage6_status.py`, `scripts/verify_equivalence.py`) using environment variables `MEDASSIST_A_RUN_ROOT` and `MEDASSIST_A_METADATA_ROOT` with portable fallbacks and graceful test-skip handling.
+- Authored production-ready deployment architecture and operational plan (`docs/architecture/medassist-deployment-architecture.md`) detailing 4-tier network topology, non-root sandboxing, read-only root filesystems, zero external internet egress for inference, fail-closed incident response, and strict compliance with the INR 500/month planning ceiling (~108 MB RAM, ~0.8 ms CPU, 0 GPU).
+- Audited mobile responsiveness (360px–1280px viewports), reduced motion support (`prefers-reduced-motion: reduce`), accessible labels, sanitized error UI presentation, and offline/fixture fallbacks.
+- Phase A2.4 locked test partition (`release_test_patients.zip`) remains protected and unopened; production routes remain disabled (`RESEARCH_DEMO_DISABLED`).
+
 ### MedAssist Model A Phase A2.3 — trained model integration and campaign sealing verification
 
 - Verified Phase A2.2 Stage 6 completion receipt (`stage6_completion.json`), `pre-test-seal.json`, `pre-test-seal-hash.json` (`693326df4acf0d83543b91a124c968576fb7161fa4a98dddaa9958a826f498bc`), `campaign-provenance.json`, and 100% SHA-256 integrity across all 17 sealed campaign artifacts in `C:\apip_research\campaign_2026\run_01`.

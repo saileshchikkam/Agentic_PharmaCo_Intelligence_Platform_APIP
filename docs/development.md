@@ -36,6 +36,7 @@ At the 2026-10-17 implementation session, Bun v1.4.3 was installed from the [off
 ## Existing scripts
 
 - `dev`: `node scripts/start-server.mjs development` — explicit development with Express/Vite.
+- `dev:medassist`: `node scripts/start-medassist-research.mjs` — starts or connects the Python Model A research adapter (port 8766) and launches the Express/Vite server (port 3000) with automatic loopback health verification.
 - `build`: Vite client build, then an esbuild server bundle at `dist/server.cjs`.
 - `lint`: `tsc --noEmit` — frontend checking under the current TypeScript config.
 - `start`: `node scripts/start-server.mjs production` — explicit production; requires built output.

@@ -57,6 +57,14 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
+For unified research-mode MedAssist local evaluation (starting both the Python Model A research adapter on port 8766 and APIP development server on port 3000 with automatic port detection and loopback health checks):
+
+```sh
+npm run dev:medassist
+```
+
+See the [MedAssist Deployment Architecture](docs/architecture/medassist-deployment-architecture.md) for production container topology, non-root sandboxing, fail-closed guards, and compliance with the INR 500/month planning ceiling.
+
 Development uses loopback port `3000`; legacy APIs default off and cannot run in production. `dev` and `start` explicitly select runtime modes. See [runtime configuration](docs/development.md#legacy-api-security-boundary). In the current checkout, the frozen Bun install, frontend lint, and production build passed on 2026-10-17; a clean-clone setup and deployment remain unverified. See [development setup](docs/development.md). The optional AI key is server-side, and the current startup script does not automatically load `.env`.
 
 Open the main page and choose **Sign in**. Patient signup/sign-in uses development-only local account storage when hosted configuration is absent; specialist and developer forms remain previews without role enforcement. Use fictional credentials and details only. See the [welcome/sign-in guide](src/features/access/README.md) and [account setup](database/README.md).
