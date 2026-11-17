@@ -34,9 +34,17 @@ export class GoogleMapsFacilityProvider {
   }
 
   public async discover(request: FacilityDiscoveryRequest): Promise<FacilityDiscoveryResponse> {
-    // If no API key configured, use deterministic multi-tier simulated fixtures
+    // If no API key configured, return research reference fixtures with clear pending credentials notice
     if (!this.apiKey || !this.apiKey.trim()) {
-      return this.engine.discoverAndRank(request, undefined, 'simulated_fixtures');
+      const fallback = this.engine.discoverAndRank(request, undefined, 'live_api_pending_credentials');
+      return {
+        ...fallback,
+        provider_status: 'live_api_pending_credentials',
+        disclaimers: [
+          ...fallback.disclaimers,
+          'Live Google Maps lookup is currently unavailable (GOOGLE_MAPS_API_KEY is not configured on server). Research reference fixtures are displayed for evaluation only; do not use for actual patient routing.',
+        ],
+      };
     }
 
     try {
@@ -53,7 +61,7 @@ export class GoogleMapsFacilityProvider {
         };
       }
 
-      // If user provided coordinates, compute driving distance/duration via Routes API
+      // If user provided coordinates, compute driving distance/duration via Routes API or honest straight-line
       if (request.latitude && request.longitude) {
         await this.enrichRoutes(request.latitude, request.longitude, liveCandidates);
       }
@@ -79,9 +87,13 @@ export class GoogleMapsFacilityProvider {
 
     // Build privacy-safe search query (strictly generic healthcare term, NO symptoms or PII)
     const serviceTerm = nav.required_service.replace(/[^\w\s]/g, ' ').trim();
-    const query = isEmergency
+    let query = isEmergency
       ? '24x7 hospital emergency trauma department'
       : `${serviceTerm} clinic hospital`;
+
+    if (request.manual_locality && request.manual_locality.trim()) {
+      query = `${query} in ${request.manual_locality.trim()}`;
+    }
 
     const body: Record<string, unknown> = {
       textQuery: query,
@@ -233,7 +245,7 @@ export class GoogleMapsFacilityProvider {
     for (const fac of facilities) {
       if (!fac.latitude || !fac.longitude) continue;
 
-      // Haversine direct estimation
+      // Haversine direct calculation
       const dLat = ((fac.latitude - originLat) * Math.PI) / 180;
       const dLng = ((fac.longitude - originLng) * Math.PI) / 180;
       const a =
@@ -244,15 +256,55 @@ export class GoogleMapsFacilityProvider {
           Math.sin(dLng / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const directMeters = Math.round(6371000 * c);
-      // Urban road factor ~1.35x direct distance
-      const roadMeters = Math.round(directMeters * 1.35);
-      // Assume 22 km/h average urban speed in traffic (~6.1 m/s)
-      const durationSeconds = Math.round(roadMeters / 6.1);
 
-      fac.distance_meters = roadMeters;
-      fac.distance_text = `${(roadMeters / 1000).toFixed(1)} km`;
-      fac.travel_duration_seconds = durationSeconds;
-      fac.travel_duration_text = `${Math.ceil(durationSeconds / 60)} mins`;
+      // Attempt genuine Google Routes API if API key is active
+      if (this.apiKey) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 4000);
+          const routeRes = await this.fetchImpl('https://routes.googleapis.com/directions/v2:computeRoutes', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Goog-Api-Key': this.apiKey,
+              'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration',
+            },
+            body: JSON.stringify({
+              origin: { location: { latLng: { latitude: originLat, longitude: originLng } } },
+              destination: { location: { latLng: { latitude: fac.latitude, longitude: fac.longitude } } },
+              travelMode: 'DRIVE',
+            }),
+            signal: controller.signal,
+          });
+          clearTimeout(timer);
+          if (routeRes.ok) {
+            const routeData = (await routeRes.json()) as { routes?: Array<{ distanceMeters?: number; duration?: string }> };
+            const route = routeData.routes?.[0];
+            if (route) {
+              const driveMeters = route.distanceMeters;
+              const durationSec = parseInt(route.duration?.replace('s', '') || '0', 10);
+              if (driveMeters) {
+                fac.distance_meters = driveMeters;
+                fac.distance_text = `${(driveMeters / 1000).toFixed(1)} km (driving)`;
+              }
+              if (durationSec) {
+                fac.travel_duration_seconds = durationSec;
+                fac.travel_duration_text = `${Math.ceil(durationSec / 60)} mins (live traffic)`;
+              }
+              continue;
+            }
+          }
+        } catch {
+          // Fall through to honest straight-line disclosure if Routes API fails or times out
+        }
+      }
+
+      // Honestly label straight-line distance; NEVER claim it is driving distance without Routes API
+      fac.distance_meters = directMeters;
+      fac.distance_text = `~${(directMeters / 1000).toFixed(1)} km (approx. straight-line)`;
+      // Never fabricate travel duration without genuine Routes/Traffic API data
+      fac.travel_duration_seconds = null;
+      fac.travel_duration_text = null;
     }
   }
 }

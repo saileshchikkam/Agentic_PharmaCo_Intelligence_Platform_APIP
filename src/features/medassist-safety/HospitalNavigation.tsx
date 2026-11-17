@@ -13,9 +13,10 @@ import { mapsSearch, prepareNavigation, requestLocation } from './navigation';
 interface HospitalNavigationProps {
   emergency: boolean;
   navigationContract?: FacilityNavigationContract;
+  compact?: boolean;
 }
 
-export default function HospitalNavigation({ emergency, navigationContract }: HospitalNavigationProps) {
+export default function HospitalNavigation({ emergency, navigationContract, compact }: HospitalNavigationProps) {
   const [place, setPlace] = useState('');
   const [coordinates, setCoordinates] = useState<NavigationRequest | null>(null);
   const [status, setStatus] = useState('');
@@ -42,6 +43,7 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
     setUrl(null);
     setDiscoveryResponse(null);
     setStatus('');
+    setSimulatedActionNotice(null);
   }
 
   async function locate() {
@@ -62,8 +64,8 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
       if (version === generation.current) {
         setStatus(
           e instanceof Error && e.message === 'LOCATION_PERMISSION_DENIED'
-            ? 'Location permission was denied. You can enter a city or area instead. Emergency help does not require location permission.'
-            : 'Location is unavailable or timed out. Enter a city or area instead.',
+            ? 'Location permission was denied. Please enter your City, Area or PIN Code below instead. Emergency help does not require location permission.'
+            : 'Device location is unavailable or timed out. Please enter your City, Area or PIN Code below.',
         );
       }
     } finally {
@@ -77,7 +79,14 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
     const controller = new AbortController();
     abort.current = controller;
     setBusy(true);
-    setStatus('Discovering symptom-matched healthcare facilities…');
+
+    if (!coordinates && !place.trim()) {
+      setStatus('Please click "Use My Location" or enter your City, Area or PIN Code to find hospitals.');
+      setBusy(false);
+      return;
+    }
+
+    setStatus('Discovering symptom-matched hospitals and healthcare facilities…');
 
     const effectiveContract: FacilityNavigationContract = navigationContract ?? {
       schema_version: 'medassist.facility-navigation.v1',
@@ -100,7 +109,7 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
       consent_granted: true,
       latitude: coordinates ? coordinates.location.latitude : undefined,
       longitude: coordinates ? coordinates.location.longitude : undefined,
-      manual_locality: coordinates ? undefined : (place.trim() || 'Central City'),
+      manual_locality: coordinates ? undefined : place.trim(),
       navigation_contract: effectiveContract,
       search_radius_meters: 10000,
     };
@@ -127,10 +136,10 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
 
       if (version !== generation.current || controller.signal.aborted) return;
       setDiscoveryResponse(result);
-      setStatus(`Discovered ${result.facilities.length} suitable healthcare facilities matching required service.`);
+      setStatus(`Found ${result.facilities.length} suitable hospitals matching required care capabilities.`);
     } catch {
       if (version === generation.current) {
-        setStatus('Facility discovery could not be completed. You can use the generic Google Maps link below or seek immediate local assistance.');
+        setStatus('Hospital discovery could not be completed. You can use the direct Google Maps search link below.');
       }
     } finally {
       if (version === generation.current) setBusy(false);
@@ -156,67 +165,109 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
     }
   }
 
+  const effectiveService = navigationContract?.required_service ?? (emergency ? 'Emergency Medicine' : 'General Hospital');
+  const externalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${effectiveService} hospital near ${place.trim() || 'me'}`)}`;
+
   const displayedFacilities: DiscoveredFacility[] = (discoveryResponse?.facilities ?? []).filter(fac => {
     if (filterVerifiedOnly) {
       return fac.capability_verification_status === 'verified_registry';
     }
     return true;
-  });
+  }).slice(0, 5);
 
   return (
-    <details open={emergency || undefined} className="conversation-navigation">
-      <summary>{emergency ? '🚨 Emergency Healthcare Navigation' : '🏥 Symptom-Matched Care Facility Discovery'}</summary>
+    <section className={`hospital-recommendations-section ${compact ? 'hospital-section-compact' : ''}`} aria-labelledby="hospital-rec-title">
+      <div className="hospital-rec-header">
+        <h3 id="hospital-rec-title" className="assessment-box-title">
+          {emergency ? '🚨 Emergency Hospital Navigation' : '🏥 Nearest Hospital Recommendations'}
+        </h3>
+        <p className="assessment-meta-list" style={{ margin: '2px 0 6px' }}>
+          Matched to your assessed clinical urgency and required specialty: <strong>{effectiveService}</strong>.
+        </p>
+      </div>
 
       {emergency && (
-        <div className="emergency-call-banner">
+        <div className="emergency-call-banner" role="alert">
           <strong>🚨 IMMEDIATE CRITICAL EMERGENCY ACTION REQUIRED</strong>
-          <p>If you or someone nearby is experiencing a life-threatening medical emergency, call emergency services immediately.</p>
+          <p>If experiencing a life-threatening medical emergency, call emergency services immediately. Do not delay for hospital discovery or navigation.</p>
           <div className="conversation-actions">
             <a href="tel:112" className="emergency-call-btn">Call Emergency (112)</a>
             <a href="tel:108" className="emergency-call-btn">Call Ambulance (108)</a>
           </div>
-          <small>Do not delay for maps navigation or online searches in a real emergency.</small>
+          <small>Never assume all returned facilities have emergency resuscitation capacity. In India, call 112 / 108 immediately.</small>
         </div>
       )}
 
-      <p>
-        {emergency
-          ? 'Discover nearest 24x7 Emergency Departments and Trauma Centers. No patient identity or symptom text is sent.'
-          : 'Find nearby healthcare facilities matched to your required service without commercial bias.'}
-      </p>
+      <div className="location-acquisition-card" style={{
+        padding: '10px',
+        borderRadius: '10px',
+        border: '1px solid var(--md-sys-color-outline-variant)',
+        background: 'var(--md-sys-color-surface-container)',
+        margin: '6px 0',
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <p style={{ margin: 0, fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)' }}>
+            <strong>Location Acquisition:</strong> Provide your location via device GPS or enter your city/area/PIN code. Health details and conversation history are never sent to external mapping services.
+          </p>
 
-      <M3TextField
-        id="conversation-navigation-location"
-        label="City, area or approximate coordinates"
-        value={place}
-        maxLength={180}
-        onChange={event => {
-          generation.current++;
-          abort.current?.abort();
-          setBusy(false);
-          setPlace(event.target.value);
-          setCoordinates(null);
-          setUrl(null);
-          setDiscoveryResponse(null);
-          setStatus('');
-        }}
-      />
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            <M3Button
+              variant={coordinates ? 'filled' : 'outlined'}
+              onClick={() => void locate()}
+              disabled={busy}
+            >
+              {coordinates ? '✓ GPS Location Acquired' : 'Use My Location'}
+            </M3Button>
+          </div>
 
-      <div className="conversation-actions">
-        <M3Button variant="outlined" onClick={() => void locate()} disabled={busy}>Use my location</M3Button>
-        <M3Button variant="outlined" onClick={() => void discoverFacilities()} disabled={busy || (!place.trim() && !coordinates)}>
-          {busy ? 'Discovering…' : 'Discover suitable care'}
-        </M3Button>
-        <M3Button variant="text" onClick={() => void prepareDirectLink()} disabled={busy || (!place.trim() && !coordinates)}>
-          Open generic Maps search
-        </M3Button>
-        <M3Button variant="text" onClick={clear}>Clear</M3Button>
+          <M3TextField
+            id="conversation-navigation-location"
+            label="Enter City / Area / PIN Code"
+            placeholder="e.g. Banjara Hills, Hyderabad or 500034"
+            value={place}
+            maxLength={180}
+            onChange={event => {
+              generation.current++;
+              abort.current?.abort();
+              setBusy(false);
+              setPlace(event.target.value);
+              setCoordinates(null);
+              setUrl(null);
+              setDiscoveryResponse(null);
+              setStatus('');
+            }}
+          />
+
+          <div className="conversation-actions" style={{ margin: '4px 0 0' }}>
+            <M3Button
+              variant="filled"
+              onClick={() => void discoverFacilities()}
+              disabled={busy || (!place.trim() && !coordinates)}
+            >
+              {busy ? 'Discovering…' : 'Find Suitable Hospitals'}
+            </M3Button>
+            <a
+              href={externalMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              referrerPolicy="no-referrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <M3Button variant="text">
+                Direct Google Maps Search ↗
+              </M3Button>
+            </a>
+            {(place || coordinates || discoveryResponse) && (
+              <M3Button variant="text" onClick={clear}>Clear</M3Button>
+            )}
+          </div>
+        </div>
       </div>
 
-      <p role="status">{status}</p>
+      {status && <p role="status" style={{ fontSize: '11px', margin: '4px 0', color: 'var(--md-sys-color-on-surface)' }}>{status}</p>}
 
       {url && (
-        <p>
+        <p style={{ margin: '4px 0', fontSize: '11px' }}>
           <a href={url} target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer">
             Open generic Google Maps search in new tab ↗
           </a>
@@ -224,32 +275,46 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
       )}
 
       {discoveryResponse && (
-        <div className="facility-discovery-container">
+        <div className="facility-discovery-container" style={{ marginTop: '8px' }}>
           <div className={`facility-provider-banner ${discoveryResponse.provider_status === 'live_api_active' ? 'live-api' : 'simulated'}`}>
             <div>
-              <strong>Provider:</strong> {discoveryResponse.provider_status === 'live_api_active' ? 'Live Google Maps Platform' : 'Simulated Research Fixtures (Pending Google Maps API Key)'}
+              <strong>Provider Status:</strong> {discoveryResponse.provider_status === 'live_api_active' ? 'Live Google Maps Platform (Active)' : 'Live Lookup Unavailable (API Key Not Configured)'}
               {' · '}
               <span>Service: {discoveryResponse.searched_service}</span>
               {' · '}
               <span>Acuity: {discoveryResponse.urgency_level.toUpperCase()}</span>
             </div>
             {discoveryResponse.provider_status !== 'live_api_active' && (
-              <p style={{ margin: '6px 0 0 0', fontSize: '11px', opacity: 0.9 }}>
-                ⚙️ <strong>Configuration Notice:</strong> Live Places API discovery requires <code>GOOGLE_MAPS_API_KEY</code>.
-                Currently operating safely in offline simulation mode using multi-tier research fixtures. Real dialing and navigation are disabled for fictional fixtures; live facility verification remains explicitly pending.
-              </p>
+              <div style={{ marginTop: '4px', fontSize: '11px' }}>
+                <p style={{ margin: '2px 0' }}>
+                  Live hospital recommendations could not be retrieved from the server. The reference hospitals shown below are clearly marked <code>[Simulated Research Fixture]</code> for academic evaluation only.
+                </p>
+                <div style={{ marginTop: '6px' }}>
+                  <a
+                    href={externalMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    referrerPolicy="no-referrer"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <M3Button variant="tonal">
+                      Search Google Maps for &quot;{effectiveService}&quot; Near {place.trim() || 'You'} ↗
+                    </M3Button>
+                  </a>
+                </div>
+              </div>
             )}
           </div>
 
           {simulatedActionNotice && (
             <div className="simulated-action-banner" role="alert" style={{
-              margin: '12px 0',
-              padding: '10px 14px',
+              margin: '8px 0',
+              padding: '8px 12px',
               backgroundColor: 'var(--md-sys-color-surface-variant)',
               color: 'var(--md-sys-color-on-surface-variant)',
               borderRadius: '8px',
               border: '1px solid var(--md-sys-color-outline)',
-              fontSize: '12px',
+              fontSize: '11px',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -271,10 +336,10 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
               variant={filterVerifiedOnly ? 'outlined' : 'text'}
               onClick={() => setFilterVerifiedOnly(v => !v)}
             >
-              {filterVerifiedOnly ? '✓ Showing Verified Registry Only' : 'Show Verified Registry Only'}
+              {filterVerifiedOnly ? '✓ Verified Registry Only' : 'Filter: Verified Registry Only'}
             </M3Button>
             <span style={{ fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)' }}>
-              ({displayedFacilities.length} of {discoveryResponse.facilities.length} facilities)
+              ({displayedFacilities.length} of {Math.min(5, discoveryResponse.facilities.length)} suitable hospitals)
             </span>
           </div>
 
@@ -296,7 +361,7 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
                           fontWeight: 'bold',
                           color: 'var(--md-sys-color-error)',
                           backgroundColor: 'var(--md-sys-color-error-container)',
-                          padding: '2px 6px',
+                          padding: '1px 5px',
                           borderRadius: '4px',
                           marginTop: '2px',
                         }}>
@@ -306,8 +371,12 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
                     </div>
                     <div className="facility-badge-group">
                       <span className="facility-badge">{fac.facility_category_display}</span>
-                      <span className={`facility-badge ${fac.capability_verification_status === 'verified_registry' ? 'verified' : 'provisional'}`}>
-                        {fac.capability_verification_status === 'verified_registry' ? 'Verified Registry' : 'Provisional Match'}
+                      <span className={`facility-badge ${fac.capability_verification_status === 'verified_registry' ? 'verified' : fac.capability_verification_status === 'provisional_match' ? 'provisional' : 'unverified'}`}>
+                        {fac.capability_verification_status === 'verified_registry'
+                          ? 'Verified Registry'
+                          : fac.capability_verification_status === 'provisional_match'
+                          ? 'Provisional Match'
+                          : 'Unverified Candidate'}
                       </span>
                       {fac.emergency_capable && (
                         <span className="facility-badge emergency">24x7 ER</span>
@@ -315,14 +384,20 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
                     </div>
                   </div>
 
+                  <p style={{ margin: '2px 0', fontSize: '11px', color: 'var(--md-sys-color-primary)', fontWeight: 600 }}>
+                    Specialty Match: {fac.relevant_specialties.join(', ')}
+                  </p>
+
                   <div className="facility-meta-row">
                     {fac.distance_text && (
                       <span><strong>Distance:</strong> {fac.distance_text}</span>
                     )}
-                    {fac.travel_duration_text && (
+                    {fac.travel_duration_text ? (
                       <span><strong>Drive Time:</strong> {fac.travel_duration_text}</span>
+                    ) : (
+                      <span><strong>Drive Time:</strong> Traffic unverified</span>
                     )}
-                    <span><strong>Hours:</strong> {fac.is_24x7 ? '24x7 Emergency' : fac.opening_hours_text || 'See listing'}</span>
+                    <span><strong>Hours:</strong> {fac.is_24x7 ? '24x7 Emergency' : fac.opening_hours_text || 'Hours unverified'}</span>
                   </div>
 
                   <p className="facility-address">{fac.address}</p>
@@ -340,7 +415,7 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
                           variant="outlined"
                           onClick={() => {
                             setSimulatedActionNotice(
-                              `[Simulated Action] Navigation preview simulated for research fixture "${fac.name}". Address: ${fac.address}. No external route dispatched.`
+                              `[Simulated Action] Navigation preview simulated for reference fixture "${fac.name}". Address: ${fac.address}. No external route dispatched.`
                             );
                           }}
                         >
@@ -358,9 +433,27 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
                             Simulate Call ({fac.phone_number})
                           </M3Button>
                         )}
+                        <a
+                          href={externalMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          referrerPolicy="no-referrer"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          <M3Button variant="text">Search on Google Maps ↗</M3Button>
+                        </a>
                       </>
                     ) : (
                       <>
+                        <a
+                          href={fac.directions_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          referrerPolicy="no-referrer"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          <M3Button variant="filled">Get Directions</M3Button>
+                        </a>
                         <a
                           href={fac.maps_url}
                           target="_blank"
@@ -369,15 +462,6 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
                           style={{ textDecoration: 'none' }}
                         >
                           <M3Button variant="outlined">Open in Maps</M3Button>
-                        </a>
-                        <a
-                          href={fac.directions_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          referrerPolicy="no-referrer"
-                          style={{ textDecoration: 'none' }}
-                        >
-                          <M3Button variant="outlined">Get Directions</M3Button>
                         </a>
                         {fac.phone_number && (
                           <a href={`tel:${fac.phone_number}`} style={{ textDecoration: 'none' }}>
@@ -392,14 +476,14 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
             })}
 
             {displayedFacilities.length === 0 && (
-              <p style={{ fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                No facilities matched the current filter.
+              <p style={{ fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '12px' }}>
+                No facilities matched the current filter criteria.
               </p>
             )}
           </div>
 
           <details style={{ fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)', marginTop: '8px' }}>
-            <summary>Demonstrator Disclaimers & Governance ({discoveryResponse.disclaimers.length})</summary>
+            <summary>Hospital Discovery Disclaimers & Governance ({discoveryResponse.disclaimers.length})</summary>
             <ul>
               {discoveryResponse.disclaimers.map((d, idx) => (
                 <li key={idx}>{d}</li>
@@ -408,6 +492,6 @@ export default function HospitalNavigation({ emergency, navigationContract }: Ho
           </details>
         </div>
       )}
-    </details>
+    </section>
   );
 }

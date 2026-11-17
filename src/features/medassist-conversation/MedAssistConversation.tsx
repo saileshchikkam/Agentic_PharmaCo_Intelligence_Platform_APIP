@@ -833,6 +833,17 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
             </div>
           )}
 
+          {(finished || !!emergency || !!urgencyAssessment.emergency_override || showNavigation) && (
+            <div className="assessment-hospital-card">
+              <HospitalNavigation
+                key={`nav-aside-${navigationSession}-${!!emergency}`}
+                emergency={!!emergency || !!urgencyAssessment.emergency_override}
+                navigationContract={precautionGuidance.facility_navigation_contract}
+                compact={true}
+              />
+            </div>
+          )}
+
           <div className="assessment-specialty-card">
             <h3 className="assessment-specialty-title">Specialty Recommendation</h3>
             <p><strong>Primary:</strong> {precautionGuidance.specialty_recommendation.primary_specialty_name}</p>

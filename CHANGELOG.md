@@ -2,6 +2,18 @@
 
 ## 2026-11-17
 
+### MedAssist Phase C2 — Intelligent Nearest Hospital Recommendation (Final Phase)
+
+- Completed final MedAssist development milestone: intelligent symptom-based hospital matching connecting confirmed symptoms, clinical urgency, and specialty recommendations to suitable healthcare facilities.
+- Implemented robust specialty matching in `FacilityDiscoveryEngine` filtering out generic healthcare stop-words ("medicine", "clinic", "department") to prevent false-positive matches, while capping returned facilities strictly to the top 5 ranked by capability, urgency, availability, and accessibility.
+- Implemented dual location acquisition options in `HospitalNavigation`: explicit browser GPS acquisition ("Use My Location") and manual locality search ("Enter City / Area / PIN Code") without fictional default locations (e.g., eliminated "Central City").
+- Implemented honest distance and duration labeling: when genuine Google Routes API traffic data is unverified or absent, straight-line distance is computed via Haversine and honestly disclosed (`~X.X km (approx. straight-line)`) with travel duration set to null, eliminating fabricated driving times and road multipliers.
+- Supported genuine Google Places (New) Text Search with manual locality queries and optional Routes API integration when `GOOGLE_MAPS_API_KEY` is configured.
+- Implemented emergency safety prioritization: extreme acuity immediately displays Call Emergency (112) and Call Ambulance (108) buttons, prioritizes 24x7 Emergency Departments & Trauma Centers, excludes outpatient-only clinics, and warns against delaying emergency care.
+- Positioned hospital recommendations immediately after the Recommended Precautions box in `.conversation-assessment` upon session completion (`finished === true`) or emergency override, while maintaining immediate emergency navigation in the main chat turn.
+- Provided graceful provider failure handling with direct specialty-specific external Google Maps search fallback, prominent `[Simulated Research Fixture]` labeling, and zero server-side API key exposure.
+- Fully verified via automated test suite `scripts/medassist-phase-c2.test.ts` (6/6 gates passing) and live browser CDP verification.
+
 ### MedAssist Phase C1.1 — Chat Scrolling and Precaution Refinement
 
 - Implemented bounded height for `.conversation-workspace` (`height: clamp(520px, calc(100vh - 190px), 820px)`) and `.conversation-layout` (`align-items: start`), constraining the conversation thread to internal scrolling (`overflow-y: auto`) and keeping the composer input bar and buttons permanently anchored.

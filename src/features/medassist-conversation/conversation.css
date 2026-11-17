@@ -168,3 +168,12 @@
 .assessment-box-title { font-weight: 700; font-size: 13px; color: var(--md-sys-color-primary); margin: 0 0 6px; }
 .precaution-block { margin-bottom: 6px; }
 .conversation-completion-card { padding: 12px; border-radius: 14px; border: 1px solid var(--md-sys-color-primary); background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); display: flex; flex-direction: column; gap: 8px; margin: 8px 0; }
+
+/* Phase C2: Intelligent Nearest Hospital Recommendation styles */
+.assessment-hospital-card { margin-top: 10px; padding: 10px; border-radius: 12px; border: 1px solid var(--md-sys-color-outline-variant); background: var(--md-sys-color-surface); }
+.hospital-recommendations-section { display: flex; flex-direction: column; gap: 8px; }
+.hospital-section-compact .facility-card { padding: 10px; gap: 4px; }
+.hospital-section-compact .facility-title { font-size: 13px; }
+.hospital-section-compact .facility-action-buttons > * { min-height: 32px; font-size: 11px; }
+.hospital-section-compact .facility-meta-row { font-size: 10px; gap: 8px; }
+.hospital-section-compact .facility-address { font-size: 10px; }

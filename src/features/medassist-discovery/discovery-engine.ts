@@ -12,6 +12,45 @@ import type {
 } from './discovery-contracts';
 import { SIMULATED_FACILITIES } from './discovery-fixtures';
 
+const GENERIC_HEALTHCARE_WORDS = new Set([
+  'medicine',
+  'medical',
+  'clinic',
+  'clinics',
+  'centre',
+  'centres',
+  'center',
+  'centers',
+  'health',
+  'care',
+  'department',
+  'departments',
+  'service',
+  'services',
+  'practice',
+  'hospital',
+  'hospitals',
+  'specialty',
+  'speciality',
+  'and',
+  'for',
+  'general',
+]);
+
+function matchesSpecialty(required: string, offered: string): boolean {
+  const req = required.toLowerCase().trim();
+  const off = offered.toLowerCase().trim();
+  if (req === off || req.includes(off) || off.includes(req)) {
+    return true;
+  }
+  const reqTokens = req.split(/[\s/&,]+/).filter(t => t.length >= 4 && !GENERIC_HEALTHCARE_WORDS.has(t));
+  const offTokens = off.split(/[\s/&,]+/).filter(t => t.length >= 4 && !GENERIC_HEALTHCARE_WORDS.has(t));
+  if (reqTokens.length === 0 || offTokens.length === 0) {
+    return false;
+  }
+  return reqTokens.some(rt => offTokens.some(ot => ot.includes(rt) || rt.includes(ot)));
+}
+
 export class FacilityDiscoveryEngine {
   private fixtures: DiscoveredFacility[];
 
@@ -75,11 +114,7 @@ export class FacilityDiscoveryEngine {
       } else {
         // Check match against primary required service
         for (const spec of facSpecialties) {
-          if (
-            reqService.includes(spec) ||
-            spec.includes(reqService) ||
-            reqService.split(' ').some(token => token.length > 4 && spec.includes(token))
-          ) {
+          if (matchesSpecialty(reqService, spec)) {
             serviceMatched = true;
             matchReason = `Primary service match: ${fac.name} offers ${spec}`;
             break;
@@ -88,11 +123,7 @@ export class FacilityDiscoveryEngine {
         // Check alternative if primary didn't match
         if (!serviceMatched && altService) {
           for (const spec of facSpecialties) {
-            if (
-              altService.includes(spec) ||
-              spec.includes(altService) ||
-              altService.split(' ').some(token => token.length > 4 && spec.includes(token))
-            ) {
+            if (matchesSpecialty(altService, spec)) {
               serviceMatched = true;
               matchReason = `Alternative service match: ${fac.name} offers ${spec}`;
               break;
@@ -194,7 +225,7 @@ export class FacilityDiscoveryEngine {
       searched_service: nav.required_service,
       urgency_level: urgency,
       emergency_department_required: emergencyRequired,
-      facilities: eligibleFacilities,
+      facilities: eligibleFacilities.slice(0, 5),
       exclusions_applied: exclusionsApplied,
       disclaimers,
     };
