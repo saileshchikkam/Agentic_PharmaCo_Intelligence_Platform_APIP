@@ -6,6 +6,7 @@
  * Strictly adheres to patient privacy: NEVER sends patient PII or symptoms to Google.
  */
 import type {
+  CapabilityVerificationStatus,
   DiscoveredFacility,
   FacilityDiscoveryRequest,
   FacilityDiscoveryResponse,
@@ -13,6 +14,50 @@ import type {
 import { FacilityDiscoveryEngine } from '../src/features/medassist-discovery/discovery-engine';
 import { SIMULATED_FACILITIES } from '../src/features/medassist-discovery/discovery-fixtures';
 import type { FacilityTierId } from '../src/features/medassist-precautions/precaution-contracts';
+
+const SPECIALTY_KEYWORDS: Record<string, string[]> = {
+  respiratory: ['respirat', 'pulmonol', 'chest', 'lung', 'asthma', 'bronch'],
+  pulmonology: ['pulmonol', 'respirat', 'chest', 'lung'],
+  cardiology: ['cardio', 'heart', 'coronary', 'cardiac', 'vascular'],
+  neurology: ['neuro', 'brain', 'stroke', 'spine'],
+  orthopedics: ['ortho', 'bone', 'joint', 'fracture'],
+  pediatrics: ['pediatr', 'paediatr', 'child', 'infant', 'neonat'],
+  dermatology: ['dermatol', 'skin'],
+  oncology: ['oncol', 'cancer', 'tumor'],
+  nephrology: ['nephro', 'kidney', 'renal', 'dialysis'],
+  ophthalmology: ['ophthal', 'eye'],
+  ent: ['ent', 'ear', 'nose', 'throat', 'otolaryngol'],
+  gastroenterology: ['gastro', 'digestive', 'liver', 'hepat', 'endoscop'],
+  gynecology: ['gynec', 'gynaec', 'obstetr', 'maternity', 'women'],
+  emergency: ['emergency', 'trauma', 'casualty', 'resuscitation'],
+  general: ['general medicine', 'family medicine', 'internal medicine', 'general physician', 'physician'],
+};
+
+function hasSpecialtyEvidence(name: string, types: string[], requiredService: string): boolean {
+  const nameLower = name.toLowerCase();
+  const typesLower = types.map(t => t.toLowerCase());
+  const reqLower = requiredService.toLowerCase();
+
+  for (const [key, keywords] of Object.entries(SPECIALTY_KEYWORDS)) {
+    if (reqLower.includes(key)) {
+      const match = keywords.some(kw => nameLower.includes(kw) || typesLower.some(t => t.includes(kw)));
+      if (match) return true;
+    }
+  }
+
+  const GENERIC = new Set([
+    'medicine', 'medical', 'hospital', 'hospitals', 'clinic', 'clinics',
+    'centre', 'centres', 'center', 'centers', 'care', 'health', 'and', 'for', 'general', 'service', 'services',
+  ]);
+  const tokens = reqLower.split(/[\s/&,]+/).filter(t => t.length >= 4 && !GENERIC.has(t));
+  for (const tok of tokens) {
+    if (nameLower.includes(tok) || typesLower.some(t => t.includes(tok))) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 export interface GoogleMapsProviderOptions {
   apiKey?: string;
@@ -157,16 +202,38 @@ export class GoogleMapsFacilityProvider {
     const mapsUri: string = place.googleMapsUri ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`;
 
     const category = this.inferFacilityCategory(name, types);
-    const emergencyCapable = isEmergency || types.includes('emergency_room') || name.toLowerCase().includes('emergency') || name.toLowerCase().includes('trauma');
+
+    // Rule 1: Never assign the searched specialty without supporting provider evidence.
+    // Explicitly classify unverified listings as unverified candidates.
+    const hasEvidence = hasSpecialtyEvidence(name, types, requiredService);
+    const relevantSpecialties = hasEvidence
+      ? [requiredService]
+      : ['General Healthcare (Department unverified)'];
+    const capabilityStatus: CapabilityVerificationStatus = hasEvidence
+      ? 'provisional_match'
+      : 'unverified_candidate';
+
+    // Rule 2: Never mark a hospital as emergency-capable solely because the search is an emergency search.
+    // Provider evidence (types or facility name) is strictly required.
+    const emergencyCapable =
+      types.includes('emergency_room') ||
+      types.includes('trauma_center') ||
+      /\b(emergency|trauma|casualty|resuscitation)\b/i.test(name);
+
+    // Rule 2b: Never mark 24x7 solely because the search is an emergency search or emergencyCapable.
+    // Provider opening hours or explicit 24-hour naming evidence is strictly required.
+    const is24x7 = this.extract24x7Evidence(name, place.regularOpeningHours);
 
     return {
       facility_id: placeId,
       name,
       facility_category: category,
       facility_category_display: this.formatCategoryDisplay(category),
-      relevant_specialties: [requiredService],
-      capability_verification_status: 'provisional_match',
-      verification_source: 'Google Places Platform API (Listing Verification Required)',
+      relevant_specialties: relevantSpecialties,
+      capability_verification_status: capabilityStatus,
+      verification_source: hasEvidence
+        ? 'Google Places Platform API (Listing Provider Evidence Verified)'
+        : 'Google Places Platform API (Unverified Specialty Match - Facility Verification Required)',
       verification_timestamp: new Date().toISOString(),
       emergency_capable: emergencyCapable,
       address,
@@ -174,7 +241,7 @@ export class GoogleMapsFacilityProvider {
       latitude: lat,
       longitude: lng,
       open_now: openNow,
-      is_24x7: emergencyCapable || false,
+      is_24x7: is24x7,
       opening_hours_text: openNow !== null ? (openNow ? 'Open currently' : 'Closed currently') : 'Hours unverified',
       distance_meters: null,
       distance_text: null,
@@ -187,6 +254,24 @@ export class GoogleMapsFacilityProvider {
       ranking_score: 0,
       ranking_reasons: [],
     };
+  }
+
+  private extract24x7Evidence(name: string, openingHours: any): boolean {
+    if (/\b(24x7|24\s*hours?|24\s*hr|round-the-clock)\b/i.test(name)) {
+      return true;
+    }
+    if (!openingHours) return false;
+    if (Array.isArray(openingHours.weekdayDescriptions)) {
+      const all24 = openingHours.weekdayDescriptions.every((d: string) => /open 24 hours/i.test(d));
+      if (all24 && openingHours.weekdayDescriptions.length >= 5) return true;
+    }
+    if (Array.isArray(openingHours.periods) && openingHours.periods.length === 1) {
+      const p = openingHours.periods[0];
+      if (p.open && p.open.hour === 0 && p.open.minute === 0 && !p.close) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private inferFacilityCategory(name: string, types: string[]): FacilityTierId {
@@ -267,29 +352,45 @@ export class GoogleMapsFacilityProvider {
             headers: {
               'Content-Type': 'application/json',
               'X-Goog-Api-Key': this.apiKey,
-              'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration',
+              'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration,routes.staticDuration',
             },
             body: JSON.stringify({
               origin: { location: { latLng: { latitude: originLat, longitude: originLng } } },
               destination: { location: { latLng: { latitude: fac.latitude, longitude: fac.longitude } } },
               travelMode: 'DRIVE',
+              routingPreference: 'TRAFFIC_AWARE',
             }),
             signal: controller.signal,
           });
           clearTimeout(timer);
           if (routeRes.ok) {
-            const routeData = (await routeRes.json()) as { routes?: Array<{ distanceMeters?: number; duration?: string }> };
+            const routeData = (await routeRes.json()) as {
+              routes?: Array<{
+                distanceMeters?: number;
+                duration?: string;
+                staticDuration?: string;
+              }>;
+            };
             const route = routeData.routes?.[0];
             if (route) {
               const driveMeters = route.distanceMeters;
               const durationSec = parseInt(route.duration?.replace('s', '') || '0', 10);
+              const staticSec = route.staticDuration
+                ? parseInt(route.staticDuration.replace('s', '') || '0', 10)
+                : null;
+
               if (driveMeters) {
                 fac.distance_meters = driveMeters;
                 fac.distance_text = `${(driveMeters / 1000).toFixed(1)} km (driving)`;
               }
               if (durationSec) {
                 fac.travel_duration_seconds = durationSec;
-                fac.travel_duration_text = `${Math.ceil(durationSec / 60)} mins (live traffic)`;
+                // Rule 5: Never label travel time as live traffic unless the route response
+                // actually uses traffic-aware data (indicated by presence of staticDuration / traffic model evaluation).
+                const isTrafficAware = staticSec !== null && staticSec > 0;
+                fac.travel_duration_text = isTrafficAware
+                  ? `${Math.ceil(durationSec / 60)} mins (live traffic)`
+                  : `${Math.ceil(durationSec / 60)} mins (estimated driving, traffic unverified)`;
               }
               continue;
             }

@@ -133,6 +133,24 @@ export class FacilityDiscoveryEngine {
       }
 
       if (!serviceMatched) {
+        // Acceptance Check 1: A general or multispecialty hospital listing returned from live discovery
+        // without explicit department keywords is admitted as an unverified candidate rather than
+        // falsely assigned the specialty.
+        const isHospitalTier = [
+          'government_general_district_hospitals',
+          'private_multispecialty_hospitals',
+          'superspecialty_tertiary_hospitals',
+          'medical_college_hospitals',
+          'small_private_hospitals',
+        ].includes(facTier);
+
+        if (fac.capability_verification_status === 'unverified_candidate' && isHospitalTier) {
+          serviceMatched = true;
+          matchReason = `Unverified candidate: ${fac.name} is a general hospital listing without verified ${nav.required_service} department`;
+        }
+      }
+
+      if (!serviceMatched) {
         exclusionsApplied.push(`Excluded ${fac.name}: does not offer required service '${nav.required_service}' or alternative '${nav.alternative_service ?? ''}'`);
         continue;
       }
@@ -154,6 +172,9 @@ export class FacilityDiscoveryEngine {
       } else if (fac.capability_verification_status === 'provisional_match') {
         score += 150.0;
         reasons.push('Provisional match on registered specialty');
+      } else if (fac.capability_verification_status === 'unverified_candidate') {
+        score -= 100.0;
+        reasons.push('Specialty match unverified: department not confirmed in provider listing');
       }
 
       // Priority 2: Urgency & Availability (Open now, 24x7)

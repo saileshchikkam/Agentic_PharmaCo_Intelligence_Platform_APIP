@@ -20,6 +20,6 @@ const counts={schema_definitions:fields.length,active_definitions:fields.filter(
  initial_schema_symptoms:fields.filter((d:any)=>d.schema_initial_eligible).length,mapped_language_concepts:languageConcepts.length,
  ambiguous_unmapped_concepts:ambiguousConcepts.length,initial_language_fields:fields.filter((d:any)=>d.free_text_initial_extraction).length,
  natural_chat_question_targets:fields.filter((d:any)=>d.natural_chat_question_target).length};
-writeFileSync('models/medassist_ai/docs/symptom-coverage-inventory.json',JSON.stringify({schema_version:'medassist.symptom-coverage.v1',local_date:'2026-10-25',counts,
+writeFileSync('models/medassist_ai/docs/symptom-coverage-inventory.json',JSON.stringify({schema_version:'medassist.symptom-coverage.v1',local_date:'2026-11-20',counts,
  semantics:{evidence_fields_are_not_diseases:true,diagnosis_enabled:false,model_b_enabled:false,disease_labels_in_research_archives:'Not read or used in this audit; separate task/labels, never evidence-field counts.',clinical_validation:false,initial_language_is_narrower_than_schema:true},
  ambiguous_concepts:ambiguousConcepts,fields},null,2)+'\n');console.log(JSON.stringify(counts));

@@ -69,7 +69,7 @@ function SeverityLevelsList({ selectedLevel }: { selectedLevel: 'low' | 'medium'
 }
 
 export default function MedAssistConversation() {
-    const [scripted, setScripted] = useState(true);
+    const [scripted, setScripted] = useState(false);
     return <Conversation key={String(scripted)} scripted={scripted} switchMode={() => setScripted(value => !value)}/>;
 }
 
@@ -692,7 +692,10 @@ function Conversation({ scripted, switchMode }: { scripted: boolean; switchMode:
           </section>}
           {!emergency && !vocabulary && <div className="conversation-question">
             <p role={readinessError ? 'alert' : 'status'}>{readinessError || 'Checking local availability…'}</p>
-            {readinessError && <M3Button variant="outlined" onClick={() => { setReadinessError(''); setRetryAvailability(v => v + 1); }}>Retry availability</M3Button>}</div>}
+            {readinessError && <div className="conversation-actions">
+              <M3Button variant="outlined" onClick={() => { setReadinessError(''); setRetryAvailability(v => v + 1); }}>Retry availability</M3Button>
+              <M3Button variant="text" onClick={switchMode}>Switch to scripted demo</M3Button>
+            </div>}</div>}
           {!emergency && vocabulary && candidate && !contextStep && !contextUnavailable && <div className="conversation-question">
             <h2 ref={questionHeading} tabIndex={-1}>Confirm what you meant</h2><ul>{candidateObservations.map(a => <li key={a.evidence_id}>{name(a.evidence_id)}: {a.state === 'unknown' ? 'not sure' : a.state === 'contradiction' ? 'conflicting' : Array.isArray(a.value) ? a.value.map(displayValue).join(', ') || 'explicitly none' : displayValue(a.value! as Scalar)}</li>)}</ul>{candidateUnmapped.length > 0 && <p>Kept in your own words, without a structured answer: {candidateUnmapped.map(i => i.quote).join('; ')}</p>}
             <p>Does this reflect what you meant? Nothing here is accepted until you confirm.</p>

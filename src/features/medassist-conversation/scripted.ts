@@ -1,27 +1,24 @@
 import type { Answer, Question } from '../model-a-research/contracts';
 import { readNaturalRequest, type Definition, type NaturalRequest, type NaturalVocabulary } from './natural';
+import metadata from '../../../models/medassist_ai/docs/symptom-schema-metadata.json';
 
-// Small, authored UI fixtures. The order is fixed and contains no ranking or clinical rules.
-const questions = [
-  ['E_201', 'Does the fictional person have a cough?'],
-  ['E_91', 'Does the fictional person have a fever?'],
-  ['E_97', 'Does the fictional person have a sore throat?'],
-  ['E_181', 'Does the fictional person have a stuffy nose or clear runny nose?'],
-  ['E_94', 'Does the fictional person have chills?'],
-  ['E_53', 'Does the fictional person have pain?'],
-  ['E_148', 'Does the fictional person feel nauseated?'],
-  ['E_51', 'Does the fictional person have diarrhea?'],
-  ['E_76', 'Does the fictional person feel slightly dizzy or lightheaded?'],
-] as const;
-const items: Definition[] = questions.map(([evidence_id, question_en]) => ({
-  evidence_id, question_en, kind: 'symptom', data_type: 'B', possible_values: [true, false], initial_allowed: true,
-}));
+const items: Definition[] = (metadata.items as any[])
+  .filter(d => !d.quarantined)
+  .map(d => ({
+    evidence_id: d.evidence_id,
+    question_en: d.question_en,
+    kind: d.kind,
+    data_type: d.data_type,
+    possible_values: d.data_type === 'B' ? [true, false] : d.possible_values,
+    initial_allowed: d.kind === 'symptom' && !d.parent,
+    value_labels: d.value_labels,
+  }));
 
 export const scriptedVocabulary: NaturalVocabulary = {
   schema_version: 'medassist.natural-vocabulary.v1',
   fictional_only: true,
   items,
-  coverage: { symptom_fields: items.length, universal_coverage: false },
+  coverage: { symptom_fields: items.filter(i => i.kind === 'symptom').length, universal_coverage: false },
 };
 
 export function runScriptedInterview(input: NaturalRequest) {
@@ -32,11 +29,11 @@ export function runScriptedInterview(input: NaturalRequest) {
   const known = new Map<string, Answer>();
   let reason: string | null = request.stop;
   for (const answer of answers) {
-    if (!items.some(item => item.evidence_id === answer.evidence_id) ||
-        (answer.state === 'confirmed' && typeof answer.value !== 'boolean'))
+    const item = items.find(i => i.evidence_id === answer.evidence_id);
+    if (!item)
       throw Error('Answer is outside the fictional script');
     const previous = known.get(answer.evidence_id);
-    if (answer.state === 'contradiction' || previous && (previous.state !== answer.state || previous.value !== answer.value)) {
+    if (answer.state === 'contradiction' || previous && (previous.state !== answer.state || JSON.stringify(previous.value) !== JSON.stringify(answer.value))) {
       reason = 'unresolved_contradiction';
       known.set(answer.evidence_id, { evidence_id: answer.evidence_id, state: 'contradiction', value: null });
     } else {
@@ -45,8 +42,8 @@ export function runScriptedInterview(input: NaturalRequest) {
   }
   const next = reason ? undefined : items.find(item => !known.has(item.evidence_id));
   const question: Question | null = next ? {
-    evidence_id: next.evidence_id, question_en: next.question_en, data_type: 'B',
-    possible_values: [true, false], allows_unknown: true, unknown_value: null,
+    evidence_id: next.evidence_id, question_en: next.question_en, data_type: next.data_type,
+    possible_values: next.possible_values, allows_unknown: true, unknown_value: null,
   } : null;
   return {
     selection: {

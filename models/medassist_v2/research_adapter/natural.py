@@ -3,6 +3,8 @@
 Topic membership is an engineering heuristic, not a clinically reviewed interview.
 Volunteered disclosures are distinct from routine answers; neither fills missing data.
 """
+import json
+from pathlib import Path
 from typing import Literal
 
 import numpy as np
@@ -17,16 +19,21 @@ from .handoff import build_handoff
 from .schemas import Answer, Context, Contract, Evidence, NextRequest, NextResponse, Question, QuestioningState
 
 # Explicit topic memberships, independently auditable and deliberately conservative.
-TOPICS = {
-    'respiratory': [66,201,203,77,112,202,166,219,181,182,97,212,103],
-    'digestive': [51,148,211,30,32,161,150,173],
-    'skin': [129,151],
-    'constitutional': [91,94,50,175,89,88,32,161],
-    'pain': [53,54,55,56,57,58,59,144,216,220,221,215,217,218],
-    'neurological': [76,82,177,93,157,52,90,89],
-    'eyes': [74,127,170,172,180],
-}
-TOPICS = {key: {'E_'+str(n) for n in ids} for key,ids in TOPICS.items()}
+_topics_file = Path(__file__).resolve().parents[3] / 'models' / 'medassist_ai' / 'docs' / 'symptom-topic-memberships.json'
+if _topics_file.exists():
+    _topics_data = json.loads(_topics_file.read_text(encoding='utf-8'))
+    TOPICS = {k: set(v) for k, v in _topics_data.get('topics', {}).items()}
+else:
+    TOPICS = {
+        'respiratory': [66,201,203,77,112,202,166,219,181,182,97,212,103],
+        'digestive': [51,148,211,30,32,161,150,173],
+        'skin': [129,151],
+        'constitutional': [91,94,50,175,89,88,32,161],
+        'pain': [53,54,55,56,57,58,59,144,216,220,221,215,217,218],
+        'neurological': [76,82,177,93,157,52,90,89],
+        'eyes': [74,127,170,172,180],
+    }
+    TOPICS = {key: {'E_'+str(n) for n in ids} for key,ids in TOPICS.items()}
 
 
 class Turn(Contract):
@@ -60,7 +67,10 @@ def candidates(service, view):
     topical = set().union(*(ids for ids in TOPICS.values() if ids & positive))
     # Conditional children become relevant only through an explicit positive parent.
     topical.update(child for child,parent in ref.EDGES.items() if parent in positive)
-    return [eid for eid in ref.eligible_questions(view, service.p) if eid in topical]
+    eligible = [eid for eid in ref.eligible_questions(view, service.p) if eid in topical]
+    if not eligible:
+        return [eid for eid in ref.eligible_questions(view, service.p)]
+    return eligible
 
 
 class NaturalInferenceUnavailable(RuntimeError):

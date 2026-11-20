@@ -100,6 +100,18 @@ class FacilityDiscoveryEngine:
                             break
 
             if not service_matched:
+                is_hospital_tier = fac_tier_val in (
+                    "government_general_district_hospitals",
+                    "private_multispecialty_hospitals",
+                    "superspecialty_tertiary_hospitals",
+                    "medical_college_hospitals",
+                    "small_private_hospitals",
+                )
+                if fac.capability_verification_status == CapabilityVerificationStatus.UNVERIFIED_CANDIDATE and is_hospital_tier:
+                    service_matched = True
+                    match_reason = f"Unverified candidate: {fac.name} is a general hospital listing without verified {nav.required_service} department"
+
+            if not service_matched:
                 exclusions_applied.append(f"Excluded {fac.name}: does not offer required service '{nav.required_service}' or alternative '{nav.alternative_service}'")
                 continue
 
@@ -119,6 +131,9 @@ class FacilityDiscoveryEngine:
             elif fac.capability_verification_status == CapabilityVerificationStatus.PROVISIONAL_MATCH:
                 score += 150.0
                 reasons.append("Provisional match on registered specialty")
+            elif fac.capability_verification_status == CapabilityVerificationStatus.UNVERIFIED_CANDIDATE:
+                score -= 100.0
+                reasons.append("Specialty match unverified: department not confirmed in provider listing")
 
             # Priority 2: Urgency & Availability (Open now, 24x7)
             if emergency_required:

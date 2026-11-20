@@ -29,7 +29,11 @@ export function questionCompatibility(text:string,question:Question|null,vocabul
   if(question.data_type==='B')return /^(?:yes|no)$/.test(n)||anchors[question.evidence_id]?.pattern.test(text)
     ?{status:'valid',message:null}:{status:'unrelated',message:'Please answer the current question, or choose Not sure. Other details can be kept separately.'};
   if(question.data_type==='C') {
+    const definition=vocabulary.items.find(d=>d.evidence_id===question.evidence_id);
     if(question.possible_values.some(v=>normal(String(v))===n))return{status:'valid',message:null};
+    if(definition?.value_labels && Object.entries(definition.value_labels).some(([v, label]) => normal(label) === n || normal(String(v)) === n)) return {status:'valid',message:null};
+    const num = Number(n);
+    if (!Number.isNaN(num) && question.possible_values.some(v => v === num || String(v) === String(num))) return {status:'valid', message:null};
     return{status:/\b(?:severe|mild|moderate|very|little|lot)\b/.test(n)?'ambiguous':'unrelated',message:'Please choose one of the shown values, or Not sure. I will not invent a score from that description.'};
   }
   if(/^(?:none|none of these|explicitly none of these)$/.test(n))return{status:'valid',message:null};
@@ -140,7 +144,9 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
     }
   }
   if(pending){
-    const parent=['E_54','E_55','E_56','E_57','E_58','E_59'].includes(pending.evidence_id)?'E_53':null;
+    const parent = ['E_54','E_55','E_56','E_57','E_58','E_59'].includes(pending.evidence_id) ? 'E_53' :
+      ['E_130','E_131','E_132','E_133','E_134','E_135','E_136'].includes(pending.evidence_id) ? 'E_129' :
+      pending.evidence_id === 'E_152' ? 'E_151' : null;
     if(parent)output.observations=output.observations.filter(a=>a.evidence_id!==parent);
     const n=normal(text), d=vocabulary.items.find(d=>d.evidence_id===pending.evidence_id);
     let answer:Answer|null=null;
@@ -148,7 +154,15 @@ export function understand(text:string,vocabulary:NaturalVocabulary,pending:Ques
     else if(/^(?:not sure|unknown|i don't know|i do not know)$/.test(n))answer={evidence_id:pending.evidence_id,state:'unknown',value:null};
     else if(pending.data_type==='B'&&/^(yes|no)$/.test(n))answer={evidence_id:pending.evidence_id,state:'confirmed',value:n==='yes'};
     else if(pending.data_type==='C'){
-      const value=pending.possible_values.find(v=>normal(String(v))===n);
+      let value=pending.possible_values.find(v=>normal(String(v))===n);
+      if(value===undefined && d?.value_labels){
+        const match=Object.entries(d.value_labels).find(([val,label])=>normal(label)===n||normal(String(val))===n);
+        if(match)value=pending.possible_values.find(v=>String(v)===match[0]);
+      }
+      if(value===undefined){
+        const num=Number(n);
+        if(!Number.isNaN(num))value=pending.possible_values.find(v=>v===num||String(v)===String(num));
+      }
       if(value!==undefined)answer={evidence_id:pending.evidence_id,state:'confirmed',value};
     }else if(pending.data_type==='M'){
       const values=/^(?:none|none of these|explicitly none of these)$/.test(n)?[]:exactLabelValues(text,pending,d?.value_labels);

@@ -168,12 +168,17 @@ export default function HospitalNavigation({ emergency, navigationContract, comp
   const effectiveService = navigationContract?.required_service ?? (emergency ? 'Emergency Medicine' : 'General Hospital');
   const externalMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${effectiveService} hospital near ${place.trim() || 'me'}`)}`;
 
-  const displayedFacilities: DiscoveredFacility[] = (discoveryResponse?.facilities ?? []).filter(fac => {
-    if (filterVerifiedOnly) {
-      return fac.capability_verification_status === 'verified_registry';
-    }
-    return true;
-  }).slice(0, 5);
+  // Acceptance Check 3: Remove simulated hospital cards from normal recommendation results
+  // when live lookup fails or is unavailable. Retain specialty-specific Google Maps fallback.
+  const isLiveActive = discoveryResponse?.provider_status === 'live_api_active';
+  const displayedFacilities: DiscoveredFacility[] = isLiveActive
+    ? (discoveryResponse?.facilities ?? []).filter(fac => {
+        if (filterVerifiedOnly) {
+          return fac.capability_verification_status === 'verified_registry';
+        }
+        return true;
+      }).slice(0, 5)
+    : [];
 
   return (
     <section className={`hospital-recommendations-section ${compact ? 'hospital-section-compact' : ''}`} aria-labelledby="hospital-rec-title">
@@ -285,9 +290,13 @@ export default function HospitalNavigation({ emergency, navigationContract, comp
               <span>Acuity: {discoveryResponse.urgency_level.toUpperCase()}</span>
             </div>
             {discoveryResponse.provider_status !== 'live_api_active' && (
-              <div style={{ marginTop: '4px', fontSize: '11px' }}>
-                <p style={{ margin: '2px 0' }}>
-                  Live hospital recommendations could not be retrieved from the server. The reference hospitals shown below are clearly marked <code>[Simulated Research Fixture]</code> for academic evaluation only.
+              <div style={{ marginTop: '6px', fontSize: '11px' }}>
+                <p style={{ margin: '2px 0 6px', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                  Live hospital lookup is currently unavailable ({discoveryResponse.provider_status === 'live_api_pending_credentials' ? 'Google Maps API key not configured on server' : 'live lookup failed'}).
+                  <strong> Simulated hospital cards have been removed from normal recommendation results</strong> to prevent presenting unverified or non-existent healthcare facilities.
+                </p>
+                <p style={{ margin: '2px 0 8px', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                  Please use the direct, specialty-specific Google Maps search link below to view genuine nearby facilities:
                 </p>
                 <div style={{ marginTop: '6px' }}>
                   <a
@@ -331,17 +340,36 @@ export default function HospitalNavigation({ emergency, navigationContract, comp
             </div>
           )}
 
-          <div className="facility-filter-actions">
-            <M3Button
-              variant={filterVerifiedOnly ? 'outlined' : 'text'}
-              onClick={() => setFilterVerifiedOnly(v => !v)}
-            >
-              {filterVerifiedOnly ? '✓ Verified Registry Only' : 'Filter: Verified Registry Only'}
-            </M3Button>
-            <span style={{ fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)' }}>
-              ({displayedFacilities.length} of {Math.min(5, discoveryResponse.facilities.length)} suitable hospitals)
-            </span>
-          </div>
+          {isLiveActive && displayedFacilities.length > 0 && (
+            <div className="facility-filter-actions">
+              <M3Button
+                variant={filterVerifiedOnly ? 'outlined' : 'text'}
+                onClick={() => setFilterVerifiedOnly(v => !v)}
+              >
+                {filterVerifiedOnly ? '✓ Verified Registry Only' : 'Filter: Verified Registry Only'}
+              </M3Button>
+              <span style={{ fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                ({displayedFacilities.length} of {Math.min(5, discoveryResponse.facilities.length)} suitable hospitals)
+              </span>
+            </div>
+          )}
+
+          {isLiveActive && displayedFacilities.length === 0 && (
+            <div style={{ padding: '16px', textAlign: 'center', fontSize: '12px', color: 'var(--md-sys-color-on-surface-variant)' }}>
+              <p style={{ margin: '0 0 8px' }}>No matching healthcare facilities found for this query in the specified area.</p>
+              <a
+                href={externalMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                referrerPolicy="no-referrer"
+                style={{ textDecoration: 'none' }}
+              >
+                <M3Button variant="outlined">
+                  Search Google Maps for &quot;{effectiveService}&quot; Near {place.trim() || 'You'} ↗
+                </M3Button>
+              </a>
+            </div>
+          )}
 
           <div className="facility-cards-list">
             {displayedFacilities.map(fac => {
@@ -384,8 +412,31 @@ export default function HospitalNavigation({ emergency, navigationContract, comp
                     </div>
                   </div>
 
-                  <p style={{ margin: '2px 0', fontSize: '11px', color: 'var(--md-sys-color-primary)', fontWeight: 600 }}>
-                    Specialty Match: {fac.relevant_specialties.join(', ')}
+                  {fac.capability_verification_status === 'unverified_candidate' && (
+                    <div style={{
+                      margin: '4px 0',
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      backgroundColor: 'var(--md-sys-color-error-container)',
+                      color: 'var(--md-sys-color-on-error-container)',
+                      fontSize: '11px',
+                      fontWeight: 500,
+                    }}>
+                      ⚠️ <strong>Unverified Specialty Match:</strong> Listing has not confirmed a dedicated <em>{effectiveService}</em> department. Contact the facility before travel to confirm specialist availability.
+                    </div>
+                  )}
+
+                  <p style={{
+                    margin: '2px 0',
+                    fontSize: '11px',
+                    color: fac.capability_verification_status === 'unverified_candidate'
+                      ? 'var(--md-sys-color-on-surface-variant)'
+                      : 'var(--md-sys-color-primary)',
+                    fontWeight: 600,
+                  }}>
+                    {fac.capability_verification_status === 'unverified_candidate'
+                      ? `Specialty Match: Unverified in listing (${fac.relevant_specialties.join(', ')})`
+                      : `Specialty Match: ${fac.relevant_specialties.join(', ')}`}
                   </p>
 
                   <div className="facility-meta-row">

@@ -1,18 +1,36 @@
 # Changelog
 
+## 2026-11-20
+
+### MedAssist — Complete DDXPlus Coverage & Conversational Vocabulary Stabilization
+
+- Completed universal coverage of all 223 DDXPlus evidence definitions: mapped all 110 symptom fields (96 root + 14 conditional child symptoms) and all 108 active antecedent fields across `concepts.ts`, `scripted.ts`, and `symptom-topic-memberships.json`.
+- Strictly preserved the 5 quarantined evidence fields (`E_69`, `E_37`, `E_118`, `E_123`, `E_87`) as excluded from language extraction, question pools, and Model A feature generation.
+- Generalized Natural Language Understanding (NLU): implemented comprehensive lexical matching supporting singular/plural variants, morphological inflections, colloquialisms, common spelling mistakes, and bilingual Telugu inputs (script and transliteration), while preserving all 30 baseline anchor patterns verbatim as strict supersets.
+- Generalized clause partitioning (`subRegex`) and negation extraction (`denial`) in `language-context.ts`, eliminating restrictive hardcoded 6-symptom filters to accurately split and polarize multi-symptom utterances across all organ systems.
+- Expanded anatomical scope in `language-context.ts` to attribute symptoms to target patients across all body systems (`head`, `stomach`, `back`, `chest`, `limbs`, `skin`, `joints`, `neck`, etc.).
+- Enhanced categorical and multi-choice question answering in `understanding.ts`: seamlessly maps `value_labels` (e.g. rash colors, travel destinations, 0–10 numeric scales for pain and rash intensity, precision, and onset speed).
+- Extended conditional child symptom dependency resolution across all 14 conditional children (`E_54`–`E_59` for pain, `E_130`–`E_136` for rash, `E_152` for swelling).
+- Expanded clinical topics in `models/medassist_v2/research_adapter/natural.py` and `symptom-topic-memberships.json` to 218 active fields across 14 organ systems, with graceful fallback to `ref.eligible_questions` ensuring uninterrupted Model A adaptive questioning.
+- Made genuine Model A research inference the default active engine in `MedAssistConversation.tsx` (`scripted = false`), with resilient fallback and a one-click "Switch to scripted demo" button when research question services are offline.
+- Expanded `scripted.ts` to support all 218 active fields, eliminating script boundary exceptions.
+- Authored field-by-field evidence coverage matrix artifact `docs/medassist-complete-coverage-matrix.md`.
+- Verified via comprehensive test suite `scripts/medassist-complete-coverage.test.ts` (7/7 gates passing), `scripts/medassist-natural-evaluation.test.ts` (240/240 passing, 100%), and browser preview verification.
+
 ## 2026-11-17
 
 ### MedAssist Phase C2 — Intelligent Nearest Hospital Recommendation (Final Phase)
 
 - Completed final MedAssist development milestone: intelligent symptom-based hospital matching connecting confirmed symptoms, clinical urgency, and specialty recommendations to suitable healthcare facilities.
-- Implemented robust specialty matching in `FacilityDiscoveryEngine` filtering out generic healthcare stop-words ("medicine", "clinic", "department") to prevent false-positive matches, while capping returned facilities strictly to the top 5 ranked by capability, urgency, availability, and accessibility.
+- **Acceptance Check 1 (Specialty Evidence)**: Implemented strict provider evidence checks (`hasSpecialtyEvidence`) in `server/medassist-maps-provider.ts` and `src/features/medassist-discovery/discovery-engine.ts`. Never assigns the searched specialty to a facility without provider evidence (name or types); general hospital candidates lacking explicit department evidence are classified as `unverified_candidate` with rank penalty and prominent warning: `⚠️ Specialty Match: Unverified in listing — general healthcare facility; verify availability before travel`.
+- **Acceptance Check 2 (Genuine ER & 24x7 Validation)**: Decoupled search urgency from facility capabilities in `mapGooglePlaceToFacility`. Never marks a hospital as emergency-capable or 24x7 solely because the search is an emergency search; `emergency_capable` strictly requires emergency room types or trauma keywords, and `is_24x7` strictly requires explicit 24-hour opening hours evidence (`extract24x7Evidence`). Standard clinics returned during an emergency query are strictly excluded from emergency recommendations.
+- **Acceptance Check 3 (Simulated Hospital Card Removal in Normal Results)**: When live lookup fails or `GOOGLE_MAPS_API_KEY` is not configured on the server, simulated hospital cards are completely removed from normal recommendation results (`displayedFacilities = []`) to avoid presenting non-existent clinics to users. Renders a prominent notice explaining the omission and retains the direct, specialty-specific Google Maps external search fallback button (`Search Google Maps for "${effectiveService}" Near ${place || 'You'} ↗`).
+- **Acceptance Check 4 (Zero Paid Service Activation)**: Verified that genuine discovery operates with server-side keys when configured, without activating any paid services or cloud resources without user authorization. Verified zero client-side key exposure.
+- **Acceptance Check 5 (Honest Live Traffic Labeling)**: Configured Google Routes API with `routingPreference: 'TRAFFIC_AWARE'` and field mask `routes.staticDuration`. Travel duration is only labeled as `(live traffic)` when traffic-aware data was evaluated by Routes API; static routes are labeled `(estimated driving, traffic unverified)`, and straight-line approximations are labeled `~X.X km (approx. straight-line)` with `travel_duration_text: null`.
 - Implemented dual location acquisition options in `HospitalNavigation`: explicit browser GPS acquisition ("Use My Location") and manual locality search ("Enter City / Area / PIN Code") without fictional default locations (e.g., eliminated "Central City").
-- Implemented honest distance and duration labeling: when genuine Google Routes API traffic data is unverified or absent, straight-line distance is computed via Haversine and honestly disclosed (`~X.X km (approx. straight-line)`) with travel duration set to null, eliminating fabricated driving times and road multipliers.
-- Supported genuine Google Places (New) Text Search with manual locality queries and optional Routes API integration when `GOOGLE_MAPS_API_KEY` is configured.
 - Implemented emergency safety prioritization: extreme acuity immediately displays Call Emergency (112) and Call Ambulance (108) buttons, prioritizes 24x7 Emergency Departments & Trauma Centers, excludes outpatient-only clinics, and warns against delaying emergency care.
 - Positioned hospital recommendations immediately after the Recommended Precautions box in `.conversation-assessment` upon session completion (`finished === true`) or emergency override, while maintaining immediate emergency navigation in the main chat turn.
-- Provided graceful provider failure handling with direct specialty-specific external Google Maps search fallback, prominent `[Simulated Research Fixture]` labeling, and zero server-side API key exposure.
-- Fully verified via automated test suite `scripts/medassist-phase-c2.test.ts` (6/6 gates passing) and live browser CDP verification.
+- Fully verified via comprehensive test suite `scripts/medassist-phase-c2.test.ts` (Gate 1–6 passing) and live browser preview verification.
 
 ### MedAssist Phase C1.1 — Chat Scrolling and Precaution Refinement
 

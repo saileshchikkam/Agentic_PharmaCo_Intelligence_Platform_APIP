@@ -21,7 +21,7 @@ function initialClauses(sentence: string) {
     .filter(part => part[1])
     .map(part => ({ text: part[0], index: part.index! }));
 
-  const subRegex = /\b(?=(?:without|except|excluding|instead of|rather than|take that back|scratch that|actually\s+scratch\s+that|actually\s+i\s+meant|wait\s+actually|wait\s+no|now\s+(?:pain|fever|cough|chills|sore|rash)|only\s+(?:cough|fever|chills|nausea|pain|sore|rash|diarrhea|headache|stomach)|not\s+(?:cough|fever|chills|nausea|pain|sore|rash|diarrhea)|no\s+(?:cough|fever|chills|nausea|pain|sore|rash|diarrhea)|i\s+(?:only\s+)?have\s+(?:cough|fever|chills|nausea|pain|sore|rash))\b)|(?<=\b(?:yes|no)\b)\s+(?=(?:cough|fever|chills|nausea|pain|sore|rash|now)\b)/i;
+  const subRegex = /\b(?=(?:without|except|excluding|instead of|rather than|take that back|scratch that|actually\s+scratch\s+that|actually\s+i\s+meant|wait\s+actually|wait\s+no|now\s+[a-z]+|only\s+[a-z]+|not\s+(?!now\b)[a-z]+|no\s+(?!now\b)[a-z]+|i\s+(?:only\s+)?have\s+[a-z]+)\b)|(?<=\b(?:yes|no)\b)\s+(?=(?:now\b|[a-z]+)\b)/i;
 
   const parts = rawParts.flatMap(part => {
     const pieces: { text: string; index: number }[] = [];
@@ -48,12 +48,15 @@ function initialClauses(sentence: string) {
   });
 
   return parts.flatMap(part => {
-    const denial = /\bno\s+(?:cough|fever|chills|nausea|pain|sore throat)\b/i.exec(part.text);
-    const prefix = denial ? part.text.slice(0, denial.index) : '';
-    if (!denial || !prefix.trim() || negationCue.test(prefix) || uncertaintyCue.test(prefix) ||
-        !languageConcepts.some(concept => concept.pattern.test(prefix))) return [part];
+    const denial = /\bno\s+(?!now\b)([a-zA-Z\u0C00-\u0C7F]+(?:\s+[a-zA-Z\u0C00-\u0C7F]+){0,3})\b/i.exec(part.text);
+    if (!denial) return [part];
+    const prefix = part.text.slice(0, denial.index);
+    const denialRemainder = part.text.slice(denial.index);
+    if (!prefix.trim() || negationCue.test(prefix) || uncertaintyCue.test(prefix) ||
+        !languageConcepts.some(concept => concept.pattern.test(prefix)) ||
+        !languageConcepts.some(concept => concept.pattern.test(denialRemainder))) return [part];
     return [{ text: prefix, index: part.index },
-      { text: part.text.slice(denial.index), index: part.index + denial.index }];
+      { text: denialRemainder, index: part.index + denial.index }];
   });
 }
 
@@ -82,10 +85,10 @@ export function reportClauses(text:string) {
       }
       if(/\b(?:(?:my|a|an|the)\s+)?(?:(?:fictional|older|younger|elder|little|best|work)\s+){0,2}(?:brother|sister|mother|father|friend|son|daughter|child|wife|husband|partner|aunt|uncle|colleague|coworker|neighbour|neighbor)\b|\b(?:he|she|they)\b/.test(normalized))subject='other';
       if(/^(?:actually\s+)?(?:(?:right )?now\s+|only\s+)?i\b|\bthe fictional (?:person|patient)\b/.test(normalized))subject='target';
-      if(/\bmy (?:head|hed|tummy|stomach|back|lower back|belly|throat|nose|eyes|feet)\b/.test(normalized))subject='target';
+      if(/\bmy (?:head|hed|tummy|stomach|back|lower back|belly|throat|nose|eyes|feet|chest|legs?|arms?|joints?|neck|ears?|skin|jaw|muscles?|ankles?|face|body)\b/.test(normalized))subject='target';
       const reported = /\b(?:someone|a friend|friend|my \w+|he|she|they) (?:told me|texted me|said|wrote)\b/i.test(quote);
       const boundary=sentence[0].slice(0,part.index).match(/(\b(?:and|but|plus)\b|,)\s*$/i)?.[1]?.toLowerCase();
-      const freshSubject = /^(?:(?:right )?now\s+|only\s+)?(?:i|my (?:head|stomach|back|throat|nose)|the fictional (?:person|patient))\b/i.test(normalized);
+      const freshSubject = /^(?:(?:right )?now\s+|only\s+)?(?:i|my (?:head|stomach|back|throat|nose|chest|leg|arm|joint|neck|ear|skin|jaw|muscle|ankle|face|body)|the fictional (?:person|patient))\b/i.test(normalized);
       if (boundary === 'but' || (boundary === 'and' && freshSubject && !quoted &&
         result.length > firstClause && quotations.some(match => match.index! + match[0].length <= start &&
           match.index! >= result[firstClause].start))) reportedSpeech = false;

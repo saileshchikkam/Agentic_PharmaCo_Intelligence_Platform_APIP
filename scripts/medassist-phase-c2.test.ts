@@ -104,7 +104,15 @@ assert.equal(resNoKey.provider_status, 'live_api_pending_credentials');
 assert(resNoKey.disclaimers.some(d => d.includes('GOOGLE_MAPS_API_KEY is not configured')),
   'FAIL: Must clearly communicate when GOOGLE_MAPS_API_KEY is not configured');
 
-// B: Test GoogleMapsFacilityProvider with simulated Places API response
+// Acceptance Check 3 verification: In the UI, simulated hospital cards are removed from normal results when live lookup fails
+assert(navSrc.includes("const isLiveActive = discoveryResponse?.provider_status === 'live_api_active'"),
+  'FAIL: Must check live_api_active before displaying facility cards');
+assert(navSrc.includes('Simulated hospital cards have been removed from normal recommendation results'),
+  'FAIL: Must explicitly inform user that simulated cards are removed from normal recommendations');
+assert(navSrc.includes('Search Google Maps for &quot;{effectiveService}&quot; Near {place.trim() || \'You\'} ↗'),
+  'FAIL: Retain specialty-specific Google Maps fallback link');
+
+// B: Test GoogleMapsFacilityProvider with Places API response
 const mockPlaces = [
   {
     id: 'ChIJ_TEST_HOSPITAL_01',
@@ -128,7 +136,7 @@ const mockPlaces = [
   },
 ];
 
-const mockFetch: typeof fetch = async (url, init) => {
+const mockFetchStraightLine: typeof fetch = async (url, init) => {
   const urlStr = String(url);
   if (urlStr.includes('places:searchText')) {
     return new Response(JSON.stringify({ places: mockPlaces }), {
@@ -148,7 +156,7 @@ const mockFetch: typeof fetch = async (url, init) => {
 
 const providerMock = new GoogleMapsFacilityProvider({
   apiKey: 'MOCK_KEY_FOR_TEST',
-  fetchImpl: mockFetch,
+  fetchImpl: mockFetchStraightLine,
 });
 
 const liveRes = await providerMock.discover({
@@ -165,6 +173,20 @@ assert(facilityNames.includes('Apollo Jubilee Hills Respiratory Centre'),
 assert(facilityNames.includes('Care Hospital Banjara Hills'),
   'FAIL: Must discover Care Hospital Banjara Hills');
 
+// Acceptance Check 1: Never assign searched specialty without provider evidence
+const apolloFac = liveRes.facilities.find(f => f.name.includes('Apollo'))!;
+assert.equal(apolloFac.capability_verification_status, 'provisional_match');
+assert(apolloFac.relevant_specialties.includes('Pulmonology & Respiratory Medicine'),
+  'FAIL: Apollo has respiratory keywords and must match specialty');
+
+const careFac = liveRes.facilities.find(f => f.name.includes('Care'))!;
+assert.equal(careFac.capability_verification_status, 'unverified_candidate');
+assert(!careFac.relevant_specialties.includes('Pulmonology & Respiratory Medicine'),
+  'FAIL: Care Hospital lacks pulmonology evidence and must NOT be assigned the specialty without evidence');
+assert(careFac.relevant_specialties[0].includes('unverified'),
+  'FAIL: Care Hospital must be marked as unverified department');
+
+// Acceptance Check 5: Straight-line and unverified traffic handling
 for (const liveFac of liveRes.facilities) {
   assert(liveFac.distance_text?.includes('approx. straight-line'),
     `FAIL: Distance must be honestly labeled approx. straight-line when Routes API unverified. Got: ${liveFac.distance_text}`);
@@ -173,10 +195,147 @@ for (const liveFac of liveRes.facilities) {
   assert(liveFac.directions_url.includes('google.com/maps/dir'),
     'FAIL: Directions URL must be present and point to Google Maps directions');
   assert(liveFac.phone_number, 'FAIL: Phone number must be present if provided by Google Places');
-  assert.equal(liveFac.capability_verification_status, 'provisional_match');
 }
 
-console.log('✓ Gate 3 passed: Genuine hospital discovery with honest distance & unverified traffic handling verified.\n');
+// C: Test Acceptance Check 5 with genuine traffic-aware Routes API vs static Routes API
+const mockFetchTrafficAware: typeof fetch = async (url, init) => {
+  const urlStr = String(url);
+  if (urlStr.includes('places:searchText')) {
+    return new Response(JSON.stringify({ places: [mockPlaces[0]] }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (urlStr.includes('computeRoutes')) {
+    return new Response(JSON.stringify({
+      routes: [{
+        distanceMeters: 4500,
+        duration: '720s',
+        staticDuration: '600s', // staticDuration present confirms traffic model evaluated
+      }],
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  return new Response('Not found', { status: 404 });
+};
+
+const providerTraffic = new GoogleMapsFacilityProvider({
+  apiKey: 'MOCK_KEY_FOR_TEST',
+  fetchImpl: mockFetchTrafficAware,
+});
+
+const trafficRes = await providerTraffic.discover({
+  ...pulmonaryReq,
+  latitude: 17.420,
+  longitude: 78.430,
+});
+
+assert.equal(trafficRes.facilities[0].distance_text, '4.5 km (driving)');
+assert.equal(trafficRes.facilities[0].travel_duration_text, '12 mins (live traffic)');
+
+// D: Test Acceptance Check 5 when Routes API returns static duration without traffic awareness
+const mockFetchStaticRoutes: typeof fetch = async (url, init) => {
+  const urlStr = String(url);
+  if (urlStr.includes('places:searchText')) {
+    return new Response(JSON.stringify({ places: [mockPlaces[0]] }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  if (urlStr.includes('computeRoutes')) {
+    return new Response(JSON.stringify({
+      routes: [{
+        distanceMeters: 4500,
+        duration: '720s',
+        // staticDuration missing -> traffic not evaluated
+      }],
+    }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  return new Response('Not found', { status: 404 });
+};
+
+const providerStatic = new GoogleMapsFacilityProvider({
+  apiKey: 'MOCK_KEY_FOR_TEST',
+  fetchImpl: mockFetchStaticRoutes,
+});
+
+const staticRes = await providerStatic.discover({
+  ...pulmonaryReq,
+  latitude: 17.420,
+  longitude: 78.430,
+});
+
+assert.equal(staticRes.facilities[0].distance_text, '4.5 km (driving)');
+assert(staticRes.facilities[0].travel_duration_text?.includes('traffic unverified'),
+  `FAIL: Must NOT label as live traffic if static only. Got: ${staticRes.facilities[0].travel_duration_text}`);
+
+// E: Acceptance Check 2: Never mark emergency-capable or 24x7 solely because search is an emergency search
+const mockEmergencyPlaces = [
+  {
+    id: 'ChIJ_EMERGENCY_REAL',
+    displayName: { text: 'Apollo Emergency Trauma Care Centre' },
+    formattedAddress: 'Hyderabad',
+    location: { latitude: 17.426, longitude: 78.411 },
+    types: ['hospital', 'emergency_room'],
+    regularOpeningHours: { weekdayDescriptions: ['Open 24 hours', 'Open 24 hours', 'Open 24 hours', 'Open 24 hours', 'Open 24 hours', 'Open 24 hours', 'Open 24 hours'] },
+  },
+  {
+    id: 'ChIJ_STANDARD_CLINIC',
+    displayName: { text: 'Suburban Dental & Skin Clinic' },
+    formattedAddress: 'Hyderabad',
+    location: { latitude: 17.420, longitude: 78.420 },
+    types: ['dentist', 'health'],
+    regularOpeningHours: { openNow: true },
+  },
+];
+
+const mockFetchEmergency: typeof fetch = async (url) => {
+  if (String(url).includes('places:searchText')) {
+    return new Response(JSON.stringify({ places: mockEmergencyPlaces }), { status: 200 });
+  }
+  return new Response('Not found', { status: 404 });
+};
+
+const providerEmergencyCheck = new GoogleMapsFacilityProvider({
+  apiKey: 'MOCK_KEY_FOR_TEST',
+  fetchImpl: mockFetchEmergency,
+});
+
+const emergencyLiveRes = await providerEmergencyCheck.discover({
+  schema_version: 'medassist.facility-discovery-request.v1',
+  consent_granted: true,
+  manual_locality: 'Hyderabad',
+  navigation_contract: {
+    schema_version: 'medassist.facility-navigation.v1',
+    research_only: true,
+    clinical_claim: false,
+    required_service: '24x7 Emergency Medicine & Trauma Care',
+    alternative_service: null,
+    required_capabilities: ['emergency_resuscitation'],
+    urgency_level: 'extreme',
+    emergency_department_required: true,
+    facility_verification_requirements: ['verified_24x7_emergency_department'],
+    explicit_exclusions: ['clinics_polyclinics'],
+    eligible_facility_tiers: ['emergency_departments_trauma', 'private_multispecialty_hospitals'],
+  },
+});
+
+// Apollo Emergency Centre must be emergency capable and 24x7
+const apolloER = emergencyLiveRes.facilities.find(f => f.facility_id === 'ChIJ_EMERGENCY_REAL');
+assert(apolloER, 'FAIL: Real emergency centre must be discovered in emergency search');
+assert(apolloER.emergency_capable, 'FAIL: Real ER must be marked emergency_capable');
+assert(apolloER.is_24x7, 'FAIL: Real 24h ER must be marked is_24x7');
+
+// Suburban Dental Clinic must NOT be in emergency results (excluded because emergency_capable is false)
+const dentalClinic = emergencyLiveRes.facilities.find(f => f.facility_id === 'ChIJ_STANDARD_CLINIC');
+assert(!dentalClinic, 'FAIL: Suburban Dental Clinic must NOT be marked emergency-capable solely because search is emergency');
+
+console.log('✓ Gate 3 passed: Genuine hospital discovery with specialty evidence, genuine ER/24x7 validation, and traffic labeling verified.\n');
 
 // ---------------------------------------------------------------------------
 // Gate 4: Emergency Safety (Extreme Acuity)
